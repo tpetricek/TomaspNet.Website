@@ -1,0 +1,128 @@
+@import url(http://fonts.googleapis.com/css?family=Kreon:300,400,700|PT+Sans:400,700,400italic);
+
+/* ----------------------------------------------------------------------------------- */
+/* Header - title, menu, etc.                                                          */
+/* ----------------------------------------------------------------------------------- */
+
+/* Header (with blog name and subtitle) */
+#top-header {
+  margin:0px;
+  text-align:right;
+}
+#top-header h1, #top-header p {
+  font-family: Kreon,'Times New Roman', Times, serif;
+}
+#top-header h1 {
+  font-size:320%;
+  font-weight:300;
+  margin:20px 0px 0px 0px;
+}
+#top-header p {
+  font-size:120%;
+  font-weight:300;
+  margin:0px 0px 25px 0px;
+}
+
+/* Customize how the navigation bar looks */
+.top-bar-header ul, .top-bar-header li, .top-bar-header nav, .top-bar-header div {
+  background:white;
+}
+.top-bar-header nav {
+  border-bottom:4px solid black;
+  height:40px;
+  overflow:hidden;
+}
+.top-bar ul  {
+  background:white;
+}
+.top-bar ul li {
+  height:37px !important;
+  margin-left:10px;
+  background:black;
+  padding:0px 10px 0px 10px;
+  text-align:right;
+}
+.top-bar ul .name {
+  background: white;
+}
+.top-bar ul .menu-icon {
+  text-align:center;
+}
+.top-bar ul .menu-icon a span {
+  margin:4px 10px 0px 0px;
+}
+.top-bar ul .menu-icon a:link, .top-bar ul .menu-icon a:visited {
+  line-height:170%;
+  text-indent:-100px !important;
+  width:100px !important;
+}
+.top-bar ul li a:link, .top-bar ul li a:visited {
+  line-height:100%;
+  font-family:Kreon,'Times New Roman', Times, serif;
+  font-weight:700;
+  font-size:120%;
+  background:black;
+}
+@media only screen and (min-width: 768px) {
+  .top-bar ul li a:link, .top-bar ul li a:visited {
+    line-height:200%;
+  }
+  .top-bar ul li {
+    text-align:center;
+  }
+}
+
+/* ----------------------------------------------------------------------------------- */
+/* Content - formatting of standard documents                                          */
+/* ----------------------------------------------------------------------------------- */
+
+.rdecor {
+  float:right;
+  margin:10px;
+}
+.main-content {
+  font-family:'PT Sans','Trebuchet MS', sans-serif
+}
+.main-content h1 {
+  font:300 220% Kreon,'Times New Roman', Times, serif;
+  line-height:100%;
+}
+.main-content h2 {
+  font:300 170% Kreon,'Times New Roman', Times, serif;
+  margin-top:25px;
+  line-height:100%;
+}
+.main-content h3 {
+  font:700 120% Kreon,'Times New Roman', Times, serif;
+  margin-top:25px;
+  line-height:100%;
+}
+/*
+#footer {
+  margin-top:50px;
+  font-size:80%;
+  padding:20px;
+  text-align:center;
+  font-family: Raleway, sans-serif;
+  color:#404040;
+}
+*/
+
+/* General fonts and styles for the pages 
+body {
+  font-family:Arimo, arial, sans-serif;
+}
+h1, h2, h3, h4 {
+  font-family: Raleway, sans-serif;
+}
+h2 {
+  font-size: 150%;
+  margin-top:25px;
+  font-weight:500;
+}
+h3 {
+  font-size: 120%;
+  margin-top:15px;
+  font-weight:600;
+}
+*/

@@ -1,0 +1,6 @@
+_data
+_tilde
+output
+tools/tilde/obj
+tools/tilde/bin
+*.suo

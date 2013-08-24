@@ -1,14 +1,18 @@
-﻿(*** hide ***)
-#I "tools/FSharp.Formatting.1.0.11/lib/net40"
-#load "tools/build.fsx"
-Build.processScript "types-and-maths.fsx" false
-
+﻿(*@
+  Layout = "post";
+  Title = "Power of mathematics: Reasoning about functional types";
+  Tags = "f#, research, functional programming";
+  Date = "May 14, 2013 17:54";
+  Description = "In this article, I explore the amazing relationship between functional " +
+    "data types and algebraic operations. We will use this relationship to reason about " +
+    "domain model and understand the differences between several possible representations.";
+*)
 (**
 
 Power of mathematics: Reasoning about functional types
 ======================================================
 
-<img src="types-and-maths/distributivity.png" class="rdecor" />
+<img src="http://tomasp.net/articles/types-and-maths/distributivity.png" class="rdecor" />
 
 One of the most amazing aspects of mathematics is that it applies to such a wide range 
 of areas. The same mathematical rules can be applied to completely different objects 
@@ -90,7 +94,7 @@ of values that `Point` can have is the number of values `byte` can have squared.
 other words, if _b_ is the number of values:
 
 <div style="text-align:center;margin-bottom:10px;">
-<img src="types-and-maths/fig1.png" />
+<img src="http://tomasp.net/articles/types-and-maths/fig1.png" />
 </div>
 
 ### Unions aka sum types
@@ -114,7 +118,7 @@ possible values. In addition, there is one special value `None`, so we get
 _256+1_ possible values altogether. In other words:
 
 <div style="text-align:center;margin-bottom:10px;">
-<img src="types-and-maths/fig2.png" />
+<img src="http://tomasp.net/articles/types-and-maths/fig2.png" />
 </div>
 
 In general, a _sum_ type corresponds to the sum of the individual components. To relate
@@ -152,7 +156,7 @@ The `OptionKind` type is simply a choice between two alternatives (both can be s
 of type `unit`, because they both have exactly one value). This means we can write them as:
 
 <div style="text-align:center;margin-bottom:10px;">
-<img src="types-and-maths/fig3.png" />
+<img src="http://tomasp.net/articles/types-and-maths/fig3.png" />
 </div>
 
 The `OptionEC` type then contains `OptionKind` combined with `float` or two options:
@@ -166,7 +170,7 @@ consisting of the _kind_ and a floating-point value that I'll simply write as _f
 containing two options:
 
 <div style="text-align:center;margin-bottom:10px;">
-<img src="types-and-maths/fig4.png" />
+<img src="http://tomasp.net/articles/types-and-maths/fig4.png" />
 </div>
 
 The first line directly corresponds to the `OptionEC` type. The second line simply expands
@@ -182,7 +186,7 @@ This is simply a choice (that is `+` operation) between two floating-point value
 a combination consisting of product of two options. In the language of mathematics:
 
 <div style="text-align:center;margin-bottom:10px;">
-<img src="types-and-maths/fig5.png" />
+<img src="http://tomasp.net/articles/types-and-maths/fig5.png" />
 </div>
 
 Now comes the important step. We have two equations that describe the two different types.
@@ -191,7 +195,7 @@ functional data types. We can use the [distributivity law](http://en.wikipedia.o
 to show the following:
 
 <div style="text-align:center;margin-bottom:10px;">
-<img src="types-and-maths/fig6.png" />
+<img src="http://tomasp.net/articles/types-and-maths/fig6.png" />
 </div>
 
 And that's all we need to show that the two representations of stock options represent, in fact,
@@ -199,7 +203,7 @@ the same domain (and so we can freely choose which one to use, based on which we
 natural or easier to process - the key fact is that the choice does not matter for the program logic):
 
 <div style="text-align:center;margin-bottom:10px;">
-<img src="types-and-maths/fig7.png" />
+<img src="http://tomasp.net/articles/types-and-maths/fig7.png" />
 </div>
 
 Representing contact details
@@ -240,7 +244,7 @@ it using `+` over the three cases. Altogether, this means that the two types can
 mathematically described as:
 
 <div style="text-align:center;margin-bottom:10px;">
-<img src="types-and-maths/fig8.png" />
+<img src="http://tomasp.net/articles/types-and-maths/fig8.png" />
 </div>
 
 Now we can apply some more elementary school algebra on the first equation and expand
@@ -248,14 +252,14 @@ the multiplication. This way we get the following (just like in mathematics _1 *
 we talk about types):
 
 <div style="text-align:center;margin-bottom:10px;">
-<img src="types-and-maths/fig9.png" />
+<img src="http://tomasp.net/articles/types-and-maths/fig9.png" />
 </div>
 
 Looking at the resulting equation, we can very clearly see that the two types are different.
 Moreover, the inequality also explains _how_ they are different:
 
 <div style="text-align:center;margin-bottom:10px;">
-<img src="types-and-maths/figa.png" />
+<img src="http://tomasp.net/articles/types-and-maths/figa.png" />
 </div>
 
 On the left-hand side, we have essentially a choice with four cases while on the 

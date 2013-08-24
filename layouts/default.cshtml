@@ -1,30 +1,112 @@
 <!DOCTYPE html>
-<html lang="en-us">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
-    <title>@Title</title>
-    <link rel="stylesheet" href="/content/css/style.css" />
-    <link rel="stylesheet" href="/content/css/tooltip.css" />
-    <link rel="stylesheet" href="/content/css/tomorrow.css" />
-    <link rel="stylesheet" href="/content/css/app.css" />
-    <script type="text/javascript" src="/content/js/prettify.js"></script>
-    <script type="text/javascript" src="/content/js/tooltip.js"></script>
-    <script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
-    <script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script>
-  </head>
-  <body onload="prettyPrint()">
-    <div id="container">
-      <header><inner><h1><a style="padding-right: 50px;" href="/">&laquo;</a>@Title</h1></inner></header>
-      <content>@RenderBody()</content>
-      <footer>
-        <inner>
-          t:<a target="_blank" href="http://www.twitter.com/ikeeex">@@ikeeex</a>
-          g:<a target="_blank" href="http://www.github.com/aktowns">aktowns</a>
-          <br />
-          <br />
-        </inner>
-      </footer>
+<!--[if IE 8]> 				 <html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+
+<head>
+  <meta charset="utf-8">
+  <title>@Title</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="@Description">
+  <meta name="author" content="Tomas Petricek">
+
+  <!-- Reference Foundation -->
+  <link rel="stylesheet" href="file://C:\Tomas\Projects\WebSites\TomaspNet.New\output\css/foundation.css">
+  <script src="file://C:\Tomas\Projects\WebSites\TomaspNet.New\output\js/vendor/custom.modernizr.js"></script>
+
+  <!-- Reference custom CSS and tooltips -->
+  <link type="text/css" rel="stylesheet" href="file://C:\Tomas\Projects\WebSites\TomaspNet.New\output\custom/style.css" />
+  <script type="text/javascript" src="file://C:\Tomas\Projects\WebSites\TomaspNet.New\output\custom/tooltips.js"></script>
+  <link type="text/css" rel="stylesheet" href="file://C:\Tomas\Projects\WebSites\TomaspNet.New\output\custom/tooltips.css" />
+</head>
+<body>
+
+   <header id="top-header">
+    <div class="row">
+      <div class="twelve columns">
+        <h1>Tomas Petricek's blog</h1>
+        <p>Writing about practical F# coding and programming language research</p>
+      </div>
     </div>
-  </body>
+  </header>
+
+  <header class="top-bar-header">
+    <div class="contain-to-grid sticky">
+    <nav class="top-bar">
+
+    <ul class="title-area">
+      <!-- Title Area -->
+      <li class="name"><h1><a href="#"></a></h1></li>
+      <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
+      <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+    </ul>
+
+    <section class="top-bar-section">
+      <!-- Right Nav Section -->
+      <ul class="right">
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">Trainings</a></li>
+        <li><a href="#">Books</a></li>
+        <li><a href="#">Talks</a></li>
+        <li><a href="#">Research & Teaching</a></li>
+      </ul>
+    </section>
+
+    </nav></div>
+  </header>
+  
+  <content>
+    @RenderBody()
+  </content>
+
+  <footer>
+    tomas
+  </footer>
+
+  <script>
+  document.write('<script src=' +
+  ('__proto__' in {} ? 'js/vendor/zepto' : 'js/vendor/jquery') +
+  '.js><\/script>')
+  </script>
+  
+  <script src="js/foundation.min.js"></script>
+  <!--
+  
+  <script src="js/foundation/foundation.js"></script>
+  
+  <script src="js/foundation/foundation.alerts.js"></script>
+  
+  <script src="js/foundation/foundation.clearing.js"></script>
+  
+  <script src="js/foundation/foundation.cookie.js"></script>
+  
+  <script src="js/foundation/foundation.dropdown.js"></script>
+  
+  <script src="js/foundation/foundation.forms.js"></script>
+  
+  <script src="js/foundation/foundation.joyride.js"></script>
+  
+  <script src="js/foundation/foundation.magellan.js"></script>
+  
+  <script src="js/foundation/foundation.orbit.js"></script>
+  
+  <script src="js/foundation/foundation.reveal.js"></script>
+  
+  <script src="js/foundation/foundation.section.js"></script>
+  
+  <script src="js/foundation/foundation.tooltips.js"></script>
+  
+  <script src="js/foundation/foundation.topbar.js"></script>
+  
+  <script src="js/foundation/foundation.interchange.js"></script>
+  
+  <script src="js/foundation/foundation.placeholder.js"></script>
+  
+  <script src="js/foundation/foundation.abide.js"></script>
+  
+  -->
+  
+  <script>
+    $(document).foundation();
+  </script>
+</body>
 </html>

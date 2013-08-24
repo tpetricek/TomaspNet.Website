@@ -35,82 +35,20 @@ let rec CopyFiles source target =
        File.GetLastWriteTime(file) > File.GetLastWriteTime(fullTarget) then
       File.Copy(file, fullTarget, true)
 
-// --------------------------------------------------------------------------------------
-// Razor
-// --------------------------------------------------------------------------------------
+/// Returns a file name in the TEMP folder and deletes it when disposed
+type DisposableFile(file, deletes) =
+  static member Create(file) =
+    new DisposableFile(file, [file])
+  static member CreateTemp(?extension) = 
+    let temp = Path.GetTempFileName()
+    let file = match extension with Some ext -> temp + ext | _ -> temp
+    new DisposableFile(file, [temp; file])
+  member x.FileName = file
+  interface System.IDisposable with
+    member x.Dispose() = 
+      for delete in deletes do
+        if File.Exists(delete) then File.Delete(delete)
 
-open RazorEngine
-open RazorEngine.Text
-open RazorEngine.Templating
-open RazorEngine.Configuration
-
-let root_ = @"C:\Tomas\Projects\WebSites\TomaspNet.New"
- 
-type TemplateResolver () =
-    interface ITemplateResolver with
-        member x.Resolve name =
-            printfn "  Resolving: %s" name
-            //if File.Exists(name) then File.ReadAllText(name)
-            //elif File.Exists(name + ".cshtml") then File.ReadAllText(name + ".cshtml")
-            if File.Exists(root_ + "\\layouts\\" + name + ".cshtml") then 
-              File.ReadAllText(root_ + "\\layouts\\" + name + ".cshtml")
-            else failwithf "Could not find template file %s" name   
-
-type RazorHandler (model) =
-    do
-        let config = new TemplateServiceConfiguration()
-        config.Namespaces.Add("TildeLib") |> ignore
-        config.EncodedStringFactory <- new RawStringFactory()
-        config.Resolver <- new TemplateResolver()
-        
-        config.BaseTemplateType <- typedefof<TildeLib.TemplateBaseExtensions<_>>
-        config.Debug <- true
-        
-        let templateservice = new TemplateService(config)
-        Razor.SetTemplateService(templateservice)
-    
-    member x.LoadMarkdownFragment fragment = 
-        x.viewBag <- new DynamicViewBag()
-        
-        let markdownGuid = (new System.Guid()).ToString()
-        try
-            Razor.Compile(fragment, markdownGuid)
-            let tmpl = Razor.Resolve(markdownGuid, model)
-            let result = tmpl.Run(new ExecuteContext(x.viewBag))
-            let utmpl = (tmpl :?> TildeLib.TemplateBaseExtensions<_>)
-            let z = (utmpl :> RazorEngine.Templating.ITemplate)
-            (utmpl, result)
-        with
-            | :? TemplateCompilationException as ex -> 
-                printfn "-- Source Code --"
-                ex.SourceCode.Split('\n')
-                |> Array.iteri(printfn "%i: %s")
-                ex.Errors |> Seq.iter(fun w -> printfn "%i(%i): %s" w.Line w.Column w.ErrorText)
-                failwithf "Exception compiling markdown fragment: %A" ex.Message
-               
-    member x.LoadFile filename = 
-        x.viewBag <- new DynamicViewBag()
-        Razor.Parse(File.ReadAllText(filename), model, x.viewBag, null)
-    
-    member val viewBag = new DynamicViewBag() with get,set
-
-
-let razor = new RazorHandler(0)
-
-module Razor = 
-  let transform source output = 
-    try 
-      printfn "Transforming: %s" source
-      File.WriteAllText(output, razor.LoadFile(source))
-      printfn "Finished transforming: %s" source
-    with :? TemplateCompilationException as e ->
-      let csharp = Path.GetTempFileName() + ".cs"
-      File.WriteAllText(csharp, e.SourceCode)
-      printfn "Processing the file '%s' failed with exception:\n%O\nSource written to: '%s'." source e csharp
-
-// --------------------------------------------------------------------------------------
-//
-// --------------------------------------------------------------------------------------
 
 /// Get all *.cshtml, *.html, *.md and *.fsx files in the source directory
 /// and return tuple containing the source file and required target file
@@ -125,6 +63,7 @@ let GetSourceFiles source output = seq {
       let output = Path.ChangeExtension(output ++ file.Remove(0, source.Length + 1), ".html")
       yield file, output }
 
+
 /// Given a sequence of source - output files, return only those where the
 /// source has changed since the output was generated. If any of the dependencies
 /// is newer than the output, then a file is also returned.
@@ -136,15 +75,108 @@ let FilterChangedFiles dependencies files = seq {
        outputWrite < newestDependency then
       yield source, output }
 
+
+/// Skip all files whose name starts with any string in the exclusion list
+let SkipExcludedFiles exclusions (files:seq<string * string>) = seq {
+  for file, output in files do
+    let fileNorm = System.Uri(file).LocalPath.ToLower()
+    let excl = exclusions |> Seq.exists (fun (excl:string) -> 
+      let excl = System.Uri(excl).LocalPath.ToLower()
+      fileNorm.StartsWith(excl))
+    if not excl then yield file, output }
+
+// --------------------------------------------------------------------------------------
+// Parsing blog posts etc.
+// --------------------------------------------------------------------------------------
+
+open System.Text.RegularExpressions
+
+let scriptHeaderRegex = Regex("^\(\*\@(?<header>[^\*]*)\*\)(?<content>.*)$", RegexOptions.Singleline)
+let razorHeaderRegex = Regex("^\@{(?<header>[^\*]*)}(?<content>.*)$", RegexOptions.Singleline)
+
+/// Get all *.cshtml, *.html, *.md and *.fsx files in the blog directory
+let GetBlogFiles blog = seq {
+  let exts = set [ ".md"; ".fsx"; ".cshtml"; ".html" ]
+  for file in Directory.GetFiles(blog) do
+    if exts |> Set.contains (Path.GetExtension(file).ToLower()) then
+      yield file }
+
+/// An FSX file must start with a header (*@ ... *) which is removed 
+/// before Literate processing (and then added back as @{ ... }
+let RemoveScriptHeader file = 
+  let content = File.ReadAllText(file)
+  let reg = scriptHeaderRegex.Match(content)
+  if not reg.Success then 
+    failwithf "The following F# script file is missing a header:\n%s" file  
+  let header = reg.Groups.["header"].Value
+  let body = reg.Groups.["content"].Value
+  "@{" + header + "}\n", body
+
+/// Return the header block of any blog post file
+let GetBlogHeader file =
+  let regex =
+    match Path.GetExtension(file).ToLower() with
+    | ".fsx" -> scriptHeaderRegex
+    | ".html" | ".cshtml" -> razorHeaderRegex
+    | _ -> failwith "File format not supported!"
+  let reg = regex.Match(File.ReadAllText(file))
+  if not reg.Success then 
+    failwithf "The following F# script file is missing a header:\n%s" file  
+  file, reg.Groups.["header"].Value
+
+/// Type that stores information about blog posts
+type BlogHeader = 
+  { Title : string
+    Description : string
+    Date : System.DateTime
+    Url : string
+    Tags : seq<string> }
+
+/// Represents the model that is passed to all pages
+type Model = { Posts : BlogHeader[] }
+  
+/// Simple function that parses the header of the blog post. Everybody knows
+/// that doing this with regexes is silly, but the blog post headers are simple enough.
+let ParseBlogHeader (blog:string) =
+  let concatRegex = Regex("\"[\s]*\+[\s]*\"", RegexOptions.Compiled)
+  fun (file:string, header:string) ->
+    let lookup =
+      header.Split(';')
+      |> Array.filter (System.String.IsNullOrWhiteSpace >> not)
+      |> Array.map (fun (s:string) -> 
+          match s.Trim().Split('=') with
+          | [| key; value |] -> key.Trim(), concatRegex.Replace(value.Trim(' ', '\t', '\n', '\r', '"'), "")
+          | _ -> failwithf "Invalid header in the following blog file: %s" file ) |> dict
+    try
+      { Title = lookup.["Title"]
+        Url = Path.ChangeExtension(file.Substring(blog.Length + 1), "")
+        Description = lookup.["Description"]
+        Tags = lookup.["Tags"].Split([|','|], System.StringSplitOptions.RemoveEmptyEntries) |> Array.map (fun s -> s.Trim())
+        Date = lookup.["Date"] |> System.DateTime.Parse }
+    with _ -> failwithf "Invalid header in the following blog file: %s" file
+
+/// Loads information about all blog posts
+let LoadBlogModel blog =
+  { Posts = 
+      GetBlogFiles blog 
+      |> Seq.map (GetBlogHeader >> (ParseBlogHeader blog))
+      |> Array.ofSeq }
+
 // --------------------------------------------------------------------------------------
 
 // Root URL for the generated HTML
-let output = __SOURCE_DIRECTORY__ ++ "../output"
-let root = "file:///C:\Tomas\Projects\WebSites\TomaspNet.New\output" // TODO: Move under Blue Mountain!
-let source = __SOURCE_DIRECTORY__ ++ "../source"
+let root = "file:///C:\Tomas\Projects\WebSites\TomaspNet.New\output" 
 
+let output = __SOURCE_DIRECTORY__ ++ "../output"
+let source = __SOURCE_DIRECTORY__ ++ "../source"
+let blog = __SOURCE_DIRECTORY__ ++ "../source/blog"
 let layouts = __SOURCE_DIRECTORY__ ++ "../layouts"
 let content = __SOURCE_DIRECTORY__ ++ "../content"
+let template = __SOURCE_DIRECTORY__ ++ "empty-template.html"
+
+let exclude = 
+  [ __SOURCE_DIRECTORY__ ++ "../source/blog/packages" ]
+
 
 let references = []
 
@@ -152,33 +184,37 @@ let references = []
 let dependencies = 
   [ yield! Directory.GetFiles(layouts) ] 
 
-let filesToProcess = 
-  GetSourceFiles source output
-  |> FilterChangedFiles dependencies 
 
-for source, target in filesToProcess do
-  match Path.GetExtension(source).ToLower() with
-  | ".html" | ".cshtml" ->
-    Razor.transform source target
-  | _ -> ()
+let clean() = 
+  SafeDeleteDir output true
 
-|> Seq.iter (fun (inp, out) -> 
-    EnsureDirectory (Path.GetDirectoryName(out))
-    File.WriteAllText(out, "hi") )
+let build () =
+  let model = LoadBlogModel(blog)
+  let razor = TildeLib.Razor(layouts, Model = model)
 
-CopyFiles content output 
+  let filesToProcess = 
+    GetSourceFiles source output
+    |> SkipExcludedFiles exclude
+    |> FilterChangedFiles dependencies 
 
-let changedFiles = seq { 
-  let newest = dependencies |> List.map Directory.GetLastWriteTime |> List.max
-  for file 
+  for current, target in filesToProcess do
+    EnsureDirectory(Path.GetDirectoryName(target))
+    printfn "Processing file: %s" (current.Substring(source.Length + 1))
+    match Path.GetExtension(current).ToLower() with
+    | ".fsx" ->
+        let header, content = RemoveScriptHeader(current)
+        use fsx = DisposableFile.Create(current.Replace(".fsx", "_.fsx"))
+        use html = DisposableFile.CreateTemp(".html")
+        File.WriteAllText(fsx.FileName, content)
+        Literate.ProcessScriptFile(fsx.FileName, template, html.FileName)
+        let processed = File.ReadAllText(html.FileName)
+        File.WriteAllText(html.FileName, header + processed)
+        razor.ProcessFile(html.FileName, target)
+    | ".html" | ".cshtml" ->
+        razor.ProcessFile(current, target)
+    | _ -> failwith "Not supported file!"
 
-GetFiles source
-
-// Generate HTML from all FSX files in samples & subdirectories
-let build() = 
-  Literate.ProcessDirectory
-    ( sources, template, output, 
-      replacements = [ "root", root ],
-      compilerOptions = String.concat " " (List.map (sprintf "-r:\"%s\"") references) )
+  CopyFiles content output 
 
 build()
+clean()

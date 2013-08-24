@@ -1,4 +1,14 @@
-﻿(*** hide ***)
+﻿(*@
+  Layout = "post";
+  Title = "Async in C# and F#: Asynchronous gotchas in C#";
+  Tags = "async, c#, f#";
+  Date = "4/15/2013 4:00:03 AM ";
+  Description = "This article is inspired by an MVP summit talk about common " +
+    "pitfalls in the C# asynchronous programming model. I look at a number of easy " +
+    "to make mistakes when writing asynchronous code in C# and demonstrate that most " +
+    "of them would not easily happen when using F#. ";
+*)
+(*** hide ***)
 open System
 open System.Threading
 open System.Threading.Tasks
@@ -15,7 +25,7 @@ Despite all the _other activities_ (often involving pubs, other F# people and lo
 sleeping in the mornings), I also managed to come to some talks!
 
 <div style="margin-left:auto;margin-right:auto;width:379px;margin-top:10px;margin-bottom:20px;">
-<img src="csharp-async-gotchas/async-clinic.png" style="width:379px;" />
+<img src="http://tomasp.net/articles/csharp-async-gotchas/async-clinic.png" style="width:379px;" />
 </div>
 
 One (non-NDA) talk was the [Async Clinic][async-clinic] talk about the new `async` and `await` keywords 
@@ -25,7 +35,7 @@ the F# perspective. The talk was quite lively, and someone recorded the reaction
 F# part of the audience as follows:
 
 <div style="margin-left:auto;margin-right:auto;width:379px;margin-top:10px;margin-bottom:20px;">
-<a href="https://twitter.com/josefajardo/status/303998917027192832"><img src="csharp-async-gotchas/tweet.png" style="border-style:none" /></a>
+<a href="https://twitter.com/josefajardo/status/303998917027192832"><img src="http://tomasp.net/articles/csharp-async-gotchas/tweet.png" style="border-style:none" /></a>
 </div>
 
 Why is that? It turns out that many of the common errors are not possible (or much less
@@ -155,7 +165,7 @@ of telling when the work has actually happened.
 Here is a recommendation on the _async void_ pattern from the talk:
 
 <div style="margin-left:auto;margin-right:auto;width:379px;margin-top:10px;margin-bottom:20px;">
-<img src="csharp-async-gotchas/async-void.png" style="width:379px;" />
+<img src="http://tomasp.net/articles/csharp-async-gotchas/async-void.png" style="width:379px;" />
 </div>
 
 To be fair - async void methods _can_ be useful when you're writing an event handler.

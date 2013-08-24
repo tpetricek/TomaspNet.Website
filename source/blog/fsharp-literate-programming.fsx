@@ -1,4 +1,14 @@
-﻿(**
+﻿(*@
+  Layout = "post";
+  Title = "Announcing: Literate programming tools for F# ";
+  Tags = "open source, f#, writing, literate";
+  Date = "1/22/2013 5:35:36 PM";
+  Description = "This article introduces a new F# package that makes it possible " +
+    "to write literate F# programs that combine code with documentation. Given an F# " +
+    "script with a special comments or Markdown document with F# code, you get a nicely " +
+    "formatted HTML that can be used to build documentation or write blogs. ";
+*)
+(**
 Announcing: Literate programming tools for F#
 =============================================
 
@@ -65,7 +75,7 @@ syntax highlighting for F# snippets).
 The following example shows most of the features that can be used in a literate
 F# script file. The tool looks for multi-line comments that start with double asterisk
 or triple asterisk. Most of the features should be quite self-explanatory:
-*)
+
 
     (**
     # First-level heading
@@ -82,7 +92,6 @@ or triple asterisk. Most of the features should be quite self-explanatory:
     (*** define: final-sample ***)
     let helloWorld() = printfn "Hello world!"
 
-(**
 The F# script files is processed as follows:
 
  - A multi-line comment starting with `(**` and ending with `*)` is 
@@ -158,13 +167,6 @@ which encapsulates the F# compiler API. If you're interested in literate program
 implementation) together with `demo.fsx` that shows how to use it to process individual
 files or an entire directory.
 
-*)
-
-(*** hide ***)
-#I "tools/FSharp.Formatting.1.0.11/lib/net40"
-#load "tools/FSharp.Formatting.1.0.11/literate/literate.fsx"
-
-(**
 Assuming you installed a version 1.0.11 of the package, and you have an F# Script
 file (such as `build.fsx`) in the solution folder, you can load the literate 
 programming script as follows (the exact path may slightly vary):

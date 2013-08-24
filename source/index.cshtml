@@ -1,37 +1,39 @@
 @{ 
-  Layout = "page"; 
-  Title = "Hello World!"; 
+  Layout = "page";
+  Title = "Tomas Petricek's blog";
+  Description = "Writing about software development in F# and .NET, sharing materials from " +
+    "my F# trainings and talks, writing about programming language research and theory.";
 }
-<link rel="stylesheet" href="/content/css/homepage.css" />
-<div id="contain">
-  <div class="head face">
-    <div class="eye">
-      <div class="eye-left">&nbsp;</div>
-      <div class="eye-right">&nbsp;</div></div>
-    <div class="eye">
-      <div class="eye-left">&nbsp;</div>
-      <div class="eye-right">&nbsp;</div>
+<div class="row">
+	<div class="large-8 columns main-content">
+    <content class="hp">
+    @foreach(var post in Model.Posts) {
+      <h2><a href="@post.Url">@post.Title</a></h2>
+      <span class="date">@post.Date.ToShortDateString()</span>
+      if (post.Tags.Length > 0) { 
+        <span class="tags">| @String.Join(", ", post.Tags) </span> 
+      }
+      <br />
+      <p class="description">
+          @post.Description
+      </p>
+      }
+    </content>
+	</div>
+  <div class="large-4 columns">
+    <div style="background:black; text-align:center;padding:20px;">
+      <img src="http://tomasp.net/calendar/2013/august_sm.jpg" />
     </div>
-    <div class="chin">
-      <div class="mouth">&nbsp;</div>
-    </div>
+
+	  <h4>Getting Started</h4>
+	  <p>We're stoked you want to try Foundation! To get going, this file (index.html) includes some basic styles you can modify, play around with, or totally destroy to get going.</p>
+      
+	  <h4>Other Resources</h4>
+	  <p>Once you've exhausted the fun in this document, you should check out:</p>
+	  <ul class="disc">
+		  <li><a href="http://foundation.zurb.com/docs">Foundation Documentation</a><br />Everything you need to know about using the framework.</li>
+		  <li><a href="http://github.com/zurb/foundation">Foundation on Github</a><br />Latest code, issue reports, feature requests and more.</li>
+		  <li><a href="http://twitter.com/foundationzurb">foundationzurb</a><br />Ping us on Twitter if you have questions. If you build something with this we'd love to see it (and send you a totally boss sticker).</li>
+	  </ul>
   </div>
 </div>
-<br />
-<h3>rant rant</h3>  
-<ul class="posts">
-  @foreach(var post   in Site.Posts) {
-  <li>
-    &raquo; <a href="@Site.Url@post.Url">@post.Title</a> 
-    <br />
-    <span class="date">@post.Date.ToShortDateString()</span>
-    @if (post.Tags.Length > 0) { 
-      <span class="tags">| @String.Join(", ", post.Tags) </span> 
-    }
-    <br />
-    <span class="description">
-      @post.Description
-    </span>
-  </li>
-  }
-</ul>

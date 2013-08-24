@@ -1,4 +1,14 @@
-﻿(**
+﻿(*@
+  Layout = "post";
+  Title = "F# Data: New type provider library ";
+  Tags = "open source, f#, f# data, type providers";
+  Date = "3/28/2013 3:23:41 AM";
+  Description = "F# Data is a new library that gives you all you need to access data " +
+    "in F# 3.0. It implements type providers for WorldBank, Freebase and structured document formats " +
+    "(CSV, JSON and XML) as well as other helpers. This article introduces the library and " +
+    "gives a quick overview of its features. ";
+*)
+(**
 F# Data: New type provider library
 ==================================
 

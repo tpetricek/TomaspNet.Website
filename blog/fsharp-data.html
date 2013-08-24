@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<!--[if IE 8]> 				 <html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+
+<head>
+  <meta charset="utf-8">
+  <title>F# Data: New type provider library </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="F# Data is a new library that gives you all you need to access data in F# 3.0. It implements type providers for WorldBank, Freebase and structured document formats (CSV, JSON and XML) as well as other helpers. This article introduces the library and gives a quick overview of its features. ">
+  <meta name="author" content="Tomas Petricek">
+
+  <!-- Reference Foundation -->
+  <link rel="stylesheet" href="file://C:\Tomas\Projects\WebSites\TomaspNet.New\output\css/foundation.css">
+  <script src="file://C:\Tomas\Projects\WebSites\TomaspNet.New\output\js/vendor/custom.modernizr.js"></script>
+
+  <!-- Reference custom CSS and tooltips -->
+  <link type="text/css" rel="stylesheet" href="file://C:\Tomas\Projects\WebSites\TomaspNet.New\output\custom/style.css" />
+  <script type="text/javascript" src="file://C:\Tomas\Projects\WebSites\TomaspNet.New\output\custom/tooltips.js"></script>
+  <link type="text/css" rel="stylesheet" href="file://C:\Tomas\Projects\WebSites\TomaspNet.New\output\custom/tooltips.css" />
+</head>
+<body>
+
+   <header id="top-header">
+    <div class="row">
+      <div class="twelve columns">
+        <h1>Tomas Petricek's blog</h1>
+        <p>Writing about practical F# coding and programming language research</p>
+      </div>
+    </div>
+  </header>
+
+  <header class="top-bar-header">
+    <div class="contain-to-grid sticky">
+    <nav class="top-bar">
+
+    <ul class="title-area">
+      <!-- Title Area -->
+      <li class="name"><h1><a href="#"></a></h1></li>
+      <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
+      <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+    </ul>
+
+    <section class="top-bar-section">
+      <!-- Right Nav Section -->
+      <ul class="right">
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">Trainings</a></li>
+        <li><a href="#">Books</a></li>
+        <li><a href="#">Talks</a></li>
+        <li><a href="#">Research & Teaching</a></li>
+      </ul>
+    </section>
+
+    </nav></div>
+  </header>
+  
+  <content>
+    
+
+<div class="row">
+	<div class="large-8 columns main-content">
+    <content>
+    
+<h1>F# Data: New type provider library</h1>
+
+<img src="https://raw.github.com/fsharp/FSharp.Data/master/misc/logo.png" class="rdecor" style="width:120px;height:120px;" />
+
+<p>When F# 3.0 type providers were still in beta version, I wrote a couple of type 
+providers as examples for talks. These included the WorldBank type provider
+(now available <a href="http://www.tryfsharp.org">on Try F#</a>) and also type provider for
+XML that infered the structure from sample. <br />
+For some time, these were hosted as part of <a href="https://github.com/fsharp/fsharpx/">FSharpX</a> 
+and the authors of FSharpX also added a number of great features.</p>
+
+<p>When I found some more time earlier this year, I decided to start a new library
+that would be fully focused on data access in F# and on type providers and
+I started working on <strong>F# Data</strong>. The library has now reached a stable state
+and <a href="http://www.navision-blog.de/blog/2013/03/27/fsharpx-1-8-removes-support-for-document-type-provider/">Steffen also announced</a> 
+that the document type providers (JSON, XML and CSV) are not going to be available
+in FSharpX since the next version.</p>
+
+<p>This means that if you're interested in accessing data using F# type providers, 
+you should now go to F# Data. Here are the most important links:</p>
+
+<ul>
+<li><a href="https://github.com/fsharp/FSharp.Data">F# Data source code on GitHub</a></li>
+<li><a href="http://fsharp.github.com/FSharp.Data/">F# Data documentation &amp; tutorials</a></li>
+<li><a href="http://nuget.org/packages/FSharp.Data">F# Data on NuGet</a></li>
+</ul>
+
+<p>Before looking at the details, I would like to thank to <a href="https://github.com/ovatsus">Gustavo Guerra</a>
+who made some amazing contributions to the library! (More contributors are always welcome,
+so continue reading if you're interested...)</p>
+
+<h2>F# Data Overview</h2>
+
+<p>The library contains several type providers, a couple of helper functions and it also
+comes with comprehensive documentation. Here is a quick summary of the key features:</p>
+
+<ul>
+<li><p><strong>Document type providers</strong> are providers for JSON, XML and CSV that 
+infer the structure of a file from a provided example and give you a typed
+access to other data in the same format.</p></li>
+<li><p><strong>WorldBank and Freebase</strong> are also hosted as part of the library. They give 
+you access to <a href="http://data.worldbank.org">WorldBank</a> indicators (information about countries) and to the
+<a href="http://freebase.com">Freebase graph database</a> (this was originally written as
+a sample by the F# team).</p></li>
+<li><p><strong>Comprehensive documentation</strong> the library is using my other project,
+<a href="https://github.com/tpetricek/FSharp.Formatting">F# Formatting</a> to automatically
+generate a <a href="http://fsharp.github.com/FSharp.Data/">nice documentation</a> from
+<code>*.fsx</code> script files with examples.</p></li>
+<li><p><strong>HTTP utility</strong> the library also contains a very easy to use type for making
+HTTP requests with just a single line (look for <code>Http.Request</code> in the <a href="http://fsharp.github.com/FSharp.Data/library/Http.html">documentation</a>.
+This is something that I've been missing a lot when working with REST APIs from F#.</p></li>
+</ul>
+
+<h2>F# Data Code Samples</h2>
+<p>I do not want to spend too much time demonstrating all the awesome features of the F# Data 
+library, but let me include just a few code snippets to demonstrate some interesting features.
+(You can find more in the <a href="http://fsharp.github.com/FSharp.Data/">documentation</a>).</p>
+
+<p>All the samples assume that we're using an F# Script file, so we start by referencing the 
+F# Data library using <code>#r</code> (in a project file, you would add reference as usual). I also 
+open two namespaces - <code>FSharp.Data</code> with the data-related API and <code>FSharp.Net</code> with a 
+helper type <code>Http</code> for making HTTP requests:</p>
+<pre class="fssnip">
+<span class="l">1: </span><span class="prep">#r</span> <span class="s">&quot;</span><span class="s">FSharp</span><span class="s">.</span><span class="s">Data</span><span class="s">.</span><span class="s">dll</span><span class="s">&quot;</span>
+<span class="l">2: </span><span class="k">open</span> <span onmouseout="hideTip(event, 'fs1', 1)" onmouseover="showTip(event, 'fs1', 1)" class="i">FSharp</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs2', 2)" onmouseover="showTip(event, 'fs2', 2)" class="i">Data</span>
+<span class="l">3: </span><span class="k">open</span> <span onmouseout="hideTip(event, 'fs1', 3)" onmouseover="showTip(event, 'fs1', 3)" class="i">FSharp</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs3', 4)" onmouseover="showTip(event, 'fs3', 4)" class="i">Net</span></pre>
+<p>Now, let's quickly look at a number of examples that demonstrate the F# Data library.
+You cannot quite see that in static code sample on a blog, but note that all data access
+is done in a typed way. When you type <code>.</code>, you get a completion and if you make a typo,
+you'll get an instantaneous feedback about the error.</p>
+
+<h3>Geting government debt from WorldBank</h3>
+
+<p>The <code>WorldBankData</code> type gives you access to the <a href="http://worldbank.org">World Bank</a> data
+set. For example, we can look at "Czech Republic" and get the government debt for the
+most recent year (using <code>Seq.maxBy</code> to get value for the most recent year available):</p>
+<pre class="fssnip">
+<span class="l">1: </span><span class="k">let</span> <span onmouseout="hideTip(event, 'fs4', 5)" onmouseover="showTip(event, 'fs4', 5)" class="i">wb</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs5', 6)" onmouseover="showTip(event, 'fs5', 6)" class="i">WorldBankData</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs6', 7)" onmouseover="showTip(event, 'fs6', 7)" class="i">GetDataContext</span>()
+<span class="l">2: </span><span onmouseout="hideTip(event, 'fs4', 8)" onmouseover="showTip(event, 'fs4', 8)" class="i">wb</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs7', 9)" onmouseover="showTip(event, 'fs7', 9)" class="i">Countries</span><span class="o">.</span><span class="i">``Czech Republic``</span><span class="o">.</span><span class="i">Indicators</span><span class="o">.</span><span class="i">``Central government debt, total (% of GDP)``</span>
+<span class="l">3: </span><span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs8', 10)" onmouseover="showTip(event, 'fs8', 10)" class="i">Seq</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs9', 11)" onmouseover="showTip(event, 'fs9', 11)" class="i">maxBy</span> <span onmouseout="hideTip(event, 'fs10', 12)" onmouseover="showTip(event, 'fs10', 12)" class="i">fst</span></pre>
+<h3>Geting religion list from Freebase</h3>
+
+<p>The <code>FreebaseData</code> type gives you access to <a href="http://freebase.com">Freebase</a>. You can just
+type <code>.</code> and explore the data sources available - for example, to look at a list of 
+religions and print first 10:</p>
+<pre class="fssnip">
+<span class="l">1: </span><span class="k">let</span> <span onmouseout="hideTip(event, 'fs11', 13)" onmouseover="showTip(event, 'fs11', 13)" class="i">fb</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs12', 14)" onmouseover="showTip(event, 'fs12', 14)" class="i">FreebaseData</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs13', 15)" onmouseover="showTip(event, 'fs13', 15)" class="i">GetDataContext</span>()
+<span class="l">2: </span><span class="k">for</span> <span onmouseout="hideTip(event, 'fs14', 16)" onmouseover="showTip(event, 'fs14', 16)" class="i">rel</span> <span class="k">in</span> <span onmouseout="hideTip(event, 'fs11', 17)" onmouseover="showTip(event, 'fs11', 17)" class="i">fb</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs15', 18)" onmouseover="showTip(event, 'fs15', 18)" class="i">Society</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs16', 19)" onmouseover="showTip(event, 'fs16', 19)" class="i">Religion</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs17', 20)" onmouseover="showTip(event, 'fs17', 20)" class="i">Religions</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs8', 21)" onmouseover="showTip(event, 'fs8', 21)" class="i">Seq</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs18', 22)" onmouseover="showTip(event, 'fs18', 22)" class="i">take</span> <span class="n">10</span> <span class="k">do</span>
+<span class="l">3: </span>  <span onmouseout="hideTip(event, 'fs19', 23)" onmouseover="showTip(event, 'fs19', 23)" class="i">printfn</span> <span class="s">&quot;</span><span class="s">%</span><span class="s">s</span><span class="s">&quot;</span> <span onmouseout="hideTip(event, 'fs14', 24)" onmouseover="showTip(event, 'fs14', 24)" class="i">rel</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs20', 25)" onmouseover="showTip(event, 'fs20', 25)" class="i">Name</span></pre>
+<h3>Parsing RSS news feed from BBC</h3>
+
+<p>If you want to get news using RSS, you can use <code>XmlProvider</code>. All you need is a sample
+file or a string (marked as <code>Literal</code>) with the RSS data. Then you can pass this string
+or file to the provider as a static parameter and you'll get nice types for working with 
+RSS feeds. Here, we get news from BBC using the <code>Http.Request</code> helper:</p>
+<pre class="fssnip">
+<span class="l">1: </span><span class="k">let</span> [&lt;<span onmouseout="hideTip(event, 'fs21', 26)" onmouseover="showTip(event, 'fs21', 26)" class="i">Literal</span>&gt;] <span onmouseout="hideTip(event, 'fs22', 27)" onmouseover="showTip(event, 'fs22', 27)" class="i">RssSample</span> <span class="o">=</span> <span id="fst23" onmouseout="hideTip(event, 'fs23', 28)" onmouseover="showTip(event, 'fs23', 28, document.getElementById('fst23'))" class="omitted">(Sample RSS feed omitted)</span>
+<span class="l">2: </span><span class="k">type</span> <span onmouseout="hideTip(event, 'fs24', 29)" onmouseover="showTip(event, 'fs24', 29)" class="i">Rss</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs25', 30)" onmouseover="showTip(event, 'fs25', 30)" class="i">XmlProvider</span><span class="o">&lt;</span><span onmouseout="hideTip(event, 'fs22', 31)" onmouseover="showTip(event, 'fs22', 31)" class="i">RssSample</span><span class="o">&gt;</span>
+<span class="l">3: </span>
+<span class="l">4: </span><span class="k">let</span> <span onmouseout="hideTip(event, 'fs26', 32)" onmouseover="showTip(event, 'fs26', 32)" class="i">feed</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs24', 33)" onmouseover="showTip(event, 'fs24', 33)" class="i">Rss</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs27', 34)" onmouseover="showTip(event, 'fs27', 34)" class="i">Parse</span>(<span onmouseout="hideTip(event, 'fs28', 35)" onmouseover="showTip(event, 'fs28', 35)" class="i">Http</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs29', 36)" onmouseover="showTip(event, 'fs29', 36)" class="i">Request</span>(<span class="s">&quot;</span><span class="s">http</span><span class="s">:</span><span class="s">/</span><span class="s">/</span><span class="s">feeds</span><span class="s">.</span><span class="s">bbci</span><span class="s">.</span><span class="s">co</span><span class="s">.</span><span class="s">uk</span><span class="s">/</span><span class="s">news</span><span class="s">/</span><span class="s">rss</span><span class="s">.</span><span class="s">xml</span><span class="s">&quot;</span>))
+<span class="l">5: </span><span onmouseout="hideTip(event, 'fs19', 37)" onmouseover="showTip(event, 'fs19', 37)" class="i">printfn</span>  <span class="s">&quot;</span><span class="s">%</span><span class="s">s</span><span class="s">&quot;</span> <span onmouseout="hideTip(event, 'fs26', 38)" onmouseover="showTip(event, 'fs26', 38)" class="i">feed</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs30', 39)" onmouseover="showTip(event, 'fs30', 39)" class="i">Channel</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs31', 40)" onmouseover="showTip(event, 'fs31', 40)" class="i">Title</span>
+<span class="l">6: </span><span class="k">for</span> <span onmouseout="hideTip(event, 'fs32', 41)" onmouseover="showTip(event, 'fs32', 41)" class="i">item</span> <span class="k">in</span> <span onmouseout="hideTip(event, 'fs26', 42)" onmouseover="showTip(event, 'fs26', 42)" class="i">feed</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs30', 43)" onmouseover="showTip(event, 'fs30', 43)" class="i">Channel</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs33', 44)" onmouseover="showTip(event, 'fs33', 44)" class="i">GetItems</span>() <span class="k">do</span>
+<span class="l">7: </span>  <span onmouseout="hideTip(event, 'fs19', 45)" onmouseover="showTip(event, 'fs19', 45)" class="i">printfn</span> <span class="s">&quot;</span><span class="s"> </span><span class="s">-</span><span class="s"> </span><span class="s">%</span><span class="s">s</span><span class="s">&quot;</span> <span onmouseout="hideTip(event, 'fs32', 46)" onmouseover="showTip(event, 'fs32', 46)" class="i">item</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs34', 47)" onmouseover="showTip(event, 'fs34', 47)" class="i">Title</span></pre>
+<h3>Geting stock prices from Yahoo CSV</h3>
+
+<p>Working with CSV files is similar. The <code>CsvProvider</code> takes static parameter with sample 
+data (either as a file name or as actual data). Here, we use a file and we also specify 
+that we only want to use first 10 rows for the inference (for performance reasons). The
+provider infers column names and types. Here is how you calculate the average MSFT stock 
+price over the entire history:</p>
+<pre class="fssnip">
+<span class="l">1: </span><span class="k">type</span> <span onmouseout="hideTip(event, 'fs35', 48)" onmouseover="showTip(event, 'fs35', 48)" class="i">Stocks</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs36', 49)" onmouseover="showTip(event, 'fs36', 49)" class="i">CsvProvider</span><span class="o">&lt;</span><span class="s">&quot;</span><span class="s">fsharp</span><span class="s">-</span><span class="s">data</span><span class="s">/</span><span class="s">MSFT</span><span class="s">.</span><span class="s">csv</span><span class="s">&quot;</span>, <span class="i">InferRows</span><span class="o">=</span><span class="n">10</span><span class="o">&gt;</span>
+<span class="l">2: </span><span class="k">let</span> <span onmouseout="hideTip(event, 'fs37', 50)" onmouseover="showTip(event, 'fs37', 50)" class="i">msft</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs35', 51)" onmouseover="showTip(event, 'fs35', 51)" class="i">Stocks</span><span class="o">.</span><span class="i">Load</span>(<span class="s">&quot;</span><span class="s">http</span><span class="s">:</span><span class="s">/</span><span class="s">/</span><span class="s">ichart</span><span class="s">.</span><span class="s">finance</span><span class="s">.</span><span class="s">yahoo</span><span class="s">.</span><span class="s">com</span><span class="s">/</span><span class="s">table</span><span class="s">.</span><span class="s">csv</span><span class="s">?</span><span class="s">s</span><span class="s">=</span><span class="s">MSFT</span><span class="s">&quot;</span>)
+<span class="l">3: </span><span onmouseout="hideTip(event, 'fs37', 52)" onmouseover="showTip(event, 'fs37', 52)" class="i">msft</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs38', 53)" onmouseover="showTip(event, 'fs38', 53)" class="i">Data</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs8', 54)" onmouseover="showTip(event, 'fs8', 54)" class="i">Seq</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs39', 55)" onmouseover="showTip(event, 'fs39', 55)" class="i">averageBy</span> (<span class="k">fun</span> <span onmouseout="hideTip(event, 'fs40', 56)" onmouseover="showTip(event, 'fs40', 56)" class="i">row</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs40', 57)" onmouseover="showTip(event, 'fs40', 57)" class="i">row</span><span class="o">.</span><span class="i">Open</span>)</pre>
+<h3>Geting list of F# snippets using REST API</h3>
+
+<p>For our last example, we'll use REST API provided by <a href="http://fssnip.net">F# Snippets</a>. The
+API returns a JSON data set containing information about snippets. We can easily use it by
+defining a string <code>Literal</code> with sample JSON and passing it to <code>JsonProvider</code>. To get the
+data, we use <code>Http.Request</code>, but this time we specify <code>Content-Type</code> header. Working
+with the results is, again, done in a nice typed way:</p>
+<pre class="fssnip">
+<span class="l"> 1: </span><span class="k">let</span> [&lt;<span onmouseout="hideTip(event, 'fs21', 58)" onmouseover="showTip(event, 'fs21', 58)" class="i">Literal</span>&gt;] <span onmouseout="hideTip(event, 'fs41', 59)" onmouseover="showTip(event, 'fs41', 59)" class="i">FsSnipNewsSample</span> <span class="o">=</span> <span id="fst42" onmouseout="hideTip(event, 'fs42', 60)" onmouseover="showTip(event, 'fs42', 60, document.getElementById('fst42'))" class="omitted">(Sample JSON with snippet data omitted)</span>
+<span class="l"> 2: </span><span class="k">type</span> <span onmouseout="hideTip(event, 'fs43', 61)" onmouseover="showTip(event, 'fs43', 61)" class="i">FsSnipNews</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs44', 62)" onmouseover="showTip(event, 'fs44', 62)" class="i">JsonProvider</span><span class="o">&lt;</span><span onmouseout="hideTip(event, 'fs41', 63)" onmouseover="showTip(event, 'fs41', 63)" class="i">FsSnipNewsSample</span><span class="o">&gt;</span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span><span class="k">let</span> <span onmouseout="hideTip(event, 'fs45', 64)" onmouseover="showTip(event, 'fs45', 64)" class="i">data</span> <span class="o">=</span> 
+<span class="l"> 5: </span>  <span onmouseout="hideTip(event, 'fs28', 65)" onmouseover="showTip(event, 'fs28', 65)" class="i">Http</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs29', 66)" onmouseover="showTip(event, 'fs29', 66)" class="i">Request</span>
+<span class="l"> 6: </span>    ( <span class="s">&quot;</span><span class="s">http</span><span class="s">:</span><span class="s">/</span><span class="s">/</span><span class="s">api</span><span class="s">.</span><span class="s">fssnip</span><span class="s">.</span><span class="s">net</span><span class="s">/</span><span class="s">1</span><span class="s">/</span><span class="s">snippet</span><span class="s">&quot;</span>, 
+<span class="l"> 7: </span>      <span class="i">headers</span><span class="o">=</span>[<span class="s">&quot;</span><span class="s">content</span><span class="s">-</span><span class="s">type</span><span class="s">&quot;</span>, <span class="s">&quot;</span><span class="s">application</span><span class="s">/</span><span class="s">json</span><span class="s">&quot;</span>] )
+<span class="l"> 8: </span>
+<span class="l"> 9: </span><span class="k">let</span> <span onmouseout="hideTip(event, 'fs46', 67)" onmouseover="showTip(event, 'fs46', 67)" class="i">res</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs43', 68)" onmouseover="showTip(event, 'fs43', 68)" class="i">FsSnipNews</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs47', 69)" onmouseover="showTip(event, 'fs47', 69)" class="i">Parse</span>(<span onmouseout="hideTip(event, 'fs45', 70)" onmouseover="showTip(event, 'fs45', 70)" class="i">data</span>)
+<span class="l">10: </span><span class="k">for</span> <span onmouseout="hideTip(event, 'fs48', 71)" onmouseover="showTip(event, 'fs48', 71)" class="i">snippet</span> <span class="k">in</span> <span onmouseout="hideTip(event, 'fs46', 72)" onmouseover="showTip(event, 'fs46', 72)" class="i">res</span> <span class="k">do</span>
+<span class="l">11: </span>  <span onmouseout="hideTip(event, 'fs19', 73)" onmouseover="showTip(event, 'fs19', 73)" class="i">printfn</span> <span class="s">&quot;</span><span class="s"> </span><span class="s">-</span><span class="s"> </span><span class="s">%</span><span class="s">s</span><span class="s">&quot;</span> <span onmouseout="hideTip(event, 'fs48', 74)" onmouseover="showTip(event, 'fs48', 74)" class="i">snippet</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs49', 75)" onmouseover="showTip(event, 'fs49', 75)" class="i">Title</span></pre>
+<h2>Summary</h2>
+
+<p>Although I started working on F# Data around christmas, this is the first blog
+post about it. The library had some time to develop and we fixed some of the most
+important bugs, so if you're interested in data access in F#, <a href="https://github.com/fsharp/FSharp.Data">F# Data</a>
+is the right tool for you!</p>
+
+<p>I included a quick overview of some of the type providers that are available in the 
+library - including those for WorldBank, Freebase, CSV, XML and JSON. Of course, I did
+not cover all the features of the library. You can find more information in the
+<a href="http://fsharp.github.com/FSharp.Data/">detailed documentation</a>.</p>
+
+<h3>Contribute to F# Data</h3>
+
+<p>As I mentioned already, the library already had some great contributors. Gustavo Guerra did
+a great job on making it work in Portable profile and on Silverlight. However, there
+is always work to be done :-) and contributors are very welcome. If you're interested, 
+check out the <a href="https://github.com/fsharp/FSharp.Data/issues">list of issues</a>. I also
+wrote a page on <a href="http://fsharp.github.com/FSharp.Data/contributing.html">contributing to F# Data</a>
+with basic information about the library structure.</p>
+
+<div class="tip" id="fs1">namespace FSharp</div>
+<div class="tip" id="fs2">namespace FSharp.Data</div>
+<div class="tip" id="fs3">namespace FSharp.Net</div>
+<div class="tip" id="fs4">val wb : WorldBankData.ServiceTypes.WorldBankDataService<br /><br />Full name: Fsharp-data_.wb</div>
+<div class="tip" id="fs5">type WorldBankData =<br />&#160;&#160;static member GetDataContext : unit -&gt; WorldBankDataService<br />&#160;&#160;nested type ServiceTypes<br /><br />Full name: FSharp.Data.WorldBankData</div>
+<div class="tip" id="fs6">WorldBankData.GetDataContext() : WorldBankData.ServiceTypes.WorldBankDataService</div>
+<div class="tip" id="fs7">property WorldBankData.ServiceTypes.WorldBankDataService.Countries: WorldBankData.ServiceTypes.Countries</div>
+<div class="tip" id="fs8">module Seq<br /><br />from Microsoft.FSharp.Collections</div>
+<div class="tip" id="fs9">val maxBy : projection:(&#39;T -&gt; &#39;U) -&gt; source:seq&lt;&#39;T&gt; -&gt; &#39;T (requires comparison)<br /><br />Full name: Microsoft.FSharp.Collections.Seq.maxBy</div>
+<div class="tip" id="fs10">val fst : tuple:(&#39;T1 * &#39;T2) -&gt; &#39;T1<br /><br />Full name: Microsoft.FSharp.Core.Operators.fst</div>
+<div class="tip" id="fs11">val fb : FreebaseData.ServiceTypes.FreebaseService<br /><br />Full name: Fsharp-data_.fb</div>
+<div class="tip" id="fs12">type FreebaseData =<br />&#160;&#160;static member GetDataContext : unit -&gt; FreebaseService<br />&#160;&#160;nested type ServiceTypes<br /><br />Full name: FSharp.Data.FreebaseData<br /><em><br /><br />Contains data and types drawn from the web data store. See www.freebase.com for terms and conditions.</em></div>
+<div class="tip" id="fs13">FreebaseData.GetDataContext() : FreebaseData.ServiceTypes.FreebaseService</div>
+<div class="tip" id="fs14">val rel : FreebaseData.ServiceTypes.Religion.Religion.ReligionData</div>
+<div class="tip" id="fs15">property FreebaseData.ServiceTypes.FreebaseService.Society: FreebaseData.ServiceTypes.DomainObjects.Society<br /><em><br /><br />&lt;summary&gt;Contains the objects of the domain category &amp;apos;Society&amp;apos; defined in the web data store organized by type&lt;/summary&gt;</em></div>
+<div class="tip" id="fs16">property FreebaseData.ServiceTypes.DomainObjects.Society.Religion: FreebaseData.ServiceTypes.DomainObjects.ReligionDomain<br /><em><br /><br />&lt;summary&gt;Welcome to the Religion commons!This is a place to store information about systems of beliefs and rituals found throughout the world.Freebase currently contains a lot of data related to religions, but much of it has not been appropriately typed or linked together. As you&amp;apos;re adding data, lean heavily on the autocomplete feature so you can be sure you&amp;apos;re not creating a duplicate of an already existing topic. You might also want to do some searching to see if the thing you&amp;apos;re trying to add already exists under a different name (if so, please update the &amp;quot;Also known as&amp;quot; field).Click on any of the types listed here for more detailed information (Religion is a good place to start - most of the other types hang off of that one). How you can help:Here are a few things that you can do to help fill out this domain:find other religions that currently exist in the system but haven&amp;apos;t been typed yetidentify schools and denominations associated with different religions and add them to the&#160;&amp;quot;Includes&amp;quot; property of the appropriate Religion topic.help fill out the &amp;quot;Beliefs&amp;quot; and &amp;quot;Practices&amp;quot; properties of the religions we currently have. Please note that many of these are already in Freebase, and...&lt;/summary&gt;</em></div>
+<div class="tip" id="fs17">property FreebaseData.ServiceTypes.DomainObjects.ReligionDomain.Religions: FreebaseData.ServiceTypes.Religion.Religion.ReligionDataCollection<br /><em><br /><br />&lt;summary&gt;According to Wikipedia: &amp;quot;A religion is a set of beliefs and practices generally held by a community, involving adherence to codified beliefs and rituals and study of ancestral or cultural traditions, writings, history, and mythology, as well as personal faith and mystic experience. The term &amp;apos;religion&amp;apos; refers to both the personal practices related to communal faith and to group rituals and communication stemming from shared conviction.&amp;quot;This is main type of the /religion domain - most of the other types are expected types of properties of this type. Detailed descriptions of the properties can be found here.&lt;/summary&gt;</em></div>
+<div class="tip" id="fs18">val take : count:int -&gt; source:seq&lt;&#39;T&gt; -&gt; seq&lt;&#39;T&gt;<br /><br />Full name: Microsoft.FSharp.Collections.Seq.take</div>
+<div class="tip" id="fs19">val printfn : format:Printf.TextWriterFormat&lt;&#39;T&gt; -&gt; &#39;T<br /><br />Full name: Microsoft.FSharp.Core.ExtraTopLevelOperators.printfn</div>
+<div class="tip" id="fs20">property RuntimeImplementation.Freebase.IFreebaseObject.Name: string</div>
+<div class="tip" id="fs21">Multiple items<br />type LiteralAttribute =<br />&#160;&#160;inherit Attribute<br />&#160;&#160;new : unit -&gt; LiteralAttribute<br /><br />Full name: Microsoft.FSharp.Core.LiteralAttribute<br /><br />--------------------<br />new : unit -&gt; LiteralAttribute</div>
+<div class="tip" id="fs22">val RssSample : string<br /><br />Full name: Fsharp-data_.RssSample</div>
+<div class="tip" id="fs23">&quot;&quot;&quot;&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;<br />&#160;&#160;&lt;rss version=&quot;2.0&quot;&gt;  <br />&#160;&#160;&#160;&#160;&lt;channel&gt; <br />&#160;&#160;&#160;&#160;&#160;&#160;&lt;title&gt;BBC News - Home&lt;/title&gt;  <br />&#160;&#160;&#160;&#160;&#160;&#160;&lt;link&gt;http://www.bbc.co.uk/news/#sa-ns_mchannel=rss&amp;amp;ns_source=PublicRSS20-sa&lt;/link&gt;  <br />&#160;&#160;&#160;&#160;&#160;&#160;&lt;description&gt;The latest stories from the Home section of the BBC News web site.&lt;/description&gt;  <br />&#160;&#160;&#160;&#160;&#160;&#160;&lt;lastBuildDate&gt;Thu, 28 Mar 2013 01:10:12 GMT&lt;/lastBuildDate&gt;  <br />&#160;&#160;&#160;&#160;&#160;&#160;&lt;item&gt; <br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;title&gt;Government loses Abu Qatada appeal&lt;/title&gt;  <br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;description&gt;Home Secretary Theresa May loses her appeal against a ruling preventing the deportation of radical cleric Abu Qatada.&lt;/description&gt;  <br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;link&gt;http://www.bbc.co.uk/news/uk-21955844#sa-ns_mchannel=rss&amp;amp;ns_source=PublicRSS20-sa&lt;/link&gt;  <br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;guid isPermaLink=&quot;false&quot;&gt;http://www.bbc.co.uk/news/uk-21955844&lt;/guid&gt;  <br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;pubDate&gt;Wed, 27 Mar 2013 17:37:35 GMT&lt;/pubDate&gt;  <br />&#160;&#160;&#160;&#160;&#160;&#160;&lt;/item&gt;  <br />&#160;&#160;&#160;&#160;&#160;&#160;&lt;item&gt; <br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;title&gt;Synchrotron yields &#39;safer&#39; vaccine&lt;/title&gt;  <br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;description&gt;British scientists develop a new way to create an entirely synthetic vaccine which does not rely on using live infectious virus, meaning it is much safer.&lt;/description&gt;  <br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;link&gt;http://www.bbc.co.uk/news/health-21958361#sa-ns_mchannel=rss&amp;amp;ns_source=PublicRSS20-sa&lt;/link&gt;  <br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;guid isPermaLink=&quot;false&quot;&gt;http://www.bbc.co.uk/news/health-21958361&lt;/guid&gt;  <br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;pubDate&gt;Wed, 27 Mar 2013 22:00:04 GMT&lt;/pubDate&gt;  <br />&#160;&#160;&#160;&#160;&#160;&#160;&lt;/item&gt;  <br />&#160;&#160;&#160;&#160;&#160;&#160;&lt;item&gt; <br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;title&gt;Oil firms invest $500m in huge field&lt;/title&gt;  <br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;description&gt;Major oil companies announce plans which they hope will boost production from the UK&#39;s biggest oilfield.&lt;/description&gt;  <br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;link&gt;http://www.bbc.co.uk/news/uk-scotland-scotland-business-21955536#sa-ns_mchannel=rss&amp;amp;ns_source=PublicRSS20-sa&lt;/link&gt;  <br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;guid isPermaLink=&quot;false&quot;&gt;http://www.bbc.co.uk/news/uk-scotland-scotland-business-21955536&lt;/guid&gt;  <br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;pubDate&gt;Thu, 28 Mar 2013 00:31:05 GMT&lt;/pubDate&gt;  <br />&#160;&#160;&#160;&#160;&#160;&#160;&lt;/item&gt;  <br />&#160;&#160;&#160;&#160;&lt;/channel&gt; <br />&#160;&#160;&lt;/rss&gt;<br />&#160;&#160;&quot;&quot;&quot;</div>
+<div class="tip" id="fs24">type Rss = XmlProvider&lt;...&gt;<br /><br />Full name: Fsharp-data_.Rss</div>
+<div class="tip" id="fs25">type XmlProvider<br /><br />Full name: FSharp.Data.XmlProvider<br /><em><br /><br />&lt;summary&gt;Typed representation of a XML file&lt;/summary&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;param name=&#39;Sample&#39;&gt;Location of a XML sample file or a string containing a sample XML document&lt;/param&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;param name=&#39;Global&#39;&gt;If true, the inference unifies all XML elements with the same name&lt;/param&gt;                     <br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;param name=&#39;Culture&#39;&gt;The culture used for parsing numbers and dates.&lt;/param&gt;                     <br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;param name=&#39;SampleList&#39;&gt;If true, the children of the root in the sample document represent individual samples for the inference.&lt;/param&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;param name=&#39;ResolutionFolder&#39;&gt;A directory that is used when resolving relative file references (at design time and in hosted execution)&lt;/param&gt;</em></div>
+<div class="tip" id="fs26">val feed : XmlProvider&lt;...&gt;.DomainTypes.Rss<br /><br />Full name: Fsharp-data_.feed</div>
+<div class="tip" id="fs27">XmlProvider&lt;...&gt;.Parse(text: string) : XmlProvider&lt;...&gt;.DomainTypes.Rss</div>
+<div class="tip" id="fs28">type Http =<br />&#160;&#160;private new : unit -&gt; Http<br />&#160;&#160;static member AsyncRequest : url:string -&gt; Async&lt;string&gt;<br />&#160;&#160;static member AsyncRequest : url:string * ?query:(string * string) list * ?headers:(string * string) list * ?meth:string * ?body:string -&gt; Async&lt;string&gt;<br />&#160;&#160;static member Request : url:string -&gt; string<br />&#160;&#160;static member Request : url:string * ?query:(string * string) list * ?headers:(string * string) list * ?meth:string * ?body:string -&gt; string<br /><br />Full name: FSharp.Net.Http</div>
+<div class="tip" id="fs29">static member Http.Request : url:string -&gt; string<br />static member Http.Request : url:string * ?query:(string * string) list * ?headers:(string * string) list * ?meth:string * ?body:string -&gt; string</div>
+<div class="tip" id="fs30">property XmlProvider&lt;...&gt;.DomainTypes.Rss.Channel: XmlProvider&lt;...&gt;.DomainTypes.Channel</div>
+<div class="tip" id="fs31">property XmlProvider&lt;...&gt;.DomainTypes.Channel.Title: string</div>
+<div class="tip" id="fs32">val item : XmlProvider&lt;...&gt;.DomainTypes.Item</div>
+<div class="tip" id="fs33">XmlProvider&lt;...&gt;.DomainTypes.Channel.GetItems() : XmlProvider&lt;...&gt;.DomainTypes.Item []</div>
+<div class="tip" id="fs34">property XmlProvider&lt;...&gt;.DomainTypes.Item.Title: string</div>
+<div class="tip" id="fs35">type Stocks = obj<br /><br />Full name: Fsharp-data_.Stocks</div>
+<div class="tip" id="fs36">type CsvProvider<br /><br />Full name: FSharp.Data.CsvProvider<br /><em><br /><br />&lt;summary&gt;Typed representation of a CSV file&lt;/summary&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;param name=&#39;Sample&#39;&gt;Location of a CSV sample file or a string containing a sample CSV document&lt;/param&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;param name=&#39;Separator&#39;&gt;Column delimiter&lt;/param&gt;                     <br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;param name=&#39;Culture&#39;&gt;The culture used for parsing numbers and dates.&lt;/param&gt;                     <br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;param name=&#39;InferRows&#39;&gt;Number of rows to use for inference. Defaults to 1000. If this is zero, all rows are used.&lt;/param&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;param name=&#39;ResolutionFolder&#39;&gt;A directory that is used when resolving relative file references (at design time and in hosted execution)&lt;/param&gt;</em></div>
+<div class="tip" id="fs37">val msft : obj<br /><br />Full name: Fsharp-data_.msft</div>
+<div class="tip" id="fs38">namespace Microsoft.FSharp.Data</div>
+<div class="tip" id="fs39">val averageBy : projection:(&#39;T -&gt; &#39;U) -&gt; source:seq&lt;&#39;T&gt; -&gt; &#39;U (requires member ( + ) and member DivideByInt and member get_Zero)<br /><br />Full name: Microsoft.FSharp.Collections.Seq.averageBy</div>
+<div class="tip" id="fs40">val row : obj</div>
+<div class="tip" id="fs41">val FsSnipNewsSample : string<br /><br />Full name: Fsharp-data_.FsSnipNewsSample</div>
+<div class="tip" id="fs42">&quot;&quot;&quot;[ { &quot;author&quot;: &quot;Kit Eason&quot;,<br />&#160;&#160;&#160;&#160;&quot;title&quot;: &quot;Eurovision - Some(points)&quot;,<br />&#160;&#160;&#160;&#160;&quot;description&quot;: &quot;The Eurovision final scoring system using records and some higher order functions. (...)&quot;,<br />&#160;&#160;&#160;&#160;&quot;likes&quot;: 1,<br />&#160;&#160;&#160;&#160;&quot;link&quot;: &quot;http://fssnip.net/cg&quot;,<br />&#160;&#160;&#160;&#160;&quot;published&quot;: &quot;5 months ago&quot;},<br />&#160;&#160;{ &quot;author&quot;: &quot;Eirik Tsarpalis&quot;,<br />&#160;&#160;&#160;&#160;&quot;title&quot;: &quot;Codomains through Reflection&quot;,<br />&#160;&#160;&#160;&#160;&quot;description&quot;: &quot;Any type signature has the form of a curried chain T0 -&gt; T1 -&gt; .... -&gt; Tn, where Tn is not a function type. (...)&quot;,<br />&#160;&#160;&#160;&#160;&quot;likes&quot;: 2,<br />&#160;&#160;&#160;&#160;&quot;link&quot;: &quot;http://fssnip.net/cf&quot;,<br />&#160;&#160;&#160;&#160;&quot;published&quot;: &quot;5 months ago&quot; } ]&quot;&quot;&quot;</div>
+<div class="tip" id="fs43">type FsSnipNews = JsonProvider&lt;...&gt;<br /><br />Full name: Fsharp-data_.FsSnipNews</div>
+<div class="tip" id="fs44">type JsonProvider<br /><br />Full name: FSharp.Data.JsonProvider<br /><em><br /><br />&lt;summary&gt;Typed representation of a JSON document&lt;/summary&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;param name=&#39;Sample&#39;&gt;Location of a JSON sample file or a string containing a sample JSON document&lt;/param&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;param name=&#39;SampleList&#39;&gt;If true, sample should be a list of individual samples for the inference.&lt;/param&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;param name=&#39;Culture&#39;&gt;The culture used for parsing numbers and dates.&lt;/param&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;param name=&#39;ResolutionFolder&#39;&gt;A directory that is used when resolving relative file references (at design time and in hosted execution)&lt;/param&gt;</em></div>
+<div class="tip" id="fs45">val data : string<br /><br />Full name: Fsharp-data_.data</div>
+<div class="tip" id="fs46">val res : JsonProvider&lt;...&gt;.DomainTypes.Entity []<br /><br />Full name: Fsharp-data_.res</div>
+<div class="tip" id="fs47">JsonProvider&lt;...&gt;.Parse(text: string) : JsonProvider&lt;...&gt;.DomainTypes.Entity []</div>
+<div class="tip" id="fs48">val snippet : JsonProvider&lt;...&gt;.DomainTypes.Entity</div>
+<div class="tip" id="fs49">property JsonProvider&lt;...&gt;.DomainTypes.Entity.Title: string</div>
+
+    </content>
+
+  </div>
+	<div class="large-4 columns">
+    <div style="background:black; text-align:center;padding:20px;">
+      <img src="http://tomasp.net/calendar/2013/august_sm.jpg" />
+    </div>
+
+		<h4>Right panel</h4>
+	</div>
+</div>
+
+  </content>
+
+  <footer>
+    tomas
+  </footer>
+
+  <script>
+  document.write('<script src=' +
+  ('__proto__' in {} ? 'js/vendor/zepto' : 'js/vendor/jquery') +
+  '.js><\/script>')
+  </script>
+  
+  <script src="js/foundation.min.js"></script>
+  <!--
+  
+  <script src="js/foundation/foundation.js"></script>
+  
+  <script src="js/foundation/foundation.alerts.js"></script>
+  
+  <script src="js/foundation/foundation.clearing.js"></script>
+  
+  <script src="js/foundation/foundation.cookie.js"></script>
+  
+  <script src="js/foundation/foundation.dropdown.js"></script>
+  
+  <script src="js/foundation/foundation.forms.js"></script>
+  
+  <script src="js/foundation/foundation.joyride.js"></script>
+  
+  <script src="js/foundation/foundation.magellan.js"></script>
+  
+  <script src="js/foundation/foundation.orbit.js"></script>
+  
+  <script src="js/foundation/foundation.reveal.js"></script>
+  
+  <script src="js/foundation/foundation.section.js"></script>
+  
+  <script src="js/foundation/foundation.tooltips.js"></script>
+  
+  <script src="js/foundation/foundation.topbar.js"></script>
+  
+  <script src="js/foundation/foundation.interchange.js"></script>
+  
+  <script src="js/foundation/foundation.placeholder.js"></script>
+  
+  <script src="js/foundation/foundation.abide.js"></script>
+  
+  -->
+  
+  <script>
+    $(document).foundation();
+  </script>
+</body>
+</html>

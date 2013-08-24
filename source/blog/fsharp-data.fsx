@@ -69,7 +69,7 @@ F# Data Code Samples
 
 (*** hide ***)
 #r "System.Xml.Linq.dll"
-#I "fsharp-data"
+#I "packages\FSharp.Data.1.1.0.0"
 
 (**
 I do not want to spend too much time demonstrating all the awesome features of the F# Data 

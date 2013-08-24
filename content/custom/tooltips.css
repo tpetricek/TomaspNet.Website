@@ -19,7 +19,7 @@ span.l { color:#80b0b0; }
 /* inactive code */
 span.inactive { color:#808080; }
 /* preprocessor */
-span.prep { color:#800080; }
+span.prep { color:#af75c1; }
 /* fsi output */
 span.fsi { font-style:italic; color:#606060; }
 
@@ -68,4 +68,11 @@ table.pre, pre.fssnip, pre {
   padding:10px;
   border-radius:5px;
   color:#eaeaea;  
+}
+pre code {
+  font: 100% 'Droid Sans Mono',consolas,monospace;
+  border-style:none;
+  background-color:#111415;
+  padding:0px;
+  color:#eaeaea;
 }

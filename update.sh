@@ -1,2 +1,2 @@
-git commit -a -m "Update generated pages"
+git commit -a -m "Automatically update generated website"
 git push origin gh-pages

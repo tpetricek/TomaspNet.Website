@@ -8,7 +8,7 @@
 	<div class="large-8 columns main-content">
     <content class="hp">
     @foreach(var post in Model.Posts) {
-      <h2><a href="@post.Url">@post.Title</a></h2>
+      <h2><a href="@Model.Root/blog/@post.Url">@post.Title</a></h2>
       <span class="date">@post.Date.ToShortDateString()</span>
       if (post.Tags.Length > 0) { 
         <span class="tags">| @String.Join(", ", post.Tags) </span> 

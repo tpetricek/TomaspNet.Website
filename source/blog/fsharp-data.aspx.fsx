@@ -173,7 +173,7 @@ provider infers column names and types. Here is how you calculate the average MS
 price over the entire history:
 
 *)
-type Stocks = CsvProvider<"fsharp-data/MSFT.csv", InferRows=10>
+type Stocks = CsvProvider<"data/fsharp-data/MSFT.csv", InferRows=10>
 let msft = Stocks.Load("http://ichart.finance.yahoo.com/table.csv?s=MSFT")
 msft.Data |> Seq.averageBy (fun row -> row.Open)
 

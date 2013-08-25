@@ -1,0 +1,51 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "TildeLib", "tools\tilde\TildeLib.fsproj", "{3A0B72B9-05D2-4A89-A514-7E11B89A9FDC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{5C7045D5-4574-4BA7-A3BA-905C9C074F5B}"
+	ProjectSection(SolutionItems) = preProject
+		tools\build.fsx = tools\build.fsx
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Content", "Content", "{9DF5F21E-92C6-4C46-AEB9-D32284D99438}"
+	ProjectSection(SolutionItems) = preProject
+		content\custom\style.css = content\custom\style.css
+		content\custom\tooltips.css = content\custom\tooltips.css
+		content\custom\tooltips.js = content\custom\tooltips.js
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Layouts", "Layouts", "{0706F2C2-636E-4740-A25F-DDB05C5AA555}"
+	ProjectSection(SolutionItems) = preProject
+		layouts\default.cshtml = layouts\default.cshtml
+		layouts\page.cshtml = layouts\page.cshtml
+		layouts\post.cshtml = layouts\post.cshtml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Source", "Source", "{801A3857-01D3-4355-8D2E-22C1B7DBEA95}"
+	ProjectSection(SolutionItems) = preProject
+		source\index.cshtml = source\index.cshtml
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|.NET = Debug|.NET
+		Debug|Any CPU = Debug|Any CPU
+		Release|.NET = Release|.NET
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3A0B72B9-05D2-4A89-A514-7E11B89A9FDC}.Debug|.NET.ActiveCfg = Debug|Any CPU
+		{3A0B72B9-05D2-4A89-A514-7E11B89A9FDC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A0B72B9-05D2-4A89-A514-7E11B89A9FDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A0B72B9-05D2-4A89-A514-7E11B89A9FDC}.Release|.NET.ActiveCfg = Release|Any CPU
+		{3A0B72B9-05D2-4A89-A514-7E11B89A9FDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A0B72B9-05D2-4A89-A514-7E11B89A9FDC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3A0B72B9-05D2-4A89-A514-7E11B89A9FDC} = {5C7045D5-4574-4BA7-A3BA-905C9C074F5B}
+	EndGlobalSection
+EndGlobal

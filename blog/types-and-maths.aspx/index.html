@@ -318,28 +318,28 @@ but if you want to see the full details, check out this <a href="http://www.cs.n
 <div class="tip" id="fs2">Multiple items<br />val float : value:&#39;T -&gt; float (requires member op_Explicit)<br /><br />Full name: Microsoft.FSharp.Core.Operators.float<br /><br />--------------------<br />type float = System.Double<br /><br />Full name: Microsoft.FSharp.Core.float<br /><br />--------------------<br />type float&lt;&#39;Measure&gt; = float<br /><br />Full name: Microsoft.FSharp.Core.float&lt;_&gt;</div>
 <div class="tip" id="fs3">union case OptionPCC.Call: float -&gt; OptionPCC</div>
 <div class="tip" id="fs4">union case OptionPCC.Combine: OptionPCC * OptionPCC -&gt; OptionPCC</div>
-<div class="tip" id="fs5">type OptionPCC =<br />&#160;&#160;| Put of float<br />&#160;&#160;| Call of float<br />&#160;&#160;| Combine of OptionPCC * OptionPCC<br /><br />Full name: Types-and-maths_.OptionPCC</div>
-<div class="tip" id="fs6">type OptionKind =<br />&#160;&#160;| Put<br />&#160;&#160;| Call<br /><br />Full name: Types-and-maths_.OptionKind</div>
+<div class="tip" id="fs5">type OptionPCC =<br />&#160;&#160;| Put of float<br />&#160;&#160;| Call of float<br />&#160;&#160;| Combine of OptionPCC * OptionPCC<br /><br />Full name: Types-and-maths.aspx_.OptionPCC</div>
+<div class="tip" id="fs6">type OptionKind =<br />&#160;&#160;| Put<br />&#160;&#160;| Call<br /><br />Full name: Types-and-maths.aspx_.OptionKind</div>
 <div class="tip" id="fs7">union case OptionKind.Put: OptionKind</div>
 <div class="tip" id="fs8">union case OptionKind.Call: OptionKind</div>
-<div class="tip" id="fs9">type OptionEC =<br />&#160;&#160;| European of OptionKind * float<br />&#160;&#160;| Combine of OptionEC * OptionEC<br /><br />Full name: Types-and-maths_.OptionEC</div>
+<div class="tip" id="fs9">type OptionEC =<br />&#160;&#160;| European of OptionKind * float<br />&#160;&#160;| Combine of OptionEC * OptionEC<br /><br />Full name: Types-and-maths.aspx_.OptionEC</div>
 <div class="tip" id="fs10">union case OptionEC.European: OptionKind * float -&gt; OptionEC</div>
 <div class="tip" id="fs11">union case OptionEC.Combine: OptionEC * OptionEC -&gt; OptionEC</div>
-<div class="tip" id="fs12">type Point = byte * byte<br /><br />Full name: Types-and-maths_.Point</div>
+<div class="tip" id="fs12">type Point = byte * byte<br /><br />Full name: Types-and-maths.aspx_.Point</div>
 <div class="tip" id="fs13">Multiple items<br />val byte : value:&#39;T -&gt; byte (requires member op_Explicit)<br /><br />Full name: Microsoft.FSharp.Core.Operators.byte<br /><br />--------------------<br />type byte = System.Byte<br /><br />Full name: Microsoft.FSharp.Core.byte</div>
-<div class="tip" id="fs14">type ByteOption =<br />&#160;&#160;| Some of byte<br />&#160;&#160;| None<br /><br />Full name: Types-and-maths_.ByteOption</div>
+<div class="tip" id="fs14">type ByteOption =<br />&#160;&#160;| Some of byte<br />&#160;&#160;| None<br /><br />Full name: Types-and-maths.aspx_.ByteOption</div>
 <div class="tip" id="fs15">union case ByteOption.Some: byte -&gt; ByteOption</div>
 <div class="tip" id="fs16">union case ByteOption.None: ByteOption</div>
-<div class="tip" id="fs17">type TwoRangeByte =<br />&#160;&#160;| Positive of byte<br />&#160;&#160;| Negative of byte<br /><br />Full name: Types-and-maths_.TwoRangeByte</div>
+<div class="tip" id="fs17">type TwoRangeByte =<br />&#160;&#160;| Positive of byte<br />&#160;&#160;| Negative of byte<br /><br />Full name: Types-and-maths.aspx_.TwoRangeByte</div>
 <div class="tip" id="fs18">union case TwoRangeByte.Positive: byte -&gt; TwoRangeByte</div>
 <div class="tip" id="fs19">union case TwoRangeByte.Negative: byte -&gt; TwoRangeByte</div>
-<div class="tip" id="fs20">type Contact1 =<br />&#160;&#160;{Address: string option;<br />&#160;&#160;&#160;Number: int option;}<br /><br />Full name: Types-and-maths_.Contact1</div>
+<div class="tip" id="fs20">type Contact1 =<br />&#160;&#160;{Address: string option;<br />&#160;&#160;&#160;Number: int option;}<br /><br />Full name: Types-and-maths.aspx_.Contact1</div>
 <div class="tip" id="fs21">Contact1.Address: string option</div>
 <div class="tip" id="fs22">Multiple items<br />val string : value:&#39;T -&gt; string<br /><br />Full name: Microsoft.FSharp.Core.Operators.string<br /><br />--------------------<br />type string = System.String<br /><br />Full name: Microsoft.FSharp.Core.string</div>
 <div class="tip" id="fs23">type &#39;T option = Option&lt;&#39;T&gt;<br /><br />Full name: Microsoft.FSharp.Core.option&lt;_&gt;</div>
 <div class="tip" id="fs24">Contact1.Number: int option</div>
 <div class="tip" id="fs25">Multiple items<br />val int : value:&#39;T -&gt; int (requires member op_Explicit)<br /><br />Full name: Microsoft.FSharp.Core.Operators.int<br /><br />--------------------<br />type int = int32<br /><br />Full name: Microsoft.FSharp.Core.int<br /><br />--------------------<br />type int&lt;&#39;Measure&gt; = int<br /><br />Full name: Microsoft.FSharp.Core.int&lt;_&gt;</div>
-<div class="tip" id="fs26">type Contact2 =<br />&#160;&#160;| AddressAndNumber of string * int<br />&#160;&#160;| Address of string<br />&#160;&#160;| Number of int<br /><br />Full name: Types-and-maths_.Contact2</div>
+<div class="tip" id="fs26">type Contact2 =<br />&#160;&#160;| AddressAndNumber of string * int<br />&#160;&#160;| Address of string<br />&#160;&#160;| Number of int<br /><br />Full name: Types-and-maths.aspx_.Contact2</div>
 <div class="tip" id="fs27">union case Contact2.AddressAndNumber: string * int -&gt; Contact2</div>
 <div class="tip" id="fs28">union case Contact2.Address: string -&gt; Contact2</div>
 <div class="tip" id="fs29">union case Contact2.Number: int -&gt; Contact2</div>

@@ -10,20 +10,20 @@
   <meta name="author" content="Tomas Petricek">
 
   <!-- Reference Foundation -->
-  <link rel="stylesheet" href="http://test.tomasp.net/css/foundation.css">
-  <script src="http://test.tomasp.net/js/vendor/custom.modernizr.js"></script>
+  <link rel="stylesheet" href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/css/foundation.css">
+  <script src="cjs/vendor/custom.modernizr.js"></script>
 
   <!-- Reference custom CSS and tooltips -->
-  <link type="text/css" rel="stylesheet" href="http://test.tomasp.net/custom/style.css" />
-  <script type="text/javascript" src="http://test.tomasp.net/custom/tooltips.js"></script>
-  <link type="text/css" rel="stylesheet" href="http://test.tomasp.net/custom/tooltips.css" />
+  <link type="text/css" rel="stylesheet" href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/custom/style.css" />
+  <script type="text/javascript" src="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/custom/tooltips.js"></script>
+  <link type="text/css" rel="stylesheet" href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/custom/tooltips.css" />
 </head>
 <body>
 
    <header id="top-header">
     <div class="row">
       <div class="twelve columns">
-        <h1>Tomas Petricek's blog</h1>
+        <h1><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/">Tomas Petricek's blog</a></h1>
         <p>Writing about practical F# coding and programming language research</p>
       </div>
     </div>
@@ -39,24 +39,23 @@
     </ul>
     <section class="top-bar-section">
       <ul class="right">
-        <li><a href="#">Blog</a></li>
-        <li><a href="#">Trainings</a></li>
-        <li><a href="#">Books</a></li>
-        <li><a href="#">Talks</a></li>
-        <li><a href="#">Research & Teaching</a></li>
+        <li><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/index.html">Blog</a></li>
+        <li><a href="http://functional-programming.net">Trainings</a></li>
+        <li><a href="http://functional-programming.net">Books</a></li>
+        <li><a href="http://lanyrd.com/profile/tomasp">Talks</a></li>
+        <li><a href="http://www.cl.cam.ac.uk/~tp322">Research & Teaching</a></li>
       </ul>
     </section>
 
     </nav></div>
   </header>
   
-  <content>
-    
-
+  
 <div class="row">
 	<div class="large-8 columns main-content">
     <content>
-    <h1>Calculating with infinite sequences on MSDN</h1>
+      
+<h1>Calculating with infinite sequences on MSDN</h1>
 <p>About a year ago, I wrote <a href="http://tomasp.net/blog/lazy-computation-on-msdn.aspx">an article</a> about using lazy computations in C# 3.0. It was published by the C# Community PM <a href="http://blogs.msdn.com/charlie/" type="external">Charlie Calvert</a> at the C# Developer Center. The article was a first of two articles where I wanted to demonstrate that C# 3.0 can be used for implementing useful constructs known from functional languages. I realized that I never posted the link to the second article to my blog, so you can find the annotation and link below.</p>
 
 <p>However, I remembered about these two articles because I was just working on chapters 11 and 12 of the <a href="http://tomasp.net/blog/functional-net-update.aspx">Real-world Functional Programming in .NET</a> book that I’m writing. Lazy values, which were the topic of my first article, are discussed in the second part of chapter 11 and IEnumerable and F# sequences are the topic for the first part of chapter 12. Because I already wrote two articles on this topic, I had to think really hard to find better (and still simple enough) examples where these concepts are useful in practice. I also finally have enough space to show how these two concepts relate and talk about some interesting background – for example in Haskell, lazy sequences are in fact just ordinary lists that are lazy thanks to the Haskell nature. </p>
@@ -69,19 +68,72 @@ In this article I will show that lazy lists can be implemented using the <code>I
 <p style="text-indent:0px">You can read the complete article here: <a href="http://msdn.microsoft.com/en-us/vcsharp/cc307157.aspx" type="external">Calculating with Infinite Sequences in C#</a> - C# Developer Center</p>
 
 <p>By the way, I apologize for writing about the book all the time :-), but I hope you can understand that! I just "redirected" all my writing activities to the book, so the blog has been a little bit quiet and when I find the time to write something, it is usually inspired by working on the book, so I have to reference it… But I promise that the next couple of articles will be technical and I believe quite interesting!</p>
+
     </content>
 
   </div>
-	<div class="large-4 columns">
-    <div style="background:black; text-align:center;padding:20px;">
-      <img src="http://tomasp.net/calendar/2013/august_sm.jpg" />
+  <div class="large-4 columns" id="right-bar">
+    <script type="text/javascript">
+      var monthNames =
+        [ "January", "February", "March", "April", "May", "June",
+          "July", "August", "September", "October", "November", "December"];
+      var d = new Date();
+    </script>
+    <div class="right-item" id="right-calendar">
+      <h4>Calendar -  <script type="text/javascript">document.write(monthNames[d.getMonth()] + " " + d.getFullYear());</script></h4>
+      <img src="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/calendar/current.jpg" />
+      <p>The calendar shows a new picture each month since 
+        <a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/calendar/2005">2005</a>, <a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/calendar/2006">2006</a>, 
+        <a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/calendar/2007">2007</a>, <a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/calendar/2008">2008</a>, 
+        <a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/calendar/2009">2009</a>, <a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/calendar/2010">2010</a>, 
+        <a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/calendar/2011">2011</a>, <a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/calendar/2012">2012</a>. <br />
+        See the first photos of <a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/calendar/2013">2013</a>.
+      </p>
     </div>
 
-		<h4>Right panel</h4>
-	</div>
+    <h3>Welcome!</h3>
+    <img src="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/img/tomas.jpg" alt="Tomas Petricek" style="float:right;margin:10px 0px 10px 10px;" />
+    <p>I'm an F# enthusiast, book author and a PhD student at the University of Cambridge.
+      When offline, I enjoy traveling and taking pictures. You can find me at
+      at <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a> or email 
+      <a href="mailto:tomas@tomasp.net">tomas@tomasp.net</a>.
+    </p>
+
+    <h4>Trainings and consulting</h4>
+    <img src="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/img/skillsmatter.png" alt="Tomas Petricek" style="float:right;margin:15px 0px 10px 10px;" />
+    <p>I run F# and functional programming courses in <strong>London</strong>
+      and <strong>New York</strong> with SkillsMatter.
+    </p>
+    <ul>
+      <li>Check out our <a href="http://skillsmatter.com/course/scala/tomas-petricek-phil-trelford-fast-track-to-fsharp/ps-6679">Fast Track to F#</a> course</li>
+      <li><a href="mailto:tomas@tomasp.net">Email me</a> for info about private trainings</li>
+    </ul>
+    
+    <h4>F# Books and articles</h4>
+    <div style="float:right;">
+      <a href="http://www.amazon.com/gp/product/1933988924/ref=as_li_tf_il?ie=UTF8&amp;tag=httptomasnet-20&amp;linkCode=as2&amp;camp=217145&amp;creative=399369&amp;creativeASIN=1933988924">
+        <img src="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/img/rwfp.jpg" alt="Real World Functional Programming" style="float:right;margin:10px 0px 10px 10px;border-style:none;" />
+      </a>
+    </div>
+    <p><a href="http://www.manning.com/petricek">Real World Functional Programming</a> explains functional
+      concepts using F# and C#. You can get it from <a href="http://www.amazon.com/dp/1933988924?tag=httptomasnet-20&amp;camp=213381&amp;creative=390973&amp;linkCode=as4&amp;creativeASIN=1933988924&amp;adid=0F1DP260JGG4KY0CDGP6">Amazon.com</a>, <a href="https://www.amazon.co.uk/dp/1933988924?tag=tomasnet-21&amp;camp=1406&amp;creative=6394&amp;linkCode=as1&amp;creativeASIN=1933988924&amp;adid=1CTY87YCCQEJW965GNDF">Amazon.co.uk</a> or your favorite book store.
+      Some chapters and new materials are also available on <a href="http://msdn.microsoft.com/en-us/library/hh314518.aspx">MSDN</a>.</p>
+    
+    <p>Currently, I'm putting together <a href="http://www.manning.com/petricek2/">F# Deep Dives</a> - a collection
+      of practical F# essays written by community leaders and commercial users of F#.</p>
+    <p>I also wrote a series of tutorials on <a href="http://www.tryfsharp.org/Learn/financial-computing">financial computing</a>
+      for Try F# - an interactive environment that let's you try F# in the browser.</p>
+
+    <h4>Research and teaching</h4>
+    <img src="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/img/cam.png" alt="University of Cambride" style="float:right;margin:25px 0px 10px 10px;" />
+    <p>I'm finishing PhD in computer science at the <a href="http://www.cl.cam.ac.uk/">University of Cambridge</a>.
+      I'm working on making better types for programs that run in rich context (like F# type providers, distributed 
+      prog&shy;ramming or data-flow). See <a href="http://www.cl.cam.ac.uk/~tp322/">my academic page</a> for
+      more.</p>
+
+  </div>
 </div>
 
-  </content>
 
   <footer>
     tomas
@@ -89,11 +141,11 @@ In this article I will show that lazy lists can be implemented using the <code>I
 
   <script>
   document.write('<script src=' +
-  ('__proto__' in {} ? 'js/vendor/zepto' : 'js/vendor/jquery') +
+  ('__proto__' in {} ? 'file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/js/vendor/zepto' : 'file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/js/vendor/jquery') +
   '.js><\/script>')
   </script>
   
-  <script src="js/foundation.min.js"></script>
+  <script src="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/js/foundation.min.js"></script>
   <script>
     $(document).foundation();
   </script>

@@ -57,18 +57,7 @@
 	<div class="large-8 columns main-content">
     <content>
     <h1>Concepts behind the C# 3.0 language</h1>
-<doc version="2" hidedescr="true">
-<intro>
 
-<p>One of the lectures that I attended last year was <a href="http://www.mff.cuni.cz/toISO-8859-2.en/vnitro/is/sis/predmety/kod.php?kod=PRG003">Programming Methodology and Philosophy of Programming Languages</a>. The lecture was mostly about history of programming languages and how several features evolved, disappeared and than after many years appeared again in another programming language.</p>
-
-<p>As I final work I decided to write an article that describes ideas that influenced the design of the C# 3.0 language. Some of these features are known from functional languages (for example from LISP or Haskell), some other were developed at Microsoft Research and appeared in the F# language or Cω. I also wanted to show in what ways are these features limited in the C# 3.0. I think that thanks to these limitation, the C# 3.0 is still a simple (or at least not difficult) to understand which is very important for mainstream language, but I find it interesting to know what is possible in other (less limited) languages.</p>
-
-<ul><li>You can also <a href="http://tomasp.net/articles/csharp3-concepts/csharp3-concepts.pdf">download the article in PDF</a> (404kB)</li>
-<li>The article is also available at <a href="http://www.codeproject.com/useritems/csharp3-concepts.asp">CodeProject.com</a></li></ul>
-
-</intro>
-<body>
 
 
 <h2>1 Introduction</h2>
@@ -120,7 +109,7 @@
 
 <pre>// Declaration of binding 'add' that is initialized
 // to function using lambda expression
-let add = (fun x y -> x + y);;
+let add = (fun x y -&gt; x + y);;
 
 // Standard function declaration (shorter version, 
 // but the result is same as in previous example)
@@ -130,18 +119,18 @@ let add x y = x + y;;
 let add10 = add 10;;</pre>
 
 <p>The first what this example shows, is that in F#, functions are type like any other. This means that unlike in most of the languages where functions are something else than global variables, functions in F# are just ordinary global variables (or bindings, to be more precise, because by default all data in F# are immutable). This is demonstrated by the first example of add function, which is just a global variable whose value is function created using lambda expression. The second example shows simplified syntax for declaring global functions (but the only difference when compared with first version of add function is syntax!).</p>
-<p>The next example shows currying, which is an operation that takes function and binds its first parameter with specified value. In this case, the parameters are function add (with type int -> int -> int) and constant 10. The result is function (assigned to add10) of type int -> int that adds 10 to specified parameter. The currying operation can be used in any language that has first class functions, but the syntax in F# makes it extremely easy to use. The following examples show some common usages of first class functions, that I will later write in C# as well:</p>
+<p>The next example shows currying, which is an operation that takes function and binds its first parameter with specified value. In this case, the parameters are function add (with type int -&gt; int -&gt; int) and constant 10. The result is function (assigned to add10) of type int -&gt; int that adds 10 to specified parameter. The currying operation can be used in any language that has first class functions, but the syntax in F# makes it extremely easy to use. The following examples show some common usages of first class functions, that I will later write in C# as well:</p>
 
 <pre>// passing function to higher order functions 
 let words = ["Hello"; "world"] in
-iter (fun str -> Console.WriteLine(str); ) words;
+iter (fun str -&gt; Console.WriteLine(str); ) words;
 
 // Returning nested function
 let compose f g = 
-  (fun x -> f (g x));;</pre>
+  (fun x -&gt; f (g x));;</pre>
 
 <p>The first example first declares list containing strings, and than uses function iter that calls function passed as first parameter for every element in the list (note that, F# is not purely functional language, which means that passed function can have side effects, like printing string on the console).</p>
-<p>The second example is function that returns composition of two functions passed as arguments. This is a good example of returning function declared in local scope. The second interesting point in this example, are types of the functions. No types are declared explicitly so type inference algorithm infers that type of first parameter is ‘b -> ‘c, type of second parameter is ‘a -> ‘b and return value has type ‘a -> ‘c (where ‘a, ‘b and ‘c are type parameters). This means that compose function can be used for any two functions, where return type of the second function is the same as the type of the parameter of first function.</p>
+<p>The second example is function that returns composition of two functions passed as arguments. This is a good example of returning function declared in local scope. The second interesting point in this example, are types of the functions. No types are declared explicitly so type inference algorithm infers that type of first parameter is ‘b -&gt; ‘c, type of second parameter is ‘a -&gt; ‘b and return value has type ‘a -&gt; ‘c (where ‘a, ‘b and ‘c are type parameters). This means that compose function can be used for any two functions, where return type of the second function is the same as the type of the parameter of first function.</p>
 <h3>2.2  First class functions in C# 2 and C# 3</h3>
 <p>Since first version of .NET Framework and C#, it provides mechanism called delegates. Delegates are type-safe function pointers that can be passed as a parameter or return value from a function. As mentioned earlier, first version of C# didn’t support declaration of functions inside function body (nested functions), so it was only possible to initialize delegate to globally declared method.</p>
 
@@ -166,9 +155,9 @@ ct(5); // Returns 17</pre>
 
 <pre>IEnumerable&lt;int&gt; nums = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
 IEnumerable&lt;int&gt; odd = nums.Where( (n) =&gt; (n%2) == 1 );
-IEnumerable&lt;int&gt; oddSquares = odd.Select( (n) => n*n );</pre>
+IEnumerable&lt;int&gt; oddSquares = odd.Select( (n) =&gt; n*n );</pre>
 
-<p>The first line of the example declares variable nums, which is array containing numbers from 1 to 10. In the second line the numbers are filtered and returned list odd contains only odd numbers. The Where function takes delegate as a parameter and the delegate is created using lambda expression syntax. In this syntax (n) specifies parameters of the delegate and the expression on the right side of “=>”  token is the body of delegate. The Select function is later used to calculate squares of all odd numbers in the list. One more interesting point in this example is that you don’t have to explicitly declare type of lambda expression parameter when the type can be deduced from the context (this will be discussed in following section).</p>
+<p>The first line of the example declares variable nums, which is array containing numbers from 1 to 10. In the second line the numbers are filtered and returned list odd contains only odd numbers. The Where function takes delegate as a parameter and the delegate is created using lambda expression syntax. In this syntax (n) specifies parameters of the delegate and the expression on the right side of “=&gt;”  token is the body of delegate. The Select function is later used to calculate squares of all odd numbers in the list. One more interesting point in this example is that you don’t have to explicitly declare type of lambda expression parameter when the type can be deduced from the context (this will be discussed in following section).</p>
 <p>Lambda expressions can be also used for accessing the data representation of expressions, but this will be described in more detail alter in the section about meta-programming.</p>
 <h2>3 Type inference</h2>
 <p>Type inference is the feature of strongly typed programming languages that refers to the ability to deduce the data type of an expression. This feature is currently available in many (mostly functional) programming languages including Haskell and ML (and it is also available in F#).</p>
@@ -188,7 +177,7 @@ let id x = x;;
 let idInt (x:int) = x;;</pre>
 
 <p>In this example, no type is explicitly declared, but type of all identifiers is known at compile time. The type of value bindings (num and msg) can be inferred because the type of expression on the right side of binding is known (42 is integer and "Hello world!" is string). In the last example, type of num is known (it is integer) and the “+” operator takes two integer parameters; therefore the type of x parameter must be integer too. Because “+” applied to two integral parameters returns integer, the return type of the function is also integer. </p>
-<p>The last two examples show how to declare identity function in F# (the function that returns passed parameter). The type inference algorithm figures out that the type of returned value is exactly the same as the type of parameter, but it doesn’t know what type exactly it is. In this case, F# type system can use type parameters , so the inferred type is ‘a -> ‘a (where ‘a is type parameter). </p>
+<p>The last two examples show how to declare identity function in F# (the function that returns passed parameter). The type inference algorithm figures out that the type of returned value is exactly the same as the type of parameter, but it doesn’t know what type exactly it is. In this case, F# type system can use type parameters , so the inferred type is ‘a -&gt; ‘a (where ‘a is type parameter). </p>
 <p>If I want to define identity function only for integral values, I need to use type annotations, to provide hints for the compiler. This is shown in the last example where it is explicitly declared that the type of parameter x will be integer. Using this information, type inference algorithm can deduce that the return value of the function will be integer too. </p>
 <h3>3.2 Type inference in C# 3</h3>
 <p>The support for type inference in C# 3 is very limited when compared with type inference in F#, but it is very interesting, because it makes C# first main stream language that supports it (for no obvious reason, type inference was implemented only in functional languages so far).</p>
@@ -197,7 +186,7 @@ let idInt (x:int) = x;;</pre>
 <pre>IEnumerable&lt;int&gt; nums = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
 IEnumerable&lt;int&gt; odd = nums.Where( (n) =&gt; (n%2) == 1 );</pre>
 
-<p>In this example the lambda expression (n) => (n%2) == 1 is used, but the type of parameter n is not explicitly declared. In this case, the compiler knows that the type of parameter expected by the Where function is delegate that takes int as a parameter and returns bool. Based on this information, compiler deduces that the type of n must be an int. It also checks whether the return type of lambda expression matches with the expected return value of the delegate.</p>
+<p>In this example the lambda expression (n) =&gt; (n%2) == 1 is used, but the type of parameter n is not explicitly declared. In this case, the compiler knows that the type of parameter expected by the Where function is delegate that takes int as a parameter and returns bool. Based on this information, compiler deduces that the type of n must be an int. It also checks whether the return type of lambda expression matches with the expected return value of the delegate.</p>
 <p>The second case where type inference is used in the C# 3 is the ability to deduce type of local variable using the var keyword:</p>
 
 <pre>// Some simple examples
@@ -242,7 +231,7 @@ int func(Func&lt;int&gt; first, Func&lt;int&gt; second)
 }
 
 // Parameters are passed using lambda expressions
-func(() => n, () => expensiveCalculation());</pre>
+func(() =&gt; n, () =&gt; expensiveCalculation());</pre>
 
 <p>This function now behaves similarly to its equivalent written in Haskell, because when the second parameter is not needed, the expensiveCalculation function is never invoked. There is only one important difference – when value is needed twice, the function would be evaluated also twice, however this can be simply solved by passing wrapper class that contains delegate for calculating value and stores result of the call locally when it is evaluated.</p>
 <h3>4.2 Infinite lists in C# 3</h3>
@@ -291,11 +280,11 @@ IEnumerable&lt;int&gt; squaresOfEven =
 fibs = 0 : 1 : [a + b | (a, b) &lt;- zip fibs (tail fibs)]
 
 // C# 3
-var fibs = new InfiniteList&lt;int&gt;((t) => 
-  t.ZipWith(t.Tail()).Select((v) => v.First + v.Second),
+var fibs = new InfiniteList&lt;int&gt;((t) =&gt; 
+  t.ZipWith(t.Tail()).Select((v) =&gt; v.First + v.Second),
   0, 1);</pre>
 
-<p>Semantics of both examples are same. The list of Fibonacci numbers is declared recursively using already known elements in the list. The generator section in C# - t.ZipWith(t.Tail()) is equivalent to zip fibs (tail fibs) written in Haskell. In the C# version, it is not possible to reference fibs variable while it is being initialized, so the t is instance of the list passed to the generator to allow recursive declarations. The projection secion in C# - Select((v) => v.First + v.Second) is equivalent to a + b | (a, b) from Haskell, the difference here is that C# doesn’t directly support tuples, so tuple is represented as structure with members First and Second. The filtering section is not used in this example and finally, the last two parameters (0, 1) define initial values in the list which is equal to declaration of first two values in Haskell (0 : 1 : …).</p>
+<p>Semantics of both examples are same. The list of Fibonacci numbers is declared recursively using already known elements in the list. The generator section in C# - t.ZipWith(t.Tail()) is equivalent to zip fibs (tail fibs) written in Haskell. In the C# version, it is not possible to reference fibs variable while it is being initialized, so the t is instance of the list passed to the generator to allow recursive declarations. The projection secion in C# - Select((v) =&gt; v.First + v.Second) is equivalent to a + b | (a, b) from Haskell, the difference here is that C# doesn’t directly support tuples, so tuple is represented as structure with members First and Second. The filtering section is not used in this example and finally, the last two parameters (0, 1) define initial values in the list which is equal to declaration of first two values in Haskell (0 : 1 : …).</p>
 <h3>4.3 Lazy evaluation summary</h3>
 <p>The lazy evaluation strategy can be simulated in many non-functional languages, because it is general concept, however in most of these languages this simulation would be difficult and inconvenient to use. Thanks to new features available in latest version of C# 3, some of concepts known from functional programming (including lazy evaluation and list comprehensions) can be naturally used in C#.</p>
 <h2>5 Anonymous types</h2>
@@ -401,8 +390,8 @@ var q =
 
 <pre>let query =
     db.active.Customers
-    |&gt; where &lt;@ fun c -> c.City = "London" @&gt;
-    |&gt; select &lt;@ fun c -> c.ContactName @&gt;;; </pre>
+    |&gt; where &lt;@ fun c -&gt; c.City = "London" @&gt;
+    |&gt; select &lt;@ fun c -&gt; c.ContactName @&gt;;; </pre>
 
 <p>There is one more very interesting feature in F# that I didn’t mention so far. I will demonstrate this on the example with lambda expression that calls doSomeMath function. F# allows you to expand all top-level definitions in the code representation with its actual value. This means that the call to doSomeMath function can be replaced with its actual implementation. This can be for example used, to allow the developer to use custom functions in data query expressions .</p>
 <h3>6.5 Meta-programming summary</h3>
@@ -429,8 +418,7 @@ var q =
 
 
 
-</body>
-</doc>
+
     </content>
 
   </div>

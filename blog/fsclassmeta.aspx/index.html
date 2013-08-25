@@ -57,29 +57,7 @@
 	<div class="large-8 columns main-content">
     <content>
     <h1>F# metaprogramming and classes</h1>
-<doc version="2" hidedescr="true">
-<intro>
 
-<p>F# quotations allows you to easily write programs that manipulate with data representation
-  of program source code. If you're not familiar with quotations I recommend reading my 
-  previous article [<a href="#fsclassmeta-links">1</a>] that contains short introduction
-  to this topic first. Quotations can be used for example for translating subset of the F# language to 
-  another code representation or another language.</p>
-  
-<p>To get the quotation data of the expression you can either use <code>&lt;@ .. @&gt;</code> 
-  operator or <code>resolveTopDef</code> function. In the first case the code written
-  between the "<code>&lt;@</code>" and "<code>@&gt;</code>" is converted to data during the compilation.
-  The <code>resolveTopDef</code> function allows you to get quotation data of top-level 
-  definition (function) from compiled library at runtime (you have to use <code>--quotation-data</code> 
-  command line switch while compiling the library). I mentioned that quotations can be used to represent 
-  only subset of the F# language. Currently, one of the quotation limitations is that it's not possible to 
-  enclose the whole class in the quotation operators. It is also not possible to get the representation 
-  of the whole class at runtime nor the representation of class members (for example methods). </p>
-<p>In this article I'll present a simple method that makes it possible to use F# quotations for working with classes as well, however this is rather a prototype that can be used for experimenting and discovering areas where working with classes might be useful, not a fully working solution.</p>
-
-
-</intro>
-<body>
 
 
 
@@ -136,8 +114,8 @@
 /// Query function tests whether member is of specified type
 /// Make function creates member</span><br />
 <span class="k">type</span> 'a classMemberFamily <span class="k">with</span><br />
-  <span class="k">member</span> Query : classMember -> 'a option
-  <span class="k">member</span> Make : 'a -> classMember
+  <span class="k">member</span> Query : classMember -&gt; 'a option
+  <span class="k">member</span> Make : 'a -&gt; classMember
 <span class="k">end</span>;;
 
 <span class="c">/// Constructor declaration 
@@ -172,25 +150,25 @@
 
 <span class="c">// Module with implementation of methods</span><br />
 <span class="k">module</span> Person_Meta = <span class="k">begin</span>
-&#160;&#160;<span class="c">// Simulates field of the class</span>
-&#160;&#160;<span class="k">let</span> name = <span class="k">ref</span> ""
+  <span class="c">// Simulates field of the class</span>
+  <span class="k">let</span> name = <span class="k">ref</span> ""
   
   <span class="c">// Represents constructor</span>
-&#160;&#160;<span class="k">let</span> ctor (n) =
+  <span class="k">let</span> ctor (n) =
     name := n
     
   <span class="c">// Represents method</span>
-&#160;&#160;<span class="k">let</span> Say (pre:string) =
+  <span class="k">let</span> Say (pre:string) =
     let s = pre^", my name is "^(!name)^"." in
     print_string s
   
   <span class="c">// Represents property  </span>
-&#160;&#160;<span class="k">let</span> get_Name () =
+  <span class="k">let</span> get_Name () =
     (!name)
-&#160;&#160;<span class="k">let</span> set_Name (value) =
+  <span class="k">let</span> set_Name (value) =
     name:=value
 <span class="k">end</span>
-&#160;<br /><br />&#160;
+ <br /><br /> 
 <span class="c">// The real class
 // Members are just a placeholders and the quotations
 // are extracted from the previous module</span><br />
@@ -223,25 +201,25 @@
     Console.WriteLine(<span class="s">" base: {0}"</span>, clsInfo.baseName)
   
   <span class="c">// Iterate through class members</span>
-  clsInfo.members |> List.iter ( <span class="k">fun</span> m ->
+  clsInfo.members |&gt; List.iter ( <span class="k">fun</span> m -&gt;
       <span class="k">match</span> cmfMethod.Query m <span class="k">with</span>
-        | Some (name, expr, ret) ->
+        | Some (name, expr, ret) -&gt;
             Method <span class="s">"printf ( %s : %a ) = "</span> name output_any ret
-        | _ ->
+        | _ -&gt;
       <span class="k">match</span> cmfField.Query m <span class="k">with</span>
-        | Some (name, typ, init) ->
+        | Some (name, typ, init) -&gt;
             printf <span class="s">"Field ( %s : %a) "</span> name output_any typ
-        | _ ->
+        | _ -&gt;
       <span class="k">match</span> cmfProp.Query m <span class="k">with</span>
-        | Some (name, getter, setter, typ) ->
+        | Some (name, getter, setter, typ) -&gt;
             printf <span class="s">"Property ( %s : %a )\n"</span> name output_any typ
             printf <span class="s">"get = %a\n"</span> output_any getter
             printf <span class="s">"set = %a\n\n"</span> output_any setter
-        | _ ->
+        | _ -&gt;
       <span class="k">match</span> cmfCtor.Query m <span class="k">with</span>
-        | Some (expr) ->
+        | Some (expr) -&gt;
             printf <span class="s">"Ctor = %a\n\n"</span> output_any expr
-        | _ ->
+        | _ -&gt;
             failwith <span class="s">"Error!"</span>
     ) 
 </pre>
@@ -271,8 +249,7 @@
 
 
 
-</body>
-</doc>
+
     </content>
 
   </div>

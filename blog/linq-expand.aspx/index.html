@@ -57,35 +57,7 @@
 	<div class="large-8 columns main-content">
     <content>
     <h1>Calling functions in LINQ queries</h1>
-<doc version="2" hidedescr="true">
-<intro>
-<p>The <a href="http://msdn.microsoft.com/data/ref/linq/">LINQ Project</a> [<a href="http://msdn.microsoft.com/data/ref/linq/" target="_blank">^</a>] is 
-  an extension to .NET Framework and most important .NET languages (C# and VB.Net) that extends these languages with query operators and some 
-  language features that make it possible to integrate queries in the languages. Thanks to LINQ you can write queries that read data from database
-  (or any other data source). For example, imagine that you want to write set of queries for eshop and you need to perform a price calculation
-  in more queries. The problem with LINQ queries is that you can't simply call a function written in C# that calculates price. The following example
-  is NOT WORKING for this reason:</p>
-<pre>
-<span class="c">// function used in filter</span><br />
-<span class="k">static</span>&#160;<span class="k">decimal</span> CalcPrice(Nwind.Product p)
-{
-  <span class="k">return</span> p.UnitPrice * 1.19m;
-}</pre>
-<pre>
-<span class="c">// query that uses MyFunc</span><br />
-<span class="k">var</span> q = 
-  <span class="k">from</span> p <span class="k">in</span> db.Products
-  <span class="k">where</span> CalcPrice(p) > 30m
-  <span class="k">select</span> p
-</pre>
-<p>I think that this is a big limitation, because when you want to keep some more complex logic in the data access layer you should be able to reuse 
-  parts of queries that are similar across more queries. The good thing is that with latest release, LINQ became extensible so it is possible
-  to write a extensions that allow this scenario...</p>
-<ul>
-<li>You can also <a href="http://tomasp.net/articles/linq-expand/linq-expand.pdf">download the article in PDF</a> (80kB)</li>
-</ul>  
-</intro>
-<body>
+
 
 
 
@@ -104,7 +76,7 @@
   <code>MyTest</code> in the <code>where</code> clause:</p>
 <pre>
 <span class="c">// function used in filter</span><br />
-<span class="k">static</span>&#160;<span class="k">bool</span> MyFunc(Nwind.Product p)
+<span class="k">static</span> <span class="k">bool</span> MyFunc(Nwind.Product p)
 {
   <span class="k">return</span> p.ProductName.StartsWith("B");
 }</pre>
@@ -112,7 +84,7 @@
 <span class="c">// query that uses MyFunc</span><br />
 <span class="k">var</span> q = 
   <span class="k">from</span> p <span class="k">in</span> db.Products
-  <span class="k">where</span> MyPriceFunc(p.UnitPrice) > 30m
+  <span class="k">where</span> MyPriceFunc(p.UnitPrice) &gt; 30m
   <span class="k">select</span> p
 </pre>
 
@@ -142,7 +114,7 @@
 <span class="k">var</span> q = 
   <span class="k">from</span> p <span class="k">in</span> db.Products
     <span class="k">where</span> (p.UnitPrice * 1.19m) &gt; 30.0m
-    <span class="k">select</span>&#160;<span class="k">new</span>
+    <span class="k">select</span> <span class="k">new</span>
       { 
         p.ProductName, 
         OriginalPrice = p.UnitPrice,
@@ -155,13 +127,13 @@
 <pre>
 <span class="c">// Lambda expression that calculates the price</span>
 Expression&lt;Func&lt;Nwind.Product, decimal?&gt;&gt; calcPrice = 
-  (p) => p.UnitPrice * 1.19m;
+  (p) =&gt; p.UnitPrice * 1.19m;
 
 <span class="c">// Query that selects products</span><br />
 <span class="k">var</span> q = 
   <span class="k">from</span> p <span class="k">in</span> db.Products.<strong>ToExpandable()</strong><br />
-<span class="k">&#160;&#160;where</span> calcPrice.<strong>Invoke(p)</strong> &gt; 30.0m
-    <span class="k">select</span>&#160;<span class="k">new</span> 
+<span class="k">  where</span> calcPrice.<strong>Invoke(p)</strong> &gt; 30.0m
+    <span class="k">select</span> <span class="k">new</span> 
       { 
         p.ProductName, 
         OriginalPrice = p.UnitPrice,
@@ -243,17 +215,17 @@ Expanded: i =&gt; Add(Multiply(i, 10), 2)
 <pre>
 <span class="c">// What happens when we use Compile() instead of Invoke()?</span>
 Expression&lt;Func&lt;<span class="k">int</span>, <span class="k">int</span>&gt;&gt; wrong =
-  i => calc.Compile().Invoke(i) + 2;
+  i =&gt; calc.Compile().Invoke(i) + 2;
 Console.WriteLine(wrong.ToString());
 </pre>
 <p>The following output contains the delegate which is the result of <code>Compile</code> method (embedded using <code>value</code>)
   instead of inner expression tree that is needed for replacement:</p>
 <pre>
-i => Add(value(System.Query.Func`2
+i =&gt; Add(value(System.Query.Func`2
        [System.Int32,System.Int32]).Invoke(i), 2)
 </pre>
 
-<p>You may be also wondering whether you could write <code>(x => calc.Invoke(x) + 1).Expand()</code> instead of using a variable
+<p>You may be also wondering whether you could write <code>(x =&gt; calc.Invoke(x) + 1).Expand()</code> instead of using a variable
   for expression tree. If you try it, you'll get an error message saying that "Operator '.' cannot be applied to operand of type anonymous method."
   The problem here is that compiler needs some way to decide whether lambda expression should be returned as a delegate or as 
   an expression tree. This depends on the type of variable to which lambda expression is assigned and in this code it is
@@ -264,11 +236,11 @@ i => Add(value(System.Query.Func`2
 <span class="c">// Use Expand as standard static method</span>
 Expression&lt;Func&lt;<span class="k">int</span>, <span class="k">int</span>&gt;&gt; ret = 
   ExpressionExtensions.Expand&lt;Func&lt;<span class="k">int</span>, <span class="k">int</span>&gt;&gt;
-    ( (int x) => calc.Invoke(x) + 2 );
+    ( (int x) =&gt; calc.Invoke(x) + 2 );
     
 <span class="c">// In this case type is specified so you can use var</span><br />
 <span class="k">var</span> ret = ExpressionExtensions.Expand&lt;Func&lt;<span class="k">int</span>, <span class="k">int</span>&gt;&gt;
-  ( x => calc.Invoke(x) + 2 );
+  ( x =&gt; calc.Invoke(x) + 2 );
 </pre>
 <p>This would be even more interesting if C# 3 were able to infer return type from the type of lambda expression,
   but this is not possible in the current version, so you have to specify type explicitly. In this case type arguments of 
@@ -294,7 +266,7 @@ Expression&lt;Func&lt;<span class="k">int</span>, <span class="k">int</span>&gt;
 <pre>
 <span class="k">var</span> q = 
   <span class="k">from</span> p <span class="k">in</span> db.Products.ToExpandable()
-    <span class="k">where</span> calcPrice.Invoke(p) > 30.0m
+    <span class="k">where</span> calcPrice.Invoke(p) &gt; 30.0m
     <span class="k">select</span> p;
 </pre>
 <p>In this query, the <code>ToExpandable</code> method is used for creating the wrapper around DLINQ object that represents 
@@ -310,15 +282,15 @@ Expression&lt;Func&lt;<span class="k">int</span>, <span class="k">int</span>&gt;
 // (_item is underlying IQueryable passed in the constructor)</span><br />
 <span class="k">public</span> IQueryable&lt;S&gt; CreateQuery&lt;S&gt;(Expression expression)
 {
-  <span class="k">return</span>&#160;<span class="k">new</span> ExpandableWrapper&lt;S&gt;
+  <span class="k">return</span> <span class="k">new</span> ExpandableWrapper&lt;S&gt;
     (_item.CreateQuery&lt;S&gt;(expression.Expand()));
 }</pre>
 <p class="ni">The method that creates first <code>ExpandableWrapper</code> is already mentioned method <code>ToExpandable</code>:</p>		
 <pre>
 <span class="c">// Returns wrapper that automatically expands expressions</span><br />
-<span class="k">public</span>&#160;<span class="k">static</span> IQueryable&lt;T&gt; ToExpandable&lt;T&gt;(<span class="k">this</span> IQueryable&lt;T&gt; q)
+<span class="k">public</span> <span class="k">static</span> IQueryable&lt;T&gt; ToExpandable&lt;T&gt;(<span class="k">this</span> IQueryable&lt;T&gt; q)
 {
-  <span class="k">return</span>&#160;<span class="k">new</span> ExpandableWrapper&lt;T&gt;(q);
+  <span class="k">return</span> <span class="k">new</span> ExpandableWrapper&lt;T&gt;(q);
 }
 </pre>
 
@@ -341,7 +313,7 @@ Expression&lt;Func&lt;<span class="k">int</span>, <span class="k">int</span>&gt;
   allowing something like this (though I'm not sure whether this is an acceptable solution):</p>
 <pre>
 Expression&lt;Func&lt;Product,_&gt;&gt; selector = 
-  p =>&#160;<span class="k">new</span> { p.ProductName, p.UnitPrice };
+  p =&gt; <span class="k">new</span> { p.ProductName, p.UnitPrice };
 </pre>  
 <p>This can be partially solved by using method that returns <code>Expression</code>, because method type
   parameters can be inferred, so you it wouldn't be needed to specify return type explicitly. The problem is 
@@ -361,7 +333,7 @@ Expression&lt;Func&lt;Product,_&gt;&gt; selector =
 <pre>
 <span class="c">// Expression with anonymous return type! (unfortunatelly current 
 // preview isn't able to infer type from the lambda expression)</span>  <br />
-<span class="k">var </span>ret = CreateExpr( (Product p) => 
+<span class="k">var </span>ret = CreateExpr( (Product p) =&gt; 
   <span class="k">new</span> { p.ProductName, Price = p.UnitPrice} );
 </pre>
 
@@ -371,7 +343,7 @@ Expression&lt;Func&lt;Product,_&gt;&gt; selector =
   For now, I used Reflector to extract this class, because I didn't want to write the same class myself and I see 
   no reasons why the class shouldn't be public in the future.</p>   
 
-<h2>References and downloads<a name="lqlinks">&#160;</a></h2>
+<h2>References and downloads<a name="lqlinks"> </a></h2>
 <ul class="ref">
   <li><a href="http://tomasp.net/articles/linq-expand/linq-expand.pdf">Download the article in PDF</a> (81kB)</li>
   <li><a href="http://tomasp.net/articles/linq-expand/demos.zip">Download code samples</a> (35kB)</li>
@@ -387,7 +359,7 @@ Expression&lt;Func&lt;Product,_&gt;&gt; selector =
     [<a href="http://channel9.msdn.com/showpost.aspx?postid=202138" target="_blank">^</a>]</li>
 </ul>
 
-</body></doc>
+
     </content>
 
   </div>

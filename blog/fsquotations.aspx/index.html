@@ -57,21 +57,7 @@
 	<div class="large-8 columns main-content">
     <content>
     <h1>F# - Simple quotations transformation</h1>
-<doc version="2" hidedescr="true">
-<intro>
-<p>This article describes very simple code that I wrote while learning
-  how to work with the F# quotations library. Using the F# quotations you 
-  can get tree representation of the quoted expression. This allows you
-  to write code that takes code written in F# as data and performs some
-  code analysis or compiles/translates that code to different language.
-  This is very similar to the new C# 3.0 expression trees where you can 
-  get expression tree from lambda expression and translate this tree 
-  for example to SQL (using DLINQ). However expression trees in C# 3.0 
-  are very limited when compared with F# quotations, so that's one of 
-  the many reasons why F# is interesting language.</p>
 
-</intro>
-<body>
 <p>This article describes very simple code that I wrote while learning
   how to work with the F# quotations library. Using the F# quotations you 
   can get tree representation of the quoted expression. This allows you
@@ -156,11 +142,11 @@ type simple_expr =
 <pre>
 let what_is x =
   match Raw.efInt32.Query x with  
-    | Some (_) -> "number";
-    | _ -> 
+    | Some (_) -&gt; "number";
+    | _ -&gt; 
   match Raw.efApps.Query x with  
-    | Some (_) -> "application";
-    | _ -> 
+    | Some (_) -&gt; "application";
+    | _ -&gt; 
       "something else...";
 	    
 <span class="c">// Prints "number"</span>	    
@@ -227,7 +213,7 @@ let rec parse x =
   we recursively call <code>parse</code> function to all arguments of operator.
   Once we know the function name and we have arguments translated to <code>simple_expr</code>,
   we can return the according <code>simple_expr</code> value.</p>
-</body></doc>
+
     </content>
 
   </div>

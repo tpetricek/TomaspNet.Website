@@ -5,21 +5,7 @@
       Date = "6/21/2006 2:20:03 AM";
       Description = "Application that displays graphical representation of given F# quotation (using Windows Forms TreeView control)";
     }<h1>F# quotations visualizer</h1>
-<doc version="2" hidedescr="true">
-<intro>
 
-<p>I already <a href="http://tomasp.net/blog/fsquotations.aspx">explained</a> what F# quotations are
-  and I explained how you can do some simple manipulations with it. In this article I'd like to 
-  present an application that I wrote and that can be helpful when working with quotations. 
-  It displays clear graphical representation of given F# quotation (using Windows Forms TreeView control).
-  </p>
-
-<div style="text-align:center;">
-  <a href="http://tomasp.net/articles/quotvis/qv_apps.gif" target="_blank"><img style="margin:10px;border-style:none;" src="http://tomasp.net/articles/quotvis/qv_apps_sm.gif" alt="Quotation Visualizer" /></a>
-</div>
-
-</intro>
-<body>
 
 <p>I already <a href="http://tomasp.net/blog/fsquotations.aspx">explained</a> what F# quotations are
   and I explained how you can do some simple manipulations with it. In this article I'd like to 
@@ -59,13 +45,13 @@ type expr =
 <pre lang="fsharp">
 // Test whether q is conditional expression using efCond.Query
 match Raw.efCond.Query q with
-  | Some (_,(cond,trueBranch,falseBranch)) ->
+  | Some (_,(cond,trueBranch,falseBranch)) -&gt;
       // cond        - 'expr' that represents condition
       // trueBranch  - 'expr' that represents the true branch
       // falseBranch - 'expr' that represents the false branch
       print_string "If-then-else statement"
       
-  | None -> 
+  | None -&gt; 
       print_string "Something else"
 </pre>  
 <p>This was just a few words to explain what the application does and to help you understand the 
@@ -130,4 +116,3 @@ match Raw.efCond.Query q with
   <li><a href="http://tomasp.net/articles/quotvis/quotvis_fs.zip">Download the application (including fslib.dll)</a> (384kB)</li>
 </ul>
 
-</body></doc>

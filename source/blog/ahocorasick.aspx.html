@@ -5,19 +5,7 @@
       Date = "12/4/2005 12:18:30 AM";
       Description = "C# implementation of very efficient Aho-Corasick keyword matching algorithm with multiple keywords support.";
     }<h1>Aho-Corasick string matching in C#</h1>
-<doc version="2" hidedescr="true">
-<intro>
-
-<p>I implemented this algorithm because I worked on one project where we needed to filter bad language in comments submited by users (You wouldn't believe what anonymous users sometimes write). First I tried simple solution using <code>String.IndexOf</code> and using <code>Regex</code>, but none of these solutions was very suitable for this problem, so I decided to implement Aho-Corasick algorithm which is probabbly the best algorithm for this purpose.</p>
-
-<p>Article (published here an on CodeProject.com) describes implementation of this algorithm for pattern matching. In simple words this algorithm can be used for searching text for specified keywords. This implementation is usefull when you have a set of keywords and you want to find all occurences in text or check if any of the keywords is present in the text. You should use this algorithm especially if you have large number of keywords that don't change often, because in this case it is much more efficient than other algorithms that can be simply implemented using .NET class library.</p>
-
-<p>Aho-Corasick search algorithm is very efficient if you want to find large number of keywords in the text, but if you want to search only for a few keywords it is better to use simple method using <code>String.IndexOf</code>. </p>
-
-</intro>
-
-
-<body><ul class="download"><li><a href="/articles/ahocorasick/demo.zip">Download demo application - 67 Kb </a></li><li><a href="/articles/ahocorasick/source.zip">Download library with source - 49 Kb</a></li></ul><h2>Introduction</h2><p>In this article I will describe implementation of an efficient Aho-Corasick algorithm for pattern matching.
+<ul class="download"><li><a href="/articles/ahocorasick/demo.zip">Download demo application - 67 Kb </a></li><li><a href="/articles/ahocorasick/source.zip">Download library with source - 49 Kb</a></li></ul><h2>Introduction</h2><p>In this article I will describe implementation of an efficient Aho-Corasick algorithm for pattern matching.
 		In simple words this algorithm can be used for searching text for specified keywords. Following code
 		is usefull when you have a set of keywords and you want to find all occurences in text or check if any of 
 		the keywords is present in the text. You should use this algorithm especially if you have large number of
@@ -110,4 +98,4 @@ foreach(StringSearchResult r in results)
     <code>String.IndexOf</code>. Code can be compiled in both .NET 1.1 and .NET 2.0 without any modifications.
     If you want to learn more about this algorithm look at the link in the next section, that was very useful for me
     during implementation of algorithm and explains theory behind this algorithm.</p><h2>Links and references</h2><ul class="externallinks"><li><a href="http://www.cs.uku.fi/~kilpelai/BSA05/lectures/slides04.pdf">Set Matching and Aho-Corasick Algorithm</a>
-			[<a href="http://www.cs.uku.fi/~kilpelai/BSA05/lectures/slides04.pdf" target="_blank">^</a>] - Pekka Kilpeläinen (University of Kuopio)</li></ul><h2>Future work and history</h2><ul class="externallinks"><li>(12/03/2005) - First version of this article published at CodeProject</li></ul></body></doc>
+			[<a href="http://www.cs.uku.fi/~kilpelai/BSA05/lectures/slides04.pdf" target="_blank">^</a>] - Pekka Kilpeläinen (University of Kuopio)</li></ul><h2>Future work and history</h2><ul class="externallinks"><li>(12/03/2005) - First version of this article published at CodeProject</li></ul>

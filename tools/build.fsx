@@ -181,6 +181,7 @@ module Blog =
     |> Seq.map (GetBlogHeader >> (ParseBlogHeader blog))
     |> Seq.sortBy (fun b -> b.Date)
     |> Array.ofSeq 
+    |> Array.rev
 
 // --------------------------------------------------------------------------------------
 // Configuration
@@ -222,7 +223,7 @@ let output = __SOURCE_DIRECTORY__ ++ "../../output"
 // Dependencies - if any of these files change, then we must regenerate all
 let dependencies = 
   [ yield! Directory.GetFiles(layouts) ]
-   @ [ __SOURCE_DIRECTORY__ ++ __SOURCE_FILE__ ]
+//   @ [ __SOURCE_DIRECTORY__ ++ __SOURCE_FILE__ ]
 
 
 let clean() = 

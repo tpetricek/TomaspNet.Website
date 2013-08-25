@@ -5,29 +5,7 @@
       Date = "10/1/2006 9:39:06 PM";
       Description = "New and improved version of quotation visualizer. Supports more language constructs and makes it possible to open quotations from compiled F# assembly.";
     }<h1>F# quotations visualizer - reloaded!</h1>
-<doc version="2" hidedescr="true">
-<intro>
 
-<div style="float:right;margin-left:10px;">
-  <a href="http://www.tomasp.net/articles/quotvis-reloaded/screen.png" target="_blank"><img style="margin:10px;border-style:none;" src="http://tomasp.net/articles/quotvis-reloaded/screen-sm-sm.jpg" alt="Quotation Visualizer" /></a>
-</div>
-
-<p>Some time ago, I wrote an article about useful utility called <a href="http://www.tomasp.net/blog/quotvis.aspx">F# quotations visualizer</a>.
-  This utility can be used to show visual representation of F# quotations, that can represent (subset of) source code written in F#.
-  There are two ways that you can use to get F# quotations - first is using operators <code>&lt;@@@@ ... @@@@&gt;</code> (this
-  returns quotation of the code written inside the operator), second method is to get quotation of top level definition from compiled 
-  F# assembly (you have to explicitly enable this using command line switch <code>--enable-quotation-data</code> while compiling assembly).
-</p>
-<p>Because I added several new features to the original Quotations visualizer, I decided to publish the latest version - here is the list of main improvements:</p>
-<ul>
-  <li>Rewritten using active patterns (new F# language feature)</li>
-  <li>It is possible to extract quotations from compiled F# assembly (if it contains quotation data)</li>
-  <li>Added support for several missing language constructs</li>
-</ul>
-
-
-</intro>
-<body>
 
 
 <div style="float:right;margin-left:10px;">
@@ -60,18 +38,18 @@
   work, you can look at the following part of the function that does this. First, without active patterns:</p>  
 <pre>
 <span class="k">match</span> efForLoop.Query(expr) <span class="k">with</span>
-  | Some(nfrom,nto,body) ->
+  | Some(nfrom,nto,body) -&gt;
       <span class="c">// Statement: for i=start to end do body; done;
       // .. create tree node ..</span>
-  | _ ->
+  | _ -&gt;
 <span class="k">match</span> efWhileLoop.Query(cond,body) <span class="k">with</span>
       <span class="c">// Statement: while condition do body; done;
       // .. create tree node ..</span>
-  | _ ->
+  | _ -&gt;
 <span class="k">match</span> efCond.Query(t,(cond,trbody,flbody)) <span class="k">with</span>
       <span class="c">// if (cond) then trbody; else flbody;
       // .. create tree node ..</span>
-  | _ ->
+  | _ -&gt;
       <span class="c">// unknown expression</span>
 </pre>      
 <p>And with active patterns the source looks like this:</p>
@@ -82,16 +60,16 @@
 <span class="k">let</span> EFCond = efCond
 
 <span class="k">match</span> expr <span class="k">with</span>
-  | EFForLoop(nfrom,nto,body) ->
+  | EFForLoop(nfrom,nto,body) -&gt;
       <span class="c">// Statement: for i=start to end do body; done;
       // .. create tree node ..</span>
-  | EFWhileLoop(cond,body) ->
+  | EFWhileLoop(cond,body) -&gt;
       <span class="c">// Statement: while condition do body; done;
       // .. create tree node ..</span>
-  | EFCond(t,(cond,trbody,flbody)) ->
+  | EFCond(t,(cond,trbody,flbody)) -&gt;
       <span class="c">// if (cond) then trbody; else flbody;
       // .. create tree node ..</span>
-  | _ ->
+  | _ -&gt;
       <span class="c">// unknown expression</span>
 </pre>      
 <p>This is very simple example and there are many situations where active patterns are even more helpful.
@@ -109,10 +87,10 @@
 
 <pre>
 <span class="k">let</span> asm = Assembly.LoadFile(name) <span class="k">in</span>
-  asm.GetManifestResourceNames() |> Array.to_list 
-    |> List.filter (<span class="k">fun</span> rn -> 
+  asm.GetManifestResourceNames() |&gt; Array.to_list 
+    |&gt; List.filter (<span class="k">fun</span> rn -&gt; 
         rn.StartsWith(pickledDefinitionsResourceNameBase)) 
-    |> List.iter (<span class="k">fun</span> rn -> 
+    |&gt; List.iter (<span class="k">fun</span> rn -&gt; 
         explicitlyRegisterTopDefs asm rn (readToEnd (asm.GetManifestResourceStream(rn))))
 </pre>  
 <p>This code first loads the assembly (using <code>LoadFile</code> method which accepts assembly file path).
@@ -138,5 +116,3 @@
 </ul>
 
 
-</body>
-</doc>

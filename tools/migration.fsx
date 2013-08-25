@@ -23,27 +23,28 @@ let readBlogItem (item:DB.ServiceTypes.Content, tags:seq<string>) =
   // try to load page as a xml document - if it fails then we need to combine 
   // the document from 'contentintro' and from 'the value stored in 'content'
   let doc = new XmlDocument(PreserveWhitespace = true)
-  try 
-    doc.LoadXml(item.Content1)
-    if doc.DocumentElement.Name <> "doc" then failwith "New format.."
-  with _ ->
-    // generate v2 document from two columns
-    doc.PreserveWhitespace <- true
-    let s = if String.IsNullOrWhiteSpace(item.Content1) 
-            then item.Contentintro else item.Content1
-    doc.LoadXml
-      ( "<doc hidedescr=\"true\" version=\"2\"><intro>" + item.Contentintro +
-        "</intro><body>" + s + "</body></doc>" )
-
-  let content = doc.SelectSingleNode("doc/body").InnerXml
-
+  let content = 
+    try 
+      doc.LoadXml(item.Content1)
+      if doc.DocumentElement.Name <> "doc" then failwith "New format.."
+      let s = doc.SelectSingleNode("doc/body").InnerXml
+      s
+    with _ ->
+      // generate v2 document from two columns
+      doc.PreserveWhitespace <- true
+      doc.LoadXml
+        ( "<doc hidedescr=\"true\" version=\"2\"><intro>" + item.Contentintro +
+          "</intro><body>N/A</body></doc>" )
+      if String.IsNullOrWhiteSpace(item.Content1) 
+      then item.Contentintro else item.Content1
+      
   let content, title, description = 
     if doc.DocumentElement.Attributes.["version"].Value = "1" then
       // Version 1 is just a HTML code that conatins "H1"
-      item.Content1, item.Header, item.Description
+      content, item.Header, item.Description
     else 
       // Version "2" contains a few additional information in the <doc> element
-      "<h1>" + item.Header + "</h1>\n" + item.Content1, item.Header, item.Description
+      "<h1>" + item.Header + "</h1>\n" + content, item.Header, item.Description
 
   item.Urlname, title, date, description, tags, content
 
@@ -97,6 +98,7 @@ query { for v in db.Content do
                                where (tn.Type = "blog")
                                select tn.Tag }
         where (types.Contains("articles") || types.Contains("blog"))
+        where (v.Urlname.Contains("aho"))
         sortByDescending v.Date
         select (v, tagNames) }
 |> Seq.skip 7 // Skip those done by hand :)

@@ -1,0 +1,19 @@
+﻿@{ 
+  Layout = "default";
+  Title = "Tomas Petricek's calendar";
+  Description = "When the time permits, I enjoy traveling. The calendar shows a new picture each month since 2005.";
+}
+@using System.Linq
+
+<div class="row cal-details">
+  <div class="cal-box">
+  <h1>@Model.Title</h1>
+
+  <a href="@Model.Link.Replace(".jpg", "-original.jpg")"><img src="@Model.Link" alt="@Model.Title" /></a>
+  <p>
+  @foreach(var day in @Model.Days) {
+    <span class="@(@day.Item1?"sun":"")">@day.Item2</span>@("&#160;")
+  }
+  </p>
+  </div>
+</div>

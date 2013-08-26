@@ -76,7 +76,7 @@
       <img src="@Model.Root/img/cc-sa.png" alt="CC License logo" />
     </div>
     <div class="large-8 columns">
-    <h4>Blog archives <a href="@Model.Root/blog/rss.xml"><img src="@Model.Root/img/rss.gif" /></a></h4>
+    <h4>Blog archives <a href="@Model.Root/rss.xml"><img src="@Model.Root/img/rss.gif" /></a></h4>
     @foreach (var info in @Model.MonthlyPosts)
     {
       <a href="@(Model.Root + "/blog/archive/" + info.Item2.ToLower() + "-" + info.Item1.ToString() + "/index.html")">

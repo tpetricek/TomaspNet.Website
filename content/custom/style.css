@@ -135,6 +135,65 @@
 }
 
 /* ----------------------------------------------------------------------------------- */
+/* Calendar pages - index for month and month detail                                   */
+/* ----------------------------------------------------------------------------------- */
+
+.cal-details h1, .cal-index h1 {
+  font:300 250% Kreon,'Times New Roman', Times, serif;
+  line-height:100%;
+  text-align:center;
+  margin:30px 0px 40px 0px;
+}
+.cal-index .columns {
+  margin-bottom:30px;
+  position:relative;
+}
+.cal-month {
+  text-align:center;
+  background:black;
+  height:100%;
+  padding:15px 0px 25px 0px;
+  min-height:330px;
+}
+.cal-month h2 {
+  font:300 160% Kreon,'Times New Roman', Times, serif;
+  color:#d0d0d0;
+  margin:0px 0px 10px 0px;
+  text-align:center;
+}
+.cal-month .wrapper1 {
+  display:table;
+  min-height:240px;
+  width:100%;
+}
+.cal-month .wrapper2 {
+  display:table-cell; 
+  vertical-align:middle;
+}
+.cal-box h1 {
+  color:#d0d0d0;
+}
+.cal-box {
+  background:black;
+  text-align:center;
+  width:100%;
+  padding:20px 0px 40px 0px;
+  margin:20px 0px 30px 0px;
+}
+.cal-box img {
+  border-style:none;
+}
+.cal-box p {
+  margin-top:50px;
+  color:#a0a0a0;
+  font:300 140% Kreon,'Times New Roman', Times, serif;
+}
+.cal-box p .sun {
+  font-weight:700;
+  color:#f0f0f0;
+}
+
+/* ----------------------------------------------------------------------------------- */
 /* Footer                                                                              */
 /* ----------------------------------------------------------------------------------- */
 

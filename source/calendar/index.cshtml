@@ -1,0 +1,27 @@
+﻿@{ 
+  Layout = "default";
+  Title = "Tomas Petricek's calendar";
+  Description = "When the time permits, I enjoy traveling. The calendar shows a new picture each month since 2005.";
+}
+@using System.Linq
+
+<div class="row cal-index">
+  <h1>Calendar @Model.Year</h1>
+</div>
+
+@foreach(var row in Model.Months) {
+	<div class="row cal-index">
+  @foreach(var month in row) {
+    <div class="large-4 columns">
+      <div class="cal-month">
+        <h2>@month</h2>
+        <div class="wrapper1"><div class="wrapper2">
+          <a href="@(month.ToLower() + ".html")">
+          <img src="@(month.ToLower() + "-preview.jpg")" />
+          </a>
+        </div></div>
+      </div>
+	  </div>
+  }
+</div>
+}

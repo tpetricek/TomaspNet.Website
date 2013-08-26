@@ -279,15 +279,97 @@ module Blog =
 // --------------------------------------------------------------------------------------
 
 module Calendar = 
-  type CalendarModel =
-    { Root : string 
-      Year : int
-      Months : seq<seq<(string * string)>> }
+  open Blog
+  open BlogPosts
+  open FileHelpers
+  open System.Drawing
+  open System.Drawing.Imaging
 
-  let GenerateCalendar calendar = 
+  type CalendarIndexModel =
+    { Root : string 
+      Posts : BlogHeader[] 
+      MonthlyPosts : (int * string * seq<BlogHeader>)[]
+      // More things needed by calendar index
+      Year : int
+      Months : seq<seq<string>> }
+
+  type CalendarMonthModel =
+    { Root : string 
+      Posts : BlogHeader[] 
+      MonthlyPosts : (int * string * seq<BlogHeader>)[]
+      // More things needed by calendar page
+      Title : string
+      Link : string
+      Days : seq<bool * int> }
+
+  // Get objects needed for JPEG encoding
+  let JpegCodec = 
+    ImageCodecInfo.GetImageEncoders() 
+    |> Seq.find (fun c -> c.FormatID = ImageFormat.Jpeg.Guid)
+  let JpegEncoder = Encoder.Quality
+  let QualityParam = new EncoderParameters(Param = [| new EncoderParameter(JpegEncoder, 95L) |])
+
+  /// Resize file so that both width & height are smaller than 'maxSize'
+  let ResizeFile maxSize source (target:string) = 
+    use bmp = Bitmap.FromFile(source)
+    let scale = max ((float bmp.Width) / (float maxSize)) ((float bmp.Height) / (float maxSize))
+    use nbmp = new Bitmap(int (float bmp.Width / scale), int (float bmp.Height / scale))
+    ( use gr = Graphics.FromImage(nbmp)
+      gr.DrawImage(bmp, 0, 0, nbmp.Width, nbmp.Height) )
+    nbmp.Save(target, JpegCodec, QualityParam)
+
+  let GenerateCalendar root layouts output dependencies calendar calendarMonth calendarIndex (model:Model) = 
+    let newestDependency = dependencies |> List.map Directory.GetLastWriteTime |> List.max
+    let uk = System.Globalization.CultureInfo.GetCultureInfo("en-GB")
+    let table f = seq { for row in 0 .. 3 -> seq { for col in 0 .. 2 -> f (row * 3 + col + 1) }}
+
+    // Generate index HTML files with links to individual month files
     for dir in Directory.GetDirectories(calendar) do
-      let year = Path.GetFileNameWithoutExtension(dir)
-      printfn "%A" year
+      let year = int (Path.GetFileNameWithoutExtension(dir))
+      let target = output ++ "calendar" ++ (string year) ++ "index.html"
+      if not (File.Exists(target)) || ( Directory.GetLastWriteTime(target) < newestDependency) then
+        // Generate index for the current year, because it is missing
+        printfn "Generating calendar index: %d" year
+        let index = 
+          { CalendarIndexModel.Root = root; Year = year;
+            Posts = model.Posts; MonthlyPosts = model.MonthlyPosts;
+            Months = table uk.DateTimeFormat.GetMonthName }
+        let razor = TildeLib.Razor(layouts, Model = index)
+        EnsureDirectory (Path.GetDirectoryName(target))
+        TransformFile "" false razor calendarIndex target
+        
+        // Generate individual calendar files
+        for month in 1 .. 12 do
+          let name = uk.DateTimeFormat.GetMonthName(month)
+          let target = output ++ "calendar" ++ (string year) ++ (name.ToLower() + ".html")
+          let days = seq { 
+            for i in 1 .. uk.Calendar.GetDaysInMonth(year, month) ->
+              uk.Calendar.GetDayOfWeek(DateTime(year, month, i)) = DayOfWeek.Sunday, i }                    
+          let month = 
+            { CalendarMonthModel.Root = root; Title = name + " " + (string year);
+              Posts = model.Posts; MonthlyPosts = model.MonthlyPosts;
+              Link = name.ToLower() + "-original.jpg"; Days = days }
+          let razor = TildeLib.Razor(layouts, Model = month)
+          EnsureDirectory (Path.GetDirectoryName(target))
+          TransformFile "" false razor calendarMonth target
+        
+
+    // Generate all calendar files (resize appropriately)
+    for dir in Directory.GetDirectories(calendar) do
+      let year = int (Path.GetFileNameWithoutExtension(dir))
+      let yearDir = output ++ "calendar" ++ (string year)
+      printfn "Checking calendar files for: %d" year
+      for month in 1 .. 12 do 
+        let file = calendar ++ (string year) ++ (uk.DateTimeFormat.GetMonthName(month).ToLower() + ".jpg")
+        let source = if File.Exists(file) then file else calendar ++ "na.jpg"
+        let writeFile size suffix = 
+          let target = yearDir ++ (Path.GetFileNameWithoutExtension(file) + suffix + ".jpg")
+          if not (File.Exists(target)) || 
+            (File.GetLastWriteTime(target) < File.GetLastWriteTime(source)) 
+            then ResizeFile size source target
+        writeFile 2400 "-original"
+        writeFile 700 ""
+        writeFile 240 "-preview"
 
 // --------------------------------------------------------------------------------------
 // Configuration
@@ -296,10 +378,11 @@ module Calendar =
 open Blog
 open BlogPosts
 open FileHelpers
+open Calendar
 
 // Root URL for the generated HTML
-let root = "http://test.tomasp.net" 
-//let root = @"file:///C:\Tomas\Projects\WebSites\TomaspNet.New\output"
+//let root = "http://test.tomasp.net" 
+let root = @"file:///C:\Tomas\Projects\WebSites\TomaspNet.New\output"
 
 let title = "Tomas Petricek's blog"
 let description = 
@@ -312,13 +395,17 @@ let blog = __SOURCE_DIRECTORY__ ++ "../source/blog"
 let blogIndex = __SOURCE_DIRECTORY__ ++ "../source/blog/index.cshtml"
 let layouts = __SOURCE_DIRECTORY__ ++ "../layouts"
 let content = __SOURCE_DIRECTORY__ ++ "../content"
-let calendar = __SOURCE_DIRECTORY__ ++ "../calendar"
 let template = __SOURCE_DIRECTORY__ ++ "empty-template.html"
+
+let calendar = __SOURCE_DIRECTORY__ ++ "../calendar"
+let calendarMonth = __SOURCE_DIRECTORY__ ++ "../source/calendar/month.cshtml"
+let calendarIndex = __SOURCE_DIRECTORY__ ++ "../source/calendar/index.cshtml"
 
 // F# code generation - skip 'exclude' directory & add 'references'
 let exclude = 
   [ yield __SOURCE_DIRECTORY__ ++ "../source/blog/packages"
     yield __SOURCE_DIRECTORY__ ++ "../source/blog/abstracts"
+    yield __SOURCE_DIRECTORY__ ++ "../source/calendar"
     for y in 2013 .. 2025 do
       yield __SOURCE_DIRECTORY__ ++ "../source/blog" ++ (string y) ++ "abstracts"  ]
 
@@ -329,8 +416,10 @@ let output = __SOURCE_DIRECTORY__ ++ "../../output"
 
 // Dependencies - if any of these files change, then we must regenerate all
 let dependencies = 
-  [ yield! Directory.GetFiles(layouts) ]
-   @ [ __SOURCE_DIRECTORY__ ++ __SOURCE_FILE__ ]
+  [ yield! Directory.GetFiles(layouts) 
+    yield calendarMonth 
+    yield calendarIndex ]
+//   @ [ __SOURCE_DIRECTORY__ ++ __SOURCE_FILE__ ]
 
 
 let clean() = 
@@ -340,18 +429,22 @@ let clean() =
     File.Delete(file)
 
 let build () =
-  let razor = TildeLib.Razor(layouts, Model = { Root = root; MonthlyPosts = [||]; Posts = [||] })
+  let razor = TildeLib.Razor(layouts, Model = { Model.Root = root; MonthlyPosts = [||]; Posts = [||] })
   let model = LoadModel(TransformAsTemp (template, source) razor, root, blog)
-  let razor = TildeLib.Razor(layouts, Model = model)
-
+  
+  // Generate RSS feed
   GenerateRss root title description model (output ++ "rss.xml")
+  GenerateCalendar root layouts output dependencies calendar calendarMonth calendarIndex model
 
+  let uk = System.Globalization.CultureInfo.GetCultureInfo("en-GB")
   for year, month, posts in model.MonthlyPosts do
     let model = { model with Posts = Array.ofSeq posts }
     let razor = TildeLib.Razor(layouts, Model = model)
     let target =  output ++ "blog" ++ "archive" ++ (month.ToLower() + "-" + (string year)) ++ "index.html"
     EnsureDirectory(Path.GetDirectoryName(target))
-    if not (File.Exists(target)) || (year = DateTime.Now.Year) then
+    if not (File.Exists(target)) || 
+        ( year = DateTime.Now.Year && 
+          month = uk.DateTimeFormat.GetMonthName(DateTime.Now.Month) ) then
       printfn "Generating archive: %s %d" month year
       TransformFile template true razor blogIndex target
 
@@ -361,6 +454,7 @@ let build () =
     |> TransformOutputFiles output
     |> FilterChangedFiles dependencies 
     
+  let razor = TildeLib.Razor(layouts, Model = model)
   for current, target in filesToProcess do
     EnsureDirectory(Path.GetDirectoryName(target))
     printfn "Processing file: %s" (current.Substring(source.Length + 1))

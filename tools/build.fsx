@@ -275,6 +275,21 @@ module Blog =
     File.WriteAllText(target, doc.ToString())
 
 // --------------------------------------------------------------------------------------
+// Generating calendar
+// --------------------------------------------------------------------------------------
+
+module Calendar = 
+  type CalendarModel =
+    { Root : string 
+      Year : int
+      Months : seq<seq<(string * string)>> }
+
+  let GenerateCalendar calendar = 
+    for dir in Directory.GetDirectories(calendar) do
+      let year = Path.GetFileNameWithoutExtension(dir)
+      printfn "%A" year
+
+// --------------------------------------------------------------------------------------
 // Configuration
 // --------------------------------------------------------------------------------------
 

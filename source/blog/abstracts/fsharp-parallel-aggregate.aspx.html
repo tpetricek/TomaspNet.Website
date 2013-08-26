@@ -1,0 +1,13 @@
+﻿<p>In this part of the Parallel Programming in F# series, we'll explore examples of parallel aggregation 
+  from Chapter 4 of <a href="http://parallelpatterns.codeplex.com/" type="external">Parallel 
+  Programming with Microsoft .NET</a>, which is a guide that introduces common parallel programming patterns
+  on .NET 4.0. The C# version of the sample is in details discussed in the guide. In this article,
+  we'll look at the F# translation and in particular at several functions from the <code>PSeq</code>
+  module. Some of the functionality is currently available only in the "PSeq.fs" distributed with the
+  samples, but will eventually appear in F# PowerPack as well. </p>
+
+<p>Aggregation of data in parallel is an interesting problem. As we've seen in the previous article, 
+  PLINQ and tasks make it easy to parallelize independent blocks of code that don't share any state.
+  Unfortunatelly, not all programs are like that. In particular, we often need to aggregate all
+  elements of a sequence - when writing sequential code in F#, you would use the <code>Seq.fold</code>
+  function. In this article, we'll look at functions that implement fold parallel.</p>  

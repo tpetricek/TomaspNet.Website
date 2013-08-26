@@ -1,0 +1,15 @@
+﻿<p>In the previous parts of this webcast series we've developed an F# script that downloads RSS feeds
+  asynchronously and in parallel and searches them for the specified keywords. We followed the usual F#
+  development style, so after introducing <a href="fsharp-webcast-functional.aspx">the basic functional 
+  concepts</a>, we wrote the code in <a href="fsharp-webcast-dotnet.aspx">the simples possible style</a> 
+  and demonstrated how to use <code>System.Xml</code> and <code>System.Net</code> namespaces. Then we 
+  <a href="fsharp-webcast-async.aspx">refactored the existing code</a>, to run asynchronously and process
+  the results potentially in parallel, which was very easy thanks to F# <em>asynchronous workflows</em>.</p>
+
+<p>In this part of the series, we'll make the next evolutionary step of our sample application. We'll turn
+  the code that originally used F# tuples and lists into code that uses standard .NET objects and we'll
+  also see how to declare a class in F#. This simple modification will turn the script into an F# library
+  that is almost indistinguishable from a library developed in C#. We'll also look how you can use the library
+  from C# web application to show the interop between C# and F# in practice. We'll start
+  with the code from the <a href="fsharp-webcast-async.aspx">previous part</a>, so if you missed that, you
+  may want to check it out or download the source code.</p>

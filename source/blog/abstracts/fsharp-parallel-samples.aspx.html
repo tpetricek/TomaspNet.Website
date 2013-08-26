@@ -1,0 +1,27 @@
+﻿<img src="http://tomasp.net/articles/fsharp-parallel-samples/book.png" style="float:right;margin:20px;"/>
+<p><a href="http://parallelpatterns.codeplex.com/" type="external">Parallel Programming with Microsoft .NET</a> is a 
+  guide written by the patterns &amp; practices group at Microsoft. It introduces .NET programmers to
+  patterns for including parallelism in their applications (using support for parallel programming in
+  .NET 4.0). It introduces techniques such as parallel loops, parallel tasks, data aggregation and so on.
+  The book includes numerous samples in C# and Visual Basic that can be easily copied and adapted 
+  to match your needs.</p>
+
+<p>As part of a contracting work for the F# team, I developed an F# version of the samples, which is 
+  now available on the <a href="http://parallelpatterns.codeplex.com/" type="external">book web site</a>.
+  You can get it by downloading <a href="http://parallelpatterns.codeplex.com/releases/view/50473">F# code samples</a> (ZIP) from the 1.0 release, or you can download the <a href="http://parallelpatterns.codeplex.com/SourceControl/list/changesets" 
+  type="external">latest version of the source code</a> directly. The F# version of the
+  code is mostly a direct translation of the C# versions, but there are a few interesting places that
+  are worth discussing. In particular, some of the samples use the <code>PSeq</code> module from F#
+  PowerPack and I also added a version of one example that uses F# asynchronous workflows.</p>
+
+<p>In this article series, I'll look at several interesting examples from the F# version of the source code.
+  We'll look how to use PLINQ and Tasks (which are available in .NET 4.0) from F# (Part II.) including some advanced topics such 
+  as the Map-Reduce algorithm (Part III.). We'll also look at a larger example built using tasks and an alternative 
+  implementation using asynchronous workflows (Part IV.) Here are links to the individual articles:</p>
+
+<ul>
+  <li><strong>Parallel Programming in F# (I.): Introducing the samples</strong></li>
+  <li><a href="http://tomasp.net/blog/fsharp-parallel-plinq.aspx">Parallel Programming in F# (II.): Using PLINQ and Tasks</a></li>
+  <li><a href="http://tomasp.net/blog/fsharp-parallel-aggregate.aspx">Parallel Programming in F# (III.): Aggregating data</a></li>
+  <li><a href="http://tomasp.net/blog/fsharp-parallel-adash.aspx">Parallel Programming in F# (IV.): Financial dashboard example</a></li>
+</ul>

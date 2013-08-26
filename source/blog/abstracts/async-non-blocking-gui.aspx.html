@@ -1,0 +1,24 @@
+﻿<img src="http://tomasp.net/articles/async-non-blocking-calls/screen.png" style="float:right; margin:0px 0px 0px 15px;" />
+
+<p>F# asynchronous workflows are best known as a way to write efficient I/O operations
+  or as an underlying mechanism of F# agent-based programming (using the <code>MailboxProcessor</code>
+  type). However, they are also very useful for user-interface programming. I think this is 
+  a very interesting and important area, so I already wrote and talked about this topic - 
+  it is covered in <a href="http://manning.com/petricek/">Chapter 16 of my book</a> (there
+  is a <a href="http://dotnetslackers.com/articles/net/Programming-user-interfaces-using-f-sharp-workflows.aspx">free excerpt</a>)
+  and I <a href="http://tomasp.net/blog/reactive-talk.aspx">talked about it</a> at F#unctional Londoners
+  meeting.</p>
+
+<p>Many applications combine user-interface programming (such as waiting for an event asynchronously)
+  with some CPU-intensive tasks. This article looks at an example of such application and I'll explain 
+  how to avoid blocking the user-interface when doing the CPU-intensive task. 
+  The article starts with an example that is wrong and blocks the user-interface when doing data processing.
+  Then I'll show you two options for fixing the problem. The three most important
+  functions from the standard F# library that I'll discuss are <code>Async.StartChild</code> and 
+  <code>Async.SwitchTo&#173;ThreadPool</code> with <code>Async.SwitchToContext</code>.</p>
+
+<p>This is the first article of a mini-series. In the next article, I'll demonstrate a simple
+  wrapper for F# <code>async</code> that makes it more difficult to write <em>wrong</em> 
+  programs. The wrapper keeps the desired thread (GUI or background) in the type of the 
+  computations and code that would block the user interface will not type-check. But first,
+  let's look at the example...</p>

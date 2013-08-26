@@ -1,0 +1,18 @@
+﻿<p>In a recent blog post, <a href="http://blog.ezyang.com/2012/08/applicative-functors/" title="Edward Z. Yang: Applicative functors">Edward Z. Yang talks about applicative functors</a>. 
+He mentions two equivalent definitions of applicative functors - the standard
+definition used in Haskell libraries (<code>Applicative</code>) and an alternative that
+has been also presented in the <a href="http://www.soi.city.ac.uk/~ross/papers/Applicative.html" title="C. McBride and R. Paterson: Applicative Programming with Effects">original paper</a>, but is generally less
+familiar (<code>Monoidal</code>).</p>
+
+<p>The standard definition makes a perfect sense with the standard uses in Haskell,
+however I always preferred the alternative definition. Edward uses the alternative
+(<code>Monoidal</code>) definition to explain the laws that should hold about applicative 
+functors and to explain <em>commutative</em> applicative functors, but I think it
+is even more useful.</p>
+
+<p>The <code>Monoidal</code> definition fits nicely with a trick that you can use to 
+<a href="http://tomasp.net/blog/idioms-in-linq.aspx" title="T. Petricek: Beyond the Monad fashion (I.): Writing idioms in LINQ">encode applicative functors in C# using LINQ</a> and I also used it as 
+a basis for an F# syntax extension that allows writing code using applicative 
+functors in a similar style as using monads (which is discussed in my draft 
+paper about <a href="http://www.cl.cam.ac.uk/~tp322/papers/notations.html" title="T. Petricek and D. Syme: Syntax Matters: Writing abstract computations in F#">writing abstract computations in F#</a>). And I also think that
+<em>commutative</em> applicative functors deserve more attention.</p>

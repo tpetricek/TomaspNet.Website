@@ -1,0 +1,21 @@
+﻿<div class="rdecor" style="text-align:center">
+  <a href="http://tomasp.net/articles/introducing-tryjoinads/screen.png" target="_blank">
+    <img src="http://tomasp.net/articles/introducing-tryjoinads/screen-sm.png" alt="TryJoinads.Org web site" style="border:none" />
+  </a><br />
+  <small>(<a href="http://tomasp.net/articles/introducing-tryjoinads/screen.png" target="_blank">Click for a larger version</a>)</small>
+</div>
+
+<p>If you have been following my blog, you've probably already heard of <em>joinads</em>. It is
+a research extension of F# computation expressions (or monads in Haskell). The extension
+makes computation expressions more useful in domains like parallel, concurrent and reactive
+programming. However, it can be used for any type of computation including, for example, parsers.
+If you're interested in detailed description, you can find it in two academic papers that
+I blogged about previously: <a href="http://tomasp.net/blog/match-bang-paper.aspx">PADL 2011</a> and <a href="http://tomasp.net/blog/docase-haskell.aspx">Haskell 2011</a>.</p>
+
+<p>The extension adds a keyword <code>match!</code> - as the syntax suggests, it is akin to pattern
+matching using <code>match</code>, but instead of pattern matching on values, you can pattern match
+on computations like <code>Async&lt;'T&gt;</code> (or on other monadic values). Just like other features of
+computation expressions, the <code>match!</code> syntax is translated to applications of several
+methods defined by the computation builder.</p>
+
+<p>I won't say more about joinads in this post, because you can now easily try joinads yourself...</p>

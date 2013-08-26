@@ -1,0 +1,50 @@
+﻿<p>About a week ago, I attended the F# in Education workshop in Boston. It was a great event
+  with many interesting people around. I believe that the workshop was very exciting for everyone who is
+  interested in F#, but uses Mac or Linux. The F# team recently made some effort to improve the
+  F# support on Mono (meaning mainly Mac and Linux). The recent <a href="http://blogs.msdn.com/b/dsyme/archive/2010/11/10/november-2010-f-2-0-free-tools-update.aspx" type="external">November 2010 CTP update</a>
+  contains several bugfixes that make it possible to use F# on Mono 2.8. Another great thing 
+  that happened at the workshop is the <a href="http://blogs.msdn.com/b/dsyme/archive/2010/11/04/announcing-the-f-compiler-library-source-code-drop.aspx" type="external">open source release of F#</a>
+  (see also <a href="http://tirania.org/blog/archive/2010/Nov-11.html" type="external">blog post</a> by Miguel with a post-check-in photo).
+  At the workshop, I also announced my contribution to the cross-platform F# story, a project that 
+  I've been working on recently - <strong>the F# language binding
+  for MonoDevelop.</strong>
+  </p>
+
+<div class="rdecor" style="text-align:center;">
+  <a target="_blank" href="http://tomasp.net/articles/fsharp-in-monodevelop/screen.png"><img src="http://tomasp.net/articles/fsharp-in-monodevelop/screen-sm.png" style="border:0px;margin-bottom:5px" /></a><br />
+  <a target="_blank" href="http://tomasp.net/articles/fsharp-in-monodevelop/screen.png"><small>Click here for a larger screenshot</small></a>
+</div>
+<p>I promised to make it available as soon as possible after the workshop. As usually, things take
+  longer, than one would like, but I'm finally ready to announce the initial (beta) version of the 
+  plugin. The screenshot on the right shows some of the features of the F# language binding. As you
+  can see, there is an F# Interactive tool window, syntax highlighting as well as IntelliSense 
+  auto-completion.</p>
+
+<p>If you're interested in trying it out, here are links to the repository (you can use
+  it to install the language binding from the MonoDevelop Add-ins manager) and source
+  code. The F# plugin needs to be able to locate F# installation and it also requires 
+  more F# assemblies to be installed in the GAC, so you may as well want to read the instructions
+  before trying it :-).</p>
+
+<ul class="spaces">
+  <li><a href="http://functional-variations.net/monodevelop/" type="external">Project homepage</a> at the Functional Variations 
+    web site has more information about the project as well as detailed installation instructions.</li>
+  <li>I also created a web page that contains information about <a href="http://functional-variations.net/crossplatform/" type="external">installing
+    F# on Mac and Linux</a> which explains how to install F#, such that the MonoDevelop plugin can 
+    find it.</li>
+  <li>The source code is available in the <a href="http://fsxplat.codeplex.com/" type="external">F# cross-platform packages and samples</a> project at CodePlex
+    (under the Apache 2.0 license). You can find it in the <code>monodevelop</code> subdirectory.</li>
+  <li>Online repositiory with a MonoDevelop package is available at: <a href="http://functional-variations.net/addin">http://functional-variations.net/addin</a>.<br />
+    <em>(If you're a hacker, the easiest way to get it working is to add <code>FSharp.Compiler*</code> to GAC and set <code>FSHARP_COMPILER_BIN</code> environment
+    variable to F# installation location)</em></li>
+</ul>
+
+<p>If you want to see some interesting uses of the F# MonoDevelop plugin, you can also watch 
+  <a href="http://research.microsoft.com/en-us/events/fsharpined/videos.aspx" type="external">my 
+  talk at the F# in Education event</a>. In one demo, I used F# on Mac to play with a simple, composable
+  functional 3D library. In another example I demonstrated how to asynchronously process stock 
+  prices on Linux. The last demo, showing my <code>match!</code> extension didn't work all that well, because
+  I had too many virtual machines running, but I'll blog about <code>match!</code> again sooner or later!</p>
+
+<p>In addition to the F# plugin for MonoDevelop itself, I'd also like to mention two web sites that
+  I've been working on and some interesting cross-platform F# screencasts...</p>

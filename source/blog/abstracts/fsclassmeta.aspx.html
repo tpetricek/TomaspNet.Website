@@ -1,0 +1,20 @@
+﻿
+
+<p>F# quotations allows you to easily write programs that manipulate with data representation
+  of program source code. If you're not familiar with quotations I recommend reading my 
+  previous article [<a href="#fsclassmeta-links">1</a>] that contains short introduction
+  to this topic first. Quotations can be used for example for translating subset of the F# language to 
+  another code representation or another language.</p>
+  
+<p>To get the quotation data of the expression you can either use <code>&lt;@@ .. @@&gt;</code> 
+  operator or <code>resolveTopDef</code> function. In the first case the code written
+  between the "<code>&lt;@@</code>" and "<code>@@&gt;</code>" is converted to data during the compilation.
+  The <code>resolveTopDef</code> function allows you to get quotation data of top-level 
+  definition (function) from compiled library at runtime (you have to use <code>--quotation-data</code> 
+  command line switch while compiling the library). I mentioned that quotations can be used to represent 
+  only subset of the F# language. Currently, one of the quotation limitations is that it's not possible to 
+  enclose the whole class in the quotation operators. It is also not possible to get the representation 
+  of the whole class at runtime nor the representation of class members (for example methods). </p>
+<p>In this article I'll present a simple method that makes it possible to use F# quotations for working with classes as well, however this is rather a prototype that can be used for experimenting and discovering areas where working with classes might be useful, not a fully working solution.</p>
+
+

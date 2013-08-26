@@ -1,0 +1,21 @@
+﻿<p>In the <a href="reactive-ii-csevents.aspx">previous article</a>, I introduced <strong>Reactive LINQ</strong>.
+  I explained the different point of view that we can use when working with .NET events. The idea is that
+  .NET events can be viewed as streams of values. The value is information about the event (such as position
+  of a mouse click or a mouse movement). These streams can be processed using LINQ queries - we can for example
+  filter all values that are not interesting for us using <code>where</code> LINQ clause. For example if we want to handle
+  clicks only in some specified area.</p>
+<p>In the previous article, I talked about basic LINQ query operators such as <code>select</code> and <code>where</code>
+  and some useful methods that <strong>Reactive LINQ</strong> provides (for example for merging event streams).
+  Today, we'll take a look at two more advanced kinds of operations that we can use for working with event streams. 
+  In particular, we'll talk about aggregation operators (that you certainly know from LINQ) and about switching. 
+  Switching is a concept from functional reactive programming and it allows us to change dynamically how the 
+  application behaves. However, I'll explain this in a more detail soon.</p>
+<p>In this article, I'm going to use mostly C# (and some Visual Basic). The functionality that I'm describing
+  in this part isn't part of the standard F# <code>Event</code> module that I discussed in 
+  <a href="reactive-i-fsevents.aspx">the first part</a>. I implemented most of them in F# too, but I'm not going
+  to write the samples in both of the versions in this part. If you've seen the first two articles, you'll be 
+  definitely able to use the F# versions as well, because they follow exactly the same ideas as the C#/LINQ versions.
+  I'm going to talk about a larger demo application in the last section and I'll show an F# version as well,
+  so you'll see some F# examples in the next part. This part serves more as a reference of the available
+  operators, so you may read only some parts of it, then jump to the last one (to see an exciting example!) 
+  and then come back here.</p>  

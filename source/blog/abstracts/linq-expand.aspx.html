@@ -1,0 +1,26 @@
+﻿
+<p>The <a href="http://msdn.microsoft.com/data/ref/linq/">LINQ Project</a> [<a href="http://msdn.microsoft.com/data/ref/linq/" target="_blank">^</a>] is 
+  an extension to .NET Framework and most important .NET languages (C# and VB.Net) that extends these languages with query operators and some 
+  language features that make it possible to integrate queries in the languages. Thanks to LINQ you can write queries that read data from database
+  (or any other data source). For example, imagine that you want to write set of queries for eshop and you need to perform a price calculation
+  in more queries. The problem with LINQ queries is that you can't simply call a function written in C# that calculates price. The following example
+  is NOT WORKING for this reason:</p>
+<pre>
+<span class="c">// function used in filter</span><br />
+<span class="k">static</span> <span class="k">decimal</span> CalcPrice(Nwind.Product p)
+{
+  <span class="k">return</span> p.UnitPrice * 1.19m;
+}</pre>
+<pre>
+<span class="c">// query that uses MyFunc</span><br />
+<span class="k">var</span> q = 
+  <span class="k">from</span> p <span class="k">in</span> db.Products
+  <span class="k">where</span> CalcPrice(p) &gt; 30m
+  <span class="k">select</span> p
+</pre>
+<p>I think that this is a big limitation, because when you want to keep some more complex logic in the data access layer you should be able to reuse 
+  parts of queries that are similar across more queries. The good thing is that with latest release, LINQ became extensible so it is possible
+  to write a extensions that allow this scenario...</p>
+<ul>
+<li>You can also <a href="http://tomasp.net/articles/linq-expand/linq-expand.pdf">download the article in PDF</a> (80kB)</li>
+</ul>  

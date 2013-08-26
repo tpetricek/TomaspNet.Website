@@ -1,0 +1,27 @@
+﻿<p>In the <a href="accelerator-intro.aspx">previous article</a>, I introduced the
+  Microsoft Research Accelerator library. It allows us to write computations with arrays
+  in C# and execute them in parallel on multi-core CPU or more interestingly, 
+  using GPU shaders. In the previous artcile, we've seen how Accelerator works and 
+  how it can be accessed from F#. In this article, we'll look at one more interesting
+  F# demo - we'll implement the famous Conway's Game of Life [<a href="accelerator-life-game.aspx#accelfsh2links">1</a>] using Accelerator.
+  We'll use a v2 version of Accelerator which has been announced just recently and
+  is available from Microsoft Connect [<a href="accelerator-life-game.aspx#accelfsh2links">2</a>].</p>
+
+<div style="text-align:center;">
+<object width="425" height="344"><param name="movie" value="http://www.youtube.com/v/wiZnTfx2re8&amp;hl=en&amp;fs=1"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/wiZnTfx2re8&amp;hl=en&amp;fs=1" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="425" height="344"></embed></object>
+</div>
+
+<p>This article is the second one from a series about using Accelerator from F#. 
+  Today, we'll use Accelerator types directly from F# - this is the simplest possible 
+  approach and is very similar to the way you'd work with Accelerator in C#. However, 
+  we can use some nice F# features such as custom operators to make the code more 
+  readable. In the next article, we'll discuss a different approach - we'll look how
+  to execute more "standard" F# code (that doesn't reference Accelerator explicitly)
+  with Accelerator using F# quotations. The list of articles may change, but here is 
+  a list of articles that I'm currently planning to write:</p>
+<ul>
+  <li><a href="http://tomasp.net/blog/accelerator-intro.aspx">Accelerator and F# (I.): Introduction and calculating PI</a></li>
+  <li><strong>Accelerator and F# (II.): The Game of Life on GPU</strong></li>
+  <li><a href="http://tomasp.net/blog/accelerator-dataparallel.aspx">Accelerator and F# (III.): Data-parallel programs using F# quotations</a></li>
+  <li><a href="http://tomasp.net/blog/accelerator-quotations.aspx">Accelerator and F# (IV.): Composing computations with quotations</a></li>
+</ul>  

@@ -1,0 +1,13 @@
+﻿<p>PHP language itself doesn't method support overloading (having two methods with same name, but different number or types of parameters).
+  This brings an interesting problem to Phalanger, because most of .NET languages support this and if we want to be able to call any .NET object
+  from PHP we need to add support (at least) for calling of overloaded methods. The latest Phalanger release contains overload resolution described
+  in the <em>Integrating PHP with CLR</em> document [<a href="#phpoverloadlnk">1</a>].</p>
+<p>For example, when calling the <code>Console::WriteLine</code> method (which has a lot of overloads), Phalanger dynamically generates 
+  a piece of code that we call dynamic stub, which is responsible for choosing the most appropriate overload depending on the actual
+  parameter types. This stub is generated only once for every method, which makes this implementation very efficient. The difficult part of 
+  overload resolution is, how can the stub determine what is the best overload? PHP language has a lot of implicit conversions, so 
+  when you pass the string <code>"10.2 Little Piggies"</code> to a method it can be implicitly converted to float (<code>10.2</code>) 
+  (For more details see [<a href="#phpoverloadlnk">2</a>]). Another example of implicit conversion is that any boolean value can be 
+  converted to string (empty string or string <code>"0"</code> are converted to <code>false</code>, every other string is converted 
+  to <code>true</code>).</p>  
+<p>In this article I'll describe how does the dynamic stub look like in current version of Phalanger, what problems can it cause and how are we going to fix it in the future version!</p>

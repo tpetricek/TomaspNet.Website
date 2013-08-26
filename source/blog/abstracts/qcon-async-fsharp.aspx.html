@@ -1,0 +1,19 @@
+﻿<img src="http://tomasp.net/articles/qcon-async-fsharp/qcon.png" alt="Qcon" class="rdecor" />
+
+<p>Last week, I gave a talk on asynchronous programming in F# at <a href="http://qconlondon.com/london-2012">London QCon 2012</a>.
+The talk was a part of <a href="http://qconlondon.com/london-2012/tracks/show_track.jsp?trackOID=560">The Rise of Scala &amp; Functional Programming</a> 
+track organized by Charles Humble. Reactive and asynchronous programming was a topic that was repeated
+a couple of times during the whole session - Sadek Drobi talked about <a href="http://qconlondon.com/london-2012/presentation/Non%20blocking,%20composable%20reactive%20web%20programming%20with%20Iteratees%20in%20Play2">non-blocking reactive web framework
+Play2</a>
+and Damien Katz talked about <a href="http://qconlondon.com/london-2012/presentation/Erlang%20in%20the%20real%20world:%20CouchDB">Erlang and CouchDB</a>.</p>
+
+<p>I used the one hour slot to implement "Rectangle Drawing App" - a simple application that 
+shows how to write complete client-server application just using F#. On the
+server-side, I used asynchronous workflows to write HTTP server with an F#
+agent. On the client-side, I used asynchronous workflows to express user
+interface logic and the <a href="http://pitfw.org/">Pit project</a> to run F# code as
+JavaScript that works everywhere. The app definitely had a huge commercial potential:</p>
+
+<div style="text-align:center">
+<img src="http://tomasp.net/articles/qcon-async-fsharp/quote.png" alt="Quote" />
+</div>

@@ -1,0 +1,8 @@
+﻿
+
+<p>I implemented this algorithm because I worked on one project where we needed to filter bad language in comments submited by users (You wouldn't believe what anonymous users sometimes write). First I tried simple solution using <code>String.IndexOf</code> and using <code>Regex</code>, but none of these solutions was very suitable for this problem, so I decided to implement Aho-Corasick algorithm which is probabbly the best algorithm for this purpose.</p>
+
+<p>Article (published here an on CodeProject.com) describes implementation of this algorithm for pattern matching. In simple words this algorithm can be used for searching text for specified keywords. This implementation is usefull when you have a set of keywords and you want to find all occurences in text or check if any of the keywords is present in the text. You should use this algorithm especially if you have large number of keywords that don't change often, because in this case it is much more efficient than other algorithms that can be simply implemented using .NET class library.</p>
+
+<p>Aho-Corasick search algorithm is very efficient if you want to find large number of keywords in the text, but if you want to search only for a few keywords it is better to use simple method using <code>String.IndexOf</code>. </p>
+

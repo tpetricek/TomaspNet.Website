@@ -1,0 +1,38 @@
+﻿<p>In this article series, we're talking about the Accelerator project and I'm 
+  presenting an F# library that I implemented, which allows you to use Accelerator [<a href="http://tomasp.net/blog/accelerator-quotations.aspx#accelfsh4links">references</a>]
+  in a more sophisticated way. We've seen two examples of using Accelerator directly
+  (see also <a href="http://tomasp.net/blog/accelerator-intro.aspx">introduction</a> and <a href="http://tomasp.net/blog/accelerator-life-game.aspx">Game of Life</a>).
+  In the <a href="http://tomasp.net/blog/accelerator-dataparallel.aspx">previous article</a>
+  I introduced my F# library for working with Accelerator. We've seen F# functions from the
+  <code>DataParallel</code> module, we implemented an algorithm that rotates an image
+  using these functions and finally, we've seen that we can take this ordinary F# code
+  and run it using Accelerator. This is all possible thanks to F# quotations, which 
+  we can use to get an AST (a source code) of an F# function we wrote (if the function
+  is marked in some special way).</p>
+  
+<img src="http://tomasp.net/articles/accelerator-quotations/blur.png" alt="Blurred photo of Prague" style="float:right; margin:10px" />
+<p>In this part of the series, we're going to look at working with quotations explicitly.
+  We'll use meta-programming techniques to work with Accelerator. Meta-programming means
+  writing programs that manipulate with other programs or pieces of code. This is exactly
+  what we're going to do in this article. We'll write an F# function (running on CPU) that
+  builds a program, which we'll then run using Accelerator.</p>
+<p>This is quite interesting approach, which isn't possible when we call Accelerator
+  methods as standard F# functions or .NET methods. The benefit is that we'll 
+  clearly see which parts of program run on CPU and what parts execute on GPU or using
+  X64 multi-core target. We could also perform more complicated optimizations with 
+  the code (because this wouldn't affect the readability). Just for your reference, here is the list
+  of articles in this series in case you missed some of them:</p>
+
+<ul>
+  <li><a href="http://tomasp.net/blog/accelerator-intro.aspx">Accelerator and F# (I.): Introduction and calculating PI</a></li>
+  <li><a href="http://tomasp.net/blog/accelerator-life-game.aspx">Accelerator and F# (II.): The Game of Life on GPU</a></li>
+  <li><a href="http://tomasp.net/blog/accelerator-dataparallel.aspx">Accelerator and F# (III.): Data-parallel programs using F# quotations</a></li>
+  <li><strong>Accelerator and F# (IV.): Composing computations with quotations</strong></li>
+</ul>  
+<p>However, enough with theory and let's take a look at some code samples! 
+  This time, we'll implement blurring of an image (also called convolution). 
+  Another example how to write this in F# using Accelerator is Satnam Singh's blog 
+  post [<a href="#accelfsh4links">4</a>]. Our example will be different, because we'll
+  write the code as standard F# program and then have it translated to Accelerator
+  automatically using quotations. We'll also talk about the architecture
+  of the library that we're using and look at some performance results.</p>

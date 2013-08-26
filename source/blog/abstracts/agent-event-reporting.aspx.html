@@ -1,0 +1,16 @@
+﻿<p>Over the last year, I wrote quite a lot of articles about agent-based programming in F#.
+Agents (inspired by Erlang) provide a great abstraction for writing concurrent and scalable
+systems. They are a great fit for both server-side development (for example, handling 
+a large number of concurrent requests), but also for user interface (for example, keeping
+state in an application with background tasks and interactive interface).</p>
+
+<p>When writing reusable agents, we usually encapsulate agent in an F# object type. The 
+type provides methods for sending messages to the agent. However, sometimes the agent
+also needs to report some state change that can be handled by another interested agent.
+This is done using F# events. However, F# events do not specify threading behaviour, 
+so there is a number of options.</p>
+
+<p>In this article (inspired by a recent email discussion), I describe three ways of 
+reporting events from an agent. The options differ in what thread is used to report the
+event. Choosing the right option is important as it affects scalability and simplicity
+of your agent-based code.</p>

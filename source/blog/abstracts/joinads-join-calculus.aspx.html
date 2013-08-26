@@ -1,0 +1,17 @@
+﻿<p>Join calculus provides a declarative way of expressing asynchronous synchronization
+patterns. It has been use as a basis for programming languages (JoCaml and COmega), but also
+as a basis for libraries (embedded in C# and Scala). Using joinads, it is possible to 
+embed join calculus in F# with a nice syntax using the <code>match!</code> construct. Formally,
+join calculus does not form a <em>monad</em>, but it can be viewed as a version of <em>joinad</em>
+as described in the <a href="../pubs.html">first paper on joinads</a>.</p>
+
+<p>The programming model is based on <em>channels</em> and <em>join patterns</em>. A channel can be viewed
+as a thread-safe mailbox into which we can put values without blocking the caller. In some
+sense, this is quite similar to <a href="agents.html">F# agents</a>. A join pattern is then a rule
+saying that a certain combination of values in channels should trigger a specific reaction
+(and remove values from the channels). The ability to match on multiple channels distinguishes
+join calculus from F# agents.</p>
+
+<p><em><strong>Note:</strong> This blog post is a re-publication of a tutorial from the <a href="http://tryjoinads.org">TryJoinads.org</a>
+web page. If you read the article there, you can run the examples interactively
+and experiment with them: <a href="http://tryjoinads.org/index.html?use/joins.html">view the article on TryJoinads</a>.</em></p>

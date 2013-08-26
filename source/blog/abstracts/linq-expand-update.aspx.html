@@ -1,0 +1,18 @@
+﻿
+
+<p>Recently, I came across interesting question at LINQ Forums (Dynamic conditions: How to achieve multiple "OR" conditions with LINQ? [<a href="#updlq">1</a>]).
+  The question is whether LINQ (and especially LINQ to SQL) provides any simple way to return only records that contain one or more of 
+  specified keywords in the name. The question looks simple, but it is simple only if you know the number of keywords that you want to 
+  look for. In this case you can write following LINQ query:</p>
+<pre>
+  <span class="c">// Products that contain "kwd1" or "kwd2" in the name </span><br />
+  <span class="k">var</span> q = <span class="k">from</span> p <span class="k">in</span> db.Products
+    <span class="k">where</span> p.ProductName.Contains("kwd1") || p.ProductName.Contains("kwd2")
+    <span class="k">select</span> p;
+</pre>
+<p>The problem with previous code is that you can't use it if the list of keywords is dynamically entered by user
+  (and so its length may vary). Of course, if you want to run query on in-memory data, you can get very nice results by
+  writing extension method called <code>ContainsAny</code> that performs test for keyword array, but if you 
+  want to be able to translate query to SQL, the situation is a bit complicated.</p>
+
+

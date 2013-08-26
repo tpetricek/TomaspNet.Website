@@ -1,0 +1,18 @@
+﻿<p>Another area where the <code>match!</code> syntax can be used is when programming with F# <em>agents</em>,
+implemented by the <code>MailboxProcessor</code> type. Formally, agents do not form the monad
+structure in a useful way - when programming with agents, we do not compose a new agents,
+but instead we write code that (imperatively) receives messages from the agent's mailbox
+and handles them.</p>
+
+<p>This article demonstrates an <code>agent { ... }</code> computation builder that can be used for 
+implementing the body of an agent. Normally, the body of an agent is an <em>asynchronous
+workflow</em>. The code in the body uses <code>let!</code> to perform asynchronous operations, most 
+importantly to call <code>inbox.Receive</code> to get the next message from the inbox. When the
+agent intends to handle only certain kinds of messages, it can use <code>inbox.Scan</code>. When
+using the <code>agent</code> builder, pattern matching on messages can be written using <code>match!</code> and
+it is possible to write code that ignores certain types of messages simply by writing an
+incomplete pattern matching.</p>
+
+<p><em><strong>Note:</strong> This blog post is a re-publication of a tutorial from the <a href="http://tryjoinads.org">TryJoinads.org</a>
+web page. If you read the article there, you can run the examples interactively
+and experiment with them: <a href="http://tryjoinads.org/index.html?use/agents.html">view the article on TryJoinads</a>.</em></p>

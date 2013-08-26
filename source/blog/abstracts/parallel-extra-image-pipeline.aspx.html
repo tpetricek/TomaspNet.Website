@@ -1,0 +1,20 @@
+﻿<p>In a <a href="http://tomasp.net/blog/fsharp-parallel-samples.aspx">recent blog post series</a>,
+  I wrote about parallel programming samples that accompany the 
+  <a href="http://parallelpatterns.codeplex.com/" type="external">Parallel Programming with Microsoft .NET</a>
+  book by patterns &amp; practices group at Microsoft. The F# translation of the samples that I
+  wrote about mostly followed the style used in the book, so it used patterns that 
+  are typical for C#. However, some of the samples can be written in F# in a more interesting way...</p>
+<p>In this article, we'll take a look at agent-based implementation of the Image pipeline 
+  example (from chapter 7). A <em>pipeline</em> is a useful pattern if you need to process large
+  number of inputs in parallel and the processing consists of multiple phases or steps. In the
+  original implementation, the pipeline was implemented using <code>BlockingCollection&lt;T&gt;</code>
+  and <code>Task&lt;T&gt;</code> types from .NET 4.0.</p>
+<p>In this article, I'll show a 
+  version that uses F# agents and asynchronous workflows. We'll use a <code>BlockingQueueAgent&lt;T&gt;</code> 
+  type, which is <a href="http://tomasp.net/blog/parallel-extra-blockingagent.aspx">discussed in another 
+  article</a>. It represents a queue with limited capacity that asynchronously blocks the process that is adding 
+  values if there is no space in the buffer and blocks the process that reads values when there are no 
+  values. This type can be elegantly used to implement the pipeline pattern. In this article, we'll 
+  demonstrate it by writing a four-phase pipeline that processes images. As you'll see, 
+  the agent-based version of the code is very much easier to write and has similar performance as 
+  the original version.</p>

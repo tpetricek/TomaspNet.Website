@@ -1,0 +1,20 @@
+﻿<p>One of the limitations of F# is that it doesn't very well support some of the 
+  advanced imperative language constructs such as <code>break</code>, <code>continue</code>
+  or imperative style of returning value from a function, meaning that you can't write
+  something like <code>return false</code> in the middle of the function. This has 
+  good reasons. F# doesn't in principle have the notion of <em>currently executing statement</em>
+  and instead treat every code you write as an expression. Clearly, when there is no 
+  <em>current statement</em>, we cannot jump to other statements. If you're looking
+  for more information about these basic principles, you can take a look at my book 
+  <a href="http://www.functional-programming.net" target="external">Real World Functional 
+  Programming</a>, which covers this distinction in details in chapter 2, but we'll look 
+  at a brief example that will clarify this idea shortly.</p>
+
+<p>Often, there is really no need to use <code>break</code> or other imperative constructs
+  in F#, because you can write the same thing more elegantly using one of the provided higher
+  order function such as <code>Seq.exists</code> or <code>Seq.tryfind</code>. However,
+  there are still some cases where the imperative programming style makes it easier 
+  to express our original intention. Also, implementing your own higher order
+  functions (akin to <code>Seq.exists</code>) would sometimes be much easier if we
+  could just use imperative return.</p>  
+<p>So, what can be done about this?</p>

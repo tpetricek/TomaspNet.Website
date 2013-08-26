@@ -1,0 +1,16 @@
+﻿<p>The article <a href="http://tomasp.net/blog/joinads-async-prog.aspx">Asynchronous workflows and joinads</a> gives numerous
+examples of programming with asynchronous workflows using the <code>match!</code> construct.
+Briefly, when matching on multiple asynchronous workflows, they are executed in 
+parallel. When pattern matching consists of multiple clauses, the clause that matches
+on computations that complete first gets executed. These two behaviours are 
+implemented by the <code>Merge</code> and the <code>Choose</code> operation of joinads. Additionally, 
+asynchronous workflows require the <code>Alias</code> operation, which makes it possible to 
+share the result of a started asynchronous workflow in multiple clauses.</p>
+
+<p>In this article, we look at the definition of the additional <code>AsyncBuilder</code>
+operations that enable the <code>match!</code> syntax. We do not look at additional examples
+of using the syntax, because these can be <a href="http://tomasp.net/blog/joinads-async-prog.aspx">found in a previous article</a>.</p>
+
+<p><em><strong>Note:</strong> This blog post is a re-publication of a tutorial from the <a href="http://tryjoinads.org">TryJoinads.org</a>
+web page. If you read the article there, you can run the examples interactively
+and experiment with them: <a href="http://tryjoinads.org/index.html?implement/async.html">view the article on TryJoinads</a>.</em></p>

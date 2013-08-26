@@ -1,0 +1,11 @@
+﻿<p>Since the first beta versions of LINQ we could hear comments that it is perfect for 
+  queries known at compile-time, however it is not possible to use it for building queries 
+  dynamically at runtime. In this article I show that this can be actually done very well for 
+  most of the common cases. The solution offered by Microsoft (mentioned in [<a href="#dynqlinks">1</a>]) is to 
+  build query from a string, however this has many limitations and it in fact goes completely 
+  against what LINQ tries to achieve, which is writing queries in a type-safe way with full 
+  compile-time checking. In this article I will first show a few support functions to make the life 
+  a bit easier and then we will use them for building two sample applications that allows user to 
+  build a query dynamically. The solution is largely motivated by my previous use of F#, where 
+  working with “expressions” is possible at more advanced level, however I’ll write about F# later 
+  and now let’s get back to C# 3.0...</p>

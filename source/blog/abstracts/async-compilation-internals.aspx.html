@@ -1,0 +1,28 @@
+﻿<p>Some time ago, I started writing a series about the differences between the asynchronous model in F# 
+  (in Visual Studio 2010) and the asynchronous language extensions for C# proposed at PDC 2010.
+  In the <a href="http://tomasp.net/blog/csharp-fsharp-async-intro.aspx">first article</a>, I showed
+  how both of the language features look and I highlighted a couple of differences. In the
+  <a href="http://tomasp.net/articles/async-csharp-differences.aspx">second article</a>, I discussed
+  the support for cancellation (available only in F#) and how the two models differ 
+  <em>semantically</em> (i.e. what are differences in the behaviour). However, I didn't talk about more
+  techincal differences and, in particular, how is the asynchronous code compiled. We'll look 
+  at this topic today...</p>
+
+<p>Although the C# asynchronous programming model is very similar to F# asynchronous workflows,
+  the compilation looks quite different. The C# compiler uses a similar technique as when compiling
+  iterators and creates a state machine, while the F# compiler uses an approach based on higher order
+  functions (combinators) that's shared with (most) other computation expressions.</p>
+
+<p>I won't discuss the syntax of F# asynchronous workflows or the C# asynchronous extensions in 
+  this article, so if you're new to one of these, here are links to other articles in this 
+  series: </p>
+<ul>
+  <li><a href="http://tomasp.net/blog/csharp-fsharp-async-intro.aspx">Asynchronous C# and F# (I.): Simultaneous introduction</a></li>
+  <li><a href="http://tomasp.net/articles/async-csharp-differences.aspx">Asynchronous C# and F# (II.): How do they differ?</a></li>
+  <li><strong>Asynchronous C# and F# (III.): How does it work?</strong></li>
+  <li>Asynchronous C# and F# (IV.): Calling F# libraries from C# <em>(not yet available)</em></li>
+</ul>  
+
+<p>Let's start by looking at the mechanism used in the C# compiler. If you already know how
+  iterators work in C# 2.0, then you'll find it quite easy to understand. If you're not familiar
+  with iterators, then don't worry - I'll make the explanation self-contained.</p>

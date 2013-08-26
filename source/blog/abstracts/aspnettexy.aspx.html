@@ -1,0 +1,12 @@
+﻿<p>Texy! [<a href="#texyphallinks">1</a>] is a convertor from text format (similar to formats used in some wiki applications) 
+  to valid XHTML code written in PHP. The syntax is described at Texy! web page [<a href="#texyphallinks">2</a>]. Unfortunately, it is only in 
+  Czech language, but the syntax is very straightforward, so you can understand it without learning Czech :-).</p><p>
+  In this article, we'll examine how to compile Texy! using Phalanger in pure mode. In this mode it is possible to use objects from PHP like any other .NET objects, so we can later used the compiled assembly for example in the following C# code:</p>
+<pre>
+<span class="c">// Create instance of Texy! parser</span>
+Texy t = <span class="k">new</span> Texy();
+<span class="c">// Call the 'process' method and cast result to string</span>
+<span class="k">string</span> parsed = (<span class="k">string</span>)t.process(txtTexy.Text);
+<span class="c">// Display parsed text using literal</span>
+ltrOutput.Text = parsed;
+</pre>

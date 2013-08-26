@@ -1,0 +1,23 @@
+﻿<p>I believe that the LINQ project and changes in C# 3.0 and VB 9 are interesting because they 
+  allow rewriting of many ideas from functional programming. An ability to express queries easily
+  is one of these ideas, but it is definitely not the only one. There are many other interesting ideas.
+  The C# 3.0 language isn't primary a functional language, so it isn't easy to discover the idea
+  if you use only C#, but it is possible to implement it if you know the idea already.</p>
+<p>I already wrote a few interesting C# examples that were inspired by some functional idea.
+  I'm a big fan of the F# language, so it is not a surprise that I started with an F# version
+  of the problem and then looked at the way to do the same thing in C#. In particular, this is 
+  how my article about building dynamic queries in C# came to the existence - the F# version used
+  <a href="http://tomasp.net/blog/dynamic-flinq.aspx">FLINQ and Quotations</a> and then I demonstrated how to do the same in <a href="http://tomasp.net/blog/dynamic-linq-queries.aspx">C# 
+  using expression trees</a>. Another example is my article about asynchronous 
+  programming in C# <a href="http://tomasp.net/blog/csharp-async.aspx">using iterators</a>, which shows how to implement something 
+  like F# <a href="http://blogs.msdn.com/dsyme/archive/2007/10/11/introducing-f-asynchronous-workflows.aspx">asynchronous workflows using iterators</a> in C# 2.0.</p>
+
+<h3>Functional Reactive Programming</h3>  
+<p>Today, I'm going to look at another very interesting idea from functional programming. It is 
+  called <em>Functional Reactive Programming</em> and it comes from the Haskell community. You can find 
+  a list of related <a href="http://www.haskell.org/frp/" type="external">Haskell projects here</a>.
+  However, similar things (though they are not purely functional and simplified) are available 
+  in the F# language as well. Don Syme introduced them in his blog post called 
+  <a href="http://blogs.msdn.com/dsyme/archive/2006/03/24/559582.aspx">F# First Class Events: Simplicity and Compositionality in Imperative Reactive Programming</a>. In this article, I'm going to briefly introduce the implementation
+  available in F# and I'll extend it a little bit to allow some more interesting things. In the 
+  second article from this series, I'll show how to implement the same thing in C# 3.0 (and in VB 9 too!)</p>  

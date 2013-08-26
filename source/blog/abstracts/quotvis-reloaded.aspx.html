@@ -1,0 +1,20 @@
+﻿
+
+<div style="float:right;margin-left:10px;">
+  <a href="http://www.tomasp.net/articles/quotvis-reloaded/screen.png" target="_blank"><img style="margin:10px;border-style:none;" src="http://tomasp.net/articles/quotvis-reloaded/screen-sm-sm.jpg" alt="Quotation Visualizer" /></a>
+</div>
+
+<p>Some time ago, I wrote an article about useful utility called <a href="http://www.tomasp.net/blog/quotvis.aspx">F# quotations visualizer</a>.
+  This utility can be used to show visual representation of F# quotations, that can represent (subset of) source code written in F#.
+  There are two ways that you can use to get F# quotations - first is using operators <code>&lt;@@@@ ... @@@@&gt;</code> (this
+  returns quotation of the code written inside the operator), second method is to get quotation of top level definition from compiled 
+  F# assembly (you have to explicitly enable this using command line switch <code>--enable-quotation-data</code> while compiling assembly).
+</p>
+<p>Because I added several new features to the original Quotations visualizer, I decided to publish the latest version - here is the list of main improvements:</p>
+<ul>
+  <li>Rewritten using active patterns (new F# language feature)</li>
+  <li>It is possible to extract quotations from compiled F# assembly (if it contains quotation data)</li>
+  <li>Added support for several missing language constructs</li>
+</ul>
+
+

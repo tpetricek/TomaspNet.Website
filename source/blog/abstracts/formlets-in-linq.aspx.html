@@ -1,0 +1,20 @@
+﻿<img src="http://tomasp.net/articles/formlets-in-linq/screen.png" style="margin:15px;float:right;" />
+<p>The LINQ query syntax can be used for various things. Aside from writing queries, you can 
+  also use it to encode any <em>monads</em>. This has become a fashionable topic, so you can learn
+  more about it at many .NET conferences (for example <a href="http://gotocon.com/cph-2011/tracks/show_track.jsp?trackOID=434">GOTO 2011</a>).
+  There are also many blog posts on this topic and I explained it in details in Chapter 12 of <a href="http://manning.com/petricek">my book</a>, which
+  is available as a <a href="http://manning.com/petricek/SampleChapter12.pdf">free sample chapter</a> (PDF).</p>
+
+<p>However, you can also use LINQ syntax for writing different types of computations. In a 
+  <a href="http://tomasp.net/blog/idioms-in-linq.aspx">previous blog post</a>, I introduced <em>idioms</em>
+  (also called <em>applicative functors</em>) and I demonstrated how to use the <code>join</code> syntax in LINQ
+  to write computations based on idioms. We looked at a slightly boring, but simple example - zipping of lists - and
+  we also implemented matrix transposition.</p>
+ 
+<p>In this blog post, we look at a more exciting example. I explain <em>formlets</em>, which is an <em>idiom</em>
+  for building web forms. Formlets give us an elegant functional way to create reusable components that encapsulate
+  both visual aspect (HTML) and behavior (processing of requests). You can think of them as functional ASP.NET controls.
+  Formlets come from the <a href="http://groups.inf.ed.ac.uk/links/formlets/">Links project</a> and they are now used in commercial products like
+  <a href="http://www.websharper.com/tutorials/GettingStartedWithFormlets.aspx">WebSharper</a>. In this article, you'll see that we can (mis)use LINQ to get a nicer syntax
+  for writing code using formlets. My C# implementation of formlets is based on a nice <a href="http://bugsquash.blogspot.com/2011/01/simple-implementation-of-formlets-in-f.html">F# formlets by Mauricio
+  Scheffer</a>.</p>

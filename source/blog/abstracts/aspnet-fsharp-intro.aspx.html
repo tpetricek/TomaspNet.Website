@@ -1,0 +1,17 @@
+﻿
+
+  <p>CodeDOM (Code Document Object Model) is set of objects (located in <code>System.CodeDom</code> namespace) that can be used
+    for representing logical structure of .NET source code. These classes are used for generating Web service references
+    (using <code>wsdl.exe</code> tool), for generating typed datasets and in many other situations. The most interesting
+    use of CodeDOM classes is in ASP.NET where ASP.NET generates code from <code>aspx</code>/<code>ascx</code> files and 
+    compiles this code into web site assemblies (together with the code written in code behind files).</p>
+
+  <p>This means, that you can use any language for developing ASP.NET web sites, as long as you implement CodeDOM provider
+    that generates source code from CodeDOM structure and can compile these source files (this can be simply done by executing 
+    command line compiler). 
+I was recently working on CodeProvider for the F# language, and finally it supports everything
+    what is needed by ASP.NET (however it is complete and it doesn't work for example with <code>wsdl.exe</code>). Using this
+    CodeDOM provider you can write ENTIRE web site in F# (including in-line code enclosed in &lt;% ... source code ... %&gt;).
+    I also created project template for F# web site that can be imported to Visual Studio 2005, so you can easilly try 
+    writing web pages in F#...</p> 
+

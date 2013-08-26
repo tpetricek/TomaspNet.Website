@@ -1,0 +1,22 @@
+﻿<p>Mathematical duality [<a href="http://tomasp.net/blog/event-object-duality.aspx
+#duallinks">2</a>] 
+  is a very useful and elegant concept that gives us a nice way of speaking
+  about objects or structures that behave in some way exactly conversely. There
+  is no clear definition of what <em>duality</em> is. However, the idea is that when we
+  have two structures that behave conversely and we know that something is true
+  about the first one, then we get the opposite statement about the other structure
+  "for free" (if you know how to translate from one structure to the other).</p>
+
+<p>In this article, I'll talk about an interesting example of duality that (to my best
+  knowledge) wasn't described by anyone before. The two dual structures are 
+  <strong>references between objects</strong> in a normal program and <strong>references
+  between events</strong> in a reactive application. The statement that is going to 
+  become obvious thanks to the duality principle is describing which of the objects (or
+  events) are garbage and can be safely collected by garbage collector.</p>
+
+<p>This topic is in much more details 
+  discussed in a paper [<a href="http://tomasp.net/blog/event-object-duality.aspx
+#duallinks">4</a>] I wrote with <a href="http://research.microsoft.com/en-us/people/dsyme/">Don Syme</a> 
+  and that I presented at the ISMM Workshop (see also <a href="http://tomasp.net/blog/pldi-2010-trip.aspx">my
+  trip report from PLDI</a>). In this article, I'll try to give an accessible
+  description of the most interesting idea from the paper...</p>

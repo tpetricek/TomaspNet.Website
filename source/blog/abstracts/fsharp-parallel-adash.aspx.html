@@ -1,0 +1,12 @@
+﻿<p>In the fourth part of the Parallel Programming in F# series, we'll take a look at the Adatum Financial 
+  Dashboard sample. The sample is a part of <a href="http://parallelpatterns.codeplex.com/" type="external">Parallel 
+  Programming with Microsoft .NET</a>, which is a guide that introduces common parallel programming patterns
+  on .NET 4.0. The C# version of the sample is in details discussed in the guide, but the F# translation
+  contains several additional interesting aspects that I'll introduce in this article.</p>
+
+<p>The sample simulates a financial modelling application that performs processing of market
+  data in several steps that can be partly executed in parallel. In this article we'll compare two
+  implementations. The first one (similar to the C# version) uses the <code>Task&lt;'T&gt;</code> type 
+  from .NET 4.0 and chains steps using the <code>ContinueWith</code> method. The second version is 
+  F# specific and it implements step as a sequential computation wrapped in asynchronous 
+  workflows. Partial results are reported to the user interface using events.</p>  

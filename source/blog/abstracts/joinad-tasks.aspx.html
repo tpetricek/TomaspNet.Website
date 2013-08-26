@@ -1,0 +1,21 @@
+﻿<p>The implementation of joinad operations for the <code>Task&lt;'T&gt;</code> type is quite similar to the 
+implementation of <code>Async&lt;'T&gt;</code>, because the two types have similar properties. They both
+produce at most one value (or an exception) and they both take some time to complete.</p>
+
+<p>Just like for asynchronous workflows, pattern matching on multiple computations using 
+<code>match!</code> gives us a parallel composition (with the two tasks running in parallel) and
+choice between clauses is non-deterministic, depending on which clause completes first.</p>
+
+<p>Unlike asynchronous workflows, the <code>Task&lt;'T&gt;</code> type does not require any support for
+aliasing. A value of type <code>Task&lt;'T&gt;</code> represents a <em>running</em> computation that can be
+accessed from multiple parts of program. In this sense, the type <code>Async&lt;'T&gt;</code> is more
+similar to a function <code>unit -&gt; Task&lt;'T&gt;</code> than to the type <code>Task&lt;'T&gt;</code> itself.</p>
+
+<p>The key difference between tasks and asynchronous workflows is that the latter provides
+better support for writing non-blocking computations that involve <em>asynchronous</em> 
+long-running operations such as I/O or waiting for a certain event. Tasks are more
+suitable for high-performance CPU-intensive computations.</p>
+
+<p><em><strong>Note:</strong> This blog post is a re-publication of a tutorial from the <a href="http://tryjoinads.org">TryJoinads.org</a>
+web page. If you read the article there, you can run the examples interactively
+and experiment with them: <a href="http://tryjoinads.org/index.html?use/tasks.html">view the article on TryJoinads</a>.</em></p>

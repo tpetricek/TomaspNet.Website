@@ -1,0 +1,48 @@
+﻿<p>In this article, I'll write about an experimental extension for F# that I call 
+  <em>joinads</em>. If you're following my blog, you may have seen an 
+  <a href="http://tomasp.net/blog/match-bang-paper.aspx">academic paper</a> that
+  I wrote about it some time ago. Anyway, the motivation for the extension
+  is that there are many useful programming models for reactive, concurrent and parallel programming 
+  that would deserve some syntactic support in the programming language.</p>
+
+<p>For example, when programming with <em>futures</em> (the <code>Task&lt;T&gt;</code> type), 
+  you may want to implement logical "or" operator for tasks that returns <code>true</code>
+  immediately when the first task completes returning <code>true</code>. When programming with 
+  <em>events</em> (the <code>IObservable&lt;T&gt;</code> type),
+  we'd like to wait for the event that happens first. Finally, when programming using <em>agents</em>,
+  we sometimes need to wait only for certain types of messages. All of these problems can
+  be solved, but require the use of (sometimes fairly complicated) functions. Joinads make
+  it possible to solve them directly using the <code>match!</code> syntax. For example, here
+  is the "or" operator for tasks:</p>
+
+<pre class="fssnip">
+<span class="l">1: </span><span onmouseout="hideTip(event, 'jofs1', 1)" onmouseover="showTip(event, 'jofs1', 1)" class="i">future</span> {
+<span class="l">2: </span>  <span class="k">match!</span> <span onmouseout="hideTip(event, 'jofs2', 2)" onmouseover="showTip(event, 'jofs2', 2)" class="i">after</span> <span class="n">100</span> <span class="k">true</span>, <span onmouseout="hideTip(event, 'jofs2', 3)" onmouseover="showTip(event, 'jofs2', 3)" class="i">after</span> <span class="n">1000</span> <span class="k">false</span> <span class="k">with</span>
+<span class="l">3: </span>  | <span class="o">!</span><span class="k">true</span>, _ <span class="k">-&gt;</span> <span class="k">return</span> <span class="k">true</span>
+<span class="l">4: </span>  | _, <span class="o">!</span><span class="k">true</span> <span class="k">-&gt;</span> <span class="k">return</span> <span class="k">true</span>
+<span class="l">5: </span>  | <span class="o">!</span><span onmouseout="hideTip(event, 'jofs3', 4)" onmouseover="showTip(event, 'jofs3', 4)" class="i">a</span>, <span class="o">!</span><span onmouseout="hideTip(event, 'jofs4', 5)" onmouseover="showTip(event, 'jofs4', 5)" class="i">b</span> <span class="k">-&gt;</span> <span class="k">return</span> <span onmouseout="hideTip(event, 'jofs3', 6)" onmouseover="showTip(event, 'jofs3', 6)" class="i">a</span> <span class="o">||</span> <span onmouseout="hideTip(event, 'jofs4', 7)" onmouseover="showTip(event, 'jofs4', 7)" class="i">b</span> }</pre>
+
+<p>I'll write more about this example (and the implementation) in a later article. This article
+  focuses on the compiler extension itself. I created a first implementation of the idea above during
+  my <a href="http://tomasp.net/blog/internship-match-bang.aspx">internship with Don Syme at MSR Cambridge</a>,
+  but then changed it quite a bit when writing the academic paper mentioned above. However, I never released
+  the source code.
+</p>
+<p>Thanks to the <a href="http://blogs.msdn.com/b/dsyme/archive/2010/11/04/announcing-the-f-compiler-library-source-code-drop.aspx">open-source release of F#</a> it is now 
+  quite easy to modify the F# compiler and make the modifications available, so I decided I should 
+  finally release my F# extensions. I also recently <a href="http://tomasp.net/blog/idioms-in-linq.aspx">blogged</a>
+  <a href="http://tomasp.net/blog/formlets-in-linq.aspx">about</a> encoding <em>idioms</em> (also called
+  <em>applicative functors</em>) in C#. I was wondering how to do that in F# and so I also created a simple
+  extension computations based on this abstraction. The support for <em>idioms</em> is just an experiment, but it could 
+  be useful, for example, for programming with formlets. You'll find more about it at the end of the 
+  article.
+</p>
+<p>You can find the <a href="https://github.com/tpetricek/FSharp.Extensions">source code on my GitHub</a> 
+  (there is also a link compiled binaries at the end of the article).
+  The source code is cloned from an F# Mono repository, which means that it should build on Linux and 
+  MacOS too. </p>
+
+<div class="tip" id="jofs1">val future : FutureBuilder<br /><br />Full name: JoinadsDemo.future<br /></div>
+<div class="tip" id="jofs2">val after : int -&gt; &#39;a -&gt; Task&lt;&#39;a&gt;<br /><br />Full name: JoinadsDemo.after<br /></div>
+<div class="tip" id="jofs3">val a : bool<br /><br />&#160;&#160;type: bool<br />&#160;&#160;implements: IComparable<br />&#160;&#160;implements: IConvertible<br />&#160;&#160;implements: IComparable&lt;bool&gt;<br />&#160;&#160;implements: IEquatable&lt;bool&gt;<br />&#160;&#160;inherits: ValueType<br /></div>
+<div class="tip" id="jofs4">val b : bool<br /><br />&#160;&#160;type: bool<br />&#160;&#160;implements: IComparable<br />&#160;&#160;implements: IConvertible<br />&#160;&#160;implements: IComparable&lt;bool&gt;<br />&#160;&#160;implements: IEquatable&lt;bool&gt;<br />&#160;&#160;inherits: ValueType<br /></div>

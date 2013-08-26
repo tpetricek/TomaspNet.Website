@@ -1,0 +1,26 @@
+﻿<img src="http://tomasp.net/articles/accelerator-intro/montecarlo.png" alt="Calculating Pi using Monte-Carlo" style="float:left; margin:10px" />
+<p>I already wrote about two projects that I worked on during an internship at
+  MSR back in 2007 (<a href="http://tomasp.net/blog/aspnet-in-fsharp.aspx" type="external">ASP.NET support in F#</a> and
+  <a href="http://tomasp.net/blog/fswebtools-intro.aspx" type="external">F# WebTools</a>).
+  Even though this was more than 2 years ago (and I did one more internship at MSR in the meantime),
+  I still have one more project that I never published on the web. The folks from the F# team
+  reminded me of this project recently, so I thought I could finally publish it. The project 
+  used Microsoft Research Accelerator [<a href="#accelfsh1links">1</a>, <a href="#accelfsh1links">2</a>], 
+  which is a C# library for developing array-based computations and executing them on a GPU. 
+  More recently, the Accelerator team at MSR published Accelerator v2 [<a href="#accelfsh1links">3</a>],
+  which was a good motivation to update my original project...</p>
+  
+<p>In this article, we'll look at the simplest way of using Accelerator from F#. Accelerator
+  provides a managed interface that can be naturally used from both C# and F#. We can use
+  a mix of method calls and overloaded operators to describe a computation. In F#, we'll also 
+  define our additional custom operators to make the code a bit nicer. After we introduce
+  Accelerator using a simple C# demo, we'll look how to calculate an approximate value of
+  the PI number using a Monte-Carlo method.</p>
+<p>This article is the first one from a series about using Accelerator from F#. The list
+  of articles may change, but here is a list of articles that I'm currently planning to write:</p>
+<ul>
+  <li><strong>Accelerator and F# (I.): Introduction and calculating PI</strong></li>
+  <li><a href="http://tomasp.net/blog/accelerator-life-game.aspx">Accelerator and F# (II.): The Game of Life on GPU</a></li>
+  <li><a href="http://tomasp.net/blog/accelerator-dataparallel.aspx">Accelerator and F# (III.): Data-parallel programs using F# quotations</a></li>
+  <li><a href="http://tomasp.net/blog/accelerator-quotations.aspx">Accelerator and F# (IV.): Composing computations with quotations</a></li>
+</ul>  

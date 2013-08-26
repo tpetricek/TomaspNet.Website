@@ -1,0 +1,14 @@
+﻿<p>The growth of computer CPU speed is slowly being replaced by the growth of number of CPUs 
+  (or cores) in the computer at least for the close future. This causes a revolution in the way software is 
+  written, because traditional and most widely used way of writing concurrent applications using
+  threads is difficult and brings several serious issues. Some predictions say that within a few
+  years, almost every computer will have about 16 cores, so there is a huge need for programming
+  paradigms or idioms that help developers write concurrent software easily (see also <a href="http://www.gotw.ca/publications/concurrency-ddj.htm">The Free Lunch Is Over</a> 
+  [<a href="http://www.gotw.ca/publications/concurrency-ddj.htm" target="_blank">^</a>] written by Herb Sutter).</p>
+
+<p>Functional programming languages (especially pure functional languages) are interesting from 
+  this point of view, because the program doesn't have side-effects which makes it very easy to 
+  parallelize it (programs in pure functional languages can't have any side-effects by design, in other functional
+  languages like F# the side-effects can be eliminated by following functional programming style). </p>
+
+<p>This article describes the code that makes it possible to parallelize some common F# constructs like the <code>List.map</code> and <code>List.filter</code>...</p>

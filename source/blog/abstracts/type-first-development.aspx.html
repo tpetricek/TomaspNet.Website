@@ -1,0 +1,22 @@
+﻿<img src="http://tomasp.net/articles/type-first-development/tfd.png" class="rdecor" />
+
+<p>Using functional programming language changes the way you write code in a number
+of ways. Many of the changes are at a <em>small-scale</em>. For example, you learn how to express 
+computations in a shorter, more declarative way using higher-order functions.
+However, there are also many changes at a <em>large-scale</em>. The most notable one
+is that, when designing a program, you start thinking about the (data) types 
+that represent the data your code works with.</p>
+
+<p>In this article, I describe this approach. Since the acronym TDD is already taken,
+I call the approach Type-First Development (TFD), which is probably a better name anyway.
+The development is not <em>driven</em> by types. It <em>starts</em> with types, but the rest of the
+implementation can still use test-driven development for the implementation.</p>
+
+<p>This article demonstrates the approach using a case study from a real life: 
+My example is a project that I started working on with a friend who needed a 
+system to log journeys with a company car (for expense reports). Using the 
+type-first approach made it easier to understand and discuss the problem.</p>
+
+<p>In many ways, TFD is a very simple approach, so this article just gives a name
+to a practice that is quite common among functional and F# programmers (and 
+we have been <a href="http://functional-programming.net/courses/">teaching it at our F# trainings</a> for the last year)...</p>

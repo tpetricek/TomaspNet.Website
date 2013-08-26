@@ -1,0 +1,33 @@
+﻿<p>In this article, we define an F# numeric type for calculating in the modular arithmetic (also called clock arithmetic)
+  [<a href="#ppcnuml">1</a>].  
+  Modular arithmetic is used for calculations where we want to keep a value within a specified range by counting in cycles. 
+  For example, a maximal value on clock is 12 hours. When we add 11 hours and 3 hours, the value overflows and the result is 
+  2 hours. Aside from clocks, this numeric system is also essential in cryptography or, for example, in music.</p>
+
+<p>This tutorial shows several techniques that are essential when defining any new numeric type in F#. Most importantly, you’ll learn how to:</p>
+<ul>
+<li>Define a numeric type with overloaded operators </li>
+<li>Define a numeric literal for constructing numbers of our new type</li>
+<li>Enable calculating with our type in F# lists and matrices</li>
+<li>Hide implementation details of a numeric type</li>
+</ul>
+
+<p>We define type <code>IntegerZ5</code> that implements modular arithmetic with modulus 5, meaning that valid values are in the range 
+  from 0 to 4 and we equip the type with operations such as addition and multiplication. When an operation produces a value that would 
+  be outside of the range, we adjust it by adding or subtracting the modulus (in our case 5). Here are some examples of calculations 
+  that we’ll be able to write:</p>
+<pre>
+2 + 1 = 3 (mod 5)
+4 * 2 = 3 (mod 5)
+List.sum [ 0; 1; 2; 3 ] = 1 (mod 5)
+</pre>
+
+<p>In the first case, we can perform the operation without any adjustments. In the second case, we multiply 4 by 2 and get 8 as the 
+  result, which is out of the required range. To correct it, we calculate the remainder after a division by 5 (written as <code>8 % 5</code> in F#), 
+  which gives us 3. Finally, the last example shows that we’d also like to be able to use our type with lists. If we add values 0, 1, 2
+  and 3, we get 6 which is adjusted to 1.</p>
+
+<p style="font-style:italic;">This article is a part of a series that covers some F# and F# PowerPack features for 
+  numerical computing. Other articles in this series discuss matrices, defining custom
+  numeric types and writing generic code. For links to other parts, see 
+  <a href="http://tomasp.net/blog/powerpack-introduction.aspx">F# Math - Overview of F# PowerPack</a>.</p>

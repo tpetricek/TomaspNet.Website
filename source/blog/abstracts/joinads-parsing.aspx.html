@@ -1,0 +1,17 @@
+﻿<p>In functional programming, parser combinators are a powerful way of writing parsers. 
+A parser is a function that, given some input, returns possible parsed values and 
+the rest of the input. Parsers can be written using combinators for composition, for
+example run two parsers in sequence or perform one parser any number of times.</p>
+
+<p>Parsers can also implement the monad structure. In some cases, this makes the parser
+less efficient, but it is an elegant way of composing parsers and we can also benefit
+from the syntactic support for monads. In this article, we implement a simple parser
+combinators for F# and we look what additional expressive power we can get from the
+<em>joinad</em> structure and <code>match!</code> construct. This article is largely based on a
+previous article <em>"Fun with Parallel Monad Comprehensions"</em>, which can be found on the
+<a href="../pubs.html">publications</a> page.</p>
+
+<p><em><strong>Note:</strong> This blog post is a re-publication of a tutorial from the <a href="http://tryjoinads.org">TryJoinads.org</a>
+web page. If you read the article there, you can run the examples interactively
+and experiment with them: <a href="http://tryjoinads.org/index.html?implement/parsers.html">view the article on TryJoinads</a>.</em></p>
+

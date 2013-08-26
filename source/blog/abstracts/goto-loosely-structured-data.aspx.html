@@ -1,0 +1,23 @@
+﻿<img src="http://tomasp.net/articles/fsharp-loosely-typed/goto.png" style="float:right;margin:0px 0px 15px 15px;" />
+
+<p>About two weeks ago, I gave a talk at <a href="http://gotocon.com/cph-2011/">GOTO Conference</a> in
+  Copenhagen at a very interesting .NET session organized by <a href="http://blog.ploeh.dk /">Mark Seemann</a>.
+  In my talk, I focused on the impedance mismatch between the data structures that are used
+  in programming languages (such as classes in C# or records and discriminated unions in F#)
+  and the data structures that we need to access (such as database, XML files and REST services).
+   </p>
+
+<p>Clearly, both of the sides have <em>some structure</em> (otherwise, it wouldn't be possible
+  to write any code against them!). Even an XML file that is returned by a REST service has some
+  structure - although the only way to find out about the structure may be to call the service
+  and then look at the result. In this article, I'll briefly summarize the ideas that I 
+  presented in the talk. Here are links to the slides as well as the source code from the 
+  talk: </p>
+
+<ul>
+  <li>You can browse the slides <a href="http://slidesha.re/llTgVk">at SlideShare</a> or you
+    can download them from GitHub in the <a href="https://github.com/tpetricek/Documents/raw/master/Talks%202011/Data%20Access%20(GOTO%20Copenhagen)/data.ppt">PPT format</a>.</li>
+  <li>The source code is in my <a href="https://github.com/tpetricek/Documents/tree/master/Talks%202011/Data%20Access%20(GOTO%20Copenhagen)">GitHub repository</a>
+    and can be downloaded as a single <a href="https://github.com/tpetricek/Documents/raw/master/Talks%202011/Data%20Access%20(GOTO%20Copenhagen)/demos.zip">ZIP file</a>.  
+  </li>
+</ul>

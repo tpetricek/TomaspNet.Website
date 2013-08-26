@@ -1,0 +1,24 @@
+﻿<p>I started working on this project, because I attended C++ class at our university and I had to do some application in C++. Because I hate doing useless projects I wanted to work on something interesting and so I started thinking whether it would be possible to enable LINQ support in C++/CLI...</p>
+
+<p>C++/CLI is a very flexible language and the following example proves that enabling LINQ support in C++/CLI isn't impossible. The following database query returns name of contact and company for all customers living in London:</p>
+
+<pre lang="c++">
+// create connection to database
+NorthwindData db(".. connection string ..");
+
+// declare database query
+Expr&lt;Customers^&gt; cvar = Var&lt;Customers^&gt;("c");
+CQuery&lt;String^&gt;^ q = db.QCustomers
+  -&gt;Where(clq::fun(cvar, cvar.City == "London"))
+  -&gt;Select(clq::fun(cvar, 
+      cvar.ContactName + Expr&lt;String^&gt;(", ") + cvar.CompanyName));
+
+// execute query and output results
+for each(String^ s in q-&gt;Query)
+  Console::WriteLine(s);
+</pre>  
+<p>If you are interested in more information about CLinq project you can...</p>
+<ul>
+  <li><a href="/articles/clinq-project.aspx">.. continue and read the entire article</a></li>
+  <li><a href="http://www.codeplex.com/linqextensions">Visit the CodePlex project homepage</a> [<a href="http://www.codeplex.com/linqextensions" target="_blank">^</a>]</li>
+</ul>

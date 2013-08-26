@@ -1,0 +1,11 @@
+﻿<p>In the fourth article of the F# overview series, I will shortly describe how I understad the language oriented paradigm and how the F# language can be used for developing libraries using this paradigm. We will look how discriminated unions relate to this paradigm and at three specific features that support this paradigm, namely <em>active patterns</em>, <em>computation expressions</em> and <em>quotations</em>.</p>
+
+<p>Defining precisely what the term <em>language oriented programming</em> means in context of the F# language would be difficult,
+  so I will instead explain a few examples that will demonstrate how I understand it. In general, the goal of language oriented
+  programming is to develop a <em>language</em> that would be suitable for some (more specific) class of tasks and use this language 
+  for solving these tasks. Of course, developing a real programming language is extremely complex problem, so there are several ways
+  for making it easier. As the most elementary example, you can look at XML files (with certain schema) as language that 
+  are processed by your program and solve some specific problem (for example configuring the application). As a side note,
+  I should mention that I'm not particularly happy with the term ‘language’ in this context, because the term can be used
+  for describing a wide range of techniques from very trivial constructs to a complex object-oriented class libraries, 
+  but I have not seen any better term for the class of techniques that I’m going to talk about.</p>

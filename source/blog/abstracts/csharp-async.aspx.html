@@ -1,0 +1,17 @@
+﻿<p>In this article we will look how to write programs that perform asynchronous operations without 
+  the typical inversion of control. To briefly introduce what I mean by 'asynchronous' and 
+  'inversion of control' - asynchronous refers to programs that perform some long running operations 
+  that don't necessary block a calling thread, for example accessing the network, calling web services 
+  or performing any other I/O operation in general. The inversion of control refers to the code structure 
+  that you have to use when writing a code that explicitly passes a C# delegate as a callback to the
+  asynchronous method (typically called <code>Begin<em>Something</em></code> in .NET). The asynchronous method
+  calls the delegate when the operation completes, which reverses the way you write the code - instead of
+  encoding the control flow using typical language constructs (e.g. <code>while</code> loop) you have to 
+  use global variables and write your own control mechanism.</p>
+<p>The funny thing about this article is that it could have been written at least 3 years ago when
+  a beta version of Visual Studio 2005 and C# 2.0 became first available, but it is using iterators in 
+  a slightly bizarre way, so it is not easy to realize that this is possible. Actually, I will use some C# 3.0
+  methods in the article as well, but only extension methods and mainly just to keep the code nicer. As with 
+  my earlier article about building LINQ queries at runtime, I realized that it can be done in C# when I was playing with 
+  the F# solution (called F# Asynchronous Workflows), where this approach is very natural, so I will shortly
+  mention the F# implementation as well.</p>

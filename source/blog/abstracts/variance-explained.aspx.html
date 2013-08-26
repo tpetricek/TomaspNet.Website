@@ -1,0 +1,17 @@
+﻿<img src="http://tomasp.net/articles/variance-explained/icon.png" title="Category theory is sometimes called 'general abstract nonsense', but it can actually be useful!" class="rdecor" />
+
+<p>In C# 4.0, we can annotate generic type parameters with <code>out</code> and <code>in</code> annotations to 
+specify whether they should behave <em>covariantly</em> or <em>contravariantly</em>. This is mainly
+useful when using already defined standard interfaces. Covariance means that you can use
+<code>IEnumerable&lt;string&gt;</code> in place where <code>IEnumerable&lt;object&gt;</code> is expected. Contravariance
+allows you to pass <code>IComparable&lt;object&gt;</code> as an argument of a method taking <code>IComparable&lt;string&gt;</code>.</p>
+
+<p>So far, so good. If you already learned about covariance and contravariance in C# 4, then 
+the above two examples are probably familiar. If you're new to the concepts, then 
+the examples should make sense (after a bit of thinking, but I'll say more about them). 
+However, there is still a number of questions. Is there some easy way to explain the 
+two concepts? Why one option makes sense for some types and the other for different types? 
+And why the hell is it called <em>covariance</em> and <em>contravariance</em> anyway?</p>
+
+<p>In this blog post, I'll explain some of the mathematics that you can use to think 
+about covariance and contravariance.</p>

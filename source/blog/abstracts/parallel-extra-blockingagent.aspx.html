@@ -1,0 +1,16 @@
+﻿<p>In the <a href="http://tomasp.net/blog/parallel-extra-image-pipeline.aspx">previous article</a>, we 
+  briefly introduced the <code>BlockingQueueAgent&lt;T&gt;</code> type and we used it to implement the
+  pipeline pattern (from Chapter 7 of <a href="http://parallelpatterns.codeplex.com/" type="external">Parallel Programming with Microsoft .NET</a>)
+  using asynchronous workflows. The type was used to represent intermediate buffers with a limited size.
+  In this article we'll take a look at the implementation of the type. The type implements a very useful
+  pattern in agent-based parallel programming, so you can use it in your work, but it could be also 
+  interesting as a demonstration of the F# <code>Agent&lt;T&gt;</code> type (an recommended alias 
+  for the <code>MailboxProcessor&lt;T&gt;</code> type).</p>
+<p>The <code>BlockingQueueAgent&lt;T&gt;</code> type is similar to <code>BlockingCollection&lt;T&gt;</code> 
+  from .NET 4.0. It has methods for adding and removing elements that block when the operation cannot be
+  done (e.g. adding when the queue is full or removing when the queue is empty). The most important 
+  difference is that it can be used <em>asynchronously</em>. This means that when we call its operations
+  form F# asynchronous workflow (using <code>let!</code> and <code>do!</code>), the operation will block
+  the calling workflow, but it will not block any physical thread. We start by looking at the overall
+  structure of the agent and then look at the body of the agent which implements its behavior (using
+  a state machine)...</p>

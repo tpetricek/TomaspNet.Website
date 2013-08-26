@@ -1,0 +1,11 @@
+﻿<p>When you want to call PHP scripts from mainstream .NET languages, like C# you can follow two different ways.
+  First you can use the pure mode as I demonstrated in one of the earlier articles 
+  on PHP application called Texy!. This approach can be used only for
+  some specific applications, because pure mode has several restrictions - the two most important restrictions
+  are that no global code or inclusions are allowed (you have to specify all source files during the
+  compilation), but thanks to this restrictions Phalanger is able to produce classes that are compatible
+  with .NET and can be called from C#. Second option is to create object dynamically by its name and
+  perform all method invocations by name too. This approach can be used with any PHP scripts, but
+  it isn't very convenient. In this article we present new features in the Phalanger beta 4 which 
+  extend the second approach and make it possible to use objects from any PHP script in C# using 
+  type-safe way.</p>

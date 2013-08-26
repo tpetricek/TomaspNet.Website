@@ -1,0 +1,20 @@
+﻿<p>Haskell provides quite a few ways for writing parallel programs, but none of them is fully automatic.
+  The programmer has to use some annotations or library to run computations in parallel <em>explicitly</em>. 
+  The most recent paper (and library) for writing parallel programs follows the latter approach. You can find more
+  information about the library in a paper by Simon Marlow et al. <a type="external" href="http://research.microsoft.com/en-us/um/people/simonpj/papers/parallel/monad-par.pdf">A
+  monad for deterministic parallelism</a> and it is also available on <a href="http://hackage.haskell.org/package/monad-par" type="external">Hackage</a>.
+  However, I'll explain all the important bits that I'll use in this article.</p>
+
+<p>The library provides an explicit way for writing parallel programs using a <code>Par</code> monad. The library contains 
+  constructs for spawning computations and sharing state using blocking variables. However, the whole programming model
+  is fully deterministic. I believe that it is sometimes useful to lift the determinacy requirement.
+  Some programs are deterministic, but the fact cannot be (easily) automatically verified. For example, say you have two functions
+  <code>fib1</code> and <code>fib2</code>. They both give the same result, but each of them is more efficient
+  than the other one on certain inputs. To calculate a Fibonacci number, the program could <em>speculatively</em> 
+  try to evaluate both functions in parallel and return the result of the one that finishes first.</p>
+
+<p>Unfortunately, this cannot be safely implemented using a fully deterministic library. In this article, I'll show some
+  examples where speculative parallelism can be useful and I'll talk about an extension to the <code>Par</code> monad
+  that I implemented (available on <a href="https://github.com/tpetricek/Haskell.ParMonad">GitHub</a>). The extension allows 
+  programmers to write <em>speculative computations</em>, provided that they manually verify that their code is 
+  deterministic. </p>

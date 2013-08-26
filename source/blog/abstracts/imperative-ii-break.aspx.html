@@ -1,0 +1,35 @@
+﻿<p>As I already wrote in the <a href="http://tomasp.net/articles/imperative-i-return.aspx">first part of this series</a>,
+  the F# language doesn't support some of the language constructs known from imperative
+  languages such as C#. In particular, we cannot use imperative <code>return</code> statement
+  that returns the result of a function from any place in the function code. In functional languages,
+  every construct is an expression, so to get the overall result of the function, the 
+  F# language evaluates the expression and the value of the expression is used as the result.
+  In the previous article, we've seen that we can simulate this construct in the F# language
+  using F# computation expressions and I showed how to implement computation named <code>imperative</code>
+  that allows us to write for example the <code>exists</code> function for working with sequences
+  like this:</p>
+<pre lang="fsharp">
+let exists f inp = imperative {
+  for v in inp do 
+    if f(v) then return true
+  return false }
+</pre>  
+<p>In this article, we're going to look at two more imperative constructs and we're going
+  to talk about <code>break</code> and <code>continue</code>. We'll see that we can quite
+  easily extend the computation builder from the previous article to allow writing code
+  that is syntactically very close to what you would write in C#. As I already mentioned,
+  there are of course some performance overheads when using computation expressions, but 
+  I find it very interesting how nice imperative syntax we can get in functional F#:</p>
+<pre lang="fsharp">
+imperative { 
+  for x in 1 .. 10 do 
+    if (x % 3 = 0) then do! continue
+    printfn "number = %d" x }
+</pre>  
+<p>The only difference between this code and the code we'd probably write if F# supported
+  <code>continue</code> as a keyword is that we need to wrap the code inside the <code>imperative</code>
+  computation and that we need to add the <code>do!</code> primitive before the <code>continue</code>
+  value. Now that we've seen an example of using the <code>continue</code> value inside
+  the imperative computations, let's look how we can extend the computation builder from
+  the previous article to add this feature...</p>  
+  

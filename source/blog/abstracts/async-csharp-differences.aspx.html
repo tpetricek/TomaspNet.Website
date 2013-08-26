@@ -1,0 +1,25 @@
+﻿<p>Anders Hejlsberg announced the support for asynchronous programming in the next version of C# announced at PDC 2010.
+  The extension looks very similar to F# asynchronous workflows (which are already available in Visual Studio 2010). 
+  Despite the large similarity, there are a couple of differences between the two programming models. I already mentioned 
+  some of them briefly in <a href="http://tomasp.net/blog/csharp-fsharp-async-intro.aspx">the first article of this series</a>.
+  In this article, we'll look at some of the technical differences between the two models.</p>
+
+<p>The most notable non-technical difference is that F# asynchronous workflows are already available in a 
+  supported version of Visual Studio and can be used on a large number of .NET runtimes (including, for example,
+  Windows Phone and Silverlight). However, there are surprisingly many technical differences as well.
+  In this article, I'll talk about the support for cancellation, which is available in F# and is not
+  (currently) available in the C# preview. We'll also look at the difference between model where tasks
+  are created as running and the delayed model.</p>
+
+<p>This article is the second part of a short series about the asynchronous programming support
+  in C# and F#. The previous article shows a simple example in both of the languages and the next
+  articles explain how does the feature work (and how you can customize its behavior) as well as 
+  how to call F# libraries from C#:</p>
+<ul>
+  <li><a href="http://tomasp.net/blog/csharp-fsharp-async-intro.aspx">Asynchronous C# and F# (I.): Simultaneous introduction</a></li>
+  <li><strong>Asynchronous C# and F# (II.): How do they differ?</strong></li>
+  <li><a href="http://tomasp.net/blog/async-compilation-internals.aspx">Asynchronous C# and F# (III.): How does it work?</a></li>
+  <li>Asynchronous C# and F# (IV.): Calling F# libraries from C# <em>(not yet available)</em></li>
+</ul>  
+<p>Let's start by looking at, perhaps, the most important technical difference - the 
+  built-in support for cancellation available in F# asynchronous workflows.</p>

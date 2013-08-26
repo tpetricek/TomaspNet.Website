@@ -1,0 +1,20 @@
+﻿<img src="http://tomasp.net/articles/safe-gui-async/screen.png" style="float:right; margin:0px 0px 0px 15px;" />
+
+<p>In the <a href="http://tomasp.net/blog/async-non-blocking-gui.aspx">previous article</a>,
+  I discussed how to use F# asynchronous work&#173;flows for creating reactive user-interfaces.
+  One of the main concerns was to avoid blocking the GUI thread (to prevent the user-interface
+  from freezing). The workflow shouldn't perform any CPU-intensive compu&#173;tation when running
+  on the GUI thread.</p>
+
+<p>The standard F# library provides two ways to run a computation on a background thread from
+  an asynchronous workflow. The <code>StartChild</code> operation starts an operation 
+  in the thread pool and returns a workflow that can be called using asynchronous (non-blocking)
+  <code>let!</code> construct. The <code>SwitchToThreadPool</code> operation can be called
+  using <code>do!</code> and resumes the rest of the workflow on a background thread.</p>
+
+<p>When using the <code>SwitchToThreadPool</code> operation, we also need to eventually use
+  <code>SwitchToContext</code> to transfer the execution back to the GUI thread (after 
+  completing the CPU-intensive calculations). In this article, I describe a variation of 
+  F# asynchronous workflows that keeps track of the running thread in the type of the 
+  computation. As a result, calling a workflow that should be executed on a GUI thread 
+  from a background thread is a compile-time error as opposed to failing at runtime.</p>

@@ -1,0 +1,27 @@
+﻿ <p>In the <a href="http://tomasp.net/blog/powerpack-numeric.aspx">previous article of this 
+  series</a>, we looked at <code>complex</code> and <code>BigRational</code>, which are two 
+  numeric types that are available in F# PowerPack. Aside from these two, the PowerPack 
+  library also contains a type <code>matrix</code> representing a two-dimensional matrix
+  of floating-point values.</p>
+
+<p>In this article, you'll learn how to work with matrices in F#, using some 
+  of the functions provided by F# PowerPack. I'll demonstrate the library using an 
+  example that represents <em>graphs</em> using a, so called, <em>adjacency matrix</em>.
+  If you're not familiar with this concept, you don't need to worry. It is quite simple
+  and it will be clear once we look at an example.
+  The matrix represents which vertices of a graph are connected with other vertices by 
+  an edge. Many of the standard operations on matrices are useful when working with 
+  adjacency matrix, so this tutorial will cover the following:</p>
+
+<ul>
+  <li>Creating matrices from lists and using functions from the <code>Matrix</code> module</li>
+  <li>Using slices to read or modify a part of matrix</li>
+  <li>Performing standard operations with matrices such as transposition and matrix multiplication</li>
+  <li>Using higher order functions for working with matrices</li>
+</ul>
+
+
+<p style="font-style:italic;">This article is a part of a series that covers some F# and F# PowerPack features for 
+  numerical computing. Other articles in this series discuss matrices, defining custom
+  numeric types and writing generic code. For links to other parts, see 
+  <a href="http://tomasp.net/blog/powerpack-introduction.aspx">F# Math - Overview of F# PowerPack</a>.</p>

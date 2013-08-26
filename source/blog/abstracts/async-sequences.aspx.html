@@ -1,0 +1,27 @@
+﻿<img src="http://tomasp.net/articles/async-sequences/decor.png" class="rdecor" />
+
+<p>In F#, we can represent asynchronous operations that do not block threads and eventually
+  return a value of type <code>'T</code> using asynchronous workflows <code>Async&lt;'T&gt;</code>.
+  Asynchronous workflows can be easily constructed using the computation expression syntax
+  <code>async { ... }</code> and there are also a few combi&#173;nators that express more advanced
+  composition (such as parallel composition or fork-join parallelism).</p>
+
+<p>Sometimes, we need to use asynchronous operations that return more than just one value.
+  For example, when downloading data from the internet, we would like to create an 
+  <em>asynchronous sequence</em> that returns the data in chunks as they become available.</p>
+
+<p>One way to represent asynchronous operations that produce multiple values is to use 
+  the <code>IObservable&lt;'T&gt;</code> type from .NET. This isn't always the best option 
+  though. Observables implement <em>push-based</em> model, which means that chunks of data are
+  generated as quickly as possible (until all chunks are emitted). What if we wanted to take 
+  the chunks one-by-one after the previous chunk is processed?</p>
+
+<p>In this article, I describe <em>asynchronous sequences</em>. An asynchronous sequence is a simple,
+  yet very powerful concept based on asynchronous workflows. It follows the same core model: results 
+  are generated on demand and asynchronously. Unlike asynchronous workflows, asynchronous sequences
+  can be called (on demand) to generate multiple values until the end of the sequence is reached.</p>
+
+<p style="font-style:italic">I first discussed asynchronous sequences with Don Syme, Dmitry Lomov and Brian McNamara in an
+  email thread a long time ago. Thanks to Don for enthusiasm about the concept and for the 
+  first implementation of some of the combinators!</p>
+

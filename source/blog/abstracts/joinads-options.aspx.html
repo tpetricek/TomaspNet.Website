@@ -1,0 +1,16 @@
+﻿<p>This article shows how to implement the <em>joinad</em> structure for one of the 
+simplest monads - the <code>option&lt;'T&gt;</code> type. This is a slightly oversimplified example. 
+The <code>match!</code> construct can be used to write patterns that specify that a monadic
+value (in this case <code>option&lt;'T&gt;</code>) should contain a certain value, or we can specify
+that we do not require a value. When working with options, this means the same thing 
+as matching the value against <code>Some</code> and against <code>_</code>, respectively.</p>
+
+<p>However, the example demonstrates the operations that need to be implemented and
+their type signatures. Later articles give more interesting examples including
+parsers and asynchronous workflows (and you can explore other examples if you look
+at the <a href="https://github.com/tpetricek/FSharp.Joinads">FSharp.Joiands source code</a> at GitHub).</p>
+
+<p><em><strong>Note:</strong> This blog post is a re-publication of a tutorial from the <a href="http://tryjoinads.org">TryJoinads.org</a>
+web page. If you read the article there, you can run the examples interactively
+and experiment with them: <a href="http://tryjoinads.org/index.html?implement/options.html">view the article on TryJoinads</a>.</em></p>
+

@@ -1,0 +1,36 @@
+﻿<p>When reading data from a SQL database in F#, you have a couple of options.
+  You can use F# implementation of LINQ, which allows you to write queries directly
+  in the F# language or you can use standard ADO.NET classes such as <code>SqlCommand</code>.
+  The second option is often good enough - when you just need to call a simple 
+  query, you probably don't want to setup the whole LINQ infrastructure (generate
+  classes, reference F# PowerPack, etc.) Unfortunately, ADO.NET classes are a bit
+  ugly to use. When calling an SQL stored procedure, you need to specify the name
+  of the procedure as a string, you need to add parameters one-by-one by creating
+  instances of <code>SqlParameter</code>, you need to dynamically cast results from 
+  the <code>obj</code> type and so on...</p>
+
+<p>In this article, we'll look how to use the <em>dynamic operator</em> to make the
+  experience of using ADO.NET from F# dramatically better. Dynamic operator (there are
+  actually two of them) are a simple way of supporting dynamic invoke in F#. We can use
+  it to write code that looks almost like an ordinary method call or property access,
+  but is resolved dynamically at runtime (using the name of the method or property).
+  The following example shows what we'll be able to write at the end 
+  of this article:</p>
+
+<pre lang="fsharp">
+// Call 'GetProducts' procedure with 'CategoryID' set to 1
+use conn = new DynamicSqlConnection(connectionString)
+use cmd = conn?GetProducts
+cmd?CategoryID &lt;- 1
+conn.Open()
+
+// Read all products and print their names
+use reader = cmd.ExecuteReader()
+while reader.Read() do
+  printfn "Product: %s" reader?ProductName
+</pre>
+
+<p>If you ever tried to call a SQL stored procedure directly using the 
+  <code>SqlCommand</code>, then you can surely appreciate the elegance of this code
+  snippet. Let's now take a look at a larger example and some of the neat 
+  tricks that make this possible...</p>

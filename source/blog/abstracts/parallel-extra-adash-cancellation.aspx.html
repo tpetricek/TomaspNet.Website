@@ -1,0 +1,19 @@
+﻿<p>In this article we'll look at several improvements that can be done to the Financial dashboard example
+  (originally from the <a href="http://parallelpatterns.codeplex.com/" type="external">Parallel Programming with Microsoft .NET</a> book).
+  When I was translating samples in the book from C# to F#, the sample struck me, because it looks like
+  a perfect fit for F# asynchronous workflows (instead of the <code>Task&lt;T&gt;</code> type used in the
+  C# version). I already talked about an <a href="http://tomasp.net/blog/fsharp-parallel-adash.aspx">alternative 
+  implementation</a> based on asynchronous workflows. However that version was still following some of the
+  programming patterns, from the original C# version, which are not idiomatic in F#. In this article, I'll talk
+  about a few other improvements that we can make to the sample...</p>
+
+<p>In the original version of the sample (in both C# and F#), we explicitly checked whether a cancellation
+  token has been cancelled in every single operation. This was needed in C#, because tasks do not support
+  cancellation automatically. However, F# asynchronous workflows make cancellation easier. They automatically
+  check if the computation should be cancelled at the beginning and the end of every asynchronous call. Our
+  first change will be to use this feature. Also, the original version propagates a <code>null</code> value
+  when the computation is cancelling. In F# we don't need that and we'll only change the type of the overall
+  result to <code>option&lt;T&gt;</code>, so that we can notify the user interface (but we don't need to 
+  propagate cancellation explicitly). Finally, the original version contained sequential implementation, but
+  didn't provide any way of actually running it, so we'll do a bit of refactoring to make that sample 
+  actually useable.</p>

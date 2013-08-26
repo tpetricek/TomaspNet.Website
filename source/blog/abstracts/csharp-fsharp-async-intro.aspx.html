@@ -1,0 +1,32 @@
+﻿<img src="http://tomasp.net/articles/csharp-fsharp-async-intro/pdc2010.png" style="float:right;margin:5px;margin-left:20px;" />
+<p>One of the exciting new technologies that was announced at <a href="http://www.microsoftpdc.com/">PDC 2010</a>
+  is the support for <em>asynchronous programming</em> in C#. So what exactly is <em>asynchronous programming</em>?
+  Many applications today need to connect to some service or external data source including, for example, 
+  Web Services and REST APIs. This calls may take a long time to run, but we want to run them without
+  blocking the application.</p>
+
+<p>Currently, you can run the operation on a background thread or using a <code>Task</code>, but
+  coordinating multiple such operations is difficult. What if you for example need to wait until
+  any (or all) of downloads complete and run some more code then? This is not only difficult, but
+  it also scales badly, because blocking .NET threads is a bad practice (Threads are expensive and when
+  they're just waiting for other operation to complete, we're wasting valuable resources).
+  This problem has been the main motivation for including <em>asynchronous workflows</em> in F#
+  about 3 years ago. In F#, this also enabled various interesting programming styles - for example
+  <a href="http://dotnetslackers.com/articles/net/Programming-user-interfaces-using-f-sharp-workflows.aspx" type="external">creating 
+  GUI using asynchronous workflows</a> (also discussed in Chapter 16 of <a href="http://manning.com/petricek">my book</a> and in 
+  in <a href="http://tomasp.net/blog/reactive-talk.aspx">my recent talk</a>). The C# asynchronous 
+  programming support and the <code>await</code> keyword is largely inspired by
+  F# <em>asynchronous workflows</em> (I was quite surprised that F# wasn't more visibly 
+  mentioned in the PDC talk).
+</p>
+
+<p>In this article series, I'll demonstrate both F# and C# asynchronous programming model,
+  I'll look at features that are missing in one or the other as well as a few subtle differences
+  (that may be unexpected) and finally, I'll write about writing (asynchronous) F# libraries 
+  that are easy to use from C#. The plan for the series is following:</p>
+<ul>
+  <li><strong>Asynchronous C# and F# (I.): Simultaneous introduction</strong></li>
+  <li><a href="http://tomasp.net/blog/async-csharp-differences.aspx">Asynchronous C# and F# (II.): How do they differ?</a></li>
+  <li><a href="http://tomasp.net/blog/async-compilation-internals.aspx">Asynchronous C# and F# (III.): How does it work?</a></li>  <li>Asynchronous C# and F# (IV.): Calling F# libraries from C# <em>(not yet available)</em></li>
+</ul>  
+<p>Let's start with a brief overview of asynchronous programming features in C# and F#...</p>

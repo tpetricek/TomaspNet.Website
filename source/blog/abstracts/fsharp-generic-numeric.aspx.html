@@ -1,0 +1,40 @@
+﻿<p>Generic numeric code is some calculation that can be used for working with multiple different numeric 
+  types including types such as <code>int</code>, <code>decimal</code> and <code>float</code> or even our own 
+  numeric types (such as the type for <a href="http://tomasp.net/blog/fsharp-custom-numeric.aspx">clock arithmetic 
+  from the previous article of the series</a>). Generic numeric code differs from ordinary generic F# code such 
+  as the <code>'a list</code> type or <code>List.map</code> function, because <em>numeric code</em> uses numeric operators 
+  such as <code>+</code> or <code>&gt;=</code> that are defined differently for each numeric type.</p>
+
+<p>When writing simple generic code that has some type parameter <code>'T</code>, we don’t know anything about 
+  the type parameter and there is no way to restrict it to a numeric type that provides all the operators that 
+  we may need to use in our code. This is a limitation of the .NET runtime and F# provides two ways for 
+  overcoming it.</p>
+
+<ul class="spaces">
+  <li><strong>Static member constraints</strong> can be used to write generic code where the actual 
+    numeric operations are resolved at compile-time (and a generic function is specialized for all required
+    numeric types). This approach makes resulting code very efficient and is generally very easy to use
+    when writing a function such as <code>List.sum</code>.</li>
+
+  <li><strong>Global numeric associations</strong> (available in F# PowerPack) give us a way to obtain 
+    an interface implementing required numeric operations dynamically at runtime. This approach has some 
+    runtime overhead, but can be used for complex numeric types (such as <code>Matrix&lt;'T&gt;</code>).</li>
+
+  <li><strong>Combination of both</strong> techniques can be used to implement complex numeric type
+    that is generic over the contained numeric values and has only a minimal runtime overhead.</li>
+</ul>
+
+<p>Static member constraints are a unique feature of F# that is not available in other .NET
+  languages, so if you're interested in writing numeric code for .NET,
+  this may be a good reason for choosing F#. In C# or Visual Basic, you would be limited to the 
+  second option (which can be implemented in C#). In dynamic languages (like IronPython), everything
+  is dynamic, so numeric computations can work with any numeric type, but will be significantly
+  less efficient. In the rest of the article, we look at the three options summarized above.
+</p>
+
+
+<p style="font-style:italic;">This article is a part of a series that covers some F# and F# PowerPack features for 
+  numerical computing. Other articles in this series discuss matrices, defining custom
+  numeric types and writing generic code. For links to other parts, see 
+  <a href="http://tomasp.net/blog/powerpack-introduction.aspx">F# Math - Overview of F# PowerPack</a>.</p>
+

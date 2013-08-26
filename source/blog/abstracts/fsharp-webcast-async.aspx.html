@@ -1,0 +1,19 @@
+﻿<p>In this webcast, we'll look at improving the code for downloading and
+  processing RSS feeds that I presented in <a href="fsharp-webcast-dotnet.aspx">the second part</a> 
+  (if you didn't see earlier parts, <a href="fsharp-webcast-dotnet.aspx">the first one</a> was an introduction to 
+  basic functional ideas). The previous part demonstrated how to use .NET libraries
+  and we implemented a simple <code>downloadUrl</code> function for obtaining content
+  of from the web and we've also seen how to load the data into an XML document object
+  and how to filter items. In this part, we'll modify the code to run asynchronously and 
+  potentially in parallel. To use some of the functionality, you'll need to get 
+  <code>FSharp.PowerPack.dll</code>, which is available with the VS 2008 installation or
+  as a separated download for VS 2010 [<a href="#fswc_asy">4</a>].
+</p>
+
+<p>Now that we have the first version of the code, we can start <em>refactoring</em> it.
+  I'm using the term in a slightly vague meaning - we're of course going to change the
+  behavior of the code. We'll wrap it into F# <em>asynchronous workflow</em> to run
+  without blocking threads and we'll also run multiple downloads in parallel. However,
+  this can still be viewed as refactoring in some sense, because we're not changing
+  the <em>core</em> behavior of the code. As you can see from the webcast, these kinds of
+  refactorings are also very nicely supported by F# syntax...</p>

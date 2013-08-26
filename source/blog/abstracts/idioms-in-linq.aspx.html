@@ -1,0 +1,17 @@
+﻿<p>Thanks to LINQ and Erik Meier, monads have become a fashionable topic in the C# developer community.
+  Indeed, no serious developer conference on .NET can get away without having a talk on monads. The attractive
+  thing about LINQ and monads is that the <code>SelectMany</code> operator roughly corresponds to the <em>bind</em>
+  function that defines a monad. In practice, LINQ is used for working with collections of data (<code>IEnumerable&lt;T&gt;</code>),
+  but you can also define <em>bind</em> (i.e. <code>SelectMany</code>) for some other data types and use the LINQ syntax
+  for working with other types. You won't be really using the full LINQ syntax. You'll probably use just nested
+  <code>from</code> clauses (for <em>binding</em>) and <code>select</code> at the end to return the result.</p>
+
+<p>However, monads are not the only notion of computation that we can work with. More interestingly, they are also 
+  not the only notion of computation that you can encode using LINQ! In this article, I'll briefly introduce 
+  <em>idioms</em> (also called <em>applicative functors</em>), which is another useful abstract type of computations.
+  Idioms can be used for a few things that cannot be done using monads.</p>
+
+<p>A provocative summary of this article is: <span style="font-variant:small-caps">"Everyone who tells you that LINQ is a monad is wrong!"</span></p>
+
+<p>The truth is
+that LINQ syntax can be used for encoding <em>queries</em> (obviously), <em>monads</em> (as you were told), but also for <em>idioms</em> as you'll learn today (and quite possibly for other types of computations). In this article, we look at a basic example, but I'll describe a more complex real-world scenario in the next blog post.</p>

@@ -1,0 +1,26 @@
+﻿<p>Some time ago, I wrote a couple of examples of <a href="http://tomasp.net/blog/aspnet-in-fsharp.aspx">
+  developing web applications in F# using ASP.NET</a>. Since then, the F# language and runtime has changed
+  a little bit and there are also new technologies available in ASP.NET, so I thought I'd write a more
+  up-to-date article on this topic. In this article, I'll present a simple "demo" F# web application that
+  you can use as a starting point when creating your own projects (you'll also find a convenient Visual
+  Studio 2010 template below). The article shows the following interesting things:</p>
+<ul>
+  <li><strong>ASP.NET MVC</strong> - We're going to use ASP.NET MVC Framework to create the web
+    application. As the article name suggests, most of the actual program code including models and
+    controllers will be implemented in F#.</li>
+  <li><strong>F# LINQ to SQL</strong> - The application uses a sample Northwind database and we'll
+    write queries for selecting data from the database using LINQ support that's available in the
+    <a href="http://fsharppowerpack.codeplex.com/" type="external">F# PowerPack</a>.</li>
+  <li><strong>F# features</strong> - The application also uses some nice F# features that are 
+    quite useful for developing web applications. We'll use modules and records to implement the
+    model and we'll also use advanced meta-programming features for constructing LINQ queries.</li>
+</ul>
+<p>If you want to use F# for creating an MVC application, you have a few options. It should be 
+  possible to create the web application solely as an F# project. However, we'll use a more convenient
+  approach. We'll create a standard C# MVC project and move all the actual implementation to 
+  an F# library. We'll look at the application structure shortly. The following screenshot shows
+  a page that lists products in the Northwind database:</p>
+
+<div style="text-align:center;">
+<img src="http://tomasp.net/articles/fsharp-mvc-web/web.png" />
+</div>

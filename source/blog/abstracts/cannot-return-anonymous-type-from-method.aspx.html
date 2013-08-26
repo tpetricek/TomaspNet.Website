@@ -1,0 +1,14 @@
+﻿<p>One of the new features introduced in C# 3.0 which will be available in Visual Studio "Orcas" (currently in CTP version) 
+  is anonymous type. Anonymous type is something very similar to tuple type from Cω [<a href="#returnanonymous">1</a>] (which is based 
+  on tuple types known from many functional programming languages including F#). Anonymous types are extremely useful in 
+  LINQ queries, because it allows you to construct type with several properties without declaring the type (with all the properties).
+  Example of query with anonymous type looks like this:</p>
+<pre lang="csharp">
+var q = from c in db.Customers
+        where c.Country = "Czech Republic"
+        select new { FullName=c.Name+" "+c.Surname, Address=c.Address };
+</pre>  
+<p>Ok, it's probabbly not the best example, but it demonstrates the point - you want to return some information from query
+  and you don't need to declare type that contains <code>FullName</code> and <code>Address</code> properties before, because
+  you need it only for this single query (and you want to return only these two fields, so you don't transfer additional 
+  data that you don't need from database).</p><p>Now let's get to the second point... </p>

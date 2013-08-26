@@ -199,15 +199,20 @@ using(Brush br=new SolidBrush(CurrentColor))
 
   </div>
   <div class="large-4 columns" id="right-bar">
-    <script type="text/javascript">
-      var monthNames =
-        [ "January", "February", "March", "April", "May", "June",
-          "July", "August", "September", "October", "November", "December"];
-      var d = new Date();
-    </script>
     <div class="right-item" id="right-calendar">
-      <h4>Calendar -  <script type="text/javascript">document.write(monthNames[d.getMonth()] + " " + d.getFullYear());</script></h4>
-      <img src="http://test.tomasp.net/calendar/current.jpg" />
+      <script type="text/javascript">
+        var monthNames =
+          ["January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"];
+        var d = new Date();
+        var m = month[d.getMonth()];
+        var y = d.getFullYear();
+        var ml = m.toLowerCase();
+        document.writeln("<h4>Calendar - " + m + " " + y + "</h4>");
+        document.writeln("<a href=\"http://test.tomasp.net/calendar/" + y + "/" + ml + ".aspx\">" +
+          "<img src=\"http://test.tomasp.net/calendar/" + y + "/" + ml + "-preview.jpg\" style=\"border-style:none;\" />" +
+          "</a>");
+      </script> 
       <p>The calendar shows a new picture each month since 
         <a href="http://test.tomasp.net/calendar/2005">2005</a>, <a href="http://test.tomasp.net/calendar/2006">2006</a>, 
         <a href="http://test.tomasp.net/calendar/2007">2007</a>, <a href="http://test.tomasp.net/calendar/2008">2008</a>, 
@@ -282,7 +287,7 @@ using(Brush br=new SolidBrush(CurrentColor))
       <img src="http://test.tomasp.net/img/cc-sa.png" alt="CC License logo" />
     </div>
     <div class="large-8 columns">
-    <h4>Blog archives <a href="http://test.tomasp.net/blog/rss.xml"><img src="http://test.tomasp.net/img/rss.gif" /></a></h4>
+    <h4>Blog archives <a href="http://test.tomasp.net/rss.xml"><img src="http://test.tomasp.net/img/rss.gif" /></a></h4>
       <a href="http://test.tomasp.net/blog/archive/may-2013/index.html">
         May 2013 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/april-2013/index.html">
         April 2013 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/march-2013/index.html">

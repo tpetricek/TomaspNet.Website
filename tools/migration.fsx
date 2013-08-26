@@ -23,12 +23,12 @@ let readBlogItem (item:DB.ServiceTypes.Content, tags:seq<string>) =
   // try to load page as a xml document - if it fails then we need to combine 
   // the document from 'contentintro' and from 'the value stored in 'content'
   let doc = new XmlDocument(PreserveWhitespace = true)
-  let content = 
+  let content, abstrct = 
     try 
       doc.LoadXml(item.Content1)
       if doc.DocumentElement.Name <> "doc" then failwith "New format.."
-      let s = doc.SelectSingleNode("doc/body").InnerXml
-      s
+      doc.SelectSingleNode("doc/body").InnerXml,
+      doc.SelectSingleNode("doc/intro").InnerXml
     with _ ->
       // generate v2 document from two columns
       doc.PreserveWhitespace <- true
@@ -36,7 +36,7 @@ let readBlogItem (item:DB.ServiceTypes.Content, tags:seq<string>) =
         ( "<doc hidedescr=\"true\" version=\"2\"><intro>" + item.Contentintro +
           "</intro><body>N/A</body></doc>" )
       if String.IsNullOrWhiteSpace(item.Content1) 
-      then item.Contentintro else item.Content1
+      then item.Contentintro, item.Contentintro else item.Content1, item.Contentintro
       
   let content, title, description = 
     if doc.DocumentElement.Attributes.["version"].Value = "1" then
@@ -46,7 +46,7 @@ let readBlogItem (item:DB.ServiceTypes.Content, tags:seq<string>) =
       // Version "2" contains a few additional information in the <doc> element
       "<h1>" + item.Header + "</h1>\n" + content, item.Header, item.Description
 
-  item.Urlname, title, date, description, tags, content
+  item.Urlname, title, date, description, tags, abstrct, content
 
 // --------------------------------------------------------------------------------------
 // Save the item to a file
@@ -58,10 +58,13 @@ open System.Text.RegularExpressions
 let blogDir = @"C:\Tomas\Projects\WebSites\TomaspNet.New\website\source\blog"
 let regStrAtAtStr = Regex("[a-zA-Z]@@[a-zA-Z]")
 
-let writeBlogItem (url, title, (date:System.DateTime), (description:string), tags, (content:string)) =
+let writeBlogItem (url, title, (date:System.DateTime), (description:string), tags, abstrct:string, (content:string)) =
   printfn "Generating: %s.html" url
   let encodeString (s:string) = 
     s.Replace("\"", "\\\"").Replace('\n', ' ').Replace('\r', ' ')
+  let simpleStripHtml (s:string) =
+    Regex.Replace(s, "<.*?>", "")
+    
   let header =
     sprintf """@{ 
       Layout = "post";
@@ -69,7 +72,8 @@ let writeBlogItem (url, title, (date:System.DateTime), (description:string), tag
       Tags = "%s";
       Date = "%O";
       Description = "%s";
-    }""" (encodeString title) (String.concat "," tags) date (encodeString description)
+    }""" (encodeString title) (String.concat "," tags) date (encodeString (simpleStripHtml description))
+
   // We need to encode the '@' symbol in content, but apparently not when there is string around
   let rec fixAtAt str = 
     let mtc = regStrAtAtStr.Match(str)
@@ -78,8 +82,11 @@ let writeBlogItem (url, title, (date:System.DateTime), (description:string), tag
       fixAtAt str
     else str
   let content = content.Replace("@", "@@") |> fixAtAt
+  let abstrct = if abstrct <> null then abstrct.Replace("@", "@@") |> fixAtAt else abstrct
 
-  File.WriteAllText(blogDir + "\\" + url + ".aspx.html", header + content)
+  let abstrct = if String.IsNullOrEmpty(abstrct) then description else abstrct
+  File.WriteAllText(blogDir + "\\" + url + ".aspx.html", header + content, Text.Encoding.UTF8)
+  File.WriteAllText(blogDir + "\\abstracts\\" + url + ".aspx.html", abstrct, Text.Encoding.UTF8)
 
 // --------------------------------------------------------------------------------------
 // Read items that appear in blog/article
@@ -98,7 +105,6 @@ query { for v in db.Content do
                                where (tn.Type = "blog")
                                select tn.Tag }
         where (types.Contains("articles") || types.Contains("blog"))
-        where (v.Urlname.Contains("aho"))
         sortByDescending v.Date
         select (v, tagNames) }
 |> Seq.skip 7 // Skip those done by hand :)

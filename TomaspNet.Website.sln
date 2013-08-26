@@ -27,6 +27,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Source", "Source", "{801A38
 		source\index.cshtml = source\index.cshtml
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "blog", "blog", "{F6F70A4C-7C06-45E8-BAF3-C94FCC29F92F}"
+	ProjectSection(SolutionItems) = preProject
+		source\blog\index.cshtml = source\blog\index.cshtml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|.NET = Debug|.NET
@@ -47,5 +52,6 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{3A0B72B9-05D2-4A89-A514-7E11B89A9FDC} = {5C7045D5-4574-4BA7-A3BA-905C9C074F5B}
+		{F6F70A4C-7C06-45E8-BAF3-C94FCC29F92F} = {801A3857-01D3-4355-8D2E-22C1B7DBEA95}
 	EndGlobalSection
 EndGlobal

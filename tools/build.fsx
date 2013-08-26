@@ -1,8 +1,10 @@
 ﻿#I "lib"
 #load "lib/literate.fsx"
+#r "System.Xml.Linq.dll"
 #r "lib/System.Web.Razor.dll"
 #r "lib/RazorEngine.dll"
 #r "tilde/bin/Debug/TildeLib.dll"
+open System
 open System.IO
 open FSharp.Literate
 
@@ -36,6 +38,7 @@ module FileHelpers =
       let fullTarget = target ++ Path.GetFileName(file)
       if not (File.Exists(fullTarget)) || 
          File.GetLastWriteTime(file) > File.GetLastWriteTime(fullTarget) then
+        printfn "Copying: %s" file
         File.Copy(file, fullTarget, true)
 
   /// Returns a file name in the TEMP folder and deletes it when disposed
@@ -97,7 +100,8 @@ module FileHelpers =
   let TransformOutputFiles (output:string) files = seq {
     for file, (target:string) in files ->
       let relativeOut = target.Substring(output.Length + 1)
-      if relativeOut.Contains("\\") || relativeOut.Contains("/") 
+      // If it is not index & it is not in the root directory, then make it a sub-dir
+      if not (relativeOut.EndsWith("index")) && (relativeOut.Contains("\\") || relativeOut.Contains("/"))
       then file, output ++ relativeOut ++ "index.html"
       else file, output ++ (relativeOut + ".html") }
       
@@ -105,12 +109,15 @@ module FileHelpers =
 // --------------------------------------------------------------------------------------
 // Parsing blog posts etc.
 // --------------------------------------------------------------------------------------
-module Blog = 
+module BlogPosts = 
+
+  open FileHelpers
   open System.Text.RegularExpressions
 
   /// Type that stores information about blog posts
   type BlogHeader = 
     { Title : string
+      Abstract : string
       Description : string
       Date : System.DateTime
       Url : string
@@ -121,7 +128,8 @@ module Blog =
     let exts = set [ ".md"; ".fsx"; ".cshtml"; ".html" ]
     for file in Directory.GetFiles(blog) do
       if exts |> Set.contains (Path.GetExtension(file).ToLower()) then
-        yield file }
+        if Path.GetFileNameWithoutExtension(file) <> "index" then
+          yield file }
   
   let scriptHeaderRegex = 
     Regex("^\(\*\@(?<header>[^\*]*)\*\)(?<content>.*)$", RegexOptions.Singleline)
@@ -140,7 +148,7 @@ module Blog =
     "@{" + header + "}\n", body
 
   /// Return the header block of any blog post file
-  let GetBlogHeader file =
+  let GetBlogHeaderAndAbstract transformer file =
     let regex =
       match Path.GetExtension(file).ToLower() with
       | ".fsx" -> scriptHeaderRegex
@@ -149,13 +157,16 @@ module Blog =
     let reg = regex.Match(File.ReadAllText(file))
     if not reg.Success then 
       failwithf "The following source file is missing a header:\n%s" file  
-    file, reg.Groups.["header"].Value
+
+    // Read abstract file and transform it
+    let abstr = transformer (Path.GetDirectoryName(file) ++ "abstracts" ++ Path.GetFileName(file))
+    file, reg.Groups.["header"].Value, abstr
 
   /// Simple function that parses the header of the blog post. Everybody knows
   /// that doing this with regexes is silly, but the blog post headers are simple enough.
   let ParseBlogHeader (blog:string) =
     let concatRegex = Regex("\"[\s]*\+[\s]*\"", RegexOptions.Compiled)
-    fun (file:string, header:string) ->
+    fun (file:string, header:string, abstr) ->
       let lookup =
         header.Split(';')
         |> Array.filter (System.String.IsNullOrWhiteSpace >> not)
@@ -170,84 +181,55 @@ module Blog =
       try
         { Title = lookup.["Title"]
           Url = relativeFile
+          Abstract = abstr
           Description = lookup.["Description"]
           Tags = lookup.["Tags"].Split([|','|], System.StringSplitOptions.RemoveEmptyEntries) |> Array.map (fun s -> s.Trim())
           Date = lookup.["Date"] |> System.DateTime.Parse }
       with _ -> failwithf "Invalid header in the following blog file: %s" file
 
   /// Loads information about all blog posts
-  let LoadBlogPosts blog =
+  let LoadBlogPosts transformer blog =
     GetBlogFiles blog 
-    |> Seq.map (GetBlogHeader >> (ParseBlogHeader blog))
+    |> Seq.map ((GetBlogHeaderAndAbstract transformer) >> (ParseBlogHeader blog))
     |> Seq.sortBy (fun b -> b.Date)
     |> Array.ofSeq 
     |> Array.rev
 
 // --------------------------------------------------------------------------------------
-// Configuration
+// Blog - the main blog functionality
 // --------------------------------------------------------------------------------------
-open Blog
 
-/// Represents the model that is passed to all pages
-type Model = 
-  { Posts : BlogHeader[] 
-    Root : string }
+module Blog = 
+  open BlogPosts
+  open FileHelpers
+  open System.Xml.Linq
 
-let LoadModel(root, blog) = 
-  { Posts = LoadBlogPosts(blog)
-    Root = root }
+  /// Represents the model that is passed to all pages
+  type Model = 
+    { Posts : BlogHeader[] 
+      MonthlyPosts : (int * string * seq<BlogHeader>)[]
+      Root : string }
 
+  /// Walks over all blog post files and loads model (caches abstracts along the way)
+  let LoadModel(transformer, (root:string), blog) = 
+    let posts = LoadBlogPosts transformer blog
+    let uk = System.Globalization.CultureInfo.GetCultureInfo("en-GB")
+    { Posts = posts
+      MonthlyPosts = 
+        query { for p in posts do
+                groupBy (p.Date.Year, p.Date.Month) into g
+                let year, month = g.Key
+                sortByDescending (year, month)
+                select (year, uk.DateTimeFormat.GetMonthName(month), g :> seq<_>) }
+        |> Array.ofSeq
+      Root = root.Replace('\\', '/') }
 
-
-open FileHelpers
-open Blog
-
-// Root URL for the generated HTML
-let root = "http://test.tomasp.net" 
-//let root = @"file:///C:\Tomas\Projects\WebSites\TomaspNet.New\output"
-
-// Information about source directory, blog subdirectory, layouts & content
-let source = __SOURCE_DIRECTORY__ ++ "../source"
-let blog = __SOURCE_DIRECTORY__ ++ "../source/blog"
-let layouts = __SOURCE_DIRECTORY__ ++ "../layouts"
-let content = __SOURCE_DIRECTORY__ ++ "../content"
-let template = __SOURCE_DIRECTORY__ ++ "empty-template.html"
-
-// F# code generation - skip 'exclude' directory & add 'references'
-let exclude = [ __SOURCE_DIRECTORY__ ++ "../source/blog/packages" ]
-let references = []
-
-// Output directory (gh-pages branch)
-let output = __SOURCE_DIRECTORY__ ++ "../../output"
-
-// Dependencies - if any of these files change, then we must regenerate all
-let dependencies = 
-  [ yield! Directory.GetFiles(layouts) ]
-//   @ [ __SOURCE_DIRECTORY__ ++ __SOURCE_FILE__ ]
-
-
-let clean() = 
-  for dir in Directory.GetDirectories(output) do
-    if not (dir.EndsWith(".git")) then SafeDeleteDir dir true
-  for file in Directory.GetFiles(output) do
-    File.Delete(file)
-
-let build () =
-  let model = LoadModel(root, blog)
-  let razor = TildeLib.Razor(layouts, Model = model)
-
-  let filesToProcess = 
-    GetSourceFiles source output
-    |> SkipExcludedFiles exclude
-    |> TransformOutputFiles output
-    |> FilterChangedFiles dependencies 
-    
-  for current, target in filesToProcess do
-    EnsureDirectory(Path.GetDirectoryName(target))
-    printfn "Processing file: %s" (current.Substring(source.Length + 1))
+  let TransformFile template hasHeader (razor:TildeLib.Razor) current target = 
     match Path.GetExtension(current).ToLower() with
     | ".fsx" ->
-        let header, content = RemoveScriptHeader(current)
+        let header, content = 
+          if not hasHeader then "", File.ReadAllText(current)
+          else RemoveScriptHeader(current)
         use fsx = DisposableFile.Create(current.Replace(".fsx", "_.fsx"))
         use html = DisposableFile.CreateTemp(".html")
         File.WriteAllText(fsx.FileName, content)
@@ -260,7 +242,118 @@ let build () =
         razor.ProcessFile(current, target)
     | _ -> failwith "Not supported file!"
 
+  let TransformAsTemp (template, source:string) razor current = 
+    let cached = (Path.GetDirectoryName(current) ++ "cached" ++ Path.GetFileName(current))
+    if File.Exists(cached) && 
+      (File.GetLastWriteTime(cached) > File.GetLastWriteTime(current)) then 
+      File.ReadAllText(cached)
+    else
+      printfn "Processing abstract: %s" (current.Substring(source.Length + 1))
+      EnsureDirectory(Path.GetDirectoryName(current) ++ "cached")
+      TransformFile template false razor current cached
+      File.ReadAllText(cached)
+
+  let GenerateRss root title description model target = 
+    let (!) name = XName.Get(name)
+    let items = 
+      [| for item in model.Posts |> Seq.take 20 ->
+           XElement
+            ( !"item", 
+              XElement(!"title", item.Title),
+              XElement(!"guid", root + "/blog/" + item.Url),
+              XElement(!"link", root + "/blog/" + item.Url + "/index.html"),
+              XElement(!"pubDate", item.Date.ToUniversalTime().ToString("r")),
+              XElement(!"description", item.Abstract) ) |]
+    let channel = 
+      XElement
+        ( !"channel",
+          XElement(!"title", (title:string)),
+          XElement(!"link", (root:string)),
+          XElement(!"description", (description:string)),
+          items )
+    let doc = XDocument(XElement(!"rss", XAttribute(!"version", "2.0"), channel))
+    File.WriteAllText(target, doc.ToString())
+
+// --------------------------------------------------------------------------------------
+// Configuration
+// --------------------------------------------------------------------------------------
+
+open Blog
+open BlogPosts
+open FileHelpers
+
+// Root URL for the generated HTML
+let root = "http://test.tomasp.net" 
+//let root = @"file:///C:\Tomas\Projects\WebSites\TomaspNet.New\output"
+
+let title = "Tomas Petricek's blog"
+let description = 
+   "Writing about software development in F# and .NET, sharing materials from " +
+   "my F# trainings and talks, writing about programming language research and theory."
+
+// Information about source directory, blog subdirectory, layouts & content
+let source = __SOURCE_DIRECTORY__ ++ "../source"
+let blog = __SOURCE_DIRECTORY__ ++ "../source/blog"
+let blogIndex = __SOURCE_DIRECTORY__ ++ "../source/blog/index.cshtml"
+let layouts = __SOURCE_DIRECTORY__ ++ "../layouts"
+let content = __SOURCE_DIRECTORY__ ++ "../content"
+let calendar = __SOURCE_DIRECTORY__ ++ "../calendar"
+let template = __SOURCE_DIRECTORY__ ++ "empty-template.html"
+
+// F# code generation - skip 'exclude' directory & add 'references'
+let exclude = 
+  [ yield __SOURCE_DIRECTORY__ ++ "../source/blog/packages"
+    yield __SOURCE_DIRECTORY__ ++ "../source/blog/abstracts"
+    for y in 2013 .. 2025 do
+      yield __SOURCE_DIRECTORY__ ++ "../source/blog" ++ (string y) ++ "abstracts"  ]
+
+let references = []
+
+// Output directory (gh-pages branch)
+let output = __SOURCE_DIRECTORY__ ++ "../../output"
+
+// Dependencies - if any of these files change, then we must regenerate all
+let dependencies = 
+  [ yield! Directory.GetFiles(layouts) ]
+   @ [ __SOURCE_DIRECTORY__ ++ __SOURCE_FILE__ ]
+
+
+let clean() = 
+  for dir in Directory.GetDirectories(output) do
+    if not (dir.EndsWith(".git")) then SafeDeleteDir dir true
+  for file in Directory.GetFiles(output) do
+    File.Delete(file)
+
+let build () =
+  let razor = TildeLib.Razor(layouts, Model = { Root = root; MonthlyPosts = [||]; Posts = [||] })
+  let model = LoadModel(TransformAsTemp (template, source) razor, root, blog)
+  let razor = TildeLib.Razor(layouts, Model = model)
+
+  GenerateRss root title description model (output ++ "rss.xml")
+
+  for year, month, posts in model.MonthlyPosts do
+    let model = { model with Posts = Array.ofSeq posts }
+    let razor = TildeLib.Razor(layouts, Model = model)
+    let target =  output ++ "blog" ++ "archive" ++ (month.ToLower() + "-" + (string year)) ++ "index.html"
+    EnsureDirectory(Path.GetDirectoryName(target))
+    if not (File.Exists(target)) || (year = DateTime.Now.Year) then
+      printfn "Generating archive: %s %d" month year
+      TransformFile template true razor blogIndex target
+
+  let filesToProcess = 
+    GetSourceFiles source output
+    |> SkipExcludedFiles exclude
+    |> TransformOutputFiles output
+    |> FilterChangedFiles dependencies 
+    
+  for current, target in filesToProcess do
+    EnsureDirectory(Path.GetDirectoryName(target))
+    printfn "Processing file: %s" (current.Substring(source.Length + 1))
+    TransformFile template true razor current target
+
   CopyFiles content output 
+  CopyFiles calendar (output ++ "calendar")
 
 build()
 clean()
+

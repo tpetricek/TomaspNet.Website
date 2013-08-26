@@ -3,4 +3,5 @@ _tilde
 output
 tools/tilde/obj
 tools/tilde/bin
+source/blog/abstracts/cached/*
 *.suo

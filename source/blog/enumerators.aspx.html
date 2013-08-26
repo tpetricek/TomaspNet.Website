@@ -1,10 +1,11 @@
-@{ 
+﻿@{ 
       Layout = "post";
       Title = ".NET, C# - Používání a psaní enumerátorů";
       Tags = "";
       Date = "5/21/2006 3:14:53 AM";
       Description = "V tomto článku se podíváme na psaní vlastních kolekcí, které implementují rozhraní IEnumerable a lze je tedy procházet pomocí příkazu foreach.";
-    }<h1>.NET, C# - Používání a psaní enumerátorů</h1><h2>Co tento článek ukazuje</h2><ul><li>Jak lze procházet prvky kolekcí pomoci enumerátorů</li><li>Jak se píšou vlastní enumerátory pro procházení vlastních kolekcí</li><li>A jak vše zjednodušuje klíčové slovo <code>yield return</code> (v C# 2.0)</li></ul><p>V .NETu je celá řada kolekcí, do kterých lze ukládat větší počet
+    }<h1>.NET, C# - Používání a psaní enumerátorů</h1>
+<doc version="1"><body><h1>.NET, C# - Používání a psaní enumerátorů</h1><h2>Co tento článek ukazuje</h2><ul><li>Jak lze procházet prvky kolekcí pomoci enumerátorů</li><li>Jak se píšou vlastní enumerátory pro procházení vlastních kolekcí</li><li>A jak vše zjednodušuje klíčové slovo <code>yield return</code> (v C# 2.0)</li></ul><p>V .NETu je celá řada kolekcí, do kterých lze ukládat větší počet
     objektů stejného typu. O tom jaké různé kolekce v .NET Frameworku naleznete
     jsem psal již dřive [<a href="#links">1</a>], nejznámějším je jistě obyčejné
     pole, dále třída <code>ArrayList</code> a od verze .NET 2.0 i generické 
@@ -193,4 +194,4 @@ public IEnumerator&lt;int&gt; GetEnumerator()
     Celé procházení se opakuje až dokud metoda <code>GetEnumerator</code> neskončí,
     protože poté vygenerovaný enumerátor vrátí z metody <code>MoveNext</code> hodnotu
     <code>false</code> a procházení kolekce je tím ukončeno. </p><h2>Soubory na stažení a odkazy</h2><a name="links"></a><ul class="externallinks"><li>[1] <a href="http://www.tomasp.net/articles/collections.aspx">Kolekce a seznamy objektů</a>
-      [<a href="http://www.tomasp.net/articles/collections.aspx" target="_blank">^</a>]</li></ul><ul class="externallinks"><li><a href="http://www.tomasp.net/articles/enumerators/clanek.zip">Stáhnout tento článek v čistém HTML</a> (4 kB)</li><li><a href="http://www.tomasp.net/articles/enumerators/sources.zip">Stáhnout zdrojové kódy ukázkové aplikace</a> (4 kB)</li></ul>
+      [<a href="http://www.tomasp.net/articles/collections.aspx" target="_blank">^</a>]</li></ul><ul class="externallinks"><li><a href="http://www.tomasp.net/articles/enumerators/clanek.zip">Stáhnout tento článek v čistém HTML</a> (4 kB)</li><li><a href="http://www.tomasp.net/articles/enumerators/sources.zip">Stáhnout zdrojové kódy ukázkové aplikace</a> (4 kB)</li></ul></body></doc>

@@ -1,0 +1,24 @@
+﻿@{ 
+  Layout = "page";
+  Title = "Tomas Petricek's blog";
+  Description = "Writing about software development in F# and .NET, sharing materials from " +
+    "my F# trainings and talks, writing about programming language research and theory.";
+}
+@using System.Linq
+
+@foreach(var post in Enumerable.Take(Model.Posts, 15)) {
+  <div>
+  <h1><a href="@Model.Root/blog/@post.Url/index.html">@post.Title</a></h1>
+  @post.Abstract
+      
+  <p class="meta">
+    <span><strong>Published</strong>: @post.Date.ToString("dddd, d MMMM yyyy, h:mm tt", System.Globalization.CultureInfo.GetCultureInfo("en-GB"))</span>
+    @if (post.Tags.Length > 0) { 
+      <br />      
+      <span class="tags"><strong>Tags</strong>: @String.Join(", ", post.Tags).ToLower() </span> 
+    }
+    <br />
+    <a href="@Model.Root/blog/@post.Url/index.html">Read the complete article</a>
+  </p>
+  </div>
+}

@@ -30,7 +30,7 @@ say "Go to the left sub-tree, multiply all values by 2. Then go back and to the
 right sub-tree and divide all values by 2" as follows:
 *)
 
-(** include:final-example **)
+(*** include:final-example ***)
 
 (**
 This example behaves quite differently to the usual `query` computation. It mostly
@@ -352,7 +352,7 @@ resemble grouping or joining. But I'll leave that for another article!
 
 (***************************************************************************************)
 
-(** define:final-example **)
+(*** define:final-example ***)
 tree { for x in sample do
        left 
        map (x * 2) 

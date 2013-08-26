@@ -1,10 +1,17 @@
-@{ 
+﻿@{ 
       Layout = "post";
       Title = "Asp.Net 2 - Master pages";
       Tags = "";
       Date = "1/3/2005 12:00:00 AM";
       Description = "Problém jednotného vzhledu a společných některých částí stránky je v nové verzi Asp.Net řešen pomocí tzv. master pages. Funguje to tak, že v master stránce je kód, který má být stejný na všech stránkách a ostatní stránky dodávají pouze obsah... Master pages v Asp.Net 2 je již poměrně známá a velmi očekávaná věc. V tomto článku jsem se pokusil doplnit známé fakty o některé další zajímavosti týkající se master pages, jako je například dynamické načítání master stránky a další. ";
-    }
+    }<h1>Asp.Net 2 - Master pages</h1>
+<doc version="1">
+	<head keywords="asp.net; asp; asp.net 2; whidbey; master; pages; masterpages;" description="Jedna z nových a velice očekávaných věcí jsou master pages..."
+		category="Asp.Net 2" />
+<!--
+Problém jednotného vzhledu a společných některých částí stránky je v nové verzi Asp.Net řešen pomocí tzv. master pages. Funguje to tak, že v master stránce je kód, který má být stejný na všech stránkách a ostatní stránky dodávají pouze obsah... Master pages v Asp.Net 2 je již poměrně známá a velmi očekávaná věc. V tomto článku jsem se pokusil doplnit známé fakty o některé další zajímavosti týkající se master pages, jako je například dynamické načítání master stránky a další. 
+-->
+	<body>
 		<h1>Asp.Net 2 - Master pages</h1>
 		<h2>K čemu jsou Master pages</h2>
 		<p>Velice často řešený problém při vývoji webových aplikací je, že
@@ -111,7 +118,7 @@ override protected void OnInit(EventArgs e)
 		<p>Jednou z vymožeností master pages je možnost použít jinou stránku pro jiná
 		zařízení (prohlížeče). Zařízení (prohlížeče) jsou identifikovány podle 
 		konfiguračních souborů, které naleznete v adresáři 
-		<code>C:\­WINDOWS\­Microsoft.NET\­Framework\­v2.0.xxxxx\­CONFIG\­Browsers</code>
+		<code>C:\&#173;WINDOWS\&#173;Microsoft.NET\&#173;Framework\&#173;v2.0.xxxxx\&#173;CONFIG\&#173;Browsers</code>
 		(narozdíl od předcházejících verzí se zde nachází pro každé zařízení jeden soubor, 
 		takže je to mnohem přehlednější a snadněji spravovatelné).
 		Rozlišení master page podle zařízení se provede v direktivě <code>Page</code> takto 
@@ -171,4 +178,5 @@ void Page_PreInit(object sender,EventArgs e)
 		<li><a href="http://msdn.microsoft.com/library/en-us/dnvs05/html/masterpages.asp">Master pages in Asp.Net 2</a>
 		[<a href="http://msdn.microsoft.com/library/en-us/dnvs05/html/masterpages.asp" target="_blank">^</a>] (Popis master pages na MSDN)</li>
 		</ul>
-	
+	</body>
+</doc>

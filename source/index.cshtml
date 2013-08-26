@@ -1,39 +1,120 @@
-@{ 
-  Layout = "page";
-  Title = "Tomas Petricek's blog";
+﻿@{ 
+  Layout = "default";
+  Title = "Tomas Petricek's virtual universe";
   Description = "Writing about software development in F# and .NET, sharing materials from " +
     "my F# trainings and talks, writing about programming language research and theory.";
 }
+@using System.Linq
+
 <div class="row">
-	<div class="large-8 columns main-content">
-    <content class="hp">
-    @foreach(var post in Model.Posts) {
-      <h2><a href="@Model.Root/blog/@post.Url">@post.Title</a></h2>
-      <span class="date">@post.Date.ToShortDateString()</span>
-      if (post.Tags.Length > 0) { 
-        <span class="tags">| @String.Join(", ", post.Tags) </span> 
-      }
-      <br />
-      <p class="description">
-          @post.Description
-      </p>
-      }
-    </content>
+	<div class="large-6 columns main-content">
+  <content class="hp">
+
+  <!-- Print more details about the first blog post -->
+  @{var first = Enumerable.First(Model.Posts); }
+  <div>
+  <h1><a href="@Model.Root/blog/@first.Url/index.html">@first.Title</a></h1>
+  @first.Abstract
+      
+  <p class="meta">
+    <span><strong>Published</strong>: @first.Date.ToString("dddd, d MMMM yyyy, h:mm tt", System.Globalization.CultureInfo.GetCultureInfo("en-GB"))</span>
+    @if (first.Tags.Length > 0)
+    { 
+      <br />      
+      <span class="tags"><strong>Tags</strong>: @String.Join(", ", first.Tags).ToLower() </span> 
+    }
+    <br />
+    <a href="@Model.Root/blog/@first.Url/index.html">Read the complete article</a>
+  </p>
+  </div>
+
+  <!-- For remaining articles, just print short summary with abstract -->
+  <h1><a href="@Model.Root/blog/index.html">Recent articles from my blog</a></h1>
+  @foreach(var post in Enumerable.Take(Enumerable.Skip(Model.Posts, 1), 4)) {
+    <h2><a href="@Model.Root/blog/@post.Url/index.html">@post.Title</a></h2>
+    <p class="smdate">@first.Date.ToString("dddd, d MMMM yyyy, h:mm tt", System.Globalization.CultureInfo.GetCultureInfo("en-GB"))</p>
+    <p class="description">
+        @post.Description
+    </p>
+  }
+
+  <p class="meta">
+    <a href="@Model.Root/blog/index.html">Find older blog articles here</a>
+  </p>
+  </content>
 	</div>
-  <div class="large-4 columns">
-    <div style="background:black; text-align:center;padding:20px;">
-      <img src="http://tomasp.net/calendar/2013/august_sm.jpg" />
+
+  <div class="large-6 columns main-content">
+    <div class="row">
+      <div class="small-6 columns">
+        <h2 class="first">Welcome!</h2>
+        <p>I'm a computer scientist who enjoys combining theory and practice.
+          On the theory side, I'm finishing PhD at the <a href="http://www.cl.cam.ac.uk">University
+          of Cambridge</a>, working on type systems. On the practical side, I write about F#,
+          run trainings and provide occasional consulting.
+        </p>
+      </div>
+      <div class="small-6 columns">
+        <img src="@Model.Root/img/tomas-big.jpg" />
+      </div>
     </div>
 
-	  <h4>Getting Started</h4>
-	  <p>We're stoked you want to try Foundation! To get going, this file (index.html) includes some basic styles you can modify, play around with, or totally destroy to get going.</p>
+    <h2>Trainings, writing &amp; consluting</h2>
+    <p>I'm a frequent speaker at F# and .NET events, founding member of the 
+      <a href="http://fsharp.org">F# Foundation</a> author of C# and F# book, numerous articles and a 
+      <a href="http://stackoverflow.com/users/33518/tomas-petricek">StackOverflow addict</a>. I have 
+      been Microsoft C# MVP since 2004 and I used F# since early Microsoft Research versions.
+    </p>
+    <p>Have you seen the <a href="http://fsharp.org/testimonials/">F# testimonials</a> and are you 
+      thinking about learning and using F# of functional techniques?</p>
+
+    <img src="@Model.Root/img/fpman.jpg" style="float:right;margin-left:10px;" />
+    <ul class="spaces">
+      <li><strong>F# books.</strong> I wrote <a href="http://functional-programming.net/book/">Real World Functional Prog&shy;ramming</a>
+         that explains functional concepts using C# and F# and I'm working on <a href="http://www.manning.com/petricek2/">F# Deep Dives</a>.
+      </li>
+      <li><strong>Public courses.</strong> Together with <a href="http://trelford.com/blog/">Phil Trelford</a>, we run regular public
+        F# courses in New York and London. For more, see <a href="http://skillsmatter.com/course/scala/tomas-petricek-phil-trelford-fast-track-to-fsharp/ps-6679">Fast Track to F#</a> at SkillsMatter.
+      </li>
+      <li><strong>Consulting and trainings.</strong> I also provide private F# trainings and consluting through my company <a href="http://dualnotion.com/">Dual Notion ltd.</a> If you are interested <a href="mailto:tomas@tomasp.net">email me</a>!</li>
+    </ul>
+
+    <h2>Research &amp; teaching</h2>
+    <p>I'm interested in a wide range of topics in programming languages, ranging from category theory,
+        comonads, reactive and distributed programming to scientific computing and working with data.
+    </p>
+    <p>I like working on topics inspired by practical problems. I created a <a href="http://www.cl.cam.ac.uk/~tp322/theses/webtools.html">web framework for F#</a>
+      that inspired commercial projects like <a href="http://websharper.com/">WebSharper</a> and my
+      experimental F# extensions can be tested live on <a href="http://tryjoinads.org/">tryjoinads.org</a>.
       
-	  <h4>Other Resources</h4>
-	  <p>Once you've exhausted the fun in this document, you should check out:</p>
-	  <ul class="disc">
-		  <li><a href="http://foundation.zurb.com/docs">Foundation Documentation</a><br />Everything you need to know about using the framework.</li>
-		  <li><a href="http://github.com/zurb/foundation">Foundation on Github</a><br />Latest code, issue reports, feature requests and more.</li>
-		  <li><a href="http://twitter.com/foundationzurb">foundationzurb</a><br />Ping us on Twitter if you have questions. If you build something with this we'd love to see it (and send you a totally boss sticker).</li>
-	  </ul>
+    </p>
+
+    <ul class="spaces">
+      <li><a href="http://www.cl.cam.ac.uk/~dao29/publ/coeffects-icalp13.pdf"><strong>Coeffects</strong>: Uniﬁed static analysis of context-dependence</a> (PDF)
+        is our recent paper (published at ICALP 2013) that discusses the theory of context-dependent computations in details.
+      </li>
+      <li><a href="http://www.cl.cam.ac.uk/~tp322/"><strong>Academic web page</strong></a> has links to other published papers, work-in-progress drafts, 
+        research talks and also information about projects and courses that I supervised.
+      </li>
+    </ul>
+    
+    <script type="text/javascript">
+      var monthNames =
+        [ "January", "February", "March", "April", "May", "June",
+          "July", "August", "September", "October", "November", "December"];
+      var d = new Date();
+    </script>
+    <div id="hp-calendar">
+      <h4>Calendar -  <script type="text/javascript">document.write(monthNames[d.getMonth()] + " " + d.getFullYear());</script></h4>
+      <img src="@Model.Root/calendar/current.jpg" />
+      <p>When the time permits, I enjoy traveling. The calendar shows a new picture each month since 
+        <a href="@Model.Root/calendar/2005">2005</a>, <a href="@Model.Root/calendar/2006">2006</a>, 
+        <a href="@Model.Root/calendar/2007">2007</a>, <a href="@Model.Root/calendar/2008">2008</a>, 
+        <a href="@Model.Root/calendar/2009">2009</a>, <a href="@Model.Root/calendar/2010">2010</a>, 
+        <a href="@Model.Root/calendar/2011">2011</a>, <a href="@Model.Root/calendar/2012">2012</a>. 
+        See the first photos of <a href="@Model.Root/calendar/2013">2013</a>.
+      </p>
+    </div>
+
   </div>
 </div>

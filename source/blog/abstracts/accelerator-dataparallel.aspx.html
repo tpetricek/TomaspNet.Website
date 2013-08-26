@@ -1,0 +1,28 @@
+﻿<p>If you've been following this article series, you already know 
+  that Accelerator is a MSR library [<a href="http://tomasp.net/blog/accelerator-dataparallel.aspx#accelfsh3links">1</a>, <a href="#accelfsh3links">2</a>] 
+  that allows you to run code in parallel on either multi-core CPU or using 
+  shaders on GPU (see <a href="http://tomasp.net/blog/accelerator-intro.aspx">introduction</a>).
+  We also discussed a direct way to use Accelerator from F# (by calling Accelerator methods
+  directly) and <a href="http://tomasp.net/blog/accelerator-life-game.aspx">implemented Conway's Game of Life</a>.
+  In this article, we'll look at more sophisticated way of using Accelerator from F#.
+  We'll introduce F# quotations and look at translating 'normal' F# code to use
+  Accelerator.</p>
+  
+<img src="http://tomasp.net/articles/accelerator-dataparallel/rotated.png" alt="Rotated Prague photo" style="float:right; margin:10px" />
+
+<p>In general, F# quotations allow us to treat F# code as data structure and manipulate 
+  with it. This is very similar to C# expression trees, but the F# implementation is 
+  more powerful. We can also mark a standard method or a function with a special attribute
+  that tells the compiler to store quotation of the body. Then we can access the
+  quotation and traverse it or modify it. In this article we'll use a function that
+  takes an F# quotation (containing a limited set of functions) and executes it using
+  MSR Accelerator. Implementing this functionality is a bit complicated, so we won't
+  discuss the implementation now. We'll leave this for some future article of this series.
+  In future, we'll also look at other interesting possibilities that we have when 
+  writing code using quotations. Here is a list of articles in this series and of the
+  articles that I'm planning to add:</p>
+<ul>
+  <li><a href="http://tomasp.net/blog/accelerator-intro.aspx">Accelerator and F# (I.): Introduction and calculating PI</a></li>
+  <li><a href="http://tomasp.net/blog/accelerator-life-game.aspx">Accelerator and F# (II.): The Game of Life on GPU</a></li>
+  <li><strong>Accelerator and F# (III.): Data-parallel programs using F# quotations</strong></li>
+  <li><a href="http://tomasp.net/blog/accelerator-quotations.aspx">Accelerator and F# (IV.): Composing computations with quotations</a></li></ul>  

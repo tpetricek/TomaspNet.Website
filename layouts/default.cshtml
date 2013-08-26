@@ -11,8 +11,11 @@
 
   <!-- Reference Foundation -->
   <link rel="stylesheet" href="@Model.Root/css/foundation.css">
-  <script src="@Model.Root/js/vendor/custom.modernizr.js"></script>
+  <script src="cjs/vendor/custom.modernizr.js"></script>
 
+  <link rel="alternate" type="application/rss+xml" href="@Model.Root/rss.xml" title="RSS feed for Tomas Petricek's blog">
+  <link rel="author" href="https://plus.google.com/109855146654605967051" />
+    
   <!-- Reference custom CSS and tooltips -->
   <link type="text/css" rel="stylesheet" href="@Model.Root/custom/style.css" />
   <script type="text/javascript" src="@Model.Root/custom/tooltips.js"></script>
@@ -23,7 +26,7 @@
    <header id="top-header">
     <div class="row">
       <div class="twelve columns">
-        <h1>Tomas Petricek's blog</h1>
+        <h1><a href="@Model.Root/">Tomas Petricek's blog</a></h1>
         <p>Writing about practical F# coding and programming language research</p>
       </div>
     </div>
@@ -39,34 +42,72 @@
     </ul>
     <section class="top-bar-section">
       <ul class="right">
-        <li><a href="#">Blog</a></li>
-        <li><a href="#">Trainings</a></li>
-        <li><a href="#">Books</a></li>
-        <li><a href="#">Talks</a></li>
-        <li><a href="#">Research & Teaching</a></li>
+        <li><a href="@Model.Root/blog/index.html">Blog</a></li>
+        <li><a href="http://functional-programming.net">Trainings</a></li>
+        <li><a href="http://functional-programming.net">Books</a></li>
+        <li><a href="http://lanyrd.com/profile/tomasp">Talks</a></li>
+        <li><a href="http://www.cl.cam.ac.uk/~tp322">Research & Teaching</a></li>
       </ul>
     </section>
 
     </nav></div>
   </header>
   
-  <content>
-    @RenderBody()
-  </content>
+  @RenderBody()
 
-  <footer>
-    tomas
+  <div class="row" id="footer">
+  <footer>   
+    <div class="large-2 columns">
+      <h4>Contact</h4>
+      <p>Here are some links if you want to get in touch:</p>
+      <ul>
+        <li><a href="mailto:tomas@tomasp.net">tomas@tomasp.net</a></li>
+        <li><a href="http://twitter.com/tomaspetricek">@@tomaspetricek</a></li>
+        <li>keep in touch at <a href="http://uk.linkedin.com/in/tomaspetricek">LinkedIn</a></li>
+        <li>track my talks at <a href="http://lanyrd.com/profile/tomasp/">Lanyrd</a></li>
+        <li>open-source at <a href="https://github.com/tpetricek">GitHub</a></li>
+      </ul>
+    </div>
+    <div class="large-2 columns">
+      <h4>License</h4>
+      <p>The articles are licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution Share Alike</a>. 
+        All source code samples are licensed under Apache 2.0.
+      </p>
+      <img src="@Model.Root/img/cc-sa.png" alt="CC License logo" />
+    </div>
+    <div class="large-8 columns">
+    <h4>Blog archives <a href="@Model.Root/blog/rss.xml"><img src="@Model.Root/img/rss.gif" /></a></h4>
+    @foreach (var info in @Model.MonthlyPosts)
+    {
+      <a href="@(Model.Root + "/blog/archive/" + info.Item2.ToLower() + "-" + info.Item1.ToString() + "/index.html")">
+        @(info.Item2 + " " + info.Item1.ToString() + " (" + @Enumerable.Count(info.Item3).ToString() + ")")</a>@(",")
+    }
+    </div>
   </footer>
-
+  </div>
+  
   <script>
   document.write('<script src=' +
-  ('__proto__' in {} ? 'js/vendor/zepto' : 'js/vendor/jquery') +
+  ('__proto__' in {} ? '@Model.Root/js/vendor/zepto' : '@Model.Root/js/vendor/jquery') +
   '.js><\/script>')
   </script>
   
-  <script src="js/foundation.min.js"></script>
+  <script src="@Model.Root/js/foundation.min.js"></script>
   <script>
     $(document).foundation();
+  </script>
+  <script type="text/javascript">
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-1561220-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function () {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+
   </script>
 </body>
 </html>

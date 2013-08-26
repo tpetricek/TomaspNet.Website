@@ -1,10 +1,11 @@
-@{ 
+﻿@{ 
       Layout = "post";
       Title = "WinForms - Spolupráce mezi více formuláři";
       Tags = "";
       Date = "3/31/2005 11:26:19 PM";
       Description = "Tento článek popisuje základy spolupráce mezi více formuláři ve Windows Forms aplikaci.";
-    }<h1>WinForms - Spolupráce mezi více formuláři</h1><h2>Co tento článek ukazuje</h2><ul><li>Jak vytvářet formuláře, které budou vždy "nad" hlavním oknem</li><li>Jak umožnit více formulářům vzájemnou komunikaci</li><li>Jak požadovat při zavírání formuláře potvrzení akce</li></ul><img src="formsinter/formsinter.gif" alt="Ukázková aplikace" style="float:right; margin:10px;" /><h2>Komunikace mezi formuláři</h2><p>V aplikaci, která je vidět na obrázku jsou dva forumuláře. Hlavní formulář
+    }<h1>WinForms - Spolupráce mezi více formuláři</h1>
+<doc version="1"><body><h1>WinForms - Spolupráce mezi více formuláři</h1><h2>Co tento článek ukazuje</h2><ul><li>Jak vytvářet formuláře, které budou vždy "nad" hlavním oknem</li><li>Jak umožnit více formulářům vzájemnou komunikaci</li><li>Jak požadovat při zavírání formuláře potvrzení akce</li></ul><img src="formsinter/formsinter.gif" alt="Ukázková aplikace" style="float:right; margin:10px;" /><h2>Komunikace mezi formuláři</h2><p>V aplikaci, která je vidět na obrázku jsou dva forumuláře. Hlavní formulář
     (<code>MainForm</code>) je zobrazený stále a druhý formulář - panel nástrojů
     (<code>ToolsForm</code>) je možné zobrazovat a skrývat z hlavního formuláře.
     V panelu nástrojů je jednak tlačítko které zavírá panel (ale předtím se aplikace
@@ -56,4 +57,4 @@ private void ToolsForm_Closing(object sender,CancelEventArgs e)
     main.EnableButtons(false);
   }
 }
-</pre><h2>Soubory na stažení</h2><ul class="externallinks"><li><a href="formsinter/clanek.zip">Stáhnout tento článek v čistém HTML</a> (9 kB)</li><li><a href="formsinter/sources.zip">Stáhnout zdrojové kódy ukázkové aplikace</a> (21 kB)</li><li><a href="formsinter/FormsInteraction.exe">Spustit ukázkovou aplikaci</a></li></ul>
+</pre><h2>Soubory na stažení</h2><ul class="externallinks"><li><a href="formsinter/clanek.zip">Stáhnout tento článek v čistém HTML</a> (9 kB)</li><li><a href="formsinter/sources.zip">Stáhnout zdrojové kódy ukázkové aplikace</a> (21 kB)</li><li><a href="formsinter/FormsInteraction.exe">Spustit ukázkovou aplikaci</a></li></ul></body></doc>

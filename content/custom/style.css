@@ -17,6 +17,9 @@
   font-weight:300;
   margin:20px 0px 0px 0px;
 }
+#top-header h1 a:link, #top-header h1 a:visited {
+  color:black;
+}
 #top-header p {
   font-size:120%;
   font-weight:300;
@@ -73,6 +76,88 @@
 }
 
 /* ----------------------------------------------------------------------------------- */
+/* Right bar - calendar, information, etc.                                             */
+/* ----------------------------------------------------------------------------------- */
+
+#right-bar {
+  padding-right:0px;
+  padding-left:20px;
+  font-size:85%;
+  font-family:'PT Sans','Trebuchet MS', sans-serif
+}
+
+#right-bar h3 {
+  font:300 180% Kreon,'Times New Roman', Times, serif;
+  line-height:100%;
+}
+#right-bar h4 {
+  font:300 160% Kreon,'Times New Roman', Times, serif;
+  line-height:100%;
+  margin:25px 0px 15px 0px;
+}
+#right-bar .right-item {
+  margin-bottom:20px;
+  padding:10px;
+}
+#right-bar p, #right-bar ul {
+  margin:5px 0px 10px 0px;
+}
+#right-bar li {
+  margin:0px 0px 0px 20px;
+}
+#right-calendar, #hp-calendar {
+  text-align:center;
+  background:black;
+  margin-bottom:40px;
+}
+#right-calendar h4, #hp-calendar h4 {
+  margin:0px 0px 15px 0px;
+  font-size:140%;
+  color:#d0d0d0;
+  text-align:center;
+}
+#right-calendar p, #hp-calendar p {
+  margin:10px 0px 5px 0px;
+  color:#b0b0b0;
+  font-size:90%;
+}
+#hp-calendar {
+  padding:20px 0px 20px 0px;
+  margin:60px 20px 0px 20px;
+}
+#hp-calendar h4 {
+  font:300 160% Kreon,'Times New Roman', Times, serif;
+  margin-bottom:20px;
+}
+#hp-calendar p {
+  font-size:90%;
+  margin:20px 20px 0px 20px;
+}
+
+/* ----------------------------------------------------------------------------------- */
+/* Footer                                                                              */
+/* ----------------------------------------------------------------------------------- */
+
+footer {
+  min-height:220px;
+  margin:100px 0px 30px 0px;
+  padding:10px 0px 30px 0px;
+  border-top:5px solid black;
+  font-size:75%;
+  line-height:140%;
+  font-family:'PT Sans','Trebuchet MS', sans-serif
+}
+footer a {
+  text-decoration:underline;
+}
+footer h4 {
+  font:700 130% Kreon,'Times New Roman', Times, serif;
+}
+footer li {
+  margin-left:20px;
+}
+
+/* ----------------------------------------------------------------------------------- */
 /* Content - formatting of standard documents                                          */
 /* ----------------------------------------------------------------------------------- */
 
@@ -81,10 +166,11 @@
   margin:10px;
 }
 .main-content {
+  font-size:95%;
   font-family:'PT Sans','Trebuchet MS', sans-serif
 }
 .main-content h1 {
-  font:300 220% Kreon,'Times New Roman', Times, serif;
+  font:300 210% Kreon,'Times New Roman', Times, serif;
   line-height:100%;
 }
 .main-content h2 {
@@ -93,36 +179,37 @@
   line-height:100%;
 }
 .main-content h3 {
-  font:700 120% Kreon,'Times New Roman', Times, serif;
+  font:700 130% Kreon,'Times New Roman', Times, serif;
   margin-top:25px;
   line-height:100%;
 }
-/*
-#footer {
-  margin-top:50px;
-  font-size:80%;
-  padding:20px;
-  text-align:center;
-  font-family: Raleway, sans-serif;
-  color:#404040;
+.main-content h1 a:link, .main-content h1 a:visited {
+  color:black;
 }
-*/
+.main-content li {
+  margin-left:30px;
+}
+ul.spaces li {
+  margin-bottom:10px;
+}
+/* ----------------------------------------------------------------------------------- */
+/* Some special formatting for the home page                                           */
+/* ----------------------------------------------------------------------------------- */
 
-/* General fonts and styles for the pages 
-body {
-  font-family:Arimo, arial, sans-serif;
+.hp h2 {
+  font:300 130% Kreon,'Times New Roman', Times, serif;
+  margin-bottom:5px;
 }
-h1, h2, h3, h4 {
-  font-family: Raleway, sans-serif;
+.hp .smdate {
+  font:300 100% Kreon,'Times New Roman', Times, serif;
+  margin:0px 0px 10px 0px;
 }
-h2 {
-  font-size: 150%;
-  margin-top:25px;
-  font-weight:500;
+.main-content p.meta {
+  line-height:150%;
+  text-align:right;
+  font-style:italic;
+  margin:15px 10px 30px 0px;
 }
-h3 {
-  font-size: 120%;
-  margin-top:15px;
-  font-weight:600;
+h2.first {
+  margin-top:0px;
 }
-*/

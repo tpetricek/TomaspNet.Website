@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<!--[if IE 8]> 				 <html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+
+<head>
+  <meta charset="utf-8">
+  <title>C# - Dokumentace pomocí XML komentářů</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="V tomto článku se dočtete jakým způsobem lze v jazyce C# pomocí XML komentářů a nástroje NDoc vytvářet dokumentaci.">
+  <meta name="author" content="Tomas Petricek">
+
+  <!-- Reference Foundation -->
+  <link rel="stylesheet" href="http://test.tomasp.net/css/foundation.css">
+  <script src="cjs/vendor/custom.modernizr.js"></script>
+
+  <link rel="alternate" type="application/rss+xml" href="http://test.tomasp.net/rss.xml" title="RSS feed for Tomas Petricek's blog">
+  <link rel="author" href="https://plus.google.com/109855146654605967051" />
+    
+  <!-- Reference custom CSS and tooltips -->
+  <link type="text/css" rel="stylesheet" href="http://test.tomasp.net/custom/style.css" />
+  <script type="text/javascript" src="http://test.tomasp.net/custom/tooltips.js"></script>
+  <link type="text/css" rel="stylesheet" href="http://test.tomasp.net/custom/tooltips.css" />
+</head>
+<body>
+
+   <header id="top-header">
+    <div class="row">
+      <div class="twelve columns">
+        <h1><a href="http://test.tomasp.net/">Tomas Petricek's blog</a></h1>
+        <p>Writing about practical F# coding and programming language research</p>
+      </div>
+    </div>
+  </header>
+
+  <header class="top-bar-header">
+    <div class="contain-to-grid sticky">
+    <nav class="top-bar">
+
+    <ul class="title-area">
+      <li class="name"><h1><a href="#"></a></h1></li>
+      <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+    </ul>
+    <section class="top-bar-section">
+      <ul class="right">
+        <li><a href="http://test.tomasp.net/blog/index.html">Blog</a></li>
+        <li><a href="http://functional-programming.net">Trainings</a></li>
+        <li><a href="http://functional-programming.net">Books</a></li>
+        <li><a href="http://lanyrd.com/profile/tomasp">Talks</a></li>
+        <li><a href="http://www.cl.cam.ac.uk/~tp322">Research & Teaching</a></li>
+      </ul>
+    </section>
+
+    </nav></div>
+  </header>
+  
+  
+<div class="row">
+	<div class="large-8 columns main-content">
+    <content>
+      
+<h1>C# - Dokumentace pomocí XML komentářů</h1>
+<doc version="1"><body><h1>C# - Dokumentace pomocí XML komentářů</h1><h2>Co tento článek ukazuje</h2><ul><li>Jak lze dokumentovat zdrojový kód pomocí XML komentářů</li><li>Formát kompilátorem generovaného souboru s dokumentací</li><li>Tvorba dokumentace pomocí nástroje NDoc</li></ul><p>Obdobně jako v Jave (více informací např. viz [<a href="#links">1</a>]), lze i v C# 
+    pomocí speciálního typu komentářů psát přímo do zdrojového kódu dokumentaci
+    k třídám, jejich metodám a vlastnostem a dalším prvkům. Podpora pro psaní
+    těchto komentářů je zabudována do samotného Visual Studia, které generuje
+    kostru dokumentace automaticky. Z těchto komentářů je následně při kompilaci 
+    vygenerován XML soubor, který lze například přiložit k dll knihovně 
+    (Visual Studio poté z tohoto souboru načítá data pro Intellisense).
+    Dále lze z XML souboru s dokumentací vygenerovat jednoduché
+    webové stránky (příkazem ve Visual Studiu) a nebo pomocí
+    open source nástroje NDoc vytvořit dokumentaci ve stejném tvaru, v jakém je MSDN.</p><p>V následujícím textu si nejprve ukážeme, jak lze komentovat kód
+    v C# a následně se podíváme i na nástroj NDoc. Použití XML dokumentace
+    se pokusím ukázat na jednoduchém WinForms ovládacím prvku u kterého
+    lze nastavovat několik vlastností a má pár jednoduchých metod, ke kterým
+    je potřeba dopsat dokumentaci (ovládací prvek jsem zvolil proto, že u oládacich
+    prvků, je pro jejich další použití dokumentace velmi důležitá). Alternativou k nástroji NDoc je program Sandcastel od Microsoftu, který je vhodnější zejména pro .NET 2.0. Popis této varianty naleznete například na [<a href="#links">5</a>].
+
+</p><h2>XML komentáře</h2><p>Jak je patrné již z názvu, dokumentace se v C# zapisuje pomocí XML a 
+    je oddělena pomocí tří lomítek (<code>///</code>). XML komentáře lze
+    psát před jakýkoliv datový typ (třídu, výčtový datový typ, delegate a další)
+    a nebo před field (např. metodu, vlastnost nebo hodnotu u výčtového typu).
+    V následující části se podíváme na základní tagy, pomocí kterých lze
+    vytvářet dokumentaci.</p><h3>Nejpoužívanější XML tagy</h3><p>Pokud napíšete ve VS.Net tři lomítka před třídu nebo před metodu, VS.Net
+    automaticky doplní základní dokumentační XML tagy. Základní shrnutí se
+    vkládá pomocí tagu <code>summary</code> (minimálně tento tag by neměl
+    u žádné třídy a metod chybět). U metody lze dále pomocí tagu <code>param</code>
+    dopsat popis k jednotlivým parametrům. Návratovou hodnotu lze popsat
+    v tagu <code>returns</code>.  Další užitečný tag je <code>remarks</code>,
+    ve kterém je vhodné dopsat další informace a případně poslat nějaké záludnosti.
+    Pokud se při tvorbě dokumentace příliš rozepíšete, můžete text 
+    (například v tagu <code>summary</code>) rozdělit 
+    do více odstavců pomocí tagu <code>para</code>, který tvoří odstavec.</p><pre><span class="x">/// &lt;summary&gt;
+/// <span class="c">Ovladaci prvek, ktery vypisuje dany text. Pozadi muze 
+/// byt dvoubarevny prechod a na prvek lze kreslit hvezdicky.</span>
+/// &lt;/summary&gt;</span>
+public class ColorLabel : Control
+{
+  <span class="x">/// &lt;summary&gt;
+  /// <span class="c">Pridava hvezdicku na pozici urcenou parametrem </span>
+  ///   &lt;paramref name="position" /&gt;
+  /// &lt;/summary&gt;
+  /// &lt;param name="position"&gt;<span class="c">Pozice hvezdicky v pixelech</span>&lt;/param&gt;</span>
+  public void AddStar(Point position)
+  {
+  }
+}
+</pre><p>V předcházející ukázce je ještě použit tag <code>paramref</code> pomocí kterého lze vytvořit
+    odkaz na parametr metody. Podobným tagem je i <code>see</code>, který umožňuje vytvořit odkaz
+    na nějakou jinou třídu, metodu atd.. V připadě tagu <code>see</code> se odkaz 
+    zadává pomocí atributu <code>cref</code>, který je při kompilaci kontrolován, aby 
+    odkaz měl smys. Pokud v atributu <code>cref</code> zadáte odkaz na neexistující třídu 
+    nebo metodu zobrazí se následující chybové hlášení:</p><pre>warning CS1574: XML comment on 'XmlDocDemo.ColorLabel' has cref 
+                attribute 'Qwerty' that could not be found</pre><p>Při tvorbě dokumentace je také potřeba (a je to pro snadné pochopení dokumentace
+    téměř nepostradatelné) poskytnout čtenáři ukázkový kód, který vysvětluje jak s 
+    objekt používat. Ukázkový kód je nejlepší připojit v tagu <code>example</code>,
+    který je přímo určen k popsání příkladů. Delší blok zdrojového kódu se dá vložit pomocí
+    tagu <code>code</code> (obdoba v HTML je <code>pre</code>) a jednoslovné
+    části kódu - například názvy metod a vlastností, lze zvýraznit pomocí tagu
+    <code>c</code> (obdoba v HTML by byla <code>code</code>).</p><pre><span class="x">/// &lt;summary&gt;<span class="c">...</span>&lt;/summary&gt;
+/// &lt;example&gt;
+/// <span class="c">Pomoci metody <span class="x">&lt;c&gt;</span>AddStar<span class="x">&lt;/c&gt;</span> lze vkladat hvezdicky.</span>
+/// <span class="c">Nasledujici kod ukazuje jak vlozit hvezdicku na nahodne misto.</span>
+/// &lt;code&gt;
+///   <span class="c">Random rnd=new Random();</span>
+///   <span class="c">lbl.AddStar(new Point(rnd.Next(lbl.Width),rnd.Next(lbl.Height)));</span>
+/// &lt;/code&gt;
+/// &lt;/example&gt;</span>
+public void AddStar(Point position)
+{
+  ...
+}
+</pre><p>Dalším velmi užitečný tagem je <code>exception</code> (opět s atributem
+    <code>cref</code>, pomocí kterého lze popsat výjimky, ke kterým může
+    dojít při volání a vysvětlit situace které způsobí vyhození výjimky.
+    Použití tohoto tagu demonstruje následující přiklad:</p><pre><span class="x">/// &lt;exception cref="ArgumentException"&gt;
+/// <span class="c">Popis kdy dojde k vyhozeni vyjimky.</span>
+/// &lt;/exception&gt;</span>
+public void AddStar(Point position)
+{
+  ...
+}
+</pre><p>Z dalších tagů bych ještě rád upozornil na tag <code>list</code> pomocí kterého
+    lze do dokumentace vkládat seznamy (očíslované, nečíslované a nebo 
+    jako tabulku). Tento tag je velmi užitečný při popisu jednotlivých
+    hodnot u výčtových datových typů. Více o tomto tagu (a dalších o kterých
+    jsem se nezmiňoval) naleznete například v MSDN - viz [<a href="#links">2</a>].</p><h3>Ukládání dokumentace do externího souboru</h3><p>Pokud chcete vytvářet dokumentaci opravdu důkladně, dostanete se 
+    dost možná do situace, kdy se stane soubr přes všechnu dokumentaci 
+    naprosto nepřehledným. V této situaci vám pomůže tag <code>include</code>, 
+    pomocí kterého lze ukládat dokumentaci do externího souboru. 
+    Dokumentace se (jak jinak) načítá z XML souboru a element ze kterého
+    se bude dokumentace načítat je určen pomocí XPath cesty. Není
+    problém dokumentaci načítat z externího souboru pouze z části, takže například
+    tag <code>summary</code> zůstane jako součást kódu, ale ukázkový kód se bude
+    načítat z externího souboru.</p><pre><span class="x">/// &lt;summary&gt;<span class="c">Ovladaci prvek ...</span>&lt;/summary&gt;
+/// &lt;include file='doc.xml' path='/documentation/member[@name="ColorLabel"]'/&gt;</span>
+public class ColorLabel : Control
+{
+  ...
+}
+</pre><p>A ještě druhá část ukázky - soubor, ze kterého se dokumentace načítá:</p><pre>
+&lt;?xml version="1.0" encoding="utf-8" ?&gt; 
+&lt;documentation&gt;
+
+   <span class="c">&lt;!-- Obsah nasledujiciho elementu se vlozi do dokumentace --&gt;</span>
+  &lt;member name="ColorLabel"&gt;
+    &lt;example&gt;
+      Nasledujici kod ukazuje ...
+    &lt;/example&gt;
+  &lt;/member&gt;
+
+&lt;/documentation&gt;</pre><h2>XML soubor s dokumentací</h2><p>Jak jsem již psal, z XML komentářů je při komilaci vytvořen soubor, který obsahuje
+    celou dokumentaci. Pokud distribuujete například dll knihovnu a dodáte k ní
+    i tento soubor, bude VS.Net automaticky schopné načítat dokumentaci a zobrazovat
+    jí prostřednictvím Intelisense. Při výchozím nastavení se soubor s dokumentací 
+    negeneruje a proto je potřeba jeho generování nejprve povolit ve vlastnostech
+    projektu (jak ukazuje následující obrázek). Při kompilaci pomocí příkazové
+    řádky se jedná o parametr <code>/doc</code>.</p><div style="text-align:center;padding-bottom:5px;"><a href="http://www.eeeksoft.net/articles/xmldoc/stg_big.png" target="_blank"><img src="xmldoc/stg_small.png" style="margin-left:auto;margin-right:auto;border-style:none;" /></a><br /><small>Nastavení kompilátoru - Generování XML souboru s dokumentací. (<a href="http://www.eeeksoft.net/articles/xmldoc/stg_big.png" target="_blank">klikněte pro zvětšení</a>)</small></div><p>Výsledný XML soubor obsahuje v kořenovém elementu (<code>doc</code>) jednak element
+    <code>assembly</code>, ve kterém naleznete jméno assembly a poté element <code>members</code>,
+    ve kterém je uložena samotná dokumentace. Jenotlivé části dokumentace naleznete uvnitř
+    tagů <code>member</code>, které mají pomocí atributu <code>name</code> určeno k
+    jaké části kódu patří. Pro příklad <code>name="T:XmlDocDemo.ColorLabel"</code> znamená,
+    že dokumentace patří k typu (T - type) <code>XmlDoc.ColorLabel</code> (Další předpony jsou
+    například M - method a F - field). Tento soubor s dokumentací je součástí ukázkové
+    aplikace, kterou si můžete stáhnout a hlouběji prozkoumat.
+  </p><h2>Nástroj NDoc</h2><p>Přímo z Visual Studia je možné vygenerovat velmi jednoduché webové stránky,
+    které dokumentaci zobrazí v čitelnější formě. Takto generované stránky nejsou
+    ale jako dokumentace příliš použitelné a pravděpodobně proto začal vznikat skvělý
+    open source program NDoc [<a href="#links">3</a>]. Pomocí tohoto nástroje lze
+    vytvářet dokumentaci mimo jiné ve tvaru, který velmi přesně odpovídá stylu 
+    MSDN (přáklad je vidět na následujícím obrázku). Generovaná dokumentace
+    je dokonce propojena s MSDN, takže pokud třída dědí například od prvku <code>Control</code>,
+    bude v dokumentaci funkční odkaz a popis všech zděděných vlastností.</p><div style="text-align:center;padding-bottom:5px;"><a href="http://www.eeeksoft.net/articles/xmldoc/docdemo_big.png" target="_blank"><img src="xmldoc/docdemo_small.png" style="margin-left:auto;margin-right:auto;border-style:none;" /></a><br /><small>Dokumentace generovaná nástrojem NDoc. (<a href="http://www.eeeksoft.net/articles/xmldoc/docdemo_big.png" target="_blank">klikněte pro zvětšení</a>)</small></div><p>Použití nástroje je velmi intuitivní a po instalaci lze vše udělat pomocí velmi
+    přehledného uživatelského rozhraní, proto o jeho použití nebudu nic dalšího psát,
+    na oficiální stránce projektu naleznete i seznam článků, které jsou o tomto nástroji
+    na internetu k nalezení (viz [<a href="#links">4</a>]).
+    Pokud máte projekt okomentován, tak jak jsem popisoval výše, nemělo by vám
+    vygenerování profesionální dokumentace trvat déle než minutu.</p><h2>Soubory na stažení a odkazy</h2><a name="links"></a><ul class="externallinks"><li>[1] <a href="http://java.sun.com/j2se/javadoc/writingdoccomments">How to Write Doc Comments for the Javadoc Tool</a>
+      [<a href="http://java.sun.com/j2se/javadoc/writingdoccomments" target="_blank">^</a>]</li><li>[2] <a href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/csref/html/vclrfTagsForDocumentationComments.asp">Recommended Tags for Documentation Comments</a>
+      [<a href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/csref/html/vclrfTagsForDocumentationComments.asp" target="_blank">^</a>] - MSDN Library</li><li>[3] <a href="http://ndoc.sourceforge.net/">NDoc Code Documentation Generator for .NET</a>
+      [<a href="http://ndoc.sourceforge.net/" target="_blank">^</a>] - Oficiální web projektu</li>
+<li>[4] <a href="http://ndoc.sourceforge.net/wiki/NDoc_Articles">NDoc Articles</a>
+      [<a href="http://ndoc.sourceforge.net/wiki/NDoc_Articles" target="_blank">^</a>] - Oficiální web projektu</li>
+<li>[5] <a href="http://trupik.aspweb.cz/programovani/csharp-aspnet/sandcastle-generovani-dokumentace-z-xml-komentaru-nastupce-ndoc.aspx">Sandcastle – generování dokumentace z XML komentářů (nástupce NDoc)</a>
+      [<a href="http://trupik.aspweb.cz/programovani/csharp-aspnet/sandcastle-generovani-dokumentace-z-xml-komentaru-nastupce-ndoc.aspx" target="_blank">^</a>] - Trupíkův weBlog</li>
+</ul><ul class="externallinks"><li><a href="http://www.eeeksoft.net/articles/xmldoc/clanek.zip">Stáhnout tento článek v čistém HTML</a> (74 kB)</li><li><a href="http://www.eeeksoft.net/articles/xmldoc/sources.zip">Stáhnout zdrojové kódy ukázkové aplikace</a> (95 kB)</li></ul></body></doc>
+
+    </content>
+
+  </div>
+  <div class="large-4 columns" id="right-bar">
+    <div class="right-item" id="right-calendar">
+      <script type="text/javascript">
+        var monthNames =
+          ["January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"];
+        var d = new Date();
+        var m = month[d.getMonth()];
+        var y = d.getFullYear();
+        var ml = m.toLowerCase();
+        document.writeln("<h4>Calendar - " + m + " " + y + "</h4>");
+        document.writeln("<a href=\"http://test.tomasp.net/calendar/" + y + "/" + ml + ".aspx\">" +
+          "<img src=\"http://test.tomasp.net/calendar/" + y + "/" + ml + "-preview.jpg\" style=\"border-style:none;\" />" +
+          "</a>");
+      </script> 
+      <p>The calendar shows a new picture each month since 
+        <a href="http://test.tomasp.net/calendar/2005">2005</a>, <a href="http://test.tomasp.net/calendar/2006">2006</a>, 
+        <a href="http://test.tomasp.net/calendar/2007">2007</a>, <a href="http://test.tomasp.net/calendar/2008">2008</a>, 
+        <a href="http://test.tomasp.net/calendar/2009">2009</a>, <a href="http://test.tomasp.net/calendar/2010">2010</a>, 
+        <a href="http://test.tomasp.net/calendar/2011">2011</a>, <a href="http://test.tomasp.net/calendar/2012">2012</a>. <br />
+        See the first photos of <a href="http://test.tomasp.net/calendar/2013">2013</a>.
+      </p>
+    </div>
+
+    <h3>Welcome!</h3>
+    <img src="http://test.tomasp.net/img/tomas.jpg" alt="Tomas Petricek" style="float:right;margin:10px 0px 10px 10px;" />
+    <p>I'm an F# enthusiast, book author and a PhD student at the University of Cambridge.
+      When offline, I enjoy traveling and taking pictures. You can find me at
+      at <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a> or email 
+      <a href="mailto:tomas@tomasp.net">tomas@tomasp.net</a>.
+    </p>
+
+    <h4>Trainings and consulting</h4>
+    <img src="http://test.tomasp.net/img/skillsmatter.png" alt="Tomas Petricek" style="float:right;margin:15px 0px 10px 10px;" />
+    <p>I run F# and functional programming courses in <strong>London</strong>
+      and <strong>New York</strong> with SkillsMatter.
+    </p>
+    <ul>
+      <li>Check out our <a href="http://skillsmatter.com/course/scala/tomas-petricek-phil-trelford-fast-track-to-fsharp/ps-6679">Fast Track to F#</a> course</li>
+      <li><a href="mailto:tomas@tomasp.net">Email me</a> for info about private trainings</li>
+    </ul>
+    
+    <h4>F# Books and articles</h4>
+    <div style="float:right;">
+      <a href="http://www.amazon.com/gp/product/1933988924/ref=as_li_tf_il?ie=UTF8&amp;tag=httptomasnet-20&amp;linkCode=as2&amp;camp=217145&amp;creative=399369&amp;creativeASIN=1933988924">
+        <img src="http://test.tomasp.net/img/rwfp.jpg" alt="Real World Functional Programming" style="float:right;margin:10px 0px 10px 10px;border-style:none;" />
+      </a>
+    </div>
+    <p><a href="http://www.manning.com/petricek">Real World Functional Programming</a> explains functional
+      concepts using F# and C#. You can get it from <a href="http://www.amazon.com/dp/1933988924?tag=httptomasnet-20&amp;camp=213381&amp;creative=390973&amp;linkCode=as4&amp;creativeASIN=1933988924&amp;adid=0F1DP260JGG4KY0CDGP6">Amazon.com</a>, <a href="https://www.amazon.co.uk/dp/1933988924?tag=tomasnet-21&amp;camp=1406&amp;creative=6394&amp;linkCode=as1&amp;creativeASIN=1933988924&amp;adid=1CTY87YCCQEJW965GNDF">Amazon.co.uk</a> or your favorite book store.
+      Some chapters and new materials are also available on <a href="http://msdn.microsoft.com/en-us/library/hh314518.aspx">MSDN</a>.</p>
+    
+    <p>Currently, I'm putting together <a href="http://www.manning.com/petricek2/">F# Deep Dives</a> - a collection
+      of practical F# essays written by community leaders and commercial users of F#.</p>
+    <p>I also wrote a series of tutorials on <a href="http://www.tryfsharp.org/Learn/financial-computing">financial computing</a>
+      for Try F# - an interactive environment that let's you try F# in the browser.</p>
+
+    <h4>Research and teaching</h4>
+    <img src="http://test.tomasp.net/img/cam.png" alt="University of Cambride" style="float:right;margin:25px 0px 10px 10px;" />
+    <p>I'm finishing PhD in computer science at the <a href="http://www.cl.cam.ac.uk/">University of Cambridge</a>.
+      I'm working on making better types for programs that run in rich context (like F# type providers, distributed 
+      prog&shy;ramming or data-flow). See <a href="http://www.cl.cam.ac.uk/~tp322/">my academic page</a> for
+      more.</p>
+
+  </div>
+</div>
+
+
+  <div class="row" id="footer">
+  <footer>   
+    <div class="large-2 columns">
+      <h4>Contact</h4>
+      <p>Here are some links if you want to get in touch:</p>
+      <ul>
+        <li><a href="mailto:tomas@tomasp.net">tomas@tomasp.net</a></li>
+        <li><a href="http://twitter.com/tomaspetricek">@tomaspetricek</a></li>
+        <li>keep in touch at <a href="http://uk.linkedin.com/in/tomaspetricek">LinkedIn</a></li>
+        <li>track my talks at <a href="http://lanyrd.com/profile/tomasp/">Lanyrd</a></li>
+        <li>open-source at <a href="https://github.com/tpetricek">GitHub</a></li>
+      </ul>
+    </div>
+    <div class="large-2 columns">
+      <h4>License</h4>
+      <p>The articles are licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution Share Alike</a>. 
+        All source code samples are licensed under Apache 2.0.
+      </p>
+      <img src="http://test.tomasp.net/img/cc-sa.png" alt="CC License logo" />
+    </div>
+    <div class="large-8 columns">
+    <h4>Blog archives <a href="http://test.tomasp.net/rss.xml"><img src="http://test.tomasp.net/img/rss.gif" /></a></h4>
+      <a href="http://test.tomasp.net/blog/archive/may-2013/index.html">
+        May 2013 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/april-2013/index.html">
+        April 2013 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/march-2013/index.html">
+        March 2013 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/february-2013/index.html">
+        February 2013 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/january-2013/index.html">
+        January 2013 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/december-2012/index.html">
+        December 2012 (2)</a>,      <a href="http://test.tomasp.net/blog/archive/october-2012/index.html">
+        October 2012 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/august-2012/index.html">
+        August 2012 (3)</a>,      <a href="http://test.tomasp.net/blog/archive/june-2012/index.html">
+        June 2012 (2)</a>,      <a href="http://test.tomasp.net/blog/archive/april-2012/index.html">
+        April 2012 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/march-2012/index.html">
+        March 2012 (4)</a>,      <a href="http://test.tomasp.net/blog/archive/february-2012/index.html">
+        February 2012 (5)</a>,      <a href="http://test.tomasp.net/blog/archive/january-2012/index.html">
+        January 2012 (2)</a>,      <a href="http://test.tomasp.net/blog/archive/november-2011/index.html">
+        November 2011 (5)</a>,      <a href="http://test.tomasp.net/blog/archive/august-2011/index.html">
+        August 2011 (3)</a>,      <a href="http://test.tomasp.net/blog/archive/july-2011/index.html">
+        July 2011 (2)</a>,      <a href="http://test.tomasp.net/blog/archive/june-2011/index.html">
+        June 2011 (2)</a>,      <a href="http://test.tomasp.net/blog/archive/may-2011/index.html">
+        May 2011 (2)</a>,      <a href="http://test.tomasp.net/blog/archive/march-2011/index.html">
+        March 2011 (4)</a>,      <a href="http://test.tomasp.net/blog/archive/december-2010/index.html">
+        December 2010 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/november-2010/index.html">
+        November 2010 (6)</a>,      <a href="http://test.tomasp.net/blog/archive/october-2010/index.html">
+        October 2010 (6)</a>,      <a href="http://test.tomasp.net/blog/archive/september-2010/index.html">
+        September 2010 (4)</a>,      <a href="http://test.tomasp.net/blog/archive/july-2010/index.html">
+        July 2010 (3)</a>,      <a href="http://test.tomasp.net/blog/archive/june-2010/index.html">
+        June 2010 (2)</a>,      <a href="http://test.tomasp.net/blog/archive/may-2010/index.html">
+        May 2010 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/february-2010/index.html">
+        February 2010 (2)</a>,      <a href="http://test.tomasp.net/blog/archive/january-2010/index.html">
+        January 2010 (3)</a>,      <a href="http://test.tomasp.net/blog/archive/december-2009/index.html">
+        December 2009 (3)</a>,      <a href="http://test.tomasp.net/blog/archive/july-2009/index.html">
+        July 2009 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/june-2009/index.html">
+        June 2009 (3)</a>,      <a href="http://test.tomasp.net/blog/archive/may-2009/index.html">
+        May 2009 (2)</a>,      <a href="http://test.tomasp.net/blog/archive/april-2009/index.html">
+        April 2009 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/march-2009/index.html">
+        March 2009 (2)</a>,      <a href="http://test.tomasp.net/blog/archive/february-2009/index.html">
+        February 2009 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/december-2008/index.html">
+        December 2008 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/november-2008/index.html">
+        November 2008 (5)</a>,      <a href="http://test.tomasp.net/blog/archive/october-2008/index.html">
+        October 2008 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/september-2008/index.html">
+        September 2008 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/june-2008/index.html">
+        June 2008 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/march-2008/index.html">
+        March 2008 (3)</a>,      <a href="http://test.tomasp.net/blog/archive/february-2008/index.html">
+        February 2008 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/december-2007/index.html">
+        December 2007 (2)</a>,      <a href="http://test.tomasp.net/blog/archive/november-2007/index.html">
+        November 2007 (6)</a>,      <a href="http://test.tomasp.net/blog/archive/october-2007/index.html">
+        October 2007 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/september-2007/index.html">
+        September 2007 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/august-2007/index.html">
+        August 2007 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/july-2007/index.html">
+        July 2007 (2)</a>,      <a href="http://test.tomasp.net/blog/archive/april-2007/index.html">
+        April 2007 (2)</a>,      <a href="http://test.tomasp.net/blog/archive/march-2007/index.html">
+        March 2007 (3)</a>,      <a href="http://test.tomasp.net/blog/archive/february-2007/index.html">
+        February 2007 (3)</a>,      <a href="http://test.tomasp.net/blog/archive/january-2007/index.html">
+        January 2007 (2)</a>,      <a href="http://test.tomasp.net/blog/archive/november-2006/index.html">
+        November 2006 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/october-2006/index.html">
+        October 2006 (3)</a>,      <a href="http://test.tomasp.net/blog/archive/august-2006/index.html">
+        August 2006 (2)</a>,      <a href="http://test.tomasp.net/blog/archive/july-2006/index.html">
+        July 2006 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/june-2006/index.html">
+        June 2006 (3)</a>,      <a href="http://test.tomasp.net/blog/archive/may-2006/index.html">
+        May 2006 (2)</a>,      <a href="http://test.tomasp.net/blog/archive/april-2006/index.html">
+        April 2006 (2)</a>,      <a href="http://test.tomasp.net/blog/archive/december-2005/index.html">
+        December 2005 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/july-2005/index.html">
+        July 2005 (4)</a>,      <a href="http://test.tomasp.net/blog/archive/june-2005/index.html">
+        June 2005 (5)</a>,      <a href="http://test.tomasp.net/blog/archive/may-2005/index.html">
+        May 2005 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/april-2005/index.html">
+        April 2005 (3)</a>,      <a href="http://test.tomasp.net/blog/archive/march-2005/index.html">
+        March 2005 (3)</a>,      <a href="http://test.tomasp.net/blog/archive/january-2005/index.html">
+        January 2005 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/december-2004/index.html">
+        December 2004 (3)</a>,      <a href="http://test.tomasp.net/blog/archive/november-2004/index.html">
+        November 2004 (2)</a>,    </div>
+  </footer>
+  </div>
+  
+  <script>
+  document.write('<script src=' +
+  ('__proto__' in {} ? 'http://test.tomasp.net/js/vendor/zepto' : 'http://test.tomasp.net/js/vendor/jquery') +
+  '.js><\/script>')
+  </script>
+  
+  <script src="http://test.tomasp.net/js/foundation.min.js"></script>
+  <script>
+    $(document).foundation();
+  </script>
+  <script type="text/javascript">
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-1561220-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function () {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+
+  </script>
+</body>
+</html>

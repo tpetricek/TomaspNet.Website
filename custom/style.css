@@ -105,21 +105,56 @@
 #right-bar li {
   margin:0px 0px 0px 20px;
 }
-#right-bar #right-calendar {
+#right-calendar, #hp-calendar {
   text-align:center;
   background:black;
   margin-bottom:40px;
 }
-#right-calendar h4 {
+#right-calendar h4, #hp-calendar h4 {
   margin:0px 0px 15px 0px;
   font-size:140%;
   color:#d0d0d0;
   text-align:center;
 }
-#right-calendar p {
+#right-calendar p, #hp-calendar p {
   margin:10px 0px 5px 0px;
   color:#b0b0b0;
   font-size:90%;
+}
+#hp-calendar {
+  padding:20px 0px 20px 0px;
+  margin:60px 20px 0px 20px;
+}
+#hp-calendar h4 {
+  font:300 160% Kreon,'Times New Roman', Times, serif;
+  margin-bottom:20px;
+}
+#hp-calendar p {
+  font-size:90%;
+  margin:20px 20px 0px 20px;
+}
+
+/* ----------------------------------------------------------------------------------- */
+/* Footer                                                                              */
+/* ----------------------------------------------------------------------------------- */
+
+footer {
+  min-height:220px;
+  margin:100px 0px 30px 0px;
+  padding:10px 0px 30px 0px;
+  border-top:5px solid black;
+  font-size:75%;
+  line-height:140%;
+  font-family:'PT Sans','Trebuchet MS', sans-serif
+}
+footer a {
+  text-decoration:underline;
+}
+footer h4 {
+  font:700 130% Kreon,'Times New Roman', Times, serif;
+}
+footer li {
+  margin-left:20px;
 }
 
 /* ----------------------------------------------------------------------------------- */
@@ -151,14 +186,30 @@
 .main-content h1 a:link, .main-content h1 a:visited {
   color:black;
 }
+.main-content li {
+  margin-left:30px;
+}
+ul.spaces li {
+  margin-bottom:10px;
+}
+/* ----------------------------------------------------------------------------------- */
+/* Some special formatting for the home page                                           */
+/* ----------------------------------------------------------------------------------- */
 
+.hp h2 {
+  font:300 130% Kreon,'Times New Roman', Times, serif;
+  margin-bottom:5px;
+}
+.hp .smdate {
+  font:300 100% Kreon,'Times New Roman', Times, serif;
+  margin:0px 0px 10px 0px;
+}
 .main-content p.meta {
   line-height:150%;
   text-align:right;
   font-style:italic;
   margin:15px 10px 30px 0px;
 }
-
-.main-content li {
-  margin:0px 0px 0px 30px;
+h2.first {
+  margin-top:0px;
 }

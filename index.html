@@ -4,26 +4,29 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Tomas Petricek's blog</title>
+  <title>Tomas Petricek's virtual universe</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Writing about software development in F# and .NET, sharing materials from my F# trainings and talks, writing about programming language research and theory.">
   <meta name="author" content="Tomas Petricek">
 
   <!-- Reference Foundation -->
-  <link rel="stylesheet" href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/css/foundation.css">
+  <link rel="stylesheet" href="http://test.tomasp.net/css/foundation.css">
   <script src="cjs/vendor/custom.modernizr.js"></script>
 
+  <link rel="alternate" type="application/rss+xml" href="http://test.tomasp.net/rss.xml" title="RSS feed for Tomas Petricek's blog">
+  <link rel="author" href="https://plus.google.com/109855146654605967051" />
+    
   <!-- Reference custom CSS and tooltips -->
-  <link type="text/css" rel="stylesheet" href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/custom/style.css" />
-  <script type="text/javascript" src="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/custom/tooltips.js"></script>
-  <link type="text/css" rel="stylesheet" href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/custom/tooltips.css" />
+  <link type="text/css" rel="stylesheet" href="http://test.tomasp.net/custom/style.css" />
+  <script type="text/javascript" src="http://test.tomasp.net/custom/tooltips.js"></script>
+  <link type="text/css" rel="stylesheet" href="http://test.tomasp.net/custom/tooltips.css" />
 </head>
 <body>
 
    <header id="top-header">
     <div class="row">
       <div class="twelve columns">
-        <h1><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/">Tomas Petricek's blog</a></h1>
+        <h1><a href="http://test.tomasp.net/">Tomas Petricek's blog</a></h1>
         <p>Writing about practical F# coding and programming language research</p>
       </div>
     </div>
@@ -39,7 +42,7 @@
     </ul>
     <section class="top-bar-section">
       <ul class="right">
-        <li><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/index.html">Blog</a></li>
+        <li><a href="http://test.tomasp.net/blog/index.html">Blog</a></li>
         <li><a href="http://functional-programming.net">Trainings</a></li>
         <li><a href="http://functional-programming.net">Books</a></li>
         <li><a href="http://lanyrd.com/profile/tomasp">Talks</a></li>
@@ -51,1114 +54,267 @@
   </header>
   
   
+
 <div class="row">
-	<div class="large-8 columns main-content">
-    <content class="hp">
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/types-and-maths.aspx/index.html">Power of mathematics: Reasoning about functional types</a></h2>
-      <span class="date">5/14/2013</span>
-        <span class="tags">| f#, research, functional programming </span> 
-      <br />
-      <p class="description">
-          In this article, I explore the amazing relationship between functional data types and algebraic operations. We will use this relationship to reason about domain model and understand the differences between several possible representations.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/csharp-async-gotchas.aspx/index.html">Async in C# and F#: Asynchronous gotchas in C#</a></h2>
-      <span class="date">4/15/2013</span>
-        <span class="tags">| async, c#, f# </span> 
-      <br />
-      <p class="description">
-          This article is inspired by an MVP summit talk about common pitfalls in the C# asynchronous programming model. I look at a number of easy to make mistakes when writing asynchronous code in C# and demonstrate that most of them would not easily happen when using F#.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/fsharp-data.aspx/index.html">F# Data: New type provider library</a></h2>
-      <span class="date">3/28/2013</span>
-        <span class="tags">| open source, f#, f# data, type providers </span> 
-      <br />
-      <p class="description">
-          F# Data is a new library that gives you all you need to access data in F# 3.0. It implements type providers for WorldBank, Freebase and structured document formats (CSV, JSON and XML) as well as other helpers. This article introduces the library and gives a quick overview of its features.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/events-winter-2013.aspx/index.html">Upcoming F# talks and trainings (London, NYC & Boston)</a></h2>
-      <span class="date">2/7/2013</span>
-        <span class="tags">| events, talks, trainings, f#, london, new york </span> 
-      <br />
-      <p class="description">
-          After a few years, I will be attending the MVP summit again this year. The good news for those interested in F# is that I have two talks scheduled along the way in New York and Boston. Aside from that, we also have dates for a new F# course in London and New Year!
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/fsharp-literate-programming.aspx/index.html">Announcing: Literate programming tools for F#</a></h2>
-      <span class="date">1/22/2013</span>
-        <span class="tags">| open source, f#, writing, literate </span> 
-      <br />
-      <p class="description">
-          This article introduces a new F# package that makes it possible to write literate F# programs that combine code with documentation. Given an F# script with a special comments or Markdown document with F# code, you get a nicely formatted HTML that can be used to build documentation or write blogs.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/tree-zipper-query.aspx/index.html">Processing trees with F# zipper computation</a></h2>
-      <span class="date">12/19/2012</span>
-        <span class="tags">| f#, haskell, research, monads, linq </span> 
-      <br />
-      <p class="description">
-          One of the less frequently advertised new features in F# 3.0 is the query syntax. It allows adding custom operations to a computation expression block. This article shows how to define a custom computation for processing trees using zippers. We'll add navigation over a tree as custom operations to get a simple syntax.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/manning-deep-dives.aspx/index.html">Manning: F# Deep Dives deal of the day</a></h2>
-      <span class="date">12/18/2012</span>
-        <span class="tags">| manning, f#, writing, books </span> 
-      <br />
-      <p class="description">
-          There is an increasing number of commercial F# uses.If you want to learn about the domains where F# is used (including finance, game development, machine learning and other) as well as about common programming techniques in F#, then the upcoming F# Deep Dives book is the book for you!
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/more-events-autumn-2012.aspx/index.html">Learn F# at TechMesh and SkillsMetter</a></h2>
-      <span class="date">10/21/2012</span>
-        <span class="tags">| Presentations, Functional Programming in .NET, F# language, Materials & Links </span> 
-      <br />
-      <p class="description">
-          Looking for an event where you could learn about F#? The second half of autumn will be a busy time with Progressive F# Tutorials happening at the beginning of November and the TechMesh Conference planned for the first week in December!
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/applicative-functors.aspx/index.html">Applicative functors: definition and syntax</a></h2>
-      <span class="date">8/21/2012</span>
-        <span class="tags">| Research, Haskell, F# language </span> 
-      <br />
-      <p class="description">
-          In a recent blog post, Edward Z. Yang talks about applicative functors. He mentions two equivalent definitions - the standard one used in Haskell and an alternative mentioned in the original paper. In this blog post, I describe some reasons why the alternative definition is useful.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/type-first-development.aspx/index.html">Why type-first development matters</a></h2>
-      <span class="date">8/16/2012</span>
-        <span class="tags">| Functional Programming in .NET, F# language, Research </span> 
-      <br />
-      <p class="description">
-          This article describes type-first development (TFD). A software development methodology that is quite common among functional programmers and uses types as a simple way of communicating ideas about program design.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/events-autumn-2012.aspx/index.html">F# Courses and Talks for Autumn 2012 (I.)</a></h2>
-      <span class="date">8/8/2012</span>
-        <span class="tags">| Functional Programming in .NET, Materials & Links, Presentations </span> 
-      <br />
-      <p class="description">
-          This article is an invitation to a number of F# events at the end of summer and during autumn. Aside from F# trainings in New York and London, I will be also doing an F# tutorial at CUFP in Copenhagen.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/variance-explained.aspx/index.html">The theory behind covariance and contravariance in C# 4</a></h2>
-      <span class="date">6/19/2012</span>
-        <span class="tags">| C# language, Research </span> 
-      <br />
-      <p class="description">
-          Covariance and contravariance are two useful features of generics in C# 4.0. Most of the time you don't see them. They just let you write code that you'd expect to work. Actually understanding how they work is more difficult. In this article, I explain that, together with some theory where the two concepts come from.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/agent-event-reporting.aspx/index.html">Reporting events from F# Agents</a></h2>
-      <span class="date">6/16/2012</span>
-        <span class="tags">| F# language, Asynchronous </span> 
-      <br />
-      <p class="description">
-          This article describes different options for reporting events from F# agents. The options include triggering the event directly, using thread pool and in a specified context.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/fsharp-academia.aspx/index.html">F# in Academia: Present at upcoming events!</a></h2>
-      <span class="date">4/16/2012</span>
-        <span class="tags">| Presentations, F# language, Haskell, Research </span> 
-      <br />
-      <p class="description">
-          The F# language combines the best from practice and academia. If you're working on interesting application of F#, have an experience worth sharing or some interesting research or idea, there are two workshops where you can share the idea with wider research and practitioner community, so consider submitting a talk!
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/joinads-async-implement.aspx/index.html">TryJoinads (VII.) - Implementing joinads for async workflows</a></h2>
-      <span class="date">3/23/2012</span>
-        <span class="tags">| Asynchronous, F# language, Research, Joinads </span> 
-      <br />
-      <p class="description">
-          In the final article of the TryJoinads series, I discuss how to implement the joinad structure for F# asynchronous workflows. The article also demonstrates the importance of aliasing for match! notation.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/joinads-parsing.aspx/index.html">TryJoinads (VI.) - Parsing with joinads</a></h2>
-      <span class="date">3/21/2012</span>
-        <span class="tags">| F# language, Joinads, Research </span> 
-      <br />
-      <p class="description">
-          This article shows how to use joinads (and the match! extension) for writing parsers. Using joinads one can easily express choice and write a parser that recognizes an intersection of languages.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/qcon-async-fsharp.aspx/index.html">Asynchronous client/server in F# (QCon 2012)</a></h2>
-      <span class="date">3/12/2012</span>
-        <span class="tags">| Presentations, Functional Programming in .NET, Asynchronous, F# language, Materials & Links </span> 
-      <br />
-      <p class="description">
-          Last week, I gave a talk on asynchronous programming in F# at QCon London. I used the one hour slot to implement a Social Rectangle Drawing App - an application that showed the importance of asynchronous workflows on both client-side and server-side.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/joinads-options.aspx/index.html">TryJoinads (V.) - Implementing the option joinad</a></h2>
-      <span class="date">3/2/2012</span>
-        <span class="tags">| F# language, Research, Joinads </span> 
-      <br />
-      <p class="description">
-          The match! research extension for F# can be used to program with a number of monadic computations. In this article, we look how to support it in one of the simplest monads - the maybe monad.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/joinads-join-calculus.aspx/index.html">TryJoinads (IV.) - Concurrency using join calculus</a></h2>
-      <span class="date">2/22/2012</span>
-        <span class="tags">| F# language, Research, Joinads, Asynchronous, Parallel </span> 
-      <br />
-      <p class="description">
-          This article shows another application of the match! language extension for F#. This time, we look how to encode join calculus, which is an elegant abstraction for declarative concurrent programming.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/joinads-agents.aspx/index.html">TryJoinads (III.): Agent-based programming</a></h2>
-      <span class="date">2/20/2012</span>
-        <span class="tags">| Joinads, Research, F# language, Parallel, Asynchronous </span> 
-      <br />
-      <p class="description">
-          Agent-based programming is a great way to write concurrent applications without the usual threading issues. In this article, we look how the \"match!\" research extension for F# simplifies writing agents. In particular, we can easily implement states that do not handle all incoming messages.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/joinad-tasks.aspx/index.html">TryJoinads (II.): Task-based parallelism</a></h2>
-      <span class="date">2/17/2012</span>
-        <span class="tags">| Research, F# language, Parallel, Joinads </span> 
-      <br />
-      <p class="description">
-          Joinads is a research extension of the F# compiler that makes computation expressions more expressive. In this article, we look how to use the match! notation for working with tasks. The examples include simple parallel map, but also more powerful speculative parallelism.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/joinads-async-prog.aspx/index.html">TryJoinads (I.) - Asynchronous programming</a></h2>
-      <span class="date">2/13/2012</span>
-        <span class="tags">| F# language, Research, Joinads </span> 
-      <br />
-      <p class="description">
-          This article demonstrates the new expressive power that joinads add to F# asynchronous workflows. The match! syntax can be used for parallel composition, as well as choice, in a wide range of areas.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/introducing-tryjoinads.aspx/index.html">Introducing TryJoinads.org</a></h2>
-      <span class="date">2/13/2012</span>
-        <span class="tags">| Parallel, Asynchronous, F# language, Research, Materials & Links, Joinads </span> 
-      <br />
-      <p class="description">
-          Joinads is a research extension of F# computation expressions that makes them more useful for parallel, concurrent and reactive programming. This article announces a web site TryJoinads.org where you can experiment with the extension using a web-based F# console.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/fsharp-talks-courses-2012a.aspx/index.html">F# courses and talks (Winter 2012 and beyond...)</a></h2>
-      <span class="date">1/13/2012</span>
-        <span class="tags">| Presentations, Functional Programming in .NET </span> 
-      <br />
-      <p class="description">
-          A couple of months ago, I posted a list of my F# talks and courses for Autumn 2011. Although I tried hard to have fewer speaking engagements during the winter and spring, there are quite a few events that
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/regions-navigation.aspx/index.html">Regions and navigation bar for F# in Visual Studio</a></h2>
-      <span class="date">1/1/2012</span>
-        <span class="tags">| Functional Programming in .NET, Mono </span> 
-      <br />
-      <p class="description">
-          The beginning of a new year may be a good time for writing one lightweight blog post - this article shows two hidden features of F# IntelliSense in Visual Studio and also talks about writing plugins using the F# open-source release.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/fsharp-generic-numeric.aspx/index.html">F# Math (IV.) - Writing generic numeric code</a></h2>
-      <span class="date">11/27/2011</span>
-        <span class="tags">| C# language, Functional Programming in .NET, F# language, Math and Numerics </span> 
-      <br />
-      <p class="description">
-          Writing generic numeric code in .NET is difficult, because .NET generics do not support constraints specifying that a type has to support certain numeric operations. In this article, we look how to solve the problem in F#. Using static member constraints, it is possible to write simple generic calculations and using the INumeric interface, we can capture numeric operations for a type and use them when implementing complex types such as a matrix.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/fsharp-custom-numeric.aspx/index.html">F# Math (III.) - Defining custom numeric types</a></h2>
-      <span class="date">11/24/2011</span>
-        <span class="tags">| Functional Programming in .NET, F# language, Math and Numerics </span> 
-      <br />
-      <p class="description">
-          In this article, we look at defining custom numeric types in F#. We'll create a numeric type representing numbers in a clock artihmetic (with base 5) and we'll see how to define custom operators, numeric literals and how to support F# PowerPack matrices.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/powerpack-matrix.aspx/index.html">F# Math (II.) - Using matrices for graph algorithms</a></h2>
-      <span class="date">11/9/2011</span>
-        <span class="tags">| Functional Programming in .NET, F# language, Math and Numerics </span> 
-      <br />
-      <p class="description">
-          This article introduces the matrix type available in F# PowerPack. It discusses how to create matrices, manipulate matrices using indexing and slices and how to use built-in functions for working with them. As a running example, we use matrix to represent a graph using an adjacency matrix.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/powerpack-numeric.aspx/index.html">F# Math (I.) - Numeric types in PowerPack</a></h2>
-      <span class="date">11/2/2011</span>
-        <span class="tags">| C# language, Functional Programming in .NET, F# language, Math and Numerics </span> 
-      <br />
-      <p class="description">
-          This article discusses two numeric types that are available in F# PowerPack - BigRational represents arbitrary precision rational numbers and complex represents (floating-point) complex numbers. The types can be nicely used from F# as well as from C#.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/powerpack-introduction.aspx/index.html">F# Math - Numerical computing and F# PowerPack</a></h2>
-      <span class="date">11/2/2011</span>
-        <span class="tags">| Functional Programming in .NET, F# language, Writing, Math and Numerics </span> 
-      <br />
-      <p class="description">
-          This article is the first article of a series where I'll explain some of the F# features that are useful for numeric computing as well as some functionality from the F# PowerPack library.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/fsharp-autumn-2011.aspx/index.html">F# courses and talks (Autumn 2011)</a></h2>
-      <span class="date">8/26/2011</span>
-        <span class="tags">| Functional Programming in .NET, Materials & Links, Presentations </span> 
-      <br />
-      <p class="description">
-          After a quiet summer season, it is time to look at the upcoming F# talks and courses. If you want to learn about functional and asynchronous programming, F# and more, you may want to come to our training (organized with SkillsMatter), tutorials or some community events.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/async-sequences.aspx/index.html">Programming with F# asynchronous sequences</a></h2>
-      <span class="date">8/11/2011</span>
-        <span class="tags">| Functional Programming in .NET, Asynchronous, F# language, Research </span> 
-      <br />
-      <p class="description">
-          Asynchronous sequences provide a way to represent asynchronous computation that generates multiple values on demand. This article defines asynchronous sequences, combinators for working with them and \"asyncSeq\" computation builder. Then it implements several examples including a sequential asynchronous Web Crawler.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/real-world-book-msdn.aspx/index.html">Real-World F# Articles on MSDN</a></h2>
-      <span class="date">8/10/2011</span>
-        <span class="tags">| Functional Programming in .NET, Web, Asynchronous, Parallel, Materials & Links, F# language, C# language </span> 
-      <br />
-      <p class="description">
-          More than a year ago, I started working on a writing project done with Manning and MSDN team. The idea was to adapt parts of my Real-World Functional Programming book, add some new practical topics and publish the articles on MSDN under the official F# documentation. I'm happy to announce that the articles, covering ASP.NET, F# asynchronous programming and agents, charting and more are now available on MSDN!
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/docase-haskell.aspx/index.html">Extending Monads with Pattern Matching (Haskell 2011)</a></h2>
-      <span class="date">7/20/2011</span>
-        <span class="tags">| Parallel, Writing, Research, Haskell, Joinads </span> 
-      <br />
-      <p class="description">
-          The blog post presents a paper that extends Haskell with pattern matching on monadic values. The paper has been accepted for publication at Haskell Symposium 2011 and extends the idea of joinads that I previously created for F#. The paper provides deeper theoretical background and discusses Haskell implementation.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/comprefun.aspx/index.html">Fun with parallel monad comprehensions (The Monad.Reader)</a></h2>
-      <span class="date">7/19/2011</span>
-        <span class="tags">| Haskell, Research, Parallel </span> 
-      <br />
-      <p class="description">
-          Monad comprehensions are back in Haskell, more powerful than ever before! The recent implementation adds expressive power by generalizing grouping, ordering and also parallel list comprehensions. This article shows how to use this new expressivity for programming with parsers and writing parallel and concurrent computations.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/safe-gui-async.aspx/index.html">Safer asynchronous workflows for GUI programming</a></h2>
-      <span class="date">6/15/2011</span>
-        <span class="tags">| Research, F# language, Asynchronous, Functional Programming in .NET </span> 
-      <br />
-      <p class="description">
-          When writing reactive applications using F# asynchronous workflows, it is important to run some operations on the right thread. User interface elements are accessible only on GUI threads and CPU-intensive computations should be done on a background thread. This article describes an extension of F# asynchronous workflows that guarantees correct use of threads using types.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/async-non-blocking-gui.aspx/index.html">Writing non-blocking user-interfaces in F#</a></h2>
-      <span class="date">6/10/2011</span>
-        <span class="tags">| Research, Asynchronous, F# language, Functional Programming in .NET </span> 
-      <br />
-      <p class="description">
-          F# asynchronous workflows are mainly used for non-blocking I/O and concurrency, but they provide nice abstraction for writing user interface interactions. This article shows how to avoid blocking the user-interface when performing CPU-intensive processing.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/goto-loosely-structured-data.aspx/index.html">Accessing loosely structured data from F# and C# (GOTO 2011)</a></h2>
-      <span class="date">5/26/2011</span>
-        <span class="tags">| C# language, Presentations, F# language </span> 
-      <br />
-      <p class="description">
-          This article is a summary of a talk about accessing loosely structured data from F# and C# that I gave at GOTO Copenhagen 2011. The article contains examples how to bridge the gap between external data sources and programming language at various scales.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/speculative-par-monad.aspx/index.html">Explicit speculative parallelism for Haskell's Par monad</a></h2>
-      <span class="date">5/17/2011</span>
-        <span class="tags">| Research, Haskell, Parallel </span> 
-      <br />
-      <p class="description">
-          This article shows how to extend Haskell's Par monad to support cancellation of computations. This makes it possible to implement speculative parallelism using the monad and to build other high-level abstraction such as the unamb operator designed by Conal Elliott.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/fsharp-variations-joinads.aspx/index.html">Variations in F#: Research compiler with Joinads and more!</a></h2>
-      <span class="date">3/25/2011</span>
-        <span class="tags">| Research, F# language, Joinads </span> 
-      <br />
-      <p class="description">
-          Joinads are a research extension of the F# language. They simplify conrurrent programming with tasks, reactive programming with events, but can be also used for other types of computations. This article introduces the extension, which is now available, based on the open-source source-drop of F#.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/formlets-in-linq.aspx/index.html">Beyond the Monad fashion (II.): Creating web forms with LINQ</a></h2>
-      <span class="date">3/14/2011</span>
-        <span class="tags">| C# language, Research </span> 
-      <br />
-      <p class="description">
-          Formlets are elegant functional abstraction for describing web forms encapsulating both rendering and functionality. In this article, we look how to write formlets in C#. Although formlets are not monads, we can still use elegant LINQ syntax. Interestingly, using the join clause...
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/idioms-in-linq.aspx/index.html">Beyond the Monad fashion (I.): Writing idioms in LINQ</a></h2>
-      <span class="date">3/10/2011</span>
-        <span class="tags">| C# language, Research, Functional Programming in .NET </span> 
-      <br />
-      <p class="description">
-          Everyone tells you that LINQ is a monad, but LINQ can be used to enocde other types of computations too. This article demonstrates that you can use LINQ to program using idioms, which are in some ways more useful than monads.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/mono-teaching-qcon-talks.aspx/index.html">MonoDevelop &amp</a></h2>
-      <span class="date">3/9/2011</span>
-        <span class="tags">| Presentations, Webcast, Functional Programming in .NET, Materials & Links </span> 
-      <br />
-      <p class="description">
-          It appears that I have been doing a lot more talking than writing in the last two months. This blog post provides links to materials from my recent F# talks, including MonoDevelop presentation, talk about Teaching F# and recent QCon tutorial with Phil Trelford.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/fssnip-website.aspx/index.html">Announcing F# snippets web site</a></h2>
-      <span class="date">12/12/2010</span>
-        <span class="tags">| F# language, Universe, Materials & Links </span> 
-      <br />
-      <p class="description">
-          When writing F# code, I often write some nice code snippet or helper function that I'd like to share with the F# community. Unfortunately, there was no good website for easy sharing of F# snippets - until today.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/education-and-agents-talks.aspx/index.html">F# in Education &amp</a></h2>
-      <span class="date">11/30/2010</span>
-        <span class="tags">| Presentations, Functional Programming in .NET, Webcast, Materials & Links </span> 
-      <br />
-      <p class="description">
-          This article contains materials for two talks that I had in November. First, I presented the F# plugin for MonoDevelop at the F# in Education workshop in Boston (using 3D functional library) and then I talked about agent-based concurrency (with Twitter and image processing examples) in London.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/fun-londoners-agents.aspx/index.html">Concurrent programming with F# agents in London</a></h2>
-      <span class="date">11/23/2010</span>
-        <span class="tags">| Presentations </span> 
-      <br />
-      <p class="description">
-          Just a quick reminder for everybody living near London interested in F# - I'll be giving a talk about concurrent programming using F# agents on Wednesday. We'll look at the MailboxProcessor type and at some common patterns for working with it.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/async-compilation-internals.aspx/index.html">Asynchronous C# and F# (III.): How does it work?</a></h2>
-      <span class="date">11/21/2010</span>
-        <span class="tags">| C# language, Functional Programming in .NET, Asynchronous, F# language </span> 
-      <br />
-      <p class="description">
-          In this article, we look at the internals of asynchronous programming models in F# and a future version of C#. We compare the compilation in C# (based on state machines) and the compilation in F# (based on combinators) and we look at advantages and disadvantages of both of the approaches.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/monodevelop-update.aspx/index.html">F# community on GitHub &amp</a></h2>
-      <span class="date">11/19/2010</span>
-        <span class="tags">| Universe, Mono, F# language </span> 
-      <br />
-      <p class="description">
-          If you're interested in the open-source release of F# or the F# plugin for MonoDevelop, you can now find them on GitHub. I started F# community organization that will manage the two projects. You can also join our mailing-list to receive all updates related to open-source community.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/fsharp-in-monodevelop.aspx/index.html">F# in MonoDevelop and cross-platform web sites &amp</a></h2>
-      <span class="date">11/16/2010</span>
-        <span class="tags">| Academic, Presentations, Universe, Mono, Webcast, F# language </span> 
-      <br />
-      <p class="description">
-          The first version of the F# language binding for MonoDevelop is now available. Using the F# compiler service, it provides autocompletion, information tool tips and background type-checking. For more information and installation instructions, watch two screencasts showing F# on Linux
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/async-csharp-differences.aspx/index.html">Asynchronous C# and F# (II.): How do they differ?</a></h2>
-      <span class="date">11/1/2010</span>
-        <span class="tags">| C# language, Asynchronous, F# language </span> 
-      <br />
-      <p class="description">
-          The asynchronous programming support in C# announced at PDC 2010 is largely inspired by F# asynchronous workflows. In this article we look at some of the differences between the two including cancellation support in F# and the distinction between \"hot task\" model of C# and \"task generator\" model of F#.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/csharp-fsharp-async-intro.aspx/index.html">Asynchronous C# and F# (I.): Simultaneous introduction</a></h2>
-      <span class="date">10/29/2010</span>
-        <span class="tags">| C# language, Asynchronous, F# language </span> 
-      <br />
-      <p class="description">
-          One of the exciting new technologies announced at PDC 2010 is a preview of asynchronous programming support for C#. In this article, I briefly introduce the new features and I demonstrate how they relate to F# asynchronous workflows already available in Visual Studio 2010. We'll also look at some differences between the two.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/parallel-extra-adash-cancellation.aspx/index.html">F# Parallel Extras (III.): Financial dashboard with cancellation</a></h2>
-      <span class="date">10/27/2010</span>
-        <span class="tags">| Functional Programming in .NET, Parallel, Asynchronous, F# language </span> 
-      <br />
-      <p class="description">
-          In this article, we revisit an F# implementation of a financial dashboard example from Parallel Programming with .NET. The article explains and demonstrates how to use the built-in support for cancellation in F# asynchronous workflows.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/parallel-extra-blockingagent.aspx/index.html">F# Parallel Extras (II.): Agent-based blocking queue</a></h2>
-      <span class="date">10/27/2010</span>
-        <span class="tags">| Functional Programming in .NET, Parallel, Asynchronous, F# language </span> 
-      <br />
-      <p class="description">
-          In this article, we'll look at type that implements an (asynchronous) blocking queue using F# agents. This can be used, for example, when implementing the pipeline pattern as demonstrated in the previous article.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/parallel-extra-image-pipeline.aspx/index.html">F# Parallel Extras (I.): Image pipeline using agents</a></h2>
-      <span class="date">10/27/2010</span>
-        <span class="tags">| Functional Programming in .NET, Parallel, Asynchronous, F# language </span> 
-      <br />
-      <p class="description">
-          In this article, we look at an F# implementation of an image processing pipeline demo from  the Parallel Programming with Microsoft .NET. We'll use message-passing and asynchronous workflows, which leads to a more elegant and similarly efficient code.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/match-bang-paper.aspx/index.html">Reactive, parallel and concurrent programming in F# (PADL 2011)</a></h2>
-      <span class="date">10/25/2010</span>
-        <span class="tags">| F# language, Research, Materials & Links, Joinads </span> 
-      <br />
-      <p class="description">
-          An academic paper that presents an extension for F# computation expressions, which can be used for encoding a wide range of reactive, parallel and concurrent programming models in a simple way in F#.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/fswebsnippets-intro.aspx/index.html">Formatting F# source code for the Web</a></h2>
-      <span class="date">10/18/2010</span>
-        <span class="tags">| Functional Programming in .NET, F# language </span> 
-      <br />
-      <p class="description">
-          Reading F# source code in Visual Studio is much easier than in plain text, because the background type checker provides useful information about types, functions and members via tool tips. This article introduces a tool that makes it possible to bring the same user experience to your F# code snippets published on the Web.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/fsharp-parallel-adash.aspx/index.html">Parallel Programming in F# (IV.): Financial dashboard example</a></h2>
-      <span class="date">9/6/2010</span>
-        <span class="tags">| Functional Programming in .NET, Parallel, Asynchronous, F# language </span> 
-      <br />
-      <p class="description">
-          In this article, we'll take a look at the Adatum Financial Dashboard sample from Parallel Programming with Microsoft .NET and we'll compare implementations using tasks and asynchronous workflows.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/fsharp-parallel-aggregate.aspx/index.html">Parallel Programming in F# (III.): Aggregating data</a></h2>
-      <span class="date">9/6/2010</span>
-        <span class="tags">| Functional Programming in .NET, Parallel, F# language </span> 
-      <br />
-      <p class="description">
-          In this article, we'll take a look at F# samples from Chapter 4 of Parallel Programming with Microsoft .NET. We'll discuss several options for implementing the Map/Reduce pattern.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/fsharp-parallel-plinq.aspx/index.html">Parallel Programming in F# (II.): Using PLINQ and Tasks</a></h2>
-      <span class="date">9/6/2010</span>
-        <span class="tags">| Functional Programming in .NET, Parallel, F# language </span> 
-      <br />
-      <p class="description">
-          In this article, we'll look at several F# samples from Chapters 2 and 3 of Parallel Programming with Microsoft .NET. We'll look at using Task Parallel Library (TPL) and Parallel LINQ from F#, including the PSeq module from F# PowerPack.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/fsharp-parallel-samples.aspx/index.html">Parallel Programming in F# (I.): Introducing the samples</a></h2>
-      <span class="date">9/6/2010</span>
-        <span class="tags">| Functional Programming in .NET, Parallel, Asynchronous, F# language </span> 
-      <br />
-      <p class="description">
-          In this article series, I'll introduce the F# version of samples for the Parallel Programming with Microsoft .NET book written by the patterns &amp
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/event-object-duality.aspx/index.html">The Duality of Object and Event references</a></h2>
-      <span class="date">7/19/2010</span>
-        <span class="tags">| Academic, Research </span> 
-      <br />
-      <p class="description">
-          This article describes an interesting example of mathematical duality in programming languages - the duality between references between objects and references between events. The idea is useful for understading what events are garbage and can be garbage collected.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/dynamic-sql.aspx/index.html">Dynamic in F#: Reading data from SQL database</a></h2>
-      <span class="date">7/9/2010</span>
-        <span class="tags">| Functional Programming in .NET, Web, F# language </span> 
-      <br />
-      <p class="description">
-          In this article we look at working with SQL databases in F# using ADO.NET. We'll see how to use dynamic invoke operator to make the usual ADO.NET code remarkably elegant and simple...
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/pldi-2010-trip.aspx/index.html">PLDI 2010 Trip Report</a></h2>
-      <span class="date">7/5/2010</span>
-        <span class="tags">| Universe, Academic, Meta-programming </span> 
-      <br />
-      <p class="description">
-          In June, I attended PLDI 2010, which is one of the big \"programming language\" conferences. I presented a paper based on some work that I did during my internship at MSR at one of the workshops and I also attended many interesting talks...
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/reactive-talk.aspx/index.html">Recording and samples from my Reactive F# talk</a></h2>
-      <span class="date">6/27/2010</span>
-        <span class="tags">| Universe, Presentations, Functional Programming in .NET, F# language, Materials & Links </span> 
-      <br />
-      <p class="description">
-          Almost a week ago, I posted an invitation to my F# talk at the F#unctional Londoners user group. The talk has been recorded, so you can view it online now and you can also get all the Silverlight demos...
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/fun-londoners-reactive.aspx/index.html">Reactive Programming with F# in London</a></h2>
-      <span class="date">6/15/2010</span>
-        <span class="tags">| Functional Programming in .NET, Random Thoughts, Universe, F# language </span> 
-      <br />
-      <p class="description">
-          I'll be visiting London on June 23 and I'll be talking at the F#unctional Londoners user group. The theme of the talk is Reactive Programming with F# and you can expect many interesting F# features including asynchronous workflows and event combinators.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/fsharp-mvc-web.aspx/index.html">ASP.NET and F# (I.) - Creating MVC web applications in F#</a></h2>
-      <span class="date">5/9/2010</span>
-        <span class="tags">| .NET General, Functional Programming in .NET, Web, Meta-programming, F# language </span> 
-      <br />
-      <p class="description">
-          This article shows how to use F# for developing ASP.NET web applications using the MVC framework. It also shows how to access data using LINQ in F# and how to simplify web programming using F# meta-programming, modules and records.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/excerpt-gui-workflows.aspx/index.html">Programming user interfaces using F# workflows</a></h2>
-      <span class="date">2/18/2010</span>
-        <span class="tags">| Functional Programming in .NET, Random Thoughts, Universe, Universe, F# language </span> 
-      <br />
-      <p class="description">
-          F# asynchronous workflows can be used to solve a wide range of programming problems. In this article we'll look how to use asynchronous workflows for elegantly expressing the control flow of interaction with the user. We'll also look at clear functional way for encoding drag and drop-like algorithm.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/custom-linq-grouping.aspx/index.html">Using custom grouping operators in LINQ</a></h2>
-      <span class="date">2/7/2010</span>
-        <span class="tags">| Academic, C# language, Parallel </span> 
-      <br />
-      <p class="description">
-          In LINQ, we can group data using the \"group by\" clause. However, there are other potentially useful implementations of grouping. For example, we may want to group only adjacent elements or group ascending or descending parts of the data. This article shows how to use custom behavior when grouping data using \"group by\" in LINQ query.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/book-deal.aspx/index.html">Deal of the day: Real-World Functional Programming</a></h2>
-      <span class="date">1/24/2010</span>
-        <span class="tags">| Random Thoughts, Functional Programming in .NET, Universe, Writing </span> 
-      <br />
-      <p class="description">
-          Some time ago, I received my copies of Real-World Functional Programming. I started working on it back in May 2008 and as many people who had more experience with writing books told me, it took longer than I was expecting!
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/accelerator-quotations.aspx/index.html">Accelerator and F# (IV.): Composing computations with quotations</a></h2>
-      <span class="date">1/12/2010</span>
-        <span class="tags">| Functional Programming in .NET, Academic, Meta-programming, Accelerator, F# language, Math and Numerics </span> 
-      <br />
-      <p class="description">
-          In this article series we're talking about the Accelerator project, which can be used from F# to write code that runs in parallel on GPU or multi-core CPU. In this article, we'll look at building complex data-parallel programs with F# quotations, we'll implement blur filter and we'll also discuss architecture and performance.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/accelerator-dataparallel.aspx/index.html">Accelerator and F# (III.): Data-parallel programs using F# quotations</a></h2>
-      <span class="date">1/4/2010</span>
-        <span class="tags">| Academic, Functional Programming in .NET, Meta-programming, Accelerator, F# language, Math and Numerics </span> 
-      <br />
-      <p class="description">
-          We already discussed how to write programs that run on GPU using MSR Accelerator. In this article, we'll write an image rotation using data-parallel F# functions and then use a library that translates it to Accelerator automatically.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/accelerator-life-game.aspx/index.html">Accelerator and F# (II.): The Game of Life on GPU</a></h2>
-      <span class="date">12/28/2009</span>
-        <span class="tags">| Academic, Functional Programming in .NET, Meta-programming, Accelerator, F# language, Math and Numerics </span> 
-      <br />
-      <p class="description">
-          This article shows how to use Accelerator from F#, which I already discussed, to implement a massively parallel version of the famous Conway's Game of Life.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/accelerator-intro.aspx/index.html">Accelerator and F# (I.): Introduction and calculating PI</a></h2>
-      <span class="date">12/21/2009</span>
-        <span class="tags">| Functional Programming in .NET, Academic, Meta-programming, Accelerator, F# language, Math and Numerics </span> 
-      <br />
-      <p class="description">
-          This article shows how to write F# programs that run in parallel as shader programs on GPU or on multi-core CPU using Microsoft Research Accelerator project.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/book-completed.aspx/index.html">Real-World Functional Programming: Completed and printed!</a></h2>
-      <span class="date">12/19/2009</span>
-        <span class="tags">| Functional Programming in .NET, Random Thoughts, Universe, Writing </span> 
-      <br />
-      <p class="description">
-          If you're following my blog, you probably noticed that I was working on a book about functional programming using F# and C#. The great news is that the book is finally completed and will be available on December 24!
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/functional-excerpts-and-discount.aspx/index.html">Functional Programming: Available Chapter Excerpts &amp</a></h2>
-      <span class="date">7/26/2009</span>
-        <span class="tags">| Functional Programming in .NET, Random Thoughts, Universe, Parallel </span> 
-      <br />
-      <p class="description">
-          The work on my book Functional Programming for the Real World is slowly getting to the end. If you want to look inside, you can read some of the chapter excerpts that were published on the internet.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/fsharp-webcast-objects.aspx/index.html">F# Webcast (IV.) - Developing standard .NET libraries</a></h2>
-      <span class="date">6/15/2009</span>
-        <span class="tags">| Functional Programming in .NET, Asynchronous, Webcast, F# language </span> 
-      <br />
-      <p class="description">
-          This webcast demonstrates how to wrap an existing F# code into an object oriented library that can be nicely used from C# and how to use it when developing ASP.NET web application. The demo uses script for processing RSS feeds from the previous webcast.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/fsharp-webcast-async.aspx/index.html">F# Webcast (III.) - Using Asynchronous Workflows</a></h2>
-      <span class="date">6/5/2009</span>
-        <span class="tags">| Functional Programming in .NET, Asynchronous, Webcast, F# language </span> 
-      <br />
-      <p class="description">
-          In the previous part you've seen how to write a simple function for downloading RSS feeds and processing them. In this part, we look how to improve the function to download data asynchronously and process them potentially in parallel.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/fsharp-webcast-dotnet.aspx/index.html">F# Webcast (II.) - Using .NET libraries</a></h2>
-      <span class="date">6/1/2009</span>
-        <span class="tags">| Functional Programming in .NET, Asynchronous, Webcast, F# language </span> 
-      <br />
-      <p class="description">
-          This is the second part of the webcast series that introduces the F# language. It shows how to use .NET libraries from F# to download RSS feed and how to work with the obtained data using tuples, sequence expressions and other F# features.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/fsharp-webcast-functional.aspx/index.html">F# Webcast (I.) - Introducing functional concepts</a></h2>
-      <span class="date">5/25/2009</span>
-        <span class="tags">| Functional Programming in .NET, Asynchronous, Webcast, F# language </span> 
-      <br />
-      <p class="description">
-          Now that Visual Studio 2010 beta 1 is out, it may be a good time finally try the new F# language. To make the exploration easier, I created a web cast series that demonstrates interesting aspects of F#. In this part, we'll look at basic functional concepts and working with data.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/internship-match-bang.aspx/index.html">Internship project: Reactive pattern matching</a></h2>
-      <span class="date">5/17/2009</span>
-        <span class="tags">| Random Thoughts, Universe, Parallel, Asynchronous, Joinads </span> 
-      <br />
-      <p class="description">
-          I already mentioned that I was doing my second internship with Don Syme at MSR Cambridge. This time, I was in Cambridge for 6 months from October until April, so it has been more than a month since I left, but as you can guess I didn't have time to write anything about the internship until now...
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/imperative-ii-break.aspx/index.html">Imperative computation in F# (II.) - Writing break and continue</a></h2>
-      <span class="date">4/25/2009</span>
-        <span class="tags">| Functional Programming in .NET, F# language </span> 
-      <br />
-      <p class="description">
-          In the previous article of this series, we've implemented a computation expression that allows us to write imperative 'return' in F#. In this article, we'll add support for 'break' and 'continue'.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/imperative-i-return.aspx/index.html">Imperative computation in F# (I.) - Returning results from a function</a></h2>
-      <span class="date">3/19/2009</span>
-        <span class="tags">| Functional Programming in .NET, Academic, F# language </span> 
-      <br />
-      <p class="description">
-          Even though F# supports some imperative constructs such as for and while loops, it doesn't support some of the advanced constructs like imperative return and break. In this series, we'll look how we can implement these constructs ourselves using F# computation expressions.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/functional-2nd-review.aspx/index.html">Real World Functional Programming: Second review finished!</a></h2>
-      <span class="date">3/2/2009</span>
-        <span class="tags">| Functional Programming in .NET, Universe </span> 
-      <br />
-      <p class="description">
-          I've been working on the Real World Functional programming in .NET book for quite some time now. In fact, I had the first discussions with Michael Stephens from Manning in March last year and I started thinking about the book at that time...
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/book-source-available.aspx/index.html">Source code for Real World Functional Programming available!</a></h2>
-      <span class="date">2/12/2009</span>
-        <span class="tags">| Random Thoughts, C# language, Functional Programming in .NET, Universe, Asynchronous </span> 
-      <br />
-      <p class="description">
-          Just a short update regarding the book I'm working on. First of all, the source code for the first 11 chapters is now available! Secondly, I did some changes to the TOC and you can now find the commented TOC on the book web site.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/functional-overview.aspx/index.html">Functional Programming in .NET using C# and F# (Manning Greenpaper)</a></h2>
-      <span class="date">12/11/2008</span>
-        <span class="tags">| Functional Programming in .NET, C# language, Parallel, Meta-programming, Writing, F# language </span> 
-      <br />
-      <p class="description">
-          This article is partially an excerpt from my book. It introduces the benefits of functional pogramming, and explains the essential aspects of the functional style using F# and C# 3.0. Finally, it also shows how functional style influences the application architecture.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/reactive-iv-reactivegame.aspx/index.html">Reactive Programming (IV.) - Developing a game in Reactive LINQ</a></h2>
-      <span class="date">11/24/2008</span>
-        <span class="tags">| C# language, Functional Programming in .NET </span> 
-      <br />
-      <p class="description">
-          In this article, we'll implement a simple iteractve game using the Reactive LINQ project. The article shows that this way of handling events gives us amog other things a great degree of composability.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/reactive-iii-linqoperators.aspx/index.html">Reactive Programming (III.) - Useful Reactive LINQ Operators</a></h2>
-      <span class="date">11/21/2008</span>
-        <span class="tags">| Functional Programming in .NET, C# language </span> 
-      <br />
-      <p class="description">
-          In the previous article, I introduced Reactive LINQ. Today, we're going to look at other operators that canbe used for working with events. We'll see aggregation is useful and how to dynamically change (switch) behavior.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/reactive-ii-csevents.aspx/index.html">Reactive programming (II.) - Introducing Reactive LINQ</a></h2>
-      <span class="date">11/19/2008</span>
-        <span class="tags">| Functional Programming in .NET, C# language </span> 
-      <br />
-      <p class="description">
-          In the second part of the series about reactive programming, I introduction the Reactive LINQ project, which allows writing event processing code in C# using LINQ queries.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/reactive-i-fsevents.aspx/index.html">Reactive programming (I.) - First class events in F#</a></h2>
-      <span class="date">11/16/2008</span>
-        <span class="tags">| Functional Programming in .NET, C# language, Asynchronous, Meta-programming, F# language </span> 
-      <br />
-      <p class="description">
-          The LINQ project and changes in C# 3.0 are interesting because they allow implementing many ideas from functional languages in C#. In this article I'll explain \"first-class events\" in F# and later I'll implemet similar concept using LINQ.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/sequences-on-msdn.aspx/index.html">Calculating with infinite sequences on MSDN</a></h2>
-      <span class="date">11/13/2008</span>
-        <span class="tags">| C# language, Functional Programming in .NET, Universe, Writing, Materials & Links </span> 
-      <br />
-      <p class="description">
-          About a year ago, I wrote an article about infinite sequences on MSDN. I remembered about it this week, because these topics will be discussed in the book I'm working on as well...
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/functional-net-update.aspx/index.html">Functional Programming in .NET book - An update</a></h2>
-      <span class="date">10/20/2008</span>
-        <span class="tags">| Functional Programming in .NET, C# language, Universe, Web, Writing </span> 
-      <br />
-      <p class="description">
-          Recently, I announced on my blog that I’m working on a book for Manning called Real-world Functional Programming in .NET. It is more than a month since I wrote about it, so here is a brief update...
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/functional-programming-book.aspx/index.html">Announcing: Real-world Functional Programming in .NET</a></h2>
-      <span class="date">9/2/2008</span>
-        <span class="tags">| Functional Programming in .NET, Random Thoughts, Universe, Parallel, Writing </span> 
-      <br />
-      <p class="description">
-          If you’ve been reading my blog or seen some my articles, you know that I’m a big fan of the F# language and functional programming style. Today, I'm very pleased to announce that I'm writing a book on this topic!
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/fsharp-dynamic-lookup.aspx/index.html">Dynamic Lookup in F#</a></h2>
-      <span class="date">6/4/2008</span>
-        <span class="tags">| Meta-programming, F# language </span> 
-      <br />
-      <p class="description">
-          Dynamic languages allow you to represent a member using a symbol or a string and to use this symbol to work with the member. In this article I'll show how to do same thing in statically-typed way in F#.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/webtools-thesis.aspx/index.html">Thesis: Client-side Scripting using Meta-programming</a></h2>
-      <span class="date">3/17/2008</span>
-        <span class="tags">| Random Thoughts, Universe, Web, Materials & Links </span> 
-      <br />
-      <p class="description">
-          Contains a link to my Bachelor Thesis about F# WebTools, which I partially worked on during my visit in Microsoft Research and which I successfully defended last year.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/phalanger-vs2008.aspx/index.html">New Version of Phalanger with Silverlight and VS 2008 Support</a></h2>
-      <span class="date">3/11/2008</span>
-        <span class="tags">| Phalanger, Mono </span> 
-      <br />
-      <p class="description">
-          This article introduces new version of the Phalanger project, which incudes support for Silverlight 1.1 (alpha) and Visual Studio 2008 Integration package.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/aspnet-in-fsharp.aspx/index.html">F# Support for ASP.NET and Notes on Samples</a></h2>
-      <span class="date">3/8/2008</span>
-        <span class="tags">| Web, F# language </span> 
-      <br />
-      <p class="description">
-          In this article I look at the F# suppot for ASP.NET and at some interesting aspects of the samples that are available in the F# distribution.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/phalanger-at-langnet.aspx/index.html">Phalanger at Lang.NET Symposium</a></h2>
-      <span class="date">2/2/2008</span>
-        <span class="tags">| Phalanger, Mono, Materials & Links </span> 
-      <br />
-      <p class="description">
-          Last week I attended the Lang.NET Symposium and I also did a short presentation about Phalanger. The slides and demos from the talk are attached.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/php-in-silverlight.aspx/index.html">Writing Silverlight applications in PHP</a></h2>
-      <span class="date">12/7/2007</span>
-        <span class="tags">| Phalanger </span> 
-      <br />
-      <p class="description">
-          In this article we will look how Phalanger can be used for developing Silverlight applications in the PHP language. We look at basic concepts like XAML as well as at a more complicated game.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/phalanger-future-notes.aspx/index.html">A few notes about Phalanger future</a></h2>
-      <span class="date">12/2/2007</span>
-        <span class="tags">| Phalanger, Mono </span> 
-      <br />
-      <p class="description">
-          This post discusses Phalanger future and relations to the DLR and Silverlight as well as our intention to closely communicate wth the PHP community.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/infinite-cheese.aspx/index.html">Infinite Cheese Fractal using WPF 3D and F#</a></h2>
-      <span class="date">11/24/2007</span>
-        <span class="tags">| Parallel, F# language </span> 
-      <br />
-      <p class="description">
-          This article describes a 3D version of famous Sierpinski carpet fractal implemented in the F# language using WPF 3D libraries from .NET 3.0.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/csharp-async.aspx/index.html">Asynchronous Programming in C# using Iterators</a></h2>
-      <span class="date">11/15/2007</span>
-        <span class="tags">| C# language, Parallel, Asynchronous </span> 
-      <br />
-      <p class="description">
-          In this article we will look how to write programs that perform asynchronous operations like manipulation with network in C# using iterators without the typical inversion of control caused by the use of delegates.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/fsharp-iv-lang.aspx/index.html">F# Overview (IV.) - Language Oriented Programming</a></h2>
-      <span class="date">11/3/2007</span>
-        <span class="tags">| Functional Programming in .NET, Asynchronous, Meta-programming, F# language </span> 
-      <br />
-      <p class="description">
-          In the fourth article of the F# overview series, I will shortly describe how I understad the language oriented paradigm and how the F# language can be used for developing libraries using this paradigm.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/fsharp-iii-oop.aspx/index.html">F# Overview (III.) - Imperative and Object-Oriented Programming</a></h2>
-      <span class="date">11/3/2007</span>
-        <span class="tags">| Functional Programming in .NET, F# language </span> 
-      <br />
-      <p class="description">
-          In the third part of the F# overview, we will look at the F# features that are essential for a smooth interoperability with other .NET languages and form a second part of the F# core language - that is object oriented and imperative programming.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/fsharp-ii-functional.aspx/index.html">F# Overview (II.) - Functional Programming</a></h2>
-      <span class="date">11/3/2007</span>
-        <span class="tags">| Functional Programming in .NET, F# language </span> 
-      <br />
-      <p class="description">
-          In the second part of the F# overview we will look at functional programming, which is probably the most important paradigm used with the F# language, because F# is built on the same grounds as many functional languages.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/fsharp-i-introduction.aspx/index.html">F# Overview (I.) - Introduction</a></h2>
-      <span class="date">11/3/2007</span>
-        <span class="tags">| Functional Programming in .NET, Meta-programming, F# language </span> 
-      <br />
-      <p class="description">
-          First article of the F# Overview series introduces the F# language and gives a quick overview of the programming paradigms that will be discussed in the upcoming articles.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/lazy-computation-on-msdn.aspx/index.html">Lazy Computation in C# on MSDN</a></h2>
-      <span class="date">10/6/2007</span>
-        <span class="tags">| C# language, Universe, Functional Programming in .NET, Materials & Links </span> 
-      <br />
-      <p class="description">
-          I think that one of the interesting things about C# 3.0 is that it gives you the ability to use many techniques known from functional languages...
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/fsharp-quotation-samples.aspx/index.html">F# Quotations Samples on CodePlex</a></h2>
-      <span class="date">9/20/2007</span>
-        <span class="tags">| Meta-programming, F# language </span> 
-      <br />
-      <p class="description">
-          This article describes a few samples available in the F# Samples project at CodePlex that demonstrate how to work with the F# quotations using active patterns.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/dynamic-flinq.aspx/index.html">Building LINQ Queries at Runtime in F#</a></h2>
-      <span class="date">8/18/2007</span>
-        <span class="tags">| C# language, Meta-programming, F# language </span> 
-      <br />
-      <p class="description">
-          In this article I will introduce FLinq, the F# support for language integrated query and show how we can construct a database queries dynamically in a type-safe way in F#.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/dynamic-linq-queries.aspx/index.html">Building LINQ Queries at Runtime in C#</a></h2>
-      <span class="date">7/30/2007</span>
-        <span class="tags">| C# language </span> 
-      <br />
-      <p class="description">
-          Common criticism of LINQ is that it doesn't support a scenario where queries are build dynamically at the runtime. In this article I show that this can be acutally done very well for most of the common scenarios.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/fswebtools-intro.aspx/index.html">F# Web Tools: \"Ajax\" applications made simple</a></h2>
-      <span class="date">7/13/2007</span>
-        <span class="tags">| Web, F# language </span> 
-      <br />
-      <p class="description">
-          This article introduces the F# Web Toolkit, which is an \"Ajax\" web framework that solves three major problems that many people have to face when developing modern web applications.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/ducktyping-in-phalaner.aspx/index.html">Using PHP objects from C# in a type-safe way</a></h2>
-      <span class="date">4/30/2007</span>
-        <span class="tags">| Phalanger </span> 
-      <br />
-      <p class="description">
-          In this article we present new features in the Phalanger beta 4 which make it possible to use objects from any PHP script in C# using type-safe way.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/phalanger-beta4.aspx/index.html">Phalanger 2.0 Beta 4 available!</a></h2>
-      <span class="date">4/22/2007</span>
-      <br />
-      <p class="description">
-          This week we finished new release of the Phalanger project, what PHP applications are supported and what new features are available in this release?
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/fs-wpf-fractal.aspx/index.html">Lost in the infinite cheese</a></h2>
-      <span class="date">3/27/2007</span>
-      <br />
-      <p class="description">
-          To be done...
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/fsparallelops.aspx/index.html">Keep your multi-core CPU busy with F#</a></h2>
-      <span class="date">3/24/2007</span>
-        <span class="tags">| Functional Programming in .NET, Parallel, F# language </span> 
-      <br />
-      <p class="description">
-          Code which makes it possible to write applications that take advantage of multi-core CPUs by parallelizing F# filter and map functions.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/clinq-project.aspx/index.html">CLinq - LINQ support for the C++/CLI language</a></h2>
-      <span class="date">3/2/2007</span>
-        <span class="tags">| .NET General, Academic, C# language </span> 
-      <br />
-      <p class="description">
-          CLinq project is a library that makes it possible to use LINQ technologies from the C++/CLI language.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/phalanger-overload-resolution.aspx/index.html">Overload resolution in Phalanger</a></h2>
-      <span class="date">2/15/2007</span>
-        <span class="tags">| Phalanger </span> 
-      <br />
-      <p class="description">
-          PHP doesn't support method overloading, so Phalanger has to solve an interesting problem when calling overloaded .NET method from PHP.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/quotvis-1.1.13.8.aspx/index.html">Quotations Visualizer for F# 1.1.13.8</a></h2>
-      <span class="date">2/14/2007</span>
-        <span class="tags">| F# language </span> 
-      <br />
-      <p class="description">
-          Little update to my F# quotations visualizer tool to make it compatible with the latest version of F# (1.1.13.8).
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/aspnettexy.aspx/index.html">Compiling Texy! with Phalanger</a></h2>
-      <span class="date">2/12/2007</span>
-        <span class="tags">| Phalanger </span> 
-      <br />
-      <p class="description">
-          This article describes how to compile Texy! with Phalanger and how to use the produced assembly in ASP.NET application written in C#.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/cannot-return-anonymous-type-from-method.aspx/index.html">Can't return anonymous type from method? Really?</a></h2>
-      <span class="date">1/23/2007</span>
-        <span class="tags">| C# language </span> 
-      <br />
-      <p class="description">
-          This article describes anonymous types - one of the new C# 3.0 features and shows interesting trick that can be used when returning anonymous type from method.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/new-phalanger-website.aspx/index.html">Phalanger has a new website!</a></h2>
-      <span class="date">1/14/2007</span>
-        <span class="tags">| Phalanger, Mono </span> 
-      <br />
-      <p class="description">
-          Article about Phalanger project with links to some interesting articles about Phalanger and describtion of the new web site.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/fsharp-presentation.aspx/index.html">F# presentation at Czech .NET Group meeting</a></h2>
-      <span class="date">11/14/2006</span>
-        <span class="tags">| Presentations, Universe, F# language </span> 
-      <br />
-      <p class="description">
-          Contains links to slides and demos from my presentation focused on F# and functional programming, which I did at the Czech .NET User Group meeting.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/csharp3-concepts.aspx/index.html">Concepts behind the C# 3.0 language</a></h2>
-      <span class="date">10/15/2006</span>
-        <span class="tags">| C# language, Academic, Functional Programming in .NET, Meta-programming </span> 
-      <br />
-      <p class="description">
-          In this article I'll describe concepts that influenced the design of the C# 3.0. Most of these concepts are known from other programming languages like Haskell, LISP or languages developed at Microsoft Research.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/fsclassmeta.aspx/index.html">F# metaprogramming and classes</a></h2>
-      <span class="date">10/14/2006</span>
-        <span class="tags">| Meta-programming, F# language </span> 
-      <br />
-      <p class="description">
-          This article presents prototype that makes it possible to use F# metaprogramming to analyse and translate classes written in special way.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/quotvis-reloaded.aspx/index.html">F# quotations visualizer - reloaded!</a></h2>
-      <span class="date">10/1/2006</span>
-        <span class="tags">| Meta-programming, F# language </span> 
-      <br />
-      <p class="description">
-          New and improved version of quotation visualizer. Supports more language constructs and makes it possible to open quotations from compiled F# assembly.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/codeplex-fsharp-codedom.aspx/index.html">F# CodeDOM Provider on the CodePlex</a></h2>
-      <span class="date">8/23/2006</span>
-        <span class="tags">| F# language </span> 
-      <br />
-      <p class="description">
-          CodeDOM generator for the F# language posted to the new Microsoft community site called CodePlex!
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/aspnet-fsharp-intro.aspx/index.html">ASP.NET web applications in F#</a></h2>
-      <span class="date">8/13/2006</span>
-        <span class="tags">| Web, F# language </span> 
-      <br />
-      <p class="description">
-          This article shows how ASP.NET can be extended to support F# language using CodeDOM provider.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/linq-expand-update.aspx/index.html">LINQ extensions - Simplified keyword search</a></h2>
-      <span class="date">7/28/2006</span>
-        <span class="tags">| C# language </span> 
-      <br />
-      <p class="description">
-          Article describes LINQ extension that adds support for returning rows that contain any or all of specified keywords in string column.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/quotvis.aspx/index.html">F# quotations visualizer</a></h2>
-      <span class="date">6/21/2006</span>
-        <span class="tags">| Meta-programming, F# language </span> 
-      <br />
-      <p class="description">
-          Application that displays graphical representation of given F# quotation (using Windows Forms TreeView control)
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/linq-expand.aspx/index.html">Calling functions in LINQ queries</a></h2>
-      <span class="date">6/10/2006</span>
-        <span class="tags">| C# language </span> 
-      <br />
-      <p class="description">
-          This article describes method that allows you to reuse parts of LINQ queries across data access layer.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/fsharp-slides-and-demos.aspx/index.html">Slides and demos from F# presentation</a></h2>
-      <span class="date">6/9/2006</span>
-        <span class="tags">| Presentations, Academic, Universe, F# language </span> 
-      <br />
-      <p class="description">
-          I did a F# presentation at .NET seminar at our university, so here are the slides and demos...
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/fsquotations.aspx/index.html">F# - Simple quotations transformation</a></h2>
-      <span class="date">5/28/2006</span>
-        <span class="tags">| Meta-programming, F# language </span> 
-      <br />
-      <p class="description">
-          This article describes very simple code that I wrote while learning how to work with the F# quotations library.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/enumerators.aspx/index.html">.NET, C# - Používání a psaní enumerátorů</a></h2>
-      <span class="date">5/21/2006</span>
-      <br />
-      <p class="description">
-          V tomto článku se podíváme na psaní vlastních kolekcí, které implementují rozhraní IEnumerable a lze je tedy procházet pomocí příkazu foreach.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/download.aspx/index.html">.NET - Stahování souborů z internetu</a></h2>
-      <span class="date">4/9/2006</span>
-      <br />
-      <p class="description">
-          V tomto úvodu jsou popsané základní postupy pro stahování textových a binárních souborů z internetu.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/xmldoc.aspx/index.html">C# - Dokumentace pomocí XML komentářů</a></h2>
-      <span class="date">4/9/2006</span>
-      <br />
-      <p class="description">
-          V tomto článku se dočtete jakým způsobem lze v jazyce C# pomocí XML komentářů a nástroje NDoc vytvářet dokumentaci.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/ahocorasick.aspx/index.html">Aho-Corasick string matching in C#</a></h2>
-      <span class="date">12/4/2005</span>
-        <span class="tags">| .NET General </span> 
-      <br />
-      <p class="description">
-          C# implementation of very efficient Aho-Corasick keyword matching algorithm with multiple keywords support.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/localization.aspx/index.html">.NET - Globalizace a lokalizace aplikací (2.)</a></h2>
-      <span class="date">7/17/2005</span>
-      <br />
-      <p class="description">
-          V druhé části tutoriálu o lokalizaci a globalizaci aplikací se dočtete o tom jak vytvářet více-jazyčné aplikace.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/columncontrol.aspx/index.html">Multi column layout control</a></h2>
-      <span class="date">7/7/2005</span>
-      <br />
-      <p class="description">
-          Asp.Net control that allows developers to display articles in multi-column layout.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/globalization.aspx/index.html">.NET - Globalizace a lokalizace aplikací (1.)</a></h2>
-      <span class="date">7/6/2005</span>
-      <br />
-      <p class="description">
-          V tomto tutoriálu se dočtete o tom, jak vytvářet aplikace, které fungují nezávisle na lokálním nastavení.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/dotnetlinks.aspx/index.html">.NET - Literatura a webové stránky</a></h2>
-      <span class="date">7/2/2005</span>
-      <br />
-      <p class="description">
-          Tento článek se snaží poskytnout seznam kvalitních knih a webových stránek s .Net tématikou a poradí vám kde hledat odpovědi na vaše otázky.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/reflection.aspx/index.html">.NET - Úvod do Reflection</a></h2>
-      <span class="date">6/19/2005</span>
-      <br />
-      <p class="description">
-          V tomto článku se podíváme na to co umožňuje Reflection. Ukážeme si jak lze za běhu zjišťovat informace o objektech a jak je lze používat.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/msinkdemo.aspx/index.html">WinForms - Vývoj TabletPC aplikací</a></h2>
-      <span class="date">6/11/2005</span>
-      <br />
-      <p class="description">
-          V tomto článku naleznete několik ukázek popisujících tvorbu programů pro platformu TabletPC.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/unsafecode.aspx/index.html">C# - Unsafe kód a ukazatele</a></h2>
-      <span class="date">6/5/2005</span>
-      <br />
-      <p class="description">
-          Tento článek popisuje jak lze v jazyce C# pracovat s ukazateli a obsahuje ukázku přímého přístupu do paměti bitmapy.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/collections.aspx/index.html">.NET - Kolekce a seznamy objektů</a></h2>
-      <span class="date">6/5/2005</span>
-      <br />
-      <p class="description">
-          Tento článek popisuje práci s poli a základními kolekcemi jako je ArrayList a Hashtable pod platformou .Net.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/aspjavascript.aspx/index.html">ASP.NET - Ovládací prvky používající JavaScript</a></h2>
-      <span class="date">6/5/2005</span>
-      <br />
-      <p class="description">
-          V tomto tutoriálu jsou popsány základní techniky, které je potřeba znát při tvorbě ovládacích prvků založených na JavaScriptu.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/dynamicasp.aspx/index.html">ASP.NET - Dynamické vytváření ovládacích prvků</a></h2>
-      <span class="date">5/5/2005</span>
-      <br />
-      <p class="description">
-          Tento tutoriál vysvětluje, jakým způsobem lze z kódu stránky dynamicky vytvářet ovládací prvky a jak lze uchovávat nastavení těchto prvků.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/wininterop.aspx/index.html">.Net - Používání Windows API funkcí</a></h2>
-      <span class="date">4/25/2005</span>
-      <br />
-      <p class="description">
-          Tento článek vysvětluje, jak je možné používat WinAPI funkce pomocí platform invoke v .Net aplikaci.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/screensaver.aspx/index.html">WinForms - Screensaver a kreslení pomocí GDI+</a></h2>
-      <span class="date">4/11/2005</span>
-      <br />
-      <p class="description">
-          Tento článek vysvětluje jak lze za použití objektově orientovaného programování vytvořit spořič obrazovky v .NETu
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/pluginsarch.aspx/index.html">WinForms - Aplikace s podporou pluginů</a></h2>
-      <span class="date">4/1/2005</span>
-      <br />
-      <p class="description">
-          Tento úvod vysvětluje jak lze v .Net aplikaci umožnit rozšiřování pomocí pluginů a jak přistupovat k nastavení v konfiguračním souboru.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/formsinter.aspx/index.html">WinForms - Spolupráce mezi více formuláři</a></h2>
-      <span class="date">3/31/2005</span>
-      <br />
-      <p class="description">
-          Tento článek popisuje základy spolupráce mezi více formuláři ve Windows Forms aplikaci.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/avalonwin.aspx/index.html">Avalon - Okna a panely v XAML</a></h2>
-      <span class="date">3/22/2005</span>
-      <br />
-      <p class="description">
-          Tento článek se snaží shrnout pár základních principů v Avalonu, což je framework pro tvorbu uživatelského rozhraní v nadcházející verzi Windows (Longhorn).
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/msncontrol.aspx/index.html">Práce s programem Windows Messenger</a></h2>
-      <span class="date">3/8/2005</span>
-      <br />
-      <p class="description">
-          Co vše lze dělat pomocí COM objektů programu Windows Messenger
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/aspmasterpg.aspx/index.html">Asp.Net 2 - Master pages</a></h2>
-      <span class="date">1/3/2005</span>
-      <br />
-      <p class="description">
-          Problém jednotného vzhledu a společných některých částí stránky je v nové verzi Asp.Net řešen pomocí tzv. master pages. Funguje to tak, že v master stránce je kód, který má být stejný na všech stránkách a ostatní stránky dodávají pouze obsah... Master pages v Asp.Net 2 je již poměrně známá a velmi očekávaná věc. V tomto článku jsem se pokusil doplnit známé fakty o některé další zajímavosti týkající se master pages, jako je například dynamické načítání master stránky a další.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/enumedit.aspx/index.html">Universal enumeration editor control</a></h2>
-      <span class="date">12/31/2004</span>
-      <br />
-      <p class="description">
-          Asp.Net and WinForms control for editing any enumeration data type
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/fractalsnow.aspx/index.html">Fractal snow screensaver</a></h2>
-      <span class="date">12/31/2004</span>
-      <br />
-      <p class="description">
-          Describes how to draw snowflakes using fractals and contains a nice snow screensaver.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/aspcompile.aspx/index.html">Asp.Net 2 - Kompilace</a></h2>
-      <span class="date">12/5/2004</span>
-      <br />
-      <p class="description">
-          Jak je to s dynamickou kompilací v Asp.Net 2 a co bude jinak oproti aktuální verzi
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/asppopup.aspx/index.html">ASP.NET Popup Control</a></h2>
-      <span class="date">11/20/2004</span>
-      <br />
-      <p class="description">
-          Highly customizable JavaScript popup control for web page wrapped in ASP.NET custom control.
-      </p>
-      <h2><a href="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/blog/graphicalcontrols.aspx/index.html">Graphical ASP.NET Controls</a></h2>
-      <span class="date">11/20/2004</span>
-      <br />
-      <p class="description">
-          Graphical radio button and check box ASP.NET controls
-      </p>
-    </content>
+	<div class="large-6 columns main-content">
+  <content class="hp">
+
+  <!-- Print more details about the first blog post -->
+
+  <div>
+  <h1><a href="http://test.tomasp.net/blog/types-and-maths.aspx/index.html">Power of mathematics: Reasoning about functional types</a></h1>
+  <img src="http://tomasp.net/articles/types-and-maths/distributivity.png" class="rdecor" />
+
+<p>One of the most amazing aspects of mathematics is that it applies to such a wide range 
+of areas. The same mathematical rules can be applied to completely different objects 
+(say, forces in physics or markets in economics) and they work exactly the same way.</p>
+
+<p>In this article, we'll look at one such fascinating use of mathematics - we'll use 
+elementary school algebra to reason about functional data types.</p>
+
+<p>In functional programming, the best way to start solving a problem is to think about
+the data types that are needed to represent the data that you will be working with.
+This gives you a simple starting point and a great tool to communicate and
+develop your ideas. I call this approach <a href="http://tomasp.net/blog/type-first-development.aspx">Type-First Development and I wrote about
+it earlier</a>, so I won't repeat
+that here.</p>
+
+<p>The two most elementary types in functional languages are <em>tuples</em> (also called pairs 
+or product types) and <em>discriminated unions</em> (also called algebraic data types, case 
+classes or sum types). It turns out that these two types are closely related to 
+<em>multiplication</em> and <em>addition</em> in algebra...</p>
+
+
+      
+  <p class="meta">
+    <span><strong>Published</strong>: Tuesday, 14 May 2013, 5:54 PM</span>
+      <br />      
+      <span class="tags"><strong>Tags</strong>: f#, research, functional programming </span> 
+    <br />
+    <a href="http://test.tomasp.net/blog/types-and-maths.aspx/index.html">Read the complete article</a>
+  </p>
+  </div>
+
+  <!-- For remaining articles, just print short summary with abstract -->
+  <h1><a href="http://test.tomasp.net/blog/index.html">Recent articles from my blog</a></h1>
+    <h2><a href="http://test.tomasp.net/blog/csharp-async-gotchas.aspx/index.html">Async in C# and F#: Asynchronous gotchas in C#</a></h2>
+    <p class="smdate">Tuesday, 14 May 2013, 5:54 PM</p>
+    <p class="description">
+        This article is inspired by an MVP summit talk about common pitfalls in the C# asynchronous programming model. I look at a number of easy to make mistakes when writing asynchronous code in C# and demonstrate that most of them would not easily happen when using F#.
+    </p>
+    <h2><a href="http://test.tomasp.net/blog/fsharp-data.aspx/index.html">F# Data: New type provider library</a></h2>
+    <p class="smdate">Tuesday, 14 May 2013, 5:54 PM</p>
+    <p class="description">
+        F# Data is a new library that gives you all you need to access data in F# 3.0. It implements type providers for WorldBank, Freebase and structured document formats (CSV, JSON and XML) as well as other helpers. This article introduces the library and gives a quick overview of its features.
+    </p>
+    <h2><a href="http://test.tomasp.net/blog/events-winter-2013.aspx/index.html">Upcoming F# talks and trainings (London, NYC & Boston)</a></h2>
+    <p class="smdate">Tuesday, 14 May 2013, 5:54 PM</p>
+    <p class="description">
+        After a few years, I will be attending the MVP summit again this year. The good news for those interested in F# is that I have two talks scheduled along the way in New York and Boston. Aside from that, we also have dates for a new F# course in London and New Year!
+    </p>
+    <h2><a href="http://test.tomasp.net/blog/fsharp-literate-programming.aspx/index.html">Announcing: Literate programming tools for F#</a></h2>
+    <p class="smdate">Tuesday, 14 May 2013, 5:54 PM</p>
+    <p class="description">
+        This article introduces a new F# package that makes it possible to write literate F# programs that combine code with documentation. Given an F# script with a special comments or Markdown document with F# code, you get a nicely formatted HTML that can be used to build documentation or write blogs.
+    </p>
+
+  <p class="meta">
+    <a href="http://test.tomasp.net/blog/index.html">Find older blog articles here</a>
+  </p>
+  </content>
 	</div>
-  <div class="large-4 columns">
-    <div style="background:black; text-align:center;padding:20px;">
-      <img src="http://tomasp.net/calendar/2013/august_sm.jpg" />
+
+  <div class="large-6 columns main-content">
+    <div class="row">
+      <div class="small-6 columns">
+        <h2 class="first">Welcome!</h2>
+        <p>I'm a computer scientist who enjoys combining theory and practice.
+          On the theory side, I'm finishing PhD at the <a href="http://www.cl.cam.ac.uk">University
+          of Cambridge</a>, working on type systems. On the practical side, I write about F#,
+          run trainings and provide occasional consulting.
+        </p>
+      </div>
+      <div class="small-6 columns">
+        <img src="http://test.tomasp.net/img/tomas-big.jpg" />
+      </div>
     </div>
 
-	  <h4>Getting Started!?</h4>
-	  <p>We're stoked you want to try Foundation! To get going, this file (index.html) includes some basic styles you can modify, play around with, or totally destroy to get going.</p>
+    <h2>Trainings, writing &amp; consluting</h2>
+    <p>I'm a frequent speaker at F# and .NET events, founding member of the 
+      <a href="http://fsharp.org">F# Foundation</a> author of C# and F# book, numerous articles and a 
+      <a href="http://stackoverflow.com/users/33518/tomas-petricek">StackOverflow addict</a>. I have 
+      been Microsoft C# MVP since 2004 and I used F# since early Microsoft Research versions.
+    </p>
+    <p>Have you seen the <a href="http://fsharp.org/testimonials/">F# testimonials</a> and are you 
+      thinking about learning and using F# of functional techniques?</p>
+
+    <img src="http://test.tomasp.net/img/fpman.jpg" style="float:right;margin-left:10px;" />
+    <ul class="spaces">
+      <li><strong>F# books.</strong> I wrote <a href="http://functional-programming.net/book/">Real World Functional Prog&shy;ramming</a>
+         that explains functional concepts using C# and F# and I'm working on <a href="http://www.manning.com/petricek2/">F# Deep Dives</a>.
+      </li>
+      <li><strong>Public courses.</strong> Together with <a href="http://trelford.com/blog/">Phil Trelford</a>, we run regular public
+        F# courses in New York and London. For more, see <a href="http://skillsmatter.com/course/scala/tomas-petricek-phil-trelford-fast-track-to-fsharp/ps-6679">Fast Track to F#</a> at SkillsMatter.
+      </li>
+      <li><strong>Consulting and trainings.</strong> I also provide private F# trainings and consluting through my company <a href="http://dualnotion.com/">Dual Notion ltd.</a> If you are interested <a href="mailto:tomas@tomasp.net">email me</a>!</li>
+    </ul>
+
+    <h2>Research &amp; teaching</h2>
+    <p>I'm interested in a wide range of topics in programming languages, ranging from category theory,
+        comonads, reactive and distributed programming to scientific computing and working with data.
+    </p>
+    <p>I like working on topics inspired by practical problems. I created a <a href="http://www.cl.cam.ac.uk/~tp322/theses/webtools.html">web framework for F#</a>
+      that inspired commercial projects like <a href="http://websharper.com/">WebSharper</a> and my
+      experimental F# extensions can be tested live on <a href="http://tryjoinads.org/">tryjoinads.org</a>.
       
-	  <h4>Other Resources</h4>
-	  <p>Once you've exhausted the fun in this document, you should check out:</p>
-	  <ul class="disc">
-		  <li><a href="http://foundation.zurb.com/docs">Foundation Documentation</a><br />Everything you need to know about using the framework.</li>
-		  <li><a href="http://github.com/zurb/foundation">Foundation on Github</a><br />Latest code, issue reports, feature requests and more.</li>
-		  <li><a href="http://twitter.com/foundationzurb">foundationzurb</a><br />Ping us on Twitter if you have questions. If you build something with this we'd love to see it (and send you a totally boss sticker).</li>
-	  </ul>
+    </p>
+
+    <ul class="spaces">
+      <li><a href="http://www.cl.cam.ac.uk/~dao29/publ/coeffects-icalp13.pdf"><strong>Coeffects</strong>: Uniﬁed static analysis of context-dependence</a> (PDF)
+        is our recent paper (published at ICALP 2013) that discusses the theory of context-dependent computations in details.
+      </li>
+      <li><a href="http://www.cl.cam.ac.uk/~tp322/"><strong>Academic web page</strong></a> has links to other published papers, work-in-progress drafts, 
+        research talks and also information about projects and courses that I supervised.
+      </li>
+    </ul>
+    
+    <script type="text/javascript">
+      var monthNames =
+        [ "January", "February", "March", "April", "May", "June",
+          "July", "August", "September", "October", "November", "December"];
+      var d = new Date();
+    </script>
+    <div id="hp-calendar">
+      <h4>Calendar -  <script type="text/javascript">document.write(monthNames[d.getMonth()] + " " + d.getFullYear());</script></h4>
+      <img src="http://test.tomasp.net/calendar/current.jpg" />
+      <p>When the time permits, I enjoy traveling. The calendar shows a new picture each month since 
+        <a href="http://test.tomasp.net/calendar/2005">2005</a>, <a href="http://test.tomasp.net/calendar/2006">2006</a>, 
+        <a href="http://test.tomasp.net/calendar/2007">2007</a>, <a href="http://test.tomasp.net/calendar/2008">2008</a>, 
+        <a href="http://test.tomasp.net/calendar/2009">2009</a>, <a href="http://test.tomasp.net/calendar/2010">2010</a>, 
+        <a href="http://test.tomasp.net/calendar/2011">2011</a>, <a href="http://test.tomasp.net/calendar/2012">2012</a>. 
+        See the first photos of <a href="http://test.tomasp.net/calendar/2013">2013</a>.
+      </p>
+    </div>
+
   </div>
 </div>
 
-  <footer>
-    tomas
+  <div class="row" id="footer">
+  <footer>   
+    <div class="large-2 columns">
+      <h4>Contact</h4>
+      <p>Here are some links if you want to get in touch:</p>
+      <ul>
+        <li><a href="mailto:tomas@tomasp.net">tomas@tomasp.net</a></li>
+        <li><a href="http://twitter.com/tomaspetricek">@tomaspetricek</a></li>
+        <li>keep in touch at <a href="http://uk.linkedin.com/in/tomaspetricek">LinkedIn</a></li>
+        <li>track my talks at <a href="http://lanyrd.com/profile/tomasp/">Lanyrd</a></li>
+        <li>open-source at <a href="https://github.com/tpetricek">GitHub</a></li>
+      </ul>
+    </div>
+    <div class="large-2 columns">
+      <h4>License</h4>
+      <p>The articles are licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution Share Alike</a>. 
+        All source code samples are licensed under Apache 2.0.
+      </p>
+      <img src="http://test.tomasp.net/img/cc-sa.png" alt="CC License logo" />
+    </div>
+    <div class="large-8 columns">
+    <h4>Blog archives <a href="http://test.tomasp.net/blog/rss.xml"><img src="http://test.tomasp.net/img/rss.gif" /></a></h4>
+      <a href="http://test.tomasp.net/blog/archive/may-2013/index.html">
+        May 2013 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/april-2013/index.html">
+        April 2013 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/march-2013/index.html">
+        March 2013 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/february-2013/index.html">
+        February 2013 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/january-2013/index.html">
+        January 2013 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/december-2012/index.html">
+        December 2012 (2)</a>,      <a href="http://test.tomasp.net/blog/archive/october-2012/index.html">
+        October 2012 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/august-2012/index.html">
+        August 2012 (3)</a>,      <a href="http://test.tomasp.net/blog/archive/june-2012/index.html">
+        June 2012 (2)</a>,      <a href="http://test.tomasp.net/blog/archive/april-2012/index.html">
+        April 2012 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/march-2012/index.html">
+        March 2012 (4)</a>,      <a href="http://test.tomasp.net/blog/archive/february-2012/index.html">
+        February 2012 (5)</a>,      <a href="http://test.tomasp.net/blog/archive/january-2012/index.html">
+        January 2012 (2)</a>,      <a href="http://test.tomasp.net/blog/archive/november-2011/index.html">
+        November 2011 (5)</a>,      <a href="http://test.tomasp.net/blog/archive/august-2011/index.html">
+        August 2011 (3)</a>,      <a href="http://test.tomasp.net/blog/archive/july-2011/index.html">
+        July 2011 (2)</a>,      <a href="http://test.tomasp.net/blog/archive/june-2011/index.html">
+        June 2011 (2)</a>,      <a href="http://test.tomasp.net/blog/archive/may-2011/index.html">
+        May 2011 (2)</a>,      <a href="http://test.tomasp.net/blog/archive/march-2011/index.html">
+        March 2011 (4)</a>,      <a href="http://test.tomasp.net/blog/archive/december-2010/index.html">
+        December 2010 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/november-2010/index.html">
+        November 2010 (6)</a>,      <a href="http://test.tomasp.net/blog/archive/october-2010/index.html">
+        October 2010 (6)</a>,      <a href="http://test.tomasp.net/blog/archive/september-2010/index.html">
+        September 2010 (4)</a>,      <a href="http://test.tomasp.net/blog/archive/july-2010/index.html">
+        July 2010 (3)</a>,      <a href="http://test.tomasp.net/blog/archive/june-2010/index.html">
+        June 2010 (2)</a>,      <a href="http://test.tomasp.net/blog/archive/may-2010/index.html">
+        May 2010 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/february-2010/index.html">
+        February 2010 (2)</a>,      <a href="http://test.tomasp.net/blog/archive/january-2010/index.html">
+        January 2010 (3)</a>,      <a href="http://test.tomasp.net/blog/archive/december-2009/index.html">
+        December 2009 (3)</a>,      <a href="http://test.tomasp.net/blog/archive/july-2009/index.html">
+        July 2009 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/june-2009/index.html">
+        June 2009 (3)</a>,      <a href="http://test.tomasp.net/blog/archive/may-2009/index.html">
+        May 2009 (2)</a>,      <a href="http://test.tomasp.net/blog/archive/april-2009/index.html">
+        April 2009 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/march-2009/index.html">
+        March 2009 (2)</a>,      <a href="http://test.tomasp.net/blog/archive/february-2009/index.html">
+        February 2009 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/december-2008/index.html">
+        December 2008 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/november-2008/index.html">
+        November 2008 (5)</a>,      <a href="http://test.tomasp.net/blog/archive/october-2008/index.html">
+        October 2008 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/september-2008/index.html">
+        September 2008 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/june-2008/index.html">
+        June 2008 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/march-2008/index.html">
+        March 2008 (3)</a>,      <a href="http://test.tomasp.net/blog/archive/february-2008/index.html">
+        February 2008 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/december-2007/index.html">
+        December 2007 (2)</a>,      <a href="http://test.tomasp.net/blog/archive/november-2007/index.html">
+        November 2007 (6)</a>,      <a href="http://test.tomasp.net/blog/archive/october-2007/index.html">
+        October 2007 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/september-2007/index.html">
+        September 2007 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/august-2007/index.html">
+        August 2007 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/july-2007/index.html">
+        July 2007 (2)</a>,      <a href="http://test.tomasp.net/blog/archive/april-2007/index.html">
+        April 2007 (2)</a>,      <a href="http://test.tomasp.net/blog/archive/march-2007/index.html">
+        March 2007 (3)</a>,      <a href="http://test.tomasp.net/blog/archive/february-2007/index.html">
+        February 2007 (3)</a>,      <a href="http://test.tomasp.net/blog/archive/january-2007/index.html">
+        January 2007 (2)</a>,      <a href="http://test.tomasp.net/blog/archive/november-2006/index.html">
+        November 2006 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/october-2006/index.html">
+        October 2006 (3)</a>,      <a href="http://test.tomasp.net/blog/archive/august-2006/index.html">
+        August 2006 (2)</a>,      <a href="http://test.tomasp.net/blog/archive/july-2006/index.html">
+        July 2006 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/june-2006/index.html">
+        June 2006 (3)</a>,      <a href="http://test.tomasp.net/blog/archive/may-2006/index.html">
+        May 2006 (2)</a>,      <a href="http://test.tomasp.net/blog/archive/april-2006/index.html">
+        April 2006 (2)</a>,      <a href="http://test.tomasp.net/blog/archive/december-2005/index.html">
+        December 2005 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/july-2005/index.html">
+        July 2005 (4)</a>,      <a href="http://test.tomasp.net/blog/archive/june-2005/index.html">
+        June 2005 (5)</a>,      <a href="http://test.tomasp.net/blog/archive/may-2005/index.html">
+        May 2005 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/april-2005/index.html">
+        April 2005 (3)</a>,      <a href="http://test.tomasp.net/blog/archive/march-2005/index.html">
+        March 2005 (3)</a>,      <a href="http://test.tomasp.net/blog/archive/january-2005/index.html">
+        January 2005 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/december-2004/index.html">
+        December 2004 (3)</a>,      <a href="http://test.tomasp.net/blog/archive/november-2004/index.html">
+        November 2004 (2)</a>,    </div>
   </footer>
-
+  </div>
+  
   <script>
   document.write('<script src=' +
-  ('__proto__' in {} ? 'file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/js/vendor/zepto' : 'file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/js/vendor/jquery') +
+  ('__proto__' in {} ? 'http://test.tomasp.net/js/vendor/zepto' : 'http://test.tomasp.net/js/vendor/jquery') +
   '.js><\/script>')
   </script>
   
-  <script src="file:///C:/Tomas/Projects/WebSites/TomaspNet.New/output/js/foundation.min.js"></script>
+  <script src="http://test.tomasp.net/js/foundation.min.js"></script>
   <script>
     $(document).foundation();
+  </script>
+  <script type="text/javascript">
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-1561220-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function () {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+
   </script>
 </body>
 </html>

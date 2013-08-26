@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<!--[if IE 8]> 				 <html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+
+<head>
+  <meta charset="utf-8">
+  <title>Tomas Petricek's blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Writing about software development in F# and .NET, sharing materials from my F# trainings and talks, writing about programming language research and theory.">
+  <meta name="author" content="Tomas Petricek">
+
+  <!-- Reference Foundation -->
+  <link rel="stylesheet" href="http://test.tomasp.net/css/foundation.css">
+  <script src="cjs/vendor/custom.modernizr.js"></script>
+
+  <link rel="alternate" type="application/rss+xml" href="http://test.tomasp.net/rss.xml" title="RSS feed for Tomas Petricek's blog">
+  <link rel="author" href="https://plus.google.com/109855146654605967051" />
+    
+  <!-- Reference custom CSS and tooltips -->
+  <link type="text/css" rel="stylesheet" href="http://test.tomasp.net/custom/style.css" />
+  <script type="text/javascript" src="http://test.tomasp.net/custom/tooltips.js"></script>
+  <link type="text/css" rel="stylesheet" href="http://test.tomasp.net/custom/tooltips.css" />
+</head>
+<body>
+
+   <header id="top-header">
+    <div class="row">
+      <div class="twelve columns">
+        <h1><a href="http://test.tomasp.net/">Tomas Petricek's blog</a></h1>
+        <p>Writing about practical F# coding and programming language research</p>
+      </div>
+    </div>
+  </header>
+
+  <header class="top-bar-header">
+    <div class="contain-to-grid sticky">
+    <nav class="top-bar">
+
+    <ul class="title-area">
+      <li class="name"><h1><a href="#"></a></h1></li>
+      <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+    </ul>
+    <section class="top-bar-section">
+      <ul class="right">
+        <li><a href="http://test.tomasp.net/blog/index.html">Blog</a></li>
+        <li><a href="http://functional-programming.net">Trainings</a></li>
+        <li><a href="http://functional-programming.net">Books</a></li>
+        <li><a href="http://lanyrd.com/profile/tomasp">Talks</a></li>
+        <li><a href="http://www.cl.cam.ac.uk/~tp322">Research & Teaching</a></li>
+      </ul>
+    </section>
+
+    </nav></div>
+  </header>
+  
+  
+<div class="row">
+	<div class="large-8 columns main-content">
+    <content>
+      
+
+  <div>
+  <h1><a href="http://test.tomasp.net/blog/accelerator-life-game.aspx/index.html">Accelerator and F# (II.): The Game of Life on GPU</a></h1>
+  <p>In the <a href="accelerator-intro.aspx">previous article</a>, I introduced the
+  Microsoft Research Accelerator library. It allows us to write computations with arrays
+  in C# and execute them in parallel on multi-core CPU or more interestingly, 
+  using GPU shaders. In the previous artcile, we've seen how Accelerator works and 
+  how it can be accessed from F#. In this article, we'll look at one more interesting
+  F# demo - we'll implement the famous Conway's Game of Life [<a href="accelerator-life-game.aspx#accelfsh2links">1</a>] using Accelerator.
+  We'll use a v2 version of Accelerator which has been announced just recently and
+  is available from Microsoft Connect [<a href="accelerator-life-game.aspx#accelfsh2links">2</a>].</p>
+
+<div style="text-align:center;">
+<object width="425" height="344"><param name="movie" value="http://www.youtube.com/v/wiZnTfx2re8&amp;hl=en&amp;fs=1"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/wiZnTfx2re8&amp;hl=en&amp;fs=1" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="425" height="344"></embed></object>
+</div>
+
+<p>This article is the second one from a series about using Accelerator from F#. 
+  Today, we'll use Accelerator types directly from F# - this is the simplest possible 
+  approach and is very similar to the way you'd work with Accelerator in C#. However, 
+  we can use some nice F# features such as custom operators to make the code more 
+  readable. In the next article, we'll discuss a different approach - we'll look how
+  to execute more "standard" F# code (that doesn't reference Accelerator explicitly)
+  with Accelerator using F# quotations. The list of articles may change, but here is 
+  a list of articles that I'm currently planning to write:</p>
+<ul>
+  <li><a href="http://tomasp.net/blog/accelerator-intro.aspx">Accelerator and F# (I.): Introduction and calculating PI</a></li>
+  <li><strong>Accelerator and F# (II.): The Game of Life on GPU</strong></li>
+  <li><a href="http://tomasp.net/blog/accelerator-dataparallel.aspx">Accelerator and F# (III.): Data-parallel programs using F# quotations</a></li>
+  <li><a href="http://tomasp.net/blog/accelerator-quotations.aspx">Accelerator and F# (IV.): Composing computations with quotations</a></li>
+</ul>  
+      
+  <p class="meta">
+    <span><strong>Published</strong>: Monday, 28 December 2009, 9:16 PM</span>
+      <br />      
+      <span class="tags"><strong>Tags</strong>: academic, functional programming in .net, meta-programming, accelerator, f# language, math and numerics </span> 
+    <br />
+    <a href="http://test.tomasp.net/blog/accelerator-life-game.aspx/index.html">Read the complete article</a>
+  </p>
+  </div>
+  <div>
+  <h1><a href="http://test.tomasp.net/blog/accelerator-intro.aspx/index.html">Accelerator and F# (I.): Introduction and calculating PI</a></h1>
+  <img src="http://tomasp.net/articles/accelerator-intro/montecarlo.png" alt="Calculating Pi using Monte-Carlo" style="float:left; margin:10px" />
+<p>I already wrote about two projects that I worked on during an internship at
+  MSR back in 2007 (<a href="http://tomasp.net/blog/aspnet-in-fsharp.aspx" type="external">ASP.NET support in F#</a> and
+  <a href="http://tomasp.net/blog/fswebtools-intro.aspx" type="external">F# WebTools</a>).
+  Even though this was more than 2 years ago (and I did one more internship at MSR in the meantime),
+  I still have one more project that I never published on the web. The folks from the F# team
+  reminded me of this project recently, so I thought I could finally publish it. The project 
+  used Microsoft Research Accelerator [<a href="#accelfsh1links">1</a>, <a href="#accelfsh1links">2</a>], 
+  which is a C# library for developing array-based computations and executing them on a GPU. 
+  More recently, the Accelerator team at MSR published Accelerator v2 [<a href="#accelfsh1links">3</a>],
+  which was a good motivation to update my original project...</p>
+  
+<p>In this article, we'll look at the simplest way of using Accelerator from F#. Accelerator
+  provides a managed interface that can be naturally used from both C# and F#. We can use
+  a mix of method calls and overloaded operators to describe a computation. In F#, we'll also 
+  define our additional custom operators to make the code a bit nicer. After we introduce
+  Accelerator using a simple C# demo, we'll look how to calculate an approximate value of
+  the PI number using a Monte-Carlo method.</p>
+<p>This article is the first one from a series about using Accelerator from F#. The list
+  of articles may change, but here is a list of articles that I'm currently planning to write:</p>
+<ul>
+  <li><strong>Accelerator and F# (I.): Introduction and calculating PI</strong></li>
+  <li><a href="http://tomasp.net/blog/accelerator-life-game.aspx">Accelerator and F# (II.): The Game of Life on GPU</a></li>
+  <li><a href="http://tomasp.net/blog/accelerator-dataparallel.aspx">Accelerator and F# (III.): Data-parallel programs using F# quotations</a></li>
+  <li><a href="http://tomasp.net/blog/accelerator-quotations.aspx">Accelerator and F# (IV.): Composing computations with quotations</a></li>
+</ul>  
+      
+  <p class="meta">
+    <span><strong>Published</strong>: Monday, 21 December 2009, 3:21 AM</span>
+      <br />      
+      <span class="tags"><strong>Tags</strong>: functional programming in .net, academic, meta-programming, accelerator, f# language, math and numerics </span> 
+    <br />
+    <a href="http://test.tomasp.net/blog/accelerator-intro.aspx/index.html">Read the complete article</a>
+  </p>
+  </div>
+  <div>
+  <h1><a href="http://test.tomasp.net/blog/book-completed.aspx/index.html">Real-World Functional Programming: Completed and printed!</a></h1>
+  <p>If you're following my blog or if you're interested in F# or functional programming in .NET, 
+  you probably noticed that I was working on a book <a href="http://manning.com/petricek">Real-World Functional Programming</a>.
+  At some point, we called it <em>Functional Programming for the Real-World</em>, but then we changed the title back
+  to a better sounding version <em>Real-World Functional Programming</em> (subtitle <em>With examples
+  in F# and C#</em>). The book is also reason for a lower number of blog posts over the last year. Over the last 
+  month or so, we were doing the final edits, reviewing the final PDF version (I fixed quite a lot minor 
+  issues, synchronized book with the Beta 2 F# release and so on). Anyway, before a few days, I received the following 
+  email (as an author, I receive the same emails as those who ordered the book through the <a href="http://www.manning.com/about/meap.html">Manning 
+  Early Access Program</a>, so that I can see what we're sending to our dear readers):</p>
+
+<table><tr><td>
+<img style="margin:10px" src="/articles/book-completed/cover.png" />
+</td><td>
+<p style="font-style:italic; margin:10px 30px 10px 10px; text-indent:0px;">
+Dear Tomas Petricek, <br />
+We are pleased to announce that <strong>Real-World Functional Programming</strong> is now complete! As a MEAP subscriber 
+you can download your copy of the finished ebook right now! (...) This ebook is the final version, 
+identical to the softbound edition, which is currently being printed and will be available on <strong>December 24</strong>. 
+If you chose the printed book option when you originally subscribed, we'll ship it to you automatically—no action required 
+from you. </p>
+</td></tr></table>
+
+<h2>Finally finished!</h2>
+<p>Yes, that's right. The book is finally completed and as far as I know, it has been printed last week! If you already 
+  ordered the book, you won't receive it before Christmas, but it should come shortly after. I can't wait to see the
+  book actually <em>printed</em>. The transition from the Word drafts I initially wrote to a final PDF version
+  was already felt fantastic and I thought <em>"It looks like a real book!"</em> Among other things, there are now 
+  graphical arrows with comments inside listings, which looks really great and makes code listings much easier to read.
+  Now I can look forward to seeing the <em>actual book</em>. Maybe I'm too conservative, but I have to say that I'm 
+  really glad that I wrote the book before everything is going to be published just electronically!</p>
+
+<p>Here is a couple of links that you may found interesting if you want to look inside the book...</p>
+      
+  <p class="meta">
+    <span><strong>Published</strong>: Saturday, 19 December 2009, 9:54 PM</span>
+      <br />      
+      <span class="tags"><strong>Tags</strong>: functional programming in .net, random thoughts, universe, writing </span> 
+    <br />
+    <a href="http://test.tomasp.net/blog/book-completed.aspx/index.html">Read the complete article</a>
+  </p>
+  </div>
+
+    </content>
+
+  </div>
+  <div class="large-4 columns" id="right-bar">
+    <script type="text/javascript">
+      var monthNames =
+        [ "January", "February", "March", "April", "May", "June",
+          "July", "August", "September", "October", "November", "December"];
+      var d = new Date();
+    </script>
+    <div class="right-item" id="right-calendar">
+      <h4>Calendar -  <script type="text/javascript">document.write(monthNames[d.getMonth()] + " " + d.getFullYear());</script></h4>
+      <img src="http://test.tomasp.net/calendar/current.jpg" />
+      <p>The calendar shows a new picture each month since 
+        <a href="http://test.tomasp.net/calendar/2005">2005</a>, <a href="http://test.tomasp.net/calendar/2006">2006</a>, 
+        <a href="http://test.tomasp.net/calendar/2007">2007</a>, <a href="http://test.tomasp.net/calendar/2008">2008</a>, 
+        <a href="http://test.tomasp.net/calendar/2009">2009</a>, <a href="http://test.tomasp.net/calendar/2010">2010</a>, 
+        <a href="http://test.tomasp.net/calendar/2011">2011</a>, <a href="http://test.tomasp.net/calendar/2012">2012</a>. <br />
+        See the first photos of <a href="http://test.tomasp.net/calendar/2013">2013</a>.
+      </p>
+    </div>
+
+    <h3>Welcome!</h3>
+    <img src="http://test.tomasp.net/img/tomas.jpg" alt="Tomas Petricek" style="float:right;margin:10px 0px 10px 10px;" />
+    <p>I'm an F# enthusiast, book author and a PhD student at the University of Cambridge.
+      When offline, I enjoy traveling and taking pictures. You can find me at
+      at <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a> or email 
+      <a href="mailto:tomas@tomasp.net">tomas@tomasp.net</a>.
+    </p>
+
+    <h4>Trainings and consulting</h4>
+    <img src="http://test.tomasp.net/img/skillsmatter.png" alt="Tomas Petricek" style="float:right;margin:15px 0px 10px 10px;" />
+    <p>I run F# and functional programming courses in <strong>London</strong>
+      and <strong>New York</strong> with SkillsMatter.
+    </p>
+    <ul>
+      <li>Check out our <a href="http://skillsmatter.com/course/scala/tomas-petricek-phil-trelford-fast-track-to-fsharp/ps-6679">Fast Track to F#</a> course</li>
+      <li><a href="mailto:tomas@tomasp.net">Email me</a> for info about private trainings</li>
+    </ul>
+    
+    <h4>F# Books and articles</h4>
+    <div style="float:right;">
+      <a href="http://www.amazon.com/gp/product/1933988924/ref=as_li_tf_il?ie=UTF8&amp;tag=httptomasnet-20&amp;linkCode=as2&amp;camp=217145&amp;creative=399369&amp;creativeASIN=1933988924">
+        <img src="http://test.tomasp.net/img/rwfp.jpg" alt="Real World Functional Programming" style="float:right;margin:10px 0px 10px 10px;border-style:none;" />
+      </a>
+    </div>
+    <p><a href="http://www.manning.com/petricek">Real World Functional Programming</a> explains functional
+      concepts using F# and C#. You can get it from <a href="http://www.amazon.com/dp/1933988924?tag=httptomasnet-20&amp;camp=213381&amp;creative=390973&amp;linkCode=as4&amp;creativeASIN=1933988924&amp;adid=0F1DP260JGG4KY0CDGP6">Amazon.com</a>, <a href="https://www.amazon.co.uk/dp/1933988924?tag=tomasnet-21&amp;camp=1406&amp;creative=6394&amp;linkCode=as1&amp;creativeASIN=1933988924&amp;adid=1CTY87YCCQEJW965GNDF">Amazon.co.uk</a> or your favorite book store.
+      Some chapters and new materials are also available on <a href="http://msdn.microsoft.com/en-us/library/hh314518.aspx">MSDN</a>.</p>
+    
+    <p>Currently, I'm putting together <a href="http://www.manning.com/petricek2/">F# Deep Dives</a> - a collection
+      of practical F# essays written by community leaders and commercial users of F#.</p>
+    <p>I also wrote a series of tutorials on <a href="http://www.tryfsharp.org/Learn/financial-computing">financial computing</a>
+      for Try F# - an interactive environment that let's you try F# in the browser.</p>
+
+    <h4>Research and teaching</h4>
+    <img src="http://test.tomasp.net/img/cam.png" alt="University of Cambride" style="float:right;margin:25px 0px 10px 10px;" />
+    <p>I'm finishing PhD in computer science at the <a href="http://www.cl.cam.ac.uk/">University of Cambridge</a>.
+      I'm working on making better types for programs that run in rich context (like F# type providers, distributed 
+      prog&shy;ramming or data-flow). See <a href="http://www.cl.cam.ac.uk/~tp322/">my academic page</a> for
+      more.</p>
+
+  </div>
+</div>
+
+
+  <div class="row" id="footer">
+  <footer>   
+    <div class="large-2 columns">
+      <h4>Contact</h4>
+      <p>Here are some links if you want to get in touch:</p>
+      <ul>
+        <li><a href="mailto:tomas@tomasp.net">tomas@tomasp.net</a></li>
+        <li><a href="http://twitter.com/tomaspetricek">@tomaspetricek</a></li>
+        <li>keep in touch at <a href="http://uk.linkedin.com/in/tomaspetricek">LinkedIn</a></li>
+        <li>track my talks at <a href="http://lanyrd.com/profile/tomasp/">Lanyrd</a></li>
+        <li>open-source at <a href="https://github.com/tpetricek">GitHub</a></li>
+      </ul>
+    </div>
+    <div class="large-2 columns">
+      <h4>License</h4>
+      <p>The articles are licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution Share Alike</a>. 
+        All source code samples are licensed under Apache 2.0.
+      </p>
+      <img src="http://test.tomasp.net/img/cc-sa.png" alt="CC License logo" />
+    </div>
+    <div class="large-8 columns">
+    <h4>Blog archives <a href="http://test.tomasp.net/blog/rss.xml"><img src="http://test.tomasp.net/img/rss.gif" /></a></h4>
+      <a href="http://test.tomasp.net/blog/archive/may-2013/index.html">
+        May 2013 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/april-2013/index.html">
+        April 2013 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/march-2013/index.html">
+        March 2013 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/february-2013/index.html">
+        February 2013 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/january-2013/index.html">
+        January 2013 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/december-2012/index.html">
+        December 2012 (2)</a>,      <a href="http://test.tomasp.net/blog/archive/october-2012/index.html">
+        October 2012 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/august-2012/index.html">
+        August 2012 (3)</a>,      <a href="http://test.tomasp.net/blog/archive/june-2012/index.html">
+        June 2012 (2)</a>,      <a href="http://test.tomasp.net/blog/archive/april-2012/index.html">
+        April 2012 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/march-2012/index.html">
+        March 2012 (4)</a>,      <a href="http://test.tomasp.net/blog/archive/february-2012/index.html">
+        February 2012 (5)</a>,      <a href="http://test.tomasp.net/blog/archive/january-2012/index.html">
+        January 2012 (2)</a>,      <a href="http://test.tomasp.net/blog/archive/november-2011/index.html">
+        November 2011 (5)</a>,      <a href="http://test.tomasp.net/blog/archive/august-2011/index.html">
+        August 2011 (3)</a>,      <a href="http://test.tomasp.net/blog/archive/july-2011/index.html">
+        July 2011 (2)</a>,      <a href="http://test.tomasp.net/blog/archive/june-2011/index.html">
+        June 2011 (2)</a>,      <a href="http://test.tomasp.net/blog/archive/may-2011/index.html">
+        May 2011 (2)</a>,      <a href="http://test.tomasp.net/blog/archive/march-2011/index.html">
+        March 2011 (4)</a>,      <a href="http://test.tomasp.net/blog/archive/december-2010/index.html">
+        December 2010 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/november-2010/index.html">
+        November 2010 (6)</a>,      <a href="http://test.tomasp.net/blog/archive/october-2010/index.html">
+        October 2010 (6)</a>,      <a href="http://test.tomasp.net/blog/archive/september-2010/index.html">
+        September 2010 (4)</a>,      <a href="http://test.tomasp.net/blog/archive/july-2010/index.html">
+        July 2010 (3)</a>,      <a href="http://test.tomasp.net/blog/archive/june-2010/index.html">
+        June 2010 (2)</a>,      <a href="http://test.tomasp.net/blog/archive/may-2010/index.html">
+        May 2010 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/february-2010/index.html">
+        February 2010 (2)</a>,      <a href="http://test.tomasp.net/blog/archive/january-2010/index.html">
+        January 2010 (3)</a>,      <a href="http://test.tomasp.net/blog/archive/december-2009/index.html">
+        December 2009 (3)</a>,      <a href="http://test.tomasp.net/blog/archive/july-2009/index.html">
+        July 2009 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/june-2009/index.html">
+        June 2009 (3)</a>,      <a href="http://test.tomasp.net/blog/archive/may-2009/index.html">
+        May 2009 (2)</a>,      <a href="http://test.tomasp.net/blog/archive/april-2009/index.html">
+        April 2009 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/march-2009/index.html">
+        March 2009 (2)</a>,      <a href="http://test.tomasp.net/blog/archive/february-2009/index.html">
+        February 2009 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/december-2008/index.html">
+        December 2008 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/november-2008/index.html">
+        November 2008 (5)</a>,      <a href="http://test.tomasp.net/blog/archive/october-2008/index.html">
+        October 2008 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/september-2008/index.html">
+        September 2008 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/june-2008/index.html">
+        June 2008 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/march-2008/index.html">
+        March 2008 (3)</a>,      <a href="http://test.tomasp.net/blog/archive/february-2008/index.html">
+        February 2008 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/december-2007/index.html">
+        December 2007 (2)</a>,      <a href="http://test.tomasp.net/blog/archive/november-2007/index.html">
+        November 2007 (6)</a>,      <a href="http://test.tomasp.net/blog/archive/october-2007/index.html">
+        October 2007 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/september-2007/index.html">
+        September 2007 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/august-2007/index.html">
+        August 2007 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/july-2007/index.html">
+        July 2007 (2)</a>,      <a href="http://test.tomasp.net/blog/archive/april-2007/index.html">
+        April 2007 (2)</a>,      <a href="http://test.tomasp.net/blog/archive/march-2007/index.html">
+        March 2007 (3)</a>,      <a href="http://test.tomasp.net/blog/archive/february-2007/index.html">
+        February 2007 (3)</a>,      <a href="http://test.tomasp.net/blog/archive/january-2007/index.html">
+        January 2007 (2)</a>,      <a href="http://test.tomasp.net/blog/archive/november-2006/index.html">
+        November 2006 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/october-2006/index.html">
+        October 2006 (3)</a>,      <a href="http://test.tomasp.net/blog/archive/august-2006/index.html">
+        August 2006 (2)</a>,      <a href="http://test.tomasp.net/blog/archive/july-2006/index.html">
+        July 2006 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/june-2006/index.html">
+        June 2006 (3)</a>,      <a href="http://test.tomasp.net/blog/archive/may-2006/index.html">
+        May 2006 (2)</a>,      <a href="http://test.tomasp.net/blog/archive/april-2006/index.html">
+        April 2006 (2)</a>,      <a href="http://test.tomasp.net/blog/archive/december-2005/index.html">
+        December 2005 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/july-2005/index.html">
+        July 2005 (4)</a>,      <a href="http://test.tomasp.net/blog/archive/june-2005/index.html">
+        June 2005 (5)</a>,      <a href="http://test.tomasp.net/blog/archive/may-2005/index.html">
+        May 2005 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/april-2005/index.html">
+        April 2005 (3)</a>,      <a href="http://test.tomasp.net/blog/archive/march-2005/index.html">
+        March 2005 (3)</a>,      <a href="http://test.tomasp.net/blog/archive/january-2005/index.html">
+        January 2005 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/december-2004/index.html">
+        December 2004 (3)</a>,      <a href="http://test.tomasp.net/blog/archive/november-2004/index.html">
+        November 2004 (2)</a>,    </div>
+  </footer>
+  </div>
+  
+  <script>
+  document.write('<script src=' +
+  ('__proto__' in {} ? 'http://test.tomasp.net/js/vendor/zepto' : 'http://test.tomasp.net/js/vendor/jquery') +
+  '.js><\/script>')
+  </script>
+  
+  <script src="http://test.tomasp.net/js/foundation.min.js"></script>
+  <script>
+    $(document).foundation();
+  </script>
+  <script type="text/javascript">
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-1561220-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function () {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+
+  </script>
+</body>
+</html>

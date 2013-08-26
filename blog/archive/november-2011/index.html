@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<!--[if IE 8]> 				 <html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+
+<head>
+  <meta charset="utf-8">
+  <title>Tomas Petricek's blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Writing about software development in F# and .NET, sharing materials from my F# trainings and talks, writing about programming language research and theory.">
+  <meta name="author" content="Tomas Petricek">
+
+  <!-- Reference Foundation -->
+  <link rel="stylesheet" href="http://test.tomasp.net/css/foundation.css">
+  <script src="cjs/vendor/custom.modernizr.js"></script>
+
+  <link rel="alternate" type="application/rss+xml" href="http://test.tomasp.net/rss.xml" title="RSS feed for Tomas Petricek's blog">
+  <link rel="author" href="https://plus.google.com/109855146654605967051" />
+    
+  <!-- Reference custom CSS and tooltips -->
+  <link type="text/css" rel="stylesheet" href="http://test.tomasp.net/custom/style.css" />
+  <script type="text/javascript" src="http://test.tomasp.net/custom/tooltips.js"></script>
+  <link type="text/css" rel="stylesheet" href="http://test.tomasp.net/custom/tooltips.css" />
+</head>
+<body>
+
+   <header id="top-header">
+    <div class="row">
+      <div class="twelve columns">
+        <h1><a href="http://test.tomasp.net/">Tomas Petricek's blog</a></h1>
+        <p>Writing about practical F# coding and programming language research</p>
+      </div>
+    </div>
+  </header>
+
+  <header class="top-bar-header">
+    <div class="contain-to-grid sticky">
+    <nav class="top-bar">
+
+    <ul class="title-area">
+      <li class="name"><h1><a href="#"></a></h1></li>
+      <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+    </ul>
+    <section class="top-bar-section">
+      <ul class="right">
+        <li><a href="http://test.tomasp.net/blog/index.html">Blog</a></li>
+        <li><a href="http://functional-programming.net">Trainings</a></li>
+        <li><a href="http://functional-programming.net">Books</a></li>
+        <li><a href="http://lanyrd.com/profile/tomasp">Talks</a></li>
+        <li><a href="http://www.cl.cam.ac.uk/~tp322">Research & Teaching</a></li>
+      </ul>
+    </section>
+
+    </nav></div>
+  </header>
+  
+  
+<div class="row">
+	<div class="large-8 columns main-content">
+    <content>
+      
+
+  <div>
+  <h1><a href="http://test.tomasp.net/blog/fsharp-generic-numeric.aspx/index.html">F# Math (IV.) - Writing generic numeric code</a></h1>
+  <p>Generic numeric code is some calculation that can be used for working with multiple different numeric 
+  types including types such as <code>int</code>, <code>decimal</code> and <code>float</code> or even our own 
+  numeric types (such as the type for <a href="http://tomasp.net/blog/fsharp-custom-numeric.aspx">clock arithmetic 
+  from the previous article of the series</a>). Generic numeric code differs from ordinary generic F# code such 
+  as the <code>'a list</code> type or <code>List.map</code> function, because <em>numeric code</em> uses numeric operators 
+  such as <code>+</code> or <code>&gt;=</code> that are defined differently for each numeric type.</p>
+
+<p>When writing simple generic code that has some type parameter <code>'T</code>, we don’t know anything about 
+  the type parameter and there is no way to restrict it to a numeric type that provides all the operators that 
+  we may need to use in our code. This is a limitation of the .NET runtime and F# provides two ways for 
+  overcoming it.</p>
+
+<ul class="spaces">
+  <li><strong>Static member constraints</strong> can be used to write generic code where the actual 
+    numeric operations are resolved at compile-time (and a generic function is specialized for all required
+    numeric types). This approach makes resulting code very efficient and is generally very easy to use
+    when writing a function such as <code>List.sum</code>.</li>
+
+  <li><strong>Global numeric associations</strong> (available in F# PowerPack) give us a way to obtain 
+    an interface implementing required numeric operations dynamically at runtime. This approach has some 
+    runtime overhead, but can be used for complex numeric types (such as <code>Matrix&lt;'T&gt;</code>).</li>
+
+  <li><strong>Combination of both</strong> techniques can be used to implement complex numeric type
+    that is generic over the contained numeric values and has only a minimal runtime overhead.</li>
+</ul>
+
+<p>Static member constraints are a unique feature of F# that is not available in other .NET
+  languages, so if you're interested in writing numeric code for .NET,
+  this may be a good reason for choosing F#. In C# or Visual Basic, you would be limited to the 
+  second option (which can be implemented in C#). In dynamic languages (like IronPython), everything
+  is dynamic, so numeric computations can work with any numeric type, but will be significantly
+  less efficient. In the rest of the article, we look at the three options summarized above.
+</p>
+
+
+<p style="font-style:italic;">This article is a part of a series that covers some F# and F# PowerPack features for 
+  numerical computing. Other articles in this series discuss matrices, defining custom
+  numeric types and writing generic code. For links to other parts, see 
+  <a href="http://tomasp.net/blog/powerpack-introduction.aspx">F# Math - Overview of F# PowerPack</a>.</p>
+
+
+      
+  <p class="meta">
+    <span><strong>Published</strong>: Sunday, 27 November 2011, 5:19 PM</span>
+      <br />      
+      <span class="tags"><strong>Tags</strong>: c# language, functional programming in .net, f# language, math and numerics </span> 
+    <br />
+    <a href="http://test.tomasp.net/blog/fsharp-generic-numeric.aspx/index.html">Read the complete article</a>
+  </p>
+  </div>
+  <div>
+  <h1><a href="http://test.tomasp.net/blog/fsharp-custom-numeric.aspx/index.html">F# Math (III.) - Defining custom numeric types</a></h1>
+  <p>In this article, we define an F# numeric type for calculating in the modular arithmetic (also called clock arithmetic)
+  [<a href="#ppcnuml">1</a>].  
+  Modular arithmetic is used for calculations where we want to keep a value within a specified range by counting in cycles. 
+  For example, a maximal value on clock is 12 hours. When we add 11 hours and 3 hours, the value overflows and the result is 
+  2 hours. Aside from clocks, this numeric system is also essential in cryptography or, for example, in music.</p>
+
+<p>This tutorial shows several techniques that are essential when defining any new numeric type in F#. Most importantly, you’ll learn how to:</p>
+<ul>
+<li>Define a numeric type with overloaded operators </li>
+<li>Define a numeric literal for constructing numbers of our new type</li>
+<li>Enable calculating with our type in F# lists and matrices</li>
+<li>Hide implementation details of a numeric type</li>
+</ul>
+
+<p>We define type <code>IntegerZ5</code> that implements modular arithmetic with modulus 5, meaning that valid values are in the range 
+  from 0 to 4 and we equip the type with operations such as addition and multiplication. When an operation produces a value that would 
+  be outside of the range, we adjust it by adding or subtracting the modulus (in our case 5). Here are some examples of calculations 
+  that we’ll be able to write:</p>
+<pre>
+2 + 1 = 3 (mod 5)
+4 * 2 = 3 (mod 5)
+List.sum [ 0; 1; 2; 3 ] = 1 (mod 5)
+</pre>
+
+<p>In the first case, we can perform the operation without any adjustments. In the second case, we multiply 4 by 2 and get 8 as the 
+  result, which is out of the required range. To correct it, we calculate the remainder after a division by 5 (written as <code>8 % 5</code> in F#), 
+  which gives us 3. Finally, the last example shows that we’d also like to be able to use our type with lists. If we add values 0, 1, 2
+  and 3, we get 6 which is adjusted to 1.</p>
+
+<p style="font-style:italic;">This article is a part of a series that covers some F# and F# PowerPack features for 
+  numerical computing. Other articles in this series discuss matrices, defining custom
+  numeric types and writing generic code. For links to other parts, see 
+  <a href="http://tomasp.net/blog/powerpack-introduction.aspx">F# Math - Overview of F# PowerPack</a>.</p>
+
+      
+  <p class="meta">
+    <span><strong>Published</strong>: Thursday, 24 November 2011, 7:21 PM</span>
+      <br />      
+      <span class="tags"><strong>Tags</strong>: functional programming in .net, f# language, math and numerics </span> 
+    <br />
+    <a href="http://test.tomasp.net/blog/fsharp-custom-numeric.aspx/index.html">Read the complete article</a>
+  </p>
+  </div>
+  <div>
+  <h1><a href="http://test.tomasp.net/blog/powerpack-matrix.aspx/index.html">F# Math (II.) - Using matrices for graph algorithms</a></h1>
+   <p>In the <a href="http://tomasp.net/blog/powerpack-numeric.aspx">previous article of this 
+  series</a>, we looked at <code>complex</code> and <code>BigRational</code>, which are two 
+  numeric types that are available in F# PowerPack. Aside from these two, the PowerPack 
+  library also contains a type <code>matrix</code> representing a two-dimensional matrix
+  of floating-point values.</p>
+
+<p>In this article, you'll learn how to work with matrices in F#, using some 
+  of the functions provided by F# PowerPack. I'll demonstrate the library using an 
+  example that represents <em>graphs</em> using a, so called, <em>adjacency matrix</em>.
+  If you're not familiar with this concept, you don't need to worry. It is quite simple
+  and it will be clear once we look at an example.
+  The matrix represents which vertices of a graph are connected with other vertices by 
+  an edge. Many of the standard operations on matrices are useful when working with 
+  adjacency matrix, so this tutorial will cover the following:</p>
+
+<ul>
+  <li>Creating matrices from lists and using functions from the <code>Matrix</code> module</li>
+  <li>Using slices to read or modify a part of matrix</li>
+  <li>Performing standard operations with matrices such as transposition and matrix multiplication</li>
+  <li>Using higher order functions for working with matrices</li>
+</ul>
+
+
+<p style="font-style:italic;">This article is a part of a series that covers some F# and F# PowerPack features for 
+  numerical computing. Other articles in this series discuss matrices, defining custom
+  numeric types and writing generic code. For links to other parts, see 
+  <a href="http://tomasp.net/blog/powerpack-introduction.aspx">F# Math - Overview of F# PowerPack</a>.</p>
+
+      
+  <p class="meta">
+    <span><strong>Published</strong>: Wednesday, 9 November 2011, 1:46 AM</span>
+      <br />      
+      <span class="tags"><strong>Tags</strong>: functional programming in .net, f# language, math and numerics </span> 
+    <br />
+    <a href="http://test.tomasp.net/blog/powerpack-matrix.aspx/index.html">Read the complete article</a>
+  </p>
+  </div>
+  <div>
+  <h1><a href="http://test.tomasp.net/blog/powerpack-numeric.aspx/index.html">F# Math (I.) - Numeric types in PowerPack</a></h1>
+  <p>In this article, we'll briefly look at two numeric types that are available in F# PowerPack. 
+  The type <code>complex</code> represents complex numbers consisting of real and imaginary parts. 
+  Both parts are stored as a floating point numbers. The type <code>BigRational</code> represents 
+  rational numbers consisting of numerator and denominator of arbitrary sizes. Integers of arbitrary
+  size are represented using <code>BigInteger</code> type that is available in .NET 4.0 
+  (in the <code>System.Numerics.dll</code> assembly). On .NET 2.0, the <code>BigInteger</code>
+  type is also a part of F# PowerPack.</p>
+
+<p style="font-style:italic;">This article is a part of a series that covers some F# and F# PowerPack features for 
+  numerical computing. Other articles in this series discuss matrices, defining custom
+  numeric types and writing generic code. For links to other parts, see 
+  <a href="http://tomasp.net/blog/powerpack-introduction.aspx">F# Math - Overview of F# PowerPack</a>.</p>
+
+      
+  <p class="meta">
+    <span><strong>Published</strong>: Wednesday, 2 November 2011, 2:34 AM</span>
+      <br />      
+      <span class="tags"><strong>Tags</strong>: c# language, functional programming in .net, f# language, math and numerics </span> 
+    <br />
+    <a href="http://test.tomasp.net/blog/powerpack-numeric.aspx/index.html">Read the complete article</a>
+  </p>
+  </div>
+  <div>
+  <h1><a href="http://test.tomasp.net/blog/powerpack-introduction.aspx/index.html">F# Math - Numerical computing and F# PowerPack</a></h1>
+  <img src="http://tomasp.net/articles/powerpack-series/z5snip.png" style="float:right;margin:0px 0px 5px 15px" />
+<p>This article is the first article of a series where I'll explain some of the
+  F# features that are useful for numeric computing as well as some functionality from 
+  the F# PowerPack library. Most of the content was originally written for 
+  the <a href="http://msdn.microsoft.com/en-us/library/hh273075.aspx">Numerical Computing in F#</a> chapter on MSDN (that I 
+  <a href="http://tomasp.net/blog/real-world-book-msdn.aspx">announced earlier</a>), 
+  but then we decided to focus on using F# with third party libraries that provide more
+  efficient implementation and richer set of standard numeric functionality that's 
+  needed when implementing machine learning and probabilistic algorithms or performing 
+  statistical analysis. If you're interested in these topics, then the last section 
+  (below) gives links to the important MSDN articles.</p>
+
+<p>However, F# PowerPack still contains some useful functionality. It includes two
+  additional numeric types and an implementation of matrix that integrates nicely
+  with F#. The series also demonstrates how to use features of the F# language 
+  (and core libraries) to write numeric code elegantly. In particular, we'll use the
+  following aspects:</p>
+
+<ul class="spaces">
+  <li><strong>Overloaded operators.</strong> Any type can provide overloaded version of standard numeric 
+    operators such as +, -, * and / as well as other non-standard operators (such as .*). 
+    As a result, libraries can implement their own numeric types which are 
+    indistinguishable from built-in types such as int.</li>
+
+  <li><strong>Numeric literals.</strong> F# math libraries can enable using new numeric literals in the code. For example, you can 
+    write a <code>BigRational</code> value representing one third as <code>1N/3N</code>. The <code>N</code> suffix used in the 
+    notation is not hardcoded in the F# language and we'll see how to define similar 
+    numeric type.</li>
+
+  <li><strong>Static constraints.</strong> F# supports static member constraints, which can be used for writing functions that 
+    work with any numeric type. For example, the <code>List.sum</code> function uses this feature. It 
+    can sum elements of any list containing numbers.</li>
+</ul>
+
+<p>
+These are just a few of the F# language features that are useful when writing numeric code, but
+there are many others. The usual F# development style using interactive tools, type safety that
+prevents common errors, units of measure as well the expressivity of F# make it a great tool for
+writing numeric code. For more information, take a look at the MSDN overview article 
+<a href="http://msdn.microsoft.com/en-us/library/hh304366.aspx">Writing Succinct and Correct Numerical Computations with F#</a>.
+</p>
+
+      
+  <p class="meta">
+    <span><strong>Published</strong>: Wednesday, 2 November 2011, 2:30 AM</span>
+      <br />      
+      <span class="tags"><strong>Tags</strong>: functional programming in .net, f# language, writing, math and numerics </span> 
+    <br />
+    <a href="http://test.tomasp.net/blog/powerpack-introduction.aspx/index.html">Read the complete article</a>
+  </p>
+  </div>
+
+    </content>
+
+  </div>
+  <div class="large-4 columns" id="right-bar">
+    <script type="text/javascript">
+      var monthNames =
+        [ "January", "February", "March", "April", "May", "June",
+          "July", "August", "September", "October", "November", "December"];
+      var d = new Date();
+    </script>
+    <div class="right-item" id="right-calendar">
+      <h4>Calendar -  <script type="text/javascript">document.write(monthNames[d.getMonth()] + " " + d.getFullYear());</script></h4>
+      <img src="http://test.tomasp.net/calendar/current.jpg" />
+      <p>The calendar shows a new picture each month since 
+        <a href="http://test.tomasp.net/calendar/2005">2005</a>, <a href="http://test.tomasp.net/calendar/2006">2006</a>, 
+        <a href="http://test.tomasp.net/calendar/2007">2007</a>, <a href="http://test.tomasp.net/calendar/2008">2008</a>, 
+        <a href="http://test.tomasp.net/calendar/2009">2009</a>, <a href="http://test.tomasp.net/calendar/2010">2010</a>, 
+        <a href="http://test.tomasp.net/calendar/2011">2011</a>, <a href="http://test.tomasp.net/calendar/2012">2012</a>. <br />
+        See the first photos of <a href="http://test.tomasp.net/calendar/2013">2013</a>.
+      </p>
+    </div>
+
+    <h3>Welcome!</h3>
+    <img src="http://test.tomasp.net/img/tomas.jpg" alt="Tomas Petricek" style="float:right;margin:10px 0px 10px 10px;" />
+    <p>I'm an F# enthusiast, book author and a PhD student at the University of Cambridge.
+      When offline, I enjoy traveling and taking pictures. You can find me at
+      at <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a> or email 
+      <a href="mailto:tomas@tomasp.net">tomas@tomasp.net</a>.
+    </p>
+
+    <h4>Trainings and consulting</h4>
+    <img src="http://test.tomasp.net/img/skillsmatter.png" alt="Tomas Petricek" style="float:right;margin:15px 0px 10px 10px;" />
+    <p>I run F# and functional programming courses in <strong>London</strong>
+      and <strong>New York</strong> with SkillsMatter.
+    </p>
+    <ul>
+      <li>Check out our <a href="http://skillsmatter.com/course/scala/tomas-petricek-phil-trelford-fast-track-to-fsharp/ps-6679">Fast Track to F#</a> course</li>
+      <li><a href="mailto:tomas@tomasp.net">Email me</a> for info about private trainings</li>
+    </ul>
+    
+    <h4>F# Books and articles</h4>
+    <div style="float:right;">
+      <a href="http://www.amazon.com/gp/product/1933988924/ref=as_li_tf_il?ie=UTF8&amp;tag=httptomasnet-20&amp;linkCode=as2&amp;camp=217145&amp;creative=399369&amp;creativeASIN=1933988924">
+        <img src="http://test.tomasp.net/img/rwfp.jpg" alt="Real World Functional Programming" style="float:right;margin:10px 0px 10px 10px;border-style:none;" />
+      </a>
+    </div>
+    <p><a href="http://www.manning.com/petricek">Real World Functional Programming</a> explains functional
+      concepts using F# and C#. You can get it from <a href="http://www.amazon.com/dp/1933988924?tag=httptomasnet-20&amp;camp=213381&amp;creative=390973&amp;linkCode=as4&amp;creativeASIN=1933988924&amp;adid=0F1DP260JGG4KY0CDGP6">Amazon.com</a>, <a href="https://www.amazon.co.uk/dp/1933988924?tag=tomasnet-21&amp;camp=1406&amp;creative=6394&amp;linkCode=as1&amp;creativeASIN=1933988924&amp;adid=1CTY87YCCQEJW965GNDF">Amazon.co.uk</a> or your favorite book store.
+      Some chapters and new materials are also available on <a href="http://msdn.microsoft.com/en-us/library/hh314518.aspx">MSDN</a>.</p>
+    
+    <p>Currently, I'm putting together <a href="http://www.manning.com/petricek2/">F# Deep Dives</a> - a collection
+      of practical F# essays written by community leaders and commercial users of F#.</p>
+    <p>I also wrote a series of tutorials on <a href="http://www.tryfsharp.org/Learn/financial-computing">financial computing</a>
+      for Try F# - an interactive environment that let's you try F# in the browser.</p>
+
+    <h4>Research and teaching</h4>
+    <img src="http://test.tomasp.net/img/cam.png" alt="University of Cambride" style="float:right;margin:25px 0px 10px 10px;" />
+    <p>I'm finishing PhD in computer science at the <a href="http://www.cl.cam.ac.uk/">University of Cambridge</a>.
+      I'm working on making better types for programs that run in rich context (like F# type providers, distributed 
+      prog&shy;ramming or data-flow). See <a href="http://www.cl.cam.ac.uk/~tp322/">my academic page</a> for
+      more.</p>
+
+  </div>
+</div>
+
+
+  <div class="row" id="footer">
+  <footer>   
+    <div class="large-2 columns">
+      <h4>Contact</h4>
+      <p>Here are some links if you want to get in touch:</p>
+      <ul>
+        <li><a href="mailto:tomas@tomasp.net">tomas@tomasp.net</a></li>
+        <li><a href="http://twitter.com/tomaspetricek">@tomaspetricek</a></li>
+        <li>keep in touch at <a href="http://uk.linkedin.com/in/tomaspetricek">LinkedIn</a></li>
+        <li>track my talks at <a href="http://lanyrd.com/profile/tomasp/">Lanyrd</a></li>
+        <li>open-source at <a href="https://github.com/tpetricek">GitHub</a></li>
+      </ul>
+    </div>
+    <div class="large-2 columns">
+      <h4>License</h4>
+      <p>The articles are licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution Share Alike</a>. 
+        All source code samples are licensed under Apache 2.0.
+      </p>
+      <img src="http://test.tomasp.net/img/cc-sa.png" alt="CC License logo" />
+    </div>
+    <div class="large-8 columns">
+    <h4>Blog archives <a href="http://test.tomasp.net/blog/rss.xml"><img src="http://test.tomasp.net/img/rss.gif" /></a></h4>
+      <a href="http://test.tomasp.net/blog/archive/may-2013/index.html">
+        May 2013 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/april-2013/index.html">
+        April 2013 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/march-2013/index.html">
+        March 2013 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/february-2013/index.html">
+        February 2013 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/january-2013/index.html">
+        January 2013 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/december-2012/index.html">
+        December 2012 (2)</a>,      <a href="http://test.tomasp.net/blog/archive/october-2012/index.html">
+        October 2012 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/august-2012/index.html">
+        August 2012 (3)</a>,      <a href="http://test.tomasp.net/blog/archive/june-2012/index.html">
+        June 2012 (2)</a>,      <a href="http://test.tomasp.net/blog/archive/april-2012/index.html">
+        April 2012 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/march-2012/index.html">
+        March 2012 (4)</a>,      <a href="http://test.tomasp.net/blog/archive/february-2012/index.html">
+        February 2012 (5)</a>,      <a href="http://test.tomasp.net/blog/archive/january-2012/index.html">
+        January 2012 (2)</a>,      <a href="http://test.tomasp.net/blog/archive/november-2011/index.html">
+        November 2011 (5)</a>,      <a href="http://test.tomasp.net/blog/archive/august-2011/index.html">
+        August 2011 (3)</a>,      <a href="http://test.tomasp.net/blog/archive/july-2011/index.html">
+        July 2011 (2)</a>,      <a href="http://test.tomasp.net/blog/archive/june-2011/index.html">
+        June 2011 (2)</a>,      <a href="http://test.tomasp.net/blog/archive/may-2011/index.html">
+        May 2011 (2)</a>,      <a href="http://test.tomasp.net/blog/archive/march-2011/index.html">
+        March 2011 (4)</a>,      <a href="http://test.tomasp.net/blog/archive/december-2010/index.html">
+        December 2010 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/november-2010/index.html">
+        November 2010 (6)</a>,      <a href="http://test.tomasp.net/blog/archive/october-2010/index.html">
+        October 2010 (6)</a>,      <a href="http://test.tomasp.net/blog/archive/september-2010/index.html">
+        September 2010 (4)</a>,      <a href="http://test.tomasp.net/blog/archive/july-2010/index.html">
+        July 2010 (3)</a>,      <a href="http://test.tomasp.net/blog/archive/june-2010/index.html">
+        June 2010 (2)</a>,      <a href="http://test.tomasp.net/blog/archive/may-2010/index.html">
+        May 2010 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/february-2010/index.html">
+        February 2010 (2)</a>,      <a href="http://test.tomasp.net/blog/archive/january-2010/index.html">
+        January 2010 (3)</a>,      <a href="http://test.tomasp.net/blog/archive/december-2009/index.html">
+        December 2009 (3)</a>,      <a href="http://test.tomasp.net/blog/archive/july-2009/index.html">
+        July 2009 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/june-2009/index.html">
+        June 2009 (3)</a>,      <a href="http://test.tomasp.net/blog/archive/may-2009/index.html">
+        May 2009 (2)</a>,      <a href="http://test.tomasp.net/blog/archive/april-2009/index.html">
+        April 2009 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/march-2009/index.html">
+        March 2009 (2)</a>,      <a href="http://test.tomasp.net/blog/archive/february-2009/index.html">
+        February 2009 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/december-2008/index.html">
+        December 2008 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/november-2008/index.html">
+        November 2008 (5)</a>,      <a href="http://test.tomasp.net/blog/archive/october-2008/index.html">
+        October 2008 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/september-2008/index.html">
+        September 2008 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/june-2008/index.html">
+        June 2008 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/march-2008/index.html">
+        March 2008 (3)</a>,      <a href="http://test.tomasp.net/blog/archive/february-2008/index.html">
+        February 2008 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/december-2007/index.html">
+        December 2007 (2)</a>,      <a href="http://test.tomasp.net/blog/archive/november-2007/index.html">
+        November 2007 (6)</a>,      <a href="http://test.tomasp.net/blog/archive/october-2007/index.html">
+        October 2007 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/september-2007/index.html">
+        September 2007 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/august-2007/index.html">
+        August 2007 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/july-2007/index.html">
+        July 2007 (2)</a>,      <a href="http://test.tomasp.net/blog/archive/april-2007/index.html">
+        April 2007 (2)</a>,      <a href="http://test.tomasp.net/blog/archive/march-2007/index.html">
+        March 2007 (3)</a>,      <a href="http://test.tomasp.net/blog/archive/february-2007/index.html">
+        February 2007 (3)</a>,      <a href="http://test.tomasp.net/blog/archive/january-2007/index.html">
+        January 2007 (2)</a>,      <a href="http://test.tomasp.net/blog/archive/november-2006/index.html">
+        November 2006 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/october-2006/index.html">
+        October 2006 (3)</a>,      <a href="http://test.tomasp.net/blog/archive/august-2006/index.html">
+        August 2006 (2)</a>,      <a href="http://test.tomasp.net/blog/archive/july-2006/index.html">
+        July 2006 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/june-2006/index.html">
+        June 2006 (3)</a>,      <a href="http://test.tomasp.net/blog/archive/may-2006/index.html">
+        May 2006 (2)</a>,      <a href="http://test.tomasp.net/blog/archive/april-2006/index.html">
+        April 2006 (2)</a>,      <a href="http://test.tomasp.net/blog/archive/december-2005/index.html">
+        December 2005 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/july-2005/index.html">
+        July 2005 (4)</a>,      <a href="http://test.tomasp.net/blog/archive/june-2005/index.html">
+        June 2005 (5)</a>,      <a href="http://test.tomasp.net/blog/archive/may-2005/index.html">
+        May 2005 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/april-2005/index.html">
+        April 2005 (3)</a>,      <a href="http://test.tomasp.net/blog/archive/march-2005/index.html">
+        March 2005 (3)</a>,      <a href="http://test.tomasp.net/blog/archive/january-2005/index.html">
+        January 2005 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/december-2004/index.html">
+        December 2004 (3)</a>,      <a href="http://test.tomasp.net/blog/archive/november-2004/index.html">
+        November 2004 (2)</a>,    </div>
+  </footer>
+  </div>
+  
+  <script>
+  document.write('<script src=' +
+  ('__proto__' in {} ? 'http://test.tomasp.net/js/vendor/zepto' : 'http://test.tomasp.net/js/vendor/jquery') +
+  '.js><\/script>')
+  </script>
+  
+  <script src="http://test.tomasp.net/js/foundation.min.js"></script>
+  <script>
+    $(document).foundation();
+  </script>
+  <script type="text/javascript">
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-1561220-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function () {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+
+  </script>
+</body>
+</html>

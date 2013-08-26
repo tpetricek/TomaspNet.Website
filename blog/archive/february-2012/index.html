@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<!--[if IE 8]> 				 <html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+
+<head>
+  <meta charset="utf-8">
+  <title>Tomas Petricek's blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Writing about software development in F# and .NET, sharing materials from my F# trainings and talks, writing about programming language research and theory.">
+  <meta name="author" content="Tomas Petricek">
+
+  <!-- Reference Foundation -->
+  <link rel="stylesheet" href="http://test.tomasp.net/css/foundation.css">
+  <script src="cjs/vendor/custom.modernizr.js"></script>
+
+  <link rel="alternate" type="application/rss+xml" href="http://test.tomasp.net/rss.xml" title="RSS feed for Tomas Petricek's blog">
+  <link rel="author" href="https://plus.google.com/109855146654605967051" />
+    
+  <!-- Reference custom CSS and tooltips -->
+  <link type="text/css" rel="stylesheet" href="http://test.tomasp.net/custom/style.css" />
+  <script type="text/javascript" src="http://test.tomasp.net/custom/tooltips.js"></script>
+  <link type="text/css" rel="stylesheet" href="http://test.tomasp.net/custom/tooltips.css" />
+</head>
+<body>
+
+   <header id="top-header">
+    <div class="row">
+      <div class="twelve columns">
+        <h1><a href="http://test.tomasp.net/">Tomas Petricek's blog</a></h1>
+        <p>Writing about practical F# coding and programming language research</p>
+      </div>
+    </div>
+  </header>
+
+  <header class="top-bar-header">
+    <div class="contain-to-grid sticky">
+    <nav class="top-bar">
+
+    <ul class="title-area">
+      <li class="name"><h1><a href="#"></a></h1></li>
+      <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+    </ul>
+    <section class="top-bar-section">
+      <ul class="right">
+        <li><a href="http://test.tomasp.net/blog/index.html">Blog</a></li>
+        <li><a href="http://functional-programming.net">Trainings</a></li>
+        <li><a href="http://functional-programming.net">Books</a></li>
+        <li><a href="http://lanyrd.com/profile/tomasp">Talks</a></li>
+        <li><a href="http://www.cl.cam.ac.uk/~tp322">Research & Teaching</a></li>
+      </ul>
+    </section>
+
+    </nav></div>
+  </header>
+  
+  
+<div class="row">
+	<div class="large-8 columns main-content">
+    <content>
+      
+
+  <div>
+  <h1><a href="http://test.tomasp.net/blog/joinads-join-calculus.aspx/index.html">TryJoinads (IV.) - Concurrency using join calculus</a></h1>
+  <p>Join calculus provides a declarative way of expressing asynchronous synchronization
+patterns. It has been use as a basis for programming languages (JoCaml and COmega), but also
+as a basis for libraries (embedded in C# and Scala). Using joinads, it is possible to 
+embed join calculus in F# with a nice syntax using the <code>match!</code> construct. Formally,
+join calculus does not form a <em>monad</em>, but it can be viewed as a version of <em>joinad</em>
+as described in the <a href="../pubs.html">first paper on joinads</a>.</p>
+
+<p>The programming model is based on <em>channels</em> and <em>join patterns</em>. A channel can be viewed
+as a thread-safe mailbox into which we can put values without blocking the caller. In some
+sense, this is quite similar to <a href="agents.html">F# agents</a>. A join pattern is then a rule
+saying that a certain combination of values in channels should trigger a specific reaction
+(and remove values from the channels). The ability to match on multiple channels distinguishes
+join calculus from F# agents.</p>
+
+<p><em><strong>Note:</strong> This blog post is a re-publication of a tutorial from the <a href="http://tryjoinads.org">TryJoinads.org</a>
+web page. If you read the article there, you can run the examples interactively
+and experiment with them: <a href="http://tryjoinads.org/index.html?use/joins.html">view the article on TryJoinads</a>.</em></p>
+
+      
+  <p class="meta">
+    <span><strong>Published</strong>: Wednesday, 22 February 2012, 5:38 PM</span>
+      <br />      
+      <span class="tags"><strong>Tags</strong>: f# language, research, joinads, asynchronous, parallel </span> 
+    <br />
+    <a href="http://test.tomasp.net/blog/joinads-join-calculus.aspx/index.html">Read the complete article</a>
+  </p>
+  </div>
+  <div>
+  <h1><a href="http://test.tomasp.net/blog/joinads-agents.aspx/index.html">TryJoinads (III.): Agent-based programming</a></h1>
+  <p>Another area where the <code>match!</code> syntax can be used is when programming with F# <em>agents</em>,
+implemented by the <code>MailboxProcessor</code> type. Formally, agents do not form the monad
+structure in a useful way - when programming with agents, we do not compose a new agents,
+but instead we write code that (imperatively) receives messages from the agent's mailbox
+and handles them.</p>
+
+<p>This article demonstrates an <code>agent { ... }</code> computation builder that can be used for 
+implementing the body of an agent. Normally, the body of an agent is an <em>asynchronous
+workflow</em>. The code in the body uses <code>let!</code> to perform asynchronous operations, most 
+importantly to call <code>inbox.Receive</code> to get the next message from the inbox. When the
+agent intends to handle only certain kinds of messages, it can use <code>inbox.Scan</code>. When
+using the <code>agent</code> builder, pattern matching on messages can be written using <code>match!</code> and
+it is possible to write code that ignores certain types of messages simply by writing an
+incomplete pattern matching.</p>
+
+<p><em><strong>Note:</strong> This blog post is a re-publication of a tutorial from the <a href="http://tryjoinads.org">TryJoinads.org</a>
+web page. If you read the article there, you can run the examples interactively
+and experiment with them: <a href="http://tryjoinads.org/index.html?use/agents.html">view the article on TryJoinads</a>.</em></p>
+
+      
+  <p class="meta">
+    <span><strong>Published</strong>: Monday, 20 February 2012, 12:36 PM</span>
+      <br />      
+      <span class="tags"><strong>Tags</strong>: joinads, research, f# language, parallel, asynchronous </span> 
+    <br />
+    <a href="http://test.tomasp.net/blog/joinads-agents.aspx/index.html">Read the complete article</a>
+  </p>
+  </div>
+  <div>
+  <h1><a href="http://test.tomasp.net/blog/joinad-tasks.aspx/index.html">TryJoinads (II.): Task-based parallelism</a></h1>
+  <p>The implementation of joinad operations for the <code>Task&lt;'T&gt;</code> type is quite similar to the 
+implementation of <code>Async&lt;'T&gt;</code>, because the two types have similar properties. They both
+produce at most one value (or an exception) and they both take some time to complete.</p>
+
+<p>Just like for asynchronous workflows, pattern matching on multiple computations using 
+<code>match!</code> gives us a parallel composition (with the two tasks running in parallel) and
+choice between clauses is non-deterministic, depending on which clause completes first.</p>
+
+<p>Unlike asynchronous workflows, the <code>Task&lt;'T&gt;</code> type does not require any support for
+aliasing. A value of type <code>Task&lt;'T&gt;</code> represents a <em>running</em> computation that can be
+accessed from multiple parts of program. In this sense, the type <code>Async&lt;'T&gt;</code> is more
+similar to a function <code>unit -&gt; Task&lt;'T&gt;</code> than to the type <code>Task&lt;'T&gt;</code> itself.</p>
+
+<p>The key difference between tasks and asynchronous workflows is that the latter provides
+better support for writing non-blocking computations that involve <em>asynchronous</em> 
+long-running operations such as I/O or waiting for a certain event. Tasks are more
+suitable for high-performance CPU-intensive computations.</p>
+
+<p><em><strong>Note:</strong> This blog post is a re-publication of a tutorial from the <a href="http://tryjoinads.org">TryJoinads.org</a>
+web page. If you read the article there, you can run the examples interactively
+and experiment with them: <a href="http://tryjoinads.org/index.html?use/tasks.html">view the article on TryJoinads</a>.</em></p>
+
+      
+  <p class="meta">
+    <span><strong>Published</strong>: Friday, 17 February 2012, 1:10 PM</span>
+      <br />      
+      <span class="tags"><strong>Tags</strong>: research, f# language, parallel, joinads </span> 
+    <br />
+    <a href="http://test.tomasp.net/blog/joinad-tasks.aspx/index.html">Read the complete article</a>
+  </p>
+  </div>
+  <div>
+  <h1><a href="http://test.tomasp.net/blog/joinads-async-prog.aspx/index.html">TryJoinads (I.) - Asynchronous programming</a></h1>
+  <p>Asynchronous workflows provide a way of writing code that does not block a thread
+when waiting for a completion of long-running operation such as web service call,
+another I/O operation or waiting for the completion of some background operation.
+In this article, we look at the new expressive power that <em>joinads</em> add to 
+asynchronous workflows written using the <code>async { ... }</code> block in F#.</p>
+
+<p><em><strong>Note:</strong> This blog post is a re-publication of a tutorial from the <a href="http://tryjoinads.org">TryJoinads.org</a>
+web page. If you read the article there, you can run the examples interactively
+and experiment with them: <a href="http://tryjoinads.org/index.html?use/async.html">view the article on TryJoinads</a>.</em></p>
+
+      
+  <p class="meta">
+    <span><strong>Published</strong>: Monday, 13 February 2012, 5:35 PM</span>
+      <br />      
+      <span class="tags"><strong>Tags</strong>: f# language, research, joinads </span> 
+    <br />
+    <a href="http://test.tomasp.net/blog/joinads-async-prog.aspx/index.html">Read the complete article</a>
+  </p>
+  </div>
+  <div>
+  <h1><a href="http://test.tomasp.net/blog/introducing-tryjoinads.aspx/index.html">Introducing TryJoinads.org</a></h1>
+  <div class="rdecor" style="text-align:center">
+  <a href="http://tomasp.net/articles/introducing-tryjoinads/screen.png" target="_blank">
+    <img src="http://tomasp.net/articles/introducing-tryjoinads/screen-sm.png" alt="TryJoinads.Org web site" style="border:none" />
+  </a><br />
+  <small>(<a href="http://tomasp.net/articles/introducing-tryjoinads/screen.png" target="_blank">Click for a larger version</a>)</small>
+</div>
+
+<p>If you have been following my blog, you've probably already heard of <em>joinads</em>. It is
+a research extension of F# computation expressions (or monads in Haskell). The extension
+makes computation expressions more useful in domains like parallel, concurrent and reactive
+programming. However, it can be used for any type of computation including, for example, parsers.
+If you're interested in detailed description, you can find it in two academic papers that
+I blogged about previously: <a href="http://tomasp.net/blog/match-bang-paper.aspx">PADL 2011</a> and <a href="http://tomasp.net/blog/docase-haskell.aspx">Haskell 2011</a>.</p>
+
+<p>The extension adds a keyword <code>match!</code> - as the syntax suggests, it is akin to pattern
+matching using <code>match</code>, but instead of pattern matching on values, you can pattern match
+on computations like <code>Async&lt;'T&gt;</code> (or on other monadic values). Just like other features of
+computation expressions, the <code>match!</code> syntax is translated to applications of several
+methods defined by the computation builder.</p>
+
+<p>I won't say more about joinads in this post, because you can now easily try joinads yourself...</p>
+      
+  <p class="meta">
+    <span><strong>Published</strong>: Monday, 13 February 2012, 4:21 PM</span>
+      <br />      
+      <span class="tags"><strong>Tags</strong>: parallel, asynchronous, f# language, research, materials & links, joinads </span> 
+    <br />
+    <a href="http://test.tomasp.net/blog/introducing-tryjoinads.aspx/index.html">Read the complete article</a>
+  </p>
+  </div>
+
+    </content>
+
+  </div>
+  <div class="large-4 columns" id="right-bar">
+    <script type="text/javascript">
+      var monthNames =
+        [ "January", "February", "March", "April", "May", "June",
+          "July", "August", "September", "October", "November", "December"];
+      var d = new Date();
+    </script>
+    <div class="right-item" id="right-calendar">
+      <h4>Calendar -  <script type="text/javascript">document.write(monthNames[d.getMonth()] + " " + d.getFullYear());</script></h4>
+      <img src="http://test.tomasp.net/calendar/current.jpg" />
+      <p>The calendar shows a new picture each month since 
+        <a href="http://test.tomasp.net/calendar/2005">2005</a>, <a href="http://test.tomasp.net/calendar/2006">2006</a>, 
+        <a href="http://test.tomasp.net/calendar/2007">2007</a>, <a href="http://test.tomasp.net/calendar/2008">2008</a>, 
+        <a href="http://test.tomasp.net/calendar/2009">2009</a>, <a href="http://test.tomasp.net/calendar/2010">2010</a>, 
+        <a href="http://test.tomasp.net/calendar/2011">2011</a>, <a href="http://test.tomasp.net/calendar/2012">2012</a>. <br />
+        See the first photos of <a href="http://test.tomasp.net/calendar/2013">2013</a>.
+      </p>
+    </div>
+
+    <h3>Welcome!</h3>
+    <img src="http://test.tomasp.net/img/tomas.jpg" alt="Tomas Petricek" style="float:right;margin:10px 0px 10px 10px;" />
+    <p>I'm an F# enthusiast, book author and a PhD student at the University of Cambridge.
+      When offline, I enjoy traveling and taking pictures. You can find me at
+      at <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a> or email 
+      <a href="mailto:tomas@tomasp.net">tomas@tomasp.net</a>.
+    </p>
+
+    <h4>Trainings and consulting</h4>
+    <img src="http://test.tomasp.net/img/skillsmatter.png" alt="Tomas Petricek" style="float:right;margin:15px 0px 10px 10px;" />
+    <p>I run F# and functional programming courses in <strong>London</strong>
+      and <strong>New York</strong> with SkillsMatter.
+    </p>
+    <ul>
+      <li>Check out our <a href="http://skillsmatter.com/course/scala/tomas-petricek-phil-trelford-fast-track-to-fsharp/ps-6679">Fast Track to F#</a> course</li>
+      <li><a href="mailto:tomas@tomasp.net">Email me</a> for info about private trainings</li>
+    </ul>
+    
+    <h4>F# Books and articles</h4>
+    <div style="float:right;">
+      <a href="http://www.amazon.com/gp/product/1933988924/ref=as_li_tf_il?ie=UTF8&amp;tag=httptomasnet-20&amp;linkCode=as2&amp;camp=217145&amp;creative=399369&amp;creativeASIN=1933988924">
+        <img src="http://test.tomasp.net/img/rwfp.jpg" alt="Real World Functional Programming" style="float:right;margin:10px 0px 10px 10px;border-style:none;" />
+      </a>
+    </div>
+    <p><a href="http://www.manning.com/petricek">Real World Functional Programming</a> explains functional
+      concepts using F# and C#. You can get it from <a href="http://www.amazon.com/dp/1933988924?tag=httptomasnet-20&amp;camp=213381&amp;creative=390973&amp;linkCode=as4&amp;creativeASIN=1933988924&amp;adid=0F1DP260JGG4KY0CDGP6">Amazon.com</a>, <a href="https://www.amazon.co.uk/dp/1933988924?tag=tomasnet-21&amp;camp=1406&amp;creative=6394&amp;linkCode=as1&amp;creativeASIN=1933988924&amp;adid=1CTY87YCCQEJW965GNDF">Amazon.co.uk</a> or your favorite book store.
+      Some chapters and new materials are also available on <a href="http://msdn.microsoft.com/en-us/library/hh314518.aspx">MSDN</a>.</p>
+    
+    <p>Currently, I'm putting together <a href="http://www.manning.com/petricek2/">F# Deep Dives</a> - a collection
+      of practical F# essays written by community leaders and commercial users of F#.</p>
+    <p>I also wrote a series of tutorials on <a href="http://www.tryfsharp.org/Learn/financial-computing">financial computing</a>
+      for Try F# - an interactive environment that let's you try F# in the browser.</p>
+
+    <h4>Research and teaching</h4>
+    <img src="http://test.tomasp.net/img/cam.png" alt="University of Cambride" style="float:right;margin:25px 0px 10px 10px;" />
+    <p>I'm finishing PhD in computer science at the <a href="http://www.cl.cam.ac.uk/">University of Cambridge</a>.
+      I'm working on making better types for programs that run in rich context (like F# type providers, distributed 
+      prog&shy;ramming or data-flow). See <a href="http://www.cl.cam.ac.uk/~tp322/">my academic page</a> for
+      more.</p>
+
+  </div>
+</div>
+
+
+  <div class="row" id="footer">
+  <footer>   
+    <div class="large-2 columns">
+      <h4>Contact</h4>
+      <p>Here are some links if you want to get in touch:</p>
+      <ul>
+        <li><a href="mailto:tomas@tomasp.net">tomas@tomasp.net</a></li>
+        <li><a href="http://twitter.com/tomaspetricek">@tomaspetricek</a></li>
+        <li>keep in touch at <a href="http://uk.linkedin.com/in/tomaspetricek">LinkedIn</a></li>
+        <li>track my talks at <a href="http://lanyrd.com/profile/tomasp/">Lanyrd</a></li>
+        <li>open-source at <a href="https://github.com/tpetricek">GitHub</a></li>
+      </ul>
+    </div>
+    <div class="large-2 columns">
+      <h4>License</h4>
+      <p>The articles are licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution Share Alike</a>. 
+        All source code samples are licensed under Apache 2.0.
+      </p>
+      <img src="http://test.tomasp.net/img/cc-sa.png" alt="CC License logo" />
+    </div>
+    <div class="large-8 columns">
+    <h4>Blog archives <a href="http://test.tomasp.net/blog/rss.xml"><img src="http://test.tomasp.net/img/rss.gif" /></a></h4>
+      <a href="http://test.tomasp.net/blog/archive/may-2013/index.html">
+        May 2013 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/april-2013/index.html">
+        April 2013 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/march-2013/index.html">
+        March 2013 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/february-2013/index.html">
+        February 2013 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/january-2013/index.html">
+        January 2013 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/december-2012/index.html">
+        December 2012 (2)</a>,      <a href="http://test.tomasp.net/blog/archive/october-2012/index.html">
+        October 2012 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/august-2012/index.html">
+        August 2012 (3)</a>,      <a href="http://test.tomasp.net/blog/archive/june-2012/index.html">
+        June 2012 (2)</a>,      <a href="http://test.tomasp.net/blog/archive/april-2012/index.html">
+        April 2012 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/march-2012/index.html">
+        March 2012 (4)</a>,      <a href="http://test.tomasp.net/blog/archive/february-2012/index.html">
+        February 2012 (5)</a>,      <a href="http://test.tomasp.net/blog/archive/january-2012/index.html">
+        January 2012 (2)</a>,      <a href="http://test.tomasp.net/blog/archive/november-2011/index.html">
+        November 2011 (5)</a>,      <a href="http://test.tomasp.net/blog/archive/august-2011/index.html">
+        August 2011 (3)</a>,      <a href="http://test.tomasp.net/blog/archive/july-2011/index.html">
+        July 2011 (2)</a>,      <a href="http://test.tomasp.net/blog/archive/june-2011/index.html">
+        June 2011 (2)</a>,      <a href="http://test.tomasp.net/blog/archive/may-2011/index.html">
+        May 2011 (2)</a>,      <a href="http://test.tomasp.net/blog/archive/march-2011/index.html">
+        March 2011 (4)</a>,      <a href="http://test.tomasp.net/blog/archive/december-2010/index.html">
+        December 2010 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/november-2010/index.html">
+        November 2010 (6)</a>,      <a href="http://test.tomasp.net/blog/archive/october-2010/index.html">
+        October 2010 (6)</a>,      <a href="http://test.tomasp.net/blog/archive/september-2010/index.html">
+        September 2010 (4)</a>,      <a href="http://test.tomasp.net/blog/archive/july-2010/index.html">
+        July 2010 (3)</a>,      <a href="http://test.tomasp.net/blog/archive/june-2010/index.html">
+        June 2010 (2)</a>,      <a href="http://test.tomasp.net/blog/archive/may-2010/index.html">
+        May 2010 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/february-2010/index.html">
+        February 2010 (2)</a>,      <a href="http://test.tomasp.net/blog/archive/january-2010/index.html">
+        January 2010 (3)</a>,      <a href="http://test.tomasp.net/blog/archive/december-2009/index.html">
+        December 2009 (3)</a>,      <a href="http://test.tomasp.net/blog/archive/july-2009/index.html">
+        July 2009 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/june-2009/index.html">
+        June 2009 (3)</a>,      <a href="http://test.tomasp.net/blog/archive/may-2009/index.html">
+        May 2009 (2)</a>,      <a href="http://test.tomasp.net/blog/archive/april-2009/index.html">
+        April 2009 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/march-2009/index.html">
+        March 2009 (2)</a>,      <a href="http://test.tomasp.net/blog/archive/february-2009/index.html">
+        February 2009 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/december-2008/index.html">
+        December 2008 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/november-2008/index.html">
+        November 2008 (5)</a>,      <a href="http://test.tomasp.net/blog/archive/october-2008/index.html">
+        October 2008 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/september-2008/index.html">
+        September 2008 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/june-2008/index.html">
+        June 2008 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/march-2008/index.html">
+        March 2008 (3)</a>,      <a href="http://test.tomasp.net/blog/archive/february-2008/index.html">
+        February 2008 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/december-2007/index.html">
+        December 2007 (2)</a>,      <a href="http://test.tomasp.net/blog/archive/november-2007/index.html">
+        November 2007 (6)</a>,      <a href="http://test.tomasp.net/blog/archive/october-2007/index.html">
+        October 2007 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/september-2007/index.html">
+        September 2007 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/august-2007/index.html">
+        August 2007 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/july-2007/index.html">
+        July 2007 (2)</a>,      <a href="http://test.tomasp.net/blog/archive/april-2007/index.html">
+        April 2007 (2)</a>,      <a href="http://test.tomasp.net/blog/archive/march-2007/index.html">
+        March 2007 (3)</a>,      <a href="http://test.tomasp.net/blog/archive/february-2007/index.html">
+        February 2007 (3)</a>,      <a href="http://test.tomasp.net/blog/archive/january-2007/index.html">
+        January 2007 (2)</a>,      <a href="http://test.tomasp.net/blog/archive/november-2006/index.html">
+        November 2006 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/october-2006/index.html">
+        October 2006 (3)</a>,      <a href="http://test.tomasp.net/blog/archive/august-2006/index.html">
+        August 2006 (2)</a>,      <a href="http://test.tomasp.net/blog/archive/july-2006/index.html">
+        July 2006 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/june-2006/index.html">
+        June 2006 (3)</a>,      <a href="http://test.tomasp.net/blog/archive/may-2006/index.html">
+        May 2006 (2)</a>,      <a href="http://test.tomasp.net/blog/archive/april-2006/index.html">
+        April 2006 (2)</a>,      <a href="http://test.tomasp.net/blog/archive/december-2005/index.html">
+        December 2005 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/july-2005/index.html">
+        July 2005 (4)</a>,      <a href="http://test.tomasp.net/blog/archive/june-2005/index.html">
+        June 2005 (5)</a>,      <a href="http://test.tomasp.net/blog/archive/may-2005/index.html">
+        May 2005 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/april-2005/index.html">
+        April 2005 (3)</a>,      <a href="http://test.tomasp.net/blog/archive/march-2005/index.html">
+        March 2005 (3)</a>,      <a href="http://test.tomasp.net/blog/archive/january-2005/index.html">
+        January 2005 (1)</a>,      <a href="http://test.tomasp.net/blog/archive/december-2004/index.html">
+        December 2004 (3)</a>,      <a href="http://test.tomasp.net/blog/archive/november-2004/index.html">
+        November 2004 (2)</a>,    </div>
+  </footer>
+  </div>
+  
+  <script>
+  document.write('<script src=' +
+  ('__proto__' in {} ? 'http://test.tomasp.net/js/vendor/zepto' : 'http://test.tomasp.net/js/vendor/jquery') +
+  '.js><\/script>')
+  </script>
+  
+  <script src="http://test.tomasp.net/js/foundation.min.js"></script>
+  <script>
+    $(document).foundation();
+  </script>
+  <script type="text/javascript">
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-1561220-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function () {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+
+  </script>
+</body>
+</html>

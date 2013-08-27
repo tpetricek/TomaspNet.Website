@@ -282,7 +282,6 @@ h2.first {
   border-right:1px solid #d0d0d0;
 }
 .main-content p.post-meta {
-  max-width:400px;
   line-height:150%;
   text-align:right;
   font-style:italic;

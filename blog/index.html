@@ -60,6 +60,43 @@
       
 
   <div>
+  <h1><a href="http://tomasp.net/blog/2013\deep-dives-update/index.html">Update on the F# Deep Dives book</a></h1>
+  <img src="http://tomasp.net/articles/manning-deep-dives/cover.jpg" class="rdecor" title="F# Deep Dives" style="margin-left:20px;margin-bottom:15px"/>
+
+<p>It has been some time since I <a href="http://tomasp.net/blog/manning-deep-dives.aspx/">last wrote about F# Deep Dives</a>
+- a new project that I'm working on together with <a href="http://www.manning.com">Manning</a>,
+<a href="http://trelford.com/blog">Phil Trelford</a> and a number of F# experts, so I'd like to write a quick
+update. In summary, working on a book with more than 10 co-authors is more difficult than one
+would think (and 10 people cannot write a book in 1/10 of the time :-)), but now that the holidays
+are almost over, you can expect more frequent updates again!</p>
+
+<p>First of all, I shoud mention that you can buy <a href="http://www.manning.com/petricek2/">the Early Access preview</a>
+of the book from Manning and there is already one <a href="http://blogs.tedneward.com/2013/01/05/Review+In+Advance+F+Deep+Dives.aspx">in advance review of the book</a>
+from Ted Neward (thanks!) who says:</p>
+
+<blockquote>
+  <p>As of this writing, the early-access [...] version had only Chapters 3 and Chapter 11, 
+but the other topics [...] are juicy and meaty. [T]he prose from the MEAP edition is 
+pretty easy to read already, despite the fact that it's early-access material. In particular, 
+the Markdown parser they implement in chapter 3 is a great example of a non-trivial 
+language parser, which is not an easy task (...).</p>
+</blockquote>
+
+<p>As I mentioned, the book is unique in that it is not written just by me and Phil - each chapter 
+is written by a real-world F# expert and many of them use F# in production. The disadvantage is
+that they are all busy people, but we have close to half of the planned chapters available already...</p>
+
+
+      
+  <p class="meta">
+    <span><strong>Published</strong>: Monday, 26 August 2013, 11:15 PM</span>
+      <br />      
+      <span class="tags"><strong>Tags</strong>: manning, f#, writing, books, deep dives </span> 
+    <br />
+    <a href="http://tomasp.net/blog/2013\deep-dives-update/index.html">Read the complete article</a>
+  </p>
+  </div>
+  <div>
   <h1><a href="http://tomasp.net/blog/types-and-math.aspx/index.html">Power of mathematics: Reasoning about functional types</a></h1>
   <img src="http://tomasp.net/articles/types-and-maths/distributivity.png" class="rdecor" />
 
@@ -518,34 +555,6 @@ at two upcoming academic events!</p>
     <a href="http://tomasp.net/blog/fsharp-academia.aspx/index.html">Read the complete article</a>
   </p>
   </div>
-  <div>
-  <h1><a href="http://tomasp.net/blog/joinads-async-implement.aspx/index.html">TryJoinads (VII.) - Implementing joinads for async workflows</a></h1>
-  <p>The article <a href="http://tomasp.net/blog/joinads-async-prog.aspx">Asynchronous workflows and joinads</a> gives numerous
-examples of programming with asynchronous workflows using the <code>match!</code> construct.
-Briefly, when matching on multiple asynchronous workflows, they are executed in 
-parallel. When pattern matching consists of multiple clauses, the clause that matches
-on computations that complete first gets executed. These two behaviours are 
-implemented by the <code>Merge</code> and the <code>Choose</code> operation of joinads. Additionally, 
-asynchronous workflows require the <code>Alias</code> operation, which makes it possible to 
-share the result of a started asynchronous workflow in multiple clauses.</p>
-
-<p>In this article, we look at the definition of the additional <code>AsyncBuilder</code>
-operations that enable the <code>match!</code> syntax. We do not look at additional examples
-of using the syntax, because these can be <a href="http://tomasp.net/blog/joinads-async-prog.aspx">found in a previous article</a>.</p>
-
-<p><em><strong>Note:</strong> This blog post is a re-publication of a tutorial from the <a href="http://tryjoinads.org">TryJoinads.org</a>
-web page. If you read the article there, you can run the examples interactively
-and experiment with them: <a href="http://tryjoinads.org/index.html?implement/async.html">view the article on TryJoinads</a>.</em></p>
-
-      
-  <p class="meta">
-    <span><strong>Published</strong>: Friday, 23 March 2012, 5:21 PM</span>
-      <br />      
-      <span class="tags"><strong>Tags</strong>: asynchronous, f# language, research, joinads </span> 
-    <br />
-    <a href="http://tomasp.net/blog/joinads-async-implement.aspx/index.html">Read the complete article</a>
-  </p>
-  </div>
 
     </content>
 
@@ -561,7 +570,7 @@ and experiment with them: <a href="http://tryjoinads.org/index.html?implement/as
         var y = d.getFullYear();
         var ml = m.toLowerCase();
         document.writeln("<h4>Calendar - " + m + " " + y + "</h4>");
-        document.writeln("<a href=\"http://tomasp.net/calendar/" + y + "/" + ml + ".aspx\">" +
+        document.writeln("<a href=\"http://tomasp.net/calendar/" + y + "/" + ml + ".html\">" +
           "<img src=\"http://tomasp.net/calendar/" + y + "/" + ml + "-preview.jpg\" style=\"border-style:none;\" />" +
           "</a>");
       </script> 
@@ -640,7 +649,8 @@ and experiment with them: <a href="http://tryjoinads.org/index.html?implement/as
     </div>
     <div class="large-8 columns">
     <h4>Blog archives <a href="http://tomasp.net/rss.xml"><img src="http://tomasp.net/img/rss.gif" /></a></h4>
-      <a href="http://tomasp.net/blog/archive/may-2013/index.html">
+      <a href="http://tomasp.net/blog/archive/august-2013/index.html">
+        August 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/may-2013/index.html">
         May 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/april-2013/index.html">
         April 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/march-2013/index.html">
         March 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/february-2013/index.html">

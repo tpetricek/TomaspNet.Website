@@ -4,6 +4,38 @@
     <link>http://tomasp.net</link>
     <description>Writing about software development in F# and .NET, sharing materials from my F# trainings and talks, writing about programming language research and theory.</description>
     <item>
+      <title>Update on the F# Deep Dives book</title>
+      <guid>http://tomasp.net/blog/2013\deep-dives-update</guid>
+      <link>http://tomasp.net/blog/2013\deep-dives-update/index.html</link>
+      <pubDate>Tue, 27 Aug 2013 03:15:40 GMT</pubDate>
+      <description>&lt;img src="http://tomasp.net/articles/manning-deep-dives/cover.jpg" class="rdecor" title="F# Deep Dives" style="margin-left:20px;margin-bottom:15px"/&gt;
+
+&lt;p&gt;It has been some time since I &lt;a href="http://tomasp.net/blog/manning-deep-dives.aspx/"&gt;last wrote about F# Deep Dives&lt;/a&gt;
+- a new project that I'm working on together with &lt;a href="http://www.manning.com"&gt;Manning&lt;/a&gt;,
+&lt;a href="http://trelford.com/blog"&gt;Phil Trelford&lt;/a&gt; and a number of F# experts, so I'd like to write a quick
+update. In summary, working on a book with more than 10 co-authors is more difficult than one
+would think (and 10 people cannot write a book in 1/10 of the time :-)), but now that the holidays
+are almost over, you can expect more frequent updates again!&lt;/p&gt;
+
+&lt;p&gt;First of all, I shoud mention that you can buy &lt;a href="http://www.manning.com/petricek2/"&gt;the Early Access preview&lt;/a&gt;
+of the book from Manning and there is already one &lt;a href="http://blogs.tedneward.com/2013/01/05/Review+In+Advance+F+Deep+Dives.aspx"&gt;in advance review of the book&lt;/a&gt;
+from Ted Neward (thanks!) who says:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;As of this writing, the early-access [...] version had only Chapters 3 and Chapter 11, 
+but the other topics [...] are juicy and meaty. [T]he prose from the MEAP edition is 
+pretty easy to read already, despite the fact that it's early-access material. In particular, 
+the Markdown parser they implement in chapter 3 is a great example of a non-trivial 
+language parser, which is not an easy task (...).&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;As I mentioned, the book is unique in that it is not written just by me and Phil - each chapter 
+is written by a real-world F# expert and many of them use F# in production. The disadvantage is
+that they are all busy people, but we have close to half of the planned chapters available already...&lt;/p&gt;
+
+</description>
+    </item>
+    <item>
       <title>Power of mathematics: Reasoning about functional types</title>
       <guid>http://tomasp.net/blog/types-and-math.aspx</guid>
       <link>http://tomasp.net/blog/types-and-math.aspx/index.html</link>
@@ -510,31 +542,6 @@ join calculus from F# agents.&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;&lt;strong&gt;Note:&lt;/strong&gt; This blog post is a re-publication of a tutorial from the &lt;a href="http://tryjoinads.org"&gt;TryJoinads.org&lt;/a&gt;
 web page. If you read the article there, you can run the examples interactively
 and experiment with them: &lt;a href="http://tryjoinads.org/index.html?use/joins.html"&gt;view the article on TryJoinads&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
-</description>
-    </item>
-    <item>
-      <title>TryJoinads (III.): Agent-based programming</title>
-      <guid>http://tomasp.net/blog/joinads-agents.aspx</guid>
-      <link>http://tomasp.net/blog/joinads-agents.aspx/index.html</link>
-      <pubDate>Mon, 20 Feb 2012 17:36:10 GMT</pubDate>
-      <description>&lt;p&gt;Another area where the &lt;code&gt;match!&lt;/code&gt; syntax can be used is when programming with F# &lt;em&gt;agents&lt;/em&gt;,
-implemented by the &lt;code&gt;MailboxProcessor&lt;/code&gt; type. Formally, agents do not form the monad
-structure in a useful way - when programming with agents, we do not compose a new agents,
-but instead we write code that (imperatively) receives messages from the agent's mailbox
-and handles them.&lt;/p&gt;
-
-&lt;p&gt;This article demonstrates an &lt;code&gt;agent { ... }&lt;/code&gt; computation builder that can be used for 
-implementing the body of an agent. Normally, the body of an agent is an &lt;em&gt;asynchronous
-workflow&lt;/em&gt;. The code in the body uses &lt;code&gt;let!&lt;/code&gt; to perform asynchronous operations, most 
-importantly to call &lt;code&gt;inbox.Receive&lt;/code&gt; to get the next message from the inbox. When the
-agent intends to handle only certain kinds of messages, it can use &lt;code&gt;inbox.Scan&lt;/code&gt;. When
-using the &lt;code&gt;agent&lt;/code&gt; builder, pattern matching on messages can be written using &lt;code&gt;match!&lt;/code&gt; and
-it is possible to write code that ignores certain types of messages simply by writing an
-incomplete pattern matching.&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;&lt;strong&gt;Note:&lt;/strong&gt; This blog post is a re-publication of a tutorial from the &lt;a href="http://tryjoinads.org"&gt;TryJoinads.org&lt;/a&gt;
-web page. If you read the article there, you can run the examples interactively
-and experiment with them: &lt;a href="http://tryjoinads.org/index.html?use/agents.html"&gt;view the article on TryJoinads&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
 </description>
     </item>
   </channel>

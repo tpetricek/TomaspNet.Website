@@ -348,7 +348,7 @@ module Calendar =
           let month = 
             { CalendarMonthModel.Root = root; Title = name + " " + (string year);
               Posts = model.Posts; MonthlyPosts = model.MonthlyPosts;
-              Link = name.ToLower() + "-original.jpg"; Days = days }
+              Link = name.ToLower() + ".jpg"; Days = days }
           let razor = TildeLib.Razor(layouts, Model = month)
           EnsureDirectory (Path.GetDirectoryName(target))
           TransformFile "" false razor calendarMonth target
@@ -381,8 +381,8 @@ open FileHelpers
 open Calendar
 
 // Root URL for the generated HTML
-//let root = "http://test.tomasp.net" 
-let root = @"file:///C:\Tomas\Projects\WebSites\TomaspNet.New\output"
+let root = "http://tomasp.net" 
+//let root = @"file:///C:\Tomas\Projects\WebSites\TomaspNet.New\output"
 
 let title = "Tomas Petricek's blog"
 let description = 

@@ -276,6 +276,7 @@ h2.first {
 /* And for blog posts */
 .main-content .addthis_toolbox  {
   float:right;
+  margin-top:30px;
   padding:10px 0px 10px 0px;
 }
 .main-content .addthis_counter {

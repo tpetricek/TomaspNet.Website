@@ -283,6 +283,7 @@ h2.first {
   border-right:1px solid #d0d0d0;
 }
 .main-content p.post-meta {
+  font-size:95%;
   line-height:150%;
   text-align:right;
   font-style:italic;

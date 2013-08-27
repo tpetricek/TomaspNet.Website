@@ -274,14 +274,17 @@ h2.first {
 }
 
 /* And for blog posts */
-.main-content p.post-share {
-  text-align:right;
-  margin:30px 0px 10px 0px;
+.main-content .addthis_toolbox  {
+  float:right;
+  padding:10px 0px 10px 0px;
+}
+.main-content .addthis_counter {
+  border-right:1px solid #d0d0d0;
 }
 .main-content p.post-meta {
   max-width:400px;
   line-height:150%;
   text-align:right;
   font-style:italic;
-  margin:15px 10px 30px 0px;
+  margin:50px 10px 30px 0px;
 }

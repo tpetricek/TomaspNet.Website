@@ -448,7 +448,7 @@ let build () =
   
   // Generate RSS feed
   GenerateRss root title description model (output ++ "rss.xml")
-  //GenerateCalendar root layouts output dependencies calendar calendarMonth calendarIndex model
+  GenerateCalendar root layouts output dependencies calendar calendarMonth calendarIndex model
 
   let uk = System.Globalization.CultureInfo.GetCultureInfo("en-GB")
   for year, month, posts in model.MonthlyPosts do

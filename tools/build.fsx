@@ -1,5 +1,6 @@
 ﻿#I "lib"
 #load "lib/literate.fsx"
+#load "lib/HttpServer.fs"
 #r "System.Xml.Linq.dll"
 #r "lib/System.Web.Razor.dll"
 #r "lib/RazorEngine.dll"
@@ -7,6 +8,7 @@
 open System
 open System.IO
 open FSharp.Literate
+open FSharp.Http
 
 // --------------------------------------------------------------------------------------
 // Various file & directory helpers
@@ -77,11 +79,13 @@ module FileHelpers =
   /// Given a sequence of source - output files, return only those where the
   /// source has changed since the output was generated. If any of the dependencies
   /// is newer than the output, then a file is also returned.
-  let FilterChangedFiles dependencies files = seq {
+  let FilterChangedFiles dependencies special files = seq {
     let newestDependency = dependencies |> List.map Directory.GetLastWriteTime |> List.max
+    let special = set special
     for source, output in files do 
       let outputWrite = Directory.GetLastWriteTime(output)
-      if outputWrite < Directory.GetLastWriteTime(source) ||
+      if Set.contains source special || 
+         outputWrite < Directory.GetLastWriteTime(source) || 
          outputWrite < newestDependency then
         yield source, output }
 
@@ -126,10 +130,13 @@ module BlogPosts =
   /// Get all *.cshtml, *.html, *.md and *.fsx files in the blog directory
   let GetBlogFiles blog = seq {
     let exts = set [ ".md"; ".fsx"; ".cshtml"; ".html" ]
-    for file in Directory.GetFiles(blog) do
-      if exts |> Set.contains (Path.GetExtension(file).ToLower()) then
-        if Path.GetFileNameWithoutExtension(file) <> "index" then
-          yield file }
+    let dirs = Array.append [| blog |] (Directory.GetDirectories(blog))
+    for dir in dirs do
+      if Path.GetFileNameWithoutExtension(dir) <> "abstracts" then
+        for file in Directory.GetFiles(dir) do
+          if exts |> Set.contains (Path.GetExtension(file).ToLower()) then
+            if Path.GetFileNameWithoutExtension(file) <> "index" then
+              yield file }
   
   let scriptHeaderRegex = 
     Regex("^\(\*\@(?<header>[^\*]*)\*\)(?<content>.*)$", RegexOptions.Singleline)
@@ -138,11 +145,11 @@ module BlogPosts =
 
   /// An FSX file must start with a header (*@ ... *) which is removed 
   /// before Literate processing (and then added back as @{ ... }
-  let RemoveScriptHeader file = 
+  let RemoveScriptHeader ext file = 
     let content = File.ReadAllText(file)
-    let reg = scriptHeaderRegex.Match(content)
+    let reg = (match ext with | ".fsx" -> scriptHeaderRegex | _ -> razorHeaderRegex).Match(content)
     if not reg.Success then 
-      failwithf "The following F# script file is missing a header:\n%s" file  
+      failwithf "The following F# script or Markdown file is missing a header:\n%s" file  
     let header = reg.Groups.["header"].Value
     let body = reg.Groups.["content"].Value
     "@{" + header + "}\n", body
@@ -152,7 +159,7 @@ module BlogPosts =
     let regex =
       match Path.GetExtension(file).ToLower() with
       | ".fsx" -> scriptHeaderRegex
-      | ".html" | ".cshtml" -> razorHeaderRegex
+      | ".md" | ".html" | ".cshtml" -> razorHeaderRegex
       | _ -> failwith "File format not supported!"
     let reg = regex.Match(File.ReadAllText(file))
     if not reg.Success then 
@@ -226,14 +233,17 @@ module Blog =
 
   let TransformFile template hasHeader (razor:TildeLib.Razor) current target = 
     match Path.GetExtension(current).ToLower() with
-    | ".fsx" ->
+    | (".fsx" | ".md") as ext ->
         let header, content = 
           if not hasHeader then "", File.ReadAllText(current)
-          else RemoveScriptHeader(current)
-        use fsx = DisposableFile.Create(current.Replace(".fsx", "_.fsx"))
+          else RemoveScriptHeader ext current
+        use fsx = DisposableFile.Create(current.Replace(ext, "_" + ext))
         use html = DisposableFile.CreateTemp(".html")
         File.WriteAllText(fsx.FileName, content)
-        Literate.ProcessScriptFile(fsx.FileName, template, html.FileName)
+        if ext = ".fsx" then
+          Literate.ProcessScriptFile(fsx.FileName, template, html.FileName)
+        else
+          Literate.ProcessMarkdown(fsx.FileName, template, html.FileName)
         let processed = File.ReadAllText(html.FileName)
         File.WriteAllText(html.FileName, header + processed)
         EnsureDirectory(Path.GetDirectoryName(target))
@@ -411,6 +421,10 @@ let exclude =
 
 let references = []
 
+let special =
+  [ source ++ "index.cshtml"
+    source ++ "blog" ++ "index.cshtml" ]
+
 // Output directory (gh-pages branch)
 let output = __SOURCE_DIRECTORY__ ++ "../../output"
 
@@ -434,7 +448,7 @@ let build () =
   
   // Generate RSS feed
   GenerateRss root title description model (output ++ "rss.xml")
-  GenerateCalendar root layouts output dependencies calendar calendarMonth calendarIndex model
+  //GenerateCalendar root layouts output dependencies calendar calendarMonth calendarIndex model
 
   let uk = System.Globalization.CultureInfo.GetCultureInfo("en-GB")
   for year, month, posts in model.MonthlyPosts do
@@ -452,7 +466,7 @@ let build () =
     GetSourceFiles source output
     |> SkipExcludedFiles exclude
     |> TransformOutputFiles output
-    |> FilterChangedFiles dependencies 
+    |> FilterChangedFiles dependencies special
     
   let razor = TildeLib.Razor(layouts, Model = model)
   for current, target in filesToProcess do
@@ -462,6 +476,21 @@ let build () =
 
   CopyFiles content output 
   CopyFiles calendar (output ++ "calendar")
+
+let server : ref<option<HttpServer>> = ref None
+
+let stop () =
+  server.Value |> Option.iter (fun v -> v.Stop())
+
+let run() =
+  let url = "http://localhost:8080/" 
+  stop ()
+  server := Some(HttpServer.Start(url, output, Replacements = ["http://tomasp.net/", url]))
+  printfn "Starting web server at %s" url
+  System.Diagnostics.Process.Start(url) |> ignore
+
+run ()
+stop ()
 
 build()
 clean()

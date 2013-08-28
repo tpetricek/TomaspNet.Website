@@ -17,7 +17,7 @@
         var y = d.getFullYear();
         var ml = m.toLowerCase();
         document.writeln("<h4>Calendar - " + m + " " + y + "</h4>");
-        document.writeln("<a href=\"@Model.Root/calendar/" + y + "/" + ml + ".aspx\">" +
+        document.writeln("<a href=\"@Model.Root/calendar/" + y + "/" + ml + ".html\">" +
           "<img src=\"@Model.Root/calendar/" + y + "/" + ml + "-preview.jpg\" style=\"border-style:none;\" />" +
           "</a>");
       </script> 
@@ -37,6 +37,12 @@
       at <a href="http://twitter.com/tomaspetricek">@@tomaspetricek</a> or email 
       <a href="mailto:tomas@tomasp.net">tomas@tomasp.net</a>.
     </p>
+
+    <script type="text/javascript" src="@Model.Root/news/news.js"></script>
+    <h4>What's new? &#160; <small><script type="text/javascript">document.write(news.date)</script></small></h4>
+    <script>
+      document.write(news.info);
+    </script>
 
     <h4>Trainings and consulting</h4>
     <img src="@Model.Root/img/skillsmatter.png" alt="Tomas Petricek" style="float:right;margin:15px 0px 10px 10px;" />

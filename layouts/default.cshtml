@@ -57,31 +57,32 @@
 
   <div class="row" id="footer">
   <footer>   
-    <div class="large-2 columns">
-      <h4>Contact</h4>
-      <p>Here are some links if you want to get in touch:</p>
+    <div class="large-3 columns">
+      <h4>Contact &amp; about</h4>
+      <p>This site is hosted on GitHub and is generated using <a href="https://github.com/tpetricek/FSharp.Formatting">F# Formatting</a>.
+        For more info, see the <a href="https://github.com/tpetricek/TomaspNet.Website">website source on GitHub</a>.
+      </p>
+      <p>Please submit issues &amp; corrections on GitHub. Use pull requests for minor corrections only.</p>
       <ul>
-        <li><a href="mailto:tomas@tomasp.net">tomas@tomasp.net</a></li>
-        <li><a href="http://twitter.com/tomaspetricek">@@tomaspetricek</a></li>
-        <li>keep in touch at <a href="http://uk.linkedin.com/in/tomaspetricek">LinkedIn</a></li>
-        <li>track my talks at <a href="http://lanyrd.com/profile/tomasp/">Lanyrd</a></li>
-        <li>open-source at <a href="https://github.com/tpetricek">GitHub</a></li>
+        <li>Email me: <a href="mailto:tomas@tomasp.net">tomas@tomasp.net</a></li>
+        <li>Connect via Twitter: <a href="http://twitter.com/tomaspetricek">@@tomaspetricek</a></li>
+        <li>More: <a href="http://uk.linkedin.com/in/tomaspetricek">LinkedIn</a> | <a href="http://lanyrd.com/profile/tomasp/">Lanyrd</a> | <a href="https://github.com/tpetricek">GitHub</a></li>
       </ul>
     </div>
-    <div class="large-2 columns">
-      <h4>License</h4>
-      <p>The articles are licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution Share Alike</a>. 
-        All source code samples are licensed under Apache 2.0.
-      </p>
-      <img src="@Model.Root/img/cc-sa.png" alt="CC License logo" />
-    </div>
-    <div class="large-8 columns">
+    <div class="large-7 columns">
     <h4>Blog archives <a href="@Model.Root/rss.xml"><img src="@Model.Root/img/rss.gif" /></a></h4>
     @foreach (var info in @Model.MonthlyPosts)
     {
       <a href="@(Model.Root + "/blog/archive/" + info.Item2.ToLower() + "-" + info.Item1.ToString() + "/index.html")">
         @(info.Item2 + " " + info.Item1.ToString() + " (" + @Enumerable.Count(info.Item3).ToString() + ")")</a>@(",")
     }
+    </div>
+    <div class="large-2 columns">
+      <h4>License</h4>
+      <p>Unless explicitly mentioned, all articles on this site are licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution Share Alike</a>. 
+        All source code samples are licensed under Apache 2.0.
+      </p>
+      <img src="http://tomasp.net/img/cc-sa.png" alt="CC License logo" />
     </div>
   </footer>
   </div>

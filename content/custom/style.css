@@ -199,7 +199,7 @@
 
 footer {
   min-height:220px;
-  margin:100px 0px 30px 0px;
+  margin:60px 0px 30px 0px;
   padding:10px 0px 30px 0px;
   border-top:5px solid black;
   font-size:75%;
@@ -271,4 +271,21 @@ ul.spaces li {
 }
 h2.first {
   margin-top:0px;
+}
+
+/* And for blog posts */
+.main-content .addthis_toolbox  {
+  float:right;
+  margin-top:30px;
+  padding:10px 0px 10px 0px;
+}
+.main-content .addthis_counter {
+  border-right:1px solid #d0d0d0;
+}
+.main-content p.post-meta {
+  font-size:95%;
+  line-height:150%;
+  text-align:right;
+  font-style:italic;
+  margin:70px 10px 30px 0px;
 }

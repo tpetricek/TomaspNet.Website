@@ -4,6 +4,29 @@
     <link>http://tomasp.net</link>
     <description>Writing about software development in F# and .NET, sharing materials from my F# trainings and talks, writing about programming language research and theory.</description>
     <item>
+      <title>Hello New York. Learn some F#!</title>
+      <guid>http://tomasp.net/blog/2013\fsharp-new-york</guid>
+      <link>http://tomasp.net/blog/2013\fsharp-new-york/index.html</link>
+      <pubDate>Thu, 29 Aug 2013 13:02:06 GMT</pubDate>
+      <description>&lt;img src="http://tomasp.net/blog/2013/fsharp-new-york/nyc.jpg" class="rdecor" title="I'm cheating a little - the photo is from my previous visit in April." style="margin-left:20px;margin-bottom:15px"/&gt;
+
+&lt;p&gt;Exactly two weeks ago, I started a three month internship at BlueMountain Capital in New York.
+They have a &lt;a href="http://techblog.bluemountaincapital.com/"&gt;technical blog&lt;/a&gt; and should be well known to the
+F# community thanks to the &lt;a href="https://github.com/BlueMountainCapital/FSharpRProvider"&gt;R type provider&lt;/a&gt;
+which was written by Howard Mansell (&lt;a href="https://twitter.com/hmansell"&gt;@hmansell&lt;/a&gt;).
+I'll have the pleasure of working with Howard on some more open source data-science related tools for F#
+(and C#). I'll write more about these when we have something to share, but if you want to
+contribute and help us, join the Data and Machine Learning &lt;a href="http://fsharp.org/technical-groups/"&gt;working group at F# Foundation&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Aside from my work, I'm also happy to get involved with the great F# community in New York!
+We already have some events planned - &lt;strong&gt;Progressive F# Tutorials&lt;/strong&gt; and &lt;strong&gt;FastTrack to F#&lt;/strong&gt; are
+scheduled for September 16.-19. so you can become an F# guru in 4 days :-). But I'm also happy
+to have a chat with anyone interested in F# and perhaps do a lunch time talk, if you need to
+convince your colleagues or boss that F# is a good choice.&lt;/p&gt;
+
+</description>
+    </item>
+    <item>
       <title>Update on the F# Deep Dives book</title>
       <guid>http://tomasp.net/blog/2013\deep-dives-update</guid>
       <link>http://tomasp.net/blog/2013\deep-dives-update/index.html</link>
@@ -518,30 +541,6 @@ at the &lt;a href="https://github.com/tpetricek/FSharp.Joinads"&gt;FSharp.Joiand
 web page. If you read the article there, you can run the examples interactively
 and experiment with them: &lt;a href="http://tryjoinads.org/index.html?implement/options.html"&gt;view the article on TryJoinads&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
 
-</description>
-    </item>
-    <item>
-      <title>TryJoinads (IV.) - Concurrency using join calculus</title>
-      <guid>http://tomasp.net/blog/joinads-join-calculus.aspx</guid>
-      <link>http://tomasp.net/blog/joinads-join-calculus.aspx/index.html</link>
-      <pubDate>Wed, 22 Feb 2012 22:38:40 GMT</pubDate>
-      <description>&lt;p&gt;Join calculus provides a declarative way of expressing asynchronous synchronization
-patterns. It has been use as a basis for programming languages (JoCaml and COmega), but also
-as a basis for libraries (embedded in C# and Scala). Using joinads, it is possible to 
-embed join calculus in F# with a nice syntax using the &lt;code&gt;match!&lt;/code&gt; construct. Formally,
-join calculus does not form a &lt;em&gt;monad&lt;/em&gt;, but it can be viewed as a version of &lt;em&gt;joinad&lt;/em&gt;
-as described in the &lt;a href="../pubs.html"&gt;first paper on joinads&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;The programming model is based on &lt;em&gt;channels&lt;/em&gt; and &lt;em&gt;join patterns&lt;/em&gt;. A channel can be viewed
-as a thread-safe mailbox into which we can put values without blocking the caller. In some
-sense, this is quite similar to &lt;a href="agents.html"&gt;F# agents&lt;/a&gt;. A join pattern is then a rule
-saying that a certain combination of values in channels should trigger a specific reaction
-(and remove values from the channels). The ability to match on multiple channels distinguishes
-join calculus from F# agents.&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;&lt;strong&gt;Note:&lt;/strong&gt; This blog post is a re-publication of a tutorial from the &lt;a href="http://tryjoinads.org"&gt;TryJoinads.org&lt;/a&gt;
-web page. If you read the article there, you can run the examples interactively
-and experiment with them: &lt;a href="http://tryjoinads.org/index.html?use/joins.html"&gt;view the article on TryJoinads&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
 </description>
     </item>
   </channel>

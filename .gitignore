@@ -3,5 +3,7 @@ _tilde
 output
 tools/tilde/obj
 tools/tilde/bin
+tools/csharpformat/obj
+tools/csharpformat/bin
 source/blog/abstracts/cached/*
 *.suo

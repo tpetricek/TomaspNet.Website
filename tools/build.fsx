@@ -5,6 +5,7 @@
 #r "lib/System.Web.Razor.dll"
 #r "lib/RazorEngine.dll"
 #r "tilde/bin/Debug/TildeLib.dll"
+#r "csharpformat/bin/Debug/CSharpFormat.dll"
 open System
 open System.IO
 open FSharp.Literate
@@ -232,25 +233,29 @@ module Blog =
       Root = root.Replace('\\', '/') }
 
   let TransformFile template hasHeader (razor:TildeLib.Razor) current target = 
-    match Path.GetExtension(current).ToLower() with
-    | (".fsx" | ".md") as ext ->
-        let header, content = 
-          if not hasHeader then "", File.ReadAllText(current)
-          else RemoveScriptHeader ext current
-        use fsx = DisposableFile.Create(current.Replace(ext, "_" + ext))
-        use html = DisposableFile.CreateTemp(".html")
-        File.WriteAllText(fsx.FileName, content)
-        if ext = ".fsx" then
-          Literate.ProcessScriptFile(fsx.FileName, template, html.FileName)
-        else
-          Literate.ProcessMarkdown(fsx.FileName, template, html.FileName)
-        let processed = File.ReadAllText(html.FileName)
-        File.WriteAllText(html.FileName, header + processed)
-        EnsureDirectory(Path.GetDirectoryName(target))
-        razor.ProcessFile(html.FileName, target)
-    | ".html" | ".cshtml" ->
-        razor.ProcessFile(current, target)
-    | _ -> failwith "Not supported file!"
+    let html =
+      match Path.GetExtension(current).ToLower() with
+      | (".fsx" | ".md") as ext ->
+          let header, content = 
+            if not hasHeader then "", File.ReadAllText(current)
+            else RemoveScriptHeader ext current
+          use fsx = DisposableFile.Create(current.Replace(ext, "_" + ext))
+          use html = DisposableFile.CreateTemp(".html")
+          File.WriteAllText(fsx.FileName, content)
+          if ext = ".fsx" then
+            Literate.ProcessScriptFile(fsx.FileName, template, html.FileName)
+          else
+            Literate.ProcessMarkdown(fsx.FileName, template, html.FileName)
+          let processed = File.ReadAllText(html.FileName)
+          File.WriteAllText(html.FileName, header + processed)
+          EnsureDirectory(Path.GetDirectoryName(target))
+          razor.ProcessFile(html.FileName)
+      | ".html" | ".cshtml" ->
+          razor.ProcessFile(current)
+      | _ -> failwith "Not supported file!"
+    // Add syntax highlighting to non-F# source code    
+    let formatted = CSharpFormat.SyntaxHighlighter.FormatHtml(html)
+    File.WriteAllText(target, formatted)
 
   let TransformAsTemp (template, source:string) razor current = 
     let cached = (Path.GetDirectoryName(current) ++ "cached" ++ Path.GetFileName(current))
@@ -390,10 +395,8 @@ open BlogPosts
 open FileHelpers
 open Calendar
 
-// Root URL for the generated HTML
+// Root URL for the generated HTML & other basic information
 let root = "http://tomasp.net" 
-//let root = @"file:///C:\Tomas\Projects\WebSites\TomaspNet.New\output"
-
 let title = "Tomas Petricek's blog"
 let description = 
    "Writing about software development in F# and .NET, sharing materials from " +
@@ -406,7 +409,6 @@ let blogIndex = __SOURCE_DIRECTORY__ ++ "../source/blog/index.cshtml"
 let layouts = __SOURCE_DIRECTORY__ ++ "../layouts"
 let content = __SOURCE_DIRECTORY__ ++ "../content"
 let template = __SOURCE_DIRECTORY__ ++ "empty-template.html"
-
 let calendar = __SOURCE_DIRECTORY__ ++ "../calendar"
 let calendarMonth = __SOURCE_DIRECTORY__ ++ "../source/calendar/month.cshtml"
 let calendarIndex = __SOURCE_DIRECTORY__ ++ "../source/calendar/index.cshtml"

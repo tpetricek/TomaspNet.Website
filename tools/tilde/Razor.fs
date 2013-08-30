@@ -44,11 +44,11 @@ type Razor(layoutsRoot) =
     member val Model = obj() with get, set
     member val ViewBag = new DynamicViewBag() with get,set
 
-    member x.ProcessFile(source, output) = 
+    member x.ProcessFile(source) = 
       try
         x.ViewBag <- new DynamicViewBag()
         let html = Razor.Parse(File.ReadAllText(source), x.Model, x.ViewBag, null)
-        File.WriteAllText(output, html)
+        html
       with :? TemplateCompilationException as ex -> 
         let csharp = Path.GetTempFileName() + ".cs"
         File.WriteAllText(csharp, ex.SourceCode)

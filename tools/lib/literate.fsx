@@ -138,13 +138,14 @@ module internal LiterateUtils =
     | CodeBlock(String.StartsWithWrapped ("[", "]") (ParseCommands cmds, String.TrimStart code)) 
         when cmds.ContainsKey("hide") -> None
     | CodeBlock(String.StartsWithWrapped ("[", "]") (ParseCommands cmds, String.TrimStart code)) 
-    | CodeBlock(Let (dict []) (cmds, code)) ->
+    | CodeBlock(Let (dict []) (cmds, code)) as original ->
         if (cmds.ContainsKey("lang")) && cmds.["lang"] <> "fsharp" then 
           let html = "<pre lang=\"" + cmds.["lang"] + "\">" + HttpUtility.HtmlEncode(code) + "</pre>"
           HtmlBlock(html) |> Some
         else
-          let html : string = codeLookup.[code]
-          HtmlBlock(html) |> Some
+          match codeLookup.TryGetValue(code) with
+          | true, html -> HtmlBlock(html) |> Some
+          | _ -> original |> Some
 
     // Recursively process nested paragraphs, other nodes return without change
     | Matching.ParagraphNested(pn, nested) ->
@@ -435,7 +436,11 @@ module internal SourceProcessors =
 
     // Parse all comment blocks in the script file (as Markdown)
     let parsedBlocks = blocks |> Array.ofSeq |> Seq.choose (function
-        | BlockComment(text) -> Some(Markdown.Parse(text))
+        | BlockComment(text) ->
+            let md = Markdown.Parse(text)
+            let pars = List.choose (replaceCodeSnippets (dict [])) md.Paragraphs
+            let md = MarkdownDocument(pars, md.DefinedLinks)
+            Some(md)
         | _ -> None) 
 
     // Turn all indirect links into a references & add paragraph to the document

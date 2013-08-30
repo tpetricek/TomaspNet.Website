@@ -32,26 +32,45 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "blog", "blog", "{F6F70A4C-7
 		source\blog\index.cshtml = source\blog\index.cshtml
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharpFormat", "tools\csharpformat\CSharpFormat.csproj", "{9AB3650B-CC24-4404-A175-A573DA928475}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|.NET = Debug|.NET
 		Debug|Any CPU = Debug|Any CPU
+		Debug|Mixed Platforms = Debug|Mixed Platforms
 		Release|.NET = Release|.NET
 		Release|Any CPU = Release|Any CPU
+		Release|Mixed Platforms = Release|Mixed Platforms
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{3A0B72B9-05D2-4A89-A514-7E11B89A9FDC}.Debug|.NET.ActiveCfg = Debug|Any CPU
 		{3A0B72B9-05D2-4A89-A514-7E11B89A9FDC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3A0B72B9-05D2-4A89-A514-7E11B89A9FDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A0B72B9-05D2-4A89-A514-7E11B89A9FDC}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{3A0B72B9-05D2-4A89-A514-7E11B89A9FDC}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
 		{3A0B72B9-05D2-4A89-A514-7E11B89A9FDC}.Release|.NET.ActiveCfg = Release|Any CPU
 		{3A0B72B9-05D2-4A89-A514-7E11B89A9FDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3A0B72B9-05D2-4A89-A514-7E11B89A9FDC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A0B72B9-05D2-4A89-A514-7E11B89A9FDC}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{3A0B72B9-05D2-4A89-A514-7E11B89A9FDC}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{9AB3650B-CC24-4404-A175-A573DA928475}.Debug|.NET.ActiveCfg = Debug|Any CPU
+		{9AB3650B-CC24-4404-A175-A573DA928475}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9AB3650B-CC24-4404-A175-A573DA928475}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9AB3650B-CC24-4404-A175-A573DA928475}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{9AB3650B-CC24-4404-A175-A573DA928475}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{9AB3650B-CC24-4404-A175-A573DA928475}.Release|.NET.ActiveCfg = Release|Any CPU
+		{9AB3650B-CC24-4404-A175-A573DA928475}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9AB3650B-CC24-4404-A175-A573DA928475}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9AB3650B-CC24-4404-A175-A573DA928475}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{9AB3650B-CC24-4404-A175-A573DA928475}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{3A0B72B9-05D2-4A89-A514-7E11B89A9FDC} = {5C7045D5-4574-4BA7-A3BA-905C9C074F5B}
+		{9AB3650B-CC24-4404-A175-A573DA928475} = {5C7045D5-4574-4BA7-A3BA-905C9C074F5B}
 		{F6F70A4C-7C06-45E8-BAF3-C94FCC29F92F} = {801A3857-01D3-4355-8D2E-22C1B7DBEA95}
 	EndGlobalSection
 EndGlobal

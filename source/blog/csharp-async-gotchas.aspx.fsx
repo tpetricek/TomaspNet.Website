@@ -53,6 +53,7 @@ a look at the following example and figure out in what order will the strings be
 (I could not find the exact code shown at the talk, but I remember Lucian showing something
 similar):
 
+    [lang=csharp]
     async Task WorkThenWait() {
       Thread.Sleep(1000);
       Console.WriteLine("work");
@@ -114,6 +115,7 @@ let workThenWait() = async {
 Here is another gotcha in the C# asynchronous programming model (this one is taken directly
 from Lucian's slides). Guess what happens when you run the following asynchronous method:
 
+    [lang=csharp]
     async Task Handler() {
       Console.WriteLine("Before");
       Task.Delay(1000);
@@ -176,6 +178,7 @@ surely makes nice demos at conference talks.
 Let me demonstrate the problem using a snippet from [MSDN Magazine article][best-pract]
 on asynchronous programming in C#:
 
+    [lang=csharp]
     async void ThrowExceptionAsync() {
       throw new InvalidOperationException();
     }
@@ -233,6 +236,7 @@ the compiler generates a function that returns `Task`.
 Here is a sample from Lucian's slides. Does the following (perfectly valid) code finish 
 in 1 second (after all the tasks finish sleeping), or does it finish immediately?
 
+    [lang=csharp]
     Parallel.For(0, 10, async i => {
       await Task.Delay(1000);
     });
@@ -282,6 +286,7 @@ I think that Lucian included the next one just to test the mental-compilation
 skills of the people in the audience, but here it is. The question is, does the
 following code wait 1 second between the two prints?
 
+    [lang=csharp]
     Console.WriteLine("Before");
     await Task.Factory.StartNew(
       async () => { await Task.Delay(1000); });
@@ -324,6 +329,7 @@ Here is another problematic code snippet from Lucian's slide. This time, the pro
 is quite simple. The following snippet defines an asynchronous method `FooAsync` and
 calls it from a `Handler`, but the code does not run asynchronously:
 
+    [lang=csharp]
     async Task FooAsync() {
       await Task.Delay(1000);
     }

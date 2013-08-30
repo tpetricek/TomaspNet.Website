@@ -202,12 +202,12 @@
   Gregory–Leibniz series. The implementation uses loop instead of recursion, because recursive
   iterators cannot be written efficiently in C#:</p>
 
-<pre lang="csharp">
-static IEnumerable&lt;BigRational&gt; Series() {
-  var n = BigRational.FromInt(1);
-  var q = BigRational.FromInt(1);
-  while (true) {
-    yield return q * BigRational.FromInt(4) / n;
+<pre >
+<span class="kwrd">static</span> IEnumerable&lt;BigRational&gt; Series() {
+  <span class="kwrd">var</span> n = BigRational.FromInt(1);
+  <span class="kwrd">var</span> q = BigRational.FromInt(1);
+  <span class="kwrd">while</span> (<span class="kwrd">true</span>) {
+    <span class="kwrd">yield</span> <span class="kwrd">return</span> q * BigRational.FromInt(4) / n;
     n = n + BigRational.FromInt(2);
     q = q * BigRational.FromInt(-1);
   }
@@ -220,8 +220,8 @@ static IEnumerable&lt;BigRational&gt; Series() {
   <code>BigRational.PowN</code> (to calculate power). To get approximate value of π as
   a floating point number, we can write:</p>
 
-<pre lang="csharp">
-var pi = Series().Take(300).Aggregate((a, b) =&gt; a + b);
+<pre >
+<span class="kwrd">var</span> pi = Series().Take(300).Aggregate((a, b) =&gt; a + b);
 Console.WriteLine(BigRational.ToDouble(pi));
 </pre>
 
@@ -402,7 +402,7 @@ Console.WriteLine(BigRational.ToDouble(pi));
     <div class="large-7 columns">
     <h4>Blog archives <a href="http://tomasp.net/rss.xml"><img src="http://tomasp.net/img/rss.gif" /></a></h4>
       <a href="http://tomasp.net/blog/archive/august-2013/index.html">
-        August 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/may-2013/index.html">
+        August 2013 (2)</a>,      <a href="http://tomasp.net/blog/archive/may-2013/index.html">
         May 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/april-2013/index.html">
         April 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/march-2013/index.html">
         March 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/february-2013/index.html">

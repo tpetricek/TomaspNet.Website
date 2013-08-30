@@ -200,9 +200,9 @@
   used in the lambda function passed to the <code>StartNew</code> method. The variable is <em>captured
   in a closure</em>, which means that the lambda function keeps reference to it:</p>
 
-<pre lang="csharp">
-Task[] tasks = new Task[4];
-for (int i = 0; i &lt; 4; i++) {
+<pre >
+Task[] tasks = <span class="kwrd">new</span> Task[4];
+<span class="kwrd">for</span> (<span class="kwrd">int</span> i = 0; i &lt; 4; i++) {
     tasks[i] = Task.Factory.StartNew(() =&gt; 
         Console.WriteLine(i));
 }
@@ -506,7 +506,7 @@ Task.WaitAll(tasks);
     <div class="large-7 columns">
     <h4>Blog archives <a href="http://tomasp.net/rss.xml"><img src="http://tomasp.net/img/rss.gif" /></a></h4>
       <a href="http://tomasp.net/blog/archive/august-2013/index.html">
-        August 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/may-2013/index.html">
+        August 2013 (2)</a>,      <a href="http://tomasp.net/blog/archive/may-2013/index.html">
         May 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/april-2013/index.html">
         April 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/march-2013/index.html">
         March 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/february-2013/index.html">

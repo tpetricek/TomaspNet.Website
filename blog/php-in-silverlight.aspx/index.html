@@ -99,33 +99,33 @@
   XAML file is loaded and this is where the Silverlight application starts executing.
   Let's now look at the structure of <code>simplegui.xaml</code> file:</p>  
   
-<pre lang="xml">
-&lt;Canvas x:Name="parentCanvas"
-    xmlns="http://schemas.microsoft.com/client/2007" 
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
-    xmlns:php="clr-namespace:PHP.Silverlight;assembly=ClientBin/PhpNetCore.dll"
-    Width="800" Height="600" Background="White" &gt;
-  &lt;!-- Specifies the PHP code that drives the application --&gt;
-  &lt;php:PhalangerLoader Source="Simplegui.phpx" /&gt;
+<pre >
+<span class="kwrd">&lt;</span><span class="html">Canvas</span> <span class="attr">x:Name</span><span class="kwrd">="parentCanvas"</span>
+    <span class="attr">xmlns</span><span class="kwrd">="http://schemas.microsoft.com/client/2007"</span> 
+    <span class="attr">xmlns:x</span><span class="kwrd">="http://schemas.microsoft.com/winfx/2006/xaml"</span> 
+    <span class="attr">xmlns:php</span><span class="kwrd">="clr-namespace:PHP.Silverlight;assembly=ClientBin/PhpNetCore.dll"</span>
+    <span class="attr">Width</span><span class="kwrd">="800"</span> <span class="attr">Height</span><span class="kwrd">="600"</span> <span class="attr">Background</span><span class="kwrd">="White"</span> <span class="kwrd">&gt;</span>
+  <span class="rem">&lt;!-- Specifies the PHP code that drives the application --&gt;</span>
+  <span class="kwrd">&lt;</span><span class="html">php:PhalangerLoader</span> <span class="attr">Source</span><span class="kwrd">="Simplegui.phpx"</span> <span class="kwrd">/&gt;</span>
 
-  &lt;Canvas.Resources&gt;
-    &lt;!-- Animation that moves the car object --&gt;
-    &lt;Storyboard x:Name="moveCar"&gt;
-      &lt;DoubleAnimation From="0" To="810" Duration="0:0:2" 
-                       Storyboard.TargetName="carCanvas" 
-                       Storyboard.TargetProperty="(Canvas.Left)"/&gt;
-    &lt;/Storyboard&gt;
-    &lt;!-- (...) more animations --&gt;
-  &lt;/Canvas.Resources&gt;
+  <span class="kwrd">&lt;</span><span class="html">Canvas.Resources</span><span class="kwrd">&gt;</span>
+    <span class="rem">&lt;!-- Animation that moves the car object --&gt;</span>
+    <span class="kwrd">&lt;</span><span class="html">Storyboard</span> <span class="attr">x:Name</span><span class="kwrd">="moveCar"</span><span class="kwrd">&gt;</span>
+      <span class="kwrd">&lt;</span><span class="html">DoubleAnimation</span> <span class="attr">From</span><span class="kwrd">="0"</span> <span class="attr">To</span><span class="kwrd">="810"</span> <span class="attr">Duration</span><span class="kwrd">="0:0:2"</span> 
+                       <span class="attr">Storyboard</span>.<span class="attr">TargetName</span><span class="kwrd">="carCanvas"</span> 
+                       <span class="attr">Storyboard</span>.<span class="attr">TargetProperty</span><span class="kwrd">="(Canvas.Left)"</span><span class="kwrd">/&gt;</span>
+    <span class="kwrd">&lt;/</span><span class="html">Storyboard</span><span class="kwrd">&gt;</span>
+    <span class="rem">&lt;!-- (...) more animations --&gt;</span>
+  <span class="kwrd">&lt;/</span><span class="html">Canvas.Resources</span><span class="kwrd">&gt;</span>
 
-  &lt;!-- Car - composed from ellipses and rectangles --&gt;
-  &lt;Canvas x:Name="carCanvas"&gt;
-    &lt;!-- Back wheel --&gt;
-    &lt;Ellipse x:Name="wheel1" Width="47" Height="47" Stroke="#FF000000" 
-             Canvas.Left="5" Canvas.Top="228" /&gt;
-    &lt;!-- (...) other car parts --&gt;
-  &lt;/Canvas&gt;  
-&lt;/Canvas&gt;
+  <span class="rem">&lt;!-- Car - composed from ellipses and rectangles --&gt;</span>
+  <span class="kwrd">&lt;</span><span class="html">Canvas</span> <span class="attr">x:Name</span><span class="kwrd">="carCanvas"</span><span class="kwrd">&gt;</span>
+    <span class="rem">&lt;!-- Back wheel --&gt;</span>
+    <span class="kwrd">&lt;</span><span class="html">Ellipse</span> <span class="attr">x:Name</span><span class="kwrd">="wheel1"</span> <span class="attr">Width</span><span class="kwrd">="47"</span> <span class="attr">Height</span><span class="kwrd">="47"</span> <span class="attr">Stroke</span><span class="kwrd">="#FF000000"</span> 
+             <span class="attr">Canvas</span>.<span class="attr">Left</span><span class="kwrd">="5"</span> <span class="attr">Canvas</span>.<span class="attr">Top</span><span class="kwrd">="228"</span> <span class="kwrd">/&gt;</span>
+    <span class="rem">&lt;!-- (...) other car parts --&gt;</span>
+  <span class="kwrd">&lt;/</span><span class="html">Canvas</span><span class="kwrd">&gt;</span>  
+<span class="kwrd">&lt;/</span><span class="html">Canvas</span><span class="kwrd">&gt;</span>
 </pre>
 <p>There are a few important things to note. First, the whole content is contained in a <code>Canvas</code>
   element, which is a container for other elements. The root element contains several standard <code>xmlns</code>
@@ -159,32 +159,32 @@
 <p>Let's now look at the PHP code file that controls the demo with a car (available <a href="http://tomasp.net/articles/php-in-silverlight/simplegui.html" type="external">here</a>).
   The PHP file contains code that defines the interaction for our application, which is in this example very simple - when a user clicks on 
   the car we want to start the animation:</p>
-<pre lang="php">
-&lt;?
-import namespace System:::Windows:::Input;
-// Include common Silverlight utilities
-include("slutils.phpx");
+<pre >
+<span class="preproc">&lt;?</span>
+<span class="kwrd">import</span> <span class="kwrd">namespace</span> System:::Windows:::Input;
+<span class="rem">// Include common Silverlight utilities</span>
+<span class="kwrd">include</span>(<span class="str">"slutils.phpx"</span>);
 
-// Initialize canvas wrapper for working with the XAML elements
-global $CANVAS;
-global $cv;
-$cv = new CanvasWrapper($CANVAS);
+<span class="rem">// Initialize canvas wrapper for working with the XAML elements</span>
+<span class="kwrd">global</span> $CANVAS;
+<span class="kwrd">global</span> $cv;
+$cv = <span class="kwrd">new</span> CanvasWrapper($CANVAS);
 
-// Called when user clicks on the car
-function OnClick() {
-  global $cv;
-  // Start the animation declared in XAML
+<span class="rem">// Called when user clicks on the car</span>
+<span class="kwrd">function</span> OnClick() {
+  <span class="kwrd">global</span> $cv;
+  <span class="rem">// Start the animation declared in XAML</span>
   $cv-&gt;moveCar-&gt;Begin();
 }
 
-// Called when the Silverlight component loads in browser
-function OnLoad() {
-  global $cv;
-  // Attach the event handler for 'MouseLeftButtonDown' of the 'carCanvas'
+<span class="rem">// Called when the Silverlight component loads in browser</span>
+<span class="kwrd">function</span> OnLoad() {
+  <span class="kwrd">global</span> $cv;
+  <span class="rem">// Attach the event handler for 'MouseLeftButtonDown' of the 'carCanvas'</span>
   $cv-&gt;carCanvas-&gt;MouseLeftButtonDown-&gt;Add
-    (new MouseEventHandler("OnClick"));
+    (<span class="kwrd">new</span> MouseEventHandler(<span class="str">"OnClick"</span>));
 }
-?&gt;
+<span class="preproc">?&gt;</span>
 </pre>
 <p>On the first line, you can see the <code>import namespace</code> statement, which imports objects from the 
   specified .NET (Silverlight) namespace. This is a non-standard extension to the PHP language which is available
@@ -201,14 +201,14 @@ function OnLoad() {
   If you look at the <code>OnClick</code> method (which will be called by the system when user clicks on the car element)
   you can see a code that starts the animation, by calling <code>Begin</code> method of the <code>Storyboard</code> element
   declared in XAML. The following example demonstrates how the <code>CanvasWrapper</code> simplifies the code:</p>  
-<pre lang="php">
-// Using CanvasWrapper we can just access 
-// 'moveCar' as a member using magical '__get'
+<pre >
+<span class="rem">// Using CanvasWrapper we can just access </span>
+<span class="rem">// 'moveCar' as a member using magical '__get'</span>
 $cv-&gt;moveCar-&gt;Begin();
 
-// Without CanvasWrapper the element has to 
-// be accessed using 'FindName' method
-$cv-&gt;FindName("moveCar")-&gt;Begin();
+<span class="rem">// Without CanvasWrapper the element has to </span>
+<span class="rem">// be accessed using 'FindName' method</span>
+$cv-&gt;FindName(<span class="str">"moveCar"</span>)-&gt;Begin();
 </pre>
 <p>There are of course some other tricks that the <code>slutils.phpx</code> implements, but this is the only one that 
   we needed in this example. The implementation of <code>OnClick</code> function is quite simple, so let's look at the
@@ -397,7 +397,7 @@ $cv-&gt;FindName("moveCar")-&gt;Begin();
     <div class="large-7 columns">
     <h4>Blog archives <a href="http://tomasp.net/rss.xml"><img src="http://tomasp.net/img/rss.gif" /></a></h4>
       <a href="http://tomasp.net/blog/archive/august-2013/index.html">
-        August 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/may-2013/index.html">
+        August 2013 (2)</a>,      <a href="http://tomasp.net/blog/archive/may-2013/index.html">
         May 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/april-2013/index.html">
         April 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/march-2013/index.html">
         March 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/february-2013/index.html">

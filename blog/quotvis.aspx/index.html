@@ -75,14 +75,14 @@
 <p>This application works with raw quotations (this means the internal representation that is used when
   writing quotation compilers). You can get F# quotations using <code>&lt;@@ ... @@&gt;</code> operator 
   and the type of raw quotations is <code>expr</code>. The <code>expr</code> type is following discriminated union:</p>
-<pre lang="fsharp">
-type expr =
-  | ConstExpr  of exprConstr * dtype list
-  | VarExpr    of exprVarName
-  | QuoteExpr  of expr 
-  | LambdaExpr of exprVar * expr 
-  | AppExpr    of expr * expr
-  | HoleExpr   of dtype 
+<pre >
+<span class="kwrd">type</span> expr =
+  <span class="op">|</span> ConstExpr  <span class="kwrd">of</span> exprConstr * dtype list
+  <span class="op">|</span> VarExpr    <span class="kwrd">of</span> exprVarName
+  <span class="op">|</span> QuoteExpr  <span class="kwrd">of</span> expr 
+  <span class="op">|</span> LambdaExpr <span class="kwrd">of</span> exprVar * expr 
+  <span class="op">|</span> AppExpr    <span class="kwrd">of</span> expr * expr
+  <span class="op">|</span> HoleExpr   <span class="kwrd">of</span> dtype 
 </pre>  
 <p>You can see that there are only a few types of quotations, but when you are writing application 
   that works with quotations, you can use set of object that provide simplier view on quotations structure.
@@ -91,22 +91,22 @@ type expr =
   All these objects have <code>Query</code> method that expects parameter of type <code>expr</code> and that either
   splits given expression into several sub-expressions or returns <code>None</code> (if parameter doesn't match). 
   So let's look at the example:</p>
-<pre lang="fsharp">let q = &lt;@@ if (a = 0) then 1 else 2 @@&gt;</pre>  
+<pre ><span class="kwrd">let</span> q = <span class="op">&lt;@@</span> <span class="kwrd">if</span> (a = 0) <span class="kwrd">then</span> 1 <span class="kwrd">else</span> 2 <span class="op">@@&gt;</span></pre>  
 <p>This is the quotation that represents conditional expression, but it is internally stored using <code>AppExpr</code> 
   (one variant of discriminated union), but you can use the <code>efCond.Query</code> method to test whether it is
   conditional expression and you can also get expression that represents the condition and expressions representating
   both true and false branches.</p>
-<pre lang="fsharp">
-// Test whether q is conditional expression using efCond.Query
-match Raw.efCond.Query q with
-  | Some (_,(cond,trueBranch,falseBranch)) -&gt;
-      // cond        - 'expr' that represents condition
-      // trueBranch  - 'expr' that represents the true branch
-      // falseBranch - 'expr' that represents the false branch
-      print_string "If-then-else statement"
+<pre >
+<span class="rem">// Test whether q is conditional expression using efCond.Query</span>
+<span class="kwrd">match</span> Raw.efCond.Query q <span class="kwrd">with</span>
+  <span class="op">|</span> Some (<span class="op">_</span>,(cond,trueBranch,falseBranch)) <span class="op">-&gt;</span>
+      <span class="rem">// cond        - 'expr' that represents condition</span>
+      <span class="rem">// trueBranch  - 'expr' that represents the true branch</span>
+      <span class="rem">// falseBranch - 'expr' that represents the false branch</span>
+      print_string <span class="str">"If-then-else statement"</span>
       
-  | None -&gt; 
-      print_string "Something else"
+  <span class="op">|</span> None <span class="op">-&gt;</span> 
+      print_string <span class="str">"Something else"</span>
 </pre>  
 <p>This was just a few words to explain what the application does and to help you understand the 
   source code of the most interesting part of application that builds the TreeView tree.</p>
@@ -291,7 +291,7 @@ match Raw.efCond.Query q with
     <div class="large-7 columns">
     <h4>Blog archives <a href="http://tomasp.net/rss.xml"><img src="http://tomasp.net/img/rss.gif" /></a></h4>
       <a href="http://tomasp.net/blog/archive/august-2013/index.html">
-        August 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/may-2013/index.html">
+        August 2013 (2)</a>,      <a href="http://tomasp.net/blog/archive/may-2013/index.html">
         May 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/april-2013/index.html">
         April 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/march-2013/index.html">
         March 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/february-2013/index.html">

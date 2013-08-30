@@ -72,11 +72,11 @@
   type-safe way.</p>
 <h2>Duck typing introduction</h2>
 <p>Let's start with a simple PHP object:</p>
-<pre lang="php">
-class SampleObj {
-  public $Message = "Hello world!";
-  function Add($a, $b) {
-    return $a + $b;
+<pre >
+<span class="kwrd">class</span> SampleObj {
+  <span class="kwrd">public</span> $Message = <span class="str">"Hello world!"</span>;
+  <span class="kwrd">function</span> Add($a, $b) {
+    <span class="kwrd">return</span> $a + $b;
   }
 }
 </pre>
@@ -98,37 +98,37 @@ phpc /target:dll /out:PhpClassLib.dll main.php
   correspond to the <code>SampleObj</code> and later we will create instance of this object and cast it
   to the declared interface using duck typing type coercion to get an view of the object allowing us
   to easily call are required PHP methods and access PHP fields:</p>
-<pre lang="csharp">
+<pre >
 [DuckType]
-public interface ISampleObj
+<span class="kwrd">public</span> <span class="kwrd">interface</span> ISampleObj
 {
-  string Message { get; set; }
-  int Add(int i1, int i2);
+  <span class="kwrd">string</span> Message { get; set; }
+  <span class="kwrd">int</span> Add(<span class="kwrd">int</span> i1, <span class="kwrd">int</span> i2);
 }
 </pre>  
 <p>First we need to load the PHP library in the C# application:</p>
-<pre lang="csharp">
-// Get current PHP script context, set output to the console
+<pre >
+<span class="rem">// Get current PHP script context, set output to the console</span>
 ScriptContext ctx = ScriptContext.CurrentContext;
 ctx.Output = Console.Out;
 
-// Load the PhpClassLib library and include the "main.php" source
-Type library_representative = typeof(PhpClassLib);
-ctx.IncludeScript("main.php", library_representative);
+<span class="rem">// Load the PhpClassLib library and include the "main.php" source</span>
+Type library_representative = <span class="kwrd">typeof</span>(PhpClassLib);
+ctx.IncludeScript(<span class="str">"main.php"</span>, library_representative);
 </pre>
 <p>Now we need to get an instance of the <code>SampleObj</code> class and coerce it to the
   C# <code>ISampleObj</code> interface:</p>
-<pre lang="php">
-// Create instance of object 'SampleObj' declared in PHP
-ISampleObj so = ctx.NewObject&lt;ISampleObj&gt;("SampleObj");
+<pre >
+<span class="rem">// Create instance of object 'SampleObj' declared in PHP</span>
+ISampleObj so = ctx.NewObject&lt;ISampleObj&gt;(<span class="str">"SampleObj"</span>);
 
-// Set and then read the 'Message' property
-so.Message = "Hello from C# (via PHP)!";
+<span class="rem">// Set and then read the 'Message' property</span>
+so.Message = <span class="str">"Hello from C# (via PHP)!"</span>;
 Console.WriteLine(so.Message);
 
-// Call add method with integers as an arguments
+<span class="rem">// Call add method with integers as an arguments</span>
 int r1 = so.Add(24, 18);
-Console.WriteLine("Math: 24 + 18 = {0}", r1);
+Console.WriteLine(<span class="str">"Math: 24 + 18 = {0}"</span>, r1);
 </pre>
 <p>As you can see in this example, once you defined the interface, calling PHP objects is
   amazingly simple! You use the interface as a type parameter of the <code>NewObject</code>
@@ -144,13 +144,13 @@ Console.WriteLine("Math: 24 + 18 = {0}", r1);
   be called with floating point numbers as a parameter and it will add them and return result as a
   floating point number. It isn't difficult to get the same functionality in C#, because you can
   include more overloaded versions of the method in the interface:</p>
-<pre lang="csharp">
+<pre >
 [DuckType]
-public interface ISampleObj
+<span class="kwrd">public</span> <span class="kwrd">interface</span> ISampleObj
 {
-  string Message { get; set; }
-  int Add(int i1, int i2);
-  double Add(double d1, double d2);
+  <span class="kwrd">string</span> Message { get; set; }
+  <span class="kwrd">int</span> Add(<span class="kwrd">int</span> i1, <span class="kwrd">int</span> i2);
+  <span class="kwrd">double</span> Add(<span class="kwrd">double</span> d1, <span class="kwrd">double</span> d2);
 }
 </pre>
 <p>Another interesting situation is when the PHP object returns another PHP object as a result of the 
@@ -164,20 +164,20 @@ public interface ISampleObj
 <p>To make the following sample even more interesting, we will use one more dynamic PHP feature - 
   the magic functions <code>__call</code> and <code>__get</code>. These two functions are invoked
   when script calls a member function or a member field that isn't explicitly declared.</p>
-<pre lang="php">
-class MagicSample {
-  function __call($name, $args) {
-    echo "Calling unknown function '$name' with ".count($args)." arguments.\n";
+<pre >
+<span class="kwrd">class</span> MagicSample {
+  <span class="kwrd">function</span> __call($name, $args) {
+    <span class="kwrd">echo</span> <span class="str">"Calling unknown function '$name' with "</span>.count($args).<span class="str">" arguments.\n"</span>;
   }
   
-  function __get($name) {
-    return "Reading unknown '$name' value.";
+  <span class="kwrd">function</span> __get($name) {
+    <span class="kwrd">return</span> <span class="str">"Reading unknown '$name' value."</span>;
   }
 }
 
-class SampleObj {
-  function NewMagic() {
-    return new MagicSample;
+<span class="kwrd">class</span> SampleObj {
+  <span class="kwrd">function</span> NewMagic() {
+    <span class="kwrd">return</span> <span class="kwrd">new</span> MagicSample;
   }
 }
 </pre>  
@@ -186,30 +186,30 @@ class SampleObj {
   know the name of the function you want to call (we'll show more real-world example later). If you 
   want to call function <code>SomeMethod</code> and read the field <code>SomeProp</code> from C#, 
   you will need to define interfaces as follows:</p>
-<pre lang="csharp">
+<pre >
 [DuckType]
-public interface ISampleObj {
+<span class="kwrd">public</span> <span class="kwrd">interface</span> ISampleObj {
   ISecondSample NewMagic();
 }
 
 [DuckType]
-public interface IMagicSample {
-  void SomeMethod(int p1, int p2, int p3);
-  string SomeProp { get; }
+<span class="kwrd">public</span> <span class="kwrd">interface</span> IMagicSample {
+  <span class="kwrd">void</span> SomeMethod(<span class="kwrd">int</span> p1, <span class="kwrd">int</span> p2, <span class="kwrd">int</span> p3);
+  <span class="kwrd">string</span> SomeProp { get; }
 }
 </pre>  
 <p>Using this two objects gives the same results you would expect when using them directly from PHP:</p>
-<pre lang="csharp">
-// Create instance of object 'SampleObj' declared in PHP
-ISampleObj so = ctx.NewObject&lt;ISampleObj&gt;("SampleObj");
+<pre >
+<span class="rem">// Create instance of object 'SampleObj' declared in PHP</span>
+ISampleObj so = ctx.NewObject&lt;ISampleObj&gt;(<span class="str">"SampleObj"</span>);
 
-// Returning PHP objects from PHP
+<span class="rem">// Returning PHP objects from PHP</span>
 IMagicSample mag = so.NewMagic();
 
-// Call unknown method
+<span class="rem">// Call unknown method</span>
 mag.SomeMethod(1, 2, 3);
 
-// Read unknown field
+<span class="rem">// Read unknown field</span>
 Console.WriteLine(mag.SomeProp);
 </pre>
 <p>Executing this program prints:</p>
@@ -225,23 +225,23 @@ Reading unknown 'SomeProp' value.
   to access these fields from C# we will need to define a few interfaces first (the following
   sample includes only a few of all the required interfaces, the complete sample is attached and 
   you can download it):</p>
-<pre lang="csharp">
+<pre >
 [DuckType]
-public interface IRssRssNode {
+<span class="kwrd">public</span> <span class="kwrd">interface</span> IRssRssNode {
   IRssChannelNode channel { get; }
 }
 
 [DuckType]
-public interface IRssChannelNode {
-  string title { get; }
+<span class="kwrd">public</span> <span class="kwrd">interface</span> IRssChannelNode {
+  <span class="kwrd">string</span> title { get; }
   
-  [DuckName("item")]
+  [DuckName(<span class="str">"item"</span>)]
   IDuckEnumerable&lt;IRssItemNode&gt; items { get; }
 }
 
 [DuckType]
-public interface IRssItemNode {
-  string title { get; }
+<span class="kwrd">public</span> <span class="kwrd">interface</span> IRssItemNode {
+  <span class="kwrd">string</span> title { get; }
 }
 </pre>
 <p>This sample contains two new features that were not mentioned earlier - first we used 
@@ -253,14 +253,14 @@ public interface IRssItemNode {
   where <code>IRssItemNode</code> is another interface marked using <code>DuckType</code>, which means that
   when iterating over the elements, every element will be coerced to the interface representing the item in RSS document.
   The following sample uses interfaces declared above to read sample RSS feed:</p>
-<pre lang="csharp">
-IRssXml xml = ctx.Call&lt;IRssXml&gt;("simplexml_load_file", 
-  "http://www.nytimes.com/services/xml/rss/nyt/HomePage.xml");
-Console.WriteLine("Title: {0}", xml.rss.channel.title);
+<pre >
+IRssXml xml = ctx.Call&lt;IRssXml&gt;(<span class="str">"simplexml_load_file"</span>, 
+  <span class="str">"http://www.nytimes.com/services/xml/rss/nyt/HomePage.xml"</span>);
+Console.WriteLine(<span class="str">"Title: {0}"</span>, xml.rss.channel.title);
 
-// Iterate over items in the channel node:
-foreach (IRssItemNode item in xml.rss.channel.items) {
-  Console.WriteLine(" - {0}", item.title);
+<span class="rem">// Iterate over items in the channel node:</span>
+<span class="kwrd">foreach</span> (IRssItemNode item <span class="kwrd">in</span> xml.rss.channel.items) {
+  Console.WriteLine(<span class="str">" - {0}"</span>, item.title);
 }
 </pre>
 <h2>Conclusion</h2>
@@ -405,7 +405,7 @@ foreach (IRssItemNode item in xml.rss.channel.items) {
     <div class="large-7 columns">
     <h4>Blog archives <a href="http://tomasp.net/rss.xml"><img src="http://tomasp.net/img/rss.gif" /></a></h4>
       <a href="http://tomasp.net/blog/archive/august-2013/index.html">
-        August 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/may-2013/index.html">
+        August 2013 (2)</a>,      <a href="http://tomasp.net/blog/archive/may-2013/index.html">
         May 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/april-2013/index.html">
         April 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/march-2013/index.html">
         March 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/february-2013/index.html">

@@ -75,28 +75,28 @@
 <h2>Stubs in Phalanger beta 3</h2>
 <p>Let's now look at the generated stubs in latest Phalanger releases. I was working on a demo to demonstrate Phalanger interoperability
   some time ago and I was a bit surprised with the result of the following code:</p>
-<pre lang="php">
-Console::WriteLine("Hello world!");
+<pre >
+Console::WriteLine(<span class="str">"Hello world!"</span>);
 </pre>  
 <p>I was expecting that <code>"Hello world!"</code> will appear in the console window, but it didn't! Instead it just printed <code>"true"</code>.
   The reason is that Phalanger used one of the implicit conversions described above and converted string to boolean. The generated stub first
   uses parameter count to determine what overloads might be compatible and than generates something like the following code (in pseudo-C#) 
   to choose the best overload (this is very simple situation, because method has only one parameter and no overload with <code>[Params]</code>
   attribute is involved, but it explains the problem well):</p>
-<pre lang="csharp">
-// Stub that chooses between foo(string), foo(int) and foo(bool)
-object p = PopParameter();
-bool bval;
-int ival;
-string sval;
+<pre >
+<span class="rem">// Stub that chooses between foo(string), foo(int) and foo(bool)</span>
+<span class="kwrd">object</span> p = PopParameter();
+<span class="kwrd">bool</span> bval;
+<span class="kwrd">int</span> ival;
+<span class="kwrd">string</span> sval;
 
-if (Convert.ConvertToBool(p, out bval))
-  return foo(bval);
-if (Convert.ConvertToInt32(p, out ival))
-  return foo(ival);
-if (Convert.ConvertToString(p, out sval))
-  return foo(sval);
-throw new ConversionFailedException();  
+<span class="kwrd">if</span> (Convert.ConvertToBool(p, <span class="kwrd">out</span> bval))
+  <span class="kwrd">return</span> foo(bval);
+<span class="kwrd">if</span> (Convert.ConvertToInt32(p, <span class="kwrd">out</span> ival))
+  <span class="kwrd">return</span> foo(ival);
+<span class="kwrd">if</span> (Convert.ConvertToString(p, <span class="kwrd">out</span> sval))
+  <span class="kwrd">return</span> foo(sval);
+<span class="kwrd">throw</span> <span class="kwrd">new</span> ConversionFailedException();  
 </pre>  
 <p>The conversion functions are called in some non-specified order, so in this case Phalanger first tries to convert parameter to bool.
   The <code>ConvertToBool</code> function tries to perform all implicit conversions and when the parameter is string it converts it
@@ -106,55 +106,55 @@ throw new ConversionFailedException();
   using acceptable conversion, but it doesn't always call the method that you would expect. That's why we
   decided to implement a bit more complex algorithm, which would prefer overloads that don't require any implicit conversions.
   The stub generated using the new algorithm looks like this:</p>
-<pre lang="csharp">
-// Stub that chooses between foo(string), foo(int) and foo(bool)
-object p = PopParameter();
-// To store conversion result
-bool bval;
-int ival;
-string sval;
+<pre >
+<span class="rem">// Stub that chooses between foo(string), foo(int) and foo(bool)</span>
+<span class="kwrd">object</span> p = PopParameter();
+<span class="rem">// To store conversion result</span>
+<span class="kwrd">bool</span> bval;
+<span class="kwrd">int</span> ival;
+<span class="kwrd">string</span> sval;
 
-// Temporary variables
-byte result;
-int bestIndex;
-byte bestResult = Byte.MaxValue;
+<span class="rem">// Temporary variables</span>
+<span class="kwrd">byte</span> result;
+<span class="kwrd">int</span> bestIndex;
+<span class="kwrd">byte</span> bestResult = Byte.MaxValue;
 
-// Perform conversions to specific types
-result = Convert.ConvertToBool(p, out bval);
-// Set the best overload index 
-// (if result is better then result of previous conversions) 
-if (result &lt; bestResult) 
+<span class="rem">// Perform conversions to specific types</span>
+result = Convert.ConvertToBool(p, <span class="kwrd">out</span> bval);
+<span class="rem">// Set the best overload index </span>
+<span class="rem">// (if result is better then result of previous conversions) </span>
+<span class="kwrd">if</span> (result &lt; bestResult) 
   { bestResult = result; bestIndex = 0; }
-// If this is the best match (no implicit conversion) 
-// skip the rest of conversions and call the overload
-if (result == BestConversion) 
-  goto call;  
+<span class="rem">// If this is the best match (no implicit conversion) </span>
+<span class="rem">// skip the rest of conversions and call the overload</span>
+<span class="kwrd">if</span> (result == BestConversion) 
+  <span class="kwrd">goto</span> call;  
 
-// Same as previous..
-result = Convert.ConvertToInt32(p, out ival);
-if (result &lt; bestResult) 
+<span class="rem">// Same as previous..</span>
+result = Convert.ConvertToInt32(p, <span class="kwrd">out</span> ival);
+<span class="kwrd">if</span> (result &lt; bestResult) 
   { bestResult = result; bestIndex = 1; }
-if (result == BestConversion) 
-  goto call;
+<span class="kwrd">if</span> (result == BestConversion) 
+  <span class="kwrd">goto</span> call;
 
-// Same as previous..
-result = Convert.ConvertToString(p, out sval);
-if (result &lt; bestResult) 
+<span class="rem">// Same as previous..</span>
+result = Convert.ConvertToString(p, <span class="kwrd">out</span> sval);
+<span class="kwrd">if</span> (result &lt; bestResult) 
   { bestResult = result; bestIndex = 2; }
-if (result == BestConversion) 
-  goto call;
+<span class="kwrd">if</span> (result == BestConversion) 
+  <span class="kwrd">goto</span> call;
 
-// No overload is appropriate
-if (bestResult == FailedConversion) 
-  throw new ConversionFailedException();  
+<span class="rem">// No overload is appropriate</span>
+<span class="kwrd">if</span> (bestResult == FailedConversion) 
+  <span class="kwrd">throw</span> <span class="kwrd">new</span> ConversionFailedException();  
 
-// Call the best overload
+<span class="rem">// Call the best overload</span>
 call:;
-switch(bestIndex)
+<span class="kwrd">switch</span>(bestIndex)
 {
-  case 0: return foo(bval);
-  case 1: return foo(ival);
-  case 2: return foo(sval);
+  <span class="kwrd">case</span> 0: <span class="kwrd">return</span> foo(bval);
+  <span class="kwrd">case</span> 1: <span class="kwrd">return</span> foo(ival);
+  <span class="kwrd">case</span> 2: <span class="kwrd">return</span> foo(sval);
 }
 </pre>  
 <p>In this code we use slightly modified version of <code>ConvertToXxx</code> methods. Instead of returning boolean value (whether conversion
@@ -297,7 +297,7 @@ switch(bestIndex)
     <div class="large-7 columns">
     <h4>Blog archives <a href="http://tomasp.net/rss.xml"><img src="http://tomasp.net/img/rss.gif" /></a></h4>
       <a href="http://tomasp.net/blog/archive/august-2013/index.html">
-        August 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/may-2013/index.html">
+        August 2013 (2)</a>,      <a href="http://tomasp.net/blog/archive/may-2013/index.html">
         May 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/april-2013/index.html">
         April 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/march-2013/index.html">
         March 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/february-2013/index.html">

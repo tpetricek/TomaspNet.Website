@@ -118,41 +118,41 @@ private void DrawBranch(Graphics output,
   snowflake melting. <code>RandomSnowFlake</code> is class derived from
   <code>SnowFlake</code>. Only one difference is that, all properties of snowflake are
   generated from random numbers in constructor, so you don't have to set all properties
-  if you want to create snowflake.</p><pre lang="cs"><span class="c">// Draw snowflakes in Paint event handler</span>
-private void Form_Paint(object sender, PaintEventArgs pe)
+  if you want to create snowflake.</p><pre >&lt;span <span class="kwrd">class</span>=<span class="str">"c"</span>&gt;<span class="rem">// Draw snowflakes in Paint event handler&lt;/span&gt;</span>
+<span class="kwrd">private</span> <span class="kwrd">void</span> Form_Paint(<span class="kwrd">object</span> sender, PaintEventArgs pe)
 {
-  Random rndGen=new Random();
+  Random rndGen=<span class="kwrd">new</span> Random();
   pe.Graphics.Clear(Color.Black);
-  SnowFlake flake=new SnowFlake(),
-    random=new RandomSnowFlake(rndGen.Next(Int32.MaxValue));
+  SnowFlake flake=<span class="kwrd">new</span> SnowFlake(),
+    random=<span class="kwrd">new</span> RandomSnowFlake(rndGen.Next(Int32.MaxValue));
           
-  <span class="c">// draw snowflake</span>
-  flake.Draw(pe.Graphics,new PointF(70.0f,70.0f));
+  &lt;span <span class="kwrd">class</span>=<span class="str">"c"</span>&gt;<span class="rem">// draw snowflake&lt;/span&gt;</span>
+  flake.Draw(pe.Graphics,<span class="kwrd">new</span> PointF(70.0f,70.0f));
 
-  <span class="c">// draw melting snowflake</span>
-  flake.Draw(pe.Graphics,new PointF(70.0f,140.0f,128));
+  &lt;span <span class="kwrd">class</span>=<span class="str">"c"</span>&gt;<span class="rem">// draw melting snowflake&lt;/span&gt;</span>
+  flake.Draw(pe.Graphics,<span class="kwrd">new</span> PointF(70.0f,140.0f,128));
 
-  <span class="c">// draw random snowflake</span>
-  random.Draw(pe.Graphics,new PointF(105.0f,105.0f));
+  &lt;span <span class="kwrd">class</span>=<span class="str">"c"</span>&gt;<span class="rem">// draw random snowflake&lt;/span&gt;</span>
+  random.Draw(pe.Graphics,<span class="kwrd">new</span> PointF(105.0f,105.0f));
 }
 </pre><h4>Using SnowControl</h4><p><code>SnowControl</code> is the control for creating falling snowflakes. This is
   exactly the same control as control filling the whole screen of screensaver. This
   control can be added to a <code>Form</code> using designer, or manually using code
   similar to following:</p><p>This control has a lot of properties, that are described in <i>Screen saver
-  settings</i> section.</p><pre lang="cs">
+  settings</i> section.</p><pre >
 SnowControl snowCtrl;
 
-public Form()
+<span class="kwrd">public</span> Form()
 {
-  <span class="c">// Create control</span>
-  snowCtrl=new SnowControl();
+  &lt;span <span class="kwrd">class</span>=<span class="str">"c"</span>&gt;<span class="rem">// Create control&lt;/span&gt;</span>
+  snowCtrl=<span class="kwrd">new</span> SnowControl();
   Controls.Add(snowCtrl);
   snowCtrl.Dock=DockStyle.Fill;
 }
 
-private void Form_Load(object sender,EventArgs e)
+<span class="kwrd">private</span> <span class="kwrd">void</span> Form_Load(<span class="kwrd">object</span> sender,EventArgs e)
 {
-  <span class="c">// Start animation</span>
+  &lt;span <span class="kwrd">class</span>=<span class="str">"c"</span>&gt;<span class="rem">// Start animation&lt;/span&gt;</span>
   snowCtrl.Start();
 }
 </pre><p><img height="112" alt="Screen saver" src="fractalsnow/screensaver.gif" width="125" align="right" /></p><h2>SnowControl and Screensaver settings</h2><h4>Environment</h4><p>Property called <code>StopFalling</code> is length in pixels from bottom of the
@@ -297,7 +297,7 @@ private void Form_Load(object sender,EventArgs e)
     <div class="large-7 columns">
     <h4>Blog archives <a href="http://tomasp.net/rss.xml"><img src="http://tomasp.net/img/rss.gif" /></a></h4>
       <a href="http://tomasp.net/blog/archive/august-2013/index.html">
-        August 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/may-2013/index.html">
+        August 2013 (2)</a>,      <a href="http://tomasp.net/blog/archive/may-2013/index.html">
         May 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/april-2013/index.html">
         April 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/march-2013/index.html">
         March 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/february-2013/index.html">

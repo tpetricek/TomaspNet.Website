@@ -103,10 +103,10 @@
 <h3>Counting clicks</h3>
 <p>I believe that an example will make everything clear. In the following snippet, we'll attach an event to a 
   button and we'll use <code>Sum</code> to count the number of clicks on the button:</p>
-<pre lang="csharp">
-btnClick.AttachEvent("Click")
+<pre >
+btnClick.AttachEvent(<span class="str">"Click"</span>)
   .Select(ea =&gt; 1).Sum().Listen(n =&gt; 
-    lblOut.Text = String.Format("Current count is: {0}", n));
+    lblOut.Text = String.Format(<span class="str">"Current count is: {0}"</span>, n));
 </pre>
 <p>The usual call to <code>AttachEvent</code> is followed by a call to <code>Select</code>. The result of this
   call will be an event stream that will contain a number 1 every time the button is clicked.
@@ -122,14 +122,14 @@ btnClick.AttachEvent("Click")
   get the well known factorial function (the sequence of factorials will be 1, 1*2, 1*2*3, 1*2*3*4, ...).
   Calculating total value was easy, because we had <code>Sum</code> operator, but multiplication isn't
   built-in, so we'll have to use the generic <code>Aggregate</code> operation:</p>  
-<pre lang="csharp">
-btnClick.AttachEvent("Click")
-  // Generates sequence of integers: 1, 2, 3, ...
+<pre >
+btnClick.AttachEvent(<span class="str">"Click"</span>)
+  <span class="rem">// Generates sequence of integers: 1, 2, 3, ...</span>
   .Select(ea =&gt; 1).Sum() 
-  // Generate sequence of factorials: 1, 1*2, 1*2*3, ...
+  <span class="rem">// Generate sequence of factorials: 1, 1*2, 1*2*3, ...</span>
   .Aggregate(1, (fact, current) =&gt; fact * current)
   .Listen(n =&gt; 
-    lblOut.Text = String.Format("Factorial is: {0}", n));
+    lblOut.Text = String.Format(<span class="str">"Factorial is: {0}"</span>, n));
 </pre>
 <p>The part ended with the call to <code>Sum</code> is same as in the previous example and it gives
   us a sequence of integers. When aggregating using the <code>Aggregate</code> operator, we'll need
@@ -147,26 +147,26 @@ btnClick.AttachEvent("Click")
   using just a single query. First, we'll need a simple utility function for displaying the result,
   because Visual Basic has only limited support for lambda functions:
   </p>
-<pre lang="basic">
-' Utility function that allows us to set label text in the query easily
-Function SetText(ByVal lbl As Label, ByVal str As String) As Integer
+<pre >
+<span class="rem">' Utility function that allows us to set label text in the query easily</span>
+<span class="kwrd">Function</span> SetText(<span class="kwrd">ByVal</span> lbl <span class="kwrd">As</span> Label, <span class="kwrd">ByVal</span> str <span class="kwrd">As</span> <span class="kwrd">String</span>) <span class="kwrd">As</span> <span class="kwrd">Integer</span>
   lbl.Text = str
-  Return 0
-End Function
+  <span class="kwrd">Return</span> 0
+<span class="kwrd">End</span> <span class="kwrd">Function</span>
 </pre>
 <p>Now we can take a look at the query. This time we'll add reaction to the <code>MouseDown</code>
   event and we'll only count clicks that were made by the left button. In C#, we'd have to write
   this using a nested query, but in VB it can be written like this:</p>
-<pre lang="basic">
-' Count the number of clicks made by the left button
-Dim eCount = _
-  Aggregate ea In btnClick.AttachEvent(Of MouseEventArgs)("MouseDown") _
+<pre >
+<span class="rem">' Count the number of clicks made by the left button</span>
+<span class="kwrd">Dim</span> eCount = _
+  Aggregate ea <span class="kwrd">In</span> btnClick.AttachEvent(Of MouseEventArgs)(<span class="str">"MouseDown"</span>) _
   Where ea.Button = MouseButtons.Left _
   Into Sum(1)
   
-' Display the number using utility function 'SetText'
-eCount.Listen(Function(n) SetText(lblOutput, _
-  String.Format("Count: {0}", n)))
+<span class="rem">' Display the number using utility function 'SetText'</span>
+eCount.Listen(<span class="kwrd">Function</span>(n) SetText(lblOutput, _
+  <span class="kwrd">String</span>.Format(<span class="str">"Count: {0}"</span>, n)))
 </pre>
 <p>Visual Basic query that does aggregation starts with the <code>Aggregate</code> keyword and then 
   specifies what values will be aggregated. In our case, it is the value coming from the <code>MouseDown</code>
@@ -204,13 +204,13 @@ eCount.Listen(Function(n) SetText(lblOutput, _
   additional initial event that will be triggered shortly after the program starts using <code>Reactive.After</code>:
   </p>
 
-<pre lang="csharp">
-// Triggered after 1 second and then on every check-box click
-var eZigZag =
+<pre >
+<span class="rem">// Triggered after 1 second and then on every check-box click</span>
+<span class="kwrd">var</span> eZigZag =
   Reactive.Merge
-    (checkDecrement.AttachEvent("Click"), 
+    (checkDecrement.AttachEvent(<span class="str">"Click"</span>), 
      Reactive.After(1000, EventArgs.Empty))
-  // Create an event stream containing: 1, -1, 1, -1, ...  
+  <span class="rem">// Create an event stream containing: 1, -1, 1, -1, ...  </span>
   .Aggregate(-1, (current, _) =&gt; current * -1);
 </pre>
 <p>The input for the <code>Aggregate</code> operator will be <code>EventArgs</code> values from the events.
@@ -228,14 +228,14 @@ var eZigZag =
   The overall event stream will then switch between the event streams generated by our function.
   Let's take a look at the example and I'll explain everything in a more detail shortly:</p>
 
-<pre lang="csharp">
-// Dynamically switch between 1, 1, 1... and -1, -1, -1...
+<pre >
+<span class="rem">// Dynamically switch between 1, 1, 1... and -1, -1, -1...</span>
 eZigZag.SwitchRepeatedly(n =&gt;
-     from ea in btnClick.AttachEvent("Click") select n)
+     <span class="kwrd">from</span> ea <span class="kwrd">in</span> btnClick.AttachEvent(<span class="str">"Click"</span>) <span class="kwrd">select</span> n)
      
-  // Sum all nubers coming from the 'switch'
+  <span class="rem">// Sum all nubers coming from the 'switch'</span>
   .Sum().Listen(n =&gt; 
-     lblOut.Text = String.Format("Current count is: {0}", n));
+     lblOut.Text = String.Format(<span class="str">"Current count is: {0}"</span>, n));
 </pre>
 <p>The input for the <code>SwitchRepeatedly</code> operator is the event that will be triggered
   when the application starts (with 1 as the argument) and then every time the 'decrement' checkbox
@@ -270,12 +270,12 @@ eZigZag.SwitchRepeatedly(n =&gt;
   that the button was clicked for the first time. Any subsequent click will display
   a message showing the number of clicks:</p>  
 
-<pre lang="csharp">
-btnClick.AttachEvent("Click").Select(_ =&gt; "Clicked for the first time!")
+<pre >
+btnClick.AttachEvent(<span class="str">"Click"</span>).Select(_ =&gt; <span class="str">"Clicked for the first time!"</span>)
   .SwitchFirst(s =&gt;
-    // Return the new behavior: Sum clicks &amp; return message
-    btnClick.AttachEvent("Click").Select(_ =&gt; 1).Sum()
-      .Select(n =&gt; string.Format("Clicked {0} times!", n)))
+    <span class="rem">// Return the new behavior: Sum clicks &amp; return message</span>
+    btnClick.AttachEvent(<span class="str">"Click"</span>).Select(_ =&gt; 1).Sum()
+      .Select(n =&gt; <span class="kwrd">string</span>.Format(<span class="str">"Clicked {0} times!"</span>, n)))
   .Listen(s =&gt; lblOut.Text = s);
 </pre>
 <p>The event that we use as a source for <code>SwitchFirst</code> yields a message when 
@@ -311,17 +311,17 @@ btnClick.AttachEvent("Click").Select(_ =&gt; "Clicked for the first time!")
   and then change the behavior to start from the beginning again. This change here is very 
   important, because it resets the timer, so the "Timeout!" message will not appear sooner
   than after next 5 seconds:</p>
-<pre lang="csharp">
-// 'eClickOrTimeout' is a function that returns an evnet
-Func&lt;IEvent&lt;string&gt;&gt; eClickOrTimeout = null;
+<pre >
+<span class="rem">// 'eClickOrTimeout' is a function that returns an evnet</span>
+Func&lt;IEvent&lt;<span class="kwrd">string</span>&gt;&gt; eClickOrTimeout = <span class="kwrd">null</span>;
 eClickOrTimeout = () =&gt; 
-  // Triggered when user clicks on the button or after 5 seconds
+  <span class="rem">// Triggered when user clicks on the button or after 5 seconds</span>
   Reactive.Merge
-    (btnClick.AttachEvent("Click").Select(_ =&gt; "Click..."),
-     Reactive.After(5000, "Timeout!"))
+    (btnClick.AttachEvent(<span class="str">"Click"</span>).Select(_ =&gt; <span class="str">"Click..."</span>),
+     Reactive.After(5000, <span class="str">"Timeout!"</span>))
   .SwitchFirst(e =&gt; eClickOrTimeout());
 
-// Create an event stream and add listener
+<span class="rem">// Create an event stream and add listener</span>
 eClickOrTimeout()
   .Listen(s =&gt; lblOut.Text = s);
 </pre>
@@ -354,12 +354,12 @@ eClickOrTimeout()
   the first event that will trigger the whole processing. In the previous example, the
   first event was the same as all the subsequent events. In the new version, the program
   will first wait 1 second and then start the processing similarly as in the last example:</p>
-<pre lang="csharp">
-Reactive.After(1000, "")
+<pre >
+Reactive.After(1000, <span class="str">""</span>)
   .SwitchRecursive(s =&gt; 
       Reactive.Merge
-        (btnClick.AttachEvent("Click").Select(_ =&gt; "Click..."),
-         Reactive.After(5000, "Timeout!"))
+        (btnClick.AttachEvent(<span class="str">"Click"</span>).Select(_ =&gt; <span class="str">"Click..."</span>),
+         Reactive.After(5000, <span class="str">"Timeout!"</span>))
   .Listen(s =&gt; lblOut.Text = s);
 </pre>
 <p>The <code>SwitchRecursive</code> operator waits for the first event from the input stream and
@@ -390,17 +390,17 @@ Reactive.After(1000, "")
   <code>from</code> clauses that internally uses the <code>SwitchRepeatedly</code> operator.
   Let's take a look at the example and I'll explain how exactly the operator is used later:</p>
   
-<pre lang="csharp">
-// When application starts and then when 'decrement' checkbox is clicked
-var eDecrementClick = Reactive.Merge
+<pre >
+<span class="rem">// When application starts and then when 'decrement' checkbox is clicked</span>
+<span class="kwrd">var</span> eDecrementClick = Reactive.Merge
  (Reactive.After(1000, EventArgs.Empty), 
-  checkDecrement.AttachEvent("Click"));
+  checkDecrement.AttachEvent(<span class="str">"Click"</span>));
 
-// Create stream with 1, -1, 1.. and combine it using 'SwitchRepeatedly'
-(from n in eDecrementClick.Aggregate(1, (current, _) =&gt; current * -1)
- from m in btnClick.AttachEvent("Click").UseSwitchRepeatedly()
- select -1 * n).Sum().Listen(n =&gt; 
-    lblOut.Text = String.Format("Current count is: {0}", n));
+<span class="rem">// Create stream with 1, -1, 1.. and combine it using 'SwitchRepeatedly'</span>
+(<span class="kwrd">from</span> n <span class="kwrd">in</span> eDecrementClick.Aggregate(1, (current, _) =&gt; current * -1)
+ <span class="kwrd">from</span> m <span class="kwrd">in</span> btnClick.AttachEvent(<span class="str">"Click"</span>).UseSwitchRepeatedly()
+ <span class="kwrd">select</span> -1 * n).Sum().Listen(n =&gt; 
+    lblOut.Text = String.Format(<span class="str">"Current count is: {0}"</span>, n));
 </pre>
 <p>The first <code>from</code> clause specifies the input stream for the <code>SwitchRepeatedly</code>
   operator. The second one specifies how to obtain an event stream once we have a value for the
@@ -582,7 +582,7 @@ var eDecrementClick = Reactive.Merge
     <div class="large-7 columns">
     <h4>Blog archives <a href="http://tomasp.net/rss.xml"><img src="http://tomasp.net/img/rss.gif" /></a></h4>
       <a href="http://tomasp.net/blog/archive/august-2013/index.html">
-        August 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/may-2013/index.html">
+        August 2013 (2)</a>,      <a href="http://tomasp.net/blog/archive/may-2013/index.html">
         May 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/april-2013/index.html">
         April 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/march-2013/index.html">
         March 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/february-2013/index.html">

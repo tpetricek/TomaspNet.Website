@@ -76,26 +76,26 @@
   F# compiler uses whitespace to determine end of the blocks (and some other constructs). This compiler option is
   relatively new so it is still evolving. First issue that I had is with class declaration - the following 
   code is not valid with the latest F# version:</p>
-<pre lang="fsharp">
-type MyForm = class inherit Form as base
-  // ...
-end
+<pre >
+<span class="kwrd">type</span> MyForm = <span class="kwrd">class</span> <span class="kwrd">inherit</span> Form <span class="kwrd">as</span> base
+  <span class="rem">// ...</span>
+<span class="kwrd">end</span>
 </pre>  
 <p>I used it because it looks more familiar to C# developers :-). Instead of it you have to write the following:</p>
-<pre lang="fsharp">
-type MyForm = class 
-  inherit Form as base
-  // ...
-end
+<pre >
+<span class="kwrd">type</span> MyForm = <span class="kwrd">class</span> 
+  <span class="kwrd">inherit</span> Form <span class="kwrd">as</span> base
+  <span class="rem">// ...</span>
+<span class="kwrd">end</span>
 </pre>  
 <p>The second issue was with the pipeline operator which is useful when working with lists (or other sequences). The 
   correct syntax for using pipeline operator (for expressions that are longer than one line) is following:</p>
-<pre lang="fsharp">
-let filteredList = 
+<pre >
+<span class="kwrd">let</span> filteredList = 
        oldArray
-    |> Array.to_list 
-    |> List.map ( fun m -> /* ... */ ) 
-    |> List.filter ( fun m -> /* ... */ ) 
+    <span class="op">|</span>&gt; Array.to_list 
+    <span class="op">|</span>&gt; List.map ( <span class="kwrd">fun</span> m <span class="op">-&gt;</span> /* ... */ ) 
+    <span class="op">|</span>&gt; List.filter ( <span class="kwrd">fun</span> m <span class="op">-&gt;</span> /* ... */ ) 
 </pre>  
 
 <div class="row">
@@ -217,7 +217,7 @@ let filteredList =
     <div class="large-7 columns">
     <h4>Blog archives <a href="http://tomasp.net/rss.xml"><img src="http://tomasp.net/img/rss.gif" /></a></h4>
       <a href="http://tomasp.net/blog/archive/august-2013/index.html">
-        August 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/may-2013/index.html">
+        August 2013 (2)</a>,      <a href="http://tomasp.net/blog/archive/may-2013/index.html">
         May 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/april-2013/index.html">
         April 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/march-2013/index.html">
         March 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/february-2013/index.html">

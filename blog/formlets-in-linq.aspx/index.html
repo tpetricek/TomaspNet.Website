@@ -103,12 +103,12 @@
 <p>Let's look how to model the two aspects using a simple F# type and we'll look at actual C# implementation later.
   To get some intuition about formlets, you can take a look at the diagram on the right.
   The two aspects of formlets can be modeled as two separate functions. For simplicity, we group them in a record:</p>
-<pre lang="fsharp" style="margin-right:170px">
-type Formlet&lt;'T&gt; = 
-  { // Takes counter and generates XML together with new counter
-    Render   : int -&gt; XElement * int
-    // Takes counter and form values and generates result with new counter
-    Evaluate : int * NameValueCollection -&gt; 'T * int }
+<pre  style="margin-right:170px">
+<span class="kwrd">type</span> Formlet&lt;'T&gt; = 
+  { <span class="rem">// Takes counter and generates XML together with new counter</span>
+    Render   : int <span class="op">-&gt;</span> XElement * int
+    <span class="rem">// Takes counter and form values and generates result with new counter</span>
+    Evaluate : int * NameValueCollection <span class="op">-&gt;</span> 'T * int }
 </pre>
 <p>The first function is used to render the formlet. When the page is loaded for the first time, we don't
   have any form values, so the rendering phase shouldn't rely on any inputs. The function just needs to produce
@@ -126,11 +126,11 @@ type Formlet&lt;'T&gt; =
   <code>Formlet.Input(label)</code> that generates <code>&lt;input&gt;</code> with a specified label)
   and we want to compose them. When composing formlets, the second formlet must not depend on the value
   produced by the first formlet. Using nested <code>from</code> clauses in LINQ (or using monads), we could write:</p>
-<pre lang="csharp">
+<pre >
 Formlet&lt;DateTime&gt; dateFormlet = 
-  from day in Formlet.Input("Enter day:")
-  from month in Formlet.Input("Enter month (selected day is {0}):", day)
-  select new DateTime(day, month, 2011); 
+  <span class="kwrd">from</span> day <span class="kwrd">in</span> Formlet.Input(<span class="str">"Enter day:"</span>)
+  <span class="kwrd">from</span> month <span class="kwrd">in</span> Formlet.Input(<span class="str">"Enter month (selected day is {0}):"</span>, day)
+  <span class="kwrd">select</span> <span class="kwrd">new</span> DateTime(day, month, 2011); 
 </pre>
 <p>The tricky thing in the snippet above is that we're using the variable <code>day</code> (representing
   value obtained from the first input) when creating the second input. If you think about it,
@@ -165,21 +165,21 @@ Formlet&lt;DateTime&gt; dateFormlet =
 
 <p>The following LINQ snippet creates the form shown on the screenshot at the beginning of the article:</p>
 
-<pre lang="csharp">
+<pre >
 Formlet&lt;DateTime&gt; dateSelector =
-  from day in Formlet.DropDownRange(1, 31)
-  join month in Formlet.DropDown(monthNames) on 1 equals 1
-  let monthNum = Int32.Parse(month)
-  join year in Formlet.DropDownRange(1960, 50) on 1 equals 1
-  select new DateTime(year, monthNum, day);
+  <span class="kwrd">from</span> day <span class="kwrd">in</span> Formlet.DropDownRange(1, 31)
+  <span class="kwrd">join</span> month <span class="kwrd">in</span> Formlet.DropDown(monthNames) <span class="kwrd">on</span> 1 <span class="kwrd">equals</span> 1
+  <span class="kwrd">let</span> monthNum = Int32.Parse(month)
+  <span class="kwrd">join</span> year <span class="kwrd">in</span> Formlet.DropDownRange(1960, 50) <span class="kwrd">on</span> 1 <span class="kwrd">equals</span> 1
+  <span class="kwrd">select</span> <span class="kwrd">new</span> DateTime(year, monthNum, day);
 
 Formlet&lt;Booking&gt; formlet =
-  from name in Formlet.Input()
-  join o1 in Formlet.Tag("br") on 1 equals 1
-  join departureDate in dateSelector on 1 equals 1
-  join o2 in Formlet.Tag("br") on 1 equals 1
-  join returnDate in dateSelector on 1 equals 1
-  select new Booking { Name = name, Departure = departureDate, Return = returnDate };
+  <span class="kwrd">from</span> name <span class="kwrd">in</span> Formlet.Input()
+  <span class="kwrd">join</span> o1 <span class="kwrd">in</span> Formlet.Tag(<span class="str">"br"</span>) <span class="kwrd">on</span> 1 <span class="kwrd">equals</span> 1
+  <span class="kwrd">join</span> departureDate <span class="kwrd">in</span> dateSelector <span class="kwrd">on</span> 1 <span class="kwrd">equals</span> 1
+  <span class="kwrd">join</span> o2 <span class="kwrd">in</span> Formlet.Tag(<span class="str">"br"</span>) <span class="kwrd">on</span> 1 <span class="kwrd">equals</span> 1
+  <span class="kwrd">join</span> returnDate <span class="kwrd">in</span> dateSelector <span class="kwrd">on</span> 1 <span class="kwrd">equals</span> 1
+  <span class="kwrd">select</span> <span class="kwrd">new</span> Booking { Name = name, Departure = departureDate, Return = returnDate };
 </pre>
 
 <p>The first expression creates a formlet that can be used for entering dates. It renders three drop-down
@@ -208,12 +208,12 @@ Formlet&lt;Booking&gt; formlet =
   into a single one that produces tuple containing values produced by both. <code>Select</code> gives
   us a way to apply some calculation to transform the carried value:</p>
 
-<pre lang="csharp">
+<pre >
 Formlet&lt;DateTime&gt; dateSelector =
   Formlet.DropDownRange(1, 31).Merge
     (Formlet.DropDown(monthNames).Select(Int32.Parse)).Merge
-    (Formlet.DropDownRange(1960, 50)).Select(tup =>
-  new DateTime(tup.Item1.Item1, tup.Item1.Item2, tup.Item2));
+    (Formlet.DropDownRange(1960, 50)).Select(tup =&gt;
+  <span class="kwrd">new</span> DateTime(tup.Item1.Item1, tup.Item1.Item2, tup.Item2));
 </pre>
 
 <p>The snippet composes three formlets using <code>Merge</code>. The first and the third formlets are
@@ -230,14 +230,14 @@ Formlet&lt;DateTime&gt; dateSelector =
   formlet. To do this, we can simply assign the formlet to the <code>Model</code> property of the
   page. The ASP.NET markup for rendering the formlet looks like this:
 </p>
-<pre lang="aspx">
-&lt;%@ Page Language="C#" Inherits="ViewPage&lt;Formlet&lt;Booking&gt;&gt;" %&gt;
+<pre >
+<span class="asp">&lt;%@ Page Language="C#" Inherits="ViewPage&lt;Formlet&lt;Booking&gt;&gt;" %&gt;</span>
 
-&lt;!-- Standard HTML markup --&gt;  
-&lt;% using (Html.BeginForm("Booking", "Home")) { %&gt;
-  &lt;%= Model.Render() %&gt;
-  &lt;input type="submit" value="Submit" /&gt;
-&lt;% } %&gt;
+<span class="rem">&lt;!-- Standard HTML markup --&gt;</span>  
+<span class="asp">&lt;%</span> <span class="kwrd">using</span> (Html.BeginForm(<span class="str">"Booking"</span>, <span class="str">"Home"</span>)) { <span class="asp">%&gt;</span>
+  <span class="asp">&lt;%=</span> Model.Render() <span class="asp">%&gt;</span>
+  <span class="kwrd">&lt;</span><span class="html">input</span> <span class="attr">type</span><span class="kwrd">="submit"</span> <span class="attr">value</span><span class="kwrd">="Submit"</span> <span class="kwrd">/&gt;</span>
+<span class="asp">&lt;%</span> } <span class="asp">%&gt;</span>
 </pre>
 
 <p>In the <code>@ Page</code> directive, we specify that the model of the page is a formlet,
@@ -253,7 +253,7 @@ Formlet&lt;DateTime&gt; dateSelector =
   of generated HTML elements are stored in <code>Request.Form</code> (which is a 
   <code>NameValueCollection</code>). We can call <code>Evaluate</code> method of the formlet
   as follows:</p>
-<pre lang="csharp">
+<pre >
 Booking res = formlet.Evaluate(Request.Form);
 ViewData.Model = res;
 </pre>
@@ -283,27 +283,27 @@ ViewData.Model = res;
   and produces <code>FormletResult&lt;T&gt;</code>. The result consists of a rendered XML
   and a function that can be used (when evaluating) to turn form inputs into a value
   (I'm using <code>Environment</code> as an alias for <code>NameValueCollection</code>):</p>
-<pre lang="csharp">
-class FormletResult&lt;T&gt; {
-  // Rendered form stored as a list of XML elements
-  public IEnumerable&lt;XNode&gt; Elements { get; set; }
-  // Function (created by formlet) for processing form inputs
-  public Func&lt;Environment, T&gt; Collector { get; set; }
-  // Counter value after processing the formlet
-  public int Counter { get; set; }
+<pre >
+<span class="kwrd">class</span> FormletResult&lt;T&gt; {
+  <span class="rem">// Rendered form stored as a list of XML elements</span>
+  <span class="kwrd">public</span> IEnumerable&lt;XNode&gt; Elements { get; set; }
+  <span class="rem">// Function (created by formlet) for processing form inputs</span>
+  <span class="kwrd">public</span> Func&lt;Environment, T&gt; Collector { get; set; }
+  <span class="rem">// Counter value after processing the formlet</span>
+  <span class="kwrd">public</span> <span class="kwrd">int</span> Counter { get; set; }
 }
 
-class Formlet&lt;T&gt; {
-  // Function that runs the formlet when given an 'int' value
-  public Func&lt;int, FormletResult&lt;T&gt;&gt; Func { get; set; }
+<span class="kwrd">class</span> Formlet&lt;T&gt; {
+  <span class="rem">// Function that runs the formlet when given an 'int' value</span>
+  <span class="kwrd">public</span> Func&lt;<span class="kwrd">int</span>, FormletResult&lt;T&gt;&gt; Func { get; set; }
   
-  // Phase 1: Use formlet to create HTML of a form  
-  public XDocument Render() {
-    return new XDocument(new XElement("div", Func(0).Elements));
+  <span class="rem">// Phase 1: Use formlet to create HTML of a form  </span>
+  <span class="kwrd">public</span> XDocument Render() {
+    <span class="kwrd">return</span> <span class="kwrd">new</span> XDocument(<span class="kwrd">new</span> XElement(<span class="str">"div"</span>, Func(0).Elements));
   }
-  // Phase 2: Use formlet to process form inputs
-  public T Evaluate(Environment env) {
-    return Func(0).Collector(env);
+  <span class="rem">// Phase 2: Use formlet to process form inputs</span>
+  <span class="kwrd">public</span> T Evaluate(Environment env) {
+    <span class="kwrd">return</span> Func(0).Collector(env);
   }
 }
 </pre>
@@ -333,14 +333,14 @@ class Formlet&lt;T&gt; {
   such as <code>Formlet.Input()</code> need to be created explicitly. This is also a good way to 
   understand how formlets work:</p>
 
-<pre lang="csharp">
-public static Formlet&lt;string&gt; Input() {
-  return Formlet.Create(counter =&gt; new FormletResult&lt;string&gt; {
-    Elements = new List&lt;XElement&gt; {
-      new XElement("input", new XAttribute("name", "frmel" + counter))
+<pre >
+<span class="kwrd">public</span> <span class="kwrd">static</span> Formlet&lt;<span class="kwrd">string</span>&gt; Input() {
+  <span class="kwrd">return</span> Formlet.Create(counter =&gt; <span class="kwrd">new</span> FormletResult&lt;<span class="kwrd">string</span>&gt; {
+    Elements = <span class="kwrd">new</span> List&lt;XElement&gt; {
+      <span class="kwrd">new</span> XElement(<span class="str">"input"</span>, <span class="kwrd">new</span> XAttribute(<span class="str">"name"</span>, <span class="str">"frmel"</span> + counter))
     },
     Counter = counter + 1
-    Collector = env =&gt; env["frmel" + counter],
+    Collector = env =&gt; env[<span class="str">"frmel"</span> + counter],
   });
 }
 </pre>
@@ -367,15 +367,15 @@ public static Formlet&lt;string&gt; Input() {
   Once we have the types, writing the actual implementation is quite easy (I omitted the
   <code>Return</code> operation, because it isn't particularly useful for formlets):</p>
 
-<pre lang="csharp">
-// Create formlet that composes two formlets. The formlets are rendered
-// in in sequence and their values are merged into a tuple.
-public static Formlet&lt;Tuple&lt;T1, T2&gt;&gt; Merge&lt;T1, T2&gt;
-    (this Formlet&lt;T1&gt; first, Formlet&lt;T2&gt; second) {
-  return Formlet.Create(i =&gt; {
-    var v1 = first.Func(i);
-    var v2 = second.Func(v1.Counter);
-    return new FormletResult&lt;Tuple&lt;T1, T2&gt;&gt; {
+<pre >
+<span class="rem">// Create formlet that composes two formlets. The formlets are rendered</span>
+<span class="rem">// in in sequence and their values are merged into a tuple.</span>
+<span class="kwrd">public</span> <span class="kwrd">static</span> Formlet&lt;Tuple&lt;T1, T2&gt;&gt; Merge&lt;T1, T2&gt;
+    (<span class="kwrd">this</span> Formlet&lt;T1&gt; first, Formlet&lt;T2&gt; second) {
+  <span class="kwrd">return</span> Formlet.Create(i =&gt; {
+    <span class="kwrd">var</span> v1 = first.Func(i);
+    <span class="kwrd">var</span> v2 = second.Func(v1.Counter);
+    <span class="kwrd">return</span> <span class="kwrd">new</span> FormletResult&lt;Tuple&lt;T1, T2&gt;&gt; {
       Elements = Enumerable.Concat(v1.Elements, v2.Elements),
       Collector = env =&gt; 
         Tuple.Create(v1.Collector(env), v2.Collector(env)),
@@ -384,16 +384,16 @@ public static Formlet&lt;Tuple&lt;T1, T2&gt;&gt; Merge&lt;T1, T2&gt;
   });
 }
 
-// Create formlet that transforms value created by the original formlet;
-// rendering just returns elements of the original formlet.
-public static Formlet&lt;R&gt; Select&lt;T, R&gt;
-    (this Formlet&lt;T&gt; source, Func&lt;T, R&gt; func) {
-  return Formlet.Create(i =&gt; {
-    var value = source.Func(i);
-    return new FormletResult&lt;R&gt; {
-      Elements = value.Elements,
-      Collector = env =&gt; func(value.Collector(env)),
-      Counter = value.Counter
+<span class="rem">// Create formlet that transforms value created by the original formlet;</span>
+<span class="rem">// rendering just returns elements of the original formlet.</span>
+<span class="kwrd">public</span> <span class="kwrd">static</span> Formlet&lt;R&gt; Select&lt;T, R&gt;
+    (<span class="kwrd">this</span> Formlet&lt;T&gt; source, Func&lt;T, R&gt; func) {
+  <span class="kwrd">return</span> Formlet.Create(i =&gt; {
+    <span class="kwrd">var</span> <span class="kwrd">value</span> = source.Func(i);
+    <span class="kwrd">return</span> <span class="kwrd">new</span> FormletResult&lt;R&gt; {
+      Elements = <span class="kwrd">value</span>.Elements,
+      Collector = env =&gt; func(<span class="kwrd">value</span>.Collector(env)),
+      Counter = <span class="kwrd">value</span>.Counter
     };
   });
 }
@@ -564,7 +564,7 @@ public static Formlet&lt;R&gt; Select&lt;T, R&gt;
     <div class="large-7 columns">
     <h4>Blog archives <a href="http://tomasp.net/rss.xml"><img src="http://tomasp.net/img/rss.gif" /></a></h4>
       <a href="http://tomasp.net/blog/archive/august-2013/index.html">
-        August 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/may-2013/index.html">
+        August 2013 (2)</a>,      <a href="http://tomasp.net/blog/archive/may-2013/index.html">
         May 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/april-2013/index.html">
         April 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/march-2013/index.html">
         March 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/february-2013/index.html">

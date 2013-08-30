@@ -129,19 +129,19 @@ This article is no longer up-to-date. Although the techniques described in the a
   distribution should contain the correct version number, but the incorrect configuration is a common issue when working
   with ASP.NET in F#, so it is useful to know what the configuration should look like:</p>  
 
-<pre lang="xml">
-&lt;?xml version="1.0"?&gt;
-&lt;configuration&gt;&lt;system.web&gt;
-&lt;compilation debug="true"&gt;  
-  &lt;compilers&gt;
-    &lt;compiler 
-      language="F#;f#;fs;fsharp" extension=".fs" 
-      type="Microsoft.FSharp.Compiler.CodeDom.FSharpAspNetCodeProvider, 
-            FSharp.Compiler.CodeDom, Version=<strong style="color:red;">1.9.3.14</strong>, 
-            Culture=neutral, PublicKeyToken=a19089b1c74d0809"/&gt;
-  &lt;/compilers&gt;
-&lt;/compilation&gt;&lt;/system.web&gt;
-&lt;/configuration&gt;
+<pre >
+<span class="asp">&lt;?</span>xml version=<span class="str">"1.0"</span><span class="asp">?&gt;</span>
+<span class="kwrd">&lt;</span><span class="html">configuration</span><span class="kwrd">&gt;&lt;</span><span class="html">system.web</span><span class="kwrd">&gt;</span>
+<span class="kwrd">&lt;</span><span class="html">compilation</span> <span class="attr">debug</span><span class="kwrd">="true"</span><span class="kwrd">&gt;</span>  
+  <span class="kwrd">&lt;</span><span class="html">compilers</span><span class="kwrd">&gt;</span>
+    <span class="kwrd">&lt;</span><span class="html">compiler</span> 
+      <span class="attr">language</span><span class="kwrd">="F#;f#;fs;fsharp"</span> <span class="attr">extension</span><span class="kwrd">=".fs"</span> 
+      <span class="attr">type</span><span class="kwrd">="Microsoft.FSharp.Compiler.CodeDom.FSharpAspNetCodeProvider, 
+            FSharp.Compiler.CodeDom, Version=&lt;strong style="</span><span class="attr">color:red</span>;"<span class="kwrd">&gt;</span>1.9.3.14<span class="kwrd">&lt;/</span><span class="html">strong</span><span class="kwrd">&gt;</span>, 
+            Culture=neutral, PublicKeyToken=a19089b1c74d0809"<span class="kwrd">/&gt;</span>
+  <span class="kwrd">&lt;/</span><span class="html">compilers</span><span class="kwrd">&gt;</span>
+<span class="kwrd">&lt;/</span><span class="html">compilation</span><span class="kwrd">&gt;&lt;/</span><span class="html">system.web</span><span class="kwrd">&gt;</span>
+<span class="kwrd">&lt;/</span><span class="html">configuration</span><span class="kwrd">&gt;</span>
 </pre>
 
 <p>Now, let's look at the <code>Default.aspx</code> and <code>Default.aspx.fs</code> files that together represent a simple page.
@@ -149,17 +149,17 @@ This article is no longer up-to-date. Although the techniques described in the a
   result of some calculation is displayed in the label (the calculation is executed on the server-side). The following code is 
   a (slightly simplified) content of the <code>Default.aspx</code>
   file, which defines the HTML markup together with the ASP.NET controls that are on the page:</p>  
-<pre lang="aspx">
-&lt;%@ Page Language="F#" 
-  CodeFile="Default.aspx.fs" Inherits="FSharpWeb.Default" %&gt;
-&lt;html&gt;
-&lt;body&gt;&lt;form runat="server"&gt;
-  &lt;asp:Button 
-    ID="btnTest" RunAt="server" Text="Click me!" 
-    OnClick="ButtonClicked" /&gt;&lt;br /&gt;
-  &lt;asp:Label ID="lblResult" RunAt="server" /&gt;
-&lt;/form&gt;&lt;/body&gt;
-&lt;/html&gt;
+<pre >
+<span class="asp">&lt;%@ Page Language="F#" 
+  CodeFile="Default.aspx.fs" Inherits="FSharpWeb.Default" %&gt;</span>
+<span class="kwrd">&lt;</span><span class="html">html</span><span class="kwrd">&gt;</span>
+<span class="kwrd">&lt;</span><span class="html">body</span><span class="kwrd">&gt;&lt;</span><span class="html">form</span> <span class="attr">runat</span><span class="kwrd">="server"</span><span class="kwrd">&gt;</span>
+  <span class="kwrd">&lt;</span><span class="html">asp:Button</span> 
+    <span class="attr">ID</span><span class="kwrd">="btnTest"</span> <span class="attr">RunAt</span><span class="kwrd">="server"</span> <span class="attr">Text</span><span class="kwrd">="Click me!"</span> 
+    <span class="attr">OnClick</span><span class="kwrd">="ButtonClicked"</span> <span class="kwrd">/&gt;&lt;</span><span class="html">br</span> <span class="kwrd">/&gt;</span>
+  <span class="kwrd">&lt;</span><span class="html">asp:Label</span> <span class="attr">ID</span><span class="kwrd">="lblResult"</span> <span class="attr">RunAt</span><span class="kwrd">="server"</span> <span class="kwrd">/&gt;</span>
+<span class="kwrd">&lt;/</span><span class="html">form</span><span class="kwrd">&gt;&lt;/</span><span class="html">body</span><span class="kwrd">&gt;</span>
+<span class="kwrd">&lt;/</span><span class="html">html</span><span class="kwrd">&gt;</span>
 </pre>
 <p>You can easily identify two server-side controls, because these are written using prefix <code>asp</code> and
   also contain the <code>RunAt="server"</code> attribute, which means that the control is processed on the server-side.
@@ -170,25 +170,25 @@ This article is no longer up-to-date. Although the techniques described in the a
   so the event can be processed on the server). The file also contains the first special line, which tells the ASP.NET engine that the 
   page is written in F# and it also tells what source file contains the code-behind code and what is the name of type declared in that file.
   The code-behind file (<code>Default.aspx.fs</code>) has the following content:</p>
-<pre lang="fsharp">
-#light
-namespace FSharpWeb
-open System
-open System.Web
-open System.Web.UI.WebControls
+<pre >
+<span class="preproc">#light</span>
+<span class="kwrd">namespace</span> FSharpWeb
+<span class="kwrd">open</span> System
+<span class="kwrd">open</span> System.Web
+<span class="kwrd">open</span> System.Web.UI.WebControls
 
-type Default() =
-  inherit Page()
+<span class="kwrd">type</span> Default() =
+  <span class="kwrd">inherit</span> Page()
   
-  [&lt;DefaultValue&gt;]
-  val mutable btnTest : Button
+  <span class="op">[</span>&lt;DefaultValue&gt;<span class="op">]</span>
+  <span class="kwrd">val</span> <span class="kwrd">mutable</span> btnTest : Button
 
-  [&lt;DefaultValue&gt;]
-  val mutable lblResult : Label
+  <span class="op">[</span>&lt;DefaultValue&gt;<span class="op">]</span>
+  <span class="kwrd">val</span> <span class="kwrd">mutable</span> lblResult : Label
 
-  member this.ButtonClicked(sender, e) =
-    this.lblResult.Text &lt;- 
-      (sprintf "Factorial of 5 is: %d" 
+  <span class="kwrd">member</span> this.ButtonClicked(sender, e) =
+    this.lblResult.Text <span class="op">&lt;-</span> 
+      (sprintf <span class="str">"Factorial of 5 is: %d"</span> 
                (FSharpWeb.Logic.factorial 5))
 </pre>
 <p>As we can see, the file contains an F# object type (named <code>Default</code>), inherited from the base ASP.NET <code>Page</code>
@@ -245,14 +245,14 @@ type Default() =
   In the opened dialog window, you can add the databases (by selecting the MDF file) and click the "OK" button to attach the databases.
   Finally, you'll need to modify the <code>web.config</code> file in the Personal WebSite sample to include the following section:
 </p>  
-<pre lang="xml">
-&lt;connectionStrings&gt;
- &lt;add name="Personal" providerName="System.Data.SqlClient" connectionString=
-      "Data Source=.;Integrated Security=True;Database=PWS_WebPersonal" /&gt;
- &lt;remove name="LocalSqlServer"/&gt;
- &lt;add name="LocalSqlServer" connectionString=
-      "Data Source=.;Integrated Security=True;Database=PWS_AspNetDb" /&gt;
-&lt;/connectionStrings&gt;
+<pre >
+<span class="kwrd">&lt;</span><span class="html">connectionStrings</span><span class="kwrd">&gt;</span>
+ <span class="kwrd">&lt;</span><span class="html">add</span> <span class="attr">name</span><span class="kwrd">="Personal"</span> <span class="attr">providerName</span><span class="kwrd">="System.Data.SqlClient"</span> <span class="attr">connectionString</span>=
+      <span class="kwrd">"Data Source=.;Integrated Security=True;Database=PWS_WebPersonal"</span> <span class="kwrd">/&gt;</span>
+ <span class="kwrd">&lt;</span><span class="html">remove</span> <span class="attr">name</span><span class="kwrd">="LocalSqlServer"</span><span class="kwrd">/&gt;</span>
+ <span class="kwrd">&lt;</span><span class="html">add</span> <span class="attr">name</span><span class="kwrd">="LocalSqlServer"</span> <span class="attr">connectionString</span>=
+      <span class="kwrd">"Data Source=.;Integrated Security=True;Database=PWS_AspNetDb"</span> <span class="kwrd">/&gt;</span>
+<span class="kwrd">&lt;/</span><span class="html">connectionStrings</span><span class="kwrd">&gt;</span>
 </pre>
 <p>The <code>Data Source</code> parameter in the connection string specifies the instance of the SQL Server, where the databases are attached.
   By default this is the name of your computer (which can be written shortly using dot "."). When using the SQL Express the default
@@ -265,27 +265,27 @@ type Default() =
   with F# is I believe quite interesting, so I'll write a few notes about it. Let's look for example at the
   <code>Photos.aspx</code> file, which displays a list of photos in a gallery. The most important parts
   of the file related to data access are shown in the following code snippet:</p>
-<pre lang="aspx">
-&lt;asp:DataList RunAt="server" DataSourceID="photoSource" EnableViewState="false"&gt;
-&lt;ItemTemplate&gt;
-  &lt;!-- ... --&gt;
-  &lt;a href='Details.aspx?AlbumID=&lt;%# base.Eval("PhotoAlbumID") %&gt;'&gt;
-    &lt;img src="Handler.ashx?PhotoID=&lt;%# base.Eval("PhotoID") %&gt;&amp;Size=S" 
-      class="photo_198" style="border:4px solid white" 
-      alt='Thumbnail of Photo Number &lt;%# base.Eval("PhotoID") %&gt;' /&gt;
-  &lt;/a&gt;
-  &lt;!-- ... --&gt;
-&lt;/ItemTemplate&gt;
-&lt;/asp:DataList&gt;
+<pre >
+<span class="kwrd">&lt;</span><span class="html">asp:DataList</span> <span class="attr">RunAt</span><span class="kwrd">="server"</span> <span class="attr">DataSourceID</span><span class="kwrd">="photoSource"</span> <span class="attr">EnableViewState</span><span class="kwrd">="false"</span><span class="kwrd">&gt;</span>
+<span class="kwrd">&lt;</span><span class="html">ItemTemplate</span><span class="kwrd">&gt;</span>
+  <span class="rem">&lt;!-- ... --&gt;</span>
+  <span class="kwrd">&lt;</span><span class="html">a</span> <span class="attr">href</span><span class="kwrd">='Details.aspx?AlbumID=&lt;%# base.Eval("PhotoAlbumID") %&gt;'</span><span class="kwrd">&gt;</span>
+    <span class="kwrd">&lt;</span><span class="html">img</span> <span class="attr">src</span><span class="kwrd">="Handler.ashx?PhotoID=&lt;%# base.Eval("</span><span class="attr">PhotoID</span><span class="kwrd">") %&gt;&amp;Size=S"</span> 
+      <span class="attr">class</span><span class="kwrd">="photo_198"</span> <span class="attr">style</span><span class="kwrd">="border:4px solid white"</span> 
+      <span class="attr">alt</span><span class="kwrd">='Thumbnail of Photo Number &lt;%# base.Eval("PhotoID") %&gt;'</span> <span class="kwrd">/&gt;</span>
+  <span class="kwrd">&lt;/</span><span class="html">a</span><span class="kwrd">&gt;</span>
+  <span class="rem">&lt;!-- ... --&gt;</span>
+<span class="kwrd">&lt;/</span><span class="html">ItemTemplate</span><span class="kwrd">&gt;</span>
+<span class="kwrd">&lt;/</span><span class="html">asp:DataList</span><span class="kwrd">&gt;</span>
 
-&lt;asp:ObjectDataSource ID="photoSource" RunAt="server" 
-  TypeName="PersonalWebSite.PhotoManager" 
-  SelectMethod="GetPhotos"&gt;
-  &lt;SelectParameters&gt;
-    &lt;asp:QueryStringParameter Name="AlbumID" Type="Int32" 
-      QueryStringField="albumID" DefaultValue="0"/&gt;
-  &lt;/SelectParameters&gt;
-&lt;/asp:ObjectDataSource&gt;
+<span class="kwrd">&lt;</span><span class="html">asp:ObjectDataSource</span> <span class="attr">ID</span><span class="kwrd">="photoSource"</span> <span class="attr">RunAt</span><span class="kwrd">="server"</span> 
+  <span class="attr">TypeName</span><span class="kwrd">="PersonalWebSite.PhotoManager"</span> 
+  <span class="attr">SelectMethod</span><span class="kwrd">="GetPhotos"</span><span class="kwrd">&gt;</span>
+  <span class="kwrd">&lt;</span><span class="html">SelectParameters</span><span class="kwrd">&gt;</span>
+    <span class="kwrd">&lt;</span><span class="html">asp:QueryStringParameter</span> <span class="attr">Name</span><span class="kwrd">="AlbumID"</span> <span class="attr">Type</span><span class="kwrd">="Int32"</span> 
+      <span class="attr">QueryStringField</span><span class="kwrd">="albumID"</span> <span class="attr">DefaultValue</span><span class="kwrd">="0"</span><span class="kwrd">/&gt;</span>
+  <span class="kwrd">&lt;/</span><span class="html">SelectParameters</span><span class="kwrd">&gt;</span>
+<span class="kwrd">&lt;/</span><span class="html">asp:ObjectDataSource</span><span class="kwrd">&gt;</span>
 </pre>
 
 <p>The first ASP.NET control used in the code is <code>asp:DataList</code>, which is a control that 
@@ -297,8 +297,8 @@ type Default() =
   in <code>&lt;%# ... %&gt;</code> tells ASP.NET that we want to render the result of the expression as
   a part of the item template.
   The record that we're using in this example is very simple and has the following structure:</p>
-<pre lang="fsharp">
-type Photo = 
+<pre >
+<span class="kwrd">type</span> Photo = 
   { PhotoID:int; 
     PhotoAlbumID:int; 
     PhotoCaption:string; }
@@ -324,35 +324,35 @@ type Photo =
   (we could of course use FLinq for loading the data, but I wanted to keep things simple for now, so we're using
   standard <code>SqlDataReader</code> object from .NET):</p>
 
-<pre lang="fsharp">
-namespace PersonalWebSite
-// ...
+<pre >
+<span class="kwrd">namespace</span> PersonalWebSite
+<span class="rem">// ...</span>
 
-module PhotoManager = 
-  // Function will be called by ASP.NET when loading data
-  // for the asp:DataList control in the 'Photos.aspx' page
-  let GetPhotos (albumID:int) =
-    // Open connection &amp; create command
-    use conn = new SqlConnection(" ... ")
-    use cmd  = new SqlCommand("GetPhotos", conn)
+<span class="kwrd">module</span> PhotoManager = 
+  <span class="rem">// Function will be called by ASP.NET when loading data</span>
+  <span class="rem">// for the asp:DataList control in the 'Photos.aspx' page</span>
+  <span class="kwrd">let</span> GetPhotos (albumID:int) =
+    <span class="rem">// Open connection &amp; create command</span>
+    <span class="kwrd">use</span> conn = <span class="kwrd">new</span> SqlConnection(<span class="str">" ... "</span>)
+    <span class="kwrd">use</span> cmd  = <span class="kwrd">new</span> SqlCommand(<span class="str">"GetPhotos"</span>, conn)
     
-    // Can the user see 'private' photos?
-    let usr = HttpContext.Current.User
-    let filter = not (usr.IsInRole("Friends") || usr.IsInRole("Administrators"))
-    cmd.CommandType &lt;- CommandType.StoredProcedure)
-    cmd.Parameters.Add(SqlParameter("@AlbumID", albumID)) |&gt; ignore
-    command.Parameters.Add(SqlParameter("@IsPublic", filter)) |&gt; ignore
+    <span class="rem">// Can the user see 'private' photos?</span>
+    <span class="kwrd">let</span> usr = HttpContext.Current.User
+    <span class="kwrd">let</span> filter = not (usr.IsInRole(<span class="str">"Friends"</span>) <span class="op">|</span><span class="op">|</span> usr.IsInRole(<span class="str">"Administrators"</span>))
+    cmd.CommandType <span class="op">&lt;-</span> CommandType.StoredProcedure)
+    cmd.Parameters.Add(SqlParameter(<span class="str">"@AlbumID"</span>, albumID)) <span class="op">|</span>&gt; ignore
+    command.Parameters.Add(SqlParameter(<span class="str">"@IsPublic"</span>, filter)) <span class="op">|</span>&gt; ignore
     conn.Open()
     
-    // Read all photos into a .NET ResizeArray type
-    let list = new ResizeArray&lt;_&gt;()
-    use reader = command.ExecuteReader()
-    while (reader.Read()) do
-      list.Add({ PhotoID = unbox (reader.get_Item("PhotoID")) 
-                 PhotoAlbumID = unbox (reader.get_Item("AlbumID")) 
-                 PhotoCaption = unbox (reader.get_Item("Caption")) }) 
+    <span class="rem">// Read all photos into a .NET ResizeArray type</span>
+    <span class="kwrd">let</span> list = <span class="kwrd">new</span> ResizeArray&lt;<span class="op">_</span>&gt;()
+    <span class="kwrd">use</span> reader = command.ExecuteReader()
+    <span class="kwrd">while</span> (reader.Read()) <span class="kwrd">do</span>
+      list.Add({ PhotoID = unbox (reader.get_Item(<span class="str">"PhotoID"</span>)) 
+                 PhotoAlbumID = unbox (reader.get_Item(<span class="str">"AlbumID"</span>)) 
+                 PhotoCaption = unbox (reader.get_Item(<span class="str">"Caption"</span>)) }) 
                  
-    // Return the created collection
+    <span class="rem">// Return the created collection</span>
     list 
 </pre>
 <p>I hope this article explained some of the interesting things that you may find in the ASP.NET samples provided with 
@@ -492,7 +492,7 @@ module PhotoManager =
     <div class="large-7 columns">
     <h4>Blog archives <a href="http://tomasp.net/rss.xml"><img src="http://tomasp.net/img/rss.gif" /></a></h4>
       <a href="http://tomasp.net/blog/archive/august-2013/index.html">
-        August 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/may-2013/index.html">
+        August 2013 (2)</a>,      <a href="http://tomasp.net/blog/archive/may-2013/index.html">
         May 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/april-2013/index.html">
         April 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/march-2013/index.html">
         March 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/february-2013/index.html">

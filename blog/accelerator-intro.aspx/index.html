@@ -116,12 +116,12 @@
   F# code. Assume we have an array of <code>float</code> values named <code>nums</code>. 
   The following example builds a computation that calculates an average value of an element 
   and two its neighbors for each element in the array:</p>
-<pre lang="csharp">
-var input = new FloatParallelArray(nums);
-var sum = 
+<pre >
+<span class="kwrd">var</span> input = <span class="kwrd">new</span> FloatParallelArray(nums);
+<span class="kwrd">var</span> sum = 
   ParallelArrays.Shift(input, 1) + input + 
   ParallelArrays.Shift(input, -1);
-var output = sum / 3.0f;
+<span class="kwrd">var</span> output = sum / 3.0f;
 </pre>
 <p>We start by creating a new <code>FloatParallelArray</code> instance that stores the
   input data for the program (this represents a constant computation). Then we write a 
@@ -130,9 +130,9 @@ var output = sum / 3.0f;
   array by 3. This is also a point-wise operation, so it actually divides each element
   of the array by 3. Now that we have a <code>FloatParallelArray</code> named <code>output</code>,
   which represents the computation, we can run it using GPU:</p>
-<pre lang="csharp">
-var target = new DX9Target();
-var res = target.ToArray1D(output);
+<pre >
+<span class="kwrd">var</span> target = <span class="kwrd">new</span> DX9Target();
+<span class="kwrd">var</span> res = target.ToArray1D(output);
 </pre>
 <p>The code to run the computation is quite simple. We first initialize a <em>target</em>.
   We're using <code>DX9Target</code>, which executes computations using GPU. If we wanted
@@ -163,16 +163,16 @@ var res = target.ToArray1D(output);
   (either x86 or x64 version) and copy it to <code>bin/Debug</code> in your project.
   Then we can start by writing a couple of helpers:
 </p>
-<pre lang="fsharp">
-open Microsoft.ParallelArrays
+<pre >
+<span class="kwrd">open</span> Microsoft.ParallelArrays
 
-type PA = Microsoft.ParallelArrays.ParallelArrays
-type FPA = Microsoft.ParallelArrays.FloatParallelArray
+<span class="kwrd">type</span> PA = Microsoft.ParallelArrays.ParallelArrays
+<span class="kwrd">type</span> FPA = Microsoft.ParallelArrays.FloatParallelArray
 
-// Initialization of constant 2D arrays
-let gridSize = 4096
-let shape = [| gridSize; gridSize; |]
-let zero, one = new FPA(0.0f, shape), new FPA(1.0f, shape)
+<span class="rem">// Initialization of constant 2D arrays</span>
+<span class="kwrd">let</span> gridSize = 4096
+<span class="kwrd">let</span> shape = <span class="op">[|</span> gridSize; gridSize; <span class="op">|</span><span class="op">]</span>
+<span class="kwrd">let</span> zero, one = <span class="kwrd">new</span> FPA(0.0f, shape), <span class="kwrd">new</span> FPA(1.0f, shape)
 </pre>
 <p>We start by opening the namespace that contains all the Accelerator functionality.
   To make the code a little bit more succinct, we also define two type aliases. The
@@ -194,11 +194,11 @@ let zero, one = new FPA(0.0f, shape), new FPA(1.0f, shape)
   three functions that wrap functionality that's available using static methods 
   in C# (we could of course use static methods directly, but using functions 
   will lead to a more idiomatic F# code):</p>  
-<pre lang="fsharp">
-// Calculating with 2D float arrays 
-let sqrt (a:FPA) = PA.Sqrt(a)
-let sum (a:FPA) = PA.Sum(a)
-let select (cond:FPA) (a:FPA) (b:FPA) = PA.Select(cond,a,b)
+<pre >
+<span class="rem">// Calculating with 2D float arrays </span>
+<span class="kwrd">let</span> sqrt (a:FPA) = PA.Sqrt(a)
+<span class="kwrd">let</span> sum (a:FPA) = PA.Sum(a)
+<span class="kwrd">let</span> select (cond:FPA) (a:FPA) (b:FPA) = PA.Select(cond,a,b)
 </pre>
 <p>The <code>sqrt</code> function is a point-wise operation that calculates
   square roots of all elements of the array. <code>sum</code> is a little bit more
@@ -227,12 +227,12 @@ let select (cond:FPA) (a:FPA) (b:FPA) = PA.Select(cond,a,b)
   be done using <code>Array2D.init</code> function, which initializes an array 
   using the function that calculates an element value (in our example, the function
   is called <code>generator</code>):</p>  
-<pre lang="fsharp">
-let rnd = new Random()
-let generator x y = float32(rnd.NextDouble())
+<pre >
+<span class="kwrd">let</span> rnd = <span class="kwrd">new</span> Random()
+<span class="kwrd">let</span> generator x y = float32(rnd.NextDouble())
 
-let px = new FPA(Array2D.init gridSize gridSize generator)
-let py = new FPA(Array2D.init gridSize gridSize generator)
+<span class="kwrd">let</span> px = <span class="kwrd">new</span> FPA(Array2D.init gridSize gridSize generator)
+<span class="kwrd">let</span> py = <span class="kwrd">new</span> FPA(Array2D.init gridSize gridSize generator)
 </pre>
 <p>Once we have .NET arrays with random values, we use them to create
   constant computations represented as the <code>FloatParallelArray</code> type
@@ -240,18 +240,18 @@ let py = new FPA(Array2D.init gridSize gridSize generator)
   (an object that knows how to evaluate <code>FloatParallelArray</code> computations)
   and calculates an approximate value of PI using our random points:</p>
 
-<pre lang="fsharp">
-let calculatePi (target:Target) =
-  // Calculate distances of points from the center
-  let pxc, pyc = (px - 0.5f) * 2.0f, (py - 0.5f) * 2.0f
-  let distances = sqrt ((pxc * pxc) + (pyc * pyc))
+<pre >
+<span class="kwrd">let</span> calculatePi (target:Target) =
+  <span class="rem">// Calculate distances of points from the center</span>
+  <span class="kwrd">let</span> pxc, pyc = (px - 0.5f) * 2.0f, (py - 0.5f) * 2.0f
+  <span class="kwrd">let</span> distances = sqrt ((pxc * pxc) + (pyc * pyc))
 
-  // Count points with distance less than one
-  let inCircle = select (one - distances) one zero
-  let count = sum(inCircle)
+  <span class="rem">// Count points with distance less than one</span>
+  <span class="kwrd">let</span> inCircle = select (one - distances) one zero
+  <span class="kwrd">let</span> count = sum(inCircle)
 
-  // Evaluate the count and calculate PI
-  let result = target.ToArray1D(count)
+  <span class="rem">// Evaluate the count and calculate PI</span>
+  <span class="kwrd">let</span> result = target.ToArray1D(count)
   result.[0] / (float32(gridSize * gridSize) / 4.0f)
 </pre>
 
@@ -284,10 +284,10 @@ let calculatePi (target:Target) =
   value of PI! The last step is to actually run the computation using
   Accelerator:</p>
 
-<pre lang="fsharp">
-let dxTarget = new DX9Target()
-let pi = calculatePi(dxTarget)  
-printfn "Approximate PI value: %f" pi
+<pre >
+<span class="kwrd">let</span> dxTarget = <span class="kwrd">new</span> DX9Target()
+<span class="kwrd">let</span> pi = calculatePi(dxTarget)  
+printfn <span class="str">"Approximate PI value: %f"</span> pi
 </pre>
 
 <p>As you can see, running the calculation is now pretty simple. We created an
@@ -437,7 +437,7 @@ printfn "Approximate PI value: %f" pi
     <div class="large-7 columns">
     <h4>Blog archives <a href="http://tomasp.net/rss.xml"><img src="http://tomasp.net/img/rss.gif" /></a></h4>
       <a href="http://tomasp.net/blog/archive/august-2013/index.html">
-        August 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/may-2013/index.html">
+        August 2013 (2)</a>,      <a href="http://tomasp.net/blog/archive/may-2013/index.html">
         May 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/april-2013/index.html">
         April 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/march-2013/index.html">
         March 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/february-2013/index.html">

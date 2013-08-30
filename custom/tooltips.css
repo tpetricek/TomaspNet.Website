@@ -3,23 +3,24 @@
 /* identifier */
 span.i { color:#eaeaea; }
 /* string */
-span.s { color:#d4943c; }
+span.s, span.str { color:#d4943c; }
 /* keywords */
-span.k { color:#67aded; }
+span.k, span.kwrd { color:#67aded; }
 /* comment */
-span.c { color:#96C71D; }
+span.c, span.rem { color:#96C71D; }
 /* operators */
-span.o { color:#af75c1; }
+span.o, span.op { color:#af75c1; }
+span.html { color:#af75c1; }
 /* numbers */
 span.n { color:#af75c1; }
 /* line number */
 span.l { color:#80b0b0; }
 
-
 /* inactive code */
 span.inactive { color:#808080; }
 /* preprocessor */
-span.prep { color:#af75c1; }
+span.prep, span.preproc { color:#af75c1; }
+span.attr, span.asp { color:#af75c1; }
 /* fsi output */
 span.fsi { font-style:italic; color:#606060; }
 

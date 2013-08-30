@@ -133,14 +133,14 @@
   result. The paper presents a static verification algorithm that checks whether the "recalculation"
   needs to rollback some side-effects (which would be impossible). The authors also presented 
   a C# library, which allows us to write something like this:</p>
-<pre lang="csharp">
+<pre >
 Speculation.Iterate(0, numTasks,
   (i, state) =&gt; {
-    // Body of the stateful loop 
-    // - calculate new state based on current 'state' and index 'i'
+    <span class="rem">// Body of the stateful loop </span>
+    <span class="rem">// - calculate new state based on current 'state' and index 'i'</span>
   }, (i) =&gt;
-    // Prediction function
-    // - calculate new state without knowing the current 'state'
+    <span class="rem">// Prediction function</span>
+    <span class="rem">// - calculate new state without knowing the current 'state'</span>
   });
 </pre>
 <p>This raises some interesting problems for F# as well. It turns out that encoding this
@@ -346,7 +346,7 @@ val (hours, minutes, seconds) =
     <div class="large-7 columns">
     <h4>Blog archives <a href="http://tomasp.net/rss.xml"><img src="http://tomasp.net/img/rss.gif" /></a></h4>
       <a href="http://tomasp.net/blog/archive/august-2013/index.html">
-        August 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/may-2013/index.html">
+        August 2013 (2)</a>,      <a href="http://tomasp.net/blog/archive/may-2013/index.html">
         May 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/april-2013/index.html">
         April 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/march-2013/index.html">
         March 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/february-2013/index.html">

@@ -119,14 +119,14 @@
   of the specified size that contain constant values. We're using the <code>FPA</code>
   type alias from the <a href="accelerator-intro.aspx">previous article</a>.</p>
 
-<pre lang="fsharp">
-// Configuration of the game
-let gridSize, formSize = 512, 512
+<pre >
+<span class="rem">// Configuration of the game</span>
+<span class="kwrd">let</span> gridSize, formSize = 512, 512
 
-// Initialization of constant 2D arrays
-let shape = [| gridSize; gridSize; |]
-let [zero; one; two; three] =
-  [ for f in [0.0f; 1.0f; 2.0f; 3.0f] -&gt; new FPA(f, shape) ]
+<span class="rem">// Initialization of constant 2D arrays</span>
+<span class="kwrd">let</span> shape = <span class="op">[|</span> gridSize; gridSize; <span class="op">|</span><span class="op">]</span>
+<span class="kwrd">let</span> [zero; one; two; three] =
+  <span class="op">[</span> <span class="kwrd">for</span> f <span class="kwrd">in</span> [0.0f; 1.0f; 2.0f; 3.0f] <span class="op">-&gt;</span> <span class="kwrd">new</span> FPA(f, shape) <span class="op">]</span>
 </pre>
 <p>The code uses a simple sequence expression that iterates over a list of 
   constants stored as floats and yields a new <code>FPA</code> instance with
@@ -142,14 +142,14 @@ let [zero; one; two; three] =
   we'll also implement a single function that wrap the Accelerator 
   functionality and three custom operators:</p>
   
-<pre lang="fsharp">
-// Calculating with 2D float arrays 
-let rotate (a:FPA) (dx:int) dy = PA.Rotate(a, [| dx; dy |]);
+<pre >
+<span class="rem">// Calculating with 2D float arrays </span>
+<span class="kwrd">let</span> rotate (a:FPA) (dx:int) dy = PA.Rotate(a, <span class="op">[|</span> dx; dy <span class="op">|</span><span class="op">]</span>);
 
-// Custom operators - simulating logical operations using floats
-let (&amp;&amp;.) (a:FPA) (b:FPA) = PA.Min(a, b)
-let (||.) (a:FPA) (b:FPA) = PA.Max(a, b)
-let (==.) (a:FPA) (b:FPA) = PA.Cond(PA.CompareEqual(a, b), one, zero)
+<span class="rem">// Custom operators - simulating logical operations using floats</span>
+<span class="kwrd">let</span> (&amp;&amp;.) (a:FPA) (b:FPA) = PA.Min(a, b)
+<span class="kwrd">let</span> (<span class="op">|</span><span class="op">|</span>.) (a:FPA) (b:FPA) = PA.Max(a, b)
+<span class="kwrd">let</span> (==.) (a:FPA) (b:FPA) = PA.Cond(PA.CompareEqual(a, b), one, zero)
 </pre>
 
 <p>As you can see, all of our functions and operators are simple wrappers for
@@ -190,10 +190,10 @@ let (==.) (a:FPA) (b:FPA) = PA.Cond(PA.CompareEqual(a, b), one, zero)
   and the first row and column of the grid (<code>x = 0 || y = 0</code>). This is
   enough to start a very interesting simulation. If you'll later want to experiment
   with the code, you may try changing the initial configuration:</p>
-<pre lang="fsharp">
-// Create an initial data grid
-let initial = Array2D.init gridSize gridSize (fun x y -&gt; 
-  if x = 0 || y = 0 || x = y then 1.0f else 0.0f)
+<pre >
+<span class="rem">// Create an initial data grid</span>
+<span class="kwrd">let</span> initial = Array2D.init gridSize gridSize (<span class="kwrd">fun</span> x y <span class="op">-&gt;</span> 
+  <span class="kwrd">if</span> x = 0 <span class="op">|</span><span class="op">|</span> y = 0 <span class="op">|</span><span class="op">|</span> x = y <span class="kwrd">then</span> 1.0f <span class="kwrd">else</span> 0.0f)
 </pre>
 <p>The code uses F# library function <code>Array2D.init</code>, which takes the
   dimensions of an array as first two arguments. The last argument is a function
@@ -204,20 +204,20 @@ let initial = Array2D.init gridSize gridSize (fun x y -&gt;
   result. As I explained earlier, this is just a representation of a computation
   that can be executed later. We'll run the constructed computation later to get a 
   result of type <code>float32[,]</code>, which can be easily visualized.</p>  
-<pre lang="fsharp">
-let nextGeneration (grid:FPA) =
-  // Generate grids shifted by 1 in every direction
-  let hd::tl = 
-    [ for dx in -1 .. 1 do
-        for dy in -1 .. 1 do
-          if dx &lt;&gt; 0 || dy &lt;&gt; 0 then 
-            yield rotate grid dx dy ]
+<pre >
+<span class="kwrd">let</span> nextGeneration (grid:FPA) =
+  <span class="rem">// Generate grids shifted by 1 in every direction</span>
+  <span class="kwrd">let</span> hd::tl = 
+    <span class="op">[</span> <span class="kwrd">for</span> dx <span class="kwrd">in</span> -1 .. 1 <span class="kwrd">do</span>
+        <span class="kwrd">for</span> dy <span class="kwrd">in</span> -1 .. 1 <span class="kwrd">do</span>
+          <span class="kwrd">if</span> dx &lt;&gt; 0 <span class="op">|</span><span class="op">|</span> dy &lt;&gt; 0 <span class="kwrd">then</span> 
+            <span class="kwrd">yield</span> rotate grid dx dy <span class="op">]</span>
 
-  // Count neighbors of each grid element
-  let sum = tl |&gt; List.fold (+) hd
+  <span class="rem">// Count neighbors of each grid element</span>
+  <span class="kwrd">let</span> sum = tl <span class="op">|</span>&gt; List.fold (+) hd
   
-  // Implements the Game of Life logic
-  (sum ==. three) ||. ((sum ==. two) &amp;&amp;. grid)
+  <span class="rem">// Implements the Game of Life logic</span>
+  (sum ==. three) <span class="op">|</span><span class="op">|</span>. ((sum ==. two) &amp;&amp;. grid)
 </pre>
 <p>In the first step, the function creates a list of 8 grids rotated in all 
   of the 8 possible directions (north, northeast, east, southeast, etc). 
@@ -259,24 +259,24 @@ let nextGeneration (grid:FPA) =
   running the step operation in a loop and we'll look at its source in 
   the next subsection.</p>
 
-<pre lang="fsharp">
-let life(target:Target) =
-  // Functions to calculate next state and to draw it
-  let nextState (g:float32[,]) =
-    target.ToArray2D(nextGeneration(new FPA(g)))
-  let display (data:float32[,]) =
-    data |&gt; toBitmap (fun f -&gt; 
-      if (f &lt; 0.5f) then Color.White else Color.DarkCyan)
+<pre >
+<span class="kwrd">let</span> life(target:Target) =
+  <span class="rem">// Functions to calculate next state and to draw it</span>
+  <span class="kwrd">let</span> nextState (g:float32[,<span class="op">]</span>) =
+    target.ToArray2D(nextGeneration(<span class="kwrd">new</span> FPA(g)))
+  <span class="kwrd">let</span> display (data:float32[,<span class="op">]</span>) =
+    data <span class="op">|</span>&gt; toBitmap (<span class="kwrd">fun</span> f <span class="op">-&gt;</span> 
+      <span class="kwrd">if</span> (f &lt; 0.5f) <span class="kwrd">then</span> Color.White <span class="kwrd">else</span> Color.DarkCyan)
 
-  // Run the drawing form with life game
-  let gameForm = 
-    new DrawingForm&lt;_&gt;
+  <span class="rem">// Run the drawing form with life game</span>
+  <span class="kwrd">let</span> gameForm = 
+    <span class="kwrd">new</span> DrawingForm&lt;<span class="op">_</span>&gt;
       (initial, nextState, display, 
        ClientSize = Size(formSize, formSize))
   Application.Run(gameForm)  
 
-do
-  life(new DX9Target())
+<span class="kwrd">do</span>
+  life(<span class="kwrd">new</span> DX9Target())
 </pre>
 <p>We already have the <code>nextGeneration</code> function, which has a type
   <code>FPA -&gt; FPA</code>. It returns a computation that represents the next 
@@ -311,19 +311,19 @@ do
   recomputed using the provided function when the form is running. We'll implement 
   the form using the implicit class syntax:</p>
   
-<pre lang="fsharp">
-type DrawingForm&lt;'TState&gt;(initial, update, draw) as x = 
-  inherit Form()
-  // Loop that runs computation &amp; redraws form
-  let rec drawingLoop(state) = 
-    if not x.IsDisposed then
-      ( use gr = x.CreateGraphics()
-        gr.InterpolationMode &lt;- Drawing2D.InterpolationMode.NearestNeighbor
+<pre >
+<span class="kwrd">type</span> DrawingForm&lt;'TState&gt;(initial, update, draw) <span class="kwrd">as</span> x = 
+  <span class="kwrd">inherit</span> Form()
+  <span class="rem">// Loop that runs computation &amp; redraws form</span>
+  <span class="kwrd">let</span> <span class="kwrd">rec</span> drawingLoop(state) = 
+    <span class="kwrd">if</span> not x.IsDisposed <span class="kwrd">then</span>
+      ( <span class="kwrd">use</span> gr = x.CreateGraphics()
+        gr.InterpolationMode <span class="op">&lt;-</span> Drawing2D.InterpolationMode.NearestNeighbor
         gr.DrawImage(draw(state), x.ClientRectangle) )
       drawingLoop(update(state))
 
-  do
-    // Run the computation
+  <span class="kwrd">do</span>
+    <span class="rem">// Run the computation</span>
     Async.Start(async { drawingLoop(initial) })
 </pre>
 <p>The form doesn't contain any members, so the entire body is essentially just a 
@@ -505,7 +505,7 @@ type DrawingForm&lt;'TState&gt;(initial, update, draw) as x =
     <div class="large-7 columns">
     <h4>Blog archives <a href="http://tomasp.net/rss.xml"><img src="http://tomasp.net/img/rss.gif" /></a></h4>
       <a href="http://tomasp.net/blog/archive/august-2013/index.html">
-        August 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/may-2013/index.html">
+        August 2013 (2)</a>,      <a href="http://tomasp.net/blog/archive/may-2013/index.html">
         May 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/april-2013/index.html">
         April 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/march-2013/index.html">
         March 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/february-2013/index.html">

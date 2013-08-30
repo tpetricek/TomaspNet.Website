@@ -91,8 +91,8 @@ two subclasses <code>Cat</code> and <code>Fish</code> and finally, there is also
 has a <code>Name</code>, we can write the following function that prints names of all
 animals in some collection:</p>
 
-<pre lang="csharp">void PrintAnimals(IEnumerable&lt;Animal&gt; animals) {
-  for(var animal in animals)
+<pre ><span class="kwrd">void</span> PrintAnimals(IEnumerable&lt;Animal&gt; animals) {
+  <span class="kwrd">for</span>(<span class="kwrd">var</span> animal <span class="kwrd">in</span> animals)
     Console.WriteLine(animal.Name);
 }</pre>
 
@@ -101,7 +101,7 @@ values from the collection (using the <code>Current</code> property of <code>IEn
 is no way we could write <code>Animal</code> back to the collection - it is read-only. Now, if we
 create a collection of cats, can we use <code>PrintAnimals</code> to print their names?</p>
 
-<pre lang="csharp">IEnumerable&lt;Cat&gt; cats = new List&lt;Cat&gt; { new Cat(&quot;Troublemaker&quot;) };
+<pre >IEnumerable&lt;Cat&gt; cats = <span class="kwrd">new</span> List&lt;Cat&gt; { <span class="kwrd">new</span> Cat(<span class="str">"Troublemaker"</span>) };
 PrintAnimals(cats);</pre>
 
 <p>If you compile and run this sample, you'll see that the C# compiler accepts it and the
@@ -118,11 +118,11 @@ cats are animals.</p>
 creates some cats and compares them using a provided <code>IComparer&lt;Cat&gt;</code> object. In a more
 realistic example, the method might, for example, sort the cats:</p>
 
-<pre lang="csharp">void CompareCats(IComparer&lt;Cat&gt; comparer) {
-  var cat1 = new Cat(&quot;Otto&quot;);
-  var cat2 = new Cat(&quot;Troublemaker&quot;);
-  if (comparer.Compare(cat2, cat1) &gt; 0) 
-    Console.WriteLine(&quot;Troublemaker wins!&quot;);
+<pre ><span class="kwrd">void</span> CompareCats(IComparer&lt;Cat&gt; comparer) {
+  <span class="kwrd">var</span> cat1 = <span class="kwrd">new</span> Cat(<span class="str">"Otto"</span>);
+  <span class="kwrd">var</span> cat2 = <span class="kwrd">new</span> Cat(<span class="str">"Troublemaker"</span>);
+  <span class="kwrd">if</span> (comparer.Compare(cat2, cat1) &gt; 0) 
+    Console.WriteLine(<span class="str">"Troublemaker wins!"</span>);
 }</pre>
 
 <p>The <code>comparer</code> object takes cats as arguments, but it never returns a cat as the result.
@@ -130,7 +130,7 @@ You could say that it is a write-only in the way in which it uses the generic ty
 Now, thanks to <em>contravariance</em>, we can create a comparer that can compare animals and
 use it as an argument to <code>CompareCats</code>:</p>
 
-<pre lang="csharp">IComparator&lt;Animal&gt; compareAnimals = new AnimalSizeComparator();
+<pre >IComparator&lt;Animal&gt; compareAnimals = <span class="kwrd">new</span> AnimalSizeComparator();
 CompareCats(compareAnimals);</pre>
 
 <p>The compiler accepts this code because the <code>IComparer</code> interface is <em>contravariant</em> and its
@@ -350,7 +350,7 @@ Luckilly, the C# language designers understood the theory for us!
 However, even if you're not designing a language, knowing the theory might help you understand 
 complex C# code. For example, take a look at the following example:</p>
 
-<pre lang="csharp">static void CallWithPrinter(Action&lt;Action&lt;Animal&gt;&gt; animalGenerator) {
+<pre ><span class="kwrd">static</span> <span class="kwrd">void</span> CallWithPrinter(Action&lt;Action&lt;Animal&gt;&gt; animalGenerator) {
   animalGenerator(animal =&gt; Console.WriteLine(animal.Name));
 }</pre>
 
@@ -359,7 +359,7 @@ as the input and does something. This nested delegate accepts any argument of ty
 The method invokes the delegate and gives it a lambda function that takes an animal and prints its name.
 Now, the question is, can we use <code>Action&lt;Action&lt;Cat&gt;&gt;</code> as an argument to <code>CallWithPrinter</code>?</p>
 
-<pre lang="csharp">Action&lt;Action&lt;Cat&gt;&gt; catGenerator = handler =&gt; handler(new Cat(&quot;Otto&quot;));
+<pre >Action&lt;Action&lt;Cat&gt;&gt; catGenerator = handler =&gt; handler(<span class="kwrd">new</span> Cat(<span class="str">"Otto"</span>));
 CallWithPrinter(catGenerator);</pre>
 
 <p>The sample creates a lambda function that takes a handler of type <code>Action&lt;Cat&gt;</code> and calls it with
@@ -497,7 +497,7 @@ that combine covariant and contravariant types in crazy ways!</p>
     <div class="large-7 columns">
     <h4>Blog archives <a href="http://tomasp.net/rss.xml"><img src="http://tomasp.net/img/rss.gif" /></a></h4>
       <a href="http://tomasp.net/blog/archive/august-2013/index.html">
-        August 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/may-2013/index.html">
+        August 2013 (2)</a>,      <a href="http://tomasp.net/blog/archive/may-2013/index.html">
         May 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/april-2013/index.html">
         April 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/march-2013/index.html">
         March 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/february-2013/index.html">

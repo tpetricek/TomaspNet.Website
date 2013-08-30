@@ -94,19 +94,18 @@ a look at the following example and figure out in what order will the strings be
 (I could not find the exact code shown at the talk, but I remember Lucian showing something
 similar):</p>
 
-<pre><code>async Task WorkThenWait() {
+<pre ><span class="kwrd">async</span> Task WorkThenWait() {
   Thread.Sleep(1000);
-  Console.WriteLine("work");
+  Console.WriteLine(<span class="str">"work"</span>);
   await Task.Delay(1000);
 }
 
-void Demo() {
-  var child = WorkThenWait();
-  Console.WriteLine("started");
+<span class="kwrd">void</span> Demo() {
+  <span class="kwrd">var</span> child = WorkThenWait();
+  Console.WriteLine(<span class="str">"started"</span>);
   child.Wait();
-  Console.WriteLine("completed");
-}
-</code></pre>
+  Console.WriteLine(<span class="str">"completed"</span>);
+}</pre>
 
 <p>If you guessed that it prints "started", "work" and "completed" then you're wrong. The code
 prints "work", "started" and "completed", try it! What the author intended was to start 
@@ -149,12 +148,11 @@ would write the following, which works as expected:</p>
 <p>Here is another gotcha in the C# asynchronous programming model (this one is taken directly
 from Lucian's slides). Guess what happens when you run the following asynchronous method:</p>
 
-<pre><code>async Task Handler() {
-  Console.WriteLine("Before");
+<pre ><span class="kwrd">async</span> Task Handler() {
+  Console.WriteLine(<span class="str">"Before"</span>);
   Task.Delay(1000);
-  Console.WriteLine("After");
-}
-</code></pre>
+  Console.WriteLine(<span class="str">"After"</span>);
+}</pre>
 
 <p>Were you expecting that it prints "Before", waits 1 second and then prints "After"? Wrong!
 It prints both messages immediately without any waiting in between. The problem is that
@@ -206,18 +204,17 @@ surely makes nice demos at conference talks.</p>
 <p>Let me demonstrate the problem using a snippet from <a href="http://msdn.microsoft.com/en-us/magazine/jj991977.aspx" title="Stephen Cleary: Best Practices in Asynchronous Programming">MSDN Magazine article</a>
 on asynchronous programming in C#:</p>
 
-<pre><code>async void ThrowExceptionAsync() {
-  throw new InvalidOperationException();
+<pre ><span class="kwrd">async</span> <span class="kwrd">void</span> ThrowExceptionAsync() {
+  <span class="kwrd">throw</span> <span class="kwrd">new</span> InvalidOperationException();
 }
 
-public void CallThrowExceptionAsync() {
-  try {
+<span class="kwrd">public</span> <span class="kwrd">void</span> CallThrowExceptionAsync() {
+  <span class="kwrd">try</span> {
     ThrowExceptionAsync();
-  } catch (Exception) {
-    Console.WriteLine("Failed");
+  } <span class="kwrd">catch</span> (Exception) {
+    Console.WriteLine(<span class="str">"Failed"</span>);
   }
-}
-</code></pre>
+}</pre>
 
 <p>Do you think that the code prints "Failed"? I suppose you already understood the style
 of this blog post... Indeed, the exception is not handled because <code>ThrowExceptionAsync</code>
@@ -259,10 +256,9 @@ the compiler generates a function that returns <code>Task</code>.</p>
 <p>Here is a sample from Lucian's slides. Does the following (perfectly valid) code finish 
 in 1 second (after all the tasks finish sleeping), or does it finish immediately?</p>
 
-<pre><code>Parallel.For(0, 10, async i =&gt; {
+<pre >Parallel.For(0, 10, <span class="kwrd">async</span> i =&gt; {
   await Task.Delay(1000);
-});
-</code></pre>
+});</pre>
 
 <p>You cannot know that, unless you know that <code>For</code> only has overloads that take <code>Action</code>
 delegates - and thus the lambda function will always be compiled as async void. This
@@ -305,11 +301,10 @@ synchronous functions) in parallel.</p>
 skills of the people in the audience, but here it is. The question is, does the
 following code wait 1 second between the two prints?</p>
 
-<pre><code>Console.WriteLine("Before");
+<pre >Console.WriteLine(<span class="str">"Before"</span>);
 await Task.Factory.StartNew(
-  async () =&gt; { await Task.Delay(1000); });
-Console.WriteLine("After");
-</code></pre>
+  <span class="kwrd">async</span> () =&gt; { await Task.Delay(1000); });
+Console.WriteLine(<span class="str">"After"</span>);</pre>
 
 <p>Again, quite unexpectedly, this does not actually wait between the two writes.
 How is that possible? The <code>StartNew</code> method takes a delegate and returns a <code>Task&lt;T&gt;</code>
@@ -346,13 +341,12 @@ but here has type <code>unit</code></p>
 is quite simple. The following snippet defines an asynchronous method <code>FooAsync</code> and
 calls it from a <code>Handler</code>, but the code does not run asynchronously:</p>
 
-<pre><code>async Task FooAsync() {
+<pre ><span class="kwrd">async</span> Task FooAsync() {
   await Task.Delay(1000);
 }
-void Handler() {
+<span class="kwrd">void</span> Handler() {
   FooAsync().Wait();
-}
-</code></pre>
+}</pre>
 
 <p>It is not too difficult to spot the issue - we are calling <code>FooAsync().Wait()</code>. This 
 means that we create a task and then, using <code>Wait</code>, block until it completes. Simply
@@ -544,7 +538,7 @@ that is a topic for a separate blog post.</p>
     <div class="large-7 columns">
     <h4>Blog archives <a href="http://tomasp.net/rss.xml"><img src="http://tomasp.net/img/rss.gif" /></a></h4>
       <a href="http://tomasp.net/blog/archive/august-2013/index.html">
-        August 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/may-2013/index.html">
+        August 2013 (2)</a>,      <a href="http://tomasp.net/blog/archive/may-2013/index.html">
         May 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/april-2013/index.html">
         April 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/march-2013/index.html">
         March 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/february-2013/index.html">

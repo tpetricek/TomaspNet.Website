@@ -81,35 +81,35 @@
   <p>I will first demonstrate how the same database query looks in C# 3.0 and C++/CLI and then we will look at CLinq in more detail. 
     The following query (written in C# 3.0) returns uses the Northwind database and returns name of contact and company for all 
     customers living in London:</p>    
-<pre lang="csharp">
-// create connection to database
-NorthwindData db = new NorthwindData(".. connection string ..");
+<pre >
+<span class="rem">// create connection to database</span>
+NorthwindData db = <span class="kwrd">new</span> NorthwindData(<span class="str">".. connection string .."</span>);
 
-// declare database query
-var q = 
-  from cvar in db.Customers
-  where cvar.City == "London"
-  select cvar.ContactName + ", " + cvar.CompanyName;
+<span class="rem">// declare database query</span>
+<span class="kwrd">var</span> q = 
+  <span class="kwrd">from</span> cvar <span class="kwrd">in</span> db.Customers
+  <span class="kwrd">where</span> cvar.City == <span class="str">"London"</span>
+  <span class="kwrd">select</span> cvar.ContactName + <span class="str">", "</span> + cvar.CompanyName;
 
-// execute query and output results
-foreach(string s in q)
+<span class="rem">// execute query and output results</span>
+<span class="kwrd">foreach</span>(<span class="kwrd">string</span> s <span class="kwrd">in</span> q)
   Console.WriteLine(s);
 </pre>  
   <p>Now, let's look at the same query written in C++/CLI using CLinq. It is a bit more complex, but this is the price for 
     implementing it as a library instead of modifying the language:</p>
-<pre lang="c++">
-// create connection to database
-NorthwindData db(".. connection string ..");
+<pre >
+<span class="rem">// create connection to database</span>
+NorthwindData db(<span class="str">".. connection string .."</span>);
 
-// declare database query
-Expr&lt;Customers^&gt; cvar = Var&lt;Customers^&gt;("c");
+<span class="rem">// declare database query</span>
+Expr&lt;Customers^&gt; cvar = Var&lt;Customers^&gt;(<span class="str">"c"</span>);
 CQuery&lt;String^&gt;^ q = db.QCustomers
-  -&gt;Where(clq::fun(cvar, cvar.City == "London"))
+  -&gt;Where(clq::fun(cvar, cvar.City == <span class="str">"London"</span>))
   -&gt;Select(clq::fun(cvar, 
-      cvar.ContactName + Expr&lt;String^&gt;(", ") + cvar.CompanyName));
+      cvar.ContactName + Expr&lt;String^&gt;(<span class="str">", "</span>) + cvar.CompanyName));
 
-// execute query and output results
-for each(String^ s in q-&gt;Query)
+<span class="rem">// execute query and output results</span>
+<span class="kwrd">for</span> <span class="kwrd">each</span>(String^ s <span class="kwrd">in</span> q-&gt;Query)
   Console::WriteLine(s);
 </pre>  
   <h2>LINQ &amp; C++/CLI overview</h2>
@@ -161,15 +161,15 @@ for each(String^ s in q-&gt;Query)
   <p>Let's look at some sample code. As you can see from the previous paragraph the <code>Expr&lt;&gt;</code> and <code>Var&lt;&gt;</code> 
     classes are key structures of the CLinq project, so we'll use them in the following example. The example works with two specialized
     versions of these classes - one for the <code>int</code> and second for the <code>String^</code> type:</p>
-<pre lang="c++">
-// Declare variable of type int called 'x'
-Expr&lt;int&gt; x = Var&lt;int&gt;("x");
-// Declare expression of type String initialized with literal
-Expr&lt;String^&gt; str("Hello world!");
+<pre >
+<span class="rem">// Declare variable of type int called 'x'</span>
+Expr&lt;<span class="kwrd">int</span>&gt; x = Var&lt;<span class="kwrd">int</span>&gt;(<span class="str">"x"</span>);
+<span class="rem">// Declare expression of type String initialized with literal</span>
+Expr&lt;String^&gt; str(<span class="str">"Hello world!"</span>);
 
-// Expression representing addition of the x variable and 
-// result of the method call to 'IndexOf' method.
-Expr&lt;int&gt; expr = str.IndexOf("w") + x;
+<span class="rem">// Expression representing addition of the x variable and </span>
+<span class="rem">// result of the method call to 'IndexOf' method.</span>
+Expr&lt;<span class="kwrd">int</span>&gt; expr = str.IndexOf(<span class="str">"w"</span>) + x;
 </pre>  
   <p>If you look at the code you could think that the <code>IndexOf</code> method and other operations are executed after the code is
     invoked, but this isn't true! This is important fact to note - the code only builds internal structures that represent the 
@@ -177,14 +177,14 @@ Expr&lt;int&gt; expr = str.IndexOf("w") + x;
     expressions which can be also used for building representation of the written expression instead of building executable code.
     You can also convert the expression represented by the <code>Expr&lt;&gt;</code> class to the structures used by LINQ as demonstrated
     in the following example:</p>
-<pre lang="c++">
-// Convert to LINQ expression
+<pre >
+<span class="rem">// Convert to LINQ expression</span>
 System::Expressions::Expression^ linqExpr = expr.ToLinq();
-// Print string representation of LINQ expression
+<span class="rem">// Print string representation of LINQ expression</span>
 Console::WriteLine(linqExpr);
 </pre>
 <p>The result printed to the console window will be:</p>
-<pre lang="text">
+<pre >
 Add("Hello world!".IndexOf("w"), x)
 </pre>
 
@@ -194,25 +194,25 @@ Add("Hello world!".IndexOf("w"), x)
     declared by LINQ in the <code>System::Query</code> namespace. For declaring lambda expressions you can use the <code>fun</code>
     function in the <code>EeekSoft::CLinq::clq</code> namespace. Assuming that you included <code>using namespace EeekSoft::CLinq;</code>
     directive (which is recommended), the source code will look like this:</p>
-<pre lang="c++">
-// Declare parameter (variable) and method body (expression)
-Expr&lt;int&gt; var = Var&lt;int&gt;("x");
-Expr&lt;int&gt; expr = Expr&lt;String^&gt;("Hello world!").IndexOf("w") + var;
+<pre >
+<span class="rem">// Declare parameter (variable) and method body (expression)</span>
+Expr&lt;<span class="kwrd">int</span>&gt; var = Var&lt;<span class="kwrd">int</span>&gt;(<span class="str">"x"</span>);
+Expr&lt;<span class="kwrd">int</span>&gt; expr = Expr&lt;String^&gt;(<span class="str">"Hello world!"</span>).IndexOf(<span class="str">"w"</span>) + var;
 
-// First argument for the clq::fun function is lambda expression
-// parameter, the last argument is the lambda expression body
-Lambda&lt;Func&lt;int, int&gt;^&gt;^ lambda = clq::fun(var, expr);
+<span class="rem">// First argument for the clq::fun function is lambda expression</span>
+<span class="rem">// parameter, the last argument is the lambda expression body</span>
+Lambda&lt;Func&lt;<span class="kwrd">int</span>, <span class="kwrd">int</span>&gt;^&gt;^ lambda = clq::fun(var, expr);
 
-// Print string representation of lambda..
+<span class="rem">// Print string representation of lambda..</span>
 Console::WriteLine(lambda-&gt;ToLinq());
 
-// Compile &amp; execute lambda
-Func&lt;int, int&gt;^ compiled = lambda-&gt;Compile();
+<span class="rem">// Compile &amp; execute lambda</span>
+Func&lt;<span class="kwrd">int</span>, <span class="kwrd">int</span>&gt;^ compiled = lambda-&gt;Compile();
 Console::WriteLine(compiled(100));
 </pre>  
   <p>After executing this example you should see the following output in console window (first line represents the lambda expression and
   the second line is the result of lambda expression invocation):</p>
-<pre lang="text">
+<pre >
 x => Add("Hello world!".IndexOf("w"), x)
 106</pre>
   <p>Similarly to the LINQ you can compile the CLinq expression at runtime (actually CLinq internally uses LINQ). This was done in the 
@@ -222,10 +222,10 @@ x => Add("Hello world!".IndexOf("w"), x)
     declared in LINQ assemblies). Accordingly to this limitation, the <code>clq::fun</code> function has the same number of overloads.
     Also note that you don't have to specify type arguments to this function in most of the situations, because C++/CLI type inference
     algorithm can infer the types for you. Let's look at one more example that demonstrates declaring lambda expression with more than one parameter:</p>
-<pre lang="c++">
-Expr&lt;int&gt; x = Var&lt;int&gt;("x");
-Expr&lt;int&gt; y = Var&lt;int&gt;("y");
-Lambda&lt;Func&lt;int, int, int&gt;^&gt;^ lambda2 = 
+<pre >
+Expr&lt;<span class="kwrd">int</span>&gt; x = Var&lt;<span class="kwrd">int</span>&gt;(<span class="str">"x"</span>);
+Expr&lt;<span class="kwrd">int</span>&gt; y = Var&lt;<span class="kwrd">int</span>&gt;(<span class="str">"y"</span>);
+Lambda&lt;Func&lt;<span class="kwrd">int</span>, <span class="kwrd">int</span>, <span class="kwrd">int</span>&gt;^&gt;^ lambda2 = 
   clq::fun(x, y, 2 * (x + y) );
 Console::WriteLine(lambda2-&gt;Compile()(12, 9));
 </pre>
@@ -264,14 +264,14 @@ Console::WriteLine(lambda2-&gt;Compile()(12, 9));
   [<a href="/articles/clinq/documentation.html" target="_blank">^</a>].
     The following example demonstrates using overloaded operators with expressions representing <code>double</code> and <code>float</code>
     (mixing different type is another interesting problem, so that's why we use two different floating point types here):</p>  
-<pre lang="c++">
-// Declare 'float' variable and 'double' literal
-Expr&lt;float&gt; fv = Var&lt;float&gt;("f");
-Expr&lt;double&gt; fc(1.2345678);
+<pre >
+<span class="rem">// Declare 'float' variable and 'double' literal</span>
+Expr&lt;<span class="kwrd">float</span>&gt; fv = Var&lt;<span class="kwrd">float</span>&gt;(<span class="str">"f"</span>);
+Expr&lt;<span class="kwrd">double</span>&gt; fc(1.2345678);
 
-// Function taking 'float' and returning 'float'
-Lambda&lt;Func&lt;float, float&gt;^&gt;^ foo4 = clq::fun(fv, 
-  clq::conv&lt;float&gt;(Expr&lt;Math^&gt;::Sin(fv * 3.14) + fc)  );
+<span class="rem">// Function taking 'float' and returning 'float'</span>
+Lambda&lt;Func&lt;<span class="kwrd">float</span>, <span class="kwrd">float</span>&gt;^&gt;^ foo4 = clq::fun(fv, 
+  clq::conv&lt;<span class="kwrd">float</span>&gt;(Expr&lt;Math^&gt;::Sin(fv * 3.14) + fc)  );
 </pre>  
   <p>You can see that we're using another function from the <code>clq</code> namespace - the <code>clq::conv</code>. This function is used for converting
     types when implicit conversion is not available. In the sample we're using a <code>Sin</code> function which accepts <code>Expr&lt;double&gt;</code> 
@@ -291,25 +291,25 @@ Lambda&lt;Func&lt;float, float&gt;^&gt;^ foo4 = clq::fun(fv,
   <h3>Typed wrappers</h3>
   <p>Using class if the corresponding template specialization exists is fairly simple. The following example declares expression working with the 
     <code>String^</code> type:</p>
-<pre lang="c++">
-// 'String^' variable
-Expr&lt;String^&gt; name = Var&lt;String^&gt;("name");
+<pre >
+<span class="rem">// 'String^' variable</span>
+Expr&lt;String^&gt; name = Var&lt;String^&gt;(<span class="str">"name"</span>);
 
-// Expression that uses 'IndexOf' and 'Substring' methods
-Expr&lt;String^&gt; sh("Hello Tomas");
-Expr&lt;int&gt; n = sh.IndexOf('T');
+<span class="rem">// Expression that uses 'IndexOf' and 'Substring' methods</span>
+Expr&lt;String^&gt; sh(<span class="str">"Hello Tomas"</span>);
+Expr&lt;<span class="kwrd">int</span>&gt; n = sh.IndexOf(<span class="str">'T'</span>);
 Lambda&lt;Func&lt;String^, String^&gt;^&gt;^ foo = 
   clq::fun(name, sh.Substring(0, n) + name);
 
-// Print LINQ representation and execute
+<span class="rem">// Print LINQ representation and execute</span>
 Console::WriteLine(foo-&gt;ToLinq());
-Console::WriteLine(foo-&gt;Compile()("world!"));
+Console::WriteLine(foo-&gt;Compile()(<span class="str">"world!"</span>));
 </pre>
   <p>In this example we used two methods that are declared in the <code>Expr&lt;String^&gt;</code> class. These methods were 
     <code>IndexOf</code> and <code>Substring</code> and they represent calls to according methods of the <code>String^</code>
     type. If you look at the program output, you can see that it contains calls to these two methods (there is also a call to the
     <code>Concat</code> method which was generated by CLinq when we used <code>+</code> operator for string concatenation):</p>
-<pre lang="text">
+<pre >
 name => Concat(new [] {"Hello Tomas".
   Substring(0, "Hello Tomas".IndexOf(T)), name})
 Hello world!</pre>  
@@ -317,26 +317,26 @@ Hello world!</pre>
   <h3>Indirect member access</h3>
   <p>To demonstrate the second approach, we'll first define new class with sample property, method and static method (you can also
     invoke static properties):</p>
-<pre lang="c++">
-// Sample class that we'll work with
-ref class DemoClass
+<pre >
+<span class="rem">// Sample class that we'll work with</span>
+<span class="kwrd">ref</span> <span class="kwrd">class</span> DemoClass
 {
-  int _number;
-public:
-  DemoClass(int n) { 
+  <span class="kwrd">int</span> _number;
+<span class="kwrd">public</span>:
+  DemoClass(<span class="kwrd">int</span> n) { 
     _number = n; 
   }  
-  // Property
-  property int Number {
-    int get() { return _number;  }
+  <span class="rem">// Property</span>
+  <span class="kwrd">property</span> <span class="kwrd">int</span> Number {
+    <span class="kwrd">int</span> get() { <span class="kwrd">return</span> _number;  }
   }
-  // Standard method
-  int AddNumber(int n) {
-    return _number = _number + n;
+  <span class="rem">// Standard method</span>
+  <span class="kwrd">int</span> AddNumber(<span class="kwrd">int</span> n) {
+    <span class="kwrd">return</span> _number = _number + n;
   }
-  // Static method
-  static int Square(int number) {
-    return number * number;
+  <span class="rem">// Static method</span>
+  <span class="kwrd">static</span> <span class="kwrd">int</span> Square(<span class="kwrd">int</span> number) {
+    <span class="kwrd">return</span> number * number;
   }
 };
 </pre>
@@ -345,22 +345,22 @@ public:
   <code>InvokeStatic</code> to invoke static method of this class (the <code>AddNumber</code> method could be a bit tricky,
   because it increments number stored in the class as a side-effect, which means that the value of expression depends on the
   order in which members of the expression are evaluated):</p>
-<pre lang="c++">
-// Construct the lambda expression
-Expr&lt;DemoClass^&gt; var = Var&lt;DemoClass^&gt;("var");
-Lambda&lt;Func&lt;DemoClass^,int&gt;^&gt;^ foo = clq::fun(var, 
-  var.Prop&lt;int&gt;("Number") + 
-  var.Invoke&lt;int&gt;("AddNumber", Expr&lt;int&gt;(6)) + 
-  Expr&lt;DemoClass^&gt;::InvokeStatic&lt;int&gt;("Square", Expr&lt;int&gt;(100) ) );
+<pre >
+<span class="rem">// Construct the lambda expression</span>
+Expr&lt;DemoClass^&gt; var = Var&lt;DemoClass^&gt;(<span class="str">"var"</span>);
+Lambda&lt;Func&lt;DemoClass^,<span class="kwrd">int</span>&gt;^&gt;^ foo = clq::fun(var, 
+  var.Prop&lt;<span class="kwrd">int</span>&gt;(<span class="str">"Number"</span>) + 
+  var.Invoke&lt;<span class="kwrd">int</span>&gt;(<span class="str">"AddNumber"</span>, Expr&lt;<span class="kwrd">int</span>&gt;(6)) + 
+  Expr&lt;DemoClass^&gt;::InvokeStatic&lt;<span class="kwrd">int</span>&gt;(<span class="str">"Square"</span>, Expr&lt;<span class="kwrd">int</span>&gt;(100) ) );
 
-// Compile the lambda and pass instance of 'DemoClass' as a parameter
-DemoClass^ dcs = gcnew DemoClass(15);
-int ret = foo-&gt;Compile()(dcs);
+<span class="rem">// Compile the lambda and pass instance of 'DemoClass' as a parameter</span>
+DemoClass^ dcs = <span class="kwrd">gcnew</span> DemoClass(15);
+<span class="kwrd">int</span> ret = foo-&gt;Compile()(dcs);
 
-Console::WriteLine("{0}\n{1}", foo-&gt;ToLinq(), ret);
+Console::WriteLine(<span class="str">"{0}\n{1}"</span>, foo-&gt;ToLinq(), ret);
 </pre>  
   <p>And the output of this example will be:</p>
-<pre lang="text">
+<pre >
 var => Add(Add(var.Number, var.AddNumber(6)), Square(100))
 10036
 </pre>
@@ -376,13 +376,13 @@ var => Add(Add(var.Number, var.AddNumber(6)), Square(100))
     anything like C# 3.0 anonymous methods, but you can invoke class constructor and pass parameters to it using <code>clq::newobj</code>
     function. The following sample assumes that you have a class called <code>DemoCtor</code> with constructor taking <code>String^</code>
     and <code>int</code> as parameters:</p>
-<pre lang="c++">
-// Arguments of the lambda expression
-Expr&lt;String^&gt; svar = Var&lt;String^&gt;("s");
-Expr&lt;int&gt; nvar = Var&lt;int&gt;("n");
+<pre >
+<span class="rem">// Arguments of the lambda expression</span>
+Expr&lt;String^&gt; svar = Var&lt;String^&gt;(<span class="str">"s"</span>);
+Expr&lt;<span class="kwrd">int</span>&gt; nvar = Var&lt;<span class="kwrd">int</span>&gt;(<span class="str">"n"</span>);
 
 DemoCtor^ d = clq::fun(svar, nvar, clq::newobj&lt;DemoCtor^&gt;(svar, nvar) )
-  -&gt;Compile()("Hello world!", 42);
+  -&gt;Compile()(<span class="str">"Hello world!"</span>, 42);
 </pre>  
   <p>After executing this code, he <code>d</code> variable will contain instance of <code>DemoCtor</code> class created using
     constructor that I wrote about earlier. You should be very careful when using the <code>newobj</code> method, because there is
@@ -405,14 +405,14 @@ DemoCtor^ d = clq::fun(svar, nvar, clq::newobj&lt;DemoCtor^&gt;(svar, nvar) )
     but it can also be used to generate XML description of the database structure. We will use the third option - the
     following example demonstrates how to generate XML description (<code>northwind.xml</code>) for database
     <code>northwind</code> at SQL server running at <code>localhost</code>:</p>
-  <pre lang="text">sqlmetal /server:localhost /database:northwind /xml:northwind.xml</pre>
+  <pre >sqlmetal /server:localhost /database:northwind /xml:northwind.xml</pre>
   <p>Once we have the XML file, we can use the <code>clinqgen</code> tool which is part of CLinq. This tool generates
     C++/CLI header file with classes that represent database tables, according <code>Expr&lt;&gt;</code> template specializations
     and also the class that will represent the entire database. You can customize the name and namespace of this class.
     If you want to automate this task, you can include the XML file generated by <code>sqlmetal</code> in your project and set 
     its custom build tool to the following command (Hacker note: You can also use pipe (<code>|</code>) to get these two 
     tools working together):</p>
-  <pre lang="text">clinqgen /namespace:EeekSoft.CLinq.Demo 
+  <pre >clinqgen /namespace:EeekSoft.CLinq.Demo 
   /class:NorthwindData /out:Northwind.h $(InputPath)</pre>  
   <p>Now you'll need to include the generated header file and we can start working with database. We'll first create
     instance of the generated <code>NorthwindData</code> class, which represents the database (note, that the example 
@@ -420,25 +420,25 @@ DemoCtor^ d = clq::fun(svar, nvar, clq::newobj&lt;DemoCtor^&gt;(svar, nvar) )
     of this class, we can use it's properties that represent data tables. The properties with the <code>Q</code> prefix
     return the <code>CQuery</code> class, so we'll use these properties instead of properties without this prefix, which 
     are designed for using from C# 3.0 or VB.NET. The following example demonstrates some basic <code>CQuery</code> methods:</p>
-<pre lang="c++">
-// Create database context
-NorthwindData db(".. connection string ..");
+<pre >
+<span class="rem">// Create database context</span>
+NorthwindData db(<span class="str">".. connection string .."</span>);
 
-// (1) Count employees
-Console::WriteLine("Number of employees: {0}",
+<span class="rem">// (1) Count employees</span>
+Console::WriteLine(<span class="str">"Number of employees: {0}"</span>,
   db.QEmployees-&gt;Count());
 
-// (2) Calculate average 'UnitPrice' value
-Expr&lt;Products^&gt; p = Var&lt;Products^&gt;("p");
+<span class="rem">// (2) Calculate average 'UnitPrice' value</span>
+Expr&lt;Products^&gt; p = Var&lt;Products^&gt;(<span class="str">"p"</span>);
 Nullable&lt;Decimal&gt; avgPrice = 
   db.QProducts-&gt;Average( clq::fun(p, p.UnitPrice) );
-Console::WriteLine("Average unit price: {0}", avgPrice);
+Console::WriteLine(<span class="str">"Average unit price: {0}"</span>, avgPrice);
 
-// (3) Get first employee whose 'ReportsTo' column is NULL
-Expr&lt;Employees^&gt; e = Var&lt;Employees^&gt;("e");
+<span class="rem">// (3) Get first employee whose 'ReportsTo' column is NULL</span>
+Expr&lt;Employees^&gt; e = Var&lt;Employees^&gt;(<span class="str">"e"</span>);
 Employees^ boss = db.QEmployees-&gt;
-  Where( clq::fun(e, e.ReportsTo == nullptr) )-&gt;First();
-Console::WriteLine("The boss: {0} {1}",
+  Where( clq::fun(e, e.ReportsTo == <span class="kwrd">nullptr</span>) )-&gt;First();
+Console::WriteLine(<span class="str">"The boss: {0} {1}"</span>,
   boss-&gt;FirstName, boss-&gt;LastName);</pre>
   
   <p>In the first example we simply called the <code>Count</code> method which returns number of rows in the table. 
@@ -454,27 +454,27 @@ Console::WriteLine("The boss: {0} {1}",
   <p>Let's look at the more interesting sample that cover filtering (<code>Where</code> method) and projection
     (<code>Select</code> method). The result of the query will be collection containing instances of custom class 
     called <code>CustomerInfo</code>, so let's first look at this class:</p>
-<pre lang="c++">
-ref class CustomerInfo
+<pre >
+<span class="kwrd">ref</span> <span class="kwrd">class</span> CustomerInfo
 {
   String^ _id;
   String^ _name;
 
-public:
-  CustomerInfo([PropMap("ID")] String^ id, 
-      [PropMap("Name")] String^ name) { 
+<span class="kwrd">public</span>:
+  CustomerInfo([PropMap(<span class="str">"ID"</span>)] String^ id, 
+      [PropMap(<span class="str">"Name"</span>)] String^ name) { 
     _id=id; _name=name; 
   }
   CustomerInfo() { }
 
-  property String^ ID { 
-    String^ get() { return _id; }
-    void set(String^ value) { _id = value; }
+  <span class="kwrd">property</span> String^ ID { 
+    String^ get() { <span class="kwrd">return</span> _id; }
+    <span class="kwrd">void</span> set(String^ <span class="kwrd">value</span>) { _id = <span class="kwrd">value</span>; }
   }
 
-  property String^ Name {
-    String^ get() { return _name; }
-    void set(String^ value) { _name = value; }
+  <span class="kwrd">property</span> String^ Name {
+    String^ get() { <span class="kwrd">return</span> _name; }
+    <span class="kwrd">void</span> set(String^ <span class="kwrd">value</span>) { _name = <span class="kwrd">value</span>; }
   }
 };</pre>  
   <p>The class has two properties (<code>ID</code> and <code>Name</code>), one parameter-less constructor and 
@@ -491,26 +491,26 @@ public:
     property earlier is. For this reason, CLinq has <code>PropMap</code> attribute which maps property values to 
     parameters passed to the constructor earlier. In C# 3.0 the behavior is a bit different, because you can use 
     anonymous types and you don't need to pass values directly to the constructor.</p>    
-<pre lang="c++">
-// DB context &amp; variable.. 
-NorthwindData db(".. connection string ..");
-Expr&lt;Customers^&gt; cvar = Var&lt;Customers^&gt;("c");
+<pre >
+<span class="rem">// DB context &amp; variable.. </span>
+NorthwindData db(<span class="str">".. connection string .."</span>);
+Expr&lt;Customers^&gt; cvar = Var&lt;Customers^&gt;(<span class="str">"c"</span>);
 
-// Query: select some information about customers living
-//   in country whose name starts with the letter "U"
+<span class="rem">// Query: select some information about customers living</span>
+<span class="rem">//   in country whose name starts with the letter "U"</span>
 CQuery&lt;CustomerInfo^&gt;^ q = db.QCustomers
-  -&gt;Where(clq::fun(cvar, cvar.Country.IndexOf("U") == 0))
+  -&gt;Where(clq::fun(cvar, cvar.Country.IndexOf(<span class="str">"U"</span>) == 0))
   -&gt;Select(clq::fun(cvar, clq::newobj&lt;CustomerInfo^&gt;(
       cvar.CustomerID, cvar.ContactName + 
-      Expr&lt;String^&gt;(" from ") + cvar.Country)));
+      Expr&lt;String^&gt;(<span class="str">" from "</span>) + cvar.Country)));
 
-// Print SQL command sent to SQL server
-Console::WriteLine("\nQuery:\n{0}\n\nResults:", 
+<span class="rem">// Print SQL command sent to SQL server</span>
+Console::WriteLine(<span class="str">"\nQuery:\n{0}\n\nResults:"</span>, 
   q-&gt;Query-&gt;ToString());
 
-// Print returned rows
-for each(CustomerInfo^ c in q-&gt;Query)
-  Console::WriteLine(" * {0},  {1}", c-&gt;ID, c-&gt;Name);
+<span class="rem">// Print returned rows</span>
+<span class="kwrd">for</span> <span class="kwrd">each</span>(CustomerInfo^ c <span class="kwrd">in</span> q-&gt;Query)
+  Console::WriteLine(<span class="str">" * {0},  {1}"</span>, c-&gt;ID, c-&gt;Name);
 </pre>  
   <p>This code is quite similar to the code that you usually write when working with LINQ in C# 3.0. 
     In this sample we first create the database context and declare variable that will be used in the query.
@@ -550,34 +550,34 @@ for each(CustomerInfo^ c in q-&gt;Query)
     of the <code>Expr</code> class, in which the <code>Expr&lt;Tuple&lt;&gt;^&gt;</code> is expanded to 
     contain these two properties.</p>
   <p>I'll comment other interesting features used in this example later, so let's look at the query now:</p>
-<pre lang="c++">
-// First declare type for storing Customer and her Orders
-typedef IEnumerable&lt;Orders^&gt; OrdersCollection;
-typedef Tuple&lt;Customers^, OrdersCollection^&gt; CustomerOrders;
+<pre >
+<span class="rem">// First declare type for storing Customer and her Orders</span>
+<span class="kwrd">typedef</span> IEnumerable&lt;Orders^&gt; OrdersCollection;
+<span class="kwrd">typedef</span> Tuple&lt;Customers^, OrdersCollection^&gt; CustomerOrders;
 
-// Connect to DB and declare variables
-NorthwindData db(".. connection string ..");
-Expr&lt;Customers^&gt; c = Var&lt;Customers^&gt;("c");
-Expr&lt;Orders^&gt; o = Var&lt;Orders^&gt;("o");
+<span class="rem">// Connect to DB and declare variables</span>
+NorthwindData db(<span class="str">".. connection string .."</span>);
+Expr&lt;Customers^&gt; c = Var&lt;Customers^&gt;(<span class="str">"c"</span>);
+Expr&lt;Orders^&gt; o = Var&lt;Orders^&gt;(<span class="str">"o"</span>);
 Expr&lt;OrdersCollection^&gt; orders
-  = Var&lt;OrdersCollection^&gt;("orders");
-Expr&lt;CustomerOrders^&gt; co = Var&lt;CustomerOrders^&gt;("co");
+  = Var&lt;OrdersCollection^&gt;(<span class="str">"orders"</span>);
+Expr&lt;CustomerOrders^&gt; co = Var&lt;CustomerOrders^&gt;(<span class="str">"co"</span>);
 
-// The Query
+<span class="rem">// The Query</span>
 CQuery&lt;String^&gt;^ q = db.QCustomers
-  // Group customers and their orders and 
-  // produce collection of 'CustomerOrders'
+  <span class="rem">// Group customers and their orders and </span>
+  <span class="rem">// produce collection of 'CustomerOrders'</span>
   -&gt;GroupJoin(db.QOrders,
     clq::fun(c, c.CustomerID),
     clq::fun(o, o.CustomerID),
     clq::fun&lt;Customers^, OrdersCollection^, CustomerOrders^&gt;
       ( c, orders, clq::newobj&lt;CustomerOrders^&gt;(c, orders) ))
-  // Filter only customers with order shipped to USA 
-  // Note: 'Second' is the collection with orders
+  <span class="rem">// Filter only customers with order shipped to USA </span>
+  <span class="rem">// Note: 'Second' is the collection with orders</span>
   -&gt;Where( clq::fun(co, co.Second.Where( 
-      clq::fun(o, o.ShipCountry == "USA" )).Count() &gt; 0) )
-  // Projection - string concatenation
-  -&gt;Select( clq::fun(co, co.First.CompanyName + Expr&lt;String^&gt;(", #orders = ") + 
+      clq::fun(o, o.ShipCountry == <span class="str">"USA"</span> )).Count() &gt; 0) )
+  <span class="rem">// Projection - string concatenation</span>
+  -&gt;Select( clq::fun(co, co.First.CompanyName + Expr&lt;String^&gt;(<span class="str">", #orders = "</span>) + 
       Expr&lt;Convert^&gt;::ToString(co.Second.Count()) ) );</pre>
 			
   <p>Let's focus on the <code>Where</code> clause. The lambda expression accepts expression of type <code>Tuple</code>,
@@ -726,7 +726,7 @@ CQuery&lt;String^&gt;^ q = db.QCustomers
     <div class="large-7 columns">
     <h4>Blog archives <a href="http://tomasp.net/rss.xml"><img src="http://tomasp.net/img/rss.gif" /></a></h4>
       <a href="http://tomasp.net/blog/archive/august-2013/index.html">
-        August 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/may-2013/index.html">
+        August 2013 (2)</a>,      <a href="http://tomasp.net/blog/archive/may-2013/index.html">
         May 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/april-2013/index.html">
         April 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/march-2013/index.html">
         March 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/february-2013/index.html">

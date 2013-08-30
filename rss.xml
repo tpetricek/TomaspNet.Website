@@ -5,8 +5,8 @@
     <description>Writing about software development in F# and .NET, sharing materials from my F# trainings and talks, writing about programming language research and theory.</description>
     <item>
       <title>Hello New York. Learn some F#!</title>
-      <guid>http://tomasp.net/blog/2013\fsharp-new-york</guid>
-      <link>http://tomasp.net/blog/2013\fsharp-new-york/index.html</link>
+      <guid>http://tomasp.net/blog/2013/fsharp-new-york</guid>
+      <link>http://tomasp.net/blog/2013/fsharp-new-york/index.html</link>
       <pubDate>Thu, 29 Aug 2013 13:02:06 GMT</pubDate>
       <description>&lt;img src="http://tomasp.net/blog/2013/fsharp-new-york/nyc.jpg" class="rdecor" title="I'm cheating a little - the photo is from my previous visit in April." style="margin-left:20px;margin-bottom:15px"/&gt;
 
@@ -28,8 +28,8 @@ convince your colleagues or boss that F# is a good choice.&lt;/p&gt;
     </item>
     <item>
       <title>Update on the F# Deep Dives book</title>
-      <guid>http://tomasp.net/blog/2013\deep-dives-update</guid>
-      <link>http://tomasp.net/blog/2013\deep-dives-update/index.html</link>
+      <guid>http://tomasp.net/blog/2013/deep-dives-update</guid>
+      <link>http://tomasp.net/blog/2013/deep-dives-update/index.html</link>
       <pubDate>Tue, 27 Aug 2013 03:15:40 GMT</pubDate>
       <description>&lt;img src="http://tomasp.net/articles/manning-deep-dives/cover.jpg" class="rdecor" title="F# Deep Dives" style="margin-left:20px;margin-bottom:15px"/&gt;
 

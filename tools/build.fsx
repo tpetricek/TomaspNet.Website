@@ -188,7 +188,7 @@ module BlogPosts =
       let relativeFile = let idx = relativeFile.LastIndexOf('.') in relativeFile.Substring(0, idx)
       try
         { Title = lookup.["Title"]
-          Url = relativeFile
+          Url = relativeFile.Replace("\\", "/")
           Abstract = abstr
           Description = lookup.["Description"]
           Tags = lookup.["Tags"].Split([|','|], System.StringSplitOptions.RemoveEmptyEntries) |> Array.map (fun s -> s.Trim() |> renameTag)

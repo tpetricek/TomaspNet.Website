@@ -76,5 +76,15 @@
       prog&shy;ramming or data-flow). See <a href="http://www.cl.cam.ac.uk/~tp322/">my academic page</a> for
       more.</p>
 
+    <h4>Blog tags</h4>
+    <p>
+    @{ var first = true; }
+    @foreach (var item in Enumerable.Take(Model.TaglyPosts, 20)) {
+      @(first?"":", ")
+      <a href="@(Model.Root + "/blog/tag/" + item.Item2 + "/")">@item.Item1</a>@String.Format("&nbsp;({0})", Enumerable.Count(item.Item3))
+      { first = false; }
+    }
+    </p>
+
   </div>
 </div>

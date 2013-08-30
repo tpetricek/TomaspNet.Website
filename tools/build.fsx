@@ -172,7 +172,7 @@ module BlogPosts =
 
   /// Simple function that parses the header of the blog post. Everybody knows
   /// that doing this with regexes is silly, but the blog post headers are simple enough.
-  let ParseBlogHeader (blog:string) =
+  let ParseBlogHeader renameTag (blog:string) =
     let concatRegex = Regex("\"[\s]*\+[\s]*\"", RegexOptions.Compiled)
     fun (file:string, header:string, abstr) ->
       let lookup =
@@ -191,14 +191,16 @@ module BlogPosts =
           Url = relativeFile
           Abstract = abstr
           Description = lookup.["Description"]
-          Tags = lookup.["Tags"].Split([|','|], System.StringSplitOptions.RemoveEmptyEntries) |> Array.map (fun s -> s.Trim())
+          Tags = lookup.["Tags"].Split([|','|], System.StringSplitOptions.RemoveEmptyEntries) |> Array.map (fun s -> s.Trim() |> renameTag)
           Date = lookup.["Date"] |> System.DateTime.Parse }
       with _ -> failwithf "Invalid header in the following blog file: %s" file
 
   /// Loads information about all blog posts
-  let LoadBlogPosts transformer blog =
+  let LoadBlogPosts (tagRenames:System.Collections.Generic.IDictionary<string, string>) transformer blog =
+    let renameTag tag = 
+      match tagRenames.TryGetValue(tag) with true, s -> s | _ -> tag.ToLower()
     GetBlogFiles blog 
-    |> Seq.map ((GetBlogHeaderAndAbstract transformer) >> (ParseBlogHeader blog))
+    |> Seq.map ((GetBlogHeaderAndAbstract transformer) >> (ParseBlogHeader renameTag blog))
     |> Seq.sortBy (fun b -> b.Date)
     |> Array.ofSeq 
     |> Array.rev
@@ -216,13 +218,28 @@ module Blog =
   type Model = 
     { Posts : BlogHeader[] 
       MonthlyPosts : (int * string * seq<BlogHeader>)[]
+      TaglyPosts : (string * string * seq<BlogHeader>)[]
+      GenerateAll : bool
       Root : string }
 
   /// Walks over all blog post files and loads model (caches abstracts along the way)
-  let LoadModel(transformer, (root:string), blog) = 
-    let posts = LoadBlogPosts transformer blog
+  let LoadModel(tagRenames, transformer, (root:string), blog) = 
+    let urlFriendly (s:string) = s.Replace("#", "sharp").Replace(" ", "-").Replace(".", "dot")
+    let posts = LoadBlogPosts tagRenames transformer blog
     let uk = System.Globalization.CultureInfo.GetCultureInfo("en-GB")
     { Posts = posts
+      GenerateAll = false
+      TaglyPosts = 
+        query { for p in posts do
+                for t in p.Tags do
+                select t into t
+                distinct
+                let posts = posts |> Seq.filter (fun p -> p.Tags |> Seq.exists ((=) t))
+                let recent = posts |> Seq.filter (fun p -> p.Date > (DateTime.Now.AddYears(-1))) |> Seq.length
+                where (recent > 0)
+                sortByDescending (recent * (Seq.length posts))
+                select (t, urlFriendly t, posts) } 
+        |> Array.ofSeq
       MonthlyPosts = 
         query { for p in posts do
                 groupBy (p.Date.Year, p.Date.Month) into g
@@ -288,6 +305,16 @@ module Blog =
           items )
     let doc = XDocument(XElement(!"rss", XAttribute(!"version", "2.0"), channel))
     File.WriteAllText(target, doc.ToString())
+
+  let GeneratePostListing layouts template blogIndex model posts urlFunc needsUpdate infoFunc getPosts =
+    for item in posts do
+      let model = { model with GenerateAll = true; Posts = Array.ofSeq (getPosts item) }
+      let razor = TildeLib.Razor(layouts, Model = model)
+      let target = urlFunc item
+      EnsureDirectory(Path.GetDirectoryName(target))
+      if not (File.Exists(target)) || needsUpdate item then
+        printfn "Generating archive: %s" (infoFunc item)
+        TransformFile template true razor blogIndex target
 
 // --------------------------------------------------------------------------------------
 // Generating calendar
@@ -390,9 +417,9 @@ module Calendar =
 // Configuration
 // --------------------------------------------------------------------------------------
 
-open Blog
-open BlogPosts
 open FileHelpers
+open BlogPosts
+open Blog
 open Calendar
 
 // Root URL for the generated HTML & other basic information
@@ -431,12 +458,14 @@ let special =
 let output = __SOURCE_DIRECTORY__ ++ "../../output"
 
 // Dependencies - if any of these files change, then we must regenerate all
-let dependencies = 
+let dependencies =
   [ yield! Directory.GetFiles(layouts) 
     yield calendarMonth 
     yield calendarIndex ]
-//   @ [ __SOURCE_DIRECTORY__ ++ __SOURCE_FILE__ ]
 
+let tagRenames = 
+  [ ("F# language", "f#"); ("Functional Programming in .NET", "functional");
+    ("Materials & Links", "links"); ("C# language", "c#"); (".NET General", ".net") ] |> dict
 
 let clean() = 
   for dir in Directory.GetDirectories(output) do
@@ -444,25 +473,30 @@ let clean() =
   for file in Directory.GetFiles(output) do
     File.Delete(file)
 
-let build () =
-  let razor = TildeLib.Razor(layouts, Model = { Model.Root = root; MonthlyPosts = [||]; Posts = [||] })
-  let model = LoadModel(TransformAsTemp (template, source) razor, root, blog)
-  
+let build (updateTagArchive) =
+  let noModel = { Model.Root = root; MonthlyPosts = [||]; Posts = [||]; TaglyPosts = [||]; GenerateAll = true }
+  let razor = TildeLib.Razor(layouts, Model = noModel)
+  let model = LoadModel(tagRenames, TransformAsTemp (template, source) razor, root, blog)
+
   // Generate RSS feed
   GenerateRss root title description model (output ++ "rss.xml")
   GenerateCalendar root layouts output dependencies calendar calendarMonth calendarIndex model
 
   let uk = System.Globalization.CultureInfo.GetCultureInfo("en-GB")
-  for year, month, posts in model.MonthlyPosts do
-    let model = { model with Posts = Array.ofSeq posts }
-    let razor = TildeLib.Razor(layouts, Model = model)
-    let target =  output ++ "blog" ++ "archive" ++ (month.ToLower() + "-" + (string year)) ++ "index.html"
-    EnsureDirectory(Path.GetDirectoryName(target))
-    if not (File.Exists(target)) || 
-        ( year = DateTime.Now.Year && 
-          month = uk.DateTimeFormat.GetMonthName(DateTime.Now.Month) ) then
-      printfn "Generating archive: %s %d" month year
-      TransformFile template true razor blogIndex target
+  GeneratePostListing 
+    layouts template blogIndex model model.MonthlyPosts 
+    (fun (y, m, _) -> output ++ "blog" ++ "archive" ++ (m.ToLower() + "-" + (string y)) ++ "index.html")
+    (fun (y, m, _) -> y = DateTime.Now.Year && m = uk.DateTimeFormat.GetMonthName(DateTime.Now.Month))
+    (fun (y, m, _) -> sprintf "%d %s" y m)
+    (fun (_, _, p) -> p)
+
+  if updateTagArchive then
+    GeneratePostListing 
+      layouts template blogIndex model model.TaglyPosts
+      (fun (_, u, _) -> output ++ "blog" ++ "tag" ++ u ++ "index.html")
+      (fun (_, _, _) -> true)
+      (fun (t, _, _) -> t)
+      (fun (_, _, p) -> p)
 
   let filesToProcess = 
     GetSourceFiles source output
@@ -494,6 +528,6 @@ let run() =
 run ()
 stop ()
 
-build()
+build(true) // true - update tag archives
 clean()
 

@@ -402,13 +402,16 @@ module Calendar =
       let yearDir = output ++ "calendar" ++ (string year)
       printfn "Checking calendar files for: %d" year
       for month in 1 .. 12 do 
-        let file = calendar ++ (string year) ++ (uk.DateTimeFormat.GetMonthName(month).ToLower() + ".jpg")
+        let monthName = uk.DateTimeFormat.GetMonthName(month).ToLower()
+        let file = calendar ++ (string year) ++ (monthName + ".jpg")
         let source = if File.Exists(file) then file else calendar ++ "na.jpg"
         let writeFile size suffix = 
           let target = yearDir ++ (Path.GetFileNameWithoutExtension(file) + suffix + ".jpg")
           if not (File.Exists(target)) || 
-            (File.GetLastWriteTime(target) < File.GetLastWriteTime(source)) 
-            then ResizeFile size source target
+            (File.GetLastWriteTime(target) < File.GetLastWriteTime(source)) ||
+            (File.GetLastWriteTime(target) < File.GetLastAccessTime(source)) then 
+            printfn "Resizing file for: %s" monthName
+            ResizeFile size source target
         writeFile 2400 "-original"
         writeFile 700 ""
         writeFile 240 "-preview"
@@ -528,6 +531,8 @@ let run() =
 run ()
 stop ()
 
-build(true) // true - update tag archives
+build (true) // true - update tag archives
+build (false)
+
 clean()
 

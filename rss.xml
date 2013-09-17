@@ -4,6 +4,47 @@
     <link>http://tomasp.net</link>
     <description>Writing about software development in F# and .NET, sharing materials from my F# trainings and talks, writing about programming language research and theory.</description>
     <item>
+      <title>How many tuple types are there in C#?</title>
+      <guid>http://tomasp.net/blog/2013/tuples-in-csharp</guid>
+      <link>http://tomasp.net/blog/2013/tuples-in-csharp/index.html</link>
+      <pubDate>Tue, 17 Sep 2013 13:11:57 GMT</pubDate>
+      <description>&lt;p&gt;In a &lt;a href="http://stackoverflow.com/questions/18718232/when-should-i-write-my-functions-in-curried-form/18721711"&gt;recent StackOverflow question&lt;/a&gt;
+the poster asked about the difference between &lt;em&gt;tupled&lt;/em&gt; and &lt;em&gt;curried&lt;/em&gt; form of a function in F#. 
+In F#, you can use pattern matching to easily define a function that takes a tuple as an argument.
+For example, the poster's function was a simple calculation that multiplies the number 
+of units sold &lt;em&gt;n&lt;/em&gt; by the price &lt;em&gt;p&lt;/em&gt;:&lt;/p&gt;
+&lt;pre class="fssnip"&gt;
+&lt;span class="l"&gt;1: &lt;/span&gt;&lt;span class="k"&gt;let&lt;/span&gt; &lt;span onmouseout="hideTip(event, 'abs159_1', 1)" onmouseover="showTip(event, 'abs159_1', 1)" class="i"&gt;salesTuple&lt;/span&gt; (&lt;span onmouseout="hideTip(event, 'abs159_2', 2)" onmouseover="showTip(event, 'abs159_2', 2)" class="i"&gt;price&lt;/span&gt;, &lt;span onmouseout="hideTip(event, 'abs159_3', 3)" onmouseover="showTip(event, 'abs159_3', 3)" class="i"&gt;count&lt;/span&gt;) &lt;span class="o"&gt;=&lt;/span&gt; &lt;span onmouseout="hideTip(event, 'abs159_2', 4)" onmouseover="showTip(event, 'abs159_2', 4)" class="i"&gt;price&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; (&lt;span onmouseout="hideTip(event, 'abs159_4', 5)" onmouseover="showTip(event, 'abs159_4', 5)" class="i"&gt;float&lt;/span&gt; &lt;span onmouseout="hideTip(event, 'abs159_3', 6)" onmouseover="showTip(event, 'abs159_3', 6)" class="i"&gt;count&lt;/span&gt;)&lt;/pre&gt;
+&lt;p&gt;The function takes a single argument of type &lt;code&gt;Tuple&amp;lt;float, int&amp;gt;&lt;/code&gt; (or, using the nicer F# notation
+&lt;code&gt;float * int&lt;/code&gt;) and immediately decomposes it into two variables, &lt;code&gt;price&lt;/code&gt; and &lt;code&gt;count&lt;/code&gt;. The other
+alternative is to write a function in the &lt;em&gt;curried&lt;/em&gt; form:&lt;/p&gt;
+&lt;pre class="fssnip"&gt;
+&lt;span class="l"&gt;1: &lt;/span&gt;&lt;span class="k"&gt;let&lt;/span&gt; &lt;span onmouseout="hideTip(event, 'abs159_5', 7)" onmouseover="showTip(event, 'abs159_5', 7)" class="i"&gt;salesCurried&lt;/span&gt; &lt;span onmouseout="hideTip(event, 'abs159_2', 8)" onmouseover="showTip(event, 'abs159_2', 8)" class="i"&gt;price&lt;/span&gt; &lt;span onmouseout="hideTip(event, 'abs159_3', 9)" onmouseover="showTip(event, 'abs159_3', 9)" class="i"&gt;count&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span onmouseout="hideTip(event, 'abs159_2', 10)" onmouseover="showTip(event, 'abs159_2', 10)" class="i"&gt;price&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; (&lt;span onmouseout="hideTip(event, 'abs159_4', 11)" onmouseover="showTip(event, 'abs159_4', 11)" class="i"&gt;float&lt;/span&gt; &lt;span onmouseout="hideTip(event, 'abs159_3', 12)" onmouseover="showTip(event, 'abs159_3', 12)" class="i"&gt;count&lt;/span&gt;)&lt;/pre&gt;
+&lt;p&gt;Here, we get a function of type &lt;code&gt;float -&amp;gt; int -&amp;gt; float&lt;/code&gt;. Usually, you can read this just as a 
+function that takes &lt;code&gt;float&lt;/code&gt; and &lt;code&gt;int&lt;/code&gt; and returns &lt;code&gt;float&lt;/code&gt;. However, you can also use &lt;em&gt;partial
+function application&lt;/em&gt; and call the function with just a single argument - if the price of
+an apple is $1.20, we can write &lt;code&gt;salesCurried 1.20&lt;/code&gt; to get a &lt;em&gt;new&lt;/em&gt; function that takes just
+&lt;code&gt;int&lt;/code&gt; and gives us the price of specified number of apples. The poster's question was:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;So when I want to implement a function that would have taken &lt;em&gt;n &gt; 1&lt;/em&gt; arguments, 
+should I for example always use a curried function in F# (...)? Or should I take 
+the simple route and use regular function with an n-tuple and curry later on 
+if necessary?&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;You can see &lt;a href="http://stackoverflow.com/questions/18718232/when-should-i-write-my-functions-in-curried-form/18721711#18721711"&gt;my answer on StackOverflow&lt;/a&gt;.
+The point of this short introduction was that the question inspired me to think about how
+the world looks from the C# perspective...&lt;/p&gt;
+
+&lt;div class="tip" id="abs159_1"&gt;val salesTuple : price:float * count:int -&amp;gt; float&lt;br /&gt;&lt;br /&gt;Full name: Tuples-in-csharp_.salesTuple&lt;/div&gt;
+&lt;div class="tip" id="abs159_2"&gt;val price : float&lt;/div&gt;
+&lt;div class="tip" id="abs159_3"&gt;val count : int&lt;/div&gt;
+&lt;div class="tip" id="abs159_4"&gt;Multiple items&lt;br /&gt;val float : value:&amp;#39;T -&amp;gt; float (requires member op_Explicit)&lt;br /&gt;&lt;br /&gt;Full name: Microsoft.FSharp.Core.Operators.float&lt;br /&gt;&lt;br /&gt;--------------------&lt;br /&gt;type float = System.Double&lt;br /&gt;&lt;br /&gt;Full name: Microsoft.FSharp.Core.float&lt;br /&gt;&lt;br /&gt;--------------------&lt;br /&gt;type float&amp;lt;&amp;#39;Measure&amp;gt; = float&lt;br /&gt;&lt;br /&gt;Full name: Microsoft.FSharp.Core.float&amp;lt;_&amp;gt;&lt;/div&gt;
+&lt;div class="tip" id="abs159_5"&gt;val salesCurried : price:float -&amp;gt; count:int -&amp;gt; float&lt;br /&gt;&lt;br /&gt;Full name: Tuples-in-csharp_.salesCurried&lt;/div&gt;
+</description>
+    </item>
+    <item>
       <title>Hello New York. Learn some F#!</title>
       <guid>http://tomasp.net/blog/2013/fsharp-new-york</guid>
       <link>http://tomasp.net/blog/2013/fsharp-new-york/index.html</link>
@@ -518,29 +559,6 @@ JavaScript that works everywhere. The app definitely had a huge commercial poten
 &lt;div style="text-align:center"&gt;
 &lt;img src="http://tomasp.net/articles/qcon-async-fsharp/quote.png" alt="Quote" /&gt;
 &lt;/div&gt;
-</description>
-    </item>
-    <item>
-      <title>TryJoinads (V.) - Implementing the option joinad</title>
-      <guid>http://tomasp.net/blog/joinads-options.aspx</guid>
-      <link>http://tomasp.net/blog/joinads-options.aspx/index.html</link>
-      <pubDate>Fri, 02 Mar 2012 18:24:21 GMT</pubDate>
-      <description>&lt;p&gt;This article shows how to implement the &lt;em&gt;joinad&lt;/em&gt; structure for one of the 
-simplest monads - the &lt;code&gt;option&amp;lt;'T&amp;gt;&lt;/code&gt; type. This is a slightly oversimplified example. 
-The &lt;code&gt;match!&lt;/code&gt; construct can be used to write patterns that specify that a monadic
-value (in this case &lt;code&gt;option&amp;lt;'T&amp;gt;&lt;/code&gt;) should contain a certain value, or we can specify
-that we do not require a value. When working with options, this means the same thing 
-as matching the value against &lt;code&gt;Some&lt;/code&gt; and against &lt;code&gt;_&lt;/code&gt;, respectively.&lt;/p&gt;
-
-&lt;p&gt;However, the example demonstrates the operations that need to be implemented and
-their type signatures. Later articles give more interesting examples including
-parsers and asynchronous workflows (and you can explore other examples if you look
-at the &lt;a href="https://github.com/tpetricek/FSharp.Joinads"&gt;FSharp.Joiands source code&lt;/a&gt; at GitHub).&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;&lt;strong&gt;Note:&lt;/strong&gt; This blog post is a re-publication of a tutorial from the &lt;a href="http://tryjoinads.org"&gt;TryJoinads.org&lt;/a&gt;
-web page. If you read the article there, you can run the examples interactively
-and experiment with them: &lt;a href="http://tryjoinads.org/index.html?implement/options.html"&gt;view the article on TryJoinads&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
-
 </description>
     </item>
   </channel>

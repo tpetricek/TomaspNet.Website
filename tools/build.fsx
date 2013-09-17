@@ -156,7 +156,7 @@ module BlogPosts =
     "@{" + header + "}\n", body
 
   /// Return the header block of any blog post file
-  let GetBlogHeaderAndAbstract transformer file =
+  let GetBlogHeaderAndAbstract transformer prefix file =
     let regex =
       match Path.GetExtension(file).ToLower() with
       | ".fsx" -> scriptHeaderRegex
@@ -167,7 +167,7 @@ module BlogPosts =
       failwithf "The following source file is missing a header:\n%s" file  
 
     // Read abstract file and transform it
-    let abstr = transformer (Path.GetDirectoryName(file) ++ "abstracts" ++ Path.GetFileName(file))
+    let abstr = transformer prefix (Path.GetDirectoryName(file) ++ "abstracts" ++ Path.GetFileName(file))
     file, reg.Groups.["header"].Value, abstr
 
   /// Simple function that parses the header of the blog post. Everybody knows
@@ -200,7 +200,9 @@ module BlogPosts =
     let renameTag tag = 
       match tagRenames.TryGetValue(tag) with true, s -> s | _ -> tag.ToLower()
     GetBlogFiles blog 
-    |> Seq.map ((GetBlogHeaderAndAbstract transformer) >> (ParseBlogHeader renameTag blog))
+    |> Seq.mapi (fun i v -> 
+        GetBlogHeaderAndAbstract transformer (sprintf "abs%d_" i) v 
+        |> ParseBlogHeader renameTag blog )
     |> Seq.sortBy (fun b -> b.Date)
     |> Array.ofSeq 
     |> Array.rev
@@ -249,7 +251,7 @@ module Blog =
         |> Array.ofSeq
       Root = root.Replace('\\', '/') }
 
-  let TransformFile template hasHeader (razor:TildeLib.Razor) current target = 
+  let TransformFile template hasHeader (razor:TildeLib.Razor) prefix current target = 
     let html =
       match Path.GetExtension(current).ToLower() with
       | (".fsx" | ".md") as ext ->
@@ -260,9 +262,9 @@ module Blog =
           use html = DisposableFile.CreateTemp(".html")
           File.WriteAllText(fsx.FileName, content)
           if ext = ".fsx" then
-            Literate.ProcessScriptFile(fsx.FileName, template, html.FileName)
+            Literate.ProcessScriptFile(fsx.FileName, template, html.FileName, ?prefix=prefix)
           else
-            Literate.ProcessMarkdown(fsx.FileName, template, html.FileName)
+            Literate.ProcessMarkdown(fsx.FileName, template, html.FileName, ?prefix=prefix)
           let processed = File.ReadAllText(html.FileName)
           File.WriteAllText(html.FileName, header + processed)
           EnsureDirectory(Path.GetDirectoryName(target))
@@ -274,7 +276,7 @@ module Blog =
     let formatted = CSharpFormat.SyntaxHighlighter.FormatHtml(html)
     File.WriteAllText(target, formatted)
 
-  let TransformAsTemp (template, source:string) razor current = 
+  let TransformAsTemp (template, source:string) razor prefix current = 
     let cached = (Path.GetDirectoryName(current) ++ "cached" ++ Path.GetFileName(current))
     if File.Exists(cached) && 
       (File.GetLastWriteTime(cached) > File.GetLastWriteTime(current)) then 
@@ -282,7 +284,7 @@ module Blog =
     else
       printfn "Processing abstract: %s" (current.Substring(source.Length + 1))
       EnsureDirectory(Path.GetDirectoryName(current) ++ "cached")
-      TransformFile template false razor current cached
+      TransformFile template false razor (Some prefix) current cached
       File.ReadAllText(cached)
 
   let GenerateRss root title description model target = 
@@ -314,7 +316,7 @@ module Blog =
       EnsureDirectory(Path.GetDirectoryName(target))
       if not (File.Exists(target)) || needsUpdate item then
         printfn "Generating archive: %s" (infoFunc item)
-        TransformFile template true razor blogIndex target
+        TransformFile template true razor None blogIndex target
 
 // --------------------------------------------------------------------------------------
 // Generating calendar
@@ -378,7 +380,7 @@ module Calendar =
             Months = table uk.DateTimeFormat.GetMonthName }
         let razor = TildeLib.Razor(layouts, Model = index)
         EnsureDirectory (Path.GetDirectoryName(target))
-        TransformFile "" false razor calendarIndex target
+        TransformFile "" false razor None calendarIndex target
         
         // Generate individual calendar files
         for month in 1 .. 12 do
@@ -393,7 +395,7 @@ module Calendar =
               Link = name.ToLower() + ".jpg"; Days = days }
           let razor = TildeLib.Razor(layouts, Model = month)
           EnsureDirectory (Path.GetDirectoryName(target))
-          TransformFile "" false razor calendarMonth target
+          TransformFile "" false razor None calendarMonth target
         
 
     // Generate all calendar files (resize appropriately)
@@ -511,7 +513,7 @@ let build (updateTagArchive) =
   for current, target in filesToProcess do
     EnsureDirectory(Path.GetDirectoryName(target))
     printfn "Processing file: %s" (current.Substring(source.Length + 1))
-    TransformFile template true razor current target
+    TransformFile template true razor None current target
 
   CopyFiles content output 
   CopyFiles calendar (output ++ "calendar")

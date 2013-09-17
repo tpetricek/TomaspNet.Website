@@ -12,7 +12,7 @@ span.c, span.rem { color:#96C71D; }
 span.o, span.op { color:#af75c1; }
 span.html { color:#af75c1; }
 /* numbers */
-span.n { color:#af75c1; }
+span.n { color:#96C71D; }
 /* line number */
 span.l { color:#80b0b0; }
 
@@ -22,7 +22,7 @@ span.inactive { color:#808080; }
 span.prep, span.preproc { color:#af75c1; }
 span.attr, span.asp { color:#af75c1; }
 /* fsi output */
-span.fsi { font-style:italic; color:#606060; }
+span.fsi { font-style:italic; color:#888888; }
 
 /* omitted */
 span.omitted { 

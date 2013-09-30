@@ -251,6 +251,9 @@ footer li {
 ul.spaces li {
   margin-bottom:10px;
 }
+table tr td, table tr th {
+  font-size:inherit;
+}
 /* ----------------------------------------------------------------------------------- */
 /* Some special formatting for the home page                                           */
 /* ----------------------------------------------------------------------------------- */

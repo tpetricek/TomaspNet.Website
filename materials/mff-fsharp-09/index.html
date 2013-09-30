@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<!--[if IE 8]> 				 <html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+
+<head>
+  <meta charset="utf-8">
+  <title>Functional Programming in F#</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="The course explains basic functional concepts such as function composition, functional data types and higher-order functions. It highlights some interesting connections between these and concepts that student may already know or will learn in various mathematics lectures. The site includes lecture slides and a number of simple homeworks that usually require some interesting insight.">
+  <meta name="author" content="Tomas Petricek">
+
+  <!-- Reference Foundation -->
+  <link rel="stylesheet" href="http://tomasp.net/css/foundation.css">
+  <script src="cjs/vendor/custom.modernizr.js"></script>
+
+  <link rel="alternate" type="application/rss+xml" href="http://tomasp.net/rss.xml" title="RSS feed for Tomas Petricek's blog">
+  <link rel="author" href="https://plus.google.com/109855146654605967051" />
+    
+  <!-- Reference custom CSS and tooltips -->
+  <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/style.css" />
+  <script type="text/javascript" src="http://tomasp.net/custom/tooltips.js"></script>
+  <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/tooltips.css" />
+</head>
+<body>
+
+   <header id="top-header">
+    <div class="row">
+      <div class="twelve columns">
+        <h1><a href="http://tomasp.net/">Tomas Petricek's blog</a></h1>
+        <p>Writing about practical F# coding and programming language research</p>
+      </div>
+    </div>
+  </header>
+
+  <header class="top-bar-header">
+    <div class="contain-to-grid sticky">
+    <nav class="top-bar">
+
+    <ul class="title-area">
+      <li class="name"><h1><a href="#"></a></h1></li>
+      <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+    </ul>
+    <section class="top-bar-section">
+      <ul class="right">
+        <li><a href="http://tomasp.net/blog/index.html">Blog</a></li>
+        <li><a href="http://functional-programming.net">Trainings</a></li>
+        <li><a href="http://functional-programming.net">Books</a></li>
+        <li><a href="http://lanyrd.com/profile/tomasp">Talks</a></li>
+        <li><a href="http://www.cl.cam.ac.uk/~tp322">Research & Teaching</a></li>
+      </ul>
+    </section>
+
+    </nav></div>
+  </header>
+  
+  
+<div class="row">
+	<div class="large-8 columns main-content">
+    <content>
+      
+<h1>Functional Programming in F#</h1>
+  <a href="poster-en.pdf">
+<img src="poster.png" style="width:200px;float:right;margin:20px 0px 20px 10px;border:none" /></a>
+
+<div style="margin-right:200px">
+<ul>
+  <li><strong>Slides 1</strong>: Expression as a basic building block (<a href="slides1.pptx">pptx</a>, <a href="slides1.pdf">pdf</a> format)</li>
+  <li><strong>Tutorial</strong>: Sample project for Visual Studio 2008, that should work after installing F# CTP (<a href="Tutorial.zip">zip</a> format)</li>
+  <li><strong>Slides 2</strong>: Refactoring code using functions (<a href="slides2.pptx">pptx</a>, <a href="slides2.pdf">pdf</a>)</li>
+  <li><strong>Series demo</strong>: Console application that uses <code>ReadLine</code> to calculate the sum of first X members of a number series(<a href="seriesdemo.zip">zip</a> format)</li>
+  <li><strong>Slides 3</strong>: Composing primitive types into data (<a href="slides3.pptx">pptx</a>, <a href="slides3.pdf">pdf</a> format)</li>
+  <li><strong>Drawing</strong>: Sample from the lecture that demonstrates how to draw using Windows Forms and a template for your homework <em>plot</em> (<a href="drawing.zip">zip</a> format)</li>
+  <li><strong>Slides 4</strong>: Generic and recursive types (<a href="slides4.pptx">pptx</a>, <a href="slides4.pdf">pdf</a> format)</li>
+  <li><strong>Recursion</strong>: Examples of recursive functions that traverse lists using structural recursion (<a href="recursion.zip">zip</a> format)</li>
+  <li><strong>Slides 5</strong>: Hiding recursion using function-as-values
+(<a href="slides5.pptx">pptx</a>, <a href="slides5.pdf">pdf</a> format)</li>
+  <li><strong>Sequences</strong>: A few notes regarding the "folds" homework and samples of using sequnece expressions (<a href="sequences.zip">zip</a> format)</li>
+  <li><strong>Slides 6</strong>: Sequence expressions, computation expressions &amp; asynchronous workflows (<a href="slides6.pptx">pptx</a>, <a href="slides6.pdf">pdf</a> format)</li>
+  <li><strong>Monads</strong>: Examples of computation expressions (also known as monads) and asynchronous computations (<a href="monads.zip">zip</a> format)</li>
+</ul>
+</div>
+
+<h3>Homeworks</h3>
+<p>Most of the homeworks are puzzles that should be easy to solve once you get the idea. There will be shorter deadlines for these, so that we can reveal the solution afterwards :-). For more complicated homeowrks where you actually need to write some F# code, you'll have, of course, more time.</p>
+
+<table>
+<tr><td></td><td><strong>Description</strong></td><td class="one"><strong>ID</strong></td><td class="three"><strong>Points</strong></td></tr>
+
+<tr><td valign="top">1. </td><td>Find an expression where <strong>evaluating the value of symbols first</strong> is better and another expression where <strong>replacing symbols with expressions is better</strong> (Note: better means smaller number of reduction steps (no unnecessary calculations). <em>For more information, see Slides 1, slide 33.</em>
+</td><td class="one">reduction</td><td class="three">1</td>
+</tr>
+
+<tr><td valign="top">2. </td><td>Write expression that prints “yes” if the value of n is less than 10 and “no” otherwise. The trick is, that you should do this without using <strong>if</strong> and <strong>match</strong> construct. <em>This can be solved using other language features that are discussed in Slides 1.</em></td><td class="one">ifthen</td><td class="three">2</td>
+</tr>
+
+<tr><td valign="top">3. </td><td>Rewrite the following declaration to use only function declarations taking a single parameter. <em>You can use currying as explained in Slides 2 (you may need to download the latest version of slides!)</em>:
+<pre >
+<span class="kwrd">let</span> foo x y = 
+  <span class="kwrd">let</span> add a b c = 
+     (100 * a) + (10 * b) + c
+  add y x     
+</pre>
+</td><td class="one">curry</td><td class="three">1</td>
+</tr>
+
+<tr><td valign="top">4. </td><td>Write a function <code>drawFunc</code> that takes a function as an argument and draws the graph of the given function using WinForms (<em>You can download template that demonstrates how to draw something above!</em>) The simplest possible type signature of the function is:
+<pre >
+<span class="kwrd">val</span> drawFunc : (float32 <span class="op">-&gt;</span> float32) <span class="op">-&gt;</span> unit
+</pre>
+Optionally, it can take two additional parameters to specify the X scale and Y scale (+1 point).
+
+</td><td class="one">plot</td><td class="three">1+1</td>
+</tr>
+
+<tr><td valign="top">5. </td><td>Write a function <code>diff</code> that performs numerical differentiation of a function (<em>This follows similar pattern as other operations for working with functions such as <code>translate</code> from slide 29, Slides 2</em>). The signature of the function should be:
+<pre >
+<span class="kwrd">val</span> diff : (float32 <span class="op">-&gt;</span> float32) 
+        <span class="op">-&gt;</span> (float32 <span class="op">-&gt;</span> float32)</pre>
+You can use the standard definition of differentiation and use some small value of <em>d</em> (for example 0.01).
+</td><td class="one">diff</td><td class="three">2</td>
+</tr>
+
+<tr><td valign="top">6. </td><td>We used “sum” of sets to model discriminated unions and “product” to model tuples (<em>See Slides 3, slides 6 and 19</em>). How can we use this operations to construct mathematical model of the following types:
+<pre >
+<span class="kwrd">type</span> Season = 
+  <span class="op">|</span> Spring <span class="op">|</span> Summer <span class="op">|</span> Autumn <span class="op">|</span> Winter
+
+<span class="kwrd">type</span> Shape = 
+  <span class="op">|</span> Circle <span class="kwrd">of</span> int
+  <span class="op">|</span> Rectangle <span class="kwrd">of</span> int * int
+</pre>
+</td><td class="one">sets</td><td class="three">1</td></tr>
+
+<tr><td valign="top">7. </td><td>Write a function that compares two vehicles (<em>Data type in Slides 3, slide 22</em>) and prints detailed information about the more expensive one (<em>You can find the rules for comparison in Slides 3, slide 24</em>). </td><td class="one">patterns</td><td class="three">1</td></tr>
+
+
+<tr><td valign="top">8. </td><td>
+Write a function that counts the number of elements in the list that are larger than or equal to the average (using integer division for simplicity). The function should use just a <strong>single traversal</strong> of the list structure! It should give these results:
+<pre >
+foo [1; 2; 3; 4] = 3 <span class="rem">// average 2</span>
+foo [1; 2; 3; 6] = 2 <span class="rem">// average 3</span>
+foo [4; 4; 4; 4] = 4 <span class="rem">// average 4</span>
+</pre>
+(<em>Hint: You can perform some operation on the way "forward" and another operation on the way "backward", see also Slides 5, slide 14</em>)
+</td><td class="one">traversal</td><td class="three">1</td></tr>
+
+<tr><td valign="top">9. </td><td>
+Write a tail-recursive function that takes a list and “removes” all odd numbers from the list (that is, returns a copy of the list that doesn't contain odd numbers):
+<pre >
+removeOdds [1; 2; 3; 5; 4] = [2; 4] <span class="rem">// example</span>
+</pre>
+(<em>Hints: 1. Tail-recursive functions do all processing when traversing the list forward. 2. You’ll need to do this during two traversals of some list</em>)
+</td><td class="one">tail</td><td class="three">1</td></tr>
+
+<tr><td valign="top">10. </td><td>
+<pre >
+collect : ('a <span class="op">-&gt;</span> 'b list) <span class="op">-&gt;</span> 'a list <span class="op">-&gt;</span> 'b list
+</pre>
+This function applies the given function to all elements of input list and concatenates all returned lists. It can be used for a wide range of different list processing operations.<br /><br />
+Use this function to implement projection and filtering for lists (<code>List.map</code> and <code>List.filter</code>) with the usual type signatures (<em>See Slides 5 for more information.</em>)
+</td><td class="one">collect</td><td class="three">1</td></tr>
+
+<tr><td valign="top">11. </td><td>
+<ul>
+  <li><strong>fold</strong> processes list elements on the way to the front</li>
+  <li><strong>foldBack</strong> on the way back (from the end to the beginning</li>
+</ul>
+
+Write a more general function (e.g. <code>twoWayFold</code>) that allows us to do both things at once - perform one operation on the way to the front and an operation on the way back. Use this function to implement <code>fold</code> and <code>foldBack</code> (1 point) and also the 8. <code>traversal</code> homework (+1 point). (<em>For more information see Slides 5, slide 14</em>).
+</td><td class="one">folds</td><td class="three">1+1</td></tr>
+
+<tr><td valign="top">12. </td><td>
+We've seen how to define a computation expression builder for creating computations that can be executed step-by-step using the <code>Resumption</code> type. The sample code also contains a function <code>evaluate</code> which evaluates a single computation and prints a number of each step before running it. Your task is to write a function <code>parallel</code>, which executes two step-by-step computations in parallel. When given computations <em>first</em> and <em>second</em>, it will execute one step of <em>first</em>, one step of <em>second</em>, one step of <em>first</em> etc. To show that your function works, write two computations (e.g. one that prints first ten factorials and other, which prints first ten fibonacci numbers). (<em>See Slides 16 and download Monads demos above</em>).
+
+</td><td class="one">resumptions</td><td class="three">2</td></tr>
+
+
+<tr><td valign="top">13. </td><td>
+Write a <code>bind</code> function for a simple <code>Async</code> type. This type represents an asynchronous computation:
+<pre>
+ type Async&lt;'a&gt; = 
+  | Async of (('a -&gt; unit) -&gt; unit)
+</pre>
+The type is represented as a function that takes a function as an argument. When the (outer) function is executed, it starts some operation. Once the operation completes (which could be immediately, or at some later time), it reports the result by calling the (inner) function, which it got as an argument. The bind function should have the following type (which pretty much tells you what it has to do):
+<pre>
+val bind : Async&lt;'a&gt; -&gt; ('a -&gt; Async&lt;'b&gt;) -&gt; Async&lt;'b&gt;
+</pre>
+
+</td><td class="one">bind</td><td class="three">3</td></tr>
+</table>
+
+    </content>
+
+  </div>
+  <div class="large-4 columns" id="right-bar">
+    <div class="right-item" id="right-calendar">
+      <script type="text/javascript">
+        var monthNames =
+          ["January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"];
+        var d = new Date();
+        var m = monthNames[d.getMonth()];
+        var y = d.getFullYear();
+        var ml = m.toLowerCase();
+        document.writeln("<h4>Calendar - " + m + " " + y + "</h4>");
+        document.writeln("<a href=\"http://tomasp.net/calendar/" + y + "/" + ml + ".html\">" +
+          "<img src=\"http://tomasp.net/calendar/" + y + "/" + ml + "-preview.jpg\" style=\"border-style:none;\" />" +
+          "</a>");
+      </script> 
+      <p>The calendar shows a new picture each month since 
+        <a href="http://tomasp.net/calendar/2005">2005</a>, <a href="http://tomasp.net/calendar/2006">2006</a>, 
+        <a href="http://tomasp.net/calendar/2007">2007</a>, <a href="http://tomasp.net/calendar/2008">2008</a>, 
+        <a href="http://tomasp.net/calendar/2009">2009</a>, <a href="http://tomasp.net/calendar/2010">2010</a>, 
+        <a href="http://tomasp.net/calendar/2011">2011</a>, <a href="http://tomasp.net/calendar/2012">2012</a>. <br />
+        See the first photos of <a href="http://tomasp.net/calendar/2013">2013</a>.
+      </p>
+    </div>
+
+    <h3>Welcome!</h3>
+    <img src="http://tomasp.net/img/tomas.jpg" alt="Tomas Petricek" style="float:right;margin:10px 0px 10px 10px;" />
+    <p>I'm an F# enthusiast, book author and a PhD student at the University of Cambridge.
+      When offline, I enjoy traveling and taking pictures. You can find me at
+      at <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a> or email 
+      <a href="mailto:tomas@tomasp.net">tomas@tomasp.net</a>.
+    </p>
+
+    <script type="text/javascript" src="http://tomasp.net/news/news.js"></script>
+    <h4>What's new? &#160; <small><script type="text/javascript">document.write(news.date)</script></small></h4>
+    <script>
+      document.write(news.info);
+    </script>
+
+    <h4>Trainings and consulting</h4>
+    <img src="http://tomasp.net/img/skillsmatter.png" alt="Tomas Petricek" style="float:right;margin:15px 0px 10px 10px;" />
+    <p>I run F# and functional programming courses in <strong>London</strong>
+      and <strong>New York</strong> with SkillsMatter.
+    </p>
+    <ul>
+      <li>Check out our <a href="http://skillsmatter.com/course/scala/tomas-petricek-phil-trelford-fast-track-to-fsharp/ps-6679">Fast Track to F#</a> course</li>
+      <li><a href="mailto:tomas@tomasp.net">Email me</a> for info about private trainings</li>
+    </ul>
+    
+    <h4>F# Books and articles</h4>
+    <div style="float:right;">
+      <a href="http://www.amazon.com/gp/product/1933988924/ref=as_li_tf_il?ie=UTF8&amp;tag=httptomasnet-20&amp;linkCode=as2&amp;camp=217145&amp;creative=399369&amp;creativeASIN=1933988924">
+        <img src="http://tomasp.net/img/rwfp.jpg" alt="Real World Functional Programming" style="float:right;margin:10px 0px 10px 10px;border-style:none;" />
+      </a>
+    </div>
+    <p><a href="http://www.manning.com/petricek">Real World Functional Programming</a> explains functional
+      concepts using F# and C#. You can get it from <a href="http://www.amazon.com/dp/1933988924?tag=httptomasnet-20&amp;camp=213381&amp;creative=390973&amp;linkCode=as4&amp;creativeASIN=1933988924&amp;adid=0F1DP260JGG4KY0CDGP6">Amazon.com</a>, <a href="https://www.amazon.co.uk/dp/1933988924?tag=tomasnet-21&amp;camp=1406&amp;creative=6394&amp;linkCode=as1&amp;creativeASIN=1933988924&amp;adid=1CTY87YCCQEJW965GNDF">Amazon.co.uk</a> or your favorite book store.
+      Some chapters and new materials are also available on <a href="http://msdn.microsoft.com/en-us/library/hh314518.aspx">MSDN</a>.</p>
+    
+    <p>Currently, I'm putting together <a href="http://www.manning.com/petricek2/">F# Deep Dives</a> - a collection
+      of practical F# essays written by community leaders and commercial users of F#.</p>
+    <p>I also wrote a series of tutorials on <a href="http://www.tryfsharp.org/Learn/financial-computing">financial computing</a>
+      for Try F# - an interactive environment that let's you try F# in the browser.</p>
+
+    <h4>Research and teaching</h4>
+    <img src="http://tomasp.net/img/cam.png" alt="University of Cambride" style="float:right;margin:25px 0px 10px 10px;" />
+    <p>I'm finishing PhD in computer science at the <a href="http://www.cl.cam.ac.uk/">University of Cambridge</a>.
+      I'm working on making better types for programs that run in rich context (like F# type providers, distributed 
+      prog&shy;ramming or data-flow). See <a href="http://www.cl.cam.ac.uk/~tp322/">my academic page</a> for
+      more.</p>
+
+    <h4>Blog tags</h4>
+    <p>
+
+      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(87),       <a href="http://tomasp.net/blog/tag/functional/">functional</a>&nbsp;(63),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(30),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(25),       <a href="http://tomasp.net/blog/tag/writing/">writing</a>&nbsp;(11),       <a href="http://tomasp.net/blog/tag/links/">links</a>&nbsp;(15),       <a href="http://tomasp.net/blog/tag/presentations/">presentations</a>&nbsp;(14),       <a href="http://tomasp.net/blog/tag/haskell/">haskell</a>&nbsp;(6),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/new-york/">new york</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/manning/">manning</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/books/">books</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/open-source/">open source</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/training/">training</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/deep-dives/">deep dives</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/async/">async</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/fsharp-data/">f# data</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/type-providers/">type providers</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/events/">events</a>&nbsp;(1)    </p>
+
+  </div>
+</div>
+
+
+  <div class="row" id="footer">
+  <footer>   
+    <div class="large-3 columns">
+      <h4>Contact &amp; about</h4>
+      <p>This site is hosted on GitHub and is generated using <a href="https://github.com/tpetricek/FSharp.Formatting">F# Formatting</a>.
+        For more info, see the <a href="https://github.com/tpetricek/TomaspNet.Website">website source on GitHub</a>.
+      </p>
+      <p>Please submit issues &amp; corrections on GitHub. Use pull requests for minor corrections only.</p>
+      <ul>
+        <li>Email me: <a href="mailto:tomas@tomasp.net">tomas@tomasp.net</a></li>
+        <li>Connect via Twitter: <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a></li>
+        <li>More: <a href="http://uk.linkedin.com/in/tomaspetricek">LinkedIn</a> | <a href="http://lanyrd.com/profile/tomasp/">Lanyrd</a> | <a href="https://github.com/tpetricek">GitHub</a></li>
+      </ul>
+    </div>
+    <div class="large-7 columns">
+    <h4>Blog archives <a href="http://tomasp.net/rss.xml"><img src="http://tomasp.net/img/rss.gif" /></a></h4>
+      <a href="http://tomasp.net/blog/archive/september-2013/index.html">
+        September 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/august-2013/index.html">
+        August 2013 (2)</a>,      <a href="http://tomasp.net/blog/archive/may-2013/index.html">
+        May 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/april-2013/index.html">
+        April 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/march-2013/index.html">
+        March 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/february-2013/index.html">
+        February 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/january-2013/index.html">
+        January 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/december-2012/index.html">
+        December 2012 (2)</a>,      <a href="http://tomasp.net/blog/archive/october-2012/index.html">
+        October 2012 (1)</a>,      <a href="http://tomasp.net/blog/archive/august-2012/index.html">
+        August 2012 (3)</a>,      <a href="http://tomasp.net/blog/archive/june-2012/index.html">
+        June 2012 (2)</a>,      <a href="http://tomasp.net/blog/archive/april-2012/index.html">
+        April 2012 (1)</a>,      <a href="http://tomasp.net/blog/archive/march-2012/index.html">
+        March 2012 (4)</a>,      <a href="http://tomasp.net/blog/archive/february-2012/index.html">
+        February 2012 (5)</a>,      <a href="http://tomasp.net/blog/archive/january-2012/index.html">
+        January 2012 (2)</a>,      <a href="http://tomasp.net/blog/archive/november-2011/index.html">
+        November 2011 (5)</a>,      <a href="http://tomasp.net/blog/archive/august-2011/index.html">
+        August 2011 (3)</a>,      <a href="http://tomasp.net/blog/archive/july-2011/index.html">
+        July 2011 (2)</a>,      <a href="http://tomasp.net/blog/archive/june-2011/index.html">
+        June 2011 (2)</a>,      <a href="http://tomasp.net/blog/archive/may-2011/index.html">
+        May 2011 (2)</a>,      <a href="http://tomasp.net/blog/archive/march-2011/index.html">
+        March 2011 (4)</a>,      <a href="http://tomasp.net/blog/archive/december-2010/index.html">
+        December 2010 (1)</a>,      <a href="http://tomasp.net/blog/archive/november-2010/index.html">
+        November 2010 (6)</a>,      <a href="http://tomasp.net/blog/archive/october-2010/index.html">
+        October 2010 (6)</a>,      <a href="http://tomasp.net/blog/archive/september-2010/index.html">
+        September 2010 (4)</a>,      <a href="http://tomasp.net/blog/archive/july-2010/index.html">
+        July 2010 (3)</a>,      <a href="http://tomasp.net/blog/archive/june-2010/index.html">
+        June 2010 (2)</a>,      <a href="http://tomasp.net/blog/archive/may-2010/index.html">
+        May 2010 (1)</a>,      <a href="http://tomasp.net/blog/archive/february-2010/index.html">
+        February 2010 (2)</a>,      <a href="http://tomasp.net/blog/archive/january-2010/index.html">
+        January 2010 (3)</a>,      <a href="http://tomasp.net/blog/archive/december-2009/index.html">
+        December 2009 (3)</a>,      <a href="http://tomasp.net/blog/archive/july-2009/index.html">
+        July 2009 (1)</a>,      <a href="http://tomasp.net/blog/archive/june-2009/index.html">
+        June 2009 (3)</a>,      <a href="http://tomasp.net/blog/archive/may-2009/index.html">
+        May 2009 (2)</a>,      <a href="http://tomasp.net/blog/archive/april-2009/index.html">
+        April 2009 (1)</a>,      <a href="http://tomasp.net/blog/archive/march-2009/index.html">
+        March 2009 (2)</a>,      <a href="http://tomasp.net/blog/archive/february-2009/index.html">
+        February 2009 (1)</a>,      <a href="http://tomasp.net/blog/archive/december-2008/index.html">
+        December 2008 (1)</a>,      <a href="http://tomasp.net/blog/archive/november-2008/index.html">
+        November 2008 (5)</a>,      <a href="http://tomasp.net/blog/archive/october-2008/index.html">
+        October 2008 (1)</a>,      <a href="http://tomasp.net/blog/archive/september-2008/index.html">
+        September 2008 (1)</a>,      <a href="http://tomasp.net/blog/archive/june-2008/index.html">
+        June 2008 (1)</a>,      <a href="http://tomasp.net/blog/archive/march-2008/index.html">
+        March 2008 (3)</a>,      <a href="http://tomasp.net/blog/archive/february-2008/index.html">
+        February 2008 (1)</a>,      <a href="http://tomasp.net/blog/archive/december-2007/index.html">
+        December 2007 (2)</a>,      <a href="http://tomasp.net/blog/archive/november-2007/index.html">
+        November 2007 (6)</a>,      <a href="http://tomasp.net/blog/archive/october-2007/index.html">
+        October 2007 (1)</a>,      <a href="http://tomasp.net/blog/archive/september-2007/index.html">
+        September 2007 (1)</a>,      <a href="http://tomasp.net/blog/archive/august-2007/index.html">
+        August 2007 (1)</a>,      <a href="http://tomasp.net/blog/archive/july-2007/index.html">
+        July 2007 (2)</a>,      <a href="http://tomasp.net/blog/archive/april-2007/index.html">
+        April 2007 (2)</a>,      <a href="http://tomasp.net/blog/archive/march-2007/index.html">
+        March 2007 (3)</a>,      <a href="http://tomasp.net/blog/archive/february-2007/index.html">
+        February 2007 (3)</a>,      <a href="http://tomasp.net/blog/archive/january-2007/index.html">
+        January 2007 (2)</a>,      <a href="http://tomasp.net/blog/archive/november-2006/index.html">
+        November 2006 (1)</a>,      <a href="http://tomasp.net/blog/archive/october-2006/index.html">
+        October 2006 (3)</a>,      <a href="http://tomasp.net/blog/archive/august-2006/index.html">
+        August 2006 (2)</a>,      <a href="http://tomasp.net/blog/archive/july-2006/index.html">
+        July 2006 (1)</a>,      <a href="http://tomasp.net/blog/archive/june-2006/index.html">
+        June 2006 (3)</a>,      <a href="http://tomasp.net/blog/archive/may-2006/index.html">
+        May 2006 (2)</a>,      <a href="http://tomasp.net/blog/archive/april-2006/index.html">
+        April 2006 (2)</a>,      <a href="http://tomasp.net/blog/archive/december-2005/index.html">
+        December 2005 (1)</a>,      <a href="http://tomasp.net/blog/archive/july-2005/index.html">
+        July 2005 (4)</a>,      <a href="http://tomasp.net/blog/archive/june-2005/index.html">
+        June 2005 (5)</a>,      <a href="http://tomasp.net/blog/archive/may-2005/index.html">
+        May 2005 (1)</a>,      <a href="http://tomasp.net/blog/archive/april-2005/index.html">
+        April 2005 (3)</a>,      <a href="http://tomasp.net/blog/archive/march-2005/index.html">
+        March 2005 (3)</a>,      <a href="http://tomasp.net/blog/archive/january-2005/index.html">
+        January 2005 (1)</a>,      <a href="http://tomasp.net/blog/archive/december-2004/index.html">
+        December 2004 (3)</a>,      <a href="http://tomasp.net/blog/archive/november-2004/index.html">
+        November 2004 (2)</a>,    </div>
+    <div class="large-2 columns">
+      <h4>License</h4>
+      <p>Unless explicitly mentioned, all articles on this site are licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution Share Alike</a>. 
+        All source code samples are licensed under Apache 2.0.
+      </p>
+      <img src="http://tomasp.net/img/cc-sa.png" alt="CC License logo" />
+    </div>
+  </footer>
+  </div>
+  
+  <script>
+  document.write('<script src=' +
+  ('__proto__' in {} ? 'http://tomasp.net/js/vendor/zepto' : 'http://tomasp.net/js/vendor/jquery') +
+  '.js><\/script>')
+  </script>
+  
+  <script src="http://tomasp.net/js/foundation.min.js"></script>
+  <script>
+    $(document).foundation();
+  </script>
+  <script type="text/javascript">
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-1561220-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function () {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+
+  </script>
+</body>
+</html>

@@ -121,6 +121,26 @@
   color:#b0b0b0;
   font-size:90%;
 }
+/* Tweak Lanyrd listing */
+#right-bar ol.lanyrd-listing p,
+#right-bar ol.lanyrd-listing li,
+#right-bar ol.lanyrd-listing p strong,
+#right-bar ol.lanyrd-listing h5,
+#right-bar ol.lanyrd-listing h5 a,
+#right-bar ol.lanyrd-listing p abbr {
+  font-family:'PT Sans','Trebuchet MS', sans-serif;
+  font-weight:normal;
+  margin:0px;
+  padding:0px;
+  font-size:inherit;
+}
+#right-bar ol.lanyrd-listing h5 a {
+  font-weight:bold;
+}
+#right-bar ol.lanyrd-listing li {
+  margin:0px 0px 10px 25px;
+}
+
 #hp-calendar {
   padding:20px 0px 20px 0px;
   margin:60px 20px 0px 20px;

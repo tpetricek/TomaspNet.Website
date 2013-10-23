@@ -1,4 +1,4 @@
-namespace TildeLib
+namespace FsBlogLib
 
 open System
 open System.IO

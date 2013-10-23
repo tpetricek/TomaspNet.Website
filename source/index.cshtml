@@ -18,7 +18,7 @@
       
   <p class="meta">
     <span><strong>Published</strong>: @first.Date.ToString("dddd, d MMMM yyyy, h:mm tt", System.Globalization.CultureInfo.GetCultureInfo("en-GB"))</span>
-    @if (first.Tags.Length > 0)
+    @if (first.Tags.Count() > 0)
     { 
       <br />      
       <span class="tags"><strong>Tags</strong>: @String.Join(", ", first.Tags).ToLower() </span> 

@@ -1,4 +1,4 @@
-﻿namespace TildeLib
+﻿namespace FsBlogLib
 
 open System.IO
 open RazorEngine
@@ -9,7 +9,7 @@ open RazorEngine.Configuration
 type Razor(layoutsRoot) =
     do
         let config = new TemplateServiceConfiguration()
-        config.Namespaces.Add("TildeLib") |> ignore
+        config.Namespaces.Add("FsBlogLib") |> ignore
         config.EncodedStringFactory <- new RawStringFactory()
         config.Resolver <- 
           { new ITemplateResolver with
@@ -17,7 +17,7 @@ type Razor(layoutsRoot) =
                 let layoutFile = Path.Combine(layoutsRoot, name + ".cshtml")
                 if File.Exists(layoutFile) then File.ReadAllText(layoutFile)
                 else failwithf "Could not find template file: %s\nSearching in: %s" name layoutsRoot }
-        config.BaseTemplateType <- typedefof<TildeLib.TemplateBaseExtensions<_>>
+        config.BaseTemplateType <- typedefof<FsBlogLib.TemplateBaseExtensions<_>>
         config.Debug <- true        
         let templateservice = new TemplateService(config)
         Razor.SetTemplateService(templateservice)
@@ -30,7 +30,7 @@ type Razor(layoutsRoot) =
             Razor.Compile(fragment, markdownGuid)
             let tmpl = Razor.Resolve(markdownGuid, model)
             let result = tmpl.Run(new ExecuteContext(x.viewBag))
-            let utmpl = (tmpl :?> TildeLib.TemplateBaseExtensions<_>)
+            let utmpl = (tmpl :?> FsBlogLib.TemplateBaseExtensions<_>)
             let z = (utmpl :> RazorEngine.Templating.ITemplate)
             (utmpl, result)
         with
@@ -49,7 +49,12 @@ type Razor(layoutsRoot) =
         x.ViewBag <- new DynamicViewBag()
         let html = Razor.Parse(File.ReadAllText(source), x.Model, x.ViewBag, null)
         html
-      with :? TemplateCompilationException as ex -> 
-        let csharp = Path.GetTempFileName() + ".cs"
-        File.WriteAllText(csharp, ex.SourceCode)
-        failwithf "Processing the file '%s' failed with exception:\n%O\nSource written to: '%s'." source ex csharp
+      with e ->
+        printfn "Something went wrong: %A" e
+        match e with
+        | :? TemplateCompilationException as ex -> 
+          let csharp = Path.GetTempFileName() + ".cs"
+          File.WriteAllText(csharp, ex.SourceCode)
+          let msg = sprintf "Processing the file '%s' failed with exception:\n%O\nSource written to: '%s'." source ex csharp
+          failwith msg
+        | _ -> reraise()

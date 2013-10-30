@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<!--[if IE 8]> 				 <html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+
+<head>
+  <meta charset="utf-8">
+  <title>Building great open-source libraries</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="The hard part about open-source development is not putting the source code on the internet. The hard part is keeping the source, releases and documentation up-to-date. I'm still amazed how nicely FAKE solves this problem for F#.">
+  <meta name="author" content="Tomas Petricek">
+
+  <!-- Reference Foundation -->
+  <link rel="stylesheet" href="http://tomasp.net/css/foundation.css">
+  <script src="cjs/vendor/custom.modernizr.js"></script>
+
+  <link rel="alternate" type="application/rss+xml" href="http://tomasp.net/rss.xml" title="RSS feed for Tomas Petricek's blog">
+  <link rel="author" href="https://plus.google.com/109855146654605967051" />
+    
+  <!-- Reference custom CSS and tooltips -->
+  <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/style.css" />
+  <script type="text/javascript" src="http://tomasp.net/custom/tooltips.js"></script>
+  <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/tooltips.css" />
+</head>
+<body>
+
+   <header id="top-header">
+    <div class="row">
+      <div class="twelve columns">
+        <h1><a href="http://tomasp.net/">Tomas Petricek's blog</a></h1>
+        <p>Writing about practical F# coding and programming language research</p>
+      </div>
+    </div>
+  </header>
+
+  <header class="top-bar-header">
+    <div class="contain-to-grid sticky">
+    <nav class="top-bar">
+
+    <ul class="title-area">
+      <li class="name"><h1><a href="#"></a></h1></li>
+      <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+    </ul>
+    <section class="top-bar-section">
+      <ul class="right">
+        <li><a href="http://tomasp.net/blog/index.html">Blog</a></li>
+        <li><a href="http://functional-programming.net">Trainings</a></li>
+        <li><a href="http://functional-programming.net">Books</a></li>
+        <li><a href="http://lanyrd.com/profile/tomasp">Talks</a></li>
+        <li><a href="http://www.cl.cam.ac.uk/~tp322">Research & Teaching</a></li>
+      </ul>
+    </section>
+
+    </nav></div>
+  </header>
+  
+  
+<div class="row">
+	<div class="large-8 columns main-content">
+    <content>
+      
+
+<h1>Building great open-source libraries</h1>
+
+<a href="http://tpetricek.github.io/FSharp.Formatting/">
+<img src="http://tpetricek.github.io/FSharp.Formatting/misc/logo.png" alt="F# documentation tools" class="rdecor" style="width:150px;height:150px" />
+</a>
+
+<p>The hard part about successful open-source development is not putting the first 
+version of your source code on GitHub. The hard part is what comes next. First
+of all, there are <em>community aspects</em> - making sure that the project fits well with
+other work in the area, engaging the community and contributors, planing future
+directions for the project and so on. Secondly, there is an <em>infrastructural side</em> - 
+making sure that there is a package (on <a href="http://www.nuget.org/packages?q=fsharp">NuGet in the F# world</a>),
+easy to run and useful tests and also up-to-date documentation and tutorials.</p>
+
+<p>In this article, I want to talk about the <em>infrastructural side</em>, which is 
+easier of the two, but nevertheless, difficult to get right!</p>
+
+<p>On the techincal side, I think that every good open-source library needs to have:</p>
+
+<ul>
+<li><strong>Unit tests</strong> - at least for non-trivial parts of code and to prevent regressions</li>
+<li><strong>Random testing</strong> - for tricky parts of code, it is useful and helps checking unexpected cases</li>
+<li><strong>NuGet package</strong> - or other up-to-date and easy to use release; for F# projects, we 
+might also want to have an easy to download ZIP file for simple interactive scripts</li>
+<li><strong>Documentation</strong> - for public API, at least when the API is not super simple</li>
+<li><strong>Tutorials &amp; walkthroughs</strong> - showing how to call the API in a larger-scale scenarios</li>
+<li><strong>Automation</strong> - when releasing a new version, all of the above should happen with "one click"
+and documentation with tutorials must be up-to-date and correct.</li>
+</ul>
+
+<p>Ticking all the points is a lot of work, but it is crucial - if you do not have these,
+your project will be difficult to use, making a new release will take time and documentation
+with tutorials will become useless. Fortunately for me, the F# community made an amazing progress 
+in this direction, so let's have a look at some of the tools that make this possible...</p>
+
+<p>Before going further, let me say big thanks to <a href="https://twitter.com/sforkmann">Steffen Forkmann</a>,
+the author of FAKE, and <a href="https://twitter.com/ovatsus">Gustavo Guerra</a>, who wrote most of the
+automation for <a href="https://github.com/fsharp/FSharp.Data/">F# Data</a> that I'll use as an example.</p>
+
+<h2>Automate everything with FAKE</h2>
+
+<p>Let me start from the end of the list. <a href="http://fsharp.github.io/FAKE/">FAKE</a> is a F# build
+automation system that does a lot more than just building. In fact, FAKE can easily call
+MSBUILD scripts (and build F# projects just using an existing <code>fsproj</code> file). I think the
+real value is in all the additional tools that it provides.</p>
+
+<p>For example, here is what happens when you run the <a href="https://github.com/fsharp/FSharp.Data/blob/master/build.fsx">build script</a>
+from the <a href="https://github.com/fsharp/FSharp.Data">F# Data library</a>. It:</p>
+
+<ul>
+<li>Parses <code>RELEASE_NOTES.md</code> to get the information about the last version number
+and release notes (that will be used later to build NuGet package)</li>
+<li>Generates <code>AssemblyInfo.fs</code> with the right version and project information</li>
+<li>Builds the project and tests by calling MSBUILD (or xbuild) on <code>sln</code> files</li>
+<li>Runs the NUnit tests (and stops if there is a failure), but more about testing later...</li>
+<li>While runing tests, it also checks that your documentation does not contain errors -
+if you do not believe, continue reading :-)</li>
+<li>Builds a NuGet package and optionally pushes it to <a href="http://nuget.org">nuget.org</a></li>
+<li>Automatically builds documentation using F# Formatting tool that is discussed next</li>
+<li>As a bonus, it also pushes the <a href="http://fsharp.github.io/FSharp.Data/">documentation to the gh-pages branch</a>
+and builds a ZIP with the binaries for easy download.</li>
+</ul>
+
+<p>All this means that it is really easy to maintain a project. When you get a pull request
+(and point the contributor to the right place to add tests and documentation), you can 
+then update everything with just a single command.</p>
+
+<p>And you have a guarantee that your documentation is up-to-date and correct too, which
+is done using another F# project that I'll discuss next...</p>
+
+<h2>Documenting libraries with F# Formatting</h2>
+
+<p><a href="http://tpetricek.github.io/FSharp.Formatting/">F# Formatting</a> is not your good old 
+regular-expression based syntax highlighter. It calls the F# compiler (which is fully
+<a href="https://github.com/fsharp/fsharp">open-source</a>, in case you did not know) and uses
+the actual compiler to colorize code. Aside from that, it also type-checks the code
+and extracts tooltip information that you'd see in MonoDevelop or Visual Studio.
+It is used on this blog too, so here is an example (hover over identifiers with
+mouse pointer to see tool tips):</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip">
+<span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+</pre>
+</td>
+<td class="snippet"><pre class="fssnip">
+<span class="c">/// Say hello to the specified person</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs1', 1)" onmouseover="showTip(event, 'fs1', 1)" class="i">hello</span> <span onmouseout="hideTip(event, 'fs2', 2)" onmouseover="showTip(event, 'fs2', 2)" class="i">person</span> <span class="o">=</span> 
+  <span onmouseout="hideTip(event, 'fs3', 3)" onmouseover="showTip(event, 'fs3', 3)" class="i">printfn</span> <span class="s">&quot;</span><span class="s">Hello</span><span class="s"> </span><span class="s">%</span><span class="s">s</span><span class="s">!</span><span class="s">&quot;</span> <span onmouseout="hideTip(event, 'fs2', 4)" onmouseover="showTip(event, 'fs2', 4)" class="i">person</span>
+
+<span onmouseout="hideTip(event, 'fs1', 5)" onmouseover="showTip(event, 'fs1', 5)" class="i">hello</span> <span class="s">&quot;</span><span class="s">Tomas</span><span class="s">&quot;</span></pre>
+</td>
+</tr>
+</table><p>For statically typed langauges with type inference, this is extremely useful. Just 
+remember when you were last looking at C# snippet using <code>var</code> and wondered what 
+the type of a variable is...</p>
+
+<p>To build a great documentation for a project using F# Formatting, you can use two
+features. I'll use the <a href="http://bluemountaincapital.github.io/Deedle/">Deedle data manipulation library</a>
+as an example:</p>
+
+<ul>
+<li><p><strong>Write tutorials</strong> - these can be standard <a href="https://github.com/BlueMountainCapital/Deedle/blob/master/docs/content/tutorial.fsx">F# script files</a>
+that you can run, with special comments written using <code>(** .. *)</code> that contain Markdown. F#
+Formatting turns them into <a href="http://bluemountaincapital.github.io/Deedle/tutorial.html">nicely formatted tutorials</a></p></li>
+<li><p><strong>Generate API reference</strong> - if you include <code>///</code> comments for public functions (written 
+in a <a href="https://github.com/fsharp/FAKE/blob/develop/src/app/FakeLib/DocuHelper.fs#L27">simple Markdown style</a>),
+you can automatically generate API reference from them, for example, like the
+<a href="http://fsharp.github.io/FAKE/apidocs/index.html">FakeLib reference</a>.</p></li>
+</ul>
+
+<h2>Does your documentation type-check?</h2>
+
+<p>The last thing I mentioned is that the build process checks if your documentation is correct.
+Obviously, it does not check that your documentation makes sense :-) but it does make sure
+that code samples your documentation type check. This is done, for example, in the 
+<a href="https://github.com/fsharp/FSharp.Data/tree/master/tests/FSharp.Data.Tests.Documentation">F# Data documentation tests</a>.</p>
+
+<div style="text-align:center">
+<img src="testdoc.png" alt="Failing documentation tests, after API change"  />
+</div>
+
+<p>What does this mean? When you change your API (add or remove parameters, change type, 
+or rename function or types) without making corresponding changes to your documentation,
+you'll get a unit test failure!</p>
+
+<p>This is only possible because F# Formatting can call
+the compiler to do the actual formatting and checking work - and it does not only
+work in <code>fsx</code> files. The same is done on <code>md</code> files that contain F# code snippets
+(using 4 spaces before the snippet).</p>
+
+<h2>Testing with FsUnit and FsCheck</h2>
+
+<p>Speaking of unit tests, there are a few more things to be written.
+I'm not an expert when it comes to testing (the chapter by Phil Trelford in 
+our <a href="http://www.manning.com/petricek2/">upcoming F# book</a> is a better source!), but
+tests are clearly important - especially for open-source projects with multiple
+contributors that need to collaborate on the code base.</p>
+
+<h3>Less painful writing and running</h3>
+
+<p>There are three things that make writing tests less painful. First, <a href="https://github.com/fsharp/fsunit">FsUnit</a>
+is a nice DSL for writing tests in a more readable way. Second, the F# <code>``backtick``</code>
+notation lets you use full description as a test name. And third, you can setup your
+environment to make tests runnable really quickly from REPL.</p>
+
+<p>Let's look at a sample test for the XML type provder from <a href="https://github.com/fsharp/FSharp.Data">F# Data</a>:</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip">
+<span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+<span class="l">15: </span>
+<span class="l">16: </span>
+<span class="l">17: </span>
+<span class="l">18: </span>
+<span class="l">19: </span>
+<span class="l">20: </span>
+</pre>
+</td>
+<td class="snippet"><pre class="fssnip">
+<span class="prep">#if</span> <span class="i">INTERACTIVE</span>
+<span class="inactive">#r</span><span class="inactive"> </span><span class="inactive">&quot;../../../bin/FSharp.Data.dll&quot;</span>
+<span class="inactive">(*[omit:(other</span><span class="inactive"> </span><span class="inactive">references</span><span class="inactive"> </span><span class="inactive">omitted)]*)</span>
+<span class="inactive">#r</span><span class="inactive"> </span><span class="inactive">&quot;../../../packages/NUnit.2.6.3/lib/nunit.framework.dll&quot;</span>
+<span class="inactive">#r</span><span class="inactive"> </span><span class="inactive">&quot;../../../packages/FsCheck.0.9.1.0/lib/net40-Client/FsCheck.dll&quot;</span>
+<span class="inactive">#load</span><span class="inactive"> </span><span class="inactive">&quot;../../Common/FsUnit.fs&quot;(*[/omit]*)</span>
+<span class="prep">#else</span>
+<span class="k">module</span> <span onmouseout="hideTip(event, 'fs4', 6)" onmouseover="showTip(event, 'fs4', 6)" class="i">FSharp</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs5', 7)" onmouseover="showTip(event, 'fs5', 7)" class="i">Data</span><span class="o">.</span><span class="i">XmlTests</span>
+<span class="prep">#endif</span>
+
+<span class="k">type</span> <span onmouseout="hideTip(event, 'fs6', 8)" onmouseover="showTip(event, 'fs6', 8)" class="i">PersonXml</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs7', 9)" onmouseover="showTip(event, 'fs7', 9)" class="i">XmlProvider</span><span class="o">&lt;</span><span id="fst8" onmouseout="hideTip(event, 'fs8', 10)" onmouseover="showTip(event, 'fs8', 10, document.getElementById('fst8'))" class="omitted">(...)</span><span class="o">&gt;</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs9', 11)" onmouseover="showTip(event, 'fs9', 11)" class="i">newXml</span> <span class="o">=</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="s">  </span><span class="s">&lt;</span><span class="s">authors</span><span class="s">&gt;</span>
+<span class="s">    </span><span class="s">&lt;</span><span class="s">author</span><span class="s"> </span><span class="s">name</span><span class="s">=</span><span class="s">&quot;</span><span class="s">Jane</span><span class="s">&quot;</span><span class="s"> </span><span class="s">surname</span><span class="s">=</span><span class="s">&quot;</span><span class="s">Doe</span><span class="s">&quot;</span><span class="s"> </span><span class="s">age</span><span class="s">=</span><span class="s">&quot;</span><span class="s">23</span><span class="s">&quot;</span><span class="s"> </span><span class="s">/</span><span class="s">&gt;</span>
+<span class="s">  </span><span class="s">&lt;</span><span class="s">/</span><span class="s">authors</span><span class="s">&gt;</span><span class="s">&quot;&quot;&quot;</span>
+
+[&lt;<span onmouseout="hideTip(event, 'fs10', 12)" onmouseover="showTip(event, 'fs10', 12)" class="i">Test</span>&gt;]
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs11', 13)" onmouseover="showTip(event, 'fs11', 13)" class="i">``Jane should have first name of Jane``</span>() <span class="o">=</span> 
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs12', 14)" onmouseover="showTip(event, 'fs12', 14)" class="i">firstPerson</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs6', 15)" onmouseover="showTip(event, 'fs6', 15)" class="i">PersonXml</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs13', 16)" onmouseover="showTip(event, 'fs13', 16)" class="i">Parse</span>(<span onmouseout="hideTip(event, 'fs9', 17)" onmouseover="showTip(event, 'fs9', 17)" class="i">newXml</span>)<span class="o">.</span><span class="i">Author</span>
+    <span onmouseout="hideTip(event, 'fs12', 18)" onmouseover="showTip(event, 'fs12', 18)" class="i">firstPerson</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs14', 19)" onmouseover="showTip(event, 'fs14', 19)" class="i">Name</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs15', 20)" onmouseover="showTip(event, 'fs15', 20)" class="i">should</span> <span onmouseout="hideTip(event, 'fs16', 21)" onmouseover="showTip(event, 'fs16', 21)" class="i">equal</span> <span class="s">&quot;</span><span class="s">Jane</span><span class="s">&quot;</span></pre>
+</td>
+</tr>
+</table><p>The test is included in an <code>fs</code> file in a project that is compiled into a <code>dll</code> that can
+be tested with standard NUnit test runners. However, the first 9 lines make the test also
+runnable in F# Interactive - you can select the entire source code and hit <code>Alt+Enter</code> to
+load the tests in F# Interactive and run them line-by-line, testing different inputs 
+interactively. When writing tests, this is much easier then changing your code and re-compiling
+tests to run them.</p>
+
+<p>The test itself uses the backtic notation to include the whole test description in its
+name <code>SoYouDoNotNeedToDecipherThis</code>! The FsUnit library that is also used here defines a 
+simple readable DSL so that you can write your test in the form <code>&lt;value&gt; |&gt; should &lt;property&gt;</code>.
+For example, you can say <code>"Hello" |&gt; should startWith "H"</code>.</p>
+
+<h3>Testing complex logic</h3>
+
+<p>Finally, the last great tool that I want to mention in this article is a random <a href="https://github.com/fsharp/FsCheck">testing
+framework FsCheck</a>. This is particularly useful if you
+need to test some algorithm or more complex function that has some (mathematical) properties.</p>
+
+<p>For example, I wrote a function <code>binarySearchNearestGreater</code> that performs binary search
+on a sorted array and returns the index of a specified element, or index of an element
+that is the nearest greater in the array. The function has a property that the value
+at the returned index is equal, or greater than the specified key (or, if the function
+does not find any element, it means that all are smaller).</p>
+
+<p>FsCheck can easily verify that the property holds for randomly generated inputs (and it
+also generates inputs that cover corner cases):</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip">
+<span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
+<span class="l">7: </span>
+</pre>
+</td>
+<td class="snippet"><pre class="fssnip">
+[&lt;<span onmouseout="hideTip(event, 'fs10', 22)" onmouseover="showTip(event, 'fs10', 22)" class="i">Test</span>&gt;]
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs17', 23)" onmouseover="showTip(event, 'fs17', 23)" class="i">``Binary searching for nearest greater value satisfies laws``</span> () <span class="o">=</span>
+  <span onmouseout="hideTip(event, 'fs18', 24)" onmouseover="showTip(event, 'fs18', 24)" class="i">Check</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs19', 25)" onmouseover="showTip(event, 'fs19', 25)" class="i">QuickThrowOnFailure</span>(<span class="k">fun</span> (<span onmouseout="hideTip(event, 'fs20', 26)" onmouseover="showTip(event, 'fs20', 26)" class="i">input</span><span class="o">:</span><span onmouseout="hideTip(event, 'fs21', 27)" onmouseover="showTip(event, 'fs21', 27)" class="i">int</span>[]) (<span onmouseout="hideTip(event, 'fs22', 28)" onmouseover="showTip(event, 'fs22', 28)" class="i">key</span><span class="o">:</span><span onmouseout="hideTip(event, 'fs21', 29)" onmouseover="showTip(event, 'fs21', 29)" class="i">int</span>) <span class="k">-&gt;</span> 
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs20', 30)" onmouseover="showTip(event, 'fs20', 30)" class="i">input</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs23', 31)" onmouseover="showTip(event, 'fs23', 31)" class="i">Array</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs24', 32)" onmouseover="showTip(event, 'fs24', 32)" class="i">sort</span> <span onmouseout="hideTip(event, 'fs20', 33)" onmouseover="showTip(event, 'fs20', 33)" class="i">input</span>
+    <span class="k">match</span> <span onmouseout="hideTip(event, 'fs23', 34)" onmouseover="showTip(event, 'fs23', 34)" class="i">Array</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs25', 35)" onmouseover="showTip(event, 'fs25', 35)" class="i">binarySearchNearestGreater</span> <span onmouseout="hideTip(event, 'fs22', 36)" onmouseover="showTip(event, 'fs22', 36)" class="i">key</span> <span onmouseout="hideTip(event, 'fs26', 37)" onmouseover="showTip(event, 'fs26', 37)" class="i">comparer</span> <span onmouseout="hideTip(event, 'fs20', 38)" onmouseover="showTip(event, 'fs20', 38)" class="i">input</span> <span class="k">with</span>
+    | <span onmouseout="hideTip(event, 'fs27', 39)" onmouseover="showTip(event, 'fs27', 39)" class="i">Some</span> <span onmouseout="hideTip(event, 'fs28', 40)" onmouseover="showTip(event, 'fs28', 40)" class="i">idx</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs20', 41)" onmouseover="showTip(event, 'fs20', 41)" class="i">input</span><span class="o">.</span>[<span onmouseout="hideTip(event, 'fs28', 42)" onmouseover="showTip(event, 'fs28', 42)" class="i">idx</span>] <span class="o">&gt;</span><span class="o">=</span> <span onmouseout="hideTip(event, 'fs22', 43)" onmouseover="showTip(event, 'fs22', 43)" class="i">key</span>
+    | <span onmouseout="hideTip(event, 'fs29', 44)" onmouseover="showTip(event, 'fs29', 44)" class="i">None</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs30', 45)" onmouseover="showTip(event, 'fs30', 45)" class="i">Seq</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs31', 46)" onmouseover="showTip(event, 'fs31', 46)" class="i">forall</span> (<span class="k">fun</span> <span onmouseout="hideTip(event, 'fs32', 47)" onmouseover="showTip(event, 'fs32', 47)" class="i">v</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs32', 48)" onmouseover="showTip(event, 'fs32', 48)" class="i">v</span> <span class="o">&lt;</span> <span onmouseout="hideTip(event, 'fs22', 49)" onmouseover="showTip(event, 'fs22', 49)" class="i">key</span>) <span onmouseout="hideTip(event, 'fs20', 50)" onmouseover="showTip(event, 'fs20', 50)" class="i">input</span> )</pre>
+</td>
+</tr>
+</table><p>The operation <code>Check.QuickThrowOnFailure</code> takes a function that specifies the predicate
+and automatically generates 100 (or more) random inputs for <code>input</code> and <code>key</code>. 
+The above sample uses NUnit, but FsCheck also comes with xUnit integration that makes the 
+testing code even simpler (just write a function with the <code>Property</code> attribute).</p>
+
+<p>Random testing is certainly not useful for all tests, but it is great when you have
+some property that should hold. This is often the case for algorithms, or when you 
+have a pair of functions for converting "there and back again" (then you can just say
+that the conversion there and back should return the original thing).</p>
+
+<h2>Summary</h2>
+
+<p>Building a great open-source library is a difficult thing and I certianly do not claim
+that I have a recipe for that. But I'm contributing to <a href="https://github.com/tpetricek/FSharp.Formatting">a</a>
+<a href="https://github.com/fsharp/FSharp.Data">few</a> <a href="https://github.com/fsharp/FSharp.Charting">F#</a> 
+<a href="https://github.com/BlueMountainCapital/Deedle">libraries</a> and I think I have learned
+a thing or two from my mistakes.</p>
+
+<p>For me, one of the most difficult things (technically) is keeping libraries up-to-date
+even when I don't have time for it. The best way to solve this is to automate everything
+so that you can accept a pull request and run a single command that runs the whole build
+process, including NuGet release, documentation update and as many sanity checks as possible,
+both for the code itself and for the documentation.</p>
+
+<p>This article gave a quick overview of the tools that make this amazingly easy with F# - 
+including the awesome <a href="http://fsharp.github.io/FAKE/">FAKE build tool</a>, unit testing
+tools like <a href="https://github.com/fsharp/fsunit">FsUnit</a>  and <a href="https://github.com/fsharp/FsCheck/blob/master/Docs/Documentation.md">FsCheck</a>
+and documentation tools in <a href="http://tpetricek.github.io/FSharp.Formatting/index.html">F# Formatting</a>
+that can even be integrated with unit tests to make sure your documentation is correct.</p>
+
+<div class="tip" id="fs1">val hello : person:string -&gt; unit<br /><br />Full name: Great-open-source_.hello<br /><em><br /><br />&#160;Say hello to the specified person</em></div>
+<div class="tip" id="fs2">val person : string</div>
+<div class="tip" id="fs3">val printfn : format:Printf.TextWriterFormat&lt;&#39;T&gt; -&gt; &#39;T<br /><br />Full name: Microsoft.FSharp.Core.ExtraTopLevelOperators.printfn</div>
+<div class="tip" id="fs4">namespace FSharp</div>
+<div class="tip" id="fs5">namespace FSharp.Data</div>
+<div class="tip" id="fs6">type PersonXml = XmlProvider&lt;...&gt;<br /><br />Full name: Great-open-source_.PersonXml</div>
+<div class="tip" id="fs7">type XmlProvider<br /><br />Full name: FSharp.Data.XmlProvider<br /><em><br /><br />&lt;summary&gt;Typed representation of a XML file&lt;/summary&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;param name=&#39;Sample&#39;&gt;Location of a XML sample file or a string containing a sample XML document&lt;/param&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;param name=&#39;Global&#39;&gt;If true, the inference unifies all XML elements with the same name&lt;/param&gt;                     <br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;param name=&#39;Culture&#39;&gt;The culture used for parsing numbers and dates.&lt;/param&gt;                     <br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;param name=&#39;SampleList&#39;&gt;If true, the children of the root in the sample document represent individual samples for the inference.&lt;/param&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;param name=&#39;ResolutionFolder&#39;&gt;A directory that is used when resolving relative file references (at design time and in hosted execution)&lt;/param&gt;</em></div>
+<div class="tip" id="fs8">&quot;&quot;&quot;&lt;authors&gt;&lt;author name=&quot;Ludwig&quot; surname=&quot;Wittgenstein&quot; age=&quot;29&quot; /&gt;&lt;/authors&gt;&quot;&quot;&quot;</div>
+<div class="tip" id="fs9">val newXml : string<br /><br />Full name: Great-open-source_.newXml</div>
+<div class="tip" id="fs10">Multiple items<br />type TestAttribute =<br />&#160;&#160;inherit Attribute<br />&#160;&#160;new : unit -&gt; TestAttribute<br />&#160;&#160;member Description : string with get, set<br /><br />Full name: NUnit.Framework.TestAttribute<br /><br />--------------------<br />TestAttribute() : unit</div>
+<div class="tip" id="fs11">val ( Jane should have first name of Jane ) : unit -&gt; unit<br /><br />Full name: Great-open-source_.( Jane should have first name of Jane )</div>
+<div class="tip" id="fs12">val firstPerson : XmlProvider&lt;...&gt;.DomainTypes.Author</div>
+<div class="tip" id="fs13">XmlProvider&lt;...&gt;.Parse(text: string) : XmlProvider&lt;...&gt;.DomainTypes.Authors</div>
+<div class="tip" id="fs14">property XmlProvider&lt;...&gt;.DomainTypes.Author.Name: string</div>
+<div class="tip" id="fs15">val should : f:(&#39;a -&gt; #Constraints.Constraint) -&gt; x:&#39;a -&gt; y:obj -&gt; unit<br /><br />Full name: FsUnit.TopLevelOperators.should</div>
+<div class="tip" id="fs16">val equal : x:&#39;a -&gt; Constraints.EqualConstraint<br /><br />Full name: FsUnit.TopLevelOperators.equal</div>
+<div class="tip" id="fs17">val ( Binary searching for nearest greater value satisfies laws ) : unit -&gt; unit<br /><br />Full name: Great-open-source_.( Binary searching for nearest greater value satisfies laws )</div>
+<div class="tip" id="fs18">type Check =<br />&#160;&#160;static member All : config:Config -&gt; unit<br />&#160;&#160;static member All : config:Config * test:Type -&gt; unit<br />&#160;&#160;static member Method : config:Config * methodInfo:MethodInfo * ?target:obj -&gt; unit<br />&#160;&#160;static member One : config:Config * property:&#39;Testable -&gt; unit<br />&#160;&#160;static member One : name:string * config:Config * property:&#39;Testable -&gt; unit<br />&#160;&#160;static member Quick : property:&#39;Testable -&gt; unit<br />&#160;&#160;static member Quick : name:string * property:&#39;Testable -&gt; unit<br />&#160;&#160;static member QuickAll : unit -&gt; unit<br />&#160;&#160;static member QuickAll : test:Type -&gt; unit<br />&#160;&#160;static member QuickThrowOnFailure : property:&#39;Testable -&gt; unit<br />&#160;&#160;...<br /><br />Full name: FsCheck.Check</div>
+<div class="tip" id="fs19">static member Check.QuickThrowOnFailure : property:&#39;Testable -&gt; unit</div>
+<div class="tip" id="fs20">val input : int []</div>
+<div class="tip" id="fs21">Multiple items<br />val int : value:&#39;T -&gt; int (requires member op_Explicit)<br /><br />Full name: Microsoft.FSharp.Core.Operators.int<br /><br />--------------------<br />type int = int32<br /><br />Full name: Microsoft.FSharp.Core.int<br /><br />--------------------<br />type int&lt;&#39;Measure&gt; = int<br /><br />Full name: Microsoft.FSharp.Core.int&lt;_&gt;</div>
+<div class="tip" id="fs22">val key : int</div>
+<div class="tip" id="fs23">type Array =<br />&#160;&#160;member Clone : unit -&gt; obj<br />&#160;&#160;member CopyTo : array:Array * index:int -&gt; unit + 1 overload<br />&#160;&#160;member GetEnumerator : unit -&gt; IEnumerator<br />&#160;&#160;member GetLength : dimension:int -&gt; int<br />&#160;&#160;member GetLongLength : dimension:int -&gt; int64<br />&#160;&#160;member GetLowerBound : dimension:int -&gt; int<br />&#160;&#160;member GetUpperBound : dimension:int -&gt; int<br />&#160;&#160;member GetValue : params indices:int[] -&gt; obj + 7 overloads<br />&#160;&#160;member Initialize : unit -&gt; unit<br />&#160;&#160;member IsFixedSize : bool<br />&#160;&#160;...<br /><br />Full name: System.Array</div>
+<div class="tip" id="fs24">val sort : array:&#39;T [] -&gt; &#39;T [] (requires comparison)<br /><br />Full name: Microsoft.FSharp.Collections.Array.sort</div>
+<div class="tip" id="fs25">val binarySearchNearestGreater : key:&#39;T -&gt; comparer:Collections.Generic.IComparer&lt;&#39;T&gt; -&gt; array:&#39;T [] -&gt; int option<br /><br />Full name: FSharp.DataFrame.Internal.Array.binarySearchNearestGreater<br /><em><br /><br />&#160;Returns the index of &#39;key&#39; or the index of immediately following value.<br />&#160;If the specified key is greater than all keys in the array, None is returned.</em></div>
+<div class="tip" id="fs26">val comparer : Collections.Generic.Comparer&lt;int&gt;<br /><br />Full name: Great-open-source_.comparer</div>
+<div class="tip" id="fs27">union case Option.Some: &#39;T -&gt; Option&lt;&#39;T&gt;</div>
+<div class="tip" id="fs28">val idx : int</div>
+<div class="tip" id="fs29">union case Option.None: Option&lt;&#39;T&gt;</div>
+<div class="tip" id="fs30">Multiple items<br />module Seq<br /><br />from FSharp.DataFrame.Internal<br /><em><br /><br />&#160;This module contains additional functions for working with sequences. <br />&#160;`FSharp.DataFrame.Internals` is opened, it extends the standard `Seq` module.</em><br /><br />--------------------<br />module Seq<br /><br />from Microsoft.FSharp.Collections</div>
+<div class="tip" id="fs31">val forall : predicate:(&#39;T -&gt; bool) -&gt; source:seq&lt;&#39;T&gt; -&gt; bool<br /><br />Full name: Microsoft.FSharp.Collections.Seq.forall</div>
+<div class="tip" id="fs32">val v : int</div>
+
+
+<div class="row">
+	<div class="small-4 columns">&#160;</div>
+  <div class="small-8 columns">
+
+<!-- AddThis Button BEGIN -->
+<div class="addthis_toolbox addthis_default_style addthis_16x16_style">
+<a class="addthis_button_twitter"></a>
+<a class="addthis_button_reddit"></a>
+<a class="addthis_button_google_plusone_share"></a>
+<a class="addthis_button_hackernews"></a>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_compact"></a><a class="addthis_counter addthis_bubble_style"></a>
+</div>
+<script type="text/javascript">var addthis_config = { "data_track_addressbar": false };</script>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-521c32162e6001a0"></script>
+<!-- AddThis Button END -->
+
+<p class="post-meta">
+  <span><strong>Published</strong>: Thursday, 17 October 2013, 9:11 AM</span><br />      
+  <span class="tags"><strong>Tags</strong>: open source, f#, fake, f# formatting</span>
+</p>
+
+  </div>
+</div>
+
+    </content>
+
+  </div>
+  <div class="large-4 columns" id="right-bar">
+    <div class="right-item" id="right-calendar">
+      <script type="text/javascript">
+        var monthNames =
+          ["January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"];
+        var d = new Date();
+        var m = monthNames[d.getMonth()];
+        var y = d.getFullYear();
+        var ml = m.toLowerCase();
+        document.writeln("<h4>Calendar - " + m + " " + y + "</h4>");
+        document.writeln("<a href=\"http://tomasp.net/calendar/" + y + "/" + ml + ".html\">" +
+          "<img src=\"http://tomasp.net/calendar/" + y + "/" + ml + "-preview.jpg\" style=\"border-style:none;\" />" +
+          "</a>");
+      </script> 
+      <p>The calendar shows a new picture each month since 
+        <a href="http://tomasp.net/calendar/2005">2005</a>, <a href="http://tomasp.net/calendar/2006">2006</a>, 
+        <a href="http://tomasp.net/calendar/2007">2007</a>, <a href="http://tomasp.net/calendar/2008">2008</a>, 
+        <a href="http://tomasp.net/calendar/2009">2009</a>, <a href="http://tomasp.net/calendar/2010">2010</a>, 
+        <a href="http://tomasp.net/calendar/2011">2011</a>, <a href="http://tomasp.net/calendar/2012">2012</a>. <br />
+        See the first photos of <a href="http://tomasp.net/calendar/2013">2013</a>.
+      </p>
+    </div>
+
+    <h3>Welcome!</h3>
+    <img src="http://tomasp.net/img/tomas.jpg" alt="Tomas Petricek" style="float:right;margin:10px 0px 10px 10px;" />
+    <p>I'm an F# enthusiast, book author and a PhD student at the University of Cambridge.
+      When offline, I enjoy traveling and taking pictures. You can find me at
+      at <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a> or email 
+      <a href="mailto:tomas@tomasp.net">tomas@tomasp.net</a>.
+    </p>
+
+    <script type="text/javascript" src="http://tomasp.net/news/news.js"></script>
+    <h4>What's new? &#160; <small><script type="text/javascript">document.write(news.date)</script></small></h4>
+    <script>
+      document.write(news.info);
+    </script>
+
+    <h4>Trainings and consulting</h4>
+    <img src="http://tomasp.net/img/skillsmatter.png" alt="Tomas Petricek" style="float:right;margin:15px 0px 10px 10px;" />
+    <p>I run F# and functional programming courses in <strong>London</strong>
+      and <strong>New York</strong> with SkillsMatter.
+    </p>
+    <ul>
+      <li>Check out our <a href="http://skillsmatter.com/course/scala/tomas-petricek-phil-trelford-fast-track-to-fsharp/ps-6679">Fast Track to F#</a> course</li>
+      <li><a href="mailto:tomas@tomasp.net">Email me</a> for info about private trainings</li>
+    </ul>
+    
+    <h4>F# Books and articles</h4>
+    <div style="float:right;">
+      <a href="http://www.amazon.com/gp/product/1933988924/ref=as_li_tf_il?ie=UTF8&amp;tag=httptomasnet-20&amp;linkCode=as2&amp;camp=217145&amp;creative=399369&amp;creativeASIN=1933988924">
+        <img src="http://tomasp.net/img/rwfp.jpg" alt="Real World Functional Programming" style="float:right;margin:10px 0px 10px 10px;border-style:none;" />
+      </a>
+    </div>
+    <p><a href="http://www.manning.com/petricek">Real World Functional Programming</a> explains functional
+      concepts using F# and C#. You can get it from <a href="http://www.amazon.com/dp/1933988924?tag=httptomasnet-20&amp;camp=213381&amp;creative=390973&amp;linkCode=as4&amp;creativeASIN=1933988924&amp;adid=0F1DP260JGG4KY0CDGP6">Amazon.com</a>, <a href="https://www.amazon.co.uk/dp/1933988924?tag=tomasnet-21&amp;camp=1406&amp;creative=6394&amp;linkCode=as1&amp;creativeASIN=1933988924&amp;adid=1CTY87YCCQEJW965GNDF">Amazon.co.uk</a> or your favorite book store.
+      Some chapters and new materials are also available on <a href="http://msdn.microsoft.com/en-us/library/hh314518.aspx">MSDN</a>.</p>
+    
+    <p>Currently, I'm putting together <a href="http://www.manning.com/petricek2/">F# Deep Dives</a> - a collection
+      of practical F# essays written by community leaders and commercial users of F#.</p>
+    <p>I also wrote a series of tutorials on <a href="http://www.tryfsharp.org/Learn/financial-computing">financial computing</a>
+      for Try F# - an interactive environment that let's you try F# in the browser.</p>
+
+    <h4>Research and teaching</h4>
+    <img src="http://tomasp.net/img/cam.png" alt="University of Cambride" style="float:right;margin:25px 0px 10px 10px;" />
+    <p>I'm finishing PhD in computer science at the <a href="http://www.cl.cam.ac.uk/">University of Cambridge</a>.
+      I'm working on making better types for programs that run in rich context (like F# type providers, distributed 
+      prog&shy;ramming or data-flow). See <a href="http://www.cl.cam.ac.uk/~tp322/">my academic page</a> for
+      more.</p>
+
+    <h4>Blog tags</h4>
+    <p>
+
+      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(88),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(30),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(25),       <a href="http://tomasp.net/blog/tag/writing/">writing</a>&nbsp;(11),       <a href="http://tomasp.net/blog/tag/open-source/">open source</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/haskell/">haskell</a>&nbsp;(6),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/new-york/">new york</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/manning/">manning</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/books/">books</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fake/">fake</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/fsharp-formatting/">f# formatting</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/training/">training</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/deep-dives/">deep dives</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/async/">async</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/fsharp-data/">f# data</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/type-providers/">type providers</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/events/">events</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/trainings/">trainings</a>&nbsp;(1)    </p>
+
+  </div>
+</div>
+
+
+  <div class="row" id="footer">
+  <footer>   
+    <div class="large-3 columns">
+      <h4>Contact &amp; about</h4>
+      <p>This site is hosted on GitHub and is generated using <a href="https://github.com/tpetricek/FSharp.Formatting">F# Formatting</a>.
+        For more info, see the <a href="https://github.com/tpetricek/TomaspNet.Website">website source on GitHub</a>.
+      </p>
+      <p>Please submit issues &amp; corrections on GitHub. Use pull requests for minor corrections only.</p>
+      <ul>
+        <li>Email me: <a href="mailto:tomas@tomasp.net">tomas@tomasp.net</a></li>
+        <li>Connect via Twitter: <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a></li>
+        <li>More: <a href="http://uk.linkedin.com/in/tomaspetricek">LinkedIn</a> | <a href="http://lanyrd.com/profile/tomasp/">Lanyrd</a> | <a href="https://github.com/tpetricek">GitHub</a></li>
+      </ul>
+    </div>
+    <div class="large-7 columns">
+    <h4>Blog archives <a href="http://tomasp.net/rss.xml"><img src="http://tomasp.net/img/rss.gif" /></a></h4>
+      <a href="http://tomasp.net/blog/archive/october-2013/index.html">
+        October 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/september-2013/index.html">
+        September 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/august-2013/index.html">
+        August 2013 (2)</a>,      <a href="http://tomasp.net/blog/archive/may-2013/index.html">
+        May 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/april-2013/index.html">
+        April 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/march-2013/index.html">
+        March 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/february-2013/index.html">
+        February 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/january-2013/index.html">
+        January 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/december-2012/index.html">
+        December 2012 (2)</a>,      <a href="http://tomasp.net/blog/archive/october-2012/index.html">
+        October 2012 (1)</a>,      <a href="http://tomasp.net/blog/archive/august-2012/index.html">
+        August 2012 (3)</a>,      <a href="http://tomasp.net/blog/archive/june-2012/index.html">
+        June 2012 (2)</a>,      <a href="http://tomasp.net/blog/archive/april-2012/index.html">
+        April 2012 (1)</a>,      <a href="http://tomasp.net/blog/archive/march-2012/index.html">
+        March 2012 (4)</a>,      <a href="http://tomasp.net/blog/archive/february-2012/index.html">
+        February 2012 (5)</a>,      <a href="http://tomasp.net/blog/archive/january-2012/index.html">
+        January 2012 (2)</a>,      <a href="http://tomasp.net/blog/archive/november-2011/index.html">
+        November 2011 (5)</a>,      <a href="http://tomasp.net/blog/archive/august-2011/index.html">
+        August 2011 (3)</a>,      <a href="http://tomasp.net/blog/archive/july-2011/index.html">
+        July 2011 (2)</a>,      <a href="http://tomasp.net/blog/archive/june-2011/index.html">
+        June 2011 (2)</a>,      <a href="http://tomasp.net/blog/archive/may-2011/index.html">
+        May 2011 (2)</a>,      <a href="http://tomasp.net/blog/archive/march-2011/index.html">
+        March 2011 (4)</a>,      <a href="http://tomasp.net/blog/archive/december-2010/index.html">
+        December 2010 (1)</a>,      <a href="http://tomasp.net/blog/archive/november-2010/index.html">
+        November 2010 (6)</a>,      <a href="http://tomasp.net/blog/archive/october-2010/index.html">
+        October 2010 (6)</a>,      <a href="http://tomasp.net/blog/archive/september-2010/index.html">
+        September 2010 (4)</a>,      <a href="http://tomasp.net/blog/archive/july-2010/index.html">
+        July 2010 (3)</a>,      <a href="http://tomasp.net/blog/archive/june-2010/index.html">
+        June 2010 (2)</a>,      <a href="http://tomasp.net/blog/archive/may-2010/index.html">
+        May 2010 (1)</a>,      <a href="http://tomasp.net/blog/archive/february-2010/index.html">
+        February 2010 (2)</a>,      <a href="http://tomasp.net/blog/archive/january-2010/index.html">
+        January 2010 (3)</a>,      <a href="http://tomasp.net/blog/archive/december-2009/index.html">
+        December 2009 (3)</a>,      <a href="http://tomasp.net/blog/archive/july-2009/index.html">
+        July 2009 (1)</a>,      <a href="http://tomasp.net/blog/archive/june-2009/index.html">
+        June 2009 (3)</a>,      <a href="http://tomasp.net/blog/archive/may-2009/index.html">
+        May 2009 (2)</a>,      <a href="http://tomasp.net/blog/archive/april-2009/index.html">
+        April 2009 (1)</a>,      <a href="http://tomasp.net/blog/archive/march-2009/index.html">
+        March 2009 (2)</a>,      <a href="http://tomasp.net/blog/archive/february-2009/index.html">
+        February 2009 (1)</a>,      <a href="http://tomasp.net/blog/archive/december-2008/index.html">
+        December 2008 (1)</a>,      <a href="http://tomasp.net/blog/archive/november-2008/index.html">
+        November 2008 (5)</a>,      <a href="http://tomasp.net/blog/archive/october-2008/index.html">
+        October 2008 (1)</a>,      <a href="http://tomasp.net/blog/archive/september-2008/index.html">
+        September 2008 (1)</a>,      <a href="http://tomasp.net/blog/archive/june-2008/index.html">
+        June 2008 (1)</a>,      <a href="http://tomasp.net/blog/archive/march-2008/index.html">
+        March 2008 (3)</a>,      <a href="http://tomasp.net/blog/archive/february-2008/index.html">
+        February 2008 (1)</a>,      <a href="http://tomasp.net/blog/archive/december-2007/index.html">
+        December 2007 (2)</a>,      <a href="http://tomasp.net/blog/archive/november-2007/index.html">
+        November 2007 (6)</a>,      <a href="http://tomasp.net/blog/archive/october-2007/index.html">
+        October 2007 (1)</a>,      <a href="http://tomasp.net/blog/archive/september-2007/index.html">
+        September 2007 (1)</a>,      <a href="http://tomasp.net/blog/archive/august-2007/index.html">
+        August 2007 (1)</a>,      <a href="http://tomasp.net/blog/archive/july-2007/index.html">
+        July 2007 (2)</a>,      <a href="http://tomasp.net/blog/archive/april-2007/index.html">
+        April 2007 (2)</a>,      <a href="http://tomasp.net/blog/archive/march-2007/index.html">
+        March 2007 (3)</a>,      <a href="http://tomasp.net/blog/archive/february-2007/index.html">
+        February 2007 (3)</a>,      <a href="http://tomasp.net/blog/archive/january-2007/index.html">
+        January 2007 (2)</a>,      <a href="http://tomasp.net/blog/archive/november-2006/index.html">
+        November 2006 (1)</a>,      <a href="http://tomasp.net/blog/archive/october-2006/index.html">
+        October 2006 (3)</a>,      <a href="http://tomasp.net/blog/archive/august-2006/index.html">
+        August 2006 (2)</a>,      <a href="http://tomasp.net/blog/archive/july-2006/index.html">
+        July 2006 (1)</a>,      <a href="http://tomasp.net/blog/archive/june-2006/index.html">
+        June 2006 (3)</a>,      <a href="http://tomasp.net/blog/archive/may-2006/index.html">
+        May 2006 (2)</a>,      <a href="http://tomasp.net/blog/archive/april-2006/index.html">
+        April 2006 (2)</a>,      <a href="http://tomasp.net/blog/archive/december-2005/index.html">
+        December 2005 (1)</a>,      <a href="http://tomasp.net/blog/archive/july-2005/index.html">
+        July 2005 (4)</a>,      <a href="http://tomasp.net/blog/archive/june-2005/index.html">
+        June 2005 (5)</a>,      <a href="http://tomasp.net/blog/archive/may-2005/index.html">
+        May 2005 (1)</a>,      <a href="http://tomasp.net/blog/archive/april-2005/index.html">
+        April 2005 (3)</a>,      <a href="http://tomasp.net/blog/archive/march-2005/index.html">
+        March 2005 (3)</a>,      <a href="http://tomasp.net/blog/archive/january-2005/index.html">
+        January 2005 (1)</a>,      <a href="http://tomasp.net/blog/archive/december-2004/index.html">
+        December 2004 (3)</a>,      <a href="http://tomasp.net/blog/archive/november-2004/index.html">
+        November 2004 (2)</a>,    </div>
+    <div class="large-2 columns">
+      <h4>License</h4>
+      <p>Unless explicitly mentioned, all articles on this site are licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution Share Alike</a>. 
+        All source code samples are licensed under Apache 2.0.
+      </p>
+      <img src="http://tomasp.net/img/cc-sa.png" alt="CC License logo" />
+    </div>
+  </footer>
+  </div>
+  
+  <script>
+  document.write('<script src=' +
+  ('__proto__' in {} ? 'http://tomasp.net/js/vendor/zepto' : 'http://tomasp.net/js/vendor/jquery') +
+  '.js><\/script>')
+  </script>
+  
+  <script src="http://tomasp.net/js/foundation.min.js"></script>
+  <script>
+    $(document).foundation();
+  </script>
+  <script type="text/javascript">
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-1561220-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function () {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+
+  </script>
+  <script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
+</body>
+</html>

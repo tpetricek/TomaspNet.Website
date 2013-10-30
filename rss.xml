@@ -4,6 +4,30 @@
     <link>http://tomasp.net</link>
     <description>Writing about software development in F# and .NET, sharing materials from my F# trainings and talks, writing about programming language research and theory.</description>
     <item>
+      <title>Building great open-source libraries</title>
+      <guid>http://tomasp.net/blog/2013/great-open-source</guid>
+      <link>http://tomasp.net/blog/2013/great-open-source/index.html</link>
+      <pubDate>Thu, 17 Oct 2013 13:11:57 GMT</pubDate>
+      <description>&lt;a href="http://tpetricek.github.io/FSharp.Formatting/"&gt;
+&lt;img src="http://tpetricek.github.io/FSharp.Formatting/misc/logo.png" alt="F# documentation tools" class="rdecor" style="width:150px;height:150px" /&gt;
+&lt;/a&gt;
+
+&lt;p&gt;The hard part about successful open-source development is not putting the first 
+version of your source code on GitHub. The hard part is what comes next. First
+of all, there are &lt;em&gt;community aspects&lt;/em&gt; - making sure that the project fits well with
+other work in the area, engaging the community and contributors, planing future
+directions for the project and so on. Secondly, there is an &lt;em&gt;infrastructural side&lt;/em&gt; - 
+making sure that there is a package (on &lt;a href="http://www.nuget.org/packages?q=fsharp"&gt;NuGet in the F# world&lt;/a&gt;),
+easy to run and useful tests and also up-to-date documentation and tutorials.&lt;/p&gt;
+
+&lt;p&gt;In this article, I want to talk about the &lt;em&gt;infrastructural side&lt;/em&gt;, which is 
+easier of the two, but nevertheless, difficult to get right!
+Fortunately, the F# community made an amazing progress in this direction, so let's
+have a look at some of the tools that make this possible...&lt;/p&gt;
+
+</description>
+    </item>
+    <item>
       <title>How many tuple types are there in C#?</title>
       <guid>http://tomasp.net/blog/2013/tuples-in-csharp</guid>
       <link>http://tomasp.net/blog/2013/tuples-in-csharp/index.html</link>
@@ -533,32 +557,6 @@ previous article &lt;em&gt;"Fun with Parallel Monad Comprehensions"&lt;/em&gt;, 
 web page. If you read the article there, you can run the examples interactively
 and experiment with them: &lt;a href="http://tryjoinads.org/index.html?implement/parsers.html"&gt;view the article on TryJoinads&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
 
-</description>
-    </item>
-    <item>
-      <title>Asynchronous client/server in F# (QCon 2012)</title>
-      <guid>http://tomasp.net/blog/qcon-async-fsharp.aspx</guid>
-      <link>http://tomasp.net/blog/qcon-async-fsharp.aspx/index.html</link>
-      <pubDate>Mon, 12 Mar 2012 05:09:02 GMT</pubDate>
-      <description>&lt;img src="http://tomasp.net/articles/qcon-async-fsharp/qcon.png" alt="Qcon" class="rdecor" /&gt;
-
-&lt;p&gt;Last week, I gave a talk on asynchronous programming in F# at &lt;a href="http://qconlondon.com/london-2012"&gt;London QCon 2012&lt;/a&gt;.
-The talk was a part of &lt;a href="http://qconlondon.com/london-2012/tracks/show_track.jsp?trackOID=560"&gt;The Rise of Scala &amp;amp; Functional Programming&lt;/a&gt; 
-track organized by Charles Humble. Reactive and asynchronous programming was a topic that was repeated
-a couple of times during the whole session - Sadek Drobi talked about &lt;a href="http://qconlondon.com/london-2012/presentation/Non%20blocking,%20composable%20reactive%20web%20programming%20with%20Iteratees%20in%20Play2"&gt;non-blocking reactive web framework
-Play2&lt;/a&gt;
-and Damien Katz talked about &lt;a href="http://qconlondon.com/london-2012/presentation/Erlang%20in%20the%20real%20world:%20CouchDB"&gt;Erlang and CouchDB&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;I used the one hour slot to implement "Rectangle Drawing App" - a simple application that 
-shows how to write complete client-server application just using F#. On the
-server-side, I used asynchronous workflows to write HTTP server with an F#
-agent. On the client-side, I used asynchronous workflows to express user
-interface logic and the &lt;a href="http://pitfw.org/"&gt;Pit project&lt;/a&gt; to run F# code as
-JavaScript that works everywhere. The app definitely had a huge commercial potential:&lt;/p&gt;
-
-&lt;div style="text-align:center"&gt;
-&lt;img src="http://tomasp.net/articles/qcon-async-fsharp/quote.png" alt="Quote" /&gt;
-&lt;/div&gt;
 </description>
     </item>
   </channel>

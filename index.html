@@ -62,73 +62,56 @@
   <!-- Print more details about the first blog post -->
 
   <div>
-  <h1><a href="http://tomasp.net/blog/2013/tuples-in-csharp/index.html">How many tuple types are there in C#?</a></h1>
-  <p>In a <a href="http://stackoverflow.com/questions/18718232/when-should-i-write-my-functions-in-curried-form/18721711">recent StackOverflow question</a>
-the poster asked about the difference between <em>tupled</em> and <em>curried</em> form of a function in F#. 
-In F#, you can use pattern matching to easily define a function that takes a tuple as an argument.
-For example, the poster's function was a simple calculation that multiplies the number 
-of units sold <em>n</em> by the price <em>p</em>:</p>
-<pre class="fssnip">
-<span class="l">1: </span><span class="k">let</span> <span onmouseout="hideTip(event, 'abs159_1', 1)" onmouseover="showTip(event, 'abs159_1', 1)" class="i">salesTuple</span> (<span onmouseout="hideTip(event, 'abs159_2', 2)" onmouseover="showTip(event, 'abs159_2', 2)" class="i">price</span>, <span onmouseout="hideTip(event, 'abs159_3', 3)" onmouseover="showTip(event, 'abs159_3', 3)" class="i">count</span>) <span class="o">=</span> <span onmouseout="hideTip(event, 'abs159_2', 4)" onmouseover="showTip(event, 'abs159_2', 4)" class="i">price</span> <span class="o">*</span> (<span onmouseout="hideTip(event, 'abs159_4', 5)" onmouseover="showTip(event, 'abs159_4', 5)" class="i">float</span> <span onmouseout="hideTip(event, 'abs159_3', 6)" onmouseover="showTip(event, 'abs159_3', 6)" class="i">count</span>)</pre>
-<p>The function takes a single argument of type <code>Tuple&lt;float, int&gt;</code> (or, using the nicer F# notation
-<code>float * int</code>) and immediately decomposes it into two variables, <code>price</code> and <code>count</code>. The other
-alternative is to write a function in the <em>curried</em> form:</p>
-<pre class="fssnip">
-<span class="l">1: </span><span class="k">let</span> <span onmouseout="hideTip(event, 'abs159_5', 7)" onmouseover="showTip(event, 'abs159_5', 7)" class="i">salesCurried</span> <span onmouseout="hideTip(event, 'abs159_2', 8)" onmouseover="showTip(event, 'abs159_2', 8)" class="i">price</span> <span onmouseout="hideTip(event, 'abs159_3', 9)" onmouseover="showTip(event, 'abs159_3', 9)" class="i">count</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'abs159_2', 10)" onmouseover="showTip(event, 'abs159_2', 10)" class="i">price</span> <span class="o">*</span> (<span onmouseout="hideTip(event, 'abs159_4', 11)" onmouseover="showTip(event, 'abs159_4', 11)" class="i">float</span> <span onmouseout="hideTip(event, 'abs159_3', 12)" onmouseover="showTip(event, 'abs159_3', 12)" class="i">count</span>)</pre>
-<p>Here, we get a function of type <code>float -&gt; int -&gt; float</code>. Usually, you can read this just as a 
-function that takes <code>float</code> and <code>int</code> and returns <code>float</code>. However, you can also use <em>partial
-function application</em> and call the function with just a single argument - if the price of
-an apple is $1.20, we can write <code>salesCurried 1.20</code> to get a <em>new</em> function that takes just
-<code>int</code> and gives us the price of specified number of apples. The poster's question was:</p>
+  <h1><a href="http://tomasp.net/blog/2013/great-open-source/index.html">Building great open-source libraries</a></h1>
+  <a href="http://tpetricek.github.io/FSharp.Formatting/">
+<img src="http://tpetricek.github.io/FSharp.Formatting/misc/logo.png" alt="F# documentation tools" class="rdecor" style="width:150px;height:150px" />
+</a>
 
-<blockquote>
-  <p>So when I want to implement a function that would have taken <em>n > 1</em> arguments, 
-should I for example always use a curried function in F# (...)? Or should I take 
-the simple route and use regular function with an n-tuple and curry later on 
-if necessary?</p>
-</blockquote>
+<p>The hard part about successful open-source development is not putting the first 
+version of your source code on GitHub. The hard part is what comes next. First
+of all, there are <em>community aspects</em> - making sure that the project fits well with
+other work in the area, engaging the community and contributors, planing future
+directions for the project and so on. Secondly, there is an <em>infrastructural side</em> - 
+making sure that there is a package (on <a href="http://www.nuget.org/packages?q=fsharp">NuGet in the F# world</a>),
+easy to run and useful tests and also up-to-date documentation and tutorials.</p>
 
-<p>You can see <a href="http://stackoverflow.com/questions/18718232/when-should-i-write-my-functions-in-curried-form/18721711#18721711">my answer on StackOverflow</a>.
-The point of this short introduction was that the question inspired me to think about how
-the world looks from the C# perspective...</p>
+<p>In this article, I want to talk about the <em>infrastructural side</em>, which is 
+easier of the two, but nevertheless, difficult to get right!
+Fortunately, the F# community made an amazing progress in this direction, so let's
+have a look at some of the tools that make this possible...</p>
 
-<div class="tip" id="abs159_1">val salesTuple : price:float * count:int -&gt; float<br /><br />Full name: Tuples-in-csharp_.salesTuple</div>
-<div class="tip" id="abs159_2">val price : float</div>
-<div class="tip" id="abs159_3">val count : int</div>
-<div class="tip" id="abs159_4">Multiple items<br />val float : value:&#39;T -&gt; float (requires member op_Explicit)<br /><br />Full name: Microsoft.FSharp.Core.Operators.float<br /><br />--------------------<br />type float = System.Double<br /><br />Full name: Microsoft.FSharp.Core.float<br /><br />--------------------<br />type float&lt;&#39;Measure&gt; = float<br /><br />Full name: Microsoft.FSharp.Core.float&lt;_&gt;</div>
-<div class="tip" id="abs159_5">val salesCurried : price:float -&gt; count:int -&gt; float<br /><br />Full name: Tuples-in-csharp_.salesCurried</div>
 
       
   <p class="meta">
-    <span><strong>Published</strong>: Tuesday, 17 September 2013, 9:11 AM</span>
+    <span><strong>Published</strong>: Thursday, 17 October 2013, 9:11 AM</span>
       <br />      
-      <span class="tags"><strong>Tags</strong>: c#, f#, functional programming </span> 
+      <span class="tags"><strong>Tags</strong>: open source, f#, fake, f# formatting </span> 
     <br />
-    <a href="http://tomasp.net/blog/2013/tuples-in-csharp/index.html">Read the complete article</a>
+    <a href="http://tomasp.net/blog/2013/great-open-source/index.html">Read the complete article</a>
   </p>
   </div>
 
   <!-- For remaining articles, just print short summary with abstract -->
   <h1><a href="http://tomasp.net/blog/index.html">Recent articles from my blog</a></h1>
+    <h2><a href="http://tomasp.net/blog/2013/tuples-in-csharp/index.html">How many tuple types are there in C#?</a></h2>
+    <p class="smdate">Thursday, 17 October 2013, 9:11 AM</p>
+    <p class="description">
+        In a recent StackOverflow question, the poster asked about the choice between a function that takes a tuple and a function that uses the curried form. In this article I look at the problem from the C# perspective.
+    </p>
     <h2><a href="http://tomasp.net/blog/2013/fsharp-new-york/index.html">Hello New York. Learn some F#!</a></h2>
-    <p class="smdate">Tuesday, 17 September 2013, 9:11 AM</p>
+    <p class="smdate">Thursday, 17 October 2013, 9:11 AM</p>
     <p class="description">
         As some people in the F# community may already know, I'm visiting New York  for three months and I'm working (doing an internship) with Howard Mansell at  Blue Mountain Capital. We're working on some interesting F# tools for data science, but it also means that I can be more involved in the great New York F# community!
     </p>
     <h2><a href="http://tomasp.net/blog/2013/deep-dives-update/index.html">Update on the F# Deep Dives book</a></h2>
-    <p class="smdate">Tuesday, 17 September 2013, 9:11 AM</p>
+    <p class="smdate">Thursday, 17 October 2013, 9:11 AM</p>
     <p class="description">
         It has been some time since I last wrote about F# Deep Dives, so I'd like to write a quick update. In summary, having 10 authors does not mean that the book will be finished in 1/10 of the time, but now that the holidays are almost over, you can expect more frequent updates again!
     </p>
     <h2><a href="http://tomasp.net/blog/types-and-math.aspx/index.html">Power of mathematics: Reasoning about functional types</a></h2>
-    <p class="smdate">Tuesday, 17 September 2013, 9:11 AM</p>
+    <p class="smdate">Thursday, 17 October 2013, 9:11 AM</p>
     <p class="description">
         In this article, I explore the amazing relationship between functional data types and algebraic operations. We will use this relationship to reason about domain model and understand the differences between several possible representations.
-    </p>
-    <h2><a href="http://tomasp.net/blog/csharp-async-gotchas.aspx/index.html">Async in C# and F#: Asynchronous gotchas in C#</a></h2>
-    <p class="smdate">Tuesday, 17 September 2013, 9:11 AM</p>
-    <p class="description">
-        This article is inspired by an MVP summit talk about common pitfalls in the C# asynchronous programming model. I look at a number of easy to make mistakes when writing asynchronous code in C# and demonstrate that most of them would not easily happen when using F#.
     </p>
 
   <p class="meta">
@@ -233,7 +216,8 @@ the world looks from the C# perspective...</p>
     </div>
     <div class="large-7 columns">
     <h4>Blog archives <a href="http://tomasp.net/rss.xml"><img src="http://tomasp.net/img/rss.gif" /></a></h4>
-      <a href="http://tomasp.net/blog/archive/september-2013/index.html">
+      <a href="http://tomasp.net/blog/archive/october-2013/index.html">
+        October 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/september-2013/index.html">
         September 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/august-2013/index.html">
         August 2013 (2)</a>,      <a href="http://tomasp.net/blog/archive/may-2013/index.html">
         May 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/april-2013/index.html">

@@ -105,18 +105,18 @@
 #right-bar li {
   margin:0px 0px 0px 20px;
 }
-#right-calendar, #hp-calendar {
+#right-calendar, #hp-calendar, #acad-photo {
   text-align:center;
   background:black;
   margin-bottom:40px;
 }
-#right-calendar h4, #hp-calendar h4 {
+#right-calendar h4, #hp-calendar h4, #acad-photo h4 {
   margin:0px 0px 15px 0px;
   font-size:140%;
   color:#d0d0d0;
   text-align:center;
 }
-#right-calendar p, #hp-calendar p {
+#right-calendar p, #hp-calendar p, #acad-photo p {
   margin:10px 0px 5px 0px;
   color:#b0b0b0;
   font-size:90%;
@@ -153,7 +153,10 @@
   font-size:90%;
   margin:20px 20px 0px 20px;
 }
-
+#acad-photo {
+  font-size:90%;
+  padding:30px 0px 10px 0px;
+}
 /* ----------------------------------------------------------------------------------- */
 /* Calendar pages - index for month and month detail                                   */
 /* ----------------------------------------------------------------------------------- */

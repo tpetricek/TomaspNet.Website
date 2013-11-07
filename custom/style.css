@@ -157,6 +157,7 @@
   font-size:90%;
   padding:30px 0px 10px 0px;
 }
+
 /* ----------------------------------------------------------------------------------- */
 /* Calendar pages - index for month and month detail                                   */
 /* ----------------------------------------------------------------------------------- */
@@ -243,6 +244,11 @@ footer li {
 /* Content - formatting of standard documents                                          */
 /* ----------------------------------------------------------------------------------- */
 
+a.anchor {
+  position:relative;
+  display:block;
+  top:-140px;
+}
 .rdecor {
   float:right;
   margin:10px;
@@ -313,6 +319,13 @@ h2.first {
 .main-content .addthis_counter {
   border-right:1px solid #d0d0d0;
 }
+.main-content p.post-discuss {
+  font-size:95%;
+  line-height:150%;
+  margin:30px 0px 0px 0px;
+  text-align:left;
+  font-style:italic;
+}
 .main-content p.post-meta {
   font-size:95%;
   line-height:150%;
@@ -325,6 +338,7 @@ h2.first {
 /* Some special formatting for academic web sites                                      */
 /* ----------------------------------------------------------------------------------- */
 
+/* Acadmic hompage, publication list */
 .academic .publist blockquote {
   border-style:none;
   color:#222222;
@@ -354,4 +368,53 @@ h2.first {
   margin:0px;
   padding:0px;
   list-style:none;
+}
+
+/* Paper details list */
+.paper blockquote {
+  border-style:none;
+  color:#222222;
+  padding:0px;
+  margin:1.5em 0px 1.75em 0px;
+}
+.paper blockquote p {
+  color: #222222;
+  font-size:110%;
+  font-style:italic;
+  margin:0em 0px 0em 0px;
+}
+.paper #cite {
+  color:#222222;
+  cursor:inherit;
+}
+/* also see #acad-photo defined above */
+
+.black-box {
+  background:black;
+  font-size:90%;
+  padding:5px 20px 10px 20px;
+  color:#d0d0d0;
+  margin:20px 0px 30px 0px;
+}
+.black-box h2 {
+  font:300 170% Kreon,'Times New Roman', Times, serif;
+  margin-top:15px;
+  line-height:100%;
+  color:#d0d0d0;
+}
+.black-box h3 {
+  font:700 130% Kreon,'Times New Roman', Times, serif;
+  margin-top:15px;
+  line-height:100%;
+  color:#d0d0d0;
+}
+.black-box h4 {
+  font:700 110% Kreon,'Times New Roman', Times, serif;
+  margin-top:15px;
+  line-height:125%;
+  color:#d0d0d0;
+}
+.black-box ul li {
+  margin-bottom:5px;
+  line-height:1.3em;
 }

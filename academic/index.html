@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<!--[if IE 8]> 				 <html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+
+<head>
+  <meta charset="utf-8">
+  <title>Tomas Petricek @ University of Cambridge</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Tomas Petricek's research and teaching home page. Here you'll find information about my current research interests, supervisions and recent publications.">
+  <meta name="author" content="Tomas Petricek">
+
+  <!-- Reference Foundation -->
+  <link rel="stylesheet" href="http://tomasp.net/css/foundation.css">
+  <script src="http://tomasp.net/js/vendor/custom.modernizr.js"></script>
+
+  <link rel="alternate" type="application/rss+xml" href="http://tomasp.net/rss.xml" title="RSS feed for Tomas Petricek's blog">
+  <link rel="author" href="https://plus.google.com/109855146654605967051" />
+    
+  <!-- Reference custom CSS and tooltips -->
+  <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/style.css" />
+  <script type="text/javascript" src="http://tomasp.net/custom/tooltips.js"></script>
+  <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/tooltips.css" />
+</head>
+<body>
+
+   <header id="top-header">
+    <div class="row">
+      <div class="twelve columns">
+        <h1><a href="http://tomasp.net/">Tomas Petricek</a></h1>
+        <p>Writing about practical F# coding and programming language research</p>
+      </div>
+    </div>
+  </header>
+
+  <header class="top-bar-header">
+    <div class="contain-to-grid sticky">
+    <nav class="top-bar">
+
+    <ul class="title-area">
+      <li class="name"><h1><a href="#"></a></h1></li>
+      <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+    </ul>
+    <section class="top-bar-section">
+      <ul class="right">
+        <li><a href="http://tomasp.net/blog/index.html">Blog</a></li>
+        <li><a href="http://functional-programming.net">Trainings</a></li>
+        <li><a href="http://functional-programming.net">Books</a></li>
+        <li><a href="http://lanyrd.com/profile/tomasp">Talks</a></li>
+        <li><a href="http://www.cl.cam.ac.uk/~tp322">Research & Teaching</a></li>
+      </ul>
+    </section>
+
+    </nav></div>
+  </header>
+  
+  
+<div class="row academic">
+<div class="large-7 columns main-content">
+
+<h1>Tomas Petricek @ <a href="http://www.cl.cam.ac.uk">Computer Lab</a></h1>
+
+<p>I'm a third (final) year PhD Student in the <a href="http://www.cl.cam.ac.uk">Computer Laboratory</a> at the 
+<a href="http://www.cam.ac.uk">University of Cam­bridge</a> and a member of the <a href="http://www.cl.cam.ac.uk/research/pls">Programming, Logic and 
+Semantics Group</a>. My supervisors are 
+<a href="http://www.cl.cam.ac.uk/~am21/">Alan Mycroft</a> from the Computer Lab and 
+<a href="http://research.microsoft.com/en-us/people/dsyme/">Don Syme</a>. 
+Before joining the Computer Laboratory, I studied at the <a href="http://www.mff.cuni.cz">Faculty of Mathematics and 
+Physics</a> in Prague and I did two internships at Microsoft Research. 
+I also did an internship at BlueMountain Capital, working on <a href="http://bluemountaincapital.github.io/Deedle">data science library Deedle</a>.</p>
+
+<p>I'm an active member of the F# community, I often speak at <a href="http://lanyrd.com/profile/tomasp/">various industry 
+events and user groups</a>, I wrote 
+<a href="http://www.manning.com/petricek">a book about F#</a> and I have a blog. 
+For my work in the industry, see <a href="http://tomasp.net">my professional home page</a>.</p>
+
+<p>To learn about my research, continue reading, or go straight to the <a href="#pubs">list of publications</a>.
+If you're a Cambridge student or a <abbr title="Director of Studies, not Denial of Service!">DoS</abbr>, 
+scroll to <a href="#supervis">teaching &amp; supervisions</a>.</p>
+
+<p></div>
+<div class="large-5 columns main-content">
+<div id="acad-photo" style="margin-top:20px">
+<div><img src="http://tomasp.net/academic/img/photo.jpg" alt="Tomas Petricek" /></div></p>
+
+<p>Connect via twitter: <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a><br />
+Email me at: <a href="mailto:tomas.petricek@cl.cam.ac.uk">tomas.petricek@cl.cam.ac.uk</a><br />
+For more see my: <a href="https://github.com/tpetricek">GitHub</a> | <a href="http://www.linkedin.com/in/tomaspetricek">LinkedIn</a> | <a href="http://lanyrd.com/profile/tomasp/">Lanyrd</a></p>
+
+</div>
+</div>
+</div>
+
+<!-- ------------------------------------------------------------------------------------------ -->
+
+<div class="row academic">
+<div class="large-4 columns main-content">
+
+<h3>Theory of coeffects</h3>
+
+<p><div>
+<img src="http://tomasp.net/academic/img/coeffects.png" title="Typing rule for coeffect systems" 
+  style="float:right;margin:5px 0px 5px 5px" />
+</div></p>
+
+<p>I believe that tracking what applications <em>require</em> from the envirnoment in which they 
+run is perhaps more important than tracking how they <em>affect</em> the envirnoment.</p>
+
+<p>In a modern 
+application, the environment includes services called, resources, system capabilities, 
+and so on. Yet, most existing research focuses on the second problem. Coeffects attempt 
+to provide the missing piece of the puzzle.</p>
+
+<ul>
+<li>See <a href="http://tomasp.net/academic/talks/coeffects-highlevel.pdf">overview slides</a> or <a href="http://reelapp.com/e38aae">view online</a></li>
+<li>Read <a href="http://tomasp.net/academic/papers/coeffects/">ICALP'13 paper on coeffects</a></li>
+</ul>
+
+</div>
+<div class="large-4 columns main-content">
+
+<h3>Data science</h3>
+
+<p><img src="http://tomasp.net/academic/img/fsdata.png" title="Accessing JSON with JSON type provider" style="float:right;margin:5px 0px 5px 5px" /></p>
+
+<p>Data science opens many interesting questions for programming languages. How do we make
+data easily accessible? How do we provide safety guarantees for code that is often very 
+dynamic and interactive?</p>
+
+<p>I contributed to F# type providers which address accessing the data and some of my current
+work fits in the general "data science" theme.</p>
+
+<ul>
+<li><a href="http://tomasp.net/academic/papers/inforich/">DDFP'13 paper</a> that I contributed to</li>
+<li>Watch my <a href="http://channel9.msdn.com/posts/Tomas-Petricek-How-F-Learned-to-Stop-Worrying-and-Love-the-Data">video-lecture at Channel 9</a></li>
+<li>Open-source <a href="http://fsharp.github.io/FSharp.Data/">F# Data</a> &amp;
+<a href="http://bluemountaincapital.github.io/Deedle">Deedle</a></li>
+</ul>
+
+</div>
+<div class="large-4 columns main-content">
+
+<h3>F# theory &amp; practice</h3>
+
+<p><img src="http://tomasp.net/academic/img/match.png" title="Concurrent, parallel and reactive programming with joinads" style="float:right;margin:5px 0px 5px 5px" /></p>
+
+<p>I'm interested in bridging the gap between theory and practice in functional programming.
+I wrote a book Real-World Functional Programming that explains F# from a perspective of
+.NET developer and I <a href="http://www.functional-programming.net/">teach F# in the industry</a>.</p>
+
+<p>I worked on <em>computation expressions</em> in F#, both by developing the theory 
+(PADL'14) and by making them more relevant (Joinads).</p>
+
+<ul>
+<li>Computation expressions <a href="http://tomasp.net/academic/papers/computation-zoo/">PADL'14 paper</a></li>
+<li><a href="http://www.tryjoinads.org">Try Joinads</a> and <a href="http://tomasp.net/academic/papers/docase/">Haskell'11 paper</a>.</li>
+<li><a href="http://manning.com/petricek">Real-World Functional Programming</a></li>
+</ul>
+
+</div></div>
+<a name="pubs" style="position:relative;top:-70px">&#160;</a>
+<!-- ------------------------------------------------------------------------------------------ -->
+<div class="row academic">
+<div class="large-6 columns publist main-content">
+
+<h2>Recent publications</h2>
+
+<h4><strong>[November 2013]</strong> <a href="http://tomasp.net/academic/papers/computation-zoo/">The F# Computation Expression Zoo</a></h4>
+
+<blockquote>
+  <p>Tomas Petricek and Don Syme. In Proceedings of PADL 2014.</p>
+</blockquote>
+
+<p>F# computation expressions F# provide a <em>uniform</em> syntax for computations such as
+monads, monad transformers and applicative functors. The syntax is <em>adaptable</em> and 
+close to built-in language features of Python and C#. This article provides the details
+shows that the right syntax can often be determined by considering laws.</p>
+
+<ul>
+<li><a href="http://tomasp.net/academic/papers/computation-zoo/">abstract</a> | <a href="http://tomasp.net/academic/papers/computation-zoo/#cite">cite</a> | 
+<a href="http://tomasp.net/academic/papers/computation-zoo/poster-tfp.pdf">poster</a> |
+<a href="http://tomasp.net/academic/papers/computation-zoo/talk-tfp.pdf">talk</a> |
+<a href="http://tomasp.net/academic/papers/computation-zoo/computation-zoo.pdf">paper</a></li>
+</ul>
+
+<h4><a href="http://tomasp.net/academic/papers/coeffects/">Coeffects: Unified static analysis of context-dependence</a></h4>
+
+<blockquote>
+  <p>Tomas Petricek, Dominic Orchard and Alan Mycroft. In Proceedings of ICALP 2013.</p>
+</blockquote>
+
+<p>Effects capture how computations <em>affect</em> the environment, coeffects capture the
+<em>requirements</em> that computations place on the environment. We present a unified 
+coeffect system that can be used for checking liveness and properties of 
+data-flow or distributed programs,</p>
+
+<ul>
+<li><a href="http://tomasp.net/academic/papers/coeffects/">abstract</a> | <a href="http://tomasp.net/academic/papers/coeffects/#cite">cite</a> | 
+<a href="http://tomasp.net/academic/papers/coeffects/icalp-talk.pdf">talk</a> |
+<a href="http://tomasp.net/academic/papers/coeffects/coeffects-icalp.pdf">paper</a></li>
+</ul>
+
+<h2>Papers published previously</h2>
+
+<h4><a href="http://tomasp.net/academic/papers/malias/">Evaluation strategies for monadic computations</a></h4>
+
+<blockquote>
+  <p>Tomas Petricek. In Proceedings of MSFP 2012.</p>
+</blockquote>
+
+<p>When translating pure functional code to a monadic version, we need to use different translation depending
+on the desired evaluation strategy. In this paper, we present an unified translation that is parameterized by
+an operation <code>malias</code>. We also show how to give <em>call-by-need</em> translation for certain
+monads.</p>
+
+<ul>
+<li><a href="http://tomasp.net/academic/papers/malias/">abstract</a> | <a href="http://tomasp.net/academic/papers/malias/#cite">cite</a> | 
+<a href="http://tomasp.net/academic/papers/malias/talk-msfp.pdf">talk</a> |
+<a href="http://tomasp.net/academic/papers/malias/malias.pdf">paper</a></li>
+</ul>
+
+<h4><a href="http://tomasp.net/academic/papers/docase/">Extending Monads with Pattern Matching</a></h4>
+
+<blockquote>
+  <p>Tomas Petricek, Alan Mycroft and Don Syme. In Haskell Symposium 2011.</p>
+</blockquote>
+
+<p>The paper introduces a <code>docase</code> notation for Haskell that can be used for any monad that 
+provides additional operations representing parallel composition, choice and aliasing. We require the 
+operations to form a near-semiring, which gurantees that the notation resembles pattern matching.</p>
+
+<ul>
+<li><a href="http://tomasp.net/academic/papers/docase/">abstract</a> | <a href="http://tomasp.net/academic/papers/docase/#cite">cite</a> |
+<a href="http://tomasp.net/academic/papers/docase/haskell-symposium.pdf">talk</a> |
+<a href="http://tomasp.net/academic/papers/docase/docase.pdf">paper</a></li>
+</ul>
+
+<h4><a href="http://tomasp.net/academic/papers/joinads/">Joinads: a retargetable control-flow construct for reactive, parallel and concurrent programming</a></h4>
+
+<blockquote>
+  <p>Tomas Petricek and Don Syme. In Proceedings of PADL 2011.</p>
+</blockquote>
+
+<p>Reactive, parallel and concurrent programming models are often difficult to encode in 
+general-purpose programming languages. We present a lightweight language extension based on 
+pattern matching that can be used for encoding a wide range of these models.</p>
+
+<ul>
+<li><a href="http://tomasp.net/academic/papers/joinads/">abstract</a> | <a href="http://tomasp.net/academic/papers/joinads/#cite">cite</a> |
+<a href="http://tomasp.net/academic/papers/joinads/padl-talk.pdf">talk</a> |
+<a href="http://tomasp.net/academic/papers/joinads/joinads.pdf">paper</a></li>
+</ul>
+
+<h4><a href="http://tomasp.net/academic/papers/async/">The F# Asynchronous Programming Model</a></h4>
+
+<blockquote>
+  <p>Don Syme, Tomas Petricek and Dmitry Lomov. In PADL 2011.</p>
+</blockquote>
+
+<p>We describe the asynchronous programming model in F#, and its applications. It combines a core 
+language with a non-blocking modality to author lightweight asynchronous tasks. This allows smooth 
+transitions between synchronous and asynchronous code and eliminates the inversion of control.</p>
+
+<ul>
+<li><a href="http://tomasp.net/academic/papers/async/">abstract</a> | <a href="http://tomasp.net/academic/papers/async/#cite">cite</a> |
+<a href="http://tomasp.net/academic/papers/async/async.pdf">paper</a></li>
+</ul>
+
+<h4><a href="http://tomasp.net/academic/papers/hollywood/">Collecting Hollywood's Garbage: Avoiding Space-Leaks in Composite Events</a></h4>
+
+<blockquote>
+  <p>Tomas Petricek and Don Syme. In Proceedings of ISMM 2010.</p>
+</blockquote>
+
+<p>The article discusses memory leaks that can occur in a reactive programming model based on events. 
+It presents a formal garbage collection algorithm that could be used in this scenario and a 
+correct reactive library based on this idea, implemented in F#.</p>
+
+<ul>
+<li><a href="http://tomasp.net/academic/papers/hollywood/">abstract</a> | <a href="http://tomasp.net/academic/papers/hollywood/#cite">cite</a> |
+<a href="http://tomasp.net/academic/papers/hollywood/ismm-talk.pdf">talk</a> | <a href="http://tomasp.net/academic/papers/hollywood/hollywood.pdf">paper</a></li>
+</ul>
+
+<h4><a href="http://tomasp.net/academic/papers/iterators/">Encoding monadic computations in C# using iterators</a></h4>
+
+<blockquote>
+  <p>Tomas Petricek. In Proceedings of ITAT 2009</p>
+</blockquote>
+
+<p>The paper shows how to encode certain monadic computations (such as a continuation monad
+for asynchronus programming) using the iterator language feature in C# 2.0.</p>
+
+<ul>
+<li><a href="http://tomasp.net/academic/papers/iterators/">abstract</a> | <a href="http://tomasp.net/academic/papers/iterators/#cite">cite</a> |
+<a href="http://tomasp.net/academic/papers/iterators/iterators-itat.pdf">talk</a> |
+<a href="http://tomasp.net/academic/papers/iterators/iterators.pdf">paper</a> | <a href="http://tomasp.net/academic/papers/iterators/iterators-src.zip">code</a></li>
+</ul>
+
+<h2>Articles and reports</h2>
+
+<h4><a href="http://tomasp.net/academic/articles/comprefun/">Fun with Parallel Monad Comprehensions</a></h4>
+
+<blockquote>
+  <p>Tomas Petricek. The Monad.Reader Issue 18.</p>
+</blockquote>
+
+<p>The article presents several monads that can benefit from the <em>parallel monad comprehension</em>
+notation that is supported in the re-designed monad comprehension syntax in Haskell. The examples
+are inspired by the work on joinads and include parsers, parallel and concurrent computations.</p>
+
+<ul>
+<li><a href="http://tomasp.net/academic/articles/comprefun/">details</a> | <a href="http://tomasp.net/academic/articles/comprefun.pdf">article</a> | <a href="http://tomasp.net/blog/comprefun.aspx/">online</a></li>
+</ul>
+
+<h4><a href="http://tomasp.net/academic/theses/first-year/first-year.pdf">Effect and coeffect type systems</a></h4>
+
+<blockquote>
+  <p>Tomas Petricek. First year report, Computer Laboratory.</p>
+</blockquote>
+
+<p>The research goal discussed in the report is to use types in an ML-style language to track
+additional properties of computations including various kinds of effects (communication, memory access)
+and coeffects (how a computation depends on a context). The document briefly summarizes the work
+done during the first-year (including the work on <em>joinads</em> and <em>coeffects</em>) and
+it proposes future research projects.</p>
+
+<ul>
+<li><a href="http://tomasp.net/academic/theses/first-year/">details</a> | <a href="http://tomasp.net/academic/theses/first-year/first-year.pdf">report</a></li>
+</ul>
+
+<h2>Theses and older projects</h2>
+
+<h4><a href="http://tomasp.net/academic/theses/events">Reacitve programming with events</a></h4>
+
+<blockquote>
+  <p>Master thesis. Charles University in Prague, 2010</p>
+</blockquote>
+
+<p>The thesis uses early version of joinad langauge extension for F# and garbage collection
+for events. Based on these concepts, it builds a simple reactive library for F# that allows
+writing reactive computations in both control-flow and data-flow styles.</p>
+
+<ul>
+<li><a href="http://tomasp.net/academic/theses/events/">abstract</a> | <a href="http://tomasp.net/academic/theses/events/#cite">cite</a> | <a href="http://tomasp.net/academic/theses/events/events.pdf">thesis</a></li>
+</ul>
+
+<h4><a href="http://tomasp.net/academic/theses/webtools">Client-side scripting using meta-programming</a></h4>
+
+<blockquote>
+  <p>Bachelor thesis. Charles University in Prague, 2007</p>
+</blockquote>
+
+<p>The thesis presents a web development framework for F# that automatically splits a single F# 
+program with monadic modality annotations into client-side JavaScript and server-side ASP.NET
+application.</p>
+
+<ul>
+<li><a href="http://tomasp.net/academic/theses/webtools/">abstract</a> | <a href="http://tomasp.net/academic/theses/webtools/#cite">cite</a> | <a href="http://tomasp.net/academic/theses/webtools/webtools-report.pdf">report</a> |
+<a href="http://tomasp.net/academic/theses/webtools/webtools.pdf">thesis</a></li>
+</ul>
+
+</div>
+<!-- ------------------------------------------------------------------------------------------ -->
+
+<div class="large-6 columns main-content">
+<div class="publist">
+
+<h2>Work in progress</h2>
+
+<p>Start here if you want to know that I'm currently working on and what I recently 
+completed. Unpublished drafts are marked as such and I'm always looking for feedback!</p>
+
+<h4><strong>[July 2013]</strong> Draft: <a href="http://tomasp.net/academic/drafts/philosophy-pl/">What can Programming Language Research  Learn from the Philosophy of Science?</a></h4>
+
+<blockquote>
+  <p>Tomas Petricek. Unpublished draft.</p>
+</blockquote>
+
+<p>This essay looks how theories from philosophy of science apply
+to programming language research. I argue that it is important to clearly state research 
+programme, avoid early over-emphasis on precision and I consider how to produce truly reusable
+experiments.</p>
+
+<ul>
+<li><a href="http://tomasp.net/academic/drafts/philosophy-pl/">abstract</a> | <a href="http://tomasp.net/academic/drafts/philosophy-pl/philosophy-pl.pdf">draft</a></li>
+</ul>
+
+<h4>Draft: <a href="http://tomasp.net/academic/drafts/fsharp-teaching/">Teaching Functional Programming to Professional .NET Developers</a></h4>
+
+<blockquote>
+  <p>Tomas Petricek. In Pre-proceedings of TFPIE 2012.</p>
+</blockquote>
+
+<p>Functional programming is often taught at universities, but with the recent rise of functional
+programming in the industry, it is becoming important to teach functional concepts to experienced
+developers. This requires a very different approach.</p>
+
+<ul>
+<li><a href="http://tomasp.net/academic/drafts/fsharp-teaching/">abstract</a> | <a href="http://tomasp.net/academic/drafts/fsharp-teaching/tfpie-talk.pdf">talk</a>
+| <a href="http://tomasp.net/academic/drafts/fsharp-teaching/fsharp-teaching.pdf">draft</a></li>
+</ul>
+
+</div>
+<div class="black-box">
+
+<h2>Talks and recordings</h2>
+
+<ul>
+<li><strong>Video</strong>: <a href="http://channel9.msdn.com/posts/Tomas-Petricek-How-F-Learned-to-Stop-Worrying-and-Love-the-Data">How F# Learned to Stop Worrying and Love the Data</a><br />
+(Video lecture, Recorded at Channel 9, 2013)</li>
+<li><a href="http://tomasp.net/academic/talks/coeffects-mit.pdf">Coeffects: Types for tracking context-dependence</a><br />
+(Massachusetts Institute of Technology, 2013)</li>
+<li><a href="http://tomasp.net/academic/talks/inforich-ml.pdf">Information-rich programming in F#</a><br />
+(Invited talk at the ML Workshop, 2012)</li>
+<li><strong>Video</strong>: <a href="http://www.youtube.com/watch?v=gEkXDd46_S8">Coeffects: The essence of context-dependence</a><br />
+(Student Research Competition at ICFP 2012)</li>
+<li><a href="http://tomasp.net/academic/talks/coeffects-tallinn.pdf">Tracking context-dependent properties using coeffects</a><br />
+(Institute of Cybernetics, Tallinn University, 2012)</li>
+<li><strong>Video</strong>: <a href="http://langnetsymposium.com/2009/talks/22-TomasPatricek-Reactive.html">Reactive pattern matching for F#</a><br />
+(Lang.NET Symposium 2009, Microsoft, Redmond)</li>
+</ul>
+
+</div>
+<div style="position:relative;height:1px;overflow:hidden;top:-80px;"><a name="supervis">&#160;</a></div>
+
+<h2>Supervisions and teaching</h2>
+
+<p><img src="http://tomasp.net/academic/img/cam.png" style="float:right;margin:10px 0px 0px 20px" title="Cambridge University"/></p>
+
+<p>I'm happy to supervise Part II (final year) projects that are related to functional 
+programming, F# (or other functional languages), data science and data access, JavaScript 
+and web programming or other interesting topics.</p>
+
+<ul>
+<li>See a list with <a href="http://tomasp.net/academic/teaching/projects/">my project ideas</a></li>
+<li>If you want to discuss your idea, <a href="mailto:tomas.petricek@cl.cam.ac.uk">get in touch!</a></li>
+</ul>
+
+<p>I had the pleasure of supervising some great Part II students:</p>
+
+<ul>
+<li>Eduardo Munoz, working on <a href="http://edua.rdomunoz.com/diss.pdf">Type-safe multilanguage programming</a></li>
+<li>Lewis Brown's <a href="https://github.com/Lewix/fsharp-refactor">Refactoring tool for F#</a>, also at <a href="http://monosoc.blogspot.com/2013/10/the-google-summer-of-code-is-over-and.html">GSoC 2013</a></li>
+<li>David Barker, working on <a href="https://bitbucket.org/animatinator/c-arrows">Functional Reactive Programming for Data Binding in C# (Bitbucket)</a></li>
+</ul>
+
+<p>I supervised the following Computer Laboratory courses for various colleges 
+and I'm happy to supervise them again:</p>
+
+<ul>
+<li><a href="http://www.cl.cam.ac.uk/teaching/1213/Semantics/">Semantics of Programming Languages</a> (Lent 2012/13)</li>
+<li><a href="http://www.cl.cam.ac.uk/teaching/1112/ConceptsPL/">Concepts in Programming Language</a> (Easter 2011/12)</li>
+<li><a href="http://www.cl.cam.ac.uk/teaching/1112/Types/">Types</a> (Michaelmas 2011/12)</li>
+<li><a href="http://www.cl.cam.ac.uk/teaching/1112/OptComp/">Optimising Compilers</a> (Michaelmas 2011/12, 2012/13)</li>
+<li><a href="http://www.cl.cam.ac.uk/teaching/1112/DenotSem/">Denotational Semantics</a> (Lent 2011/12)</li>
+</ul>
+
+<h2>Academic community</h2>
+
+<p>I was a member of the Program Committee (PC) for 
+<abbr title="ML Workshop 2013">ML 2013</abbr>, <abbr title="ML Workshop 2012">ML 2012</abbr>, 
+<abbr title="Commercial Users of Functional Programming 2012">CUFP 2012</abbr>
+and <abbr title="Programming Semantic Web 2012">PSW 2012</abbr> 
+and a member of External Review Committee (XRC) for 
+<abbr title="International Symposium on Memory Management 2012">ISMM 2012</abbr> and
+<abbr title="International Symposium on Memory Management 2011">ISMM 2011</abbr>.
+I also reviewed papers for 
+<abbr title="Principles and Practice of Declarative Programming">PPDP 2013</abbr>,
+<abbr title="Typed Lambda Calculi and Applications 2013">TLCA 2013</abbr>,
+<abbr title="Compiler Construction 2013">CC 2013</abbr> and 
+<abbr title="European Conference on Object Oriented Programming 2012">ECOOP 2012</abbr>.</p>
+
+<p>I'm happy to review papers that (broadly) match my interest in programming models, types, 
+concurrent &amp; distribtued and reactive programming, data &amp; web and langauge integration 
+(and also any controversial, provocative and novel work).</p>
+
+<div class="publist">
+
+<h2>Teaching in Prague</h2>
+
+<p>As an undergraduate and Master's student at the Charles University in Prague, I 
+helped to organize and teach non-compulsory courses.</p>
+
+<h4><a href="http://tomasp.net/materials/mff-fsharp-09/">Programming languages F# and OCaml</a> (English)</h4>
+
+<blockquote>
+  <p>Charles University, Winter 2009/2010</p>
+</blockquote>
+
+<p>The lecture teaches programming in the ML-family of languages and highlights the mathematical 
+foundations of ML languages. As a results students should find it easier to understand many 
+mathematical concepts. It also explains advanced F# features such as computation expressions.</p>
+
+<h4><a href="https://github.com/tpetricek/Documents/tree/master/Archive/WinFX%20(2005-2006)">WinFX Programming</a> (Czech)</h4>
+
+<blockquote>
+  <p>Charles University, Summer 2005/2006</p>
+</blockquote>
+
+<p>A practically oriented seminar about Windows programming using the WinFX framework (now called 
+WPF, WCF and WF), which was in beta version in 2006. It discussed graphics, working with data 
+and communication between applications (Jointly taught with Vojtech Jakl).</p>
+
+</div>
+</div></div>
+
+
+
+  <div class="row" id="footer">
+  <footer>   
+    <div class="large-4 columns">
+      <h4>Contact &amp; about</h4>
+      <p>This site is hosted on GitHub and is generated using <a href="https://github.com/tpetricek/FSharp.Formatting">F# Formatting</a>.
+        For more info, see the <a href="https://github.com/tpetricek/TomaspNet.Website">website source on GitHub</a>.
+      </p>
+      <p>Please submit issues &amp; corrections on GitHub. Use pull requests for minor corrections only.</p>
+      <ul>
+        <li>Email me: <a href="mailto:tomas@tomasp.net">tomas@tomasp.net</a></li>
+        <li>Connect via Twitter: <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a></li>
+        <li>More: <a href="http://uk.linkedin.com/in/tomaspetricek">LinkedIn</a> | <a href="http://lanyrd.com/profile/tomasp/">Lanyrd</a> | <a href="https://github.com/tpetricek">GitHub</a></li>
+      </ul>
+    </div>
+    <div class="large-5 columns">
+      <h4>Elsewhere online &amp; offline</h4>
+      <p>If you want to keep up to date, you can subscribe to <a href="http://tomasp.net/rss.xml">my blog</a>, 
+        which includes my research posts via RSS. You can also follow <a href="https://twitter.com/tomaspetricek">@tomaspetricek</a> on twitter.
+        For my other activities and projects that I am or was involved in, visit my 
+        <a href="http://tomasp.net">professional home page</a>.</p>
+
+      <p>I'm active member of the F# developer community. I often come to 
+        <a href="http://www.meetup.com/fsharplondon/">F#unctional Londoners</a> meetings and 
+        participate on <a href="http://stackoverflow.com/users/33518/tomas-petricek">StackOverflow</a>.
+        Check out my <a href="http://fssnip.net"></a>recent F# Snippets web site</a>. It is an online pastebin for the F# langauge that type-checks 
+        posted snippets and generates nice JavaScript tooltips with type information.</p>
+
+    </div>
+    <div class="large-2 columns">
+      <h4>License</h4>
+      <p>Unless explicitly mentioned, all articles on this site are licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution Share Alike</a>. 
+        All source code samples are licensed under Apache 2.0.
+      </p>
+      <img src="http://tomasp.net/img/cc-sa.png" alt="CC License logo" />
+    </div>
+  </footer>
+  </div>
+  
+  <script>
+    document.write('<script src=' +
+    ('__proto__' in {} ? 'http://tomasp.net/js/vendor/zepto' : 'http://tomasp.net/js/vendor/jquery') +
+  '.js><\/script>')
+  </script>
+  
+  <script src="http://tomasp.net/js/foundation.min.js"></script>
+  <script>
+    $(document).foundation();
+  </script>
+  <script type="text/javascript">
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-1561220-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function () {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+
+  </script>
+  <script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
+</body>
+</html>

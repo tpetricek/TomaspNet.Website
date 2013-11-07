@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<!--[if IE 8]> 				 <html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+
+<head>
+  <meta charset="utf-8">
+  <title>Part II Project Ideas</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="Tomas Petricek">
+
+  <!-- Reference Foundation -->
+  <link rel="stylesheet" href="http://tomasp.net/css/foundation.css">
+  <script src="http://tomasp.net/js/vendor/custom.modernizr.js"></script>
+
+  <link rel="alternate" type="application/rss+xml" href="http://tomasp.net/rss.xml" title="RSS feed for Tomas Petricek's blog">
+  <link rel="author" href="https://plus.google.com/109855146654605967051" />
+    
+  <!-- Reference custom CSS and tooltips -->
+  <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/style.css" />
+  <script type="text/javascript" src="http://tomasp.net/custom/tooltips.js"></script>
+  <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/tooltips.css" />
+</head>
+<body>
+
+   <header id="top-header">
+    <div class="row">
+      <div class="twelve columns">
+        <h1><a href="http://tomasp.net/">Tomas Petricek</a></h1>
+        <p>Writing about practical F# coding and programming language research</p>
+      </div>
+    </div>
+  </header>
+
+  <header class="top-bar-header">
+    <div class="contain-to-grid sticky">
+    <nav class="top-bar">
+
+    <ul class="title-area">
+      <li class="name"><h1><a href="#"></a></h1></li>
+      <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+    </ul>
+    <section class="top-bar-section">
+      <ul class="right">
+        <li><a href="http://tomasp.net/blog/index.html">Blog</a></li>
+        <li><a href="http://functional-programming.net">Trainings</a></li>
+        <li><a href="http://functional-programming.net">Books</a></li>
+        <li><a href="http://lanyrd.com/profile/tomasp">Talks</a></li>
+        <li><a href="http://www.cl.cam.ac.uk/~tp322">Research & Teaching</a></li>
+      </ul>
+    </section>
+
+    </nav></div>
+  </header>
+  
+  
+<div class="row academic">
+<div class="large-6 columns main-content">
+
+<h1>Part II Project Ideas</h1>
+
+<p>I'm generally happy to supervise any interesting project related to programming languages.
+I prefer project that are related to some of my interests such as F#, type providers, 
+functional languages, data science, applied programming language research (etc.), but
+if you have onother interesting project, feel free to get in touch too.</p>
+
+<p>You might have noticed that I'm an F# fan :-). I'm happy to supervise projects that use
+other languages too, the only disadvantage is that I might not be able to help you if you
+run into some unexpected issues.</p>
+
+<p>I had the pleasure of supervising some great Part II students in the past. Check out what 
+they did if you're looking for an inspiration:</p>
+
+<ul>
+<li><strong>Eduardo Munoz</strong>, working on <a href="http://edua.rdomunoz.com/diss.pdf">Type-safe multilanguage programming</a></li>
+<li><strong>Lewis Brown's</strong> <a href="https://github.com/Lewix/fsharp-refactor">Refactoring tool for F#</a>, also at <a href="http://monosoc.blogspot.com/2013/10/the-google-summer-of-code-is-over-and.html">GSoC 2013</a></li>
+<li><strong>David Barker</strong>, working on <a href="https://bitbucket.org/animatinator/c-arrows">Functional Reactive Programming for Data Binding in C# (Bitbucket)</a></li>
+</ul>
+
+</div><div class="large-6 columns main-content" style="padding-top:50px">
+
+<p>Working with data and F# type providers:</p>
+
+<ul>
+<li><a href="#ftp">F# type providers</a></li>
+<li><a href="#cfsd">Combinators for schematized data</a></li>
+</ul>
+
+<p>Functional programming, tools, functional languages and libraries:</p>
+
+<ul>
+<li><a href="#xcoc">Types for cross-compilation</a> (OCamlLabs related)</li>
+<li><a href="#vefdsl">Visual editor for domain specific languages</a></li>
+<li><a href="#wpwaf">Web programming with alternative formlets</a></li>
+<li><a href="#ftc">Fuzzy type-checking</a></li>
+</ul>
+
+<p>Archived ideas that have already been done by someone:</p>
+
+<ul>
+<li><a href="#fdb">Functional data-binding</a> (Completed)</li>
+<li><a href="#rtffl">Refactoring tool for functional languages</a> (Completed)</li>
+</ul>
+
+<p>If you have your own idea, check out a few notes about <a href="#op">other projects</a></p>
+
+</div></div>
+<div class="row academic">
+<div class="large-12 columns main-content">
+
+<h2>Working with data and F# type providers</h2>
+
+</div></div>
+<div class="row academic">
+<div class="large-6 columns main-content">
+
+<h3>F# type providers <a name="ftp" class="anchor"></a></h3>
+
+<p>F# 3.0 makes it possible to write "compiler plugins" called <em>type providers</em> that
+provide access to external data sources, such as web services, databases, or other online
+information sources. The plugin takes the schema of the external data source and maps it to
+F# types. The programmer can then easily access any external data source (for which there is a type 
+provider). Here is an example:</p>
+
+<img src="http://tomasp.net/articles/fsharp-loosely-typed/tooltip.png" style="margin-bottom:10px;margin-left:40px" />
+
+<p>There is a number of interesting data sources that do not have a type provider yet, so
+one project would be to implement a type provider for accessing some interesting data source.
+Other interesting projects could deal with unstructured data - for example, how to 
+extract reasonable structure from HTML pages or how to easily describe REST services 
+(so that the provider can map them to programming language).</p>
+
+<h4>Related articles</h4>
+
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/Open_data">Open Data (WikiPedia)</a> - a list
+interesting data sources</li>
+<li><a href="http://www.infoq.com/presentations/The-Future-of-FSharp-Type-Providers/">The Future of F#: Type Providers</a> - a 
+talk about type providers</li>
+<li><a href="https://github.com/fsharp/FSharp.Data">F# Data</a> is a library with interesting type providers.<br />
+Look at the <a href="https://github.com/fsharp/FSharp.Data/issues?labels=discussion&amp;page=1&amp;state=open">issue list</a> for some ideas.</li>
+</ul>
+
+</div><div class="large-6 columns main-content">
+
+<h3>Combinators for schematized data<a name="cfsd" class="anchor"></a></h3>
+
+<p>When working with external data sources, there is a number of common operations that 
+one needs to perform. For example, you can:</p>
+
+<ul>
+<li>Merge two data sources that provide similar information (for example, two movie databases)
+and combine the overlapping information (i.e. ratings)</li>
+<li>Add data source as an extension to another - for example, if you have a directory with
+software companies, you could enhance it by adding their stock prices from data source
+such as Yahoo Finance.</li>
+<li>And there are probably many other options...</li>
+</ul>
+
+<p>The goal of this project would be to find more interesting operations that can work
+on schematized data and to implement them as a library. Ideally, this could be integrated
+with F# type providers (so that you could easily create type providers that combine
+different data sources).</p>
+
+</div></div>
+<div class="row academic">
+<div class="large-12 columns main-content">
+
+<h2>Functional programming, tools, languages &amp; libraries</h2>
+
+</div></div>
+<div class="row academic">
+<div class="large-6 columns main-content">
+
+<h3>Types for cross-compilation (OCamlLabs related) <a name="xcoc" class="anchor"></a></h3>
+
+<p>Increasing number of applications are targetting heterogenous execution environments such as server-side, 
+client-side, GPU, embedded and web. This is supported by a number of OCaml compiler backends (JavaScript, 
+Java, ARM, LLVM) and libraries allowing interoperability. In such a scenario, certain parts of code may be 
+compiled only for certain platform-specific environments, but some can be safely shared. This project should
+extend the OCaml type system in order to track execution environments for which an expression can be compiled, 
+and simplify writing code that cross-compiles for multiple platforms and diverse execution environments.</p>
+
+<p>This project could be done as part of the <a href="http://www.cl.cam.ac.uk/projects/ocamllabs/tasks/compiler.html">OCamlLabs</a>,
+but it could be equally implemented as an extension to another programming language.</p>
+
+<h4>Related articles</h4>
+
+<ul>
+<li><a href="http://groups.inf.ed.ac.uk/links/papers/links-fmco06.pdf">Ezra Cooper, Sam Lindley, Philip Wadler, and Jeremy Yallop: Links - web programming without tiers</a> (PDF) -
+a programming language that has similar cross-compilation feature to the one discussed in this project</li>
+<li><a href="http://www.cs.cmu.edu/~rwh/papers/ml5/tgc.pdf">Tom Murphy VII, Karl Crary, and Robert Harper: Type-safe distributed programming with ML5</a> (PDF) -
+another similar language, this one with more formal background about the types used</li>
+<li><a href="../../papers/coeffects/">Tomas Petricek, Dominic Orchard and Alan Mycroft: Coeffects: Unified static analysis of context-dependence</a> - 
+paper that discusses related type systems in a more general way, talking about any context-dependence (but cross-compilation is a good example)</li>
+</ul>
+
+<h3>Web programming with alternative formlets<a name="wpwaf" class="anchor"></a></h3>
+
+<p>Formlets provide an interesting abstraction for web programming - they represent 
+a web "form" that can be rendered (on the server-side) to get HTML representing a form.
+When the user fills in form information and submits the result, the "formlet" can 
+process the incoming data to get a data-structure representing the result of the form
+(such as customer information).</p>
+
+<p>Formlets are designed for old-fashioned web programming where most of the 
+processing happens on the server-side, so the question is, could we adapt them
+to make them more useful on the client-side too?</p>
+
+<p>One interesting option is using the <code>Alternative</code> type, which 
+extends the core concept behind formlets and adds a notion of <em>choice</em>.
+This means that one could build forms with multiple different options
+and the option could be chosen on the client-side dynamically. However, there
+are probably many other interesting approaches!</p>
+
+<h4>Related articles</h4>
+
+<ul>
+<li><a href="http://www.haskell.org/haskellwiki/Formlets">Web/Libraries/Formlets</a> - a brief
+overview of formlets in some Haskell libraries</li>
+<li><a href="http://groups.inf.ed.ac.uk/links/papers/formlets-essence.pdf">E. Cooper, S. Lindley, P. Wadler and J. Yallop. The Essence of Form Abstraction</a> - a
+research paper that first introduced formlets</li>
+<li><a href="http://hackage.haskell.org/packages/archive/base/latest/doc/html/Control-Applicative.html#g:2">Control.Applicative - Alternatives</a> - 
+Haskell documentation for the "Alternative" type class</li>
+</ul>
+
+</div><div class="large-6 columns main-content">
+
+<h3>Visual editor for domain specific languages</h3>
+
+<p>Domain specific languages (DSLs) give a powerful technique for writing reusable libraries
+(not just) in functional languages. Given a problem (i.e. processing lists), we design a 
+set of reusable combinators (mapping, filtering, etc.). A specific problem (such as a task
+to multiply elements of two lists by some number and then combine them in some way) can then
+be easily solved just by using the available combinators.</p>
+
+<p>The approach is used not just for list processing, but in many other areas - for 
+composing user interfaces, specifying event handling, modelling financial contracts, 
+etc. Here is an example of list processing (using F#):</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip">
+<span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+</pre>
+</td>
+<td class="snippet"><pre class="fssnip">
+<span onmouseout="hideTip(event, 'fs1', 1)" onmouseover="showTip(event, 'fs1', 1)" class="i">List</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs2', 2)" onmouseover="showTip(event, 'fs2', 2)" class="i">zip</span> (<span class="i">list1</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs1', 3)" onmouseover="showTip(event, 'fs1', 3)" class="i">List</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs3', 4)" onmouseover="showTip(event, 'fs3', 4)" class="i">map</span> (<span class="k">fun</span> <span onmouseout="hideTip(event, 'fs4', 5)" onmouseover="showTip(event, 'fs4', 5)" class="i">x</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs4', 6)" onmouseover="showTip(event, 'fs4', 6)" class="i">x</span> <span class="o">*</span> <span class="n">10</span>))
+(<span class="i">list2</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs1', 7)" onmouseover="showTip(event, 'fs1', 7)" class="i">List</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs3', 8)" onmouseover="showTip(event, 'fs3', 8)" class="i">map</span> (<span class="k">fun</span> <span onmouseout="hideTip(event, 'fs4', 9)" onmouseover="showTip(event, 'fs4', 9)" class="i">x</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs4', 10)" onmouseover="showTip(event, 'fs4', 10)" class="i">x</span> <span class="o">*</span> <span class="o">-</span><span class="n">10</span>))
+<span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs1', 11)" onmouseover="showTip(event, 'fs1', 11)" class="i">List</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs5', 12)" onmouseover="showTip(event, 'fs5', 12)" class="i">iter</span> (<span class="k">fun</span> (<span onmouseout="hideTip(event, 'fs6', 13)" onmouseover="showTip(event, 'fs6', 13)" class="i">a</span>, <span onmouseout="hideTip(event, 'fs7', 14)" onmouseover="showTip(event, 'fs7', 14)" class="i">b</span>) <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs8', 15)" onmouseover="showTip(event, 'fs8', 15)" class="i">printfn</span> <span class="s">&quot;</span><span class="s">left</span><span class="s"> </span><span class="s">%</span><span class="s">d</span><span class="s">,</span><span class="s"> </span><span class="s">right</span><span class="s"> </span><span class="s">%</span><span class="s">d</span><span class="s">&quot;</span> <span onmouseout="hideTip(event, 'fs6', 16)" onmouseover="showTip(event, 'fs6', 16)" class="i">a</span> <span onmouseout="hideTip(event, 'fs7', 17)" onmouseover="showTip(event, 'fs7', 17)" class="i">b</span>)</pre>
+</td>
+</tr>
+</table>
+
+<p>The code can be quite nicely represented visually, showing how the data flow through
+the combinators:</p>
+
+<img src="dsl.png" style="margin-bottom:10px; margin-left:40px" />
+
+<p>The idea of this project is to design some editor (or, at least, visualizer) that
+can take code written using DSL and display it visually and allow the user to edit 
+it. This should work for any DSL (although it may need to be annotated in some way).</p>
+
+<h4>Related articles</h4>
+
+<ul>
+<li><a href="http://www.haskell.org/haskellwiki/Research_papers/Domain_specific_languages">Research papers/Domain specific languages</a> - 
+a very long list of papers about interesting domain-specific languages in Haskell</li>
+</ul>
+
+<h3>Fuzzy type-checking <a name="ftc" class="anchor"></a></h3>
+
+<p>In statically typed programming languages, the type system is used to check that types
+of expressions are used correctly and are correctly composed (i.e. you call a function
+with an argument of a correct type).</p>
+
+<p>However, sometimes we do not quite surely know what the type of an expression is. This
+may be because we're calling some dynamically typed code or because we're loading data
+from an external data source that does not have a clear type.</p>
+
+<p>The goal of this project is to create a "fuzzy" type system that can deal with such
+uncertainty in programs. For example, if the type system can tell us that the 
+property "Name" is a string in 99% of the cases, then that's quite useful information!</p>
+
+<p>This is probably more theoretical or experimental project, but it could be implemented
+as a simple language (i.e. for data processing) or it could be written as an additional
+checker for dynamic programs or programs in Haskell, F# or other language.</p>
+
+<h4>Related articles</h4>
+
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/Fuzzy_logic">Fuzzy Logic</a> - type systems
+for functional languages are connected to logics, so the new type system would be
+probably related to <em>fuzzy logics</em> in some way</li>
+</ul>
+
+</div></div>
+<div class="row academic">
+<div class="large-12 columns main-content">
+
+<h2>Completed projects</h2>
+
+<p>Below are some project ideas that have been already completed in the past years, but
+may be useful as an inspiration (both projects received very good marks, although
+a lot of time had to be put into thinking about the evaluation).</p>
+
+</div></div>
+<div class="row academic">
+<div class="large-6 columns main-content">
+
+<h3>Functional data-binding (Completed) <a name="fdb" class="anchor"></a></h3>
+
+<p>At the basic level, data-binding is a mechanism (known from various JavaScript or .NET libraries) 
+that is used to specify how to display data in a user-interface. It is possible to <em>bind</em>
+various user-interface elements to properties from some data source. More interestingly, 
+<em>two-way data binding</em> can be used to create connection that works in both ways - 
+the data are displayed in the UI, but when they are changed in the UI, the change is 
+propagated back to the data source.</p>
+
+<p>In functional programming, <em>functional reactive programming (FRP)</em> serves a similar
+purpose, but it is generally focused on just one way information flow (i.e. how data 
+from robot sensors flow and influence the behaviour of a robot).</p>
+
+<p>There is a number of interesting problems here. For example, how could we implement
+data-binding library that is less ad-hoc than those used in JavaScript or .NET and is
+inspired by functional programming ideas? Could the FRP concepts be extended to work
+<em>bothways</em>?</p>
+
+<h4>Related articles</h4>
+
+<ul>
+<li><a href="http://conal.net/fran/tutorial.htm">Conal Elliot: Composing Reactive Animations</a> -
+one of the first incarnations of FRP and a nice introduction</li>
+<li><a href="http://msdn.microsoft.com/en-us/library/ms752347.aspx">MSDN: Data Binding Overview</a> - 
+documentation to data-binding in .NET (it can get incredibly complex)</li>
+<li><a href="http://tunein.yap.tv/javascript/2012/06/11/javascript-frameworks-and-data-binding/">JavaScript Frameworks And Data Binding</a> - 
+somewhat randomly selected article on data-binding in JavaScript (includes discussion
+about two-way binding)</li>
+<li><a href="http://www.haskell.org/arrows/">Arrows: A General Interface to Computation</a> -
+a functional (Haskell) abstraction that could be (probably) nicely used to model data binding</li>
+</ul>
+
+</div><div class="large-6 columns main-content">
+
+<h3>Refactoring tool for functional languages (Completed) <a name="rtffl" class="anchor"></a></h3>
+
+<p>Any modern IDE like Eclipse or Visual Studio provides a number of automated refactoring 
+ranging from simple ones (like rename) to fairly complicated operations (extract part
+of a class into a superclass, etc.)</p>
+
+<p>The goal of this project would be to implement some advanced refactorings for<br />
+a functional programming language (probably using open-source compiler for Haskell,
+F# or some other).
+The interesting question is, what kind of advanced refactorings would be useful
+in functional languages?</p>
+
+<ul>
+<li>Turn purely functional code to monadic code (i.e. asynchronous in F# or to support I/O in Haskell)</li>
+<li>Turn a tuple type into a data type such as record</li>
+<li>Group function parameters into a data type or un-group a data type</li>
+<li>Extract common parts of two functions into a higher-order function</li>
+</ul>
+
+</div><div class="large-6 columns main-content">
+</div>
+<div class="row academic">
+<div class="large-12 columns main-content">
+
+<h2>Do you have your own project idea? <a name="op" class="anchor"></a></h2>
+
+<p>I'm happy to supervise other interesting projects related to functional programming, F# language
+(and other functional languages), programming with data, web programming and JavaScript, as well as 
+distributed, concurrent and reactive programming. This is not a complete list, just a list of 
+areas that I know more about (and might be able to supervise better). If you have some 
+idea that you'd like to discuss,  <a href="mailto:tomas.petricek@cl.cam.ac.uk">get in touch</a>!</p>
+
+</div>
+</div>
+
+<div class="tip" id="fs1">Multiple items<br />module List<br /><br />from Microsoft.FSharp.Collections<br /><br />--------------------<br />type List&lt;&#39;T&gt; =<br />&#160;&#160;| ( [] )<br />&#160;&#160;| ( :: ) of &#39;T * &#39;T list<br />&#160;&#160;interface IEnumerable<br />&#160;&#160;interface IEnumerable&lt;&#39;T&gt;<br />&#160;&#160;member Head : &#39;T<br />&#160;&#160;member IsEmpty : bool<br />&#160;&#160;member Item : index:int -&gt; &#39;T with get<br />&#160;&#160;member Length : int<br />&#160;&#160;member Tail : &#39;T list<br />&#160;&#160;static member Cons : head:&#39;T * tail:&#39;T list -&gt; &#39;T list<br />&#160;&#160;static member Empty : &#39;T list<br /><br />Full name: Microsoft.FSharp.Collections.List&lt;_&gt;</div>
+<div class="tip" id="fs2">val zip : list1:&#39;T1 list -&gt; list2:&#39;T2 list -&gt; (&#39;T1 * &#39;T2) list<br /><br />Full name: Microsoft.FSharp.Collections.List.zip</div>
+<div class="tip" id="fs3">val map : mapping:(&#39;T -&gt; &#39;U) -&gt; list:&#39;T list -&gt; &#39;U list<br /><br />Full name: Microsoft.FSharp.Collections.List.map</div>
+<div class="tip" id="fs4">val x : int</div>
+<div class="tip" id="fs5">val iter : action:(&#39;T -&gt; unit) -&gt; list:&#39;T list -&gt; unit<br /><br />Full name: Microsoft.FSharp.Collections.List.iter</div>
+<div class="tip" id="fs6">val a : obj</div>
+<div class="tip" id="fs7">val b : &#39;a (requires &#39;a : (byte|int16|int32|int64|sbyte|uint16|uint32|uint64|nativeint|unativeint))</div>
+<div class="tip" id="fs8">val printfn : format:Printf.TextWriterFormat&lt;&#39;T&gt; -&gt; &#39;T<br /><br />Full name: Microsoft.FSharp.Core.ExtraTopLevelOperators.printfn</div>
+
+
+  <div class="row" id="footer">
+  <footer>   
+    <div class="large-4 columns">
+      <h4>Contact &amp; about</h4>
+      <p>This site is hosted on GitHub and is generated using <a href="https://github.com/tpetricek/FSharp.Formatting">F# Formatting</a>.
+        For more info, see the <a href="https://github.com/tpetricek/TomaspNet.Website">website source on GitHub</a>.
+      </p>
+      <p>Please submit issues &amp; corrections on GitHub. Use pull requests for minor corrections only.</p>
+      <ul>
+        <li>Email me: <a href="mailto:tomas@tomasp.net">tomas@tomasp.net</a></li>
+        <li>Connect via Twitter: <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a></li>
+        <li>More: <a href="http://uk.linkedin.com/in/tomaspetricek">LinkedIn</a> | <a href="http://lanyrd.com/profile/tomasp/">Lanyrd</a> | <a href="https://github.com/tpetricek">GitHub</a></li>
+      </ul>
+    </div>
+    <div class="large-5 columns">
+      <h4>Elsewhere online &amp; offline</h4>
+      <p>If you want to keep up to date, you can subscribe to <a href="http://tomasp.net/rss.xml">my blog</a>, 
+        which includes my research posts via RSS. You can also follow <a href="https://twitter.com/tomaspetricek">@tomaspetricek</a> on twitter.
+        For my other activities and projects that I am or was involved in, visit my 
+        <a href="http://tomasp.net">professional home page</a>.</p>
+
+      <p>I'm active member of the F# developer community. I often come to 
+        <a href="http://www.meetup.com/fsharplondon/">F#unctional Londoners</a> meetings and 
+        participate on <a href="http://stackoverflow.com/users/33518/tomas-petricek">StackOverflow</a>.
+        Check out my <a href="http://fssnip.net"></a>recent F# Snippets web site</a>. It is an online pastebin for the F# langauge that type-checks 
+        posted snippets and generates nice JavaScript tooltips with type information.</p>
+
+    </div>
+    <div class="large-2 columns">
+      <h4>License</h4>
+      <p>Unless explicitly mentioned, all articles on this site are licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution Share Alike</a>. 
+        All source code samples are licensed under Apache 2.0.
+      </p>
+      <img src="http://tomasp.net/img/cc-sa.png" alt="CC License logo" />
+    </div>
+  </footer>
+  </div>
+  
+  <script>
+    document.write('<script src=' +
+    ('__proto__' in {} ? 'http://tomasp.net/js/vendor/zepto' : 'http://tomasp.net/js/vendor/jquery') +
+  '.js><\/script>')
+  </script>
+  
+  <script src="http://tomasp.net/js/foundation.min.js"></script>
+  <script>
+    $(document).foundation();
+  </script>
+  <script type="text/javascript">
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-1561220-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function () {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+
+  </script>
+  <script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
+</body>
+</html>

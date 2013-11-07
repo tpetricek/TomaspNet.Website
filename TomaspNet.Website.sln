@@ -3,7 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{5C7045D5-4574-4BA7-A3BA-905C9C074F5B}"
 	ProjectSection(SolutionItems) = preProject
-		tools\build.fsx = tools\build.fsx
+		build.fsx = build.fsx
+		tools\generate.fsx = tools\generate.fsx
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Content", "Content", "{9DF5F21E-92C6-4C46-AEB9-D32284D99438}"
@@ -16,7 +17,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Layouts", "Layouts", "{0706F2C2-636E-4740-A25F-DDB05C5AA555}"
 	ProjectSection(SolutionItems) = preProject
 		layouts\default.cshtml = layouts\default.cshtml
-		layouts\page.cshtml = layouts\page.cshtml
+		layouts\academic.cshtml = layouts\academic.cshtml
 		layouts\post.cshtml = layouts\post.cshtml
 	EndProjectSection
 EndProject

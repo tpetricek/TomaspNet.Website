@@ -105,18 +105,18 @@
 #right-bar li {
   margin:0px 0px 0px 20px;
 }
-#right-calendar, #hp-calendar {
+#right-calendar, #hp-calendar, #acad-photo {
   text-align:center;
   background:black;
   margin-bottom:40px;
 }
-#right-calendar h4, #hp-calendar h4 {
+#right-calendar h4, #hp-calendar h4, #acad-photo h4 {
   margin:0px 0px 15px 0px;
   font-size:140%;
   color:#d0d0d0;
   text-align:center;
 }
-#right-calendar p, #hp-calendar p {
+#right-calendar p, #hp-calendar p, #acad-photo p {
   margin:10px 0px 5px 0px;
   color:#b0b0b0;
   font-size:90%;
@@ -152,6 +152,10 @@
 #hp-calendar p {
   font-size:90%;
   margin:20px 20px 0px 20px;
+}
+#acad-photo {
+  font-size:90%;
+  padding:30px 0px 10px 0px;
 }
 
 /* ----------------------------------------------------------------------------------- */
@@ -240,6 +244,11 @@ footer li {
 /* Content - formatting of standard documents                                          */
 /* ----------------------------------------------------------------------------------- */
 
+a.anchor {
+  position:relative;
+  display:block;
+  top:-140px;
+}
 .rdecor {
   float:right;
   margin:10px;
@@ -261,6 +270,11 @@ footer li {
   font:700 130% Kreon,'Times New Roman', Times, serif;
   margin-top:25px;
   line-height:100%;
+}
+.main-content h4 {
+  font:700 110% Kreon,'Times New Roman', Times, serif;
+  margin-top:25px;
+  line-height:125%;
 }
 .main-content h1 a:link, .main-content h1 a:visited {
   color:black;
@@ -305,10 +319,102 @@ h2.first {
 .main-content .addthis_counter {
   border-right:1px solid #d0d0d0;
 }
+.main-content p.post-discuss {
+  font-size:95%;
+  line-height:150%;
+  margin:30px 0px 0px 0px;
+  text-align:left;
+  font-style:italic;
+}
 .main-content p.post-meta {
   font-size:95%;
   line-height:150%;
   text-align:right;
   font-style:italic;
   margin:70px 10px 30px 0px;
+}
+
+/* ----------------------------------------------------------------------------------- */
+/* Some special formatting for academic web sites                                      */
+/* ----------------------------------------------------------------------------------- */
+
+/* Acadmic hompage, publication list */
+.academic .publist blockquote {
+  border-style:none;
+  color:#222222;
+  padding:0px;
+  margin:0px;
+}
+.academic .publist blockquote p {
+  color: #222222;
+  margin:0em 0px 0.5em 0px;
+}
+.academic .publist p {
+  margin-bottom:0.5em;
+}
+.academic .publist h4 strong {
+  float:right;
+  font-family:'PT Sans','Trebuchet MS', sans-serif;
+  font-weight:normal;
+  font-size:75%;
+  color:#d00000;
+}
+.academic .publist ul {
+  margin:0px;
+  padding:0px;
+  text-align:right;
+}
+.academic .publist li {
+  margin:0px;
+  padding:0px;
+  list-style:none;
+}
+
+/* Paper details list */
+.paper blockquote {
+  border-style:none;
+  color:#222222;
+  padding:0px;
+  margin:1.5em 0px 1.75em 0px;
+}
+.paper blockquote p {
+  color: #222222;
+  font-size:110%;
+  font-style:italic;
+  margin:0em 0px 0em 0px;
+}
+.paper #cite {
+  color:#222222;
+  cursor:inherit;
+}
+/* also see #acad-photo defined above */
+
+.black-box {
+  background:black;
+  font-size:90%;
+  padding:5px 20px 10px 20px;
+  color:#d0d0d0;
+  margin:20px 0px 30px 0px;
+}
+.black-box h2 {
+  font:300 170% Kreon,'Times New Roman', Times, serif;
+  margin-top:15px;
+  line-height:100%;
+  color:#d0d0d0;
+}
+.black-box h3 {
+  font:700 130% Kreon,'Times New Roman', Times, serif;
+  margin-top:15px;
+  line-height:100%;
+  color:#d0d0d0;
+}
+.black-box h4 {
+  font:700 110% Kreon,'Times New Roman', Times, serif;
+  margin-top:15px;
+  line-height:125%;
+  color:#d0d0d0;
+}
+.black-box ul li {
+  margin-bottom:5px;
+  line-height:1.3em;
 }

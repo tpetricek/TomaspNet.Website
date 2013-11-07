@@ -70,6 +70,9 @@ table.pre, pre.fssnip, pre {
   border-radius:5px;
   color:#eaeaea;  
 }
+table.pre {
+  font-size:100%;
+}
 pre code {
   font: 100% 'Droid Sans Mono',consolas,monospace;
   border-style:none;

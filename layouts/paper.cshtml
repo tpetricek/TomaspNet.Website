@@ -1,0 +1,12 @@
+@{ Layout = "academic"; }
+
+<div class="row academic paper">
+  <div class="large-8 columns main-content">
+  <content>
+    @RenderBody()
+  </content>
+  </div>
+  <div class="large-4 columns" id="right-bar">
+    @RenderPart("calendar", Model)
+  </div>
+</div>

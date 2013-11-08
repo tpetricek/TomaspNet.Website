@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<!--[if IE 8]> 				 <html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+
+<head>
+  <meta charset="utf-8">
+  <title>The F# Computation Expression Zoo (PADL'14)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A month or so back, I wrote a tweet saying that F# computation expressions are amazing and no other language has anything like that. I can finally provide all the evidence by linking to a PADL 2014 paper about them.">
+  <meta name="author" content="Tomas Petricek">
+
+  <!-- Reference Foundation -->
+  <link rel="stylesheet" href="http://tomasp.net/css/foundation.css">
+  <script src="cjs/vendor/custom.modernizr.js"></script>
+
+  <link rel="alternate" type="application/rss+xml" href="http://tomasp.net/rss.xml" title="RSS feed for Tomas Petricek's blog">
+  <link rel="author" href="https://plus.google.com/109855146654605967051" />
+    
+  <!-- Reference custom CSS and tooltips -->
+  <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/style.css" />
+  <script type="text/javascript" src="http://tomasp.net/custom/tooltips.js"></script>
+  <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/tooltips.css" />
+</head>
+<body>
+
+   <header id="top-header">
+    <div class="row">
+      <div class="twelve columns">
+        <h1><a href="http://tomasp.net/">Tomas Petricek's blog</a></h1>
+        <p>Writing about practical F# coding and programming language research</p>
+      </div>
+    </div>
+  </header>
+
+  <header class="top-bar-header">
+    <div class="contain-to-grid sticky">
+    <nav class="top-bar">
+
+    <ul class="title-area">
+      <li class="name"><h1><a href="#"></a></h1></li>
+      <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+    </ul>
+    <section class="top-bar-section">
+      <ul class="right">
+        <li><a href="http://tomasp.net/blog/index.html">Blog</a></li>
+        <li><a href="http://functional-programming.net">Trainings</a></li>
+        <li><a href="http://functional-programming.net">Books</a></li>
+        <li><a href="http://lanyrd.com/profile/tomasp">Talks</a></li>
+        <li><a href="http://tomasp.net/academic">Research & Teaching</a></li>
+      </ul>
+    </section>
+
+    </nav></div>
+  </header>
+  
+  
+<div class="row">
+	<div class="large-8 columns main-content">
+    <content>
+      
+
+<h1>The F# Computation Expression Zoo (PADL'14)</h1>
+
+<p>F# <a href="http://msdn.microsoft.com/en-us/library/dd233182.aspx">computation expressions</a> are the 
+syntactic language mechanism that is used by features like sequence expressions and asynchronous
+workflows. The aim of F# computation expressions is to provide a <em>single</em> syntactic mechanism
+that provides convenient notation for writing a wide range of computations.</p>
+
+<p>The syntactic mechanisms that are unified by computation expressions include Haskell <code>do</code> 
+notation and list comprehensions, C# iterators, asynchronous methods and LINQ queries,
+Scala <code>for</code> comprehensions and Python generators to name just a few.</p>
+
+<p>Some time ago, I started working on an academic article to explain what makes computation
+expressions unique - and I think there is quite a few interesting aspects. Sadly, this is 
+often not very well explained and so the general preception is more like this:</p>
+
+<img src="tweets.png" style="margin:10px 0px 30px 40px;" alt="Proof by Tweet!" />
+
+<p>This is something hat we tried to clarify in the upcoming PADL 2014 paper which explains
+how computation expression fit with standard abstract computation types <em>such as</em> monads
+and shows what makes them unique. If you're interested in the details, then follow the link 
+to the paper below. In the rest of the blog post, I'll try to give a quick summary with one 
+interesting example...</p>
+
+<ul>
+<li><a href="http://tomasp.net/academic/papers/computation-zoo/">The F# Computation Expression Zoo</a> - To appear in PADL 2014</li>
+<li><a href="http://tryjoinads.org/computations">Source with all examples from the paper</a> - on TryJoinads.org</li>
+</ul>
+
+<h2>Why computation expressions are more?</h2>
+
+<p>There are two key things about computation expressions that make them quite different
+to what other languages provide - the first is emphasis on syntax (to make them look like
+single-purpose language features) and the second is flexibility (to make them reusable).</p>
+
+<h3>Syntax</h3>
+
+<p>Computation expressions reuse the normal syntax of the F# language, so 
+you can write code using standard constructs like <code>let</code>, <code>for</code> and <code>try</code> .. <code>with</code>,
+but with a different semantics, depending on the kind of computation. For example, 
+<code>try</code> .. <code>with</code> inside <code>async</code> captures exceptions that happen on another thread and
+propagates them, but all of this is done using standard language mechanism.</p>
+
+<h3>Flexibility</h3>
+
+<p>Computation expressions are not tied to a single abstract type of 
+computations (e.g. monad). Instead, they give us a single syntactic mechanism, that can
+give a nice syntax for multiple different abstract computation types. These include
+monads, but also applicative functors (using a research extension), monoids, additive 
+monads, computations constructed using monad transformers and more.</p>
+
+<p>But what's the point? Aren't <em>monad transformers</em> and <em>additive monads</em> just <em>monads</em>?
+Of course, they are monads, but they have some additional structure. For example, additive
+monads have the <code>mplus</code> operation of type <code>'a m -&gt; 'a m -&gt; 'a m</code> and <code>mzero</code> of type <code>'a m</code>.
+In Haskell, you can just use the <code>do</code> notation, but to access the additional structure, 
+you'll need to use the combinators, which can make the syntax more complex.</p>
+
+<p>When using computation expressions, the operations like <code>mplus</code> and <code>mzero</code> become
+<em>a part of the syntax</em>. In many cases, you will not need to call them explicitly via
+a function, because they <em>enable</em> additional syntax in the computation expression that
+calls them.</p>
+
+<h3>Limitations</h3>
+
+<p>To be fair, I should mention common criticism of computation expressions too.
+F# does not easily let you write code that is polymorphic over the type of computation
+(it can be done, but it is not particularly idiomatic and it is certainly not recommended).</p>
+
+<p>If you learned about monads in Haskell, this might sound like a major issue to you.
+However, it is not a big problem in practice, because F# and Haskell use monads (and
+other computations) in very different ways. In Haskell, they are fundamental part of the
+language and you need them all the time. In F#, they are only used when you actually 
+want to write some concrete computation with non-standard behaviour. For example, asynchronous
+computation or a formlet - in such case, you will almost always want to work with a 
+concrete computation type. As we'll see later, this has another useful consequence - 
+it means that the syntax of computation expressions can be tuned to a concrete use case.</p>
+
+<h2>Case study: Two additive monads</h2>
+
+<p>If you want to see all the abstractions that are supported by computation expressions,
+then <a href="http://tomasp.net/academic/papers/computation-zoo/">read the paper</a>. I will not 
+repeat everything in this blog post.</p>
+
+<p>However, I want to show one example that demonstrates the key point of computation expressions
+very well. The exampl is encoding of <em>additive monads</em> - that is, computation types that
+are monads and have additional operations <code>mplus : 'a m -&gt; 'a m -&gt; 'a m</code> and <code>mzero : 'a m</code>.
+In Haskell, these are captured by the <code>MonadPlus</code> type class.</p>
+
+<p>I'll show how computation expressions look for two different computation. The first one
+is based on the list monad (although I'll use more idiomatic F# <code>seq&lt;'T&gt;</code> computations)
+and the other is essentially a delayed <code>option&lt;'T&gt;</code> type (aka Maybe monad), but it more
+closely models the Haskell <code>IO</code> instance for <code>MonadPlus</code>.</p>
+
+<h3>Sequence expressions</h3>
+
+<p>Let's say that we want to write a function that takes a list, such as <code>[1; 2; 3]</code> and
+duplicates each element in the list returning <code>[1; 1; 2; 2; 3; 3]</code>. The syntax for doing
+this is very close to the one of <a href="http://freepythontips.wordpress.com/2013/09/29/the-python-yield-keyword-explained/">Python generators</a>
+and looks as follows:</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip">
+<span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+</pre>
+</td>
+<td class="snippet"><pre class="fssnip">
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs1', 1)" onmouseover="showTip(event, 'fs1', 1)" class="i">duplicate</span> <span onmouseout="hideTip(event, 'fs2', 2)" onmouseover="showTip(event, 'fs2', 2)" class="i">input</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs3', 3)" onmouseover="showTip(event, 'fs3', 3)" class="i">seq</span> { 
+  <span class="k">for</span> <span onmouseout="hideTip(event, 'fs4', 4)" onmouseover="showTip(event, 'fs4', 4)" class="i">num</span> <span class="k">in</span> <span onmouseout="hideTip(event, 'fs2', 5)" onmouseover="showTip(event, 'fs2', 5)" class="i">input</span> <span class="k">do</span>
+    <span class="k">yield</span> <span onmouseout="hideTip(event, 'fs4', 6)" onmouseover="showTip(event, 'fs4', 6)" class="i">num</span> 
+    <span class="k">yield</span> <span onmouseout="hideTip(event, 'fs4', 7)" onmouseover="showTip(event, 'fs4', 7)" class="i">num</span> }</pre>
+</td>
+</tr>
+</table>
+
+<p>How does this work? The <code>for</code> keyword is mapped to the <em>bind</em> operation of the underlying
+computation and the <code>yield</code> keyword is mapped to the <em>return</em> operation of the monad.
+When the body contains multiple statements that return a value, the statemets are combined
+using the additive operation (<code>mplus</code>).</p>
+
+<p>The syntax and semantics of the computation is determined by the <code>seq</code> identifier - this
+is not actually an identifier, but an <em>object</em> that defines a number of members that tell
+the compiler that 1) it should enable <code>for</code>, <code>yield</code> and multiple statements in a body
+and 2) what is the implementation of the three underlying operations.</p>
+
+<p>When defining the syntax in the <code>seq</code> value, we could have chosen another syntax - we could
+use <code>let!</code> and <code>return</code> instad of using <code>for</code> and <code>yield</code>, but the latter option gives a
+more convenient and intuitive syntax.</p>
+
+<p>What do I mean by "more intuitive"? Let's look at the laws! The <a href="http://www.haskell.org/haskellwiki/MonadPlus"><em>left distribution</em> 
+law</a> about <code>MonadPlus</code> (which holds for lists) 
+states that the following two computations should be equivalent:</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip">
+<span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
+<span class="l">7: </span>
+</pre>
+</td>
+<td class="snippet"><pre class="fssnip">
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs5', 8)" onmouseover="showTip(event, 'fs5', 8)" class="i">left</span> <span onmouseout="hideTip(event, 'fs6', 9)" onmouseover="showTip(event, 'fs6', 9)" class="i">in1</span> <span onmouseout="hideTip(event, 'fs7', 10)" onmouseover="showTip(event, 'fs7', 10)" class="i">in2</span> <span onmouseout="hideTip(event, 'fs8', 11)" onmouseover="showTip(event, 'fs8', 11)" class="i">f</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs3', 12)" onmouseover="showTip(event, 'fs3', 12)" class="i">seq</span> { 
+  <span class="k">for</span> <span onmouseout="hideTip(event, 'fs9', 13)" onmouseover="showTip(event, 'fs9', 13)" class="i">x</span> <span class="k">in</span> <span onmouseout="hideTip(event, 'fs6', 14)" onmouseover="showTip(event, 'fs6', 14)" class="i">in1</span> <span class="k">do</span> <span class="k">yield!</span> <span onmouseout="hideTip(event, 'fs8', 15)" onmouseover="showTip(event, 'fs8', 15)" class="i">f</span> <span onmouseout="hideTip(event, 'fs9', 16)" onmouseover="showTip(event, 'fs9', 16)" class="i">x</span>
+  <span class="k">for</span> <span onmouseout="hideTip(event, 'fs9', 17)" onmouseover="showTip(event, 'fs9', 17)" class="i">x</span> <span class="k">in</span> <span onmouseout="hideTip(event, 'fs7', 18)" onmouseover="showTip(event, 'fs7', 18)" class="i">in2</span> <span class="k">do</span> <span class="k">yield!</span> <span onmouseout="hideTip(event, 'fs8', 19)" onmouseover="showTip(event, 'fs8', 19)" class="i">f</span> <span onmouseout="hideTip(event, 'fs9', 20)" onmouseover="showTip(event, 'fs9', 20)" class="i">x</span> }
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs10', 21)" onmouseover="showTip(event, 'fs10', 21)" class="i">right</span> <span onmouseout="hideTip(event, 'fs6', 22)" onmouseover="showTip(event, 'fs6', 22)" class="i">in1</span> <span onmouseout="hideTip(event, 'fs7', 23)" onmouseover="showTip(event, 'fs7', 23)" class="i">in2</span> <span onmouseout="hideTip(event, 'fs8', 24)" onmouseover="showTip(event, 'fs8', 24)" class="i">f</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs3', 25)" onmouseover="showTip(event, 'fs3', 25)" class="i">seq</span> { 
+  <span class="k">for</span> <span onmouseout="hideTip(event, 'fs9', 26)" onmouseover="showTip(event, 'fs9', 26)" class="i">x</span> <span class="k">in</span> <span onmouseout="hideTip(event, 'fs3', 27)" onmouseover="showTip(event, 'fs3', 27)" class="i">seq</span> { <span class="k">yield!</span> <span onmouseout="hideTip(event, 'fs6', 28)" onmouseover="showTip(event, 'fs6', 28)" class="i">in1</span>; <span class="k">yield!</span> <span onmouseout="hideTip(event, 'fs7', 29)" onmouseover="showTip(event, 'fs7', 29)" class="i">in2</span> } <span class="k">do</span>
+    <span class="k">yield!</span> <span onmouseout="hideTip(event, 'fs8', 30)" onmouseover="showTip(event, 'fs8', 30)" class="i">f</span> <span onmouseout="hideTip(event, 'fs9', 31)" onmouseover="showTip(event, 'fs9', 31)" class="i">x</span> }</pre>
+</td>
+</tr>
+</table>
+
+<p>This looks like a very reasonable law to require for any sequence or list-like computation.
+So, if you have a list-like computation, then this is the right syntax to use. For example,
+<a href="http://www.haskell.org/haskellwiki/MonadPlus">asynchronous sequences</a> use it too.</p>
+
+<p>However, what if we have a computation where the above law does not hold?</p>
+
+<h3>Imperative computations</h3>
+
+<p>Another example of additive monad are imperative computations 
+that I discussed in <a href="http://tomasp.net/blog/imperative-i-return.aspx/">earlier article on this blog</a>.
+The aim is to let you write computations that are similar to C-like imperative control flow
+with <code>return</code>, <code>break</code> and <code>continue</code> keywords. The following is a simple example of using
+the imperative-style <code>return</code> - assuming we have a list of <code>blockedWords</code>, we  want to 
+return <code>true</code> when the given message contains any word.</p>
+
+<p>Of course, this could easily be written using a built-in function like <code>List.exists</code>, but that's 
+not the point - the point is that we can define computation expression that closely models 
+the C-like syntax and could be used to define more complex computations and implement
+more complex behaviours:</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip">
+<span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+</pre>
+</td>
+<td class="snippet"><pre class="fssnip">
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs11', 32)" onmouseover="showTip(event, 'fs11', 32)" class="i">blockMessage</span> (<span onmouseout="hideTip(event, 'fs12', 33)" onmouseover="showTip(event, 'fs12', 33)" class="i">msg</span><span class="o">:</span><span onmouseout="hideTip(event, 'fs13', 34)" onmouseover="showTip(event, 'fs13', 34)" class="i">string</span>) <span class="o">=</span> <span onmouseout="hideTip(event, 'fs14', 35)" onmouseover="showTip(event, 'fs14', 35)" class="i">imperative</span> {
+  <span class="k">for</span> <span onmouseout="hideTip(event, 'fs15', 36)" onmouseover="showTip(event, 'fs15', 36)" class="i">word</span> <span class="k">in</span> <span onmouseout="hideTip(event, 'fs16', 37)" onmouseover="showTip(event, 'fs16', 37)" class="i">blockedWords</span> <span class="k">do</span>
+    <span class="k">if</span> <span onmouseout="hideTip(event, 'fs12', 38)" onmouseover="showTip(event, 'fs12', 38)" class="i">msg</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs17', 39)" onmouseover="showTip(event, 'fs17', 39)" class="i">Contains</span>(<span onmouseout="hideTip(event, 'fs15', 40)" onmouseover="showTip(event, 'fs15', 40)" class="i">word</span>) <span class="k">then</span> <span class="k">return</span> <span class="k">true</span>
+  <span class="k">return</span> <span class="k">false</span> }</pre>
+</td>
+</tr>
+</table>
+
+<p>Again, the syntax and the semantics is determined by the <code>imperative</code> object. You can 
+find the details of the implementation in the <a href="http://tomasp.net/blog/imperative-i-return.aspx/">blog post mentioned earlier</a>.
+The key thing is that the object determines that we want to use the <code>return</code> keyword
+for the <em>return</em> operation of the monad.</p>
+
+<p>The <code>for</code> loop used here is just an ordinary
+loop that iterates over sequence - it is defined in terms of standard iteration over
+lists and the <em>bind</em> operation of the monad. This is an example of the flexibility
+of computation expressions - because they are used with <em>specific</em> computations, it makes
+sense to design them so that they give us the most intuitive syntax (here, resembling
+C-like imperative computations).</p>
+
+<p>Interestingly, imperative computations do not obey the <em>left distribution</em> law that worked
+for sequences, but instead, they obey the <a href="http://www.haskell.org/haskellwiki/MonadPlus"><em>left catch</em> law</a>.
+The law statest that the following two computations are equivalent:</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip">
+<span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
+</pre>
+</td>
+<td class="snippet"><pre class="fssnip">
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs18', 41)" onmouseover="showTip(event, 'fs18', 41)" class="i">left</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs14', 42)" onmouseover="showTip(event, 'fs14', 42)" class="i">imperative</span> {
+  <span class="k">return</span> <span class="n">0</span>
+  <span onmouseout="hideTip(event, 'fs19', 43)" onmouseover="showTip(event, 'fs19', 43)" class="i">printfn</span> <span class="s">&quot;</span><span class="s">Unreachable</span><span class="s">!</span><span class="s">&quot;</span> }
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs20', 44)" onmouseover="showTip(event, 'fs20', 44)" class="i">right</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs14', 45)" onmouseover="showTip(event, 'fs14', 45)" class="i">imperative</span> {
+  <span class="k">return</span> <span class="n">0</span> }</pre>
+</td>
+</tr>
+</table>
+
+<p>In the original formulation of the law, the expression following <code>return 0</code> in the left
+expression can be anything - but calling <code>printfn</code> is completely sufficient for this
+quick overview.</p>
+
+<p>It is not surprising that the law holds for imperative computations. So again, the law
+nicely accompanies the syntax that we have chosen when defining the imperative computation
+builder (the <code>imperative</code> value). If we used the <code>yield</code> keyword in this example, or
+if we used <code>return</code> in the previous one (sequences), then there would be a mismatch between
+the syntax and the laws.</p>
+
+<h2>Summary</h2>
+
+<p>This blog post is a quick (and over-simplified) overview of what you can find in our
+paper <a href="http://tomasp.net/academic/papers/computation-zoo/">The F# Computation Expression Zoo</a>
+that has been accepted at the PADL workshop 2014.</p>
+
+<p>I tried to give two simple examples that demonstrate the main points:</p>
+
+<ul>
+<li><p><strong>Syntax matters</strong> - computation expressions aim to match with built-in language features
+like Python generators and so the ability to choose the right syntax is crucial. However,
+this is done without full support for macros. While macros can achieve this too, they tend
+to be too powerful.</p></li>
+<li><p><strong>Expressivity</strong> - the author of a computation should be able to decide how the computation
+looks and define more operations (e.g. to support multiple <code>yield</code> constructs) if the
+computation type allows this.</p></li>
+</ul>
+
+<p>Another point of this article is to show that computation expressions are not, in fact, 
+just an <em>"enterprise-y name for monad"</em>. Firstly, they are based on quite different principles 
+and, secondly, they can capture wider range of computations (including additive monads and
+monad transformers) and <em>leverage</em> the additional operations available in these computations.</p>
+
+<p>The slogan of the last feature could be <strong>require less, leverage more</strong>. In the research 
+extension available on <a href="http://tryjoinads.org">TryJoinads.org</a>, you can use computation 
+expressions even if you have <em>just</em> applicative functor. But if you have more - say, a monad
+or even additive monad - then the additional structure enables more syntactic options and so
+you do not need to resort to explicit use of combinators as often.</p>
+
+<div class="tip" id="fs1">val duplicate : input:seq&lt;&#39;a&gt; -&gt; seq&lt;&#39;a&gt;<br /><br />Full name: Computation-zoo-padl_.duplicate</div>
+<div class="tip" id="fs2">val input : seq&lt;&#39;a&gt;</div>
+<div class="tip" id="fs3">Multiple items<br />val seq : sequence:seq&lt;&#39;T&gt; -&gt; seq&lt;&#39;T&gt;<br /><br />Full name: Microsoft.FSharp.Core.Operators.seq<br /><br />--------------------<br />type seq&lt;&#39;T&gt; = IEnumerable&lt;&#39;T&gt;<br /><br />Full name: Microsoft.FSharp.Collections.seq&lt;_&gt;</div>
+<div class="tip" id="fs4">val num : &#39;a</div>
+<div class="tip" id="fs5">val left : in1:seq&lt;&#39;a&gt; -&gt; in2:seq&lt;&#39;a&gt; -&gt; f:(&#39;a -&gt; #seq&lt;&#39;c&gt;) -&gt; seq&lt;&#39;c&gt;<br /><br />Full name: Computation-zoo-padl_.left</div>
+<div class="tip" id="fs6">val in1 : seq&lt;&#39;a&gt;</div>
+<div class="tip" id="fs7">val in2 : seq&lt;&#39;a&gt;</div>
+<div class="tip" id="fs8">val f : (&#39;a -&gt; #seq&lt;&#39;c&gt;)</div>
+<div class="tip" id="fs9">val x : &#39;a</div>
+<div class="tip" id="fs10">val right : in1:seq&lt;&#39;a&gt; -&gt; in2:seq&lt;&#39;a&gt; -&gt; f:(&#39;a -&gt; #seq&lt;&#39;c&gt;) -&gt; seq&lt;&#39;c&gt;<br /><br />Full name: Computation-zoo-padl_.right</div>
+<div class="tip" id="fs11">val blockMessage : msg:string -&gt; bool<br /><br />Full name: Computation-zoo-padl_.blockMessage</div>
+<div class="tip" id="fs12">val msg : string</div>
+<div class="tip" id="fs13">Multiple items<br />val string : value:&#39;T -&gt; string<br /><br />Full name: Microsoft.FSharp.Core.Operators.string<br /><br />--------------------<br />type string = String<br /><br />Full name: Microsoft.FSharp.Core.string</div>
+<div class="tip" id="fs14">val imperative : ImperativeBuilder<br /><br />Full name: Computation-zoo-padl_.imperative</div>
+<div class="tip" id="fs15">val word : string</div>
+<div class="tip" id="fs16">val blockedWords : string list<br /><br />Full name: Computation-zoo-padl_.blockedWords</div>
+<div class="tip" id="fs17">String.Contains(value: string) : bool</div>
+<div class="tip" id="fs18">val left : int<br /><br />Full name: Computation-zoo-padl_.left</div>
+<div class="tip" id="fs19">val printfn : format:Printf.TextWriterFormat&lt;&#39;T&gt; -&gt; &#39;T<br /><br />Full name: Microsoft.FSharp.Core.ExtraTopLevelOperators.printfn</div>
+<div class="tip" id="fs20">val right : int<br /><br />Full name: Computation-zoo-padl_.right</div>
+
+
+<div class="row">
+  <div class="small-6 columns"><p class="post-discuss">
+		Discuss <a href="http://twitter.com/tomaspetricek">on Twitter</a> or <script type="text/javascript" src="http://www.reddit.com/buttonlite.js?i=0"></script>.<br />
+		Send corrections via <a href="https://github.com/tpetricek/TomaspNet.Website">GitHub pull requests</a>.
+	</p></div>
+  <div class="small-6 columns">
+
+<!-- AddThis Button BEGIN -->
+<div class="addthis_toolbox addthis_default_style addthis_16x16_style">
+<a class="addthis_button_twitter"></a>
+<a class="addthis_button_reddit"></a>
+<a class="addthis_button_google_plusone_share"></a>
+<a class="addthis_button_hackernews"></a>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_compact"></a><a class="addthis_counter addthis_bubble_style"></a>
+</div>
+<script type="text/javascript">var addthis_config = { "data_track_addressbar": false };</script>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-521c32162e6001a0"></script>
+<!-- AddThis Button END -->
+
+<p class="post-meta">
+  <span><strong>Published</strong>: Friday, 8 November 2013, 1:42 AM</span><br />      
+  <span class="tags"><strong>Tags</strong>: haskell, research, f#, functional programming</span>
+</p>
+
+  </div>
+</div>
+
+    </content>
+
+  </div>
+  <div class="large-4 columns" id="right-bar">
+    <div class="right-item" id="right-calendar">
+<script type="text/javascript">
+  var monthNames =
+    ["January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December"];
+  var d = new Date();
+  var m = monthNames[d.getMonth()];
+  var y = d.getFullYear();
+  var ml = m.toLowerCase();
+  document.writeln("<h4>Calendar - " + m + " " + y + "</h4>");
+  document.writeln("<a href=\"http://tomasp.net/calendar/" + y + "/" + ml + ".html\">" +
+    "<img src=\"http://tomasp.net/calendar/" + y + "/" + ml + "-preview.jpg\" style=\"border-style:none;\" />" +
+    "</a>");
+</script> 
+<p>The calendar shows a new picture each month since 
+  <a href="http://tomasp.net/calendar/2005">2005</a>, <a href="http://tomasp.net/calendar/2006">2006</a>, 
+  <a href="http://tomasp.net/calendar/2007">2007</a>, <a href="http://tomasp.net/calendar/2008">2008</a>, 
+  <a href="http://tomasp.net/calendar/2009">2009</a>, <a href="http://tomasp.net/calendar/2010">2010</a>, 
+  <a href="http://tomasp.net/calendar/2011">2011</a>, <a href="http://tomasp.net/calendar/2012">2012</a>. <br />
+  See the first photos of <a href="http://tomasp.net/calendar/2013">2013</a>.
+</p>
+</div>
+
+    <h3>Welcome!</h3>
+    <img src="http://tomasp.net/img/tomas.jpg" alt="Tomas Petricek" style="float:right;margin:10px 0px 10px 10px;" />
+    <p>I'm an F# enthusiast, book author and a PhD student at the University of Cambridge.
+      When offline, I enjoy traveling and taking pictures. You can find me at
+      at <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a> or email 
+      <a href="mailto:tomas@tomasp.net">tomas@tomasp.net</a>.
+    </p>
+
+    <script type="text/javascript" src="http://tomasp.net/news/news.js"></script>
+    <h4>What's new? &#160; <small><script type="text/javascript">document.write(news.date)</script></small></h4>
+    <script>
+      document.write(news.info);
+    </script>
+
+    <h4>Trainings and consulting</h4>
+    <img src="http://tomasp.net/img/skillsmatter.png" alt="Tomas Petricek" style="float:right;margin:15px 0px 10px 10px;" />
+    <p>I run F# and functional programming courses in <strong>London</strong>
+      and <strong>New York</strong> with SkillsMatter.
+    </p>
+    <ul>
+      <li>Check out our <a href="http://skillsmatter.com/course/scala/tomas-petricek-phil-trelford-fast-track-to-fsharp/ps-6679">Fast Track to F#</a> course</li>
+      <li><a href="mailto:tomas@tomasp.net">Email me</a> for info about private trainings</li>
+    </ul>
+    
+    <h4>F# Books and articles</h4>
+    <div style="float:right;">
+      <a href="http://www.amazon.com/gp/product/1933988924/ref=as_li_tf_il?ie=UTF8&amp;tag=httptomasnet-20&amp;linkCode=as2&amp;camp=217145&amp;creative=399369&amp;creativeASIN=1933988924">
+        <img src="http://tomasp.net/img/rwfp.jpg" alt="Real World Functional Programming" style="float:right;margin:10px 0px 10px 10px;border-style:none;" />
+      </a>
+    </div>
+    <p><a href="http://www.manning.com/petricek">Real World Functional Programming</a> explains functional
+      concepts using F# and C#. You can get it from <a href="http://www.amazon.com/dp/1933988924?tag=httptomasnet-20&amp;camp=213381&amp;creative=390973&amp;linkCode=as4&amp;creativeASIN=1933988924&amp;adid=0F1DP260JGG4KY0CDGP6">Amazon.com</a>, <a href="https://www.amazon.co.uk/dp/1933988924?tag=tomasnet-21&amp;camp=1406&amp;creative=6394&amp;linkCode=as1&amp;creativeASIN=1933988924&amp;adid=1CTY87YCCQEJW965GNDF">Amazon.co.uk</a> or your favorite book store.
+      Some chapters and new materials are also available on <a href="http://msdn.microsoft.com/en-us/library/hh314518.aspx">MSDN</a>.</p>
+    
+    <p>Currently, I'm putting together <a href="http://www.manning.com/petricek2/">F# Deep Dives</a> - a collection
+      of practical F# essays written by community leaders and commercial users of F#.</p>
+    <p>I also wrote a series of tutorials on <a href="http://www.tryfsharp.org/Learn/financial-computing">financial computing</a>
+      for Try F# - an interactive environment that let's you try F# in the browser.</p>
+
+    <h4>Research and teaching</h4>
+    <img src="http://tomasp.net/img/cam.png" alt="University of Cambride" style="float:right;margin:25px 0px 10px 10px;" />
+    <p>I'm finishing PhD in computer science at the <a href="http://www.cl.cam.ac.uk/">University of Cambridge</a>.
+      I'm working on making better types for programs that run in rich context (like F# type providers, distributed 
+      prog&shy;ramming or data-flow). See <a href="http://www.cl.cam.ac.uk/~tp322/">my academic page</a> for
+      more.</p>
+
+    <h4>Blog tags</h4>
+    <p>
+
+      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(89),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(26),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(30),       <a href="http://tomasp.net/blog/tag/writing/">writing</a>&nbsp;(11),       <a href="http://tomasp.net/blog/tag/haskell/">haskell</a>&nbsp;(7),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/open-source/">open source</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/new-york/">new york</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/manning/">manning</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/books/">books</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fake/">fake</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/fsharp-formatting/">f# formatting</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/training/">training</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/deep-dives/">deep dives</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/async/">async</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/fsharp-data/">f# data</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/type-providers/">type providers</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/events/">events</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/trainings/">trainings</a>&nbsp;(1)    </p>
+
+  </div>
+</div>
+
+
+  <div class="row" id="footer">
+  <footer>   
+    <div class="large-3 columns">
+      <h4>Contact &amp; about</h4>
+      <p>This site is hosted on GitHub and is generated using <a href="https://github.com/tpetricek/FSharp.Formatting">F# Formatting</a>.
+        For more info, see the <a href="https://github.com/tpetricek/TomaspNet.Website">website source on GitHub</a>.
+      </p>
+      <p>Please submit issues &amp; corrections on GitHub. Use pull requests for minor corrections only.</p>
+      <ul>
+        <li>Email me: <a href="mailto:tomas@tomasp.net">tomas@tomasp.net</a></li>
+        <li>Connect via Twitter: <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a></li>
+        <li>More: <a href="http://uk.linkedin.com/in/tomaspetricek">LinkedIn</a> | <a href="http://lanyrd.com/profile/tomasp/">Lanyrd</a> | <a href="https://github.com/tpetricek">GitHub</a></li>
+      </ul>
+    </div>
+    <div class="large-7 columns">
+    <h4>Blog archives <a href="http://tomasp.net/rss.xml"><img src="http://tomasp.net/img/rss.gif" /></a></h4>
+      <a href="http://tomasp.net/blog/archive/november-2013/index.html">
+        November 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/october-2013/index.html">
+        October 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/september-2013/index.html">
+        September 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/august-2013/index.html">
+        August 2013 (2)</a>,      <a href="http://tomasp.net/blog/archive/may-2013/index.html">
+        May 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/april-2013/index.html">
+        April 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/march-2013/index.html">
+        March 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/february-2013/index.html">
+        February 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/january-2013/index.html">
+        January 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/december-2012/index.html">
+        December 2012 (2)</a>,      <a href="http://tomasp.net/blog/archive/october-2012/index.html">
+        October 2012 (1)</a>,      <a href="http://tomasp.net/blog/archive/august-2012/index.html">
+        August 2012 (3)</a>,      <a href="http://tomasp.net/blog/archive/june-2012/index.html">
+        June 2012 (2)</a>,      <a href="http://tomasp.net/blog/archive/april-2012/index.html">
+        April 2012 (1)</a>,      <a href="http://tomasp.net/blog/archive/march-2012/index.html">
+        March 2012 (4)</a>,      <a href="http://tomasp.net/blog/archive/february-2012/index.html">
+        February 2012 (5)</a>,      <a href="http://tomasp.net/blog/archive/january-2012/index.html">
+        January 2012 (2)</a>,      <a href="http://tomasp.net/blog/archive/november-2011/index.html">
+        November 2011 (5)</a>,      <a href="http://tomasp.net/blog/archive/august-2011/index.html">
+        August 2011 (3)</a>,      <a href="http://tomasp.net/blog/archive/july-2011/index.html">
+        July 2011 (2)</a>,      <a href="http://tomasp.net/blog/archive/june-2011/index.html">
+        June 2011 (2)</a>,      <a href="http://tomasp.net/blog/archive/may-2011/index.html">
+        May 2011 (2)</a>,      <a href="http://tomasp.net/blog/archive/march-2011/index.html">
+        March 2011 (4)</a>,      <a href="http://tomasp.net/blog/archive/december-2010/index.html">
+        December 2010 (1)</a>,      <a href="http://tomasp.net/blog/archive/november-2010/index.html">
+        November 2010 (6)</a>,      <a href="http://tomasp.net/blog/archive/october-2010/index.html">
+        October 2010 (6)</a>,      <a href="http://tomasp.net/blog/archive/september-2010/index.html">
+        September 2010 (4)</a>,      <a href="http://tomasp.net/blog/archive/july-2010/index.html">
+        July 2010 (3)</a>,      <a href="http://tomasp.net/blog/archive/june-2010/index.html">
+        June 2010 (2)</a>,      <a href="http://tomasp.net/blog/archive/may-2010/index.html">
+        May 2010 (1)</a>,      <a href="http://tomasp.net/blog/archive/february-2010/index.html">
+        February 2010 (2)</a>,      <a href="http://tomasp.net/blog/archive/january-2010/index.html">
+        January 2010 (3)</a>,      <a href="http://tomasp.net/blog/archive/december-2009/index.html">
+        December 2009 (3)</a>,      <a href="http://tomasp.net/blog/archive/july-2009/index.html">
+        July 2009 (1)</a>,      <a href="http://tomasp.net/blog/archive/june-2009/index.html">
+        June 2009 (3)</a>,      <a href="http://tomasp.net/blog/archive/may-2009/index.html">
+        May 2009 (2)</a>,      <a href="http://tomasp.net/blog/archive/april-2009/index.html">
+        April 2009 (1)</a>,      <a href="http://tomasp.net/blog/archive/march-2009/index.html">
+        March 2009 (2)</a>,      <a href="http://tomasp.net/blog/archive/february-2009/index.html">
+        February 2009 (1)</a>,      <a href="http://tomasp.net/blog/archive/december-2008/index.html">
+        December 2008 (1)</a>,      <a href="http://tomasp.net/blog/archive/november-2008/index.html">
+        November 2008 (5)</a>,      <a href="http://tomasp.net/blog/archive/october-2008/index.html">
+        October 2008 (1)</a>,      <a href="http://tomasp.net/blog/archive/september-2008/index.html">
+        September 2008 (1)</a>,      <a href="http://tomasp.net/blog/archive/june-2008/index.html">
+        June 2008 (1)</a>,      <a href="http://tomasp.net/blog/archive/march-2008/index.html">
+        March 2008 (3)</a>,      <a href="http://tomasp.net/blog/archive/february-2008/index.html">
+        February 2008 (1)</a>,      <a href="http://tomasp.net/blog/archive/december-2007/index.html">
+        December 2007 (2)</a>,      <a href="http://tomasp.net/blog/archive/november-2007/index.html">
+        November 2007 (6)</a>,      <a href="http://tomasp.net/blog/archive/october-2007/index.html">
+        October 2007 (1)</a>,      <a href="http://tomasp.net/blog/archive/september-2007/index.html">
+        September 2007 (1)</a>,      <a href="http://tomasp.net/blog/archive/august-2007/index.html">
+        August 2007 (1)</a>,      <a href="http://tomasp.net/blog/archive/july-2007/index.html">
+        July 2007 (2)</a>,      <a href="http://tomasp.net/blog/archive/april-2007/index.html">
+        April 2007 (2)</a>,      <a href="http://tomasp.net/blog/archive/march-2007/index.html">
+        March 2007 (3)</a>,      <a href="http://tomasp.net/blog/archive/february-2007/index.html">
+        February 2007 (3)</a>,      <a href="http://tomasp.net/blog/archive/january-2007/index.html">
+        January 2007 (2)</a>,      <a href="http://tomasp.net/blog/archive/november-2006/index.html">
+        November 2006 (1)</a>,      <a href="http://tomasp.net/blog/archive/october-2006/index.html">
+        October 2006 (3)</a>,      <a href="http://tomasp.net/blog/archive/august-2006/index.html">
+        August 2006 (2)</a>,      <a href="http://tomasp.net/blog/archive/july-2006/index.html">
+        July 2006 (1)</a>,      <a href="http://tomasp.net/blog/archive/june-2006/index.html">
+        June 2006 (3)</a>,      <a href="http://tomasp.net/blog/archive/may-2006/index.html">
+        May 2006 (2)</a>,      <a href="http://tomasp.net/blog/archive/april-2006/index.html">
+        April 2006 (2)</a>,      <a href="http://tomasp.net/blog/archive/december-2005/index.html">
+        December 2005 (1)</a>,      <a href="http://tomasp.net/blog/archive/july-2005/index.html">
+        July 2005 (4)</a>,      <a href="http://tomasp.net/blog/archive/june-2005/index.html">
+        June 2005 (5)</a>,      <a href="http://tomasp.net/blog/archive/may-2005/index.html">
+        May 2005 (1)</a>,      <a href="http://tomasp.net/blog/archive/april-2005/index.html">
+        April 2005 (3)</a>,      <a href="http://tomasp.net/blog/archive/march-2005/index.html">
+        March 2005 (3)</a>,      <a href="http://tomasp.net/blog/archive/january-2005/index.html">
+        January 2005 (1)</a>,      <a href="http://tomasp.net/blog/archive/december-2004/index.html">
+        December 2004 (3)</a>,      <a href="http://tomasp.net/blog/archive/november-2004/index.html">
+        November 2004 (2)</a>,    </div>
+    <div class="large-2 columns">
+      <h4>License</h4>
+      <p>Unless explicitly mentioned, all articles on this site are licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution Share Alike</a>. 
+        All source code samples are licensed under Apache 2.0.
+      </p>
+      <img src="http://tomasp.net/img/cc-sa.png" alt="CC License logo" />
+    </div>
+  </footer>
+  </div>
+  
+  <script>
+  document.write('<script src=' +
+  ('__proto__' in {} ? 'http://tomasp.net/js/vendor/zepto' : 'http://tomasp.net/js/vendor/jquery') +
+  '.js><\/script>')
+  </script>
+  
+  <script src="http://tomasp.net/js/foundation.min.js"></script>
+  <script>
+    $(document).foundation();
+  </script>
+  <script type="text/javascript">
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-1561220-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function () {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+
+  </script>
+  <script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
+</body>
+</html>

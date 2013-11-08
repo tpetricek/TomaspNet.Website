@@ -4,6 +4,26 @@
     <link>http://tomasp.net</link>
     <description>Writing about software development in F# and .NET, sharing materials from my F# trainings and talks, writing about programming language research and theory.</description>
     <item>
+      <title>The F# Computation Expression Zoo (PADL'14)</title>
+      <guid>http://tomasp.net/blog/2013/computation-zoo-padl</guid>
+      <link>http://tomasp.net/blog/2013/computation-zoo-padl/index.html</link>
+      <pubDate>Fri, 08 Nov 2013 06:42:56 GMT</pubDate>
+      <description>&lt;p&gt;F# &lt;a href="http://msdn.microsoft.com/en-us/library/dd233182.aspx"&gt;computation expressions&lt;/a&gt; are the 
+syntactic language mechanism that is used by features like sequence expressions and asynchronous
+workflows. The aim of F# computation expressions is to provide a &lt;em&gt;single&lt;/em&gt; syntactic mechanism
+that provides convenient notation for writing a wide range of computations.&lt;/p&gt;
+
+&lt;p&gt;The syntactic mechanisms that are unified by computation expressions include Haskell &lt;code&gt;do&lt;/code&gt; 
+notation and list comprehensions, C# iterators, asynchronous methods and LINQ queries,
+Scala &lt;code&gt;for&lt;/code&gt; comprehensions and Python generators to name just a few.&lt;/p&gt;
+
+&lt;p&gt;Some time ago, I started working on an academic article to explain what makes computation
+expressions unique - and I think there is quite a few interesting aspects. Sadly, this is 
+often not very well explained and so the general preception is more like this...&lt;/p&gt;
+
+</description>
+    </item>
+    <item>
       <title>Building great open-source libraries</title>
       <guid>http://tomasp.net/blog/2013/great-open-source</guid>
       <link>http://tomasp.net/blog/2013/great-open-source/index.html</link>
@@ -533,30 +553,6 @@ of using the syntax, because these can be &lt;a href="http://tomasp.net/blog/joi
 &lt;p&gt;&lt;em&gt;&lt;strong&gt;Note:&lt;/strong&gt; This blog post is a re-publication of a tutorial from the &lt;a href="http://tryjoinads.org"&gt;TryJoinads.org&lt;/a&gt;
 web page. If you read the article there, you can run the examples interactively
 and experiment with them: &lt;a href="http://tryjoinads.org/index.html?implement/async.html"&gt;view the article on TryJoinads&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
-</description>
-    </item>
-    <item>
-      <title>TryJoinads (VI.) - Parsing with joinads</title>
-      <guid>http://tomasp.net/blog/joinads-parsing.aspx</guid>
-      <link>http://tomasp.net/blog/joinads-parsing.aspx/index.html</link>
-      <pubDate>Wed, 21 Mar 2012 20:27:06 GMT</pubDate>
-      <description>&lt;p&gt;In functional programming, parser combinators are a powerful way of writing parsers. 
-A parser is a function that, given some input, returns possible parsed values and 
-the rest of the input. Parsers can be written using combinators for composition, for
-example run two parsers in sequence or perform one parser any number of times.&lt;/p&gt;
-
-&lt;p&gt;Parsers can also implement the monad structure. In some cases, this makes the parser
-less efficient, but it is an elegant way of composing parsers and we can also benefit
-from the syntactic support for monads. In this article, we implement a simple parser
-combinators for F# and we look what additional expressive power we can get from the
-&lt;em&gt;joinad&lt;/em&gt; structure and &lt;code&gt;match!&lt;/code&gt; construct. This article is largely based on a
-previous article &lt;em&gt;"Fun with Parallel Monad Comprehensions"&lt;/em&gt;, which can be found on the
-&lt;a href="../pubs.html"&gt;publications&lt;/a&gt; page.&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;&lt;strong&gt;Note:&lt;/strong&gt; This blog post is a re-publication of a tutorial from the &lt;a href="http://tryjoinads.org"&gt;TryJoinads.org&lt;/a&gt;
-web page. If you read the article there, you can run the examples interactively
-and experiment with them: &lt;a href="http://tryjoinads.org/index.html?implement/parsers.html"&gt;view the article on TryJoinads&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
-
 </description>
     </item>
   </channel>

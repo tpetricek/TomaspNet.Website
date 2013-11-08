@@ -350,8 +350,6 @@ not talk about, because the custom constructs can also implement operations that
 resemble grouping or joining. But I'll leave that for another article!
 *)
 
-(***************************************************************************************)
-
 (*** define:final-example ***)
 tree { for x in sample do
        left 

@@ -326,7 +326,10 @@ h2.first {
   text-align:left;
   font-style:italic;
 }
-.main-content p.post-discuss a  {
+.main-content p.post-discuss span  {
+   color:#222222 !important;
+}
+.main-content p.post-discuss span a  {
    color:#2ba6cb !important;
 }
 .main-content p.post-meta {

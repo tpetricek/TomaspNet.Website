@@ -66,6 +66,7 @@ the poster asked about the difference between <em>tupled</em> and <em>curried</e
 In F#, you can use pattern matching to easily define a function that takes a tuple as an argument.
 For example, the poster's function was a simple calculation that multiplies the number 
 of units sold <em>n</em> by the price <em>p</em>:</p>
+
 <table class="pre"><tr><td class="lines"><pre class="fssnip">
 <span class="l">1: </span>
 </pre>
@@ -74,9 +75,12 @@ of units sold <em>n</em> by the price <em>p</em>:</p>
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs1', 1)" onmouseover="showTip(event, 'fs1', 1)" class="i">salesTuple</span> (<span onmouseout="hideTip(event, 'fs2', 2)" onmouseover="showTip(event, 'fs2', 2)" class="i">price</span>, <span onmouseout="hideTip(event, 'fs3', 3)" onmouseover="showTip(event, 'fs3', 3)" class="i">count</span>) <span class="o">=</span> <span onmouseout="hideTip(event, 'fs2', 4)" onmouseover="showTip(event, 'fs2', 4)" class="i">price</span> <span class="o">*</span> (<span onmouseout="hideTip(event, 'fs4', 5)" onmouseover="showTip(event, 'fs4', 5)" class="i">float</span> <span onmouseout="hideTip(event, 'fs3', 6)" onmouseover="showTip(event, 'fs3', 6)" class="i">count</span>)</pre>
 </td>
 </tr>
-</table><p>The function takes a single argument of type <code>Tuple&lt;float, int&gt;</code> (or, using the nicer F# notation
+</table>
+
+<p>The function takes a single argument of type <code>Tuple&lt;float, int&gt;</code> (or, using the nicer F# notation
 <code>float * int</code>) and immediately decomposes it into two variables, <code>price</code> and <code>count</code>. The other
 alternative is to write a function in the <em>curried</em> form:</p>
+
 <table class="pre"><tr><td class="lines"><pre class="fssnip">
 <span class="l">1: </span>
 </pre>
@@ -85,7 +89,9 @@ alternative is to write a function in the <em>curried</em> form:</p>
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs5', 7)" onmouseover="showTip(event, 'fs5', 7)" class="i">salesCurried</span> <span onmouseout="hideTip(event, 'fs2', 8)" onmouseover="showTip(event, 'fs2', 8)" class="i">price</span> <span onmouseout="hideTip(event, 'fs3', 9)" onmouseover="showTip(event, 'fs3', 9)" class="i">count</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs2', 10)" onmouseover="showTip(event, 'fs2', 10)" class="i">price</span> <span class="o">*</span> (<span onmouseout="hideTip(event, 'fs4', 11)" onmouseover="showTip(event, 'fs4', 11)" class="i">float</span> <span onmouseout="hideTip(event, 'fs3', 12)" onmouseover="showTip(event, 'fs3', 12)" class="i">count</span>)</pre>
 </td>
 </tr>
-</table><p>Here, we get a function of type <code>float -&gt; int -&gt; float</code>. Usually, you can read this just as a 
+</table>
+
+<p>Here, we get a function of type <code>float -&gt; int -&gt; float</code>. Usually, you can read this just as a 
 function that takes <code>float</code> and <code>int</code> and returns <code>float</code>. However, you can also use <em>partial
 function application</em> and call the function with just a single argument - if the price of
 an apple is $1.20, we can write <code>salesCurried 1.20</code> to get a <em>new</em> function that takes just
@@ -110,6 +116,7 @@ takes a range or 2D coordinates, it makes sense to use <code>float * float</code
 
 <p>This makes sense because you can then nicely compose multiple functions that work with 
 ranges. For example, let's say we have a function <code>normalizeRange</code> and <code>expandRange</code>:</p>
+
 <table class="pre"><tr><td class="lines"><pre class="fssnip">
 <span class="l">1: </span>
 <span class="l">2: </span>
@@ -126,7 +133,10 @@ ranges. For example, let's say we have a function <code>normalizeRange</code> an
   (<span onmouseout="hideTip(event, 'fs11', 26)" onmouseover="showTip(event, 'fs11', 26)" class="i">lo</span> <span class="o">-</span> <span onmouseout="hideTip(event, 'fs10', 27)" onmouseover="showTip(event, 'fs10', 27)" class="i">offset</span>, <span onmouseout="hideTip(event, 'fs12', 28)" onmouseover="showTip(event, 'fs12', 28)" class="i">hi</span> <span class="o">+</span> <span onmouseout="hideTip(event, 'fs10', 29)" onmouseover="showTip(event, 'fs10', 29)" class="i">offset</span>)</pre>
 </td>
 </tr>
-</table><p>Now we can easily write code that takes some range, normalizes it and expands it by 10:</p>
+</table>
+
+<p>Now we can easily write code that takes some range, normalizes it and expands it by 10:</p>
+
 <table class="pre"><tr><td class="lines"><pre class="fssnip">
 <span class="l">1: </span>
 <span class="l">2: </span>
@@ -137,7 +147,9 @@ ranges. For example, let's say we have a function <code>normalizeRange</code> an
 <span class="fsi">val it : int * int = (20, 60)</span></pre>
 </td>
 </tr>
-</table><p>So, if your tuple has some logical meaning, taking tuple as an argument leads to more 
+</table>
+
+<p>So, if your tuple has some logical meaning, taking tuple as an argument leads to more 
 composable code and makes it easier to understand. On the other hand, if there is no 
 logical connection, it is better to use the curried form - this makes it possible to 
 use partial function application.</p>
@@ -153,6 +165,7 @@ declaration).</p>
 to treat all .NET methods as functions that take a single tuple as the input and return
 some other type as the result. This is how .NET methods look when you call them from 
 F#:</p>
+
 <table class="pre"><tr><td class="lines"><pre class="fssnip">
 <span class="l">1: </span>
 </pre>
@@ -161,7 +174,9 @@ F#:</p>
 <span onmouseout="hideTip(event, 'fs13', 32)" onmouseover="showTip(event, 'fs13', 32)" class="i">Math</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs14', 33)" onmouseover="showTip(event, 'fs14', 33)" class="i">Round</span>(<span class="n">4.5</span>, <span onmouseout="hideTip(event, 'fs15', 34)" onmouseover="showTip(event, 'fs15', 34)" class="i">MidpointRounding</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs16', 35)" onmouseover="showTip(event, 'fs16', 35)" class="i">ToEven</span>) </pre>
 </td>
 </tr>
-</table><p>We do not usually think about this as a tuple - it is just a method call - but what if 
+</table>
+
+<p>We do not usually think about this as a tuple - it is just a method call - but what if 
 C# had (in <a href="http://visualstudio.uservoice.com/forums/121579-visual-studio/suggestions/2405699-build-list-dictionary-and-tuple-into-the-language">some future version</a>) 
 syntactic support for tuples and let you write <code>(42, "Hello world")</code> to create a tuple 
 value of type <code>Tuple&lt;int, string&gt;</code>?</p>
@@ -181,6 +196,7 @@ data structure.</p>
 <p>This is pretty easy analysis to do using F# Interactive. Let's first look at all the types
 in the current <code>AppDomain</code> (this uses assemblies that are loaded by default in F# - so 
 nothing fancy). We also only look at "mscorlib" and "System" assemblies:</p>
+
 <table class="pre"><tr><td class="lines"><pre class="fssnip">
 <span class="l"> 1: </span>
 <span class="l"> 2: </span>
@@ -209,10 +225,13 @@ nothing fancy). We also only look at "mscorlib" and "System" assemblies:</p>
 <span onmouseout="hideTip(event, 'fs19', 53)" onmouseover="showTip(event, 'fs19', 53)" class="i">types</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs28', 54)" onmouseover="showTip(event, 'fs28', 54)" class="i">Seq</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs29', 55)" onmouseover="showTip(event, 'fs29', 55)" class="i">length</span></pre>
 </td>
 </tr>
-</table><p>The code is a simple <em>sequence expression</em> that iterates over all assemblies and 
+</table>
+
+<p>The code is a simple <em>sequence expression</em> that iterates over all assemblies and 
 yields all types. On my machine, this gives us some 17000 types. Now, let's get a 
 list with all tuples - we'll iterate over all methods in each type and generate a 
 list with the names of parameter types. We skip all methods with less than 2 parameters:</p>
+
 <table class="pre"><tr><td class="lines"><pre class="fssnip">
 <span class="l"> 1: </span>
 <span class="l"> 2: </span>
@@ -245,10 +264,13 @@ list with the names of parameter types. We skip all methods with less than 2 par
 <span onmouseout="hideTip(event, 'fs30', 86)" onmouseover="showTip(event, 'fs30', 86)" class="i">tuples</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs28', 87)" onmouseover="showTip(event, 'fs28', 87)" class="i">Seq</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs29', 88)" onmouseover="showTip(event, 'fs29', 88)" class="i">length</span></pre>
 </td>
 </tr>
-</table><p>So, on my machine there are 16463 methods in .NET that take some tuple as an argument.
+</table>
+
+<p>So, on my machine there are 16463 methods in .NET that take some tuple as an argument.
 Now, the question is, how many of them are used repeatedly? We can easily group the 
 tuples by the list of strings (F# implements structural comparison, so this is easy to do),
 calculate the counts for each group and sort the results:</p>
+
 <table class="pre"><tr><td class="lines"><pre class="fssnip">
 <span class="l">1: </span>
 <span class="l">2: </span>
@@ -269,7 +291,9 @@ calculate the counts for each group and sort the results:</p>
   <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs50', 107)" onmouseover="showTip(event, 'fs50', 107)" class="i">Array</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs57', 108)" onmouseover="showTip(event, 'fs57', 108)" class="i">rev</span></pre>
 </td>
 </tr>
-</table><h2>Most common tuples in .NET</h2>
+</table>
+
+<h2>Most common tuples in .NET</h2>
 
 <p>If we run <code>Seq.length counts</code>, we get 5805 as the result. This means that there are 5 thousand
 distinct tuples (among roughly 15 thousand different methods). That certainly does not look like
@@ -296,6 +320,7 @@ use this type. Good old untyped collections from the .NET 1.0 days!</li>
 is the distribution? Let's use <a href="http://fsharp.github.io/FSharp.Charting/">the FSharp.Charting</a>
 library to draw a quick chart that draws a column chart plotting the counts for every single
 of the 5000 tuple types:</p>
+
 <table class="pre"><tr><td class="lines"><pre class="fssnip">
 <span class="l">1: </span>
 <span class="l">2: </span>
@@ -310,7 +335,9 @@ of the 5000 tuple types:</p>
 <span onmouseout="hideTip(event, 'fs60', 111)" onmouseover="showTip(event, 'fs60', 111)" class="i">Chart</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs61', 112)" onmouseover="showTip(event, 'fs61', 112)" class="i">Column</span>(<span onmouseout="hideTip(event, 'fs28', 113)" onmouseover="showTip(event, 'fs28', 113)" class="i">Seq</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs62', 114)" onmouseover="showTip(event, 'fs62', 114)" class="i">map</span> <span onmouseout="hideTip(event, 'fs56', 115)" onmouseover="showTip(event, 'fs56', 115)" class="i">snd</span> <span onmouseout="hideTip(event, 'fs47', 116)" onmouseover="showTip(event, 'fs47', 116)" class="i">counts</span>)<span class="o">.</span><span class="i">WithYAxis</span>(<span class="i">Log</span><span class="o">=</span><span class="k">true</span>)</pre>
 </td>
 </tr>
-</table><p>If you create a chart using just <code>Chart.Column</code>, then you will not see very much - the number
+</table>
+
+<p>If you create a chart using just <code>Chart.Column</code>, then you will not see very much - the number
 of counts drops very quickly from the high numbers that we've seen for the first 10 types. 
 But if we make the Y scale logarithmic (a good way to create misleading charts!) then we
 can actually see something:</p>
@@ -324,6 +351,7 @@ can actually see something:</p>
 is definitely not precise, but let's say that tuples which are used more than 10 times 
 are useful and those that are used more than 3 times are possibly useful. We can then
 easily draw a chart showing the proportions:</p>
+
 <table class="pre"><tr><td class="lines"><pre class="fssnip">
 <span class="l">1: </span>
 <span class="l">2: </span>
@@ -342,7 +370,9 @@ easily draw a chart showing the proportions:</p>
 <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs60', 124)" onmouseover="showTip(event, 'fs60', 124)" class="i">Chart</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs65', 125)" onmouseover="showTip(event, 'fs65', 125)" class="i">Doughnut</span></pre>
 </td>
 </tr>
-</table><p>This snippet gives us the following nice chart (I tweaked the look a bit - a nice feature
+</table>
+
+<p>This snippet gives us the following nice chart (I tweaked the look a bit - a nice feature
 of F# chart is that you can use <code>Ctrl+G</code> to open a property grid and change the fonts 
 rather than doing everything from code):</p>
 
@@ -445,7 +475,7 @@ think more carefuly about library design to make sure that you use tuples correc
 
 <div class="row">
   <div class="small-6 columns"><p class="post-discuss">
-		Discuss <a href="http://twitter.com/tomaspetricek">on Twitter</a> or <script type="text/javascript" src="http://www.reddit.com/buttonlite.js?i=0"></script>.<br />
+		Discuss <a href="http://twitter.com/tomaspetricek">on twitter</a>, <script type="text/javascript" src="http://www.reddit.com/buttonlite.js?i=0"></script>.<br />
 		Send corrections via <a href="https://github.com/tpetricek/TomaspNet.Website">GitHub pull requests</a>.
 	</p></div>
   <div class="small-6 columns">
@@ -547,7 +577,7 @@ think more carefuly about library design to make sure that you use tuples correc
     <h4>Blog tags</h4>
     <p>
 
-      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(88),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(30),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(25),       <a href="http://tomasp.net/blog/tag/writing/">writing</a>&nbsp;(11),       <a href="http://tomasp.net/blog/tag/open-source/">open source</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/haskell/">haskell</a>&nbsp;(6),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/new-york/">new york</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/manning/">manning</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/books/">books</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fake/">fake</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/fsharp-formatting/">f# formatting</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/training/">training</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/deep-dives/">deep dives</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/async/">async</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/fsharp-data/">f# data</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/type-providers/">type providers</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/events/">events</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/trainings/">trainings</a>&nbsp;(1)    </p>
+      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(89),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(26),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(30),       <a href="http://tomasp.net/blog/tag/writing/">writing</a>&nbsp;(11),       <a href="http://tomasp.net/blog/tag/haskell/">haskell</a>&nbsp;(7),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/open-source/">open source</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/new-york/">new york</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/manning/">manning</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/books/">books</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fake/">fake</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/fsharp-formatting/">f# formatting</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/training/">training</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/deep-dives/">deep dives</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/async/">async</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/fsharp-data/">f# data</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/type-providers/">type providers</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/events/">events</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/trainings/">trainings</a>&nbsp;(1)    </p>
 
   </div>
 </div>
@@ -569,7 +599,8 @@ think more carefuly about library design to make sure that you use tuples correc
     </div>
     <div class="large-7 columns">
     <h4>Blog archives <a href="http://tomasp.net/rss.xml"><img src="http://tomasp.net/img/rss.gif" /></a></h4>
-      <a href="http://tomasp.net/blog/archive/october-2013/index.html">
+      <a href="http://tomasp.net/blog/archive/november-2013/index.html">
+        November 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/october-2013/index.html">
         October 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/september-2013/index.html">
         September 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/august-2013/index.html">
         August 2013 (2)</a>,      <a href="http://tomasp.net/blog/archive/may-2013/index.html">

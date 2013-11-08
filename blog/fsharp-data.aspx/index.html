@@ -113,6 +113,7 @@ This is something that I've been missing a lot when working with REST APIs from 
 </ul>
 
 <h2>F# Data Code Samples</h2>
+
 <p>I do not want to spend too much time demonstrating all the awesome features of the F# Data 
 library, but let me include just a few code snippets to demonstrate some interesting features.
 (You can find more in the <a href="http://fsharp.github.com/FSharp.Data/">documentation</a>).</p>
@@ -121,6 +122,7 @@ library, but let me include just a few code snippets to demonstrate some interes
 F# Data library using <code>#r</code> (in a project file, you would add reference as usual). I also 
 open two namespaces - <code>FSharp.Data</code> with the data-related API and <code>FSharp.Net</code> with a 
 helper type <code>Http</code> for making HTTP requests:</p>
+
 <table class="pre"><tr><td class="lines"><pre class="fssnip">
 <span class="l">1: </span>
 <span class="l">2: </span>
@@ -133,7 +135,9 @@ helper type <code>Http</code> for making HTTP requests:</p>
 <span class="k">open</span> <span onmouseout="hideTip(event, 'fs1', 3)" onmouseover="showTip(event, 'fs1', 3)" class="i">FSharp</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs3', 4)" onmouseover="showTip(event, 'fs3', 4)" class="i">Net</span></pre>
 </td>
 </tr>
-</table><p>Now, let's quickly look at a number of examples that demonstrate the F# Data library.
+</table>
+
+<p>Now, let's quickly look at a number of examples that demonstrate the F# Data library.
 You cannot quite see that in static code sample on a blog, but note that all data access
 is done in a typed way. When you type <code>.</code>, you get a completion and if you make a typo,
 you'll get an instantaneous feedback about the error.</p>
@@ -143,6 +147,7 @@ you'll get an instantaneous feedback about the error.</p>
 <p>The <code>WorldBankData</code> type gives you access to the <a href="http://worldbank.org">World Bank</a> data
 set. For example, we can look at "Czech Republic" and get the government debt for the
 most recent year (using <code>Seq.maxBy</code> to get value for the most recent year available):</p>
+
 <table class="pre"><tr><td class="lines"><pre class="fssnip">
 <span class="l">1: </span>
 <span class="l">2: </span>
@@ -155,11 +160,14 @@ most recent year (using <code>Seq.maxBy</code> to get value for the most recent 
 <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs8', 10)" onmouseover="showTip(event, 'fs8', 10)" class="i">Seq</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs9', 11)" onmouseover="showTip(event, 'fs9', 11)" class="i">maxBy</span> <span onmouseout="hideTip(event, 'fs10', 12)" onmouseover="showTip(event, 'fs10', 12)" class="i">fst</span></pre>
 </td>
 </tr>
-</table><h3>Geting religion list from Freebase</h3>
+</table>
+
+<h3>Geting religion list from Freebase</h3>
 
 <p>The <code>FreebaseData</code> type gives you access to <a href="http://freebase.com">Freebase</a>. You can just
 type <code>.</code> and explore the data sources available - for example, to look at a list of 
 religions and print first 10:</p>
+
 <table class="pre"><tr><td class="lines"><pre class="fssnip">
 <span class="l">1: </span>
 <span class="l">2: </span>
@@ -172,12 +180,15 @@ religions and print first 10:</p>
   <span onmouseout="hideTip(event, 'fs19', 23)" onmouseover="showTip(event, 'fs19', 23)" class="i">printfn</span> <span class="s">&quot;</span><span class="s">%</span><span class="s">s</span><span class="s">&quot;</span> <span onmouseout="hideTip(event, 'fs14', 24)" onmouseover="showTip(event, 'fs14', 24)" class="i">rel</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs20', 25)" onmouseover="showTip(event, 'fs20', 25)" class="i">Name</span></pre>
 </td>
 </tr>
-</table><h3>Parsing RSS news feed from BBC</h3>
+</table>
+
+<h3>Parsing RSS news feed from BBC</h3>
 
 <p>If you want to get news using RSS, you can use <code>XmlProvider</code>. All you need is a sample
 file or a string (marked as <code>Literal</code>) with the RSS data. Then you can pass this string
 or file to the provider as a static parameter and you'll get nice types for working with 
 RSS feeds. Here, we get news from BBC using the <code>Http.Request</code> helper:</p>
+
 <table class="pre"><tr><td class="lines"><pre class="fssnip">
 <span class="l">1: </span>
 <span class="l">2: </span>
@@ -198,13 +209,16 @@ RSS feeds. Here, we get news from BBC using the <code>Http.Request</code> helper
   <span onmouseout="hideTip(event, 'fs19', 45)" onmouseover="showTip(event, 'fs19', 45)" class="i">printfn</span> <span class="s">&quot;</span><span class="s"> </span><span class="s">-</span><span class="s"> </span><span class="s">%</span><span class="s">s</span><span class="s">&quot;</span> <span onmouseout="hideTip(event, 'fs32', 46)" onmouseover="showTip(event, 'fs32', 46)" class="i">item</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs34', 47)" onmouseover="showTip(event, 'fs34', 47)" class="i">Title</span></pre>
 </td>
 </tr>
-</table><h3>Geting stock prices from Yahoo CSV</h3>
+</table>
+
+<h3>Geting stock prices from Yahoo CSV</h3>
 
 <p>Working with CSV files is similar. The <code>CsvProvider</code> takes static parameter with sample 
 data (either as a file name or as actual data). Here, we use a file and we also specify 
 that we only want to use first 10 rows for the inference (for performance reasons). The
 provider infers column names and types. Here is how you calculate the average MSFT stock 
 price over the entire history:</p>
+
 <table class="pre"><tr><td class="lines"><pre class="fssnip">
 <span class="l">1: </span>
 <span class="l">2: </span>
@@ -217,13 +231,16 @@ price over the entire history:</p>
 <span onmouseout="hideTip(event, 'fs37', 53)" onmouseover="showTip(event, 'fs37', 53)" class="i">msft</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs39', 54)" onmouseover="showTip(event, 'fs39', 54)" class="i">Data</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs8', 55)" onmouseover="showTip(event, 'fs8', 55)" class="i">Seq</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs40', 56)" onmouseover="showTip(event, 'fs40', 56)" class="i">averageBy</span> (<span class="k">fun</span> <span onmouseout="hideTip(event, 'fs41', 57)" onmouseover="showTip(event, 'fs41', 57)" class="i">row</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs41', 58)" onmouseover="showTip(event, 'fs41', 58)" class="i">row</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs42', 59)" onmouseover="showTip(event, 'fs42', 59)" class="i">Open</span>)</pre>
 </td>
 </tr>
-</table><h3>Geting list of F# snippets using REST API</h3>
+</table>
+
+<h3>Geting list of F# snippets using REST API</h3>
 
 <p>For our last example, we'll use REST API provided by <a href="http://fssnip.net">F# Snippets</a>. The
 API returns a JSON data set containing information about snippets. We can easily use it by
 defining a string <code>Literal</code> with sample JSON and passing it to <code>JsonProvider</code>. To get the
 data, we use <code>Http.Request</code>, but this time we specify <code>Content-Type</code> header. Working
 with the results is, again, done in a nice typed way:</p>
+
 <table class="pre"><tr><td class="lines"><pre class="fssnip">
 <span class="l"> 1: </span>
 <span class="l"> 2: </span>
@@ -252,7 +269,9 @@ with the results is, again, done in a nice typed way:</p>
   <span onmouseout="hideTip(event, 'fs19', 75)" onmouseover="showTip(event, 'fs19', 75)" class="i">printfn</span> <span class="s">&quot;</span><span class="s"> </span><span class="s">-</span><span class="s"> </span><span class="s">%</span><span class="s">s</span><span class="s">&quot;</span> <span onmouseout="hideTip(event, 'fs50', 76)" onmouseover="showTip(event, 'fs50', 76)" class="i">snippet</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs51', 77)" onmouseover="showTip(event, 'fs51', 77)" class="i">Title</span></pre>
 </td>
 </tr>
-</table><h2>Summary</h2>
+</table>
+
+<h2>Summary</h2>
 
 <p>Although I started working on F# Data around christmas, this is the first blog
 post about it. The library had some time to develop and we fixed some of the most
@@ -328,7 +347,7 @@ with basic information about the library structure.</p>
 
 <div class="row">
   <div class="small-6 columns"><p class="post-discuss">
-		Discuss <a href="http://twitter.com/tomaspetricek">on Twitter</a> or <script type="text/javascript" src="http://www.reddit.com/buttonlite.js?i=0"></script>.<br />
+		Discuss <a href="http://twitter.com/tomaspetricek">on twitter</a>, <script type="text/javascript" src="http://www.reddit.com/buttonlite.js?i=0"></script>.<br />
 		Send corrections via <a href="https://github.com/tpetricek/TomaspNet.Website">GitHub pull requests</a>.
 	</p></div>
   <div class="small-6 columns">
@@ -430,7 +449,7 @@ with basic information about the library structure.</p>
     <h4>Blog tags</h4>
     <p>
 
-      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(88),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(30),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(25),       <a href="http://tomasp.net/blog/tag/writing/">writing</a>&nbsp;(11),       <a href="http://tomasp.net/blog/tag/open-source/">open source</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/haskell/">haskell</a>&nbsp;(6),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/new-york/">new york</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/manning/">manning</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/books/">books</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fake/">fake</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/fsharp-formatting/">f# formatting</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/training/">training</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/deep-dives/">deep dives</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/async/">async</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/fsharp-data/">f# data</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/type-providers/">type providers</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/events/">events</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/trainings/">trainings</a>&nbsp;(1)    </p>
+      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(89),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(26),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(30),       <a href="http://tomasp.net/blog/tag/writing/">writing</a>&nbsp;(11),       <a href="http://tomasp.net/blog/tag/haskell/">haskell</a>&nbsp;(7),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/open-source/">open source</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/new-york/">new york</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/manning/">manning</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/books/">books</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fake/">fake</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/fsharp-formatting/">f# formatting</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/training/">training</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/deep-dives/">deep dives</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/async/">async</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/fsharp-data/">f# data</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/type-providers/">type providers</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/events/">events</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/trainings/">trainings</a>&nbsp;(1)    </p>
 
   </div>
 </div>
@@ -452,7 +471,8 @@ with basic information about the library structure.</p>
     </div>
     <div class="large-7 columns">
     <h4>Blog archives <a href="http://tomasp.net/rss.xml"><img src="http://tomasp.net/img/rss.gif" /></a></h4>
-      <a href="http://tomasp.net/blog/archive/october-2013/index.html">
+      <a href="http://tomasp.net/blog/archive/november-2013/index.html">
+        November 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/october-2013/index.html">
         October 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/september-2013/index.html">
         September 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/august-2013/index.html">
         August 2013 (2)</a>,      <a href="http://tomasp.net/blog/archive/may-2013/index.html">

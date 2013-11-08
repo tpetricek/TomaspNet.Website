@@ -138,6 +138,7 @@ the actual compiler to colorize code. Aside from that, it also type-checks the c
 and extracts tooltip information that you'd see in MonoDevelop or Visual Studio.
 It is used on this blog too, so here is an example (hover over identifiers with
 mouse pointer to see tool tips):</p>
+
 <table class="pre"><tr><td class="lines"><pre class="fssnip">
 <span class="l">1: </span>
 <span class="l">2: </span>
@@ -154,7 +155,9 @@ mouse pointer to see tool tips):</p>
 <span onmouseout="hideTip(event, 'fs1', 5)" onmouseover="showTip(event, 'fs1', 5)" class="i">hello</span> <span class="s">&quot;</span><span class="s">Tomas</span><span class="s">&quot;</span></pre>
 </td>
 </tr>
-</table><p>For statically typed langauges with type inference, this is extremely useful. Just 
+</table>
+
+<p>For statically typed langauges with type inference, this is extremely useful. Just 
 remember when you were last looking at C# snippet using <code>var</code> and wondered what 
 the type of a variable is...</p>
 
@@ -208,6 +211,7 @@ notation lets you use full description as a test name. And third, you can setup 
 environment to make tests runnable really quickly from REPL.</p>
 
 <p>Let's look at a sample test for the XML type provder from <a href="https://github.com/fsharp/FSharp.Data">F# Data</a>:</p>
+
 <table class="pre"><tr><td class="lines"><pre class="fssnip">
 <span class="l"> 1: </span>
 <span class="l"> 2: </span>
@@ -254,7 +258,9 @@ environment to make tests runnable really quickly from REPL.</p>
     <span onmouseout="hideTip(event, 'fs12', 18)" onmouseover="showTip(event, 'fs12', 18)" class="i">firstPerson</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs14', 19)" onmouseover="showTip(event, 'fs14', 19)" class="i">Name</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs15', 20)" onmouseover="showTip(event, 'fs15', 20)" class="i">should</span> <span onmouseout="hideTip(event, 'fs16', 21)" onmouseover="showTip(event, 'fs16', 21)" class="i">equal</span> <span class="s">&quot;</span><span class="s">Jane</span><span class="s">&quot;</span></pre>
 </td>
 </tr>
-</table><p>The test is included in an <code>fs</code> file in a project that is compiled into a <code>dll</code> that can
+</table>
+
+<p>The test is included in an <code>fs</code> file in a project that is compiled into a <code>dll</code> that can
 be tested with standard NUnit test runners. However, the first 9 lines make the test also
 runnable in F# Interactive - you can select the entire source code and hit <code>Alt+Enter</code> to
 load the tests in F# Interactive and run them line-by-line, testing different inputs 
@@ -280,6 +286,7 @@ does not find any element, it means that all are smaller).</p>
 
 <p>FsCheck can easily verify that the property holds for randomly generated inputs (and it
 also generates inputs that cover corner cases):</p>
+
 <table class="pre"><tr><td class="lines"><pre class="fssnip">
 <span class="l">1: </span>
 <span class="l">2: </span>
@@ -300,7 +307,9 @@ also generates inputs that cover corner cases):</p>
     | <span onmouseout="hideTip(event, 'fs29', 44)" onmouseover="showTip(event, 'fs29', 44)" class="i">None</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs30', 45)" onmouseover="showTip(event, 'fs30', 45)" class="i">Seq</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs31', 46)" onmouseover="showTip(event, 'fs31', 46)" class="i">forall</span> (<span class="k">fun</span> <span onmouseout="hideTip(event, 'fs32', 47)" onmouseover="showTip(event, 'fs32', 47)" class="i">v</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs32', 48)" onmouseover="showTip(event, 'fs32', 48)" class="i">v</span> <span class="o">&lt;</span> <span onmouseout="hideTip(event, 'fs22', 49)" onmouseover="showTip(event, 'fs22', 49)" class="i">key</span>) <span onmouseout="hideTip(event, 'fs20', 50)" onmouseover="showTip(event, 'fs20', 50)" class="i">input</span> )</pre>
 </td>
 </tr>
-</table><p>The operation <code>Check.QuickThrowOnFailure</code> takes a function that specifies the predicate
+</table>
+
+<p>The operation <code>Check.QuickThrowOnFailure</code> takes a function that specifies the predicate
 and automatically generates 100 (or more) random inputs for <code>input</code> and <code>key</code>. 
 The above sample uses NUnit, but FsCheck also comes with xUnit integration that makes the 
 testing code even simpler (just write a function with the <code>Property</code> attribute).</p>
@@ -366,7 +375,7 @@ that can even be integrated with unit tests to make sure your documentation is c
 
 <div class="row">
   <div class="small-6 columns"><p class="post-discuss">
-		Discuss <a href="http://twitter.com/tomaspetricek">on Twitter</a> or <script type="text/javascript" src="http://www.reddit.com/buttonlite.js?i=0"></script>.<br />
+		Discuss <a href="http://twitter.com/tomaspetricek">on twitter</a>, <script type="text/javascript" src="http://www.reddit.com/buttonlite.js?i=0"></script>.<br />
 		Send corrections via <a href="https://github.com/tpetricek/TomaspNet.Website">GitHub pull requests</a>.
 	</p></div>
   <div class="small-6 columns">
@@ -468,7 +477,7 @@ that can even be integrated with unit tests to make sure your documentation is c
     <h4>Blog tags</h4>
     <p>
 
-      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(88),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(30),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(25),       <a href="http://tomasp.net/blog/tag/writing/">writing</a>&nbsp;(11),       <a href="http://tomasp.net/blog/tag/open-source/">open source</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/haskell/">haskell</a>&nbsp;(6),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/new-york/">new york</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/manning/">manning</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/books/">books</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fake/">fake</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/fsharp-formatting/">f# formatting</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/training/">training</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/deep-dives/">deep dives</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/async/">async</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/fsharp-data/">f# data</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/type-providers/">type providers</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/events/">events</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/trainings/">trainings</a>&nbsp;(1)    </p>
+      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(89),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(26),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(30),       <a href="http://tomasp.net/blog/tag/writing/">writing</a>&nbsp;(11),       <a href="http://tomasp.net/blog/tag/haskell/">haskell</a>&nbsp;(7),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/open-source/">open source</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/new-york/">new york</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/manning/">manning</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/books/">books</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fake/">fake</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/fsharp-formatting/">f# formatting</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/training/">training</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/deep-dives/">deep dives</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/async/">async</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/fsharp-data/">f# data</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/type-providers/">type providers</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/events/">events</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/trainings/">trainings</a>&nbsp;(1)    </p>
 
   </div>
 </div>
@@ -490,7 +499,8 @@ that can even be integrated with unit tests to make sure your documentation is c
     </div>
     <div class="large-7 columns">
     <h4>Blog archives <a href="http://tomasp.net/rss.xml"><img src="http://tomasp.net/img/rss.gif" /></a></h4>
-      <a href="http://tomasp.net/blog/archive/october-2013/index.html">
+      <a href="http://tomasp.net/blog/archive/november-2013/index.html">
+        November 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/october-2013/index.html">
         October 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/september-2013/index.html">
         September 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/august-2013/index.html">
         August 2013 (2)</a>,      <a href="http://tomasp.net/blog/archive/may-2013/index.html">

@@ -16,8 +16,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Content", "Content", "{9DF5
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Layouts", "Layouts", "{0706F2C2-636E-4740-A25F-DDB05C5AA555}"
 	ProjectSection(SolutionItems) = preProject
-		layouts\default.cshtml = layouts\default.cshtml
 		layouts\academic.cshtml = layouts\academic.cshtml
+		layouts\default.cshtml = layouts\default.cshtml
+		layouts\page.cshtml = layouts\page.cshtml
+		layouts\paper.cshtml = layouts\paper.cshtml
 		layouts\post.cshtml = layouts\post.cshtml
 	EndProjectSection
 EndProject

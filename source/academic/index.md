@@ -1,7 +1,8 @@
 ﻿@{ 
   Layout = "academic";
   Title = "Tomas Petricek @ University of Cambridge";
-  Description = "TBD!";
+  Description = "Tomas Petricek's research and teaching home page. Here you'll find" + 
+    " information about my current research interests, supervisions and recent publications.";
 }
 
 <div class="row academic">
@@ -29,9 +30,8 @@ scroll to [teaching & supervisions](#supervis).
 
 </div>
 <div class="large-5 columns main-content">
-
 <div id="acad-photo" style="margin-top:20px">
-<img src="img/photo.jpg" alt="Tomas Petricek" />
+<div><img src="@Model.Root/academic/img/photo.jpg" alt="Tomas Petricek" /></div>
 
 Connect via twitter: [@@tomaspetricek](http://twitter.com/tomaspetricek)  
 Email me at: [tomas.petricek@cl.cam.ac.uk](mailto:tomas.petricek@cl.cam.ac.uk)  
@@ -48,7 +48,10 @@ For more see my: [GitHub](https://github.com/tpetricek) | [LinkedIn](http://www.
 
 ### Theory of coeffects
 
-<img src="img/coeffects.png" title="Typing rule for coeffect systems" style="float:right;margin:5px 0px 5px 5px" />
+<div>
+<img src="@Model.Root/academic/img/coeffects.png" title="Typing rule for coeffect systems" 
+  style="float:right;margin:5px 0px 5px 5px" />
+</div>
 
 I believe that tracking what applications _require_ from the envirnoment in which they 
 run is perhaps more important than tracking how they _affect_ the envirnoment. 
@@ -58,15 +61,15 @@ application, the environment includes services called, resources, system capabil
 and so on. Yet, most existing research focuses on the second problem. Coeffects attempt 
 to provide the missing piece of the puzzle.
 
- * See [overview slides](talks/coeffects-highlevel.pdf) or [view online](http://reelapp.com/e38aae)
- * Read [ICALP'13 paper on coeffects](papers/coeffects/)
+ * See [overview slides](@Model.Root/academic/talks/coeffects-highlevel.pdf) or [view online](http://reelapp.com/e38aae)
+ * Read [ICALP'13 paper on coeffects](@Model.Root/academic/papers/coeffects/)
 
 </div>
 <div class="large-4 columns main-content">
 
 ### Data science
 
-<img src="img/fsdata.png" title="Accessing JSON with JSON type provider" style="float:right;margin:5px 0px 5px 5px" />
+<img src="@Model.Root/academic/img/fsdata.png" title="Accessing JSON with JSON type provider" style="float:right;margin:5px 0px 5px 5px" />
 
 Data science opens many interesting questions for programming languages. How do we make
 data easily accessible? How do we provide safety guarantees for code that is often very 
@@ -75,7 +78,7 @@ dynamic and interactive?
 I contributed to F# type providers which address accessing the data and some of my current
 work fits in the general "data science" theme.
 
- * [DDFP'13 paper](papers/inforich/) that I contributed to
+ * [DDFP'13 paper](@Model.Root/academic/papers/inforich/) that I contributed to
  * Watch my [video-lecture at Channel 9](http://channel9.msdn.com/posts/Tomas-Petricek-How-F-Learned-to-Stop-Worrying-and-Love-the-Data) 
  * Open-source [F# Data](http://fsharp.github.io/FSharp.Data/) &
    [Deedle](http://bluemountaincapital.github.io/Deedle)
@@ -85,7 +88,7 @@ work fits in the general "data science" theme.
 
 ### F# theory & practice
 
-<img src="img/match.png" title="Concurrent, parallel and reactive programming with joinads" style="float:right;margin:5px 0px 5px 5px" />
+<img src="@Model.Root/academic/img/match.png" title="Concurrent, parallel and reactive programming with joinads" style="float:right;margin:5px 0px 5px 5px" />
 
 I'm interested in bridging the gap between theory and practice in functional programming.
 I wrote a book Real-World Functional Programming that explains F# from a perspective of
@@ -94,8 +97,8 @@ I wrote a book Real-World Functional Programming that explains F# from a perspec
 I worked on _computation expressions_ in F#, both by developing the theory 
 (PADL'14) and by making them more relevant (Joinads).
 
- * Computation expressions [PADL'14 paper](papers/computation-zoo/)
- * [Try Joinads](http://www.tryjoinads.org) and [Haskell'11 paper](papers/docase/).
+ * Computation expressions [PADL'14 paper](@Model.Root/academic/papers/computation-zoo/)
+ * [Try Joinads](http://www.tryjoinads.org) and [Haskell'11 paper](@Model.Root/academic/papers/docase/).
  * [Real-World Functional Programming](http://manning.com/petricek)
 
 </div></div>
@@ -106,7 +109,7 @@ I worked on _computation expressions_ in F#, both by developing the theory
 
 ## Recent publications
 
-#### **[November 2013]** [The F# Computation Expression Zoo](papers/computation-zoo/)
+#### **[November 2013]** [The F# Computation Expression Zoo](@Model.Root/academic/papers/computation-zoo/)
 
 > Tomas Petricek and Don Syme. In Proceedings of PADL 2014.
 
@@ -115,12 +118,12 @@ monads, monad transformers and applicative functors. The syntax is _adaptable_ a
 close to built-in language features of Python and C#. This article provides the details
 shows that the right syntax can often be determined by considering laws.
 
- - [abstract](papers/computation-zoo/) | [cite](papers/computation-zoo/#cite) | 
-   [poster](papers/computation-zoo/poster-tfp.pdf) | 
-   [talk](papers/computation-zoo/talk-tfp.pdf) | 
-   [paper](papers/computation-zoo/computation-zoo.pdf)
+ - [abstract](@Model.Root/academic/papers/computation-zoo/) | [cite](@Model.Root/academic/papers/computation-zoo/#cite) | 
+   [poster](@Model.Root/academic/papers/computation-zoo/poster-tfp.pdf) | 
+   [talk](@Model.Root/academic/papers/computation-zoo/talk-tfp.pdf) | 
+   [paper](@Model.Root/academic/papers/computation-zoo/computation-zoo.pdf)
 
-#### [Coeffects: Unified static analysis of context-dependence](papers/coeffects/)
+#### [Coeffects: Unified static analysis of context-dependence](@Model.Root/academic/papers/coeffects/)
 
 > Tomas Petricek, Dominic Orchard and Alan Mycroft. In Proceedings of ICALP 2013.
 
@@ -129,13 +132,13 @@ _requirements_ that computations place on the environment. We present a unified
 coeffect system that can be used for checking liveness and properties of 
 data-flow or distributed programs,
 
- - [abstract](papers/coeffects/) | [cite](papers/coeffects/#cite) | 
-   [talk](papers/coeffects/icalp-talk.pdf) | 
-   [paper](papers/coeffects/coeffects-icalp.pdf)
+ - [abstract](@Model.Root/academic/papers/coeffects/) | [cite](@Model.Root/academic/papers/coeffects/#cite) | 
+   [talk](@Model.Root/academic/papers/coeffects/icalp-talk.pdf) | 
+   [paper](@Model.Root/academic/papers/coeffects/coeffects-icalp.pdf)
 
 ## Papers published previously
 
-#### [Evaluation strategies for monadic computations](papers/malias/)
+#### [Evaluation strategies for monadic computations](@Model.Root/academic/papers/malias/)
 
 > Tomas Petricek. In Proceedings of MSFP 2012.
 
@@ -144,11 +147,11 @@ on the desired evaluation strategy. In this paper, we present an unified transla
 an operation <code>malias</code>. We also show how to give <em>call-by-need</em> translation for certain
 monads.
 
- - [abstract](papers/malias/) | [cite](papers/malias/#cite) | 
-   [talk](papers/malias/talk-msfp.pdf) |
-   [paper](papers/malias/malias.pdf)
+ - [abstract](@Model.Root/academic/papers/malias/) | [cite](@Model.Root/academic/papers/malias/#cite) | 
+   [talk](@Model.Root/academic/papers/malias/talk-msfp.pdf) |
+   [paper](@Model.Root/academic/papers/malias/malias.pdf)
 
-#### [Extending Monads with Pattern Matching](papers/docase/)
+#### [Extending Monads with Pattern Matching](@Model.Root/academic/papers/docase/)
 
 > Tomas Petricek, Alan Mycroft and Don Syme. In Haskell Symposium 2011.
 
@@ -156,11 +159,11 @@ The paper introduces a `docase` notation for Haskell that can be used for any mo
 provides additional operations representing parallel composition, choice and aliasing. We require the 
 operations to form a near-semiring, which gurantees that the notation resembles pattern matching.
 
- - [abstract](papers/docase/) | [cite](papers/docase/#cite) |
-   [talk](papers/docase/haskell-symposium.pdf) |
-   [paper](papers/docase/docase.pdf)
+ - [abstract](@Model.Root/academic/papers/docase/) | [cite](@Model.Root/academic/papers/docase/#cite) |
+   [talk](@Model.Root/academic/papers/docase/haskell-symposium.pdf) |
+   [paper](@Model.Root/academic/papers/docase/docase.pdf)
 
-#### [Joinads: a retargetable control-flow construct for reactive, parallel and concurrent programming](papers/joinads/)
+#### [Joinads: a retargetable control-flow construct for reactive, parallel and concurrent programming](@Model.Root/academic/papers/joinads/)
 
 > Tomas Petricek and Don Syme. In Proceedings of PADL 2011.
 
@@ -168,11 +171,11 @@ Reactive, parallel and concurrent programming models are often difficult to enco
 general-purpose programming languages. We present a lightweight language extension based on 
 pattern matching that can be used for encoding a wide range of these models.
 
- - [abstract](papers/joinads/) | [cite](papers/joinads/#cite) |
-   [talk](papers/joinads/padl-talk.pdf) |
-   [paper](papers/joinads/joinads.pdf)
+ - [abstract](@Model.Root/academic/papers/joinads/) | [cite](@Model.Root/academic/papers/joinads/#cite) |
+   [talk](@Model.Root/academic/papers/joinads/padl-talk.pdf) |
+   [paper](@Model.Root/academic/papers/joinads/joinads.pdf)
 
-#### [The F# Asynchronous Programming Model](papers/async/)
+#### [The F# Asynchronous Programming Model](@Model.Root/academic/papers/async/)
 
 > Don Syme, Tomas Petricek and Dmitry Lomov. In PADL 2011.
 
@@ -180,10 +183,10 @@ We describe the asynchronous programming model in F#, and its applications. It c
 language with a non-blocking modality to author lightweight asynchronous tasks. This allows smooth 
 transitions between synchronous and asynchronous code and eliminates the inversion of control.
 
- - [abstract](papers/async/) | [cite](papers/async/#cite) |
-   [paper](papers/async/async.pdf)
+ - [abstract](@Model.Root/academic/papers/async/) | [cite](@Model.Root/academic/papers/async/#cite) |
+   [paper](@Model.Root/academic/papers/async/async.pdf)
 
-#### [Collecting Hollywood's Garbage: Avoiding Space-Leaks in Composite Events](papers/hollywood/)
+#### [Collecting Hollywood's Garbage: Avoiding Space-Leaks in Composite Events](@Model.Root/academic/papers/hollywood/)
 
 > Tomas Petricek and Don Syme. In Proceedings of ISMM 2010.
 
@@ -191,23 +194,23 @@ The article discusses memory leaks that can occur in a reactive programming mode
 It presents a formal garbage collection algorithm that could be used in this scenario and a 
 correct reactive library based on this idea, implemented in F#.
 
- - [abstract](papers/hollywood/) | [cite](papers/hollywood/#cite) |
-   [talk](papers/hollywood/ismm-talk.pdf) | [paper](papers/hollywood/hollywood.pdf)
+ - [abstract](@Model.Root/academic/papers/hollywood/) | [cite](@Model.Root/academic/papers/hollywood/#cite) |
+   [talk](@Model.Root/academic/papers/hollywood/ismm-talk.pdf) | [paper](@Model.Root/academic/papers/hollywood/hollywood.pdf)
 
-#### [Encoding monadic computations in C# using iterators](papers/iterators/)
+#### [Encoding monadic computations in C# using iterators](@Model.Root/academic/papers/iterators/)
 
 > Tomas Petricek. In Proceedings of ITAT 2009
 
 The paper shows how to encode certain monadic computations (such as a continuation monad
 for asynchronus programming) using the iterator language feature in C# 2.0. 
 
- - [abstract](papers/iterators/) | [cite](papers/iterators/#cite) |
-   [talk](papers/iterators/iterators-itat.pdf) |
-   [paper](papers/iterators/iterators.pdf) | [code](papers/iterators/iterators-src.zip) 
+ - [abstract](@Model.Root/academic/papers/iterators/) | [cite](@Model.Root/academic/papers/iterators/#cite) |
+   [talk](@Model.Root/academic/papers/iterators/iterators-itat.pdf) |
+   [paper](@Model.Root/academic/papers/iterators/iterators.pdf) | [code](@Model.Root/academic/papers/iterators/iterators-src.zip) 
 
 ## Articles and reports
 
-#### [Fun with Parallel Monad Comprehensions](articles/comprefun/)
+#### [Fun with Parallel Monad Comprehensions](@Model.Root/academic/articles/comprefun/)
 
 > Tomas Petricek. The Monad.Reader Issue 18.
 
@@ -215,9 +218,9 @@ The article presents several monads that can benefit from the _parallel monad co
 notation that is supported in the re-designed monad comprehension syntax in Haskell. The examples
 are inspired by the work on joinads and include parsers, parallel and concurrent computations.
 
- - [details](articles/comprefun/) | [article](articles/comprefun.pdf) | [online](http://tomasp.net/blog/comprefun.aspx/)
+ - [details](@Model.Root/academic/articles/comprefun/) | [article](@Model.Root/academic/articles/comprefun.pdf) | [online](http://tomasp.net/blog/comprefun.aspx/)
 
-#### [Effect and coeffect type systems](theses/first-year/first-year.pdf)
+#### [Effect and coeffect type systems](@Model.Root/academic/theses/first-year/first-year.pdf)
 
 > Tomas Petricek. First year report, Computer Laboratory.
 
@@ -227,11 +230,11 @@ and coeffects (how a computation depends on a context). The document briefly sum
 done during the first-year (including the work on _joinads_ and _coeffects_) and
 it proposes future research projects.
 
- - [details](theses/first-year/) | [report](theses/first-year/first-year.pdf)
+ - [details](@Model.Root/academic/theses/first-year/) | [report](@Model.Root/academic/theses/first-year/first-year.pdf)
 
 ## Theses and older projects
 
-#### [Reacitve programming with events](theses/events)
+#### [Reacitve programming with events](@Model.Root/academic/theses/events)
 
 > Master thesis. Charles University in Prague, 2010
 
@@ -239,9 +242,9 @@ The thesis uses early version of joinad langauge extension for F# and garbage co
 for events. Based on these concepts, it builds a simple reactive library for F# that allows
 writing reactive computations in both control-flow and data-flow styles.
 
- - [abstract](theses/events/) | [cite](theses/events/#cite) | [thesis](theses/events/events.pdf) 
+ - [abstract](@Model.Root/academic/theses/events/) | [cite](@Model.Root/academic/theses/events/#cite) | [thesis](@Model.Root/academic/theses/events/events.pdf) 
 
-#### [Client-side scripting using meta-programming](theses/webtools) 
+#### [Client-side scripting using meta-programming](@Model.Root/academic/theses/webtools) 
 
 > Bachelor thesis. Charles University in Prague, 2007
 
@@ -249,8 +252,8 @@ The thesis presents a web development framework for F# that automatically splits
 program with monadic modality annotations into client-side JavaScript and server-side ASP.NET
 application.
 
- - [abstract](theses/webtools/) | [cite](theses/webtools/#cite) | [report](theses/webtools/webtools-report.pdf) |
-   [thesis](theses/webtools/webtools.pdf)
+ - [abstract](@Model.Root/academic/theses/webtools/) | [cite](@Model.Root/academic/theses/webtools/#cite) | [report](@Model.Root/academic/theses/webtools/webtools-report.pdf) |
+   [thesis](@Model.Root/academic/theses/webtools/webtools.pdf)
 
 </div>
 <!-- ------------------------------------------------------------------------------------------ -->
@@ -262,7 +265,7 @@ application.
 Start here if you want to know that I'm currently working on and what I recently 
 completed. Unpublished drafts are marked as such and I'm always looking for feedback!
 
-#### **[July 2013]** Draft: [What can Programming Language Research  Learn from the Philosophy of Science?](drafts/philosophy-pl/)
+#### **[July 2013]** Draft: [What can Programming Language Research  Learn from the Philosophy of Science?](@Model.Root/academic/drafts/philosophy-pl/)
 
 > Tomas Petricek. Unpublished draft.
 
@@ -271,9 +274,9 @@ to programming language research. I argue that it is important to clearly state 
 programme, avoid early over-emphasis on precision and I consider how to produce truly reusable
 experiments.
 
- - [abstract](drafts/philosophy-pl/) | [draft](drafts/philosophy-pl/philosophy-pl.pdf)
+ - [abstract](@Model.Root/academic/drafts/philosophy-pl/) | [draft](@Model.Root/academic/drafts/philosophy-pl/philosophy-pl.pdf)
 
-#### Draft: [Teaching Functional Programming to Professional .NET Developers](drafts/fsharp-teaching/)
+#### Draft: [Teaching Functional Programming to Professional .NET Developers](@Model.Root/academic/drafts/fsharp-teaching/)
 
 > Tomas Petricek. In Pre-proceedings of TFPIE 2012.
 
@@ -281,8 +284,8 @@ Functional programming is often taught at universities, but with the recent rise
 programming in the industry, it is becoming important to teach functional concepts to experienced
 developers. This requires a very different approach.
 
- - [abstract](drafts/fsharp-teaching/) | [talk](drafts/fsharp-teaching/tfpie-talk.pdf)
- | [draft](drafts/fsharp-teaching/fsharp-teaching.pdf)
+ - [abstract](@Model.Root/academic/drafts/fsharp-teaching/) | [talk](@Model.Root/academic/drafts/fsharp-teaching/tfpie-talk.pdf)
+ | [draft](@Model.Root/academic/drafts/fsharp-teaching/fsharp-teaching.pdf)
 
 </div>
 <div class="black-box">
@@ -291,13 +294,13 @@ developers. This requires a very different approach.
 
  * **Video**: [How F# Learned to Stop Worrying and Love the Data](http://channel9.msdn.com/posts/Tomas-Petricek-How-F-Learned-to-Stop-Worrying-and-Love-the-Data)  
    (Video lecture, Recorded at Channel 9, 2013)
- * [Coeffects: Types for tracking context-dependence](talks/coeffects-mit.pdf)  
+ * [Coeffects: Types for tracking context-dependence](@Model.Root/academic/talks/coeffects-mit.pdf)  
    (Massachusetts Institute of Technology, 2013)
- * [Information-rich programming in F#](talks/inforich-ml.pdf)  
+ * [Information-rich programming in F#](@Model.Root/academic/talks/inforich-ml.pdf)  
    (Invited talk at the ML Workshop, 2012)
  * **Video**: [Coeffects: The essence of context-dependence](http://www.youtube.com/watch?v=gEkXDd46_S8)  
    (Student Research Competition at ICFP 2012)
- * [Tracking context-dependent properties using coeffects](talks/coeffects-tallinn.pdf)  
+ * [Tracking context-dependent properties using coeffects](@Model.Root/academic/talks/coeffects-tallinn.pdf)  
    (Institute of Cybernetics, Tallinn University, 2012)
  * **Video**: [Reactive pattern matching for F#](http://langnetsymposium.com/2009/talks/22-TomasPatricek-Reactive.html)  
    (Lang.NET Symposium 2009, Microsoft, Redmond) 
@@ -307,13 +310,13 @@ developers. This requires a very different approach.
 
 ## Supervisions and teaching 
 
-<img src="img/cam.png" style="float:right;margin:10px 0px 0px 20px" title="Cambridge University"/>
+<img src="@Model.Root/academic/img/cam.png" style="float:right;margin:10px 0px 0px 20px" title="Cambridge University"/>
 
 I'm happy to supervise Part II (final year) projects that are related to functional 
 programming, F# (or other functional languages), data science and data access, JavaScript 
 and web programming or other interesting topics.
 
- - See a list with [my project ideas](teaching/projects/)
+ - See a list with [my project ideas](@Model.Root/academic/teaching/projects/)
  - If you want to discuss your idea, [get in touch!](mailto:tomas.petricek@cl.cam.ac.uk)
 
 I had the pleasure of supervising some great Part II students:

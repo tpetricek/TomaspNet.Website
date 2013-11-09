@@ -232,6 +232,23 @@ builder (the `imperative` value). If we used the `yield` keyword in this example
 if we used `return` in the previous one (sequences), then there would be a mismatch between
 the syntax and the laws. 
 
+### MonadPlus versus MonadOr
+
+Interestingly, the distinction between the two sample computations that I used in the 
+previous examples exists in Haskell too. The [MonadPlus reform proposal](http://www.haskell.org/haskellwiki/MonadPlus_reform_proposal)
+suggests that computations satisfying _left distribution_ should form a type class 
+`MonadPlus`, while computations satisfying _left catch_ should be captured by `MonadOr`.
+
+Having two different type classes would mean that you'd explicitly use one of the 
+two combinators - either `mplus` or `morelse` and so the resulting Haskell code would
+be somewhat less generic over the type of computation and a bit closer to what you get with
+F# computation expression encoding of _additive monads_.
+
+I believe it is interesting that you can discover this important distinction from 
+multiple directions - by considering the laws, or by looking at the most natural syntax 
+for writing such computations.
+
+
 Summary
 -------
 

@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{5C7045D5-4574-4BA7-A3BA-905C9C074F5B}"
 	ProjectSection(SolutionItems) = preProject
 		build.fsx = build.fsx
@@ -33,8 +35,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "blog", "blog", "{F6F70A4C-7
 		source\blog\index.cshtml = source\blog\index.cshtml
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharpFormat", "tools\csharpformat\CSharpFormat.csproj", "{9AB3650B-CC24-4404-A175-A573DA928475}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "News", "News", "{4D31843E-8781-4D84-8C86-149BF3A9E08D}"
 	ProjectSection(SolutionItems) = preProject
 		content\news\news.js = content\news\news.js
@@ -46,6 +46,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuGet", "NuGet", "{6B802CA3
 		.nuget\NuGet.exe = .nuget\NuGet.exe
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharpFormat", "tools\csharpformat\CSharpFormat.csproj", "{9AB3650B-CC24-4404-A175-A573DA928475}"
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FsBlogLib", "tools\FsBlogLib\FsBlogLib.fsproj", "{B83F5E3E-8CEC-4F4E-B251-D2C853816C62}"
 EndProject

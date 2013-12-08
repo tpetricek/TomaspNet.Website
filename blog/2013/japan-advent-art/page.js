@@ -839,7 +839,6 @@ var list_1_Tuple_3_Double__Double__Double__NilTuple_3_Double__Double__Double_, l
     }), "go");
     return go.click((function (_unitVar0)
     {
-      window.window.alert("Goign");
       return (function (arg00)
       {
         return Async__StartImmediate$(arg00, {Tag: 0.000000});

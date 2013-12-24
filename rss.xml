@@ -4,6 +4,56 @@
     <link>http://tomasp.net</link>
     <description>Writing about software development in F# and .NET, sharing materials from my F# trainings and talks, writing about programming language research and theory.</description>
     <item>
+      <title>Advent Art：北斎の絵を生成する</title>
+      <guid>http://tomasp.net/blog/2013/japan-advent-art</guid>
+      <link>http://tomasp.net/blog/2013/japan-advent-art/index.html</link>
+      <pubDate>Tue, 24 Dec 2013 03:58:37 GMT</pubDate>
+      <description>&lt;div id="myModal" class="reveal-modal xlarge" data-reveal&gt;
+  &lt;iframe src="http://localhost:8080/blog/2013/japan-advent-art/hokusai.html" style="width:100%; height:850px;border-style:none;"&gt;&lt;/iframe&gt;
+  &lt;a class="close-reveal-modal"&gt;&amp;#215;&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;div class="rdecor" style="text-align:center"&gt;
+&lt;a href="#" data-reveal-id="myModal" style="text-align:center"&gt;
+&lt;img src="http://localhost:8080/blog/2013/japan-advent-art/hokusai_sm.jpg" style="margin-bottom:10px;border:4px solid black" title="神奈川沖浪裏 (The Great Wave off Kanagawa)" /&gt;&lt;br /&gt;
+&lt;small style="font-size:90%"&gt;実際の結果を見るにはここをクリック！&lt;/small&gt;
+&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;ここ数年、日本のF# コミュニティは「F# Advent Calendar」というイベントを開催しています
+(&lt;a href="http://atnd.org/events/10685"&gt;2010年&lt;/a&gt;、
+&lt;a href="http://partake.in/events/1c24993a-c475-4fc2-bca4-7a1cd2f81869"&gt;2011年&lt;/a&gt;、
+&lt;a href="http://atnd.org/events/33927"&gt;2012年&lt;/a&gt;、
+そして &lt;a href="http://connpass.com/event/3935/"&gt;今年&lt;/a&gt;)。
+これはadvent dayごとに1人ずつ、F#に関連した何かしら興味深い記事を作成するというものです。
+私は去年からTwitterでadvent calendarをチェックしていて、
+今年からは私も参加しようと思い、記事を書きたいと申し出ました。
+そうしたところ、数名の方からの協力を得ることができました。
+&lt;a href="https://twitter.com/igeta"&gt;@igeta&lt;/a&gt; には参加手続きの諸々とレビューを、
+&lt;a href="http://twitter.com/yukitos"&gt;@yukitos&lt;/a&gt; にはこの記事の翻訳を、そして
+&lt;a href="http://twitter.com/gab_km"&gt;@gab_km&lt;/a&gt; には翻訳のレビューをしていただきました。
+ありがとう！&lt;/p&gt;
+
+&lt;p&gt;けれども何についての記事を書くのがよいのでしょう？
+過去一年にわたって、F#コミュニティで開発されているF#のオープンソースライブラリやプロジェクトを
+いくつか紹介できるような記事がよさそうです。
+それと同時に、日本に関連のあるトピックが何かないものでしょうか？
+少し考えてみたところ、以下のようなプランを思いつきました：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;まず、日本の絵画について学ぶために &lt;a href="http://fsharp.github.io/FSharp.Data/"&gt;F# Data&lt;/a&gt; ライブラリと &lt;a href="http://www.freebase.com"&gt;Freebase&lt;/a&gt; を組み合わせて使う。
+このライブラリにはいまや &lt;a href="http://fsharp.github.io/FSharp.Data/jp"&gt;日本語ドキュメント&lt;/a&gt; があり、作成してくれた &lt;a href="https://twitter.com/yukitos"&gt;@yukitos&lt;/a&gt; に感謝しています。&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;そして絵画作品を1つ選択して、F#でその作品を再生成する。
+私の絵画スキルでは到底無理なのですが、試してみることはできます :-)&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;最後に、 &lt;a href="http://funscript.info"&gt;FunScriptプロジェクト&lt;/a&gt; を使って
+F#コードをJavaScriptに変換します。
+そうすると純粋なHTML Webアプリケーションとして実行できるようになり、
+携帯電話やその他のデバイスでも動作するようになります。&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+</description>
+    </item>
+    <item>
       <title>The F# Computation Expression Zoo (PADL'14)</title>
       <guid>http://tomasp.net/blog/2013/computation-zoo-padl</guid>
       <link>http://tomasp.net/blog/2013/computation-zoo-padl/index.html</link>
@@ -147,7 +197,7 @@ that they are all busy people, but we have close to half of the planned chapters
       <title>Power of mathematics: Reasoning about functional types</title>
       <guid>http://tomasp.net/blog/types-and-math.aspx</guid>
       <link>http://tomasp.net/blog/types-and-math.aspx/index.html</link>
-      <pubDate>Tue, 14 May 2013 16:54:00 GMT</pubDate>
+      <pubDate>Tue, 14 May 2013 15:54:00 GMT</pubDate>
       <description>&lt;img src="http://tomasp.net/articles/types-and-maths/distributivity.png" class="rdecor" /&gt;
 
 &lt;p&gt;One of the most amazing aspects of mathematics is that it applies to such a wide range 
@@ -175,7 +225,7 @@ classes or sum types). It turns out that these two types are closely related to
       <title>Async in C# and F#: Asynchronous gotchas in C#</title>
       <guid>http://tomasp.net/blog/csharp-async-gotchas.aspx</guid>
       <link>http://tomasp.net/blog/csharp-async-gotchas.aspx/index.html</link>
-      <pubDate>Mon, 15 Apr 2013 03:00:03 GMT</pubDate>
+      <pubDate>Mon, 15 Apr 2013 02:00:03 GMT</pubDate>
       <description>&lt;p&gt;Back in February, I attended the annual MVP summit - an &lt;a href="http://www.2013mvpsummit.com/about"&gt;event organized by Microsoft
 for MVPs&lt;/a&gt;. I used that opportunity to also visit
 Boston and New York and do two F# talks and to record a &lt;a href="http://channel9.msdn.com/posts/Tomas-Petricek-How-F-Learned-to-Stop-Worrying-and-Love-the-Data" title="Tomas Petricek (Channel 9): How F# Learned to Stop Worrying and Love the Data"&gt;Channel9 lecutre about type
@@ -199,7 +249,7 @@ F# part of the audience as follows...&lt;/p&gt;
       <title>F# Data: New type provider library</title>
       <guid>http://tomasp.net/blog/fsharp-data.aspx</guid>
       <link>http://tomasp.net/blog/fsharp-data.aspx/index.html</link>
-      <pubDate>Thu, 28 Mar 2013 03:23:41 GMT</pubDate>
+      <pubDate>Thu, 28 Mar 2013 02:23:41 GMT</pubDate>
       <description>&lt;img src="https://raw.github.com/fsharp/FSharp.Data/master/misc/logo.png" class="rdecor" style="width:120px;height:120px;" /&gt;
 
 &lt;p&gt;When F# 3.0 type providers were still in beta version, I wrote a couple of type 
@@ -235,7 +285,7 @@ so continue reading if you're interested...)&lt;/p&gt;
       <title>Upcoming F# talks and trainings (London, NYC &amp; Boston)</title>
       <guid>http://tomasp.net/blog/events-winter-2013.aspx</guid>
       <link>http://tomasp.net/blog/events-winter-2013.aspx/index.html</link>
-      <pubDate>Thu, 07 Feb 2013 23:00:22 GMT</pubDate>
+      <pubDate>Thu, 07 Feb 2013 22:00:22 GMT</pubDate>
       <description>&lt;img src="http://tomasp.net/articles/events-winter-2013/mvplogo.png" class="rdecor" title="Tomas Petricek" style="margin:10px 35px 15px 35px;width:100px"/&gt;
 
 &lt;p&gt;After a few years, I finally managed to find the time to attend the 
@@ -256,7 +306,7 @@ so continue reading if you're interested...)&lt;/p&gt;
       <title>Announcing: Literate programming tools for F#</title>
       <guid>http://tomasp.net/blog/fsharp-literate-programming.aspx</guid>
       <link>http://tomasp.net/blog/fsharp-literate-programming.aspx/index.html</link>
-      <pubDate>Tue, 22 Jan 2013 17:35:36 GMT</pubDate>
+      <pubDate>Tue, 22 Jan 2013 16:35:36 GMT</pubDate>
       <description>&lt;img src="https://raw.github.com/tpetricek/FSharp.Formatting/master/docs/misc/logo.png" class="rdecor" style="width:120px;height:120px;" /&gt;
 
 &lt;p&gt;For some time now, I've been writing my F# blog posts (and other F# articles 
@@ -284,7 +334,7 @@ Here are the most important links:&lt;/p&gt;
       <title>Processing trees with F# zipper computation</title>
       <guid>http://tomasp.net/blog/tree-zipper-query.aspx</guid>
       <link>http://tomasp.net/blog/tree-zipper-query.aspx/index.html</link>
-      <pubDate>Wed, 19 Dec 2012 14:22:47 GMT</pubDate>
+      <pubDate>Wed, 19 Dec 2012 13:22:47 GMT</pubDate>
       <description>&lt;p&gt;One of the less frequently advertised new features in F# 3.0 is the &lt;em&gt;query syntax&lt;/em&gt;.
 It is an extension that makes it possible to add custom operations in an F#
 computation expression. The standard &lt;code&gt;query { .. }&lt;/code&gt; computation uses this to define
@@ -333,7 +383,7 @@ at how this works...&lt;/p&gt;
       <title>Manning: F# Deep Dives deal of the day</title>
       <guid>http://tomasp.net/blog/manning-deep-dives.aspx</guid>
       <link>http://tomasp.net/blog/manning-deep-dives.aspx/index.html</link>
-      <pubDate>Tue, 18 Dec 2012 17:19:57 GMT</pubDate>
+      <pubDate>Tue, 18 Dec 2012 16:19:57 GMT</pubDate>
       <description>
 &lt;img src="http://tomasp.net/articles/manning-deep-dives/cover.jpg" class="rdecor" title="F# Deep Dives" style="margin-bottom:15px"/&gt;
 
@@ -367,7 +417,7 @@ at how this works...&lt;/p&gt;
       <title>Learn F# at TechMesh and SkillsMetter</title>
       <guid>http://tomasp.net/blog/more-events-autumn-2012.aspx</guid>
       <link>http://tomasp.net/blog/more-events-autumn-2012.aspx/index.html</link>
-      <pubDate>Sun, 21 Oct 2012 15:53:04 GMT</pubDate>
+      <pubDate>Sun, 21 Oct 2012 14:53:04 GMT</pubDate>
       <description>&lt;img src="http://tomasp.net/articles/more-events-autumn-2012/tomas-qcon.jpg" class="rdecor" title="Tomas Petricek" style="margin-bottom:15px"/&gt;
 
 &lt;p&gt;Autumn is a busy period and I already invited you to a 
@@ -389,7 +439,7 @@ at how this works...&lt;/p&gt;
       <title>Applicative functors: definition and syntax</title>
       <guid>http://tomasp.net/blog/applicative-functors.aspx</guid>
       <link>http://tomasp.net/blog/applicative-functors.aspx/index.html</link>
-      <pubDate>Tue, 21 Aug 2012 13:23:19 GMT</pubDate>
+      <pubDate>Tue, 21 Aug 2012 12:23:19 GMT</pubDate>
       <description>&lt;p&gt;In a recent blog post, &lt;a href="http://blog.ezyang.com/2012/08/applicative-functors/" title="Edward Z. Yang: Applicative functors"&gt;Edward Z. Yang talks about applicative functors&lt;/a&gt;. 
 He mentions two equivalent definitions of applicative functors - the standard
 definition used in Haskell libraries (&lt;code&gt;Applicative&lt;/code&gt;) and an alternative that
@@ -413,7 +463,7 @@ paper about &lt;a href="http://www.cl.cam.ac.uk/~tp322/papers/notations.html" ti
       <title>Why type-first development matters</title>
       <guid>http://tomasp.net/blog/type-first-development.aspx</guid>
       <link>http://tomasp.net/blog/type-first-development.aspx/index.html</link>
-      <pubDate>Wed, 15 Aug 2012 23:21:21 GMT</pubDate>
+      <pubDate>Wed, 15 Aug 2012 22:21:21 GMT</pubDate>
       <description>&lt;img src="http://tomasp.net/articles/type-first-development/tfd.png" class="rdecor" /&gt;
 
 &lt;p&gt;Using functional programming language changes the way you write code in a number
@@ -441,7 +491,7 @@ we have been &lt;a href="http://functional-programming.net/courses/"&gt;teaching
       <title>F# Courses and Talks for Autumn 2012 (I.)</title>
       <guid>http://tomasp.net/blog/events-autumn-2012.aspx</guid>
       <link>http://tomasp.net/blog/events-autumn-2012.aspx/index.html</link>
-      <pubDate>Wed, 08 Aug 2012 02:47:08 GMT</pubDate>
+      <pubDate>Wed, 08 Aug 2012 01:47:08 GMT</pubDate>
       <description>&lt;img src="http://tomasp.net/articles/events-autumn-2012/tomas.jpg" class="rdecor" title="Tomas Petricek" style="margin-bottom:15px"/&gt;
 
 &lt;p&gt;Similarly to the &lt;a href="http://tomasp.net/blog/fsharp-autumn-2011.aspx"&gt;last year&lt;/a&gt;,
@@ -464,7 +514,7 @@ we have been &lt;a href="http://functional-programming.net/courses/"&gt;teaching
       <title>The theory behind covariance and contravariance in C# 4</title>
       <guid>http://tomasp.net/blog/variance-explained.aspx</guid>
       <link>http://tomasp.net/blog/variance-explained.aspx/index.html</link>
-      <pubDate>Tue, 19 Jun 2012 13:24:52 GMT</pubDate>
+      <pubDate>Tue, 19 Jun 2012 12:24:52 GMT</pubDate>
       <description>&lt;img src="http://tomasp.net/articles/variance-explained/icon.png" title="Category theory is sometimes called 'general abstract nonsense', but it can actually be useful!" class="rdecor" /&gt;
 
 &lt;p&gt;In C# 4.0, we can annotate generic type parameters with &lt;code&gt;out&lt;/code&gt; and &lt;code&gt;in&lt;/code&gt; annotations to 
@@ -488,7 +538,7 @@ about covariance and contravariance.&lt;/p&gt;
       <title>Reporting events from F# Agents</title>
       <guid>http://tomasp.net/blog/agent-event-reporting.aspx</guid>
       <link>http://tomasp.net/blog/agent-event-reporting.aspx/index.html</link>
-      <pubDate>Fri, 15 Jun 2012 23:23:35 GMT</pubDate>
+      <pubDate>Fri, 15 Jun 2012 22:23:35 GMT</pubDate>
       <description>&lt;p&gt;Over the last year, I wrote quite a lot of articles about agent-based programming in F#.
 Agents (inspired by Erlang) provide a great abstraction for writing concurrent and scalable
 systems. They are a great fit for both server-side development (for example, handling 
@@ -511,7 +561,7 @@ of your agent-based code.&lt;/p&gt;
       <title>F# in Academia: Present at upcoming events!</title>
       <guid>http://tomasp.net/blog/fsharp-academia.aspx</guid>
       <link>http://tomasp.net/blog/fsharp-academia.aspx/index.html</link>
-      <pubDate>Sun, 15 Apr 2012 23:19:04 GMT</pubDate>
+      <pubDate>Sun, 15 Apr 2012 22:19:04 GMT</pubDate>
       <description>&lt;p&gt;The F# language was born as a combination of the pragmatic and real-world .NET 
 platform and functional programming, which had a long tradition in academia. 
 Many useful ideas or libraries in F# (like &lt;em&gt;asynchronous workflows&lt;/em&gt; and 
@@ -531,29 +581,6 @@ from the F# community, so I'd like to invite you to talk about your ideas
 at two upcoming academic events!&lt;/p&gt;
 
 &lt;p&gt;What, why, when, where and how? &lt;a href="http://tomasp.net/blog/fsharp-academia.aspx"&gt;Continue reading!&lt;/a&gt;&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>TryJoinads (VII.) - Implementing joinads for async workflows</title>
-      <guid>http://tomasp.net/blog/joinads-async-implement.aspx</guid>
-      <link>http://tomasp.net/blog/joinads-async-implement.aspx/index.html</link>
-      <pubDate>Fri, 23 Mar 2012 17:21:51 GMT</pubDate>
-      <description>&lt;p&gt;The article &lt;a href="http://tomasp.net/blog/joinads-async-prog.aspx"&gt;Asynchronous workflows and joinads&lt;/a&gt; gives numerous
-examples of programming with asynchronous workflows using the &lt;code&gt;match!&lt;/code&gt; construct.
-Briefly, when matching on multiple asynchronous workflows, they are executed in 
-parallel. When pattern matching consists of multiple clauses, the clause that matches
-on computations that complete first gets executed. These two behaviours are 
-implemented by the &lt;code&gt;Merge&lt;/code&gt; and the &lt;code&gt;Choose&lt;/code&gt; operation of joinads. Additionally, 
-asynchronous workflows require the &lt;code&gt;Alias&lt;/code&gt; operation, which makes it possible to 
-share the result of a started asynchronous workflow in multiple clauses.&lt;/p&gt;
-
-&lt;p&gt;In this article, we look at the definition of the additional &lt;code&gt;AsyncBuilder&lt;/code&gt;
-operations that enable the &lt;code&gt;match!&lt;/code&gt; syntax. We do not look at additional examples
-of using the syntax, because these can be &lt;a href="http://tomasp.net/blog/joinads-async-prog.aspx"&gt;found in a previous article&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;&lt;strong&gt;Note:&lt;/strong&gt; This blog post is a re-publication of a tutorial from the &lt;a href="http://tryjoinads.org"&gt;TryJoinads.org&lt;/a&gt;
-web page. If you read the article there, you can run the examples interactively
-and experiment with them: &lt;a href="http://tryjoinads.org/index.html?implement/async.html"&gt;view the article on TryJoinads&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
-</description>
     </item>
   </channel>
 </rss>

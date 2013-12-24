@@ -62,52 +62,82 @@
   <!-- Print more details about the first blog post -->
 
   <div>
-  <h1><a href="http://tomasp.net/blog/2013/computation-zoo-padl/index.html">The F# Computation Expression Zoo (PADL'14)</a></h1>
-  <p>F# <a href="http://msdn.microsoft.com/en-us/library/dd233182.aspx">computation expressions</a> are the 
-syntactic language mechanism that is used by features like sequence expressions and asynchronous
-workflows. The aim of F# computation expressions is to provide a <em>single</em> syntactic mechanism
-that provides convenient notation for writing a wide range of computations.</p>
+  <h1><a href="http://tomasp.net/blog/2013/japan-advent-art/index.html">Advent Art：北斎の絵を生成する</a></h1>
+  <div id="myModal" class="reveal-modal xlarge" data-reveal>
+  <iframe src="http://localhost:8080/blog/2013/japan-advent-art/hokusai.html" style="width:100%; height:850px;border-style:none;"></iframe>
+  <a class="close-reveal-modal">&#215;</a>
+</div>
 
-<p>The syntactic mechanisms that are unified by computation expressions include Haskell <code>do</code> 
-notation and list comprehensions, C# iterators, asynchronous methods and LINQ queries,
-Scala <code>for</code> comprehensions and Python generators to name just a few.</p>
+<div class="rdecor" style="text-align:center">
+<a href="#" data-reveal-id="myModal" style="text-align:center">
+<img src="http://localhost:8080/blog/2013/japan-advent-art/hokusai_sm.jpg" style="margin-bottom:10px;border:4px solid black" title="神奈川沖浪裏 (The Great Wave off Kanagawa)" /><br />
+<small style="font-size:90%">実際の結果を見るにはここをクリック！</small>
+</a>
+</div>
 
-<p>Some time ago, I started working on an academic article to explain what makes computation
-expressions unique - and I think there is quite a few interesting aspects. Sadly, this is 
-often not very well explained and so the general preception is more like this...</p>
+<p>ここ数年、日本のF# コミュニティは「F# Advent Calendar」というイベントを開催しています
+(<a href="http://atnd.org/events/10685">2010年</a>、
+<a href="http://partake.in/events/1c24993a-c475-4fc2-bca4-7a1cd2f81869">2011年</a>、
+<a href="http://atnd.org/events/33927">2012年</a>、
+そして <a href="http://connpass.com/event/3935/">今年</a>)。
+これはadvent dayごとに1人ずつ、F#に関連した何かしら興味深い記事を作成するというものです。
+私は去年からTwitterでadvent calendarをチェックしていて、
+今年からは私も参加しようと思い、記事を書きたいと申し出ました。
+そうしたところ、数名の方からの協力を得ることができました。
+<a href="https://twitter.com/igeta">@igeta</a> には参加手続きの諸々とレビューを、
+<a href="http://twitter.com/yukitos">@yukitos</a> にはこの記事の翻訳を、そして
+<a href="http://twitter.com/gab_km">@gab_km</a> には翻訳のレビューをしていただきました。
+ありがとう！</p>
+
+<p>けれども何についての記事を書くのがよいのでしょう？
+過去一年にわたって、F#コミュニティで開発されているF#のオープンソースライブラリやプロジェクトを
+いくつか紹介できるような記事がよさそうです。
+それと同時に、日本に関連のあるトピックが何かないものでしょうか？
+少し考えてみたところ、以下のようなプランを思いつきました：</p>
+
+<ul>
+<li><p>まず、日本の絵画について学ぶために <a href="http://fsharp.github.io/FSharp.Data/">F# Data</a> ライブラリと <a href="http://www.freebase.com">Freebase</a> を組み合わせて使う。
+このライブラリにはいまや <a href="http://fsharp.github.io/FSharp.Data/jp">日本語ドキュメント</a> があり、作成してくれた <a href="https://twitter.com/yukitos">@yukitos</a> に感謝しています。</p></li>
+<li><p>そして絵画作品を1つ選択して、F#でその作品を再生成する。
+私の絵画スキルでは到底無理なのですが、試してみることはできます :-)</p></li>
+<li><p>最後に、 <a href="http://funscript.info">FunScriptプロジェクト</a> を使って
+F#コードをJavaScriptに変換します。
+そうすると純粋なHTML Webアプリケーションとして実行できるようになり、
+携帯電話やその他のデバイスでも動作するようになります。</p></li>
+</ul>
 
 
       
   <p class="meta">
-    <span><strong>Published</strong>: Friday, 8 November 2013, 6:42 AM</span>
+    <span><strong>Published</strong>: Tuesday, 24 December 2013, 4:58 AM</span>
       <br />      
-      <span class="tags"><strong>Tags</strong>: haskell, research, f#, functional programming </span> 
+      <span class="tags"><strong>Tags</strong>: f#, art, fractals, funscript, f# data </span> 
     <br />
-    <a href="http://tomasp.net/blog/2013/computation-zoo-padl/index.html">Read the complete article</a>
+    <a href="http://tomasp.net/blog/2013/japan-advent-art/index.html">Read the complete article</a>
   </p>
   </div>
 
   <!-- For remaining articles, just print short summary with abstract -->
   <h1><a href="http://tomasp.net/blog/index.html">Recent articles from my blog</a></h1>
+    <h2><a href="http://tomasp.net/blog/2013/computation-zoo-padl/index.html">The F# Computation Expression Zoo (PADL'14)</a></h2>
+    <p class="smdate">Tuesday, 24 December 2013, 4:58 AM</p>
+    <p class="description">
+        A month or so back, I wrote a tweet saying that F# computation expressions are amazing and no other language has anything like that. I can finally provide all the evidence by linking to a PADL 2014 paper about them.
+    </p>
     <h2><a href="http://tomasp.net/blog/2013/great-open-source/index.html">Building great open-source libraries</a></h2>
-    <p class="smdate">Friday, 8 November 2013, 6:42 AM</p>
+    <p class="smdate">Tuesday, 24 December 2013, 4:58 AM</p>
     <p class="description">
         The hard part about open-source development is not putting the source code on the internet. The hard part is keeping the source, releases and documentation up-to-date. I'm still amazed how nicely FAKE solves this problem for F#.
     </p>
     <h2><a href="http://tomasp.net/blog/2013/tuples-in-csharp/index.html">How many tuple types are there in C#?</a></h2>
-    <p class="smdate">Friday, 8 November 2013, 6:42 AM</p>
+    <p class="smdate">Tuesday, 24 December 2013, 4:58 AM</p>
     <p class="description">
         In a recent StackOverflow question, the poster asked about the choice between a function that takes a tuple and a function that uses the curried form. In this article I look at the problem from the C# perspective.
     </p>
     <h2><a href="http://tomasp.net/blog/2013/fsharp-new-york/index.html">Hello New York. Learn some F#!</a></h2>
-    <p class="smdate">Friday, 8 November 2013, 6:42 AM</p>
+    <p class="smdate">Tuesday, 24 December 2013, 4:58 AM</p>
     <p class="description">
         As some people in the F# community may already know, I'm visiting New York  for three months and I'm working (doing an internship) with Howard Mansell at  Blue Mountain Capital. We're working on some interesting F# tools for data science, but it also means that I can be more involved in the great New York F# community!
-    </p>
-    <h2><a href="http://tomasp.net/blog/2013/deep-dives-update/index.html">Update on the F# Deep Dives book</a></h2>
-    <p class="smdate">Friday, 8 November 2013, 6:42 AM</p>
-    <p class="description">
-        It has been some time since I last wrote about F# Deep Dives, so I'd like to write a quick update. In summary, having 10 authors does not mean that the book will be finished in 1/10 of the time, but now that the holidays are almost over, you can expect more frequent updates again!
     </p>
 
   <p class="meta">
@@ -212,7 +242,8 @@ often not very well explained and so the general preception is more like this...
     </div>
     <div class="large-7 columns">
     <h4>Blog archives <a href="http://tomasp.net/rss.xml"><img src="http://tomasp.net/img/rss.gif" /></a></h4>
-      <a href="http://tomasp.net/blog/archive/november-2013/index.html">
+      <a href="http://tomasp.net/blog/archive/december-2013/index.html">
+        December 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/november-2013/index.html">
         November 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/october-2013/index.html">
         October 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/september-2013/index.html">
         September 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/august-2013/index.html">

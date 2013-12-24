@@ -11,7 +11,7 @@
 
   <!-- Reference Foundation -->
   <link rel="stylesheet" href="http://tomasp.net/css/foundation.css">
-  <script src="cjs/vendor/custom.modernizr.js"></script>
+  <script src="js/vendor/custom.modernizr.js"></script>
 
   <link rel="alternate" type="application/rss+xml" href="http://tomasp.net/rss.xml" title="RSS feed for Tomas Petricek's blog">
   <link rel="author" href="https://plus.google.com/109855146654605967051" />
@@ -60,6 +60,61 @@
       
 
   <div>
+  <h1><a href="http://tomasp.net/blog/2013/japan-advent-art/index.html">Advent Art：北斎の絵を生成する</a></h1>
+  <div id="myModal" class="reveal-modal xlarge" data-reveal>
+  <iframe src="hokusai.html" style="width:100%; height:850px;border-style:none;"></iframe>
+  <a class="close-reveal-modal">&#215;</a>
+</div>
+
+<div class="rdecor" style="text-align:center">
+<a href="#" data-reveal-id="myModal" style="text-align:center">
+<img src="hokusai_sm.jpg" style="margin-bottom:10px;border:4px solid black" title="神奈川沖浪裏 (The Great Wave off Kanagawa)" /><br />
+<small style="font-size:90%">実際の結果を見るにはここをクリック！</small>
+</a>
+</div>
+
+<p>ここ数年、日本のF# コミュニティは「F# Advent Calendar」というイベントを開催しています
+(<a href="http://atnd.org/events/10685">2010年</a>、
+<a href="http://partake.in/events/1c24993a-c475-4fc2-bca4-7a1cd2f81869">2011年</a>、
+<a href="http://atnd.org/events/33927">2012年</a>、
+そして <a href="http://connpass.com/event/3935/">今年</a>)。
+これはadvent dayごとに1人ずつ、F#に関連した何かしら興味深い記事を作成するというものです。
+私は去年からTwitterでadvent calendarをチェックしていて、
+今年からは私も参加しようと思い、記事を書きたいと申し出ました。
+そうしたところ、数名の方からの協力を得ることができました。
+<a href="https://twitter.com/igeta">@igeta</a> には参加手続きの諸々とレビューを、
+<a href="http://twitter.com/yukitos">@yukitos</a> にはこの記事の翻訳を、そして
+<a href="http://twitter.com/gab_km">@gab_km</a> には翻訳のレビューをしていただきました。
+ありがとう！</p>
+
+<p>けれども何についての記事を書くのがよいのでしょう？
+過去一年にわたって、F#コミュニティで開発されているF#のオープンソースライブラリやプロジェクトを
+いくつか紹介できるような記事がよさそうです。
+それと同時に、日本に関連のあるトピックが何かないものでしょうか？
+少し考えてみたところ、以下のようなプランを思いつきました：</p>
+
+<ul>
+<li><p>まず、日本の絵画について学ぶために <a href="http://fsharp.github.io/FSharp.Data/">F# Data</a> ライブラリと <a href="http://www.freebase.com">Freebase</a> を組み合わせて使う。
+このライブラリにはいまや <a href="http://fsharp.github.io/FSharp.Data/jp">日本語ドキュメント</a> があり、作成してくれた <a href="https://twitter.com/yukitos">@yukitos</a> に感謝しています。</p></li>
+<li><p>そして絵画作品を1つ選択して、F#でその作品を再生成する。
+私の絵画スキルでは到底無理なのですが、試してみることはできます :-)</p></li>
+<li><p>最後に、 <a href="http://funscript.info">FunScriptプロジェクト</a> を使って
+F#コードをJavaScriptに変換します。
+そうすると純粋なHTML Webアプリケーションとして実行できるようになり、
+携帯電話やその他のデバイスでも動作するようになります。</p></li>
+</ul>
+
+
+      
+  <p class="meta">
+    <span><strong>Published</strong>: Tuesday, 24 December 2013, 4:58 AM</span>
+      <br />      
+      <span class="tags"><strong>Tags</strong>: f#, art, fractals, funscript, f# data </span> 
+    <br />
+    <a href="http://tomasp.net/blog/2013/japan-advent-art/index.html">Read the complete article</a>
+  </p>
+  </div>
+  <div>
   <h1><a href="http://tomasp.net/blog/2013/computation-zoo-padl/index.html">The F# Computation Expression Zoo (PADL'14)</a></h1>
   <p>F# <a href="http://msdn.microsoft.com/en-us/library/dd233182.aspx">computation expressions</a> are the 
 syntactic language mechanism that is used by features like sequence expressions and asynchronous
@@ -77,7 +132,7 @@ often not very well explained and so the general preception is more like this...
 
       
   <p class="meta">
-    <span><strong>Published</strong>: Friday, 8 November 2013, 1:42 AM</span>
+    <span><strong>Published</strong>: Friday, 8 November 2013, 7:42 AM</span>
       <br />      
       <span class="tags"><strong>Tags</strong>: haskell, research, f#, functional programming </span> 
     <br />
@@ -106,7 +161,7 @@ have a look at some of the tools that make this possible...</p>
 
       
   <p class="meta">
-    <span><strong>Published</strong>: Thursday, 31 October 2013, 9:29 AM</span>
+    <span><strong>Published</strong>: Thursday, 31 October 2013, 2:29 PM</span>
       <br />      
       <span class="tags"><strong>Tags</strong>: open source, f#, fake, f# formatting </span> 
     <br />
@@ -152,7 +207,7 @@ the world looks from the C# perspective...</p>
 
       
   <p class="meta">
-    <span><strong>Published</strong>: Tuesday, 17 September 2013, 9:11 AM</span>
+    <span><strong>Published</strong>: Tuesday, 17 September 2013, 3:11 PM</span>
       <br />      
       <span class="tags"><strong>Tags</strong>: c#, f#, functional programming </span> 
     <br />
@@ -180,7 +235,7 @@ convince your colleagues or boss that F# is a good choice.</p>
 
       
   <p class="meta">
-    <span><strong>Published</strong>: Thursday, 29 August 2013, 9:02 AM</span>
+    <span><strong>Published</strong>: Thursday, 29 August 2013, 3:02 PM</span>
       <br />      
       <span class="tags"><strong>Tags</strong>: f#, training, talks, new york </span> 
     <br />
@@ -217,7 +272,7 @@ that they are all busy people, but we have close to half of the planned chapters
 
       
   <p class="meta">
-    <span><strong>Published</strong>: Monday, 26 August 2013, 11:15 PM</span>
+    <span><strong>Published</strong>: Tuesday, 27 August 2013, 5:15 AM</span>
       <br />      
       <span class="tags"><strong>Tags</strong>: manning, f#, writing, books, deep dives </span> 
     <br />
@@ -3153,7 +3208,7 @@ Seminar was mostly focused on Rotor and .NET internals, so if you want to learn 
     <h4>Blog tags</h4>
     <p>
 
-      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(89),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(26),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(30),       <a href="http://tomasp.net/blog/tag/writing/">writing</a>&nbsp;(11),       <a href="http://tomasp.net/blog/tag/haskell/">haskell</a>&nbsp;(7),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/open-source/">open source</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/new-york/">new york</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/manning/">manning</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/books/">books</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fake/">fake</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/fsharp-formatting/">f# formatting</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/training/">training</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/deep-dives/">deep dives</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/async/">async</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/fsharp-data/">f# data</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/type-providers/">type providers</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/events/">events</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/trainings/">trainings</a>&nbsp;(1)    </p>
+      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(90),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(30),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(26),       <a href="http://tomasp.net/blog/tag/writing/">writing</a>&nbsp;(11),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/open-source/">open source</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/haskell/">haskell</a>&nbsp;(7),       <a href="http://tomasp.net/blog/tag/fsharp-data/">f# data</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/new-york/">new york</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/manning/">manning</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/books/">books</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/art/">art</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/fractals/">fractals</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/funscript/">funscript</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/fake/">fake</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/fsharp-formatting/">f# formatting</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/training/">training</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/deep-dives/">deep dives</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/async/">async</a>&nbsp;(1)    </p>
 
   </div>
 </div>
@@ -3175,7 +3230,8 @@ Seminar was mostly focused on Rotor and .NET internals, so if you want to learn 
     </div>
     <div class="large-7 columns">
     <h4>Blog archives <a href="http://tomasp.net/rss.xml"><img src="http://tomasp.net/img/rss.gif" /></a></h4>
-      <a href="http://tomasp.net/blog/archive/november-2013/index.html">
+      <a href="http://tomasp.net/blog/archive/december-2013/index.html">
+        December 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/november-2013/index.html">
         November 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/october-2013/index.html">
         October 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/september-2013/index.html">
         September 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/august-2013/index.html">

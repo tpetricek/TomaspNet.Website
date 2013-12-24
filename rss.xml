@@ -42,7 +42,7 @@
 
 &lt;ul&gt;
 &lt;li&gt;&lt;p&gt;まず、日本の絵画について学ぶために &lt;a href="http://fsharp.github.io/FSharp.Data/"&gt;F# Data&lt;/a&gt; ライブラリと &lt;a href="http://www.freebase.com"&gt;Freebase&lt;/a&gt; を組み合わせて使う。
-このライブラリにはいまや &lt;a href="http://fsharp.github.io/FSharp.Data/jp"&gt;日本語ドキュメント&lt;/a&gt; があり、作成してくれた &lt;a href="https://twitter.com/yukitos"&gt;@yukitos&lt;/a&gt; に感謝しています。&lt;/p&gt;&lt;/li&gt;
+このライブラリにはいまや &lt;a href="https://github.com/fsharp/FSharp.Data/blob/master/docs/content/ja/index.md"&gt;日本語ドキュメント&lt;/a&gt; があり、作成してくれた &lt;a href="https://twitter.com/yukitos"&gt;@yukitos&lt;/a&gt; に感謝しています。&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;そして絵画作品を1つ選択して、F#でその作品を再生成する。
 私の絵画スキルでは到底無理なのですが、試してみることはできます :-)&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;最後に、 &lt;a href="http://funscript.info"&gt;FunScriptプロジェクト&lt;/a&gt; を使って

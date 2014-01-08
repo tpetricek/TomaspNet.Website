@@ -20,12 +20,12 @@ I'm the most familiar with), but you can surely find similar examples in other l
 &lt;ul&gt;
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;Multi-core&lt;/strong&gt; is an easy to see challenge caused by an external development. 
 It led to the popularity of &lt;em&gt;immutable&lt;/em&gt; data structures (and functional programming,
-in general) and it was also partly motivation for [asynchronous workflows][async].&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;&lt;strong&gt;Data access&lt;/strong&gt; is a more subtle challenge. Technologies like [LINQ][linq] make it
+in general) and it was also partly motivation for &lt;a href="http://msdn.microsoft.com/en-us/library/dd233250.aspx" title="Asynchronous Workflows (F#)"&gt;asynchronous workflows&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Data access&lt;/strong&gt; is a more subtle challenge. Technologies like &lt;a href="http://msdn.microsoft.com/en-us/library/bb397926.aspx" title="LINQ (Language-Integrated Query)"&gt;LINQ&lt;/a&gt; make it
 significantly easier, but it was not easy to see that inline SQL was a poor solution.
 This is even more the case for F# &lt;em&gt;type providers&lt;/em&gt;. You will not realize how poor the
 established data access story is until you &lt;em&gt;see&lt;/em&gt; something like
-the [WorldBank and R provider][rdemo] or [CSV type provider][csv].&lt;/p&gt;&lt;/li&gt;
+the &lt;a href="http://www.youtube.com/watch?v=cCuGgA9Yqrs" title="F# R Type Provider Demo"&gt;WorldBank and R provider&lt;/a&gt; or &lt;a href="http://fsharp.github.io/FSharp.Data/library/CsvProvider.html" title="F# Data: CSV type provider"&gt;CSV type provider&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;I believe that the next important practical challenge for programming language designers

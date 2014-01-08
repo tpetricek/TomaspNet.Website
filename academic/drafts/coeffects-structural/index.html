@@ -4,7 +4,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title>What can Programming Language Research Learn from the Philosophy of Science?</title>
+  <title>Analysing context dependence in programs</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
   <meta name="author" content="Tomas Petricek">
@@ -59,35 +59,35 @@
   <div class="large-8 columns main-content">
   <content>
     
-<h1>What can Programming Language Research Learn from the Philosophy of Science?</h1>
+<h1>Analysing context dependence in programs</h1>
 
 <blockquote>
-  <p>Tomas Petricek</p>
+  <p>Tomas Petricek, Dominic Orchard, Alan Mycroft</p>
 
   <p>Draft - Work in progress</p>
 </blockquote>
 
-<p>As a relatively recent discipline, computer science, and programming language research 
-in particular, have so far eluded the eyes of philosophers of science. However, we can 
-gain interesting insights by looking at classical works in philosophy of science and 
-reconsidering their meaning from the perspective of programming language research.</p>
+<p>The concept of a <em>coeffect</em> system has been recently introduced to analyse context-dependence
+in programs. It has been shown to capture various contextual properties such as liveness, caching
+requirements in causal dataﬂow and dynamic variable scoping. Although the existing work provides 
+a useful mechanism for tracking overall properties of the context, it has limited use for contextual
+properties associated with individual variables in the context, such as liveness.</p>
 
-<p>This is exactly what I attempt to do in this essay – I will go through some of the most 
-important theories of science and look what they can say about programming language 
-research. Then I suggest how we can improve our scientific practice in the light of 
-these observations.</p>
+<p>We remedy this limitation by developing <em>structural coeffects</em> that captures fine-grained information 
+about the usage of free variables. This captures additional instances of contextual properties and 
+also makes the analysis of liveness and dataﬂow computations more precise and practically useful.</p>
 
-<p>First, I discuss how understanding the research programme is important for evaluating 
-scientific contributions. Second, I argue that overemphasis on precise, mathematical 
-models in early stage of research may limit the creativity. Thirdly, I propose how 
-to design stand-alone (theory-independent) experiments in program- ming language research 
-and how this can help to integrate the vast amount of knowledge gathered by 
-software practitioners.</p>
+<p>Since the work onc oeffects is recent, we revisit the development here. We present the existing 
+system as the <em>flat coeffect</em> calculus and further develop its syntactic and semantic properties.
+We then define the <em>structural coeffect</em> calculus and analyse its syntax and semantics. For contextual 
+properties of variables, the structural coeffect calculus has desirable syntactic properties that 
+are lacking in ﬂat coeffect calculus. Finally, we extend indexed comonads, which models coeffects, 
+to a structural variant.</p>
 
 <h2>Draft and more information</h2>
 
 <ul>
-<li>Download <a href="philosophy-pl.pdf">the draft (PDF)</a> [Updated: January 2014]</li>
+<li>Download <a href="coeffects-structural.pdf">the draft (PDF)</a></li>
 </ul>
 
 <h2>Comments are welcome!</h2>

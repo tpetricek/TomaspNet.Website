@@ -60,6 +60,44 @@
       
 
   <div>
+  <h1><a href="http://tomasp.net/blog/2014/why-coeffects-matter/index.html">Coeffects: The next big programming challenge</a></h1>
+  <p>Many advances in programming language design are driven by some practical motivations.
+Sometimes, the practical motivations are easy to see - for example, when they come from
+some external change such as the rise of multi-core processors. Sometimes, discovering 
+the practical motivations is a tricky task - perhaps because everyone is used to a 
+certain way of doing things that we do not even <em>see</em> how poor our current solution is.</p>
+
+<p>The following two examples are related to the work done in F# (because this is what
+I'm the most familiar with), but you can surely find similar examples in other languages:</p>
+
+<ul>
+<li><p><strong>Multi-core</strong> is an easy to see challenge caused by an external development. 
+It led to the popularity of <em>immutable</em> data structures (and functional programming,
+in general) and it was also partly motivation for [asynchronous workflows][async].</p></li>
+<li><p><strong>Data access</strong> is a more subtle challenge. Technologies like [LINQ][linq] make it
+significantly easier, but it was not easy to see that inline SQL was a poor solution.
+This is even more the case for F# <em>type providers</em>. You will not realize how poor the
+established data access story is until you <em>see</em> something like
+the [WorldBank and R provider][rdemo] or [CSV type provider][csv].</p></li>
+</ul>
+
+<p>I believe that the next important practical challenge for programming language designers
+is of the kind that is not easy to see - because we are so used to doing things in 
+certain ways that we cannot see how poor they are. The problem is designing languages
+that are better at working with (and understanding) the <em>context</em> in which programs are
+executed.</p>
+
+
+      
+  <p class="meta">
+    <span><strong>Published</strong>: Wednesday, 8 January 2014, 4:31 PM</span>
+      <br />      
+      <span class="tags"><strong>Tags</strong>: research, coeffects, functional programming, comonads </span> 
+    <br />
+    <a href="http://tomasp.net/blog/2014/why-coeffects-matter/index.html">Read the complete article</a>
+  </p>
+  </div>
+  <div>
   <h1><a href="http://tomasp.net/blog/2013/japan-advent-art/index.html">Advent Art：北斎の絵を生成する</a></h1>
   <div id="myModal" class="reveal-modal xlarge" data-reveal>
   <iframe src="http://localhost:8080/blog/2013/japan-advent-art/hokusai.html" style="width:100%; height:850px;border-style:none;"></iframe>
@@ -561,35 +599,6 @@ at how this works...</p>
     <a href="http://tomasp.net/blog/more-events-autumn-2012.aspx/index.html">Read the complete article</a>
   </p>
   </div>
-  <div>
-  <h1><a href="http://tomasp.net/blog/applicative-functors.aspx/index.html">Applicative functors: definition and syntax</a></h1>
-  <p>In a recent blog post, <a href="http://blog.ezyang.com/2012/08/applicative-functors/" title="Edward Z. Yang: Applicative functors">Edward Z. Yang talks about applicative functors</a>. 
-He mentions two equivalent definitions of applicative functors - the standard
-definition used in Haskell libraries (<code>Applicative</code>) and an alternative that
-has been also presented in the <a href="http://www.soi.city.ac.uk/~ross/papers/Applicative.html" title="C. McBride and R. Paterson: Applicative Programming with Effects">original paper</a>, but is generally less
-familiar (<code>Monoidal</code>).</p>
-
-<p>The standard definition makes a perfect sense with the standard uses in Haskell,
-however I always preferred the alternative definition. Edward uses the alternative
-(<code>Monoidal</code>) definition to explain the laws that should hold about applicative 
-functors and to explain <em>commutative</em> applicative functors, but I think it
-is even more useful.</p>
-
-<p>The <code>Monoidal</code> definition fits nicely with a trick that you can use to 
-<a href="http://tomasp.net/blog/idioms-in-linq.aspx" title="T. Petricek: Beyond the Monad fashion (I.): Writing idioms in LINQ">encode applicative functors in C# using LINQ</a> and I also used it as 
-a basis for an F# syntax extension that allows writing code using applicative 
-functors in a similar style as using monads (which is discussed in my draft 
-paper about <a href="http://www.cl.cam.ac.uk/~tp322/papers/notations.html" title="T. Petricek and D. Syme: Syntax Matters: Writing abstract computations in F#">writing abstract computations in F#</a>). And I also think that
-<em>commutative</em> applicative functors deserve more attention.</p>
-      
-  <p class="meta">
-    <span><strong>Published</strong>: Tuesday, 21 August 2012, 2:23 PM</span>
-      <br />      
-      <span class="tags"><strong>Tags</strong>: research, haskell, f# </span> 
-    <br />
-    <a href="http://tomasp.net/blog/applicative-functors.aspx/index.html">Read the complete article</a>
-  </p>
-  </div>
 
     </content>
 
@@ -667,7 +676,7 @@ paper about <a href="http://www.cl.cam.ac.uk/~tp322/papers/notations.html" title
     <h4>Blog tags</h4>
     <p>
 
-      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(90),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(30),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(26),       <a href="http://tomasp.net/blog/tag/writing/">writing</a>&nbsp;(11),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/open-source/">open source</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/haskell/">haskell</a>&nbsp;(7),       <a href="http://tomasp.net/blog/tag/fsharp-data/">f# data</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/new-york/">new york</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/manning/">manning</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/books/">books</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/art/">art</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/fractals/">fractals</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/funscript/">funscript</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/fake/">fake</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/fsharp-formatting/">f# formatting</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/training/">training</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/deep-dives/">deep dives</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/async/">async</a>&nbsp;(1)    </p>
+      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(90),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(27),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(30),       <a href="http://tomasp.net/blog/tag/writing/">writing</a>&nbsp;(11),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/open-source/">open source</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/haskell/">haskell</a>&nbsp;(7),       <a href="http://tomasp.net/blog/tag/fsharp-data/">f# data</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/new-york/">new york</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/manning/">manning</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/books/">books</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/coeffects/">coeffects</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/comonads/">comonads</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/art/">art</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/fractals/">fractals</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/funscript/">funscript</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/fake/">fake</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/fsharp-formatting/">f# formatting</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/training/">training</a>&nbsp;(1)    </p>
 
   </div>
 </div>
@@ -689,7 +698,8 @@ paper about <a href="http://www.cl.cam.ac.uk/~tp322/papers/notations.html" title
     </div>
     <div class="large-7 columns">
     <h4>Blog archives <a href="http://tomasp.net/rss.xml"><img src="http://tomasp.net/img/rss.gif" /></a></h4>
-      <a href="http://tomasp.net/blog/archive/december-2013/index.html">
+      <a href="http://tomasp.net/blog/archive/january-2014/index.html">
+        January 2014 (1)</a>,      <a href="http://tomasp.net/blog/archive/december-2013/index.html">
         December 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/november-2013/index.html">
         November 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/october-2013/index.html">
         October 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/september-2013/index.html">

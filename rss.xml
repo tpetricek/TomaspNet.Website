@@ -4,6 +4,39 @@
     <link>http://tomasp.net</link>
     <description>Writing about software development in F# and .NET, sharing materials from my F# trainings and talks, writing about programming language research and theory.</description>
     <item>
+      <title>Coeffects: The next big programming challenge</title>
+      <guid>http://tomasp.net/blog/2014/why-coeffects-matter</guid>
+      <link>http://tomasp.net/blog/2014/why-coeffects-matter/index.html</link>
+      <pubDate>Wed, 08 Jan 2014 15:31:49 GMT</pubDate>
+      <description>&lt;p&gt;Many advances in programming language design are driven by some practical motivations.
+Sometimes, the practical motivations are easy to see - for example, when they come from
+some external change such as the rise of multi-core processors. Sometimes, discovering 
+the practical motivations is a tricky task - perhaps because everyone is used to a 
+certain way of doing things that we do not even &lt;em&gt;see&lt;/em&gt; how poor our current solution is.&lt;/p&gt;
+
+&lt;p&gt;The following two examples are related to the work done in F# (because this is what
+I'm the most familiar with), but you can surely find similar examples in other languages:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Multi-core&lt;/strong&gt; is an easy to see challenge caused by an external development. 
+It led to the popularity of &lt;em&gt;immutable&lt;/em&gt; data structures (and functional programming,
+in general) and it was also partly motivation for [asynchronous workflows][async].&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Data access&lt;/strong&gt; is a more subtle challenge. Technologies like [LINQ][linq] make it
+significantly easier, but it was not easy to see that inline SQL was a poor solution.
+This is even more the case for F# &lt;em&gt;type providers&lt;/em&gt;. You will not realize how poor the
+established data access story is until you &lt;em&gt;see&lt;/em&gt; something like
+the [WorldBank and R provider][rdemo] or [CSV type provider][csv].&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;I believe that the next important practical challenge for programming language designers
+is of the kind that is not easy to see - because we are so used to doing things in 
+certain ways that we cannot see how poor they are. The problem is designing languages
+that are better at working with (and understanding) the &lt;em&gt;context&lt;/em&gt; in which programs are
+executed.&lt;/p&gt;
+
+</description>
+    </item>
+    <item>
       <title>Advent Art：北斎の絵を生成する</title>
       <guid>http://tomasp.net/blog/2013/japan-advent-art</guid>
       <link>http://tomasp.net/blog/2013/japan-advent-art/index.html</link>
@@ -556,31 +589,6 @@ reporting events from an agent. The options differ in what thread is used to rep
 event. Choosing the right option is important as it affects scalability and simplicity
 of your agent-based code.&lt;/p&gt;
 </description>
-    </item>
-    <item>
-      <title>F# in Academia: Present at upcoming events!</title>
-      <guid>http://tomasp.net/blog/fsharp-academia.aspx</guid>
-      <link>http://tomasp.net/blog/fsharp-academia.aspx/index.html</link>
-      <pubDate>Sun, 15 Apr 2012 22:19:04 GMT</pubDate>
-      <description>&lt;p&gt;The F# language was born as a combination of the pragmatic and real-world .NET 
-platform and functional programming, which had a long tradition in academia. 
-Many useful ideas or libraries in F# (like &lt;em&gt;asynchronous workflows&lt;/em&gt; and 
-&lt;em&gt;first-class events&lt;/em&gt;) are inspored by research in functional programming
-(namely, the work on &lt;em&gt;monads&lt;/em&gt;, &lt;em&gt;continuations&lt;/em&gt; and &lt;em&gt;functional reactive programming&lt;/em&gt;).&lt;/p&gt;
-
-&lt;p&gt;Exchanging the ideas between the research community and the real-world is one
-of the areas where F# excels. Indeed, the first applicatiosn of F# inside Microsoft
-(in the Machine Learning group at Cambridge) were all about this - combining
-research in machine learning with a language that can be easily used in practice.&lt;/p&gt;
-
-&lt;p&gt;However, F# and the F# users also made numerous contributions to the programming
-langauge research community. Influential ideas that come from F# include 
-&lt;em&gt;active patterns&lt;/em&gt; and the F# style of &lt;em&gt;meta-programming&lt;/em&gt; for translating F# to 
-JavaScript). I think there is a lot more that the academic community can learn
-from the F# community, so I'd like to invite you to talk about your ideas 
-at two upcoming academic events!&lt;/p&gt;
-
-&lt;p&gt;What, why, when, where and how? &lt;a href="http://tomasp.net/blog/fsharp-academia.aspx"&gt;Continue reading!&lt;/a&gt;&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

@@ -60,58 +60,41 @@
       
 
   <div>
-  <h1><a href="http://tomasp.net/blog/2013/japan-advent-art/index.html">Advent Art：北斎の絵を生成する</a></h1>
-  <div id="myModal" class="reveal-modal xlarge" data-reveal>
-  <iframe src="http://localhost:8080/blog/2013/japan-advent-art/hokusai.html" style="width:100%; height:850px;border-style:none;"></iframe>
-  <a class="close-reveal-modal">&#215;</a>
-</div>
+  <h1><a href="http://tomasp.net/blog/2014/why-coeffects-matter/index.html">Coeffects: The next big programming challenge</a></h1>
+  <p>Many advances in programming language design are driven by some practical motivations.
+Sometimes, the practical motivations are easy to see - for example, when they come from
+some external change such as the rise of multi-core processors. Sometimes, discovering 
+the practical motivations is a tricky task - perhaps because everyone is used to a 
+certain way of doing things that we do not even <em>see</em> how poor our current solution is.</p>
 
-<div class="rdecor" style="text-align:center">
-<a href="#" data-reveal-id="myModal" style="text-align:center">
-<img src="http://localhost:8080/blog/2013/japan-advent-art/hokusai_sm.jpg" style="margin-bottom:10px;border:4px solid black" title="神奈川沖浪裏 (The Great Wave off Kanagawa)" /><br />
-<small style="font-size:90%">実際の結果を見るにはここをクリック！</small>
-</a>
-</div>
-
-<p>ここ数年、日本のF# コミュニティは「F# Advent Calendar」というイベントを開催しています
-(<a href="http://atnd.org/events/10685">2010年</a>、
-<a href="http://partake.in/events/1c24993a-c475-4fc2-bca4-7a1cd2f81869">2011年</a>、
-<a href="http://atnd.org/events/33927">2012年</a>、
-そして <a href="http://connpass.com/event/3935/">今年</a>)。
-これはadvent dayごとに1人ずつ、F#に関連した何かしら興味深い記事を作成するというものです。
-私は去年からTwitterでadvent calendarをチェックしていて、
-今年からは私も参加しようと思い、記事を書きたいと申し出ました。
-そうしたところ、数名の方からの協力を得ることができました。
-<a href="https://twitter.com/igeta">@igeta</a> には参加手続きの諸々とレビューを、
-<a href="http://twitter.com/yukitos">@yukitos</a> にはこの記事の翻訳を、そして
-<a href="http://twitter.com/gab_km">@gab_km</a> には翻訳のレビューをしていただきました。
-ありがとう！</p>
-
-<p>けれども何についての記事を書くのがよいのでしょう？
-過去一年にわたって、F#コミュニティで開発されているF#のオープンソースライブラリやプロジェクトを
-いくつか紹介できるような記事がよさそうです。
-それと同時に、日本に関連のあるトピックが何かないものでしょうか？
-少し考えてみたところ、以下のようなプランを思いつきました：</p>
+<p>The following two examples are related to the work done in F# (because this is what
+I'm the most familiar with), but you can surely find similar examples in other languages:</p>
 
 <ul>
-<li><p>まず、日本の絵画について学ぶために <a href="http://fsharp.github.io/FSharp.Data/">F# Data</a> ライブラリと <a href="http://www.freebase.com">Freebase</a> を組み合わせて使う。
-このライブラリにはいまや <a href="https://github.com/fsharp/FSharp.Data/blob/master/docs/content/ja/index.md">日本語ドキュメント</a> があり、作成してくれた <a href="https://twitter.com/yukitos">@yukitos</a> に感謝しています。</p></li>
-<li><p>そして絵画作品を1つ選択して、F#でその作品を再生成する。
-私の絵画スキルでは到底無理なのですが、試してみることはできます :-)</p></li>
-<li><p>最後に、 <a href="http://funscript.info">FunScriptプロジェクト</a> を使って
-F#コードをJavaScriptに変換します。
-そうすると純粋なHTML Webアプリケーションとして実行できるようになり、
-携帯電話やその他のデバイスでも動作するようになります。</p></li>
+<li><p><strong>Multi-core</strong> is an easy to see challenge caused by an external development. 
+It led to the popularity of <em>immutable</em> data structures (and functional programming,
+in general) and it was also partly motivation for [asynchronous workflows][async].</p></li>
+<li><p><strong>Data access</strong> is a more subtle challenge. Technologies like [LINQ][linq] make it
+significantly easier, but it was not easy to see that inline SQL was a poor solution.
+This is even more the case for F# <em>type providers</em>. You will not realize how poor the
+established data access story is until you <em>see</em> something like
+the [WorldBank and R provider][rdemo] or [CSV type provider][csv].</p></li>
 </ul>
+
+<p>I believe that the next important practical challenge for programming language designers
+is of the kind that is not easy to see - because we are so used to doing things in 
+certain ways that we cannot see how poor they are. The problem is designing languages
+that are better at working with (and understanding) the <em>context</em> in which programs are
+executed.</p>
 
 
       
   <p class="meta">
-    <span><strong>Published</strong>: Tuesday, 24 December 2013, 4:58 AM</span>
+    <span><strong>Published</strong>: Wednesday, 8 January 2014, 4:31 PM</span>
       <br />      
-      <span class="tags"><strong>Tags</strong>: f#, art, fractals, funscript, f# data </span> 
+      <span class="tags"><strong>Tags</strong>: research, coeffects, functional programming, comonads </span> 
     <br />
-    <a href="http://tomasp.net/blog/2013/japan-advent-art/index.html">Read the complete article</a>
+    <a href="http://tomasp.net/blog/2014/why-coeffects-matter/index.html">Read the complete article</a>
   </p>
   </div>
 

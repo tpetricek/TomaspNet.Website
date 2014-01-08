@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<!--[if IE 8]> 				 <html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+
+<head>
+  <meta charset="utf-8">
+  <title>Coeffects: The next big programming challenge</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Todo">
+  <meta name="author" content="Tomas Petricek">
+
+  <!-- Reference Foundation -->
+  <link rel="stylesheet" href="http://tomasp.net/css/foundation.css">
+  <script src="js/vendor/custom.modernizr.js"></script>
+
+  <link rel="alternate" type="application/rss+xml" href="http://tomasp.net/rss.xml" title="RSS feed for Tomas Petricek's blog">
+  <link rel="author" href="https://plus.google.com/109855146654605967051" />
+    
+  <!-- Reference custom CSS and tooltips -->
+  <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/style.css" />
+  <script type="text/javascript" src="http://tomasp.net/custom/tooltips.js"></script>
+  <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/tooltips.css" />
+</head>
+<body>
+
+   <header id="top-header">
+    <div class="row">
+      <div class="twelve columns">
+        <h1><a href="http://tomasp.net/">Tomas Petricek's blog</a></h1>
+        <p>Writing about practical F# coding and programming language research</p>
+      </div>
+    </div>
+  </header>
+
+  <header class="top-bar-header">
+    <div class="contain-to-grid sticky">
+    <nav class="top-bar">
+
+    <ul class="title-area">
+      <li class="name"><h1><a href="#"></a></h1></li>
+      <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+    </ul>
+    <section class="top-bar-section">
+      <ul class="right">
+        <li><a href="http://tomasp.net/blog/index.html">Blog</a></li>
+        <li><a href="http://functional-programming.net">Trainings</a></li>
+        <li><a href="http://functional-programming.net">Books</a></li>
+        <li><a href="http://lanyrd.com/profile/tomasp">Talks</a></li>
+        <li><a href="http://tomasp.net/academic">Research & Teaching</a></li>
+      </ul>
+    </section>
+
+    </nav></div>
+  </header>
+  
+  
+<div class="row">
+	<div class="large-8 columns main-content">
+    <content>
+      
+
+<h1>Coeffects: The next big programming challenge</h1>
+
+<p>Many advances in programming language design are driven by some practical motivations.
+Sometimes, the practical motivations are easy to see - for example, when they come from
+some external change such as the rise of multi-core processors. Sometimes, discovering 
+the practical motivations is a tricky task - perhaps because everyone is used to a 
+certain way of doing things that we do not even <em>see</em> how poor our current solution is.</p>
+
+<p>The following two examples are related to the work done in F# (because this is what
+I'm the most familiar with), but you can surely find similar examples in other languages:</p>
+
+<ul>
+<li><p><strong>Multi-core</strong> is an easy to see challenge caused by an external development. 
+It led to the popularity of <em>immutable</em> data structures (and functional programming,
+in general) and it was also partly motivation for <a href="http://msdn.microsoft.com/en-us/library/dd233250.aspx" title="Asynchronous Workflows (F#)">asynchronous workflows</a>.</p></li>
+<li><p><strong>Data access</strong> is a more subtle challenge. Technologies like <a href="http://msdn.microsoft.com/en-us/library/bb397926.aspx" title="LINQ (Language-Integrated Query)">LINQ</a> make it
+significantly easier, but it was not easy to see that inline SQL was a poor solution.
+This is even more the case for F# <em>type providers</em>. You will not realize how poor the
+established data access story is until you <em>see</em> something like
+the <a href="http://www.youtube.com/watch?v=cCuGgA9Yqrs" title="F# R Type Provider Demo">WorldBank and R provider</a> or <a href="http://fsharp.github.io/FSharp.Data/library/CsvProvider.html" title="F# Data: CSV type provider">CSV type provider</a>.</p></li>
+</ul>
+
+<p>I believe that the next important practical challenge for programming language designers
+is of the kind that is not easy to see - because we are so used to doing things in 
+certain ways that we cannot see how poor they are. The problem is designing languages
+that are better at working with (and understanding) the <em>context</em> in which programs are
+executed.</p>
+
+<blockquote>
+  <p>This article is a brief summary of the work that I did (am doing) during my PhD.
+It focuses on clearly explaining the motivation for the work, but if you're interested
+in the solution (and the theory), then you can find more on <a href="http://www.cl.cam.ac.uk/~tp322/">my academic home page</a>.</p>
+</blockquote>
+
+<h2>Context-aware programming matters</h2>
+
+<p>The phrase <em>context in which programs are executed</em> sounds quite abstract and generic.
+What are some concrete examples of such <em>context</em>? For example:</p>
+
+<ul>
+<li><p>When writing a cross-platform application, different platforms (and even different 
+versions of the same platform) provide different contexts - the API functions that are
+available.</p></li>
+<li><p>When creating a mobile app, the different capabilities that you may (or may not) have
+access to are context (GPS sensor, accelerometer, battery status).</p></li>
+<li><p>When working with data (be it sensitive database or social network data from Facebook),
+you have permissions to access only some of the data (depending on your identity) and
+you may want to track <em>provenance</em> information. This is another example of a context.</p></li>
+</ul>
+
+<p>These are all fairly standard problems that developers deal with today. As the number of 
+devices where programs need to run increases, dealing with diverse contexts will be becoming
+more and more important (and I'm not even talking about <em>ubiquitous computing</em> where you need
+to compile your code to a coffee machine).</p>
+
+<p>We do not preceive the above things as problems (at best, annoyances that we just have to 
+deal with), because we do not realize that there should be a better way. Let me digg into
+four examples in a bit more detail.</p>
+
+<h3>Context awareness #1: Platform versioning</h3>
+
+<p>The number of different platform versions that you need to target is increasing, no matter what 
+platform are you using. For Android, there is a number called <a href="http://developer.android.com/guide/topics/manifest/uses-sdk-element.html#ApiLevels">API Level</a>
+with mostly additive changes (<em>mostly</em> sounds very reassuring). In the .NET world, there are multiple
+versions, mobile editions, multiple versions of Silverlight etc. So, code that targets multiple
+frameworks easily ends up looking as the following sample from <a href="https://github.com/fsharp/FSharp.Data/blob/master/src/Net/Http.fs">the Http module in F# Data</a>:</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip">
+<span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+<span class="l">15: </span>
+<span class="l">16: </span>
+</pre>
+</td>
+<td class="snippet"><pre class="fssnip">
+<span class="k">for</span> <span onmouseout="hideTip(event, 'fs1', 1)" onmouseover="showTip(event, 'fs1', 1)" class="i">header</span>, <span onmouseout="hideTip(event, 'fs2', 2)" onmouseover="showTip(event, 'fs2', 2)" class="i">value</span> <span class="k">in</span> <span onmouseout="hideTip(event, 'fs3', 3)" onmouseover="showTip(event, 'fs3', 3)" class="i">headers</span> <span class="k">do</span>
+  <span class="k">match</span> <span class="i">header</span> <span class="k">with</span>
+  | <span onmouseout="hideTip(event, 'fs4', 4)" onmouseover="showTip(event, 'fs4', 4)" class="i">StringEquals</span> <span class="s">&quot;</span><span class="s">accept</span><span class="s">&quot;</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs5', 5)" onmouseover="showTip(event, 'fs5', 5)" class="i">req</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs6', 6)" onmouseover="showTip(event, 'fs6', 6)" class="i">Accept</span> <span class="o">&lt;-</span> <span onmouseout="hideTip(event, 'fs2', 7)" onmouseover="showTip(event, 'fs2', 7)" class="i">value</span>
+<span class="prep">#if</span> <span class="i">FX_NO_WEBREQUEST_USERAGENT</span>
+<span class="inactive">  </span><span class="inactive">|</span><span class="inactive"> </span><span class="inactive">StringEquals</span><span class="inactive"> </span><span class="inactive">&quot;user-agent&quot;</span><span class="inactive"> </span><span class="inactive">-&gt;</span><span class="inactive"> </span>
+<span class="inactive">      </span><span class="inactive">req.Headers.[HttpRequestHeader.UserAgent]</span><span class="inactive"> </span><span class="inactive">&lt;-</span><span class="inactive"> </span><span class="inactive">value</span>
+<span class="prep">#else</span>
+  | <span onmouseout="hideTip(event, 'fs4', 8)" onmouseover="showTip(event, 'fs4', 8)" class="i">StringEquals</span> <span class="s">&quot;</span><span class="s">user</span><span class="s">-</span><span class="s">agent</span><span class="s">&quot;</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs5', 9)" onmouseover="showTip(event, 'fs5', 9)" class="i">req</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs7', 10)" onmouseover="showTip(event, 'fs7', 10)" class="i">UserAgent</span> <span class="o">&lt;-</span> <span onmouseout="hideTip(event, 'fs2', 11)" onmouseover="showTip(event, 'fs2', 11)" class="i">value</span>
+<span class="prep">#endif</span>
+<span class="prep">#if</span> <span class="i">FX_NO_WEBREQUEST_REFERER</span>
+<span class="inactive">  </span><span class="inactive">|</span><span class="inactive"> </span><span class="inactive">StringEquals</span><span class="inactive"> </span><span class="inactive">&quot;referer&quot;</span><span class="inactive"> </span><span class="inactive">-&gt;</span><span class="inactive"> </span>
+<span class="inactive">      </span><span class="inactive">req.Headers.[HttpRequestHeader.Referer]</span><span class="inactive"> </span><span class="inactive">&lt;-</span><span class="inactive"> </span><span class="inactive">value</span>
+<span class="prep">#else</span>
+  | <span onmouseout="hideTip(event, 'fs4', 12)" onmouseover="showTip(event, 'fs4', 12)" class="i">StringEquals</span> <span class="s">&quot;</span><span class="s">referer</span><span class="s">&quot;</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs5', 13)" onmouseover="showTip(event, 'fs5', 13)" class="i">req</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs8', 14)" onmouseover="showTip(event, 'fs8', 14)" class="i">Referer</span> <span class="o">&lt;-</span> <span onmouseout="hideTip(event, 'fs2', 15)" onmouseover="showTip(event, 'fs2', 15)" class="i">value</span>
+<span class="prep">#endif</span>
+  | _ <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs5', 16)" onmouseover="showTip(event, 'fs5', 16)" class="i">req</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs9', 17)" onmouseover="showTip(event, 'fs9', 17)" class="i">Headers</span><span class="o">.</span>[<span onmouseout="hideTip(event, 'fs1', 18)" onmouseover="showTip(event, 'fs1', 18)" class="i">header</span>] <span class="o">&lt;-</span> <span onmouseout="hideTip(event, 'fs2', 19)" onmouseover="showTip(event, 'fs2', 19)" class="i">value</span></pre>
+</td>
+</tr>
+</table>
+
+<p>This is difficult to write (you won't know if the code even compiles until you try building all 
+combinations) and maintaining such code is not particularly nice (try adding another platform version).
+Maybe we could refactor the code in F# Data to improve it, but that's not really my point - supporting
+multiple platforms should be a lot easier.</p>
+
+<p>On Android, you can access API from higher level platform dynamically using techniques like 
+<a href="http://android-developers.blogspot.cz/2009/04/backward-compatibility-for-android.html">reflection and writing wrappers</a>.
+Again, this sounds very error prone - to quote the linked article 
+<em>"Remember the mantra: if you haven't tried it, it doesn't work".</em>
+Testing is no doubt important. But at least in statically typed langauges, we
+should not need to worry about calling a method that does not exist when writing
+multi-platform applications!</p>
+
+<h3>Context awareness #2: System capabilities</h3>
+
+<p>Another example related to the previous one is when you're using something like LINQ or 
+<a href="http://funscript.info/">FunScript</a> to translate code written in a sub-set of C# or F#
+to some other language - such as SQL or JavaScript. This is another important area, because
+you can use this technique to target JavaScript, GPUs, SQL, Erlang runtime or other components 
+that use a particular programming language.</p>
+
+<p>For example, take a look at the following LINQ query that selects product names where the
+first upper case letter is "C":</p>
+
+<pre ><span class="kwrd">var</span> db = <span class="kwrd">new</span> NorthwindDataContext();
+
+<span class="kwrd">from</span> p <span class="kwrd">in</span> db.Products
+<span class="kwrd">where</span> p.ProductName.First(c =&gt; Char.IsUpper(c)) == <span class="str">"C"</span>
+<span class="kwrd">select</span> p.ProductName;</pre>
+
+<p>This looks like a perfectly fine piece of code and it compiles fine. But when you try running
+it, you get the following error:</p>
+
+<blockquote>
+  <p>Unhandled Exception: <code>System.NotSupportedException</code>: Sequence operators 
+not supported for type <code>System.String</code>.</p>
+</blockquote>
+
+<p>The problem is that LINQ can only translate a <em>subset</em> of normal C# code. Here, we are using
+the <code>First</code> method to iterate over characters of a string and that's not supported. This is
+not a technical limitation of LINQ, but a fundamental problem of the approach. If we target a 
+limited language, we simply cannot support the full source language. Is this an important 
+problem? If you search on Google for <a href="https://www.google.co.uk/#q=%22has+no+supported+translation+to+SQL%22">"has no supported translation to SQL"</a>
+(which is a part of a similar error message that you get in another case), you get some 26900
+links. So yes - this is an issue that people are hitting all the time.</p>
+
+<h3>Context awareness #3: Confidentiality and provenance</h3>
+
+<p>The previous two examples were mainly related to the (non-)existence of some API functions
+or to their behaviour. However, this is not the only case of context-awarness that is important
+in every day programming.</p>
+
+<p>Most readers of this blog will immediately see what is wrong with the following code, but that
+does not change the fact that it can be compiled and deployed (and that there is a large number
+of systems that contain something similar):</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip">
+<span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+</pre>
+</td>
+<td class="snippet"><pre class="fssnip">
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs10', 20)" onmouseover="showTip(event, 'fs10', 20)" class="i">query</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs11', 21)" onmouseover="showTip(event, 'fs11', 21)" class="i">sprintf</span> <span class="s">&quot;</span><span class="s">SELECT</span><span class="s"> </span><span class="s">*</span><span class="s"> </span><span class="s">FROM</span><span class="s"> </span><span class="s">Products</span><span class="s"> </span><span class="s">WHERE</span><span class="s"> </span><span class="s">ProductName</span><span class="s"> </span><span class="s">=</span><span class="s"> </span><span class="s">&#39;</span><span class="s">%</span><span class="s">s&#39;</span><span class="s">&quot;</span> <span onmouseout="hideTip(event, 'fs12', 22)" onmouseover="showTip(event, 'fs12', 22)" class="i">name</span>
+<span class="k">use</span> <span onmouseout="hideTip(event, 'fs13', 23)" onmouseover="showTip(event, 'fs13', 23)" class="i">cmd</span> <span class="o">=</span> <span class="k">new</span> <span onmouseout="hideTip(event, 'fs14', 24)" onmouseover="showTip(event, 'fs14', 24)" class="i">SqlCommand</span>(<span onmouseout="hideTip(event, 'fs10', 25)" onmouseover="showTip(event, 'fs10', 25)" class="i">query</span>)
+<span class="k">use</span> <span onmouseout="hideTip(event, 'fs15', 26)" onmouseover="showTip(event, 'fs15', 26)" class="i">reader</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs13', 27)" onmouseover="showTip(event, 'fs13', 27)" class="i">cmd</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs16', 28)" onmouseover="showTip(event, 'fs16', 28)" class="i">ExecuteReader</span>()</pre>
+</td>
+</tr>
+</table>
+
+<p>The problem is obviously <a href="http://en.wikipedia.org/wiki/SQL_injection">SQL Injenction</a>. Concatenating
+strings to build an SQL command is a bad practice, but it is an example of a more general problem.</p>
+
+<p>Sometimes, we have special kinds of variables that should have some contextual meta-data associated
+with them. Such meta-data can dictate how the variable can be used. Here, <code>name</code> comes from the user
+input and this <em>provenance</em> information should propagate to <code>query</code> and we should get an error when
+we try passing this - potentially unsafe - input to <code>SqlCommand</code>. Similarly, if you have <code>password</code> or
+<code>creditCard</code>, it should be annotated with meta-data saying that this is a sensitive piece of data and
+should not, for example, be sent over an unsecured network connection.
+As a side note - this idea is related to a technique called <a href="http://en.wikipedia.org/wiki/Taint_checking">taint checking</a>.</p>
+
+<p>In another context, if you are working with data (e.g. in some data jouranlism application), it would be
+great if your sources were annotated with meta-data about the quality and source of the data (e.g.
+can it be trusted? how up-to-date is it?) The meta-data could propagate to the result and tell you how
+accurate and trustworthy your result is.</p>
+
+<h3>Context-awareness #4: Resource &amp; data availability</h3>
+
+<p>A vast majority of applications accesses some data sources (like database) or resources
+(like GPS sensor on a phone). This is more tricky for client/server applications where a part
+of program runs on the server-side and another part runs on the client-side. I believe that 
+these two parts should be written as a single program that is cross-compiled to two parts 
+(and I tried to <a href="http://tomasp.net/blog/fswebtools-intro.aspx/">make that possible with F# Web Tools</a>
+a long time ago; more recently <a href="http://websharper.com/">WebSharper</a> implemented a similar idea).</p>
+
+<p>So, say we have a function <code>validateInput</code>, <code>readData</code> and <code>displayMessage</code> in my prorgam.
+I want to look at their types and see what resources (or <em>context</em>) they require. For example,
+<code>readData</code> requires <em>database</em> (or perhaps a database with a specific name), <code>displayMessage</code> 
+requires access to <em>user interface</em> and <code>validateInput</code> has no special requirements.</p>
+
+<p>This means that I can call <code>validateInput</code> from both server-side and client-side code - it is
+safe to share this piece of code, because it has no special requirements. However, when I write
+a code that calls all three functions without any remote calls, it will only run on a thick
+client that has access to a database as well as user interface.</p>
+
+<p>I'll demonstrate this idea with a sample (pseudo-)code in a later section, so do not worry if
+it sounds a bit abstract at first.</p>
+
+<h2>Coeffects: Towards context-aware languages</h2>
+
+<p>The above examples cover a couple of different scenarios, but they share a common theme - 
+they all talk about some <em>context</em> in which an expression is evaluated. The context has 
+essentially two aspects:</p>
+
+<ul>
+<li><p><strong>Flat context</strong> represents additional data, resources and meta-data that are 
+available in the execution environment (regardless of where in the program you
+access them). Examples include resources like GPS sensors or databases, battery status,
+framework version and similar.</p></li>
+<li><p><strong>Structural context</strong> contains additional meta-data related to variables. This can include
+provenance (source of the variable value), usage information (how often is the value
+accessed) or security information (does it contain sensitive data).</p></li>
+</ul>
+
+<p>As a proponent of statically typed functional languages I believe that a context-aware 
+programming language should capture such context information in the type system and make
+sure that basic errors (like the ones demonstrated in the four examples above) are ruled
+out at compile time.</p>
+
+<p>This is essentially the idea behind <em>coeffects</em>. Let's look at an example showing the
+idea in (a very simplified) practice and then I'll say a few words about the theory
+(which is the main topic of my upcoming PhD thesis).</p>
+
+<h3>Case study: Coeffects in action</h3>
+
+<p>So, how should a context-aware language look? Surely, there is a wide range of options, but I hope
+I convinced you that it needs to be <em>context-aware</em> in some way! I'll write my pseudo-example in a
+language that looks like F#, is fully statically typed and uses type inference.</p>
+
+<p>I think that type inference is particularly important here - we want to check quite a few properties
+that should not that difficult to infer (If I call a function that needs GPS, I need to have GPS access!)
+Writing all such information by hand would be very cumbersome.</p>
+
+<p>So, let's say that we want to write a client/server news reader where the news are stored in a 
+database on a server. When a client (iPhone or Windows phone) runs, we get GPS location from the
+phone and query the server that needs to connect to the "News" database using a password defined
+somewhere earlier (perhaps loaded from a server-side config file):</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip">
+<span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+<span class="l">15: </span>
+</pre>
+</td>
+<td class="snippet"><pre class="fssnip">
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs17', 29)" onmouseover="showTip(event, 'fs17', 29)" class="i">lookupNews</span>(<span onmouseout="hideTip(event, 'fs18', 30)" onmouseover="showTip(event, 'fs18', 30)" class="i">location</span>) <span class="o">=</span>
+  <span class="k">let</span> <span onmouseout="hideTip(event, 'fs19', 31)" onmouseover="showTip(event, 'fs19', 31)" class="i">db</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs20', 32)" onmouseover="showTip(event, 'fs20', 32)" class="i">query</span>(<span class="s">&quot;</span><span class="s">News</span><span class="s">&quot;</span>, <span onmouseout="hideTip(event, 'fs21', 33)" onmouseover="showTip(event, 'fs21', 33)" class="i">password</span>)
+  <span onmouseout="hideTip(event, 'fs22', 34)" onmouseover="showTip(event, 'fs22', 34)" class="i">selectNews</span>(<span onmouseout="hideTip(event, 'fs19', 35)" onmouseover="showTip(event, 'fs19', 35)" class="i">db</span>, <span onmouseout="hideTip(event, 'fs18', 36)" onmouseover="showTip(event, 'fs18', 36)" class="i">location</span>)  
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs23', 37)" onmouseover="showTip(event, 'fs23', 37)" class="i">readNews</span>() <span class="o">=</span>
+  <span class="k">let</span> <span onmouseout="hideTip(event, 'fs24', 38)" onmouseover="showTip(event, 'fs24', 38)" class="i">loc</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs25', 39)" onmouseover="showTip(event, 'fs25', 39)" class="i">gpsLocation</span>()       
+  <span onmouseout="hideTip(event, 'fs26', 40)" onmouseover="showTip(event, 'fs26', 40)" class="i">remote</span> { 
+    <span onmouseout="hideTip(event, 'fs17', 41)" onmouseover="showTip(event, 'fs17', 41)" class="i">lookupNews</span>(<span onmouseout="hideTip(event, 'fs24', 42)" onmouseover="showTip(event, 'fs24', 42)" class="i">loc</span>) 
+  } 
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs27', 43)" onmouseover="showTip(event, 'fs27', 43)" class="i">iPhoneMain</span>() <span class="o">=</span>
+  <span onmouseout="hideTip(event, 'fs28', 44)" onmouseover="showTip(event, 'fs28', 44)" class="i">createCocoaWidget</span>(<span onmouseout="hideTip(event, 'fs23', 45)" onmouseover="showTip(event, 'fs23', 45)" class="i">readNews</span>)
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs29', 46)" onmouseover="showTip(event, 'fs29', 46)" class="i">windowsMain</span>() <span class="o">=</span>    
+  <span onmouseout="hideTip(event, 'fs30', 47)" onmouseover="showTip(event, 'fs30', 47)" class="i">createMetroWidget</span>(<span onmouseout="hideTip(event, 'fs23', 48)" onmouseover="showTip(event, 'fs23', 48)" class="i">readNews</span>)</pre>
+</td>
+</tr>
+</table>
+
+<p>The idea is that <code>lookupNews</code> is a server-side function that queries the "News" database based on 
+the specified <code>location</code>. This is called from the client-side by <code>readNews</code> which get the current GPS
+position and uses a <code>remote { .. }</code> block to invoke the <code>lookupNews</code> function remotely (how exactly would
+this be written is a separate question - but imagine a simple REST request here).</p>
+
+<p>Then, we have two main functions, <code>iPhoneMain</code> and <code>windowsMain</code> that will serve as two entry points
+for iPhone and Windows build of the client-side application. They are both using a corresponding
+platform-specific function to build the user interface, which takes a function for reading news as an
+argument.</p>
+
+<p>If you wanted to write and compile something like this today, you could use <a href="http://docs.xamarin.com/guides/cross-platform/fsharp/fsharp_support_overview/">F# in Xamarin 
+Studio</a> to target iPhone and
+Window phone, but you'd either need two separate end-application projects or a large number of unmaintainable
+<code>#if</code> constructs. Why not just use a single project, if the application is fairly simple?</p>
+
+<p>I imagine that a context-aware statically typed language would let you write the above code and 
+if you inspected the types of the functions, you would see something like this:</p>
+
+<div class="tip" style="display:block;margin:0px 40px 20px 20px;padding:10px 10px 10px 20px;font-size:100%">
+<strong style="font-size:90%;font-family:'Droid Sans Mono'">password&#160;&#160;&#160;</strong> &#160;
+  : &#160; string <sup>{ sensitive }</sup><br />
+<strong style="font-size:90%;font-family:'Droid Sans Mono'">lookupNews&#160;</strong> &#160;
+  : &#160; Location <sup>{ database }</sup> &#8594; list&lt;News&gt; <br />
+<br />
+<strong style="font-size:90%;font-family:'Droid Sans Mono'">gpsLocation</strong> &#160;
+  : &#160; unit <sup>{ gps }</sup> &#8594; Location <br />
+<strong style="font-size:90%;font-family:'Droid Sans Mono'">readNews&#160;&#160;&#160;</strong> &#160;
+  : &#160; unit <sup>{ rpc, gps }</sup> &#8594; Async&lt;list&lt;News&gt;&gt; <br />
+<br />
+<strong style="font-size:90%;font-family:'Droid Sans Mono'">iPhoneMain&#160;</strong> &#160;
+  : &#160; unit <sup>{ cocoa, gps, rpc }</sup> &#8594; unit <br />
+<strong style="font-size:90%;font-family:'Droid Sans Mono'">windowsMain</strong> &#160;
+  : &#160; unit <sup>{ metro, gps, rpc }</sup> &#8594; unit <br />
+</div>
+
+<p>The syntax is something that I just made up for the purpose of this article - it could
+look different. Some information could even be mapped to other visual representations
+(e.g. blueish background for the function body in your editor). The key thing is that
+we can learn quite a lot about the context usage:</p>
+
+<ul>
+<li><code>password</code> is available in the context, but is sensitive and so we cannot return it
+as a result from a function that is called via an RPC call.</li>
+<li><code>lookupNews</code> requires database access and so it can only run on the server-side
+or on a thick client with local copy of the database.</li>
+<li><code>gpsLocation</code> accesses GPS and since we call it in <code>readNews</code>, this function
+also requires GPS (the requirement is propagated automatically).</li>
+<li>We can compile the program for two client-side platforms - the entry points require
+GPS, the ability to make RPC calls and Cocoa or Metro UI platform, respectively.</li>
+</ul>
+
+<p>When writing the application, I want to be always able to see this information (perhaps
+similarly to how you can see type information in the various F# editors). I want to be
+able to reference multiple versions of base libraries - one for iPhone and another for
+Windows and see all the API functions at the same time, with appropriate annotations.
+When a function is available on both platforms, I want to be able to reuse the code that
+calls it. When some function is available on only one platform, I want to solve this by
+designing my own abstraction, rather than resorting to ugly <code>#if</code> pragmas.</p>
+
+<p>Then, I want to take this single program (again, strutured using whatever abstractions
+I find appropriate) and compile it. As a result, I want to get a component (containing
+<code>lookupNews</code>) that I can deploy to the server-side and two packages for iPhone and 
+Windows respectively, that reference only one or the other platform.</p>
+
+<h3>Coeffects: Theory of context dependence</h3>
+
+<p>If you're expecting a "Download!" button or (even better) a "Buy now!" button at the end of this article,
+then I'll disappoint you. I have no implementation that would let you do all of this.
+My work in this area has been (so far) on the theoretical side. This is a great way to 
+understand what is <em>actually</em> going on and what does the <em>context</em> mean. And if you made
+it this far, then it probably worked, because I understood the problem well enough to be 
+write a readable article about it!</p>
+
+<p>If you are interested in the theory, then go ahead and have a look at our papers about
+coeffects, otherwise continue reading and I'll try to introduce the key ideas in a more
+accessible form!</p>
+
+<ul>
+<li><a href="http://tomasp.net/academic/papers/coeffects/">Coeffects: Unified static analysis of context-dependence</a>
+(ICALP 2013) is an overview of the flat context (such as resources, framework version, etc.)</li>
+<li><a href="http://tomasp.net/academic/drafts/coeffects-structural/">Analysing context dependence in programs</a>
+(Work in progress) is a revised version that also looks at structural (per-variable) coeffects
+such as security or variable usage</li>
+</ul>
+
+<h4>Brief introduction to type systems</h4>
+
+<p>I won't try to reproduce the entire content of the papers in this blog post - but I will
+try to give you some background in case you are interested (that should make it easier to
+look at the papers above). We'll start from the basics, so readers familiar with theory of 
+programming languages can skip to the next section.</p>
+
+<p>Type systems are usually described in the form of <em>typing judgement</em> that have the following form:</p>
+
+<div style="margin-bottom:15px;text-align:center"><img src="typing-1.png" /></div>
+
+<p>The judgement means that, given some variables described by <em>Γ</em>, the expression or programm <em>e</em>
+has a type <em>τ</em>. What does this mean? For example, what is a type of the expression <code>x + y</code>?
+Well, this depends - in F# it could be some numeric type or even a string, depending on the types
+of <code>x</code> and <code>y</code>. That's why we need the variable context <em>Γ</em> which specifies the types of variables.
+So, for example, we can have:</p>
+
+<div style="margin-bottom:15px;text-align:center"><img src="typing-2.png" /></div>
+
+<p>Here, we assume that the types of <code>x</code> and <code>y</code> (on the left hand side) are both <code>int</code> and as a result,
+we derive that the type of <code>x + y</code> is also an <code>int</code>. This is a valid typing, for the expression, but
+not the only one possible - if <code>x</code> and <code>y</code> were of type <code>string</code>, then the result would also be 
+<code>string</code>.</p>
+
+<h4>Checking what program <em>does</em> with effect systems</h4>
+
+<p>Type systems can be extended in various interesting ways. Essentially, they give us an approximation
+of the possible values that we can get as a result. For example <a href="http://en.wikipedia.org/wiki/Refinement_(computing)#Refinement_types">refinement types</a>
+can estimate numerical values more precisely (e.g. less than 100). However, it is also possible to 
+track what a program does - how it <em>affects</em> the world. For example, let's look at the following
+expression that prints a number:</p>
+
+<div style="margin-bottom:15px;text-align:center"><img src="typing-3.png" /></div>
+
+<p>This is a reasonable typing in F# (and ML languages), but it ingores the important fact that the 
+expression has a <em>side-effect</em> and prints the number to the console. In Haskell, this would not be
+a valid typing, because <code>print</code> would return an <code>IO</code> computation rather than just plain <code>unit</code> (for
+more information see <a href="http://www.haskell.org/haskellwiki/IO_inside">IO in Haskell</a>).</p>
+
+<p>However, monads are not the only way to be more precise about side-effects. Another option is
+to use <a href="http://en.wikipedia.org/wiki/Effect_system">effect system</a> which essentially annotates the 
+result of the typing judgement with more information about the <em>effects</em> that occur as part of
+evaluation of the expression (here, in orange):</p>
+
+<div style="margin-bottom:15px;text-align:center"><img src="typing-4.png" /></div>
+
+<p>The effect annotation is now part of the type - so, the expression has a type <code>unit &amp; { io }</code> meaning
+that it does not return anything useful, but it performs some I/O operation. Note that we do not track
+what <em>exactly</em> it does - just some useful over-approximation. How do we infer the information?
+The compiler needs to know about certain language primitives (or basic library functions). Here, 
+<code>print</code> is a function that performs I/O operation.</p>
+
+<p>The main role of the type system is dealing with composition - so, if we have a function <code>read</code> that
+reads from the console (I/O operation) and a function <code>send</code> that sends data over network, the type
+system will tell us that the type and effects of <code>send (read ())</code> are <code>unit &amp; {io, network}</code>.</p>
+
+<p>Effect systems are a fairly established idea - and they are a nice way to add better purity checking
+to ML-like languages like F#. However, they are not that widely adopted (interestingly, checked
+exceptions in Java are probably the most major use of effect system). However, effect systems are
+also a good example of general approach that we can use for tracking contextual information...</p>
+
+<h4>Checking what program <em>requires</em> with coeffect systems</h4>
+
+<p>How could we use the same idea of <em>annotating</em> the types to capture information about the context?
+Let's look at a part of the program from the case study that I described earlier:</p>
+
+<div style="margin-bottom:15px;text-align:center"><img src="typing-5.png" /></div>
+
+<p>The expression queries a database and gets back a value of the <code>NewsDb</code> type (for now, let's say
+that <code>"News"</code> is a constant string and <code>query</code> behaves like the <a href="http://www.pinksquirrellabs.com/post/2013/12/09/The-Erasing-SQL-type-provider.aspx">SQL type provider in F#</a>
+and generates the <code>NewsDb</code> type automatically).</p>
+
+<p>What information do we want to capture? First of all, we want to add an annotation saying that
+the expression requires <em>database access</em>. Secondly, we want to mark the <code>pass</code> variable as 
+<em>secure</em> to guarantee that it will not be sent over an unsecured network connection etc.
+The <em>coeffect typing judgement</em> representing this information looks like this:</p>
+
+<div style="margin-bottom:15px;text-align:center"><img src="typing-6.png" /></div>
+
+<p>Rather than attaching the annotations to the <em>resulting type</em>, they are attached to the 
+variable <em>context</em>. In other words, the equation is saying - given a variable <code>pass</code> that is
+marked as secure and additional environment providing database access, the expression
+<code>query("News", pass)</code> is well typed and returns a <code>NewsDb</code> value.</p>
+
+<p>As a side-note, it is well known that <em>effects</em> correspond to <em>monads</em> (and Haskell uses
+monads as a way of implementing limited effect checking). Quite interestingly, <em>coeffects</em>
+correspond to the dual concept called <em>comonads</em> and, with a syntactic extension akin to 
+the <code>do</code> notation or <em>computation expressions</em>, you could capture contextual propreties by
+adding comonads to a language.</p>
+
+<h2>Summary</h2>
+
+<p>This article is essentially a tabloid style report on my (upcoming) PhD thesis :-).</p>
+
+<p>I started by explaining the
+motivation for my work - different problems that arise when we are writing programs that are
+aware of the context in which they run. The context includes things such as execution environment
+(databases, resources, available devices), platform and framework (different versions, different
+platforms) and meta-data about data we access (sensitivity, security, provenance).</p>
+
+<p>This may not be preceived as a major problem - we are all used to write code that deals with
+such things. However, I believe that the area of <em>context-aware</em> programming is a source of
+many problems and pains - and programming languages can help!</p>
+
+<p>In the second half of the article, I gave a brief introduction to <em>coeffects</em> - a programming
+language theory that can simplify dealing with context.
+The key idea is that we can use types to track and check additional information about
+the <em>context</em>. By propagating such information throughout the program (using type system
+that is aware of the annotations), we can make sure that none of the errors that I used
+as a motivation for this article happen.</p>
+
+<h3>Where to go next?</h3>
+
+<p>If you want to learn more about the theory of <em>coeffects</em> (and how they relate to 
+<em>comonads</em>) then check out the two papers I mentioned earlier:</p>
+
+<ul>
+<li><a href="http://tomasp.net/academic/papers/coeffects/">Coeffects: Unified static analysis of context-dependence</a>
+(ICALP 2013) is an overview of the flat context (such as resources, framework version, etc.)</li>
+<li><a href="http://tomasp.net/academic/drafts/coeffects-structural/">Analysing context dependence in programs</a>
+(Work in progress) is a revised version that also looks at structural (per-variable) coeffects
+such as security or variable usage</li>
+</ul>
+
+<p>Dominic Orchard (who is co-author of the above two) also did some nice work on
+integrating comonads into Haskell:</p>
+
+<ul>
+<li><p><a href="http://www.cl.cam.ac.uk/~dao29/publ/codo-notation-orchard-ifl12.pdf">A Notation for Comonads (PDF)</a>
+(Dominic Orchard and Alan Mycroft) extends Haskell with a syntax (akin to <code>do</code>) for
+comonads and might be a nice way to embed coeffects in Haskell</p></li>
+</ul>
+
+<div class="tip" id="fs1">val header : string</div>
+<div class="tip" id="fs2">val value : string</div>
+<div class="tip" id="fs3">val headers : (string * string) list<br /><br />Full name: whycoeffectsmatter.headers</div>
+<div class="tip" id="fs4">active recognizer StringEquals: &#39;a -&gt; &#39;b -&gt; unit option<br /><br />Full name: whycoeffectsmatter.( |StringEquals|_| )</div>
+<div class="tip" id="fs5">val req : System.Net.HttpWebRequest<br /><br />Full name: whycoeffectsmatter.req</div>
+<div class="tip" id="fs6">property System.Net.HttpWebRequest.Accept: string</div>
+<div class="tip" id="fs7">property System.Net.HttpWebRequest.UserAgent: string</div>
+<div class="tip" id="fs8">property System.Net.HttpWebRequest.Referer: string</div>
+<div class="tip" id="fs9">property System.Net.HttpWebRequest.Headers: System.Net.WebHeaderCollection</div>
+<div class="tip" id="fs10">val query : string<br /><br />Full name: whycoeffectsmatter.query</div>
+<div class="tip" id="fs11">val sprintf : format:Printf.StringFormat&lt;&#39;T&gt; -&gt; &#39;T<br /><br />Full name: Microsoft.FSharp.Core.ExtraTopLevelOperators.sprintf</div>
+<div class="tip" id="fs12">val name : string<br /><br />Full name: whycoeffectsmatter.name</div>
+<div class="tip" id="fs13">val cmd : SqlCommand<br /><br />Full name: whycoeffectsmatter.cmd</div>
+<div class="tip" id="fs14">Multiple items<br />type SqlCommand =<br />&#160;&#160;inherit DbCommand<br />&#160;&#160;new : unit -&gt; SqlCommand + 3 overloads<br />&#160;&#160;member BeginExecuteNonQuery : unit -&gt; IAsyncResult + 1 overload<br />&#160;&#160;member BeginExecuteReader : unit -&gt; IAsyncResult + 3 overloads<br />&#160;&#160;member BeginExecuteXmlReader : unit -&gt; IAsyncResult + 1 overload<br />&#160;&#160;member Cancel : unit -&gt; unit<br />&#160;&#160;member Clone : unit -&gt; SqlCommand<br />&#160;&#160;member CommandText : string with get, set<br />&#160;&#160;member CommandTimeout : int with get, set<br />&#160;&#160;member CommandType : CommandType with get, set<br />&#160;&#160;member Connection : SqlConnection with get, set<br />&#160;&#160;...<br /><br />Full name: System.Data.SqlClient.SqlCommand<br /><br />--------------------<br />SqlCommand() : unit<br />SqlCommand(cmdText: string) : unit<br />SqlCommand(cmdText: string, connection: SqlConnection) : unit<br />SqlCommand(cmdText: string, connection: SqlConnection, transaction: SqlTransaction) : unit</div>
+<div class="tip" id="fs15">val reader : SqlDataReader<br /><br />Full name: whycoeffectsmatter.reader</div>
+<div class="tip" id="fs16">SqlCommand.ExecuteReader() : SqlDataReader<br />SqlCommand.ExecuteReader(behavior: System.Data.CommandBehavior) : SqlDataReader</div>
+<div class="tip" id="fs17">val lookupNews : location:Location -&gt; string list<br /><br />Full name: whycoeffectsmatter.lookupNews</div>
+<div class="tip" id="fs18">val location : Location</div>
+<div class="tip" id="fs19">val db : Database</div>
+<div class="tip" id="fs20">val query : database:&#39;a * password:string -&gt; Database<br /><br />Full name: whycoeffectsmatter.query</div>
+<div class="tip" id="fs21">val password : string<br /><br />Full name: whycoeffectsmatter.password</div>
+<div class="tip" id="fs22">val selectNews : db:Database * loc:Location -&gt; string list<br /><br />Full name: whycoeffectsmatter.selectNews</div>
+<div class="tip" id="fs23">val readNews : unit -&gt; unit<br /><br />Full name: whycoeffectsmatter.readNews</div>
+<div class="tip" id="fs24">val loc : Location</div>
+<div class="tip" id="fs25">val gpsLocation : unit -&gt; Location<br /><br />Full name: whycoeffectsmatter.gpsLocation</div>
+<div class="tip" id="fs26">val remote : RemoteBuilder<br /><br />Full name: whycoeffectsmatter.remote</div>
+<div class="tip" id="fs27">val iPhoneMain : unit -&gt; unit<br /><br />Full name: whycoeffectsmatter.iPhoneMain</div>
+<div class="tip" id="fs28">val createCocoaWidget : f:(unit -&gt; &#39;a) -&gt; unit<br /><br />Full name: whycoeffectsmatter.createCocoaWidget</div>
+<div class="tip" id="fs29">val windowsMain : unit -&gt; unit<br /><br />Full name: whycoeffectsmatter.windowsMain</div>
+<div class="tip" id="fs30">val createMetroWidget : f:(unit -&gt; &#39;a) -&gt; unit<br /><br />Full name: whycoeffectsmatter.createMetroWidget</div>
+
+
+<div class="row">
+  <div class="small-6 columns"><p class="post-discuss">
+		Discuss <a href="http://twitter.com/tomaspetricek">on twitter</a>, <script type="text/javascript" src="http://www.reddit.com/buttonlite.js?i=0"></script>.<br />
+		Send corrections via <a href="https://github.com/tpetricek/TomaspNet.Website">GitHub pull requests</a>.
+	</p></div>
+  <div class="small-6 columns">
+
+<!-- AddThis Button BEGIN -->
+<div class="addthis_toolbox addthis_default_style addthis_16x16_style">
+<a class="addthis_button_twitter"></a>
+<a class="addthis_button_reddit"></a>
+<a class="addthis_button_google_plusone_share"></a>
+<a class="addthis_button_hackernews"></a>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_compact"></a><a class="addthis_counter addthis_bubble_style"></a>
+</div>
+<script type="text/javascript">var addthis_config = { "data_track_addressbar": false };</script>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-521c32162e6001a0"></script>
+<!-- AddThis Button END -->
+
+<p class="post-meta">
+  <span><strong>Published</strong>: Wednesday, 8 January 2014, 4:31 PM</span><br />      
+  <span class="tags"><strong>Tags</strong>: research,coeffects,functional programming,comonads</span>
+</p>
+
+  </div>
+</div>
+
+    </content>
+
+  </div>
+  <div class="large-4 columns" id="right-bar">
+    <div class="right-item" id="right-calendar">
+<script type="text/javascript">
+  var monthNames =
+    ["January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December"];
+  var d = new Date();
+  var m = monthNames[d.getMonth()];
+  var y = d.getFullYear();
+  var ml = m.toLowerCase();
+  document.writeln("<h4>Calendar - " + m + " " + y + "</h4>");
+  document.writeln("<a href=\"http://tomasp.net/calendar/" + y + "/" + ml + ".html\">" +
+    "<img src=\"http://tomasp.net/calendar/" + y + "/" + ml + "-preview.jpg\" style=\"border-style:none;\" />" +
+    "</a>");
+</script> 
+<p>The calendar shows a new picture each month since 
+  <a href="http://tomasp.net/calendar/2005">2005</a>, <a href="http://tomasp.net/calendar/2006">2006</a>, 
+  <a href="http://tomasp.net/calendar/2007">2007</a>, <a href="http://tomasp.net/calendar/2008">2008</a>, 
+  <a href="http://tomasp.net/calendar/2009">2009</a>, <a href="http://tomasp.net/calendar/2010">2010</a>, 
+  <a href="http://tomasp.net/calendar/2011">2011</a>, <a href="http://tomasp.net/calendar/2012">2012</a>. <br />
+  See the first photos of <a href="http://tomasp.net/calendar/2013">2013</a>.
+</p>
+</div>
+
+    <h3>Welcome!</h3>
+    <img src="http://tomasp.net/img/tomas.jpg" alt="Tomas Petricek" style="float:right;margin:10px 0px 10px 10px;" />
+    <p>I'm an F# enthusiast, book author and a PhD student at the University of Cambridge.
+      When offline, I enjoy traveling and taking pictures. You can find me at
+      at <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a> or email 
+      <a href="mailto:tomas@tomasp.net">tomas@tomasp.net</a>.
+    </p>
+
+    <script type="text/javascript" src="http://tomasp.net/news/news.js"></script>
+    <h4>What's new? &#160; <small><script type="text/javascript">document.write(news.date)</script></small></h4>
+    <script>
+      document.write(news.info);
+    </script>
+
+    <h4>Trainings and consulting</h4>
+    <img src="http://tomasp.net/img/skillsmatter.png" alt="Tomas Petricek" style="float:right;margin:15px 0px 10px 10px;" />
+    <p>I run F# and functional programming courses in <strong>London</strong>
+      and <strong>New York</strong> with SkillsMatter.
+    </p>
+    <ul>
+      <li>Check out our <a href="http://skillsmatter.com/course/scala/tomas-petricek-phil-trelford-fast-track-to-fsharp/ps-6679">Fast Track to F#</a> course</li>
+      <li><a href="mailto:tomas@tomasp.net">Email me</a> for info about private trainings</li>
+    </ul>
+    
+    <h4>F# Books and articles</h4>
+    <div style="float:right;">
+      <a href="http://www.amazon.com/gp/product/1933988924/ref=as_li_tf_il?ie=UTF8&amp;tag=httptomasnet-20&amp;linkCode=as2&amp;camp=217145&amp;creative=399369&amp;creativeASIN=1933988924">
+        <img src="http://tomasp.net/img/rwfp.jpg" alt="Real World Functional Programming" style="float:right;margin:10px 0px 10px 10px;border-style:none;" />
+      </a>
+    </div>
+    <p><a href="http://www.manning.com/petricek">Real World Functional Programming</a> explains functional
+      concepts using F# and C#. You can get it from <a href="http://www.amazon.com/dp/1933988924?tag=httptomasnet-20&amp;camp=213381&amp;creative=390973&amp;linkCode=as4&amp;creativeASIN=1933988924&amp;adid=0F1DP260JGG4KY0CDGP6">Amazon.com</a>, <a href="https://www.amazon.co.uk/dp/1933988924?tag=tomasnet-21&amp;camp=1406&amp;creative=6394&amp;linkCode=as1&amp;creativeASIN=1933988924&amp;adid=1CTY87YCCQEJW965GNDF">Amazon.co.uk</a> or your favorite book store.
+      Some chapters and new materials are also available on <a href="http://msdn.microsoft.com/en-us/library/hh314518.aspx">MSDN</a>.</p>
+    
+    <p>Currently, I'm putting together <a href="http://www.manning.com/petricek2/">F# Deep Dives</a> - a collection
+      of practical F# essays written by community leaders and commercial users of F#.</p>
+    <p>I also wrote a series of tutorials on <a href="http://www.tryfsharp.org/Learn/financial-computing">financial computing</a>
+      for Try F# - an interactive environment that let's you try F# in the browser.</p>
+
+    <h4>Research and teaching</h4>
+    <img src="http://tomasp.net/img/cam.png" alt="University of Cambride" style="float:right;margin:25px 0px 10px 10px;" />
+    <p>I'm finishing PhD in computer science at the <a href="http://www.cl.cam.ac.uk/">University of Cambridge</a>.
+      I'm working on making better types for programs that run in rich context (like F# type providers, distributed 
+      prog&shy;ramming or data-flow). See <a href="http://www.cl.cam.ac.uk/~tp322/">my academic page</a> for
+      more.</p>
+
+    <h4>Blog tags</h4>
+    <p>
+
+      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(90),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(27),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(30),       <a href="http://tomasp.net/blog/tag/writing/">writing</a>&nbsp;(11),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/open-source/">open source</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/haskell/">haskell</a>&nbsp;(7),       <a href="http://tomasp.net/blog/tag/fsharp-data/">f# data</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/new-york/">new york</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/manning/">manning</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/books/">books</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/coeffects/">coeffects</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/comonads/">comonads</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/art/">art</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/fractals/">fractals</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/funscript/">funscript</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/fake/">fake</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/fsharp-formatting/">f# formatting</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/training/">training</a>&nbsp;(1)    </p>
+
+  </div>
+</div>
+
+
+  <div class="row" id="footer">
+  <footer>   
+    <div class="large-3 columns">
+      <h4>Contact &amp; about</h4>
+      <p>This site is hosted on GitHub and is generated using <a href="https://github.com/tpetricek/FSharp.Formatting">F# Formatting</a>.
+        For more info, see the <a href="https://github.com/tpetricek/TomaspNet.Website">website source on GitHub</a>.
+      </p>
+      <p>Please submit issues &amp; corrections on GitHub. Use pull requests for minor corrections only.</p>
+      <ul>
+        <li>Email me: <a href="mailto:tomas@tomasp.net">tomas@tomasp.net</a></li>
+        <li>Connect via Twitter: <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a></li>
+        <li>More: <a href="http://uk.linkedin.com/in/tomaspetricek">LinkedIn</a> | <a href="http://lanyrd.com/profile/tomasp/">Lanyrd</a> | <a href="https://github.com/tpetricek">GitHub</a></li>
+      </ul>
+    </div>
+    <div class="large-7 columns">
+    <h4>Blog archives <a href="http://tomasp.net/rss.xml"><img src="http://tomasp.net/img/rss.gif" /></a></h4>
+      <a href="http://tomasp.net/blog/archive/january-2014/index.html">
+        January 2014 (1)</a>,      <a href="http://tomasp.net/blog/archive/december-2013/index.html">
+        December 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/november-2013/index.html">
+        November 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/october-2013/index.html">
+        October 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/september-2013/index.html">
+        September 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/august-2013/index.html">
+        August 2013 (2)</a>,      <a href="http://tomasp.net/blog/archive/may-2013/index.html">
+        May 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/april-2013/index.html">
+        April 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/march-2013/index.html">
+        March 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/february-2013/index.html">
+        February 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/january-2013/index.html">
+        January 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/december-2012/index.html">
+        December 2012 (2)</a>,      <a href="http://tomasp.net/blog/archive/october-2012/index.html">
+        October 2012 (1)</a>,      <a href="http://tomasp.net/blog/archive/august-2012/index.html">
+        August 2012 (3)</a>,      <a href="http://tomasp.net/blog/archive/june-2012/index.html">
+        June 2012 (2)</a>,      <a href="http://tomasp.net/blog/archive/april-2012/index.html">
+        April 2012 (1)</a>,      <a href="http://tomasp.net/blog/archive/march-2012/index.html">
+        March 2012 (4)</a>,      <a href="http://tomasp.net/blog/archive/february-2012/index.html">
+        February 2012 (5)</a>,      <a href="http://tomasp.net/blog/archive/january-2012/index.html">
+        January 2012 (2)</a>,      <a href="http://tomasp.net/blog/archive/november-2011/index.html">
+        November 2011 (5)</a>,      <a href="http://tomasp.net/blog/archive/august-2011/index.html">
+        August 2011 (3)</a>,      <a href="http://tomasp.net/blog/archive/july-2011/index.html">
+        July 2011 (2)</a>,      <a href="http://tomasp.net/blog/archive/june-2011/index.html">
+        June 2011 (2)</a>,      <a href="http://tomasp.net/blog/archive/may-2011/index.html">
+        May 2011 (2)</a>,      <a href="http://tomasp.net/blog/archive/march-2011/index.html">
+        March 2011 (4)</a>,      <a href="http://tomasp.net/blog/archive/december-2010/index.html">
+        December 2010 (1)</a>,      <a href="http://tomasp.net/blog/archive/november-2010/index.html">
+        November 2010 (6)</a>,      <a href="http://tomasp.net/blog/archive/october-2010/index.html">
+        October 2010 (6)</a>,      <a href="http://tomasp.net/blog/archive/september-2010/index.html">
+        September 2010 (4)</a>,      <a href="http://tomasp.net/blog/archive/july-2010/index.html">
+        July 2010 (3)</a>,      <a href="http://tomasp.net/blog/archive/june-2010/index.html">
+        June 2010 (2)</a>,      <a href="http://tomasp.net/blog/archive/may-2010/index.html">
+        May 2010 (1)</a>,      <a href="http://tomasp.net/blog/archive/february-2010/index.html">
+        February 2010 (2)</a>,      <a href="http://tomasp.net/blog/archive/january-2010/index.html">
+        January 2010 (3)</a>,      <a href="http://tomasp.net/blog/archive/december-2009/index.html">
+        December 2009 (3)</a>,      <a href="http://tomasp.net/blog/archive/july-2009/index.html">
+        July 2009 (1)</a>,      <a href="http://tomasp.net/blog/archive/june-2009/index.html">
+        June 2009 (3)</a>,      <a href="http://tomasp.net/blog/archive/may-2009/index.html">
+        May 2009 (2)</a>,      <a href="http://tomasp.net/blog/archive/april-2009/index.html">
+        April 2009 (1)</a>,      <a href="http://tomasp.net/blog/archive/march-2009/index.html">
+        March 2009 (2)</a>,      <a href="http://tomasp.net/blog/archive/february-2009/index.html">
+        February 2009 (1)</a>,      <a href="http://tomasp.net/blog/archive/december-2008/index.html">
+        December 2008 (1)</a>,      <a href="http://tomasp.net/blog/archive/november-2008/index.html">
+        November 2008 (5)</a>,      <a href="http://tomasp.net/blog/archive/october-2008/index.html">
+        October 2008 (1)</a>,      <a href="http://tomasp.net/blog/archive/september-2008/index.html">
+        September 2008 (1)</a>,      <a href="http://tomasp.net/blog/archive/june-2008/index.html">
+        June 2008 (1)</a>,      <a href="http://tomasp.net/blog/archive/march-2008/index.html">
+        March 2008 (3)</a>,      <a href="http://tomasp.net/blog/archive/february-2008/index.html">
+        February 2008 (1)</a>,      <a href="http://tomasp.net/blog/archive/december-2007/index.html">
+        December 2007 (2)</a>,      <a href="http://tomasp.net/blog/archive/november-2007/index.html">
+        November 2007 (6)</a>,      <a href="http://tomasp.net/blog/archive/october-2007/index.html">
+        October 2007 (1)</a>,      <a href="http://tomasp.net/blog/archive/september-2007/index.html">
+        September 2007 (1)</a>,      <a href="http://tomasp.net/blog/archive/august-2007/index.html">
+        August 2007 (1)</a>,      <a href="http://tomasp.net/blog/archive/july-2007/index.html">
+        July 2007 (2)</a>,      <a href="http://tomasp.net/blog/archive/april-2007/index.html">
+        April 2007 (2)</a>,      <a href="http://tomasp.net/blog/archive/march-2007/index.html">
+        March 2007 (3)</a>,      <a href="http://tomasp.net/blog/archive/february-2007/index.html">
+        February 2007 (3)</a>,      <a href="http://tomasp.net/blog/archive/january-2007/index.html">
+        January 2007 (2)</a>,      <a href="http://tomasp.net/blog/archive/november-2006/index.html">
+        November 2006 (1)</a>,      <a href="http://tomasp.net/blog/archive/october-2006/index.html">
+        October 2006 (3)</a>,      <a href="http://tomasp.net/blog/archive/august-2006/index.html">
+        August 2006 (2)</a>,      <a href="http://tomasp.net/blog/archive/july-2006/index.html">
+        July 2006 (1)</a>,      <a href="http://tomasp.net/blog/archive/june-2006/index.html">
+        June 2006 (3)</a>,      <a href="http://tomasp.net/blog/archive/may-2006/index.html">
+        May 2006 (2)</a>,      <a href="http://tomasp.net/blog/archive/april-2006/index.html">
+        April 2006 (2)</a>,      <a href="http://tomasp.net/blog/archive/december-2005/index.html">
+        December 2005 (1)</a>,      <a href="http://tomasp.net/blog/archive/july-2005/index.html">
+        July 2005 (4)</a>,      <a href="http://tomasp.net/blog/archive/june-2005/index.html">
+        June 2005 (5)</a>,      <a href="http://tomasp.net/blog/archive/may-2005/index.html">
+        May 2005 (1)</a>,      <a href="http://tomasp.net/blog/archive/april-2005/index.html">
+        April 2005 (3)</a>,      <a href="http://tomasp.net/blog/archive/march-2005/index.html">
+        March 2005 (3)</a>,      <a href="http://tomasp.net/blog/archive/january-2005/index.html">
+        January 2005 (1)</a>,      <a href="http://tomasp.net/blog/archive/december-2004/index.html">
+        December 2004 (3)</a>,      <a href="http://tomasp.net/blog/archive/november-2004/index.html">
+        November 2004 (2)</a>,    </div>
+    <div class="large-2 columns">
+      <h4>License</h4>
+      <p>Unless explicitly mentioned, all articles on this site are licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution Share Alike</a>. 
+        All source code samples are licensed under Apache 2.0.
+      </p>
+      <img src="http://tomasp.net/img/cc-sa.png" alt="CC License logo" />
+    </div>
+  </footer>
+  </div>
+  
+  <script>
+  document.write('<script src=' +
+  ('__proto__' in {} ? 'http://tomasp.net/js/vendor/zepto' : 'http://tomasp.net/js/vendor/jquery') +
+  '.js><\/script>')
+  </script>
+  
+  <script src="http://tomasp.net/js/foundation.min.js"></script>
+  <script>
+    $(document).foundation();
+  </script>
+  <script type="text/javascript">
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-1561220-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function () {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+
+  </script>
+  <script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
+</body>
+</html>

@@ -10,27 +10,26 @@
 >
 > Draft - Work in progress
   
-Compared to physics, biology or chemistry, we can hardly call computer science an 
-established discipline. The research in the design of programming language is even 
-younger. As such, it has so far eluded the eyes of philosophers of science.
-Nevertheless, we can still learn a lot by looking at classical works in philosophy 
-of science and reconsidering their meaning from the perspective of programming languages. 
+As a relatively recent discipline, computer science, and programming language research 
+in particular, have so far eluded the eyes of philosophers of science. However, we can 
+gain interesting insights by looking at classical works in philosophy of science and 
+reconsidering their meaning from the perspective of programming language research.  
 
-This is exactly what I attempt to do in this essay. I will go through some of the 
-most important theories of science and look what they can say about the programming 
-language research and then suggest how we can improve our scientific practice in the 
-light of these observations.
+This is exactly what I attempt to do in this essay – I will go through some of the most 
+important theories of science and look what they can say about programming language 
+research. Then I suggest how we can improve our scientific practice in the light of 
+these observations. 
 
-First, I discuss how understanding the research programme of work is important for 
-evaluating its contribu-tions. Second, I present evidence for the claim that 
-overemphasis on precise, mathematical models in early stage of research may limit 
-the creativity. Third, I propose how to design more long-lasting experiments in 
-programming language research and how this can help to integrate the vast amount 
-of knowledge gathered by software practitioners.
+First, I discuss how understanding the research programme is important for evaluating 
+scientific contributions. Second, I argue that overemphasis on precise, mathematical 
+models in early stage of research may limit the creativity. Thirdly, I propose how 
+to design stand-alone (theory-independent) experiments in program- ming language research 
+and how this can help to integrate the vast amount of knowledge gathered by 
+software practitioners. 
 
 ## Draft and more information
 
- - Download [the draft (PDF)](philosophy-pl.pdf)
+ - Download [the draft (PDF)](philosophy-pl.pdf) [Updated: January 2014]
    
 ## Comments are welcome!
 

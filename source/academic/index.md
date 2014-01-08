@@ -265,7 +265,7 @@ application.
 Start here if you want to know that I'm currently working on and what I recently 
 completed. Unpublished drafts are marked as such and I'm always looking for feedback!
 
-#### **[July 2013]** Draft: [What can Programming Language Research  Learn from the Philosophy of Science?](@Model.Root/academic/drafts/philosophy-pl/)
+#### **[January 2014]** Draft: [What can Programming Language Research  Learn from the Philosophy of Science?](@Model.Root/academic/drafts/philosophy-pl/)
 
 > Tomas Petricek. Unpublished draft.
 
@@ -275,6 +275,17 @@ programme, avoid early over-emphasis on precision and I consider how to produce 
 experiments.
 
  - [abstract](@Model.Root/academic/drafts/philosophy-pl/) | [draft](@Model.Root/academic/drafts/philosophy-pl/philosophy-pl.pdf)
+
+#### **[July 2013]** Draft: [Analysing context dependence in programs](@Model.Root/academic/drafts/coeffects-structural/)
+
+> Tomas Petricek, Dominic Orchard, Alan Mycroft. Unpublished draft.
+
+This paper develops _structural coeffect calculus_ which extends our earlier
+work on _coeffects_ to make it more useful for tracking contextual information
+related to individual variables, such as liveness and provenance.
+
+ - [abstract](@Model.Root/academic/drafts/coeffects-structural/) | [draft](@Model.Root/academic/drafts/coeffects-structural/coeffects-structural.pdf)
+
 
 #### Draft: [Teaching Functional Programming to Professional .NET Developers](@Model.Root/academic/drafts/fsharp-teaching/)
 

@@ -93,13 +93,13 @@ executed.&lt;/p&gt;
       <link>http://tomasp.net/blog/2013/japan-advent-art/index.html</link>
       <pubDate>Tue, 24 Dec 2013 03:58:37 GMT</pubDate>
       <description>&lt;div id="myModal" class="reveal-modal xlarge" data-reveal&gt;
-  &lt;iframe src="http://localhost:8080/blog/2013/japan-advent-art/hokusai.html" style="width:100%; height:850px;border-style:none;"&gt;&lt;/iframe&gt;
+  &lt;iframe src="http://tomasp.net/blog/2013/japan-advent-art/hokusai.html" style="width:100%; height:850px;border-style:none;"&gt;&lt;/iframe&gt;
   &lt;a class="close-reveal-modal"&gt;&amp;#215;&lt;/a&gt;
 &lt;/div&gt;
 
 &lt;div class="rdecor" style="text-align:center"&gt;
 &lt;a href="#" data-reveal-id="myModal" style="text-align:center"&gt;
-&lt;img src="http://localhost:8080/blog/2013/japan-advent-art/hokusai_sm.jpg" style="margin-bottom:10px;border:4px solid black" title="神奈川沖浪裏 (The Great Wave off Kanagawa)" /&gt;&lt;br /&gt;
+&lt;img src="http://tomasp.net/blog/2013/japan-advent-art/hokusai_sm.jpg" style="margin-bottom:10px;border:4px solid black" title="神奈川沖浪裏 (The Great Wave off Kanagawa)" /&gt;&lt;br /&gt;
 &lt;small style="font-size:90%"&gt;実際の結果を見るにはここをクリック！&lt;/small&gt;
 &lt;/a&gt;
 &lt;/div&gt;

@@ -3,7 +3,10 @@
   Title = "Coeffects: The next big programming challenge";
   Tags = "research,coeffects,functional programming,comonads";
   Date = "2014-01-08T16:31:49.9070738+01:00";
-  Description = "Todo";
+  Description = "This blog post is a tabloid-style introduction to my PhD thesis. " +
+    "I look at how practical motivations influence langauge design. One such practical " +
+    "motivation, that is becoming increasingly important, is capturing how program " +
+    "uses the context (or environment) where it runs. Coeffect are a way to track this property...";
 }
 
 Coeffects: The next big programming challenge

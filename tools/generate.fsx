@@ -25,6 +25,7 @@ let source = __SOURCE_DIRECTORY__ ++ "../source"
 let blog = __SOURCE_DIRECTORY__ ++ "../source/blog"
 let blogIndex = __SOURCE_DIRECTORY__ ++ "../source/blog/index.cshtml"
 let layouts = __SOURCE_DIRECTORY__ ++ "../layouts"
+let parts = __SOURCE_DIRECTORY__ ++ "../layouts/parts"
 let content = __SOURCE_DIRECTORY__ ++ "../content"
 let template = __SOURCE_DIRECTORY__ ++ "empty-template.html"
 let calendar = __SOURCE_DIRECTORY__ ++ "../calendar"
@@ -51,6 +52,7 @@ let output = __SOURCE_DIRECTORY__ ++ "../../output"
 // Dependencies - if any of these files change, then we must regenerate all
 let dependencies =
   [ yield! Directory.GetFiles(layouts) 
+    yield! Directory.GetFiles(parts) 
     yield calendarMonth 
     yield calendarIndex ]
 

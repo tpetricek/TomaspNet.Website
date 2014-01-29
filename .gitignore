@@ -3,6 +3,7 @@ tools/csharpformat/obj
 tools/csharpformat/bin
 source/blog/abstracts/cached/*
 source/blog/2013/abstracts/cached/*
+source/blog/2014/abstracts/cached/*
 *.suo
 packages/
 tools/FsBlogLib/bin

@@ -4,9 +4,9 @@
   Tags = "research,coeffects,functional programming,comonads";
   Date = "2014-01-08T16:31:49.9070738+01:00";
   Description = "This blog post is a tabloid-style introduction to my PhD thesis. " +
-    "I look at how practical motivations influence langauge design. One such practical " +
+    "I look at how practical motivations influence language design. One such practical " +
     "motivation, that is becoming increasingly important, is capturing how program " +
-    "uses the context (or environment) where it runs. Coeffect are a way to track this property...";
+    "uses the context (or environment) where it runs. Coeffects are a way to track this property...";
 }
 
 Coeffects: The next big programming challenge
@@ -63,8 +63,8 @@ devices where programs need to run increases, dealing with diverse contexts will
 more and more important (and I'm not even talking about _ubiquitous computing_ where you need
 to compile your code to a coffee machine).
 
-We do not preceive the above things as problems (at best, annoyances that we just have to 
-deal with), because we do not realize that there should be a better way. Let me digg into
+We do not perceive the above things as problems (at best, annoyances that we just have to 
+deal with), because we do not realize that there should be a better way. Let me dig into
 four examples in a bit more detail.
 
     [hide]
@@ -76,7 +76,7 @@ four examples in a bit more detail.
 ### Context awareness #1: Platform versioning
 
 The number of different platform versions that you need to target is increasing, no matter what 
-platform are you using. For Android, there is a number called [API Level](http://developer.android.com/guide/topics/manifest/uses-sdk-element.html#ApiLevels)
+platform you are using. For Android, there is a number called [API Level](http://developer.android.com/guide/topics/manifest/uses-sdk-element.html#ApiLevels)
 with mostly additive changes (*mostly* sounds very reassuring). In the .NET world, there are multiple
 versions, mobile editions, multiple versions of Silverlight etc. So, code that targets multiple
 frameworks easily ends up looking as the following sample from [the Http module in F# Data](https://github.com/fsharp/FSharp.Data/blob/master/src/Net/Http.fs):
@@ -151,7 +151,7 @@ links. So yes - this is an issue that people are hitting all the time.
     let conn = SqlConnection("..")
 
 The previous two examples were mainly related to the (non-)existence of some API functions
-or to their behaviour. However, this is not the only case of context-awarness that is important
+or to their behaviour. However, this is not the only case of context-awareness that is important
 in every day programming.
 
 Most readers of this blog will immediately see what is wrong with the following code, but that
@@ -162,7 +162,7 @@ of systems that contain something similar):
     use cmd = new SqlCommand(query)
     use reader = cmd.ExecuteReader()
 
-The problem is obviously [SQL Injenction](http://en.wikipedia.org/wiki/SQL_injection). Concatenating
+The problem is obviously [SQL Injection](http://en.wikipedia.org/wiki/SQL_injection). Concatenating
 strings to build an SQL command is a bad practice, but it is an example of a more general problem.
 
 Sometimes, we have special kinds of variables that should have some contextual meta-data associated
@@ -173,7 +173,7 @@ we try passing this - potentially unsafe - input to `SqlCommand`. Similarly, if 
 should not, for example, be sent over an unsecured network connection.
 As a side note - this idea is related to a technique called [taint checking](http://en.wikipedia.org/wiki/Taint_checking).
 
-In another context, if you are working with data (e.g. in some data jouranlism application), it would be
+In another context, if you are working with data (e.g. in some data journalism application), it would be
 great if your sources were annotated with meta-data about the quality and source of the data (e.g.
 can it be trusted? how up-to-date is it?) The meta-data could propagate to the result and tell you how
 accurate and trustworthy your result is.
@@ -187,7 +187,7 @@ these two parts should be written as a single program that is cross-compiled to 
 (and I tried to [make that possible with F# Web Tools](http://tomasp.net/blog/fswebtools-intro.aspx/)
 a long time ago; more recently [WebSharper](http://websharper.com/) implemented a similar idea).
 
-So, say we have a function `validateInput`, `readData` and `displayMessage` in my prorgam.
+So, say we have a function `validateInput`, `readData` and `displayMessage` in my program.
 I want to look at their types and see what resources (or _context_) they require. For example,
 `readData` requires _database_ (or perhaps a database with a specific name), `displayMessage` 
 requires access to _user interface_ and `validateInput` has no special requirements.
@@ -327,7 +327,7 @@ When a function is available on both platforms, I want to be able to reuse the c
 calls it. When some function is available on only one platform, I want to solve this by
 designing my own abstraction, rather than resorting to ugly `#if` pragmas.
 
-Then, I want to take this single program (again, strutured using whatever abstractions
+Then, I want to take this single program (again, structured using whatever abstractions
 I find appropriate) and compile it. As a result, I want to get a component (containing
 `lookupNews`) that I can deploy to the server-side and two packages for iPhone and 
 Windows respectively, that reference only one or the other platform.
@@ -362,7 +362,7 @@ Type systems are usually described in the form of _typing judgement_ that have t
 
 <div style="margin-bottom:15px;text-align:center"><img src="typing-1.png" /></div>
 
-The judgement means that, given some variables described by _Γ_, the expression or programm _e_
+The judgement means that, given some variables described by _Γ_, the expression or program _e_
 has a type _τ_. What does this mean? For example, what is a type of the expression `x + y`?
 Well, this depends - in F# it could be some numeric type or even a string, depending on the types
 of `x` and `y`. That's why we need the variable context _Γ_ which specifies the types of variables.
@@ -385,13 +385,13 @@ expression that prints a number:
 
 <div style="margin-bottom:15px;text-align:center"><img src="typing-3.png" /></div>
 
-This is a reasonable typing in F# (and ML languages), but it ingores the important fact that the 
+This is a reasonable typing in F# (and ML languages), but it ignores the important fact that the 
 expression has a _side-effect_ and prints the number to the console. In Haskell, this would not be
 a valid typing, because `print` would return an `IO` computation rather than just plain `unit` (for
 more information see [IO in Haskell](http://www.haskell.org/haskellwiki/IO_inside)).
 
 However, monads are not the only way to be more precise about side-effects. Another option is
-to use [effect system](http://en.wikipedia.org/wiki/Effect_system) which essentially annotates the 
+to use an [effect system](http://en.wikipedia.org/wiki/Effect_system) which essentially annotates the 
 result of the typing judgement with more information about the _effects_ that occur as part of
 evaluation of the expression (here, in orange):
 
@@ -452,7 +452,7 @@ aware of the context in which they run. The context includes things such as exec
 (databases, resources, available devices), platform and framework (different versions, different
 platforms) and meta-data about data we access (sensitivity, security, provenance). 
 
-This may not be preceived as a major problem - we are all used to write code that deals with
+This may not be perceived as a major problem - we are all used to write code that deals with
 such things. However, I believe that the area of _context-aware_ programming is a source of
 many problems and pains - and programming languages can help!
 

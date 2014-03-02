@@ -94,20 +94,18 @@ a look at the following example and figure out in what order will the strings be
 (I could not find the exact code shown at the talk, but I remember Lucian showing something
 similar):</p>
 
-<pre><code>[lang=csharp]
-async Task WorkThenWait() {
+<pre lang="csharp"><span class="k">async</span> Task WorkThenWait() {
   Thread.Sleep(1000);
-  Console.WriteLine("work");
+  Console.WriteLine(<span class="s">"work"</span>);
   await Task.Delay(1000);
 }
 
-void Demo() {
-  var child = WorkThenWait();
-  Console.WriteLine("started");
+<span class="k">void</span> Demo() {
+  <span class="k">var</span> child = WorkThenWait();
+  Console.WriteLine(<span class="s">"started"</span>);
   child.Wait();
-  Console.WriteLine("completed");
-}
-</code></pre>
+  Console.WriteLine(<span class="s">"completed"</span>);
+}</pre>
 
 <p>If you guessed that it prints "started", "work" and "completed" then you're wrong. The code
 prints "work", "started" and "completed", try it! What the author intended was to start 
@@ -180,13 +178,11 @@ would write the following, which works as expected:</p>
 <p>Here is another gotcha in the C# asynchronous programming model (this one is taken directly
 from Lucian's slides). Guess what happens when you run the following asynchronous method:</p>
 
-<pre><code>[lang=csharp]
-async Task Handler() {
-  Console.WriteLine("Before");
+<pre lang="csharp"><span class="k">async</span> Task Handler() {
+  Console.WriteLine(<span class="s">"Before"</span>);
   Task.Delay(1000);
-  Console.WriteLine("After");
-}
-</code></pre>
+  Console.WriteLine(<span class="s">"After"</span>);
+}</pre>
 
 <p>Were you expecting that it prints "Before", waits 1 second and then prints "After"? Wrong!
 It prints both messages immediately without any waiting in between. The problem is that
@@ -262,19 +258,17 @@ surely makes nice demos at conference talks.</p>
 <p>Let me demonstrate the problem using a snippet from <a href="http://msdn.microsoft.com/en-us/magazine/jj991977.aspx" title="Stephen Cleary: Best Practices in Asynchronous Programming">MSDN Magazine article</a>
 on asynchronous programming in C#:</p>
 
-<pre><code>[lang=csharp]
-async void ThrowExceptionAsync() {
-  throw new InvalidOperationException();
+<pre lang="csharp"><span class="k">async</span> <span class="k">void</span> ThrowExceptionAsync() {
+  <span class="k">throw</span> <span class="k">new</span> InvalidOperationException();
 }
 
-public void CallThrowExceptionAsync() {
-  try {
+<span class="k">public</span> <span class="k">void</span> CallThrowExceptionAsync() {
+  <span class="k">try</span> {
     ThrowExceptionAsync();
-  } catch (Exception) {
-    Console.WriteLine("Failed");
+  } <span class="k">catch</span> (Exception) {
+    Console.WriteLine(<span class="s">"Failed"</span>);
   }
-}
-</code></pre>
+}</pre>
 
 <p>Do you think that the code prints "Failed"? I suppose you already understood the style
 of this blog post... Indeed, the exception is not handled because <code>ThrowExceptionAsync</code>
@@ -333,11 +327,9 @@ the compiler generates a function that returns <code>Task</code>.</p>
 <p>Here is a sample from Lucian's slides. Does the following (perfectly valid) code finish 
 in 1 second (after all the tasks finish sleeping), or does it finish immediately?</p>
 
-<pre><code>[lang=csharp]
-Parallel.For(0, 10, async i =&gt; {
+<pre lang="csharp">Parallel.For(0, 10, <span class="k">async</span> i =&gt; {
   await Task.Delay(1000);
-});
-</code></pre>
+});</pre>
 
 <p>You cannot know that, unless you know that <code>For</code> only has overloads that take <code>Action</code>
 delegates - and thus the lambda function will always be compiled as async void. This
@@ -402,12 +394,10 @@ synchronous functions) in parallel.</p>
 skills of the people in the audience, but here it is. The question is, does the
 following code wait 1 second between the two prints?</p>
 
-<pre><code>[lang=csharp]
-Console.WriteLine("Before");
+<pre lang="csharp">Console.WriteLine(<span class="s">"Before"</span>);
 await Task.Factory.StartNew(
-  async () =&gt; { await Task.Delay(1000); });
-Console.WriteLine("After");
-</code></pre>
+  <span class="k">async</span> () =&gt; { await Task.Delay(1000); });
+Console.WriteLine(<span class="s">"After"</span>);</pre>
 
 <p>Again, quite unexpectedly, this does not actually wait between the two writes.
 How is that possible? The <code>StartNew</code> method takes a delegate and returns a <code>Task&lt;T&gt;</code>
@@ -455,14 +445,12 @@ but here has type <code>unit</code></p>
 is quite simple. The following snippet defines an asynchronous method <code>FooAsync</code> and
 calls it from a <code>Handler</code>, but the code does not run asynchronously:</p>
 
-<pre><code>[lang=csharp]
-async Task FooAsync() {
+<pre lang="csharp"><span class="k">async</span> Task FooAsync() {
   await Task.Delay(1000);
 }
-void Handler() {
+<span class="k">void</span> Handler() {
   FooAsync().Wait();
-}
-</code></pre>
+}</pre>
 
 <p>It is not too difficult to spot the issue - we are calling <code>FooAsync().Wait()</code>. This 
 means that we create a task and then, using <code>Wait</code>, block until it completes. Simply
@@ -538,7 +526,7 @@ that is a topic for a separate blog post.</p>
 <div class="tip" id="fs20">Parallel.For(fromInclusive: int64, toExclusive: int64, body: Action&lt;int64,ParallelLoopState&gt;) : ParallelLoopResult<br />&#160;&#160;&#160;<em>(+0 other overloads)</em><br />Parallel.For(fromInclusive: int, toExclusive: int, body: Action&lt;int,ParallelLoopState&gt;) : ParallelLoopResult<br />&#160;&#160;&#160;<em>(+0 other overloads)</em><br />Parallel.For(fromInclusive: int64, toExclusive: int64, body: Action&lt;int64&gt;) : ParallelLoopResult<br />&#160;&#160;&#160;<em>(+0 other overloads)</em><br />Parallel.For(fromInclusive: int, toExclusive: int, body: Action&lt;int&gt;) : ParallelLoopResult<br />&#160;&#160;&#160;<em>(+0 other overloads)</em><br />Parallel.For(fromInclusive: int64, toExclusive: int64, parallelOptions: ParallelOptions, body: Action&lt;int64,ParallelLoopState&gt;) : ParallelLoopResult<br />&#160;&#160;&#160;<em>(+0 other overloads)</em><br />Parallel.For(fromInclusive: int, toExclusive: int, parallelOptions: ParallelOptions, body: Action&lt;int,ParallelLoopState&gt;) : ParallelLoopResult<br />&#160;&#160;&#160;<em>(+0 other overloads)</em><br />Parallel.For(fromInclusive: int64, toExclusive: int64, parallelOptions: ParallelOptions, body: Action&lt;int64&gt;) : ParallelLoopResult<br />&#160;&#160;&#160;<em>(+0 other overloads)</em><br />Parallel.For(fromInclusive: int, toExclusive: int, parallelOptions: ParallelOptions, body: Action&lt;int&gt;) : ParallelLoopResult<br />&#160;&#160;&#160;<em>(+0 other overloads)</em><br />Parallel.For&lt;&#39;TLocal&gt;(fromInclusive: int64, toExclusive: int64, localInit: Func&lt;&#39;TLocal&gt;, body: Func&lt;int64,ParallelLoopState,&#39;TLocal,&#39;TLocal&gt;, localFinally: Action&lt;&#39;TLocal&gt;) : ParallelLoopResult<br />&#160;&#160;&#160;<em>(+0 other overloads)</em><br />Parallel.For&lt;&#39;TLocal&gt;(fromInclusive: int, toExclusive: int, localInit: Func&lt;&#39;TLocal&gt;, body: Func&lt;int,ParallelLoopState,&#39;TLocal,&#39;TLocal&gt;, localFinally: Action&lt;&#39;TLocal&gt;) : ParallelLoopResult<br />&#160;&#160;&#160;<em>(+0 other overloads)</em></div>
 <div class="tip" id="fs21">val i : &#39;a</div>
 <div class="tip" id="fs22">val i : int</div>
-<div class="tip" id="fs23">Multiple items<br />type Task =<br />&#160;&#160;new : action:Action -&gt; Task + 7 overloads<br />&#160;&#160;member AsyncState : obj<br />&#160;&#160;member ConfigureAwait : continueOnCapturedContext:bool -&gt; ConfiguredTaskAwaitable<br />&#160;&#160;member ContinueWith : continuationAction:Action&lt;Task&gt; -&gt; Task + 19 overloads<br />&#160;&#160;member CreationOptions : TaskCreationOptions<br />&#160;&#160;member Dispose : unit -&gt; unit<br />&#160;&#160;member Exception : AggregateException<br />&#160;&#160;member GetAwaiter : unit -&gt; TaskAwaiter<br />&#160;&#160;member Id : int<br />&#160;&#160;member IsCanceled : bool<br />&#160;&#160;...<br /><br />Full name: System.Threading.Tasks.Task<br /><br />--------------------<br />type Task&lt;&#39;TResult&gt; =<br />&#160;&#160;inherit Task<br />&#160;&#160;new : function:Func&lt;&#39;TResult&gt; -&gt; Task&lt;&#39;TResult&gt; + 7 overloads<br />&#160;&#160;member ConfigureAwait : continueOnCapturedContext:bool -&gt; ConfiguredTaskAwaitable&lt;&#39;TResult&gt;<br />&#160;&#160;member ContinueWith : continuationAction:Action&lt;Task&lt;&#39;TResult&gt;&gt; -&gt; Task + 19 overloads<br />&#160;&#160;member GetAwaiter : unit -&gt; TaskAwaiter&lt;&#39;TResult&gt;<br />&#160;&#160;member Result : &#39;TResult<br />&#160;&#160;static member Factory : TaskFactory&lt;&#39;TResult&gt;<br /><br />Full name: System.Threading.Tasks.Task&lt;_&gt;<br /><br />--------------------<br />Task(action: Action) : unit<br />Task(action: Action, cancellationToken: CancellationToken) : unit<br />Task(action: Action, creationOptions: TaskCreationOptions) : unit<br />Task(action: Action&lt;obj&gt;, state: obj) : unit<br />Task(action: Action, cancellationToken: CancellationToken, creationOptions: TaskCreationOptions) : unit<br />Task(action: Action&lt;obj&gt;, state: obj, cancellationToken: CancellationToken) : unit<br />Task(action: Action&lt;obj&gt;, state: obj, creationOptions: TaskCreationOptions) : unit<br />Task(action: Action&lt;obj&gt;, state: obj, cancellationToken: CancellationToken, creationOptions: TaskCreationOptions) : unit<br /><br />--------------------<br />Task(function: Func&lt;&#39;TResult&gt;) : unit<br />Task(function: Func&lt;&#39;TResult&gt;, cancellationToken: CancellationToken) : unit<br />Task(function: Func&lt;&#39;TResult&gt;, creationOptions: TaskCreationOptions) : unit<br />Task(function: Func&lt;obj,&#39;TResult&gt;, state: obj) : unit<br />Task(function: Func&lt;&#39;TResult&gt;, cancellationToken: CancellationToken, creationOptions: TaskCreationOptions) : unit<br />Task(function: Func&lt;obj,&#39;TResult&gt;, state: obj, cancellationToken: CancellationToken) : unit<br />Task(function: Func&lt;obj,&#39;TResult&gt;, state: obj, creationOptions: TaskCreationOptions) : unit<br />Task(function: Func&lt;obj,&#39;TResult&gt;, state: obj, cancellationToken: CancellationToken, creationOptions: TaskCreationOptions) : unit</div>
+<div class="tip" id="fs23">Multiple items<br />type Task =<br />&#160;&#160;new : action:Action -&gt; Task + 7 overloads<br />&#160;&#160;member AsyncState : obj<br />&#160;&#160;member ContinueWith : continuationAction:Action&lt;Task&gt; -&gt; Task + 9 overloads<br />&#160;&#160;member CreationOptions : TaskCreationOptions<br />&#160;&#160;member Dispose : unit -&gt; unit<br />&#160;&#160;member Exception : AggregateException<br />&#160;&#160;member Id : int<br />&#160;&#160;member IsCanceled : bool<br />&#160;&#160;member IsCompleted : bool<br />&#160;&#160;member IsFaulted : bool<br />&#160;&#160;...<br /><br />Full name: System.Threading.Tasks.Task<br /><br />--------------------<br />type Task&lt;&#39;TResult&gt; =<br />&#160;&#160;inherit Task<br />&#160;&#160;new : function:Func&lt;&#39;TResult&gt; -&gt; Task&lt;&#39;TResult&gt; + 7 overloads<br />&#160;&#160;member ContinueWith : continuationAction:Action&lt;Task&lt;&#39;TResult&gt;&gt; -&gt; Task + 9 overloads<br />&#160;&#160;member Result : &#39;TResult with get, set<br />&#160;&#160;static member Factory : TaskFactory&lt;&#39;TResult&gt;<br /><br />Full name: System.Threading.Tasks.Task&lt;_&gt;<br /><br />--------------------<br />Task(action: Action) : unit<br />Task(action: Action, cancellationToken: CancellationToken) : unit<br />Task(action: Action, creationOptions: TaskCreationOptions) : unit<br />Task(action: Action&lt;obj&gt;, state: obj) : unit<br />Task(action: Action, cancellationToken: CancellationToken, creationOptions: TaskCreationOptions) : unit<br />Task(action: Action&lt;obj&gt;, state: obj, cancellationToken: CancellationToken) : unit<br />Task(action: Action&lt;obj&gt;, state: obj, creationOptions: TaskCreationOptions) : unit<br />Task(action: Action&lt;obj&gt;, state: obj, cancellationToken: CancellationToken, creationOptions: TaskCreationOptions) : unit<br /><br />--------------------<br />Task(function: Func&lt;&#39;TResult&gt;) : unit<br />Task(function: Func&lt;&#39;TResult&gt;, cancellationToken: CancellationToken) : unit<br />Task(function: Func&lt;&#39;TResult&gt;, creationOptions: TaskCreationOptions) : unit<br />Task(function: Func&lt;obj,&#39;TResult&gt;, state: obj) : unit<br />Task(function: Func&lt;&#39;TResult&gt;, cancellationToken: CancellationToken, creationOptions: TaskCreationOptions) : unit<br />Task(function: Func&lt;obj,&#39;TResult&gt;, state: obj, cancellationToken: CancellationToken) : unit<br />Task(function: Func&lt;obj,&#39;TResult&gt;, state: obj, creationOptions: TaskCreationOptions) : unit<br />Task(function: Func&lt;obj,&#39;TResult&gt;, state: obj, cancellationToken: CancellationToken, creationOptions: TaskCreationOptions) : unit</div>
 <div class="tip" id="fs24">Multiple items<br />property Task.Factory: TaskFactory<br /><br />--------------------<br />property Task.Factory: TaskFactory&lt;&#39;TResult&gt;</div>
 <div class="tip" id="fs25">Multiple items<br />TaskFactory.StartNew&lt;&#39;TResult&gt;(function: Func&lt;&#39;TResult&gt;) : Task&lt;&#39;TResult&gt;<br />&#160;&#160;&#160;<em>(+0 other overloads)</em><br />TaskFactory.StartNew(action: Action) : Task<br />&#160;&#160;&#160;<em>(+0 other overloads)</em><br />TaskFactory.StartNew&lt;&#39;TResult&gt;(function: Func&lt;obj,&#39;TResult&gt;, state: obj) : Task&lt;&#39;TResult&gt;<br />&#160;&#160;&#160;<em>(+0 other overloads)</em><br />TaskFactory.StartNew&lt;&#39;TResult&gt;(function: Func&lt;&#39;TResult&gt;, creationOptions: TaskCreationOptions) : Task&lt;&#39;TResult&gt;<br />&#160;&#160;&#160;<em>(+0 other overloads)</em><br />TaskFactory.StartNew&lt;&#39;TResult&gt;(function: Func&lt;&#39;TResult&gt;, cancellationToken: CancellationToken) : Task&lt;&#39;TResult&gt;<br />&#160;&#160;&#160;<em>(+0 other overloads)</em><br />TaskFactory.StartNew(action: Action&lt;obj&gt;, state: obj) : Task<br />&#160;&#160;&#160;<em>(+0 other overloads)</em><br />TaskFactory.StartNew(action: Action, creationOptions: TaskCreationOptions) : Task<br />&#160;&#160;&#160;<em>(+0 other overloads)</em><br />TaskFactory.StartNew(action: Action, cancellationToken: CancellationToken) : Task<br />&#160;&#160;&#160;<em>(+0 other overloads)</em><br />TaskFactory.StartNew&lt;&#39;TResult&gt;(function: Func&lt;obj,&#39;TResult&gt;, state: obj, creationOptions: TaskCreationOptions) : Task&lt;&#39;TResult&gt;<br />&#160;&#160;&#160;<em>(+0 other overloads)</em><br />TaskFactory.StartNew&lt;&#39;TResult&gt;(function: Func&lt;obj,&#39;TResult&gt;, state: obj, cancellationToken: CancellationToken) : Task&lt;&#39;TResult&gt;<br />&#160;&#160;&#160;<em>(+0 other overloads)</em><br /><br />--------------------<br />TaskFactory.StartNew(function: Func&lt;&#39;TResult&gt;) : Task&lt;&#39;TResult&gt;<br />TaskFactory.StartNew(function: Func&lt;obj,&#39;TResult&gt;, state: obj) : Task&lt;&#39;TResult&gt;<br />TaskFactory.StartNew(function: Func&lt;&#39;TResult&gt;, creationOptions: TaskCreationOptions) : Task&lt;&#39;TResult&gt;<br />TaskFactory.StartNew(function: Func&lt;&#39;TResult&gt;, cancellationToken: CancellationToken) : Task&lt;&#39;TResult&gt;<br />TaskFactory.StartNew(function: Func&lt;obj,&#39;TResult&gt;, state: obj, creationOptions: TaskCreationOptions) : Task&lt;&#39;TResult&gt;<br />TaskFactory.StartNew(function: Func&lt;obj,&#39;TResult&gt;, state: obj, cancellationToken: CancellationToken) : Task&lt;&#39;TResult&gt;<br />TaskFactory.StartNew(function: Func&lt;&#39;TResult&gt;, cancellationToken: CancellationToken, creationOptions: TaskCreationOptions, scheduler: TaskScheduler) : Task&lt;&#39;TResult&gt;<br />TaskFactory.StartNew(function: Func&lt;obj,&#39;TResult&gt;, state: obj, cancellationToken: CancellationToken, creationOptions: TaskCreationOptions, scheduler: TaskScheduler) : Task&lt;&#39;TResult&gt;</div>
 <div class="tip" id="fs26">static member Async.AwaitTask : task:Task&lt;&#39;T&gt; -&gt; Async&lt;&#39;T&gt;</div>

@@ -15,11 +15,18 @@
 
   <link rel="alternate" type="application/rss+xml" href="http://tomasp.net/rss.xml" title="RSS feed for Tomas Petricek's blog">
   <link rel="author" href="https://plus.google.com/109855146654605967051" />
+  <link rel="icon" type="image/png" href="http://tomasp.net/img/favicon.png" />
     
   <!-- Reference custom CSS and tooltips -->
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/style.css" />
   <script type="text/javascript" src="http://tomasp.net/custom/tooltips.js"></script>
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/tooltips.css" />
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:creator" content="@tomaspetricek">
+  <meta name="twitter:title" content="Quotations Visualizer for F# 1.1.13.8">
+  <meta name="twitter:description" content="Little update to my F# quotations visualizer tool to make it compatible with the latest version of F# (1.1.13.8).">
+
 </head>
 <body>
 
@@ -76,26 +83,26 @@
   F# compiler uses whitespace to determine end of the blocks (and some other constructs). This compiler option is
   relatively new so it is still evolving. First issue that I had is with class declaration - the following 
   code is not valid with the latest F# version:</p>
-<pre >
-<span class="kwrd">type</span> MyForm = <span class="kwrd">class</span> <span class="kwrd">inherit</span> Form <span class="kwrd">as</span> base
-  <span class="rem">// ...</span>
-<span class="kwrd">end</span>
+<pre lang="fsharp">
+type MyForm = class inherit Form as base
+  // ...
+end
 </pre>  
 <p>I used it because it looks more familiar to C# developers :-). Instead of it you have to write the following:</p>
-<pre >
-<span class="kwrd">type</span> MyForm = <span class="kwrd">class</span> 
-  <span class="kwrd">inherit</span> Form <span class="kwrd">as</span> base
-  <span class="rem">// ...</span>
-<span class="kwrd">end</span>
+<pre lang="fsharp">
+type MyForm = class 
+  inherit Form as base
+  // ...
+end
 </pre>  
 <p>The second issue was with the pipeline operator which is useful when working with lists (or other sequences). The 
   correct syntax for using pipeline operator (for expressions that are longer than one line) is following:</p>
-<pre >
-<span class="kwrd">let</span> filteredList = 
+<pre lang="fsharp">
+let filteredList = 
        oldArray
-    <span class="op">|</span>&gt; Array.to_list 
-    <span class="op">|</span>&gt; List.map ( <span class="kwrd">fun</span> m <span class="op">-&gt;</span> /* ... */ ) 
-    <span class="op">|</span>&gt; List.filter ( <span class="kwrd">fun</span> m <span class="op">-&gt;</span> /* ... */ ) 
+    |> Array.to_list 
+    |> List.map ( fun m -> /* ... */ ) 
+    |> List.filter ( fun m -> /* ... */ ) 
 </pre>  
 
 <div class="row">

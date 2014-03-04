@@ -15,11 +15,18 @@
 
   <link rel="alternate" type="application/rss+xml" href="http://tomasp.net/rss.xml" title="RSS feed for Tomas Petricek's blog">
   <link rel="author" href="https://plus.google.com/109855146654605967051" />
+  <link rel="icon" type="image/png" href="http://tomasp.net/img/favicon.png" />
     
   <!-- Reference custom CSS and tooltips -->
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/style.css" />
   <script type="text/javascript" src="http://tomasp.net/custom/tooltips.js"></script>
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/tooltips.css" />
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:creator" content="@tomaspetricek">
+  <meta name="twitter:title" content="Building LINQ Queries at Runtime in F#">
+  <meta name="twitter:description" content="In this article I will introduce FLinq, the F# support for language integrated query and show how we can construct a database queries dynamically in a type-safe way in F#.">
+
 </head>
 <body>
 
@@ -72,14 +79,14 @@
   writing queries is written using <em>comprehensions</em> which is a very common language construct
   in functional languages. In F# you can use it for example for manipulating with list of numbers:
 </p>
-<pre >
-<span class="kwrd">let</span> evenSquares = 
- <span class="op">[</span> <span class="kwrd">for</span> n <span class="kwrd">in</span> [0 .. 10] 
-   <span class="kwrd">when</span> n%2 = 0
-   <span class="op">-&gt;</span> n*n <span class="op">]</span>
+<pre lang="fsharp">
+let evenSquares = 
+ [ for n in [0 .. 10] 
+   when n%2 = 0
+   -&gt; n*n ]
    
-<span class="rem">// evenSquares : int list </span>
-<span class="rem">//   [0; 4; 16; 25; 36; 64; 100]</span>
+// evenSquares : int list 
+//   [0; 4; 16; 25; 36; 64; 100]
 </pre>
 <p>Here, we use the comprehension to build a list of integers. When building the list, we first take
   all numbers between 0 and 10, filter only even integers (in the <code>when</code> clause, which
@@ -99,20 +106,20 @@
   of F# code, similar as the C# expression tree. The reason why F# doesn't use the same representation 
   as C# is that in F# you can quote more complicated code and not just a simple expression.
   The following code gives a few examples in both F# and C# (when possible):</p>  
-<pre >
-<span class="rem">// 'add' as a function &amp; an expression in C#</span>
+<pre lang="fsharp">
+// 'add' as a function &amp; an expression in C#
 Func&lt;int,int,int&gt;             addF = (a,b) =&gt; a + b
 Expression&lt;Func&lt;int,int,int&gt;&gt; addE = (a,b) =&gt; a + b
 
-<span class="rem">// 'add' as a function &amp; a quotation in F#</span>
-<span class="kwrd">let</span> addF =   <span class="kwrd">fun</span> a b <span class="op">-&gt;</span> a + b
-<span class="kwrd">let</span> addE = « <span class="kwrd">fun</span> a b <span class="op">-&gt;</span> a + b »
+// 'add' as a function &amp; a quotation in F#
+let addF =   fun a b -> a + b
+let addE = « fun a b -> a + b »
 
-<span class="rem">// More complex quotation in F#</span>
-<span class="kwrd">let</span> addAndPrint = 
-  « <span class="kwrd">fun</span> a b <span class="op">-&gt;</span> 
-      <span class="kwrd">let</span> sum = a + b
-      printf <span class="str">"Sum = %d"</span> sum »
+// More complex quotation in F#
+let addAndPrint = 
+  « fun a b -> 
+      let sum = a + b
+      printf "Sum = %d" sum »
 </pre>
 <p>Note that if you don't want to use Unicode symbols (<code>«</code>, <code>»</code>) in your code you can use <code>&lt;@</code> and <code>@&gt;</code>
   that serve exactly for the same purpose. I'll use the Unicode symbols, because I believe that it looks
@@ -133,26 +140,26 @@ Expression&lt;Func&lt;int,int,int&gt;&gt; addE = (a,b) =&gt; a + b
   F# 1.9.2.9 (currently the latest release) is compatible with VS 2008 beta 1, but I built a version compatible 
   with beta 2 as well, which you can get below. If you open the <code>dlinqsamples.fs</code> file, you can
   see a lot of F# samples for querying the Northwind database, so let me explain a few of them:</p>
-<pre >
-<span class="rem">// Just select all customers</span>
-<span class="kwrd">let</span> sample1() =
-  SQL « { <span class="kwrd">for</span> c <span class="kwrd">in</span> (§db.Customers) <span class="op">-&gt;</span> c } »
-  <span class="op">|</span>&gt; dump 
+<pre lang="fsharp">
+// Just select all customers
+let sample1() =
+  SQL « { for c in (§db.Customers) -&gt; c } »
+  |&gt; dump 
 
-<span class="rem">// Select all customers from UK</span>
-<span class="kwrd">let</span> sample2() =
-  SQL « { <span class="kwrd">for</span> c <span class="kwrd">in</span> (§db.Customers) 
-          <span class="kwrd">when</span> c.Country = <span class="str">"UK"</span>
-          <span class="op">-&gt;</span> c } »
-  <span class="op">|</span>&gt; dump 
+// Select all customers from UK
+let sample2() =
+  SQL « { for c in (§db.Customers) 
+          when c.Country = "UK"
+          -&gt; c } »
+  |&gt; dump 
     
-<span class="rem">// Join products &amp; categories using nested 'for'    </span>
-<span class="kwrd">let</span> sample3() =
-  SQL « { <span class="kwrd">for</span> p <span class="kwrd">in</span> (§db.Products) 
-          <span class="kwrd">for</span> c <span class="kwrd">in</span> (§db.Categories)
-          <span class="kwrd">when</span> c.CategoryID = p.CategoryID
-          <span class="op">-&gt;</span> (c.CategoryName, p.ProductName) } »     
-  <span class="op">|</span>&gt; dump
+// Join products &amp; categories using nested 'for'    
+let sample3() =
+  SQL « { for p in (§db.Products) 
+          for c in (§db.Categories)
+          when c.CategoryID = p.CategoryID
+          -&gt; (c.CategoryName, p.ProductName) } »     
+  |&gt; dump
 </pre>  
 <p>As we can see in all three examples, FLINQ wraps the whole comprehension (that specifies what we
   want to select from a database) in a quotation, so the F# code can be translated to SQL and executed.
@@ -186,33 +193,33 @@ Expression&lt;Func&lt;int,int,int&gt;&gt; addE = (a,b) =&gt; a + b
   constructed using the given values. First, we will write a utility function for printing a sequence of customers
   (which is what the <code>SQL</code> function returns) and create a Northwind data context (similarly as in 
   C# example):</p>  
-<pre >
-<span class="rem">/// Utility function to dump a sequence (IEnumerable) of customers</span>
-<span class="kwrd">let</span> dump (q:#seq&lt;Customer&gt;) = 
-  <span class="kwrd">for</span> c <span class="kwrd">in</span> q <span class="kwrd">do</span>
+<pre lang="fsharp">
+/// Utility function to dump a sequence (IEnumerable) of customers
+let dump (q:#seq&lt;Customer&gt;) = 
+  for c in q do
     Console.WriteLine
-      (<span class="str">"{0,-25}{2,10}, {1,-8}{3,-30}"</span>, 
+      ("{0,-25}{2,10}, {1,-8}{3,-30}", 
        c.CompanyName, c.Country, c.City, c.ContactName)
   Console.ReadLine();
 
-<span class="rem">/// Northwind data context and customers table</span>
-<span class="kwrd">let</span> db = <span class="kwrd">new</span> Northwind(<span class="str">"Server=.; Database=Northwind; Integrated Security=SSPI"</span>)
-<span class="kwrd">let</span> custTable = « §db.Customers »
+/// Northwind data context and customers table
+let db = new Northwind("Server=.; Database=Northwind; Integrated Security=SSPI")
+let custTable = « §db.Customers »
 </pre>
 <p>At the last line of the sample, we created a value <code>custTable</code> which is an F# quotation containing
   just a value of the customers data table - we will need it later in the examples. Now, let's build a function
   for building the query. The function takes two arguments, the first arguments is a quotation of a function
   that selects a property of the <code>Customer</code> type and the second argument is a quotation of a value
   that we want to look for:</p>
-<pre >
-<span class="rem">/// Function for building a query working with the customer table.</span>
-<span class="rem">/// Selector is of type 'CustomerPropSelector'</span>
-<span class="kwrd">let</span> queryTemplate selector (value:Expr&lt;string&gt;) = 
-  custTable <span class="op">|</span>&gt; 
-    « { <span class="kwrd">for</span> c <span class="kwrd">in</span> <span class="op">_</span> <span class="kwrd">do</span>
-          <span class="kwrd">let</span> s = (<span class="op">_</span> c) <span class="kwrd">in</span>
-          <span class="kwrd">when</span> (s:string).IndexOf(<span class="op">_</span>:string) &lt;&gt; -1
-          <span class="op">-&gt;</span> c } » value selector
+<pre lang="fsharp">
+/// Function for building a query working with the customer table.
+/// Selector is of type 'CustomerPropSelector'
+let queryTemplate selector (value:Expr&lt;string&gt;) = 
+  custTable |&gt; 
+    « { for c in _ do
+          let s = (_ c) in
+          when (s:string).IndexOf(_:string) &lt;&gt; -1
+          -&gt; c } » value selector
 </pre>
 <p>There is a one new interesting thing in this example, we used underscore at a few places in the quotation.
   The underscore in the quotation means that we want to build a <em>quotation template</em>, which is a quotation
@@ -223,9 +230,9 @@ Expression&lt;Func&lt;int,int,int&gt;&gt; addE = (a,b) =&gt; a + b
   few type-annotations in the query, so the compiler knows what the types of the <em>holes</em> are, for example that 
   the <code>selector</code> returns a <code>string</code> (which has the <code>IndexOf</code> method). The 
   <code>queryTemplate</code> function can be used rather easily:</p>
-<pre >
-<span class="kwrd">let</span> q = SQL (queryTemplate « <span class="kwrd">fun</span> c <span class="op">-&gt;</span> c.CompanyName » « <span class="str">"ab"</span> »)
-q <span class="op">|</span>&gt; dump
+<pre lang="fsharp">
+let q = SQL (queryTemplate « fun c -> c.CompanyName » « "ab" »)
+q |> dump
 </pre>
 <p>As mentioned, both parameters are quotations (so that they can be used as an arguments for the quotation
   template that we wrote earlier), which means that we have to give it two quoted blocks of F# code.
@@ -233,24 +240,24 @@ q <span class="op">|</span>&gt; dump
   of a customer and the second argument is a quoted string literal.</p>
 <p>In the next code snippet we finish the example and add the interactive part that allows
   selecting a property of the customer and entering the required value:</p>
-<pre >
-<span class="rem">/// Dictionary for getting a 'selector' of a Customer property</span>
-<span class="rem">/// with key of type string</span>
-<span class="kwrd">let</span> (dict:Map&lt;string,CustomerPropSelector&gt;) = 
+<pre lang="fsharp">
+/// Dictionary for getting a 'selector' of a Customer property
+/// with key of type string
+let (dict:Map&lt;string,CustomerPropSelector&gt;) = 
   Map.of_list
-    <span class="op">[</span> <span class="str">"CompanyName"</span>, « <span class="kwrd">fun</span> (c:Customer) <span class="op">-&gt;</span> c.CompanyName »;
-      <span class="str">"Country"</span>,     « <span class="kwrd">fun</span> (c:Customer) <span class="op">-&gt;</span> c.Country »;
-      <span class="str">"ContactName"</span>, « <span class="kwrd">fun</span> (c:Customer) <span class="op">-&gt;</span> c.ContactName »; <span class="op">]</span>
+    [ "CompanyName", « fun (c:Customer) -&gt; c.CompanyName »;
+      "Country",     « fun (c:Customer) -&gt; c.Country »;
+      "ContactName", « fun (c:Customer) -&gt; c.ContactName »; ]
       
-<span class="rem">/// Demonstrates the use of 'queryTemplate' function</span>
-<span class="kwrd">let</span> main() =
-  Console.Write(<span class="str">"Filter - field name (CompanyName, ContactName, Country):\n&gt; "</span>);
-  <span class="kwrd">let</span> prop = Console.ReadLine();
-  Console.Write(<span class="str">"Filter - value:\n&gt; "</span>);
-  <span class="kwrd">let</span> value = Console.ReadLine();
+/// Demonstrates the use of 'queryTemplate' function
+let main() =
+  Console.Write("Filter - field name (CompanyName, ContactName, Country):\n&gt; ");
+  let prop = Console.ReadLine();
+  Console.Write("Filter - value:\n&gt; ");
+  let value = Console.ReadLine();
   
-  <span class="kwrd">let</span> q = queryTemplate dict.[prop] « §value »
-  SQL q <span class="op">|</span>&gt; dump
+  let q = queryTemplate dict.[prop] « §value »
+  SQL q |&gt; dump
 </pre>
 <p>Similarly as in the C# version, we use a key-value dictionary to build a dictionary that
   has a property name as a key and a quoted function for selecting a property of a customer as a value,
@@ -274,10 +281,10 @@ q <span class="op">|</span>&gt; dump
 <p>As we use the same data context (<code>db</code>) and same dictionary with property name as a key
   and quoted function for selecting a property of the customer (<code>dict</code>), I won't repeat them in 
   this example and let's look at our code for combining conditions:</p>
-<pre >
-<span class="rem">// Elementary conditions</span>
-<span class="kwrd">let</span> falseCond = « <span class="kwrd">fun</span> (c:Customer) <span class="op">-&gt;</span> <span class="kwrd">false</span> »
-<span class="kwrd">let</span> trueCond  = « <span class="kwrd">fun</span> (c:Customer) <span class="op">-&gt;</span> <span class="kwrd">true</span>  »
+<pre lang="fsharp">
+// Elementary conditions
+let falseCond = « fun (c:Customer) -&gt; false »
+let trueCond  = « fun (c:Customer) -&gt; true  »
 </pre>
 <p>We first defined two elementary conditions, <code>falseCond</code> which returns <code>false</code> for
   every customer and <code>trueConde</code> which returns always <code>true</code>. The functions are quoted,
@@ -286,10 +293,10 @@ q <span class="op">|</span>&gt; dump
   <code>Expr&lt;Customer -&gt; bool&gt;</code>, which is indeed a type of quotation (<code>Expr</code>)
   of a function taking <code>Customer</code> and returning a value of <code>bool</code>. The next
   step is to define <em>combinators</em> for combining quoted functions:</p>  
-<pre >
-<span class="rem">// Condition combinators, declared as infix operators</span>
-<span class="kwrd">let</span> (<span class="op">|</span><span class="op">|</span>*) f g = « <span class="kwrd">fun</span> (c:Customer) <span class="op">-&gt;</span> (<span class="op">_</span> c) <span class="op">|</span><span class="op">|</span> (<span class="op">_</span> c) » f g
-<span class="kwrd">let</span> (&amp;&amp;*) f g = « <span class="kwrd">fun</span> (c:Customer) <span class="op">-&gt;</span> (<span class="op">_</span> c) &amp;&amp; (<span class="op">_</span> c) » f g
+<pre lang="fsharp">
+// Condition combinators, declared as infix operators
+let (||*) f g = « fun (c:Customer) -&gt; (_ c) || (_ c) » f g
+let (&amp;&amp;*) f g = « fun (c:Customer) -&gt; (_ c) &amp;&amp; (_ c) » f g
 </pre>
 <p>Because F# allows us to declare our own infix binary operators, we declare combinators as operators -
   you'll see later that this makes the code more readable. Both operators take two quoted functions
@@ -299,16 +306,16 @@ q <span class="op">|</span>&gt; dump
   and returns a condition - <code>Expr&lt;Customer-&gt;bool&gt; -&gt; Expr&lt;Customer-&gt;bool&gt; -&gt; Expr&lt;Customer-&gt;bool&gt;</code>,
   but as usually in F#, we didn't have to write this type, because the compiler inferred it automatically.
   The following example demonstrates how we can use the combinators:</p>
-<pre >
-<span class="rem">/// Demonstrates the use of combinators</span>
-<span class="kwrd">let</span> simplecombine_demo() = 
-  <span class="kwrd">let</span> isUk = « <span class="kwrd">fun</span> (c:Customer) <span class="op">-&gt;</span> c.Country = <span class="str">"UK"</span> »
-  <span class="kwrd">let</span> isSeattle = « <span class="kwrd">fun</span> (c:Customer) <span class="op">-&gt;</span> c.City = <span class="str">"Seattle"</span> »
+<pre lang="fsharp">
+/// Demonstrates the use of combinators
+let simplecombine_demo() = 
+  let isUk = « fun (c:Customer) -&gt; c.Country = "UK" »
+  let isSeattle = « fun (c:Customer) -&gt; c.City = "Seattle" »
 
-  <span class="rem">// Build an expression using 'or' combinator</span>
-  <span class="kwrd">let</span> expr = isUk <span class="op">|</span><span class="op">|</span>* isSeattle
-  <span class="kwrd">let</span> q = custTable <span class="op">|</span>&gt; « { <span class="kwrd">for</span> c <span class="kwrd">in</span> <span class="op">_</span> <span class="kwrd">when</span> <span class="op">_</span> c <span class="op">-&gt;</span> c } » expr
-  SQL q <span class="op">|</span>&gt; dump
+  // Build an expression using 'or' combinator
+  let expr = isUk ||* isSeattle
+  let q = custTable |&gt; « { for c in _ when _ c -&gt; c } » expr
+  SQL q |&gt; dump
 </pre>
 <p>In this sample we build a query that returns customers who live in UK or in Seattle.
   To build the query we first write two basic quoted functions for testing the conditions and
@@ -321,36 +328,36 @@ q <span class="op">|</span>&gt; dump
   initial value and allows us to combine the initial value with every key-value pair in the dictionary.
   This means that we will for example start with <code>FALSE</code>, than combine it with a first condition
   and get something like <code>FALSE || (Country = "UK")</code> and so on.</p>
-<pre >
-<span class="rem">/// An advanced demo using 'fold' to combine more than 2 conditions</span>
-<span class="kwrd">let</span> combining_demo() = 
-  Console.Write(<span class="str">"Build || or &amp;&amp; query (enter 'or' or 'and'):\n&gt; "</span>);
-  <span class="kwrd">let</span> generateOr = Console.ReadLine().ToLower() = <span class="str">"or"</span>  
+<pre lang="fsharp">
+/// An advanced demo using 'fold' to combine more than 2 conditions
+let combining_demo() = 
+  Console.Write("Build || or &amp;&amp; query (enter 'or' or 'and'):\n&gt; ");
+  let generateOr = Console.ReadLine().ToLower() = "or"  
 
-  <span class="rem">// Declare infix combinator, depending on an operator we use</span>
-  <span class="kwrd">let</span> (^^) = <span class="kwrd">if</span> generateOr <span class="kwrd">then</span> (<span class="op">|</span><span class="op">|</span>*) <span class="kwrd">else</span> (&amp;&amp;*)
+  // Declare infix combinator, depending on an operator we use
+  let (^^) = if generateOr then (||*) else (&amp;&amp;*)
   
-  <span class="rem">// Build the expression by 'folding' all items in dictionary</span>
-  <span class="kwrd">let</span> expr = 
+  // Build the expression by 'folding' all items in dictionary
+  let expr = 
     dict.Fold
-      <span class="rem">// Function to combine key, value &amp; state</span>
-      (<span class="kwrd">fun</span> key propSelector e <span class="op">-&gt;</span>
-        <span class="rem">// Read the value from the user</span>
-        Console.Write(<span class="str">"Enter value for '{0}':\n&gt; "</span>, key);
-        <span class="kwrd">let</span> enteredVal = Console.ReadLine();
+      // Function to combine key, value &amp; state
+      (fun key propSelector e -&gt;
+        // Read the value from the user
+        Console.Write("Enter value for '{0}':\n&gt; ", key);
+        let enteredVal = Console.ReadLine();
         
-        <span class="rem">// Build a condition testing whether entered value is a substring</span>
-        <span class="rem">// using 'testTemplate' and combine it with current expression using '^^'</span>
-        <span class="kwrd">let</span> currentExpr = 
-          « <span class="kwrd">fun</span> (c:Customer) <span class="op">-&gt;</span> ((<span class="op">_</span> c):string).IndexOf(<span class="op">_</span>:string) &lt;&gt; -1 » 
+        // Build a condition testing whether entered value is a substring
+        // using 'testTemplate' and combine it with current expression using '^^'
+        let currentExpr = 
+          « fun (c:Customer) -&gt; ((_ c):string).IndexOf(_:string) &lt;&gt; -1 » 
             propSelector « §enteredVal »
         (currentExpr ^^ e)) 
-      <span class="rem">// Initial state</span>
-      (<span class="kwrd">if</span> generateOr <span class="kwrd">then</span> falseCond <span class="kwrd">else</span> trueCond)
+      // Initial state
+      (if generateOr then falseCond else trueCond)
   
-  <span class="rem">// Dump the results..  </span>
-  <span class="kwrd">let</span> q = custTable <span class="op">|</span>&gt; « { <span class="kwrd">for</span> c <span class="kwrd">in</span> <span class="op">_</span> <span class="kwrd">when</span> <span class="op">_</span> c <span class="op">-&gt;</span> c } » expr
-  SQL q <span class="op">|</span>&gt; dump
+  // Dump the results..  
+  let q = custTable |&gt; « { for c in _ when _ c -&gt; c } » expr
+  SQL q |&gt; dump
 </pre>
 <p>In the example we first ask user to choose if he wants to combine conditions using 
   <code>||</code> or using <code>&amp;&amp;</code> and declare a new operator <code>^^</code> (available

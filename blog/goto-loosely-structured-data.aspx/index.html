@@ -15,11 +15,18 @@
 
   <link rel="alternate" type="application/rss+xml" href="http://tomasp.net/rss.xml" title="RSS feed for Tomas Petricek's blog">
   <link rel="author" href="https://plus.google.com/109855146654605967051" />
+  <link rel="icon" type="image/png" href="http://tomasp.net/img/favicon.png" />
     
   <!-- Reference custom CSS and tooltips -->
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/style.css" />
   <script type="text/javascript" src="http://tomasp.net/custom/tooltips.js"></script>
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/tooltips.css" />
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:creator" content="@tomaspetricek">
+  <meta name="twitter:title" content="Accessing loosely structured data from F# and C# (GOTO 2011)">
+  <meta name="twitter:description" content="This article is a summary of a talk about accessing loosely structured data from F# and C# that I gave at GOTO Copenhagen 2011. The article contains examples how to bridge the gap between external data sources and programming language at various scales.">
+
 </head>
 <body>
 
@@ -125,11 +132,11 @@
   The following snippet gets a list of regions (such as OECD countries, EU countries, Middle East
   etc.):</p>
 
-<pre >
-<span class="kwrd">dynamic</span> wb = <span class="kwrd">new</span> DynamicWorldBank();
-<span class="kwrd">dynamic</span> regions = wb.Region(<span class="kwrd">new</span> { PerPage = 100 });
-<span class="kwrd">foreach</span> (<span class="kwrd">var</span> reg <span class="kwrd">in</span> regions.Regions.Region) {
-  Console.WriteLine(<span class="str">"{0} ({1})"</span>, reg.Name.Value, reg.Code.Value);
+<pre lang="csharp">
+dynamic wb = new DynamicWorldBank();
+dynamic regions = wb.Region(new { PerPage = 100 });
+foreach (var reg in regions.Regions.Region) {
+  Console.WriteLine("{0} ({1})", reg.Name.Value, reg.Code.Value);
 }
 </pre>
 
@@ -346,33 +353,33 @@
   charting library</a> to generate a chart showing the central government debt for 
   several EU countries (screenshot above):</p>
 
-<pre >
-#r <span class="str">@"WorldBank\Samples.WorldBank.TypeProvider.dll"</span>
-#load <span class="str">@"FSharpChart\FSharpChart.fsx"</span>
+<pre lang="fsharp">
+#r @"WorldBank\Samples.WorldBank.TypeProvider.dll"
+#load @"FSharpChart\FSharpChart.fsx"
 
-<span class="kwrd">open</span> Samples.Charting
-<span class="kwrd">open</span> System.Drawing
-<span class="kwrd">open</span> System.Windows.Forms.DataVisualization.Charting
+open Samples.Charting
+open System.Drawing
+open System.Windows.Forms.DataVisualization.Charting
 
-<span class="rem">// Represents properties of a chart grid</span>
-<span class="kwrd">let</span> dashGrid = Grid(LineColor = Color.Gainsboro, LineDashStyle = ChartDashStyle.Dash)
+// Represents properties of a chart grid
+let dashGrid = Grid(LineColor = Color.Gainsboro, LineDashStyle = ChartDashStyle.Dash)
 
-<span class="rem">// Create a list of countries we're interested in</span>
-<span class="kwrd">let</span> countries = 
-  <span class="op">[</span> WorldBank.Countries.Greece; WorldBank.Countries.Ireland; 
+// Create a list of countries we're interested in
+let countries = 
+  [ WorldBank.Countries.Greece; WorldBank.Countries.Ireland; 
     WorldBank.Countries.Denmark; WorldBank.Countries.``United Kingdom``;
-    WorldBank.Countries.``Czech Republic`` <span class="op">]</span>
+    WorldBank.Countries.``Czech Republic`` ]
 
 
-<span class="rem">// Generate line chart with debt data series for every country </span>
-<span class="rem">// then combine the lines into a single combined chart </span>
+// Generate line chart with debt data series for every country 
+// then combine the lines into a single combined chart 
 FSharpChart.Combine
-  <span class="op">[</span> <span class="kwrd">for</span> country <span class="kwrd">in</span> countries <span class="kwrd">do</span>
-      <span class="kwrd">let</span> data = country.``Central government debt, total (% <span class="kwrd">of</span> GDP)``<span class="op">|</span>&gt; Seq.sortBy fst 
-      <span class="kwrd">yield</span> <span class="kwrd">upcast</span> FSharpChart.Line(data, Name=unbox country) <span class="op">]</span>
-<span class="op">|</span>&gt; FSharpChart.WithLegend(Docking = Docking.Left)
-<span class="op">|</span>&gt; FSharpChart.WithArea.AxisY(MajorGrid = dashGrid) 
-<span class="op">|</span>&gt; FSharpChart.WithArea.AxisX(MajorGrid = dashGrid)
+  [ for country in countries do
+      let data = country.``Central government debt, total (% of GDP)``|> Seq.sortBy fst 
+      yield upcast FSharpChart.Line(data, Name=unbox country) ]
+|> FSharpChart.WithLegend(Docking = Docking.Left)
+|> FSharpChart.WithArea.AxisY(MajorGrid = dashGrid) 
+|> FSharpChart.WithArea.AxisX(MajorGrid = dashGrid)
 </pre>
 
 <p>The type provider is a .NET assembly (<code>Samples.WorldBank.TypeProvider.dll</code>) that 

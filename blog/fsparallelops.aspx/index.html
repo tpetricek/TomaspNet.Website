@@ -15,11 +15,18 @@
 
   <link rel="alternate" type="application/rss+xml" href="http://tomasp.net/rss.xml" title="RSS feed for Tomas Petricek's blog">
   <link rel="author" href="https://plus.google.com/109855146654605967051" />
+  <link rel="icon" type="image/png" href="http://tomasp.net/img/favicon.png" />
     
   <!-- Reference custom CSS and tooltips -->
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/style.css" />
   <script type="text/javascript" src="http://tomasp.net/custom/tooltips.js"></script>
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/tooltips.css" />
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:creator" content="@tomaspetricek">
+  <meta name="twitter:title" content="Keep your multi-core CPU busy with F#">
+  <meta name="twitter:description" content="Code which makes it possible to write applications that take advantage of multi-core CPUs by parallelizing F# filter and map functions.">
+
 </head>
 <body>
 
@@ -76,17 +83,17 @@
 <p>Let's say I want to find all prime numbers between 1 million and 1.1 million (this is example of
   an operation that can be nicely divided between more processors). First we will need function to test
   whether <code>n</code> is a prime:</p>
-<pre >
-<span class="rem">// Tests whether n is prime - expects n &gt; 1</span>
-<span class="kwrd">let</span> is_prime n =
-  <span class="rem">// calculate how large divisors should we test..</span>
-  <span class="kwrd">let</span> max = int_of_float (Math.Sqrt( float_of_int n ))
-  <span class="rem">// try to divide n by 2..max (stops when divisor is found)</span>
-  not ({ 2 .. max } <span class="op">|</span>&gt; Seq.filter ( <span class="kwrd">fun</span> d <span class="op">-&gt;</span> n%d = 0) <span class="op">|</span>&gt; Seq.nonempty)
+<pre lang="fsharp">
+// Tests whether n is prime - expects n > 1
+let is_prime n =
+  // calculate how large divisors should we test..
+  let max = int_of_float (Math.Sqrt( float_of_int n ))
+  // try to divide n by 2..max (stops when divisor is found)
+  not ({ 2 .. max } |> Seq.filter ( fun d -> n%d = 0) |> Seq.nonempty)
 </pre>  
 <p>To find all primes in the specified range we could use the following code:</p>
-<pre >
-<span class="kwrd">let</span> primes = [1000000 .. 1100000] <span class="op">|</span>&gt; List.filter is_prime
+<pre lang="fsharp">
+let primes = [1000000 .. 1100000] |> List.filter is_prime
 </pre>
 <p>This code subsequently executes the <code>is_prime</code> function for all numbers that we want to test,
   but with multiple CPU cores it would be nice if the function divided the numbers into 
@@ -98,8 +105,8 @@
 <p>I wrote a function that does exactly what I described in the previous paragraph. To execute the operation
   in parallel, you can use the following code (the only difference is that I replaced <code>List</code> module with
   my <code>ParallelList</code> module):</p>  
-<pre >
-<span class="kwrd">let</span> primes = [1000000 .. 1100000] <span class="op">|</span>&gt; ParallelList.filter is_prime
+<pre lang="fsharp">
+let primes = [1000000 .. 1100000] |> ParallelList.filter is_prime
 </pre>
 
 <p>On my notebook (with Intel Core Duo processor) the first code (using <code>List.filter</code>) takes about 

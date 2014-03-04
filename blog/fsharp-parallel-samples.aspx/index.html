@@ -15,11 +15,18 @@
 
   <link rel="alternate" type="application/rss+xml" href="http://tomasp.net/rss.xml" title="RSS feed for Tomas Petricek's blog">
   <link rel="author" href="https://plus.google.com/109855146654605967051" />
+  <link rel="icon" type="image/png" href="http://tomasp.net/img/favicon.png" />
     
   <!-- Reference custom CSS and tooltips -->
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/style.css" />
   <script type="text/javascript" src="http://tomasp.net/custom/tooltips.js"></script>
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/tooltips.css" />
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:creator" content="@tomaspetricek">
+  <meta name="twitter:title" content="Parallel Programming in F# (I.): Introducing the samples">
+  <meta name="twitter:description" content="In this article series, I'll introduce the F# version of samples for the Parallel Programming with Microsoft .NET book written by the patterns &amp; practices group at Microsoft.">
+
 </head>
 <body>
 
@@ -125,10 +132,10 @@
 <p>To demonstrate a typical script file that can be used to run samples in F# Interactive, 
   we'll look at "Script.fsx" from the "BasicParallelLoops" project in Chapter 2. Every script
   file first needs to load several references and then loads files that implement the examples:</p>
-<pre >
-&gt; #r <span class="str">@"..\..\Utilities\bin\Release\Utilities.dll"</span>
-  #load <span class="str">@"..\..\PSeq.fs"</span>
-  #load <span class="str">"ParallelForExample.fs"</span>;;
+<pre lang="fsharp">
+&gt; #r @"..\..\Utilities\bin\Release\Utilities.dll"
+  #load @"..\..\PSeq.fs"
+  #load "ParallelForExample.fs";;
 </pre>
 <p>The first <code>#r</code> directive loads the "Utilities" project, which contains various
   helper functions that are used by most of the samples (e.g. calculations, simulation of CPU and I/O
@@ -142,32 +149,32 @@
   (in this case, configuration is a simple record that is passed to the example). In F# Interactive we 
   can also use built-in support for time measurement, so we turn it on using <code>#time "on"</code>:</p>
 
-<pre >
-&gt; <span class="kwrd">open</span> System
-  <span class="kwrd">open</span> Microsoft.Practices.ParallelGuideSamples.BasicParallelLoops.Examples;;
+<pre lang="fsharp">
+&gt; open System
+  open Microsoft.Practices.ParallelGuideSamples.BasicParallelLoops.Examples;;
 
-&gt; <span class="kwrd">let</span> opts = { LoopBodyComplexity = 10000; NumberOfSteps = 10000 }
-      VerifyResult = <span class="kwrd">false</span>; SimulateInternalError = <span class="kwrd">false</span> };;
-<span class="kwrd">val</span> opts : ExampleOptions = { (...) }
+&gt; let opts = { LoopBodyComplexity = 10000; NumberOfSteps = 10000 }
+      VerifyResult = false; SimulateInternalError = false };;
+val opts : ExampleOptions = { (...) }
 
-&gt; #time <span class="str">"on"</span>;;
--<span class="op">-&gt;</span> Timing now on
+&gt; #time "on";;
+--&gt; Timing now on
 </pre>
 
 <p>Now we have everything we need to run the samples. Thanks to the interactive environment
   it is quite easy to run the samples that you're interested in as well as to go back to the
   configuration, change some properties of the sample and re-run it. The following example compares sequential version of a sample with a parallel version using the <code>PSeq</code> module (which we'll discuss in part II. of the series).</p>
 
-<pre >
-&gt; <span class="kwrd">let</span> results = Chapter2.Example01 opts;; <span class="rem">// Sequential 'for'</span>
+<pre lang="fsharp">
+&gt; let results = Chapter2.Example01 opts;; // Sequential 'for'
 Real: 00:00:00.986, CPU: 00:00:00.998, GC gen0: 0, gen1: 0, gen2: 0
-<span class="kwrd">val</span> results : float <span class="op">[</span><span class="op">]</span> =
-  <span class="op">[</span>|0.0; 250025000.0; 500050000.0; (...) <span class="op">|</span><span class="op">]</span>
+val results : float [] =
+  [|0.0; 250025000.0; 500050000.0; (...) |]
 
-&gt; <span class="kwrd">let</span> results = Chapter2.Example04 opts;; <span class="rem">// Parallel using F# PSeq</span>
+&gt; let results = Chapter2.Example04 opts;; // Parallel using F# PSeq
 Real: 00:00:00.543, CPU: 00:00:00.998, GC gen0: 0, gen1: 0, gen2: 0
-<span class="kwrd">val</span> results : float <span class="op">[</span><span class="op">]</span> =
-  <span class="op">[</span>|0.0; 250025000.0; 500050000.0; (...) <span class="op">|</span><span class="op">]</span>
+val results : float [] =
+  [|0.0; 250025000.0; 500050000.0; (...) |]
 </pre>
 
 <h2>Additional Information</h2>

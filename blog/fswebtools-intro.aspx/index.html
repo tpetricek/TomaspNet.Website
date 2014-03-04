@@ -15,11 +15,18 @@
 
   <link rel="alternate" type="application/rss+xml" href="http://tomasp.net/rss.xml" title="RSS feed for Tomas Petricek's blog">
   <link rel="author" href="https://plus.google.com/109855146654605967051" />
+  <link rel="icon" type="image/png" href="http://tomasp.net/img/favicon.png" />
     
   <!-- Reference custom CSS and tooltips -->
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/style.css" />
   <script type="text/javascript" src="http://tomasp.net/custom/tooltips.js"></script>
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/tooltips.css" />
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:creator" content="@tomaspetricek">
+  <meta name="twitter:title" content="F# Web Tools: "Ajax" applications made simple">
+  <meta name="twitter:description" content="This article introduces the F# Web Toolkit, which is an "Ajax" web framework that solves three major problems that many people have to face when developing modern web applications.">
+
 </head>
 <body>
 
@@ -139,21 +146,21 @@
   First, we need to define the code-behind file for the ASP.NET page - the page itself is quite simple,
   it contains just two controls - textbox for entering word that you're looking for (<code>txtInput</code>)
   and generic element for displaying results (<code>ctlOutput</code>), so let's look at the code-behind:</p>
-<pre >
-<span class="rem">// F# record type, which will be used for sending lookup </span>
-<span class="rem">// results from the server-side to the client-side</span>
-<span class="kwrd">type</span> SearchResult = { English:string; Other:string; }
+<pre lang="fsharp">
+// F# record type, which will be used for sending lookup 
+// results from the server-side to the client-side
+type SearchResult = { English:string; Other:string; }
 
-<span class="rem">// Code-behind type for the ASP.NET page</span>
-<span class="op">[</span>&lt;MixedSide&gt;<span class="op">]</span>
-<span class="kwrd">type</span> Suggest = 
-  <span class="kwrd">inherit</span> ClientPage <span class="kwrd">as</span> base
+// Code-behind type for the ASP.NET page
+[&lt;MixedSide&gt;]
+type Suggest = 
+  inherit ClientPage as base
   
-  <span class="rem">// Controls for entering text and displaying result</span>
-  <span class="kwrd">val</span> <span class="kwrd">mutable</span> txtInput : TextBox
-  <span class="kwrd">val</span> <span class="kwrd">mutable</span> ctlOutput : Element
+  // Controls for entering text and displaying result
+  val mutable txtInput : TextBox
+  val mutable ctlOutput : Element
 
-  <span class="rem">(* .. interaction of components will go here .. *)</span>
+  (* .. interaction of components will go here .. *)
 </pre>
 <p>Aside from the code-behind class, we also defined a type (<code>SearchResult</code>), which will be used
   for returning loaded results from server to the client side - it is just a F# record containing two strings
@@ -162,17 +169,17 @@
   takes entered text as an argument and returns a collection of results (<code>ResizeArray&lt;SearchResult&gt;</code>)
   - it is a static method, so it can't modify anything else on the page (I will write about non-static methods 
   in one of the next articles):</p>
-<pre >
-<span class="rem">// Searches the dictionary for specified prefix</span>
-<span class="kwrd">static</span> <span class="kwrd">member</span> LoadSuggestions(prefix) = 
+<pre lang="fsharp">
+// Searches the dictionary for specified prefix
+static member LoadSuggestions(prefix) = 
   server
-    { <span class="kwrd">let</span> db = DictionaryDb(connectionString)
-      <span class="kwrd">let</span> res = 
-        SQL <span class="op">&lt;@</span> { <span class="kwrd">for</span> p <span class="kwrd">in</span> §db.Dictionary
-                 <span class="kwrd">when</span> p.English.StartsWith(§prefix) 
-                 <span class="op">-&gt;</span> {English=p.English; Other=p.Other} }
-                 <span class="op">|</span>&gt; truncate 10 <span class="op">@&gt;</span> 
-      <span class="kwrd">return</span> (<span class="kwrd">new</span> ResizeArray&lt;<span class="op">_</span>&gt;(res)) }
+    { let db = DictionaryDb(connectionString)
+      let res = 
+        SQL &lt;@ { for p in §db.Dictionary
+                 when p.English.StartsWith(§prefix) 
+                 -&gt; {English=p.English; Other=p.Other} }
+                 |> truncate 10 @&gt; 
+      return (new ResizeArray&lt;_&gt;(res)) }
 </pre>
 <p>The method is all wrapped in <code>server</code> computational expression (this is one of the new F# features - it will be 
   in details described in the Expert F# [<a href="#fswtintrolinks">6</a>] book, but I'll definitely write a few lines about it as well) - for now you can read it as (almost) ordinary
@@ -184,26 +191,26 @@
   </p>
 <p>Now, let's look at the members that define client-side interaction. The entry point on the client-side is a method
   called <code>Client_Load</code>, which is executed when the page is loaded in the browser:</p>
-<pre >
-<span class="rem">/// Initialization on the client side - attach event handlers    </span>
-<span class="op">[</span>&lt;ReflectedDefinition&gt;<span class="op">]</span>
-<span class="kwrd">member</span> this.Client_Load(sender, e) =
+<pre lang="fsharp">
+/// Initialization on the client side - attach event handlers    
+[&lt;ReflectedDefinition&gt;]
+member this.Client_Load(sender, e) =
   client
-    { <span class="kwrd">do</span> this.txtInput.ClientKeyUp.AddClient(this.UpdateSuggestions) }
+    { do this.txtInput.ClientKeyUp.AddClient(this.UpdateSuggestions) }
 </pre>
 <p>In this case we just register an event handler that will be called whenever user types something to the 
   <code>txtInput</code> textbox. It is important to note that this code will be executed in JavaScript - even though
   when writing it, it is easy to forget about this! You can see the method that is used as an event handler in the next 
   code sample (this whole method will be executed in JS as well):</p>
-<pre >
-<span class="op">[</span>&lt;ReflectedDefinition&gt;<span class="op">]</span>
-<span class="kwrd">member</span> this.UpdateSuggestions(sender, e) =
+<pre lang="fsharp">
+[&lt;ReflectedDefinition&gt;]
+member this.UpdateSuggestions(sender, e) =
   client
-    { <span class="kwrd">do!</span> asyncExecute
+    { do! asyncExecute
            (client_async 
-             { <span class="kwrd">let</span>  sprefix = this.txtInput.Text
-               <span class="kwrd">let!</span> sugs = serverExecute(Suggest.LoadSuggestions(sprefix))
-               <span class="kwrd">do!</span>  this.DisplayResponse(sugs) }) }            
+             { let  sprefix = this.txtInput.Text
+               let! sugs = serverExecute(Suggest.LoadSuggestions(sprefix))
+               do!  this.DisplayResponse(sugs) }) }            
 </pre>
 <p>If you look at the method, you can see that it contains call to the <code>asyncExecute</code> function and the 
   argument given to the function is entire block of F# code marked using <code>client_async</code> computational expression.
@@ -218,16 +225,16 @@
   we're calling a methods that are written using F# computational expressions (<code>server</code> or <code>client</code> blocks).
   In general when you're calling any ordinary code, you can use the operators without the exclamation mark, but when 
   calling a code wrapped in a block you have to use <code>let!</code> or <code>do!</code>.</p>
-<pre >
-<span class="op">[</span>&lt;ReflectedDefinition&gt;<span class="op">]</span>
-<span class="kwrd">member</span> this.DisplayResponse (sugs:ResizeArray&lt;Result&gt;) =
+<pre lang="fsharp">
+[&lt;ReflectedDefinition&gt;]
+member this.DisplayResponse (sugs:ResizeArray&lt;Result&gt;) =
   client
-    { <span class="kwrd">let</span> sb = StringBuilder()
-      <span class="kwrd">let</span> array = sugs.ToArray()
-      <span class="kwrd">do</span>  Array.iter (<span class="kwrd">fun</span> (res) <span class="op">-&gt;</span> 
-            sb.Append(<span class="str">"&lt;li&gt;&lt;strong&gt;"</span> + r.Source + 
-                      <span class="str">"&lt;/strong&gt; - "</span> + r.Target + <span class="str">"&lt;/li&gt;"</span>) <span class="op">|</span>&gt; ignore)
-      <span class="kwrd">do</span>   this.ctlOutput.InnerHtml <span class="op">&lt;-</span> <span class="str">"&lt;ul&gt;"</span> + (sb.ToString()) + <span class="str">"&lt;ul&gt;"</span> }
+    { let sb = StringBuilder()
+      let array = sugs.ToArray()
+      do  Array.iter (fun (res) -&gt; 
+            sb.Append("&lt;li&gt;&lt;strong&gt;" + r.Source + 
+                      "&lt;/strong&gt; - " + r.Target + "&lt;/li&gt;") |> ignore)
+      do   this.ctlOutput.InnerHtml &lt;- "&lt;ul&gt;" + (sb.ToString()) + "&lt;ul&gt;" }
 </pre>
 <p>In this last sample code, we just generate HTML code from the data we received from the server and display them.
   It is interesting to note, that the code is running on the client-side (it's wrapped in the <code>client</code> block),

@@ -15,11 +15,18 @@
 
   <link rel="alternate" type="application/rss+xml" href="http://tomasp.net/rss.xml" title="RSS feed for Tomas Petricek's blog">
   <link rel="author" href="https://plus.google.com/109855146654605967051" />
+  <link rel="icon" type="image/png" href="http://tomasp.net/img/favicon.png" />
     
   <!-- Reference custom CSS and tooltips -->
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/style.css" />
   <script type="text/javascript" src="http://tomasp.net/custom/tooltips.js"></script>
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/tooltips.css" />
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:creator" content="@tomaspetricek">
+  <meta name="twitter:title" content="Infinite Cheese Fractal using WPF 3D and F#">
+  <meta name="twitter:description" content="This article describes a 3D version of famous Sierpinski carpet fractal implemented in the F# language using WPF 3D libraries from .NET 3.0.">
+
 </head>
 <body>
 
@@ -92,25 +99,25 @@
 <p>First, we'll define triangles from which the cube is composed. This needs to be done by hand and it is
   just a bunch of numbers, so you can look at the attached source code for the complete declaration. The type of this
   value is however interesting, so let's look at the type:</p>
-<pre >
-<span class="rem">// 3D point represented using integers</span>
-<span class="kwrd">type</span> pointi3d = int * int * int
-<span class="rem">// Triangle using integral points</span>
-<span class="kwrd">type</span> trianglei = pointi3d * pointi3d * pointi3d
-<span class="rem">// A value that represents a cube</span>
-<span class="kwrd">val</span> cube : ((int * int * int) * trianglei list) list
+<pre lang="fsharp">
+// 3D point represented using integers
+type pointi3d = int * int * int
+// Triangle using integral points
+type trianglei = pointi3d * pointi3d * pointi3d
+// A value that represents a cube
+val cube : ((int * int * int) * trianglei list) list
 </pre>
 <p>As we can see the cube is represented as a list of sides (so the length of the list will be 6) and for each side
   we have a tuple that represents the side (for example left side will have <code>(-1, 0, 0)</code>, bottom side will have 
   <code>(0, -1, 0)</code> etc.) and the side is represented as collection of triangles (we need two triangles for every 
   rectangular side). The cube represented by a <code>cube</code> value has size <code>1*1*1</code>. Now that we have a 
   cube, we also need a function that will return only the sides that we need:</p>
-<pre >
-<span class="rem">// Returns a cube with filtered sides</span>
-<span class="kwrd">let</span> GetCube incl_sides = 
-  <span class="op">[</span> <span class="kwrd">for</span> (side,trigs) <span class="kwrd">in</span> cube 
-      <span class="kwrd">when</span> Set.mem side incl_sides
-      <span class="op">-&gt;</span>&gt; trigs <span class="op">]</span>
+<pre lang="fsharp">
+// Returns a cube with filtered sides
+let GetCube incl_sides = 
+  [ for (side,trigs) in cube 
+      when Set.mem side incl_sides
+      -&gt;&gt; trigs ]
 </pre>
 <p>The natural representation of needed sides is a set which contains tuples that represent the needed sides (which I
   mentioned earlier), so the type of <code>incl_sides</code> value is <code>Set&lt;int*int*int&gt;</code>. The function
@@ -136,37 +143,37 @@ The pattern representing the fractal:
   the triangles. This function takes coordinates (x, y, z) of the smaller cube to generate and a set of
   sides that should be included for this smaller cube (this set depends on the pattern, but also on the
   argument specifying which sides should of the large cube should be included):</p>
-<pre >  
-<span class="rem">// Takes set representing included sides (around the cube) and calls 'f'</span>
-<span class="rem">// for every sub-cube in the cube where pattern has '1', giving it  </span>
-<span class="rem">// coordinates and set with sides to include in the cube.</span>
-<span class="rem">//</span>
-<span class="rem">// Type signature:</span>
-<span class="rem">//   type side = int*int*int</span>
-<span class="rem">//   Set&lt;side&gt; -&gt; (int*int*int -&gt; Set&lt;side&gt; -&gt; #seq&lt;'b&gt;) -&gt; list&lt;'b&gt;</span>
-<span class="kwrd">let</span> PatternMap incl_sides f =
+<pre lang="fsharp">  
+// Takes set representing included sides (around the cube) and calls 'f'
+// for every sub-cube in the cube where pattern has '1', giving it  
+// coordinates and set with sides to include in the cube.
+//
+// Type signature:
+//   type side = int*int*int
+//   Set&lt;side&gt; -&gt; (int*int*int -&gt; Set&lt;side&gt; -&gt; #seq&lt;'b&gt;) -&gt; list&lt;'b&gt;
+let PatternMap incl_sides f =
 
-  <span class="rem">// Calculates set of sides to be included for specific location in the </span>
-  <span class="rem">// pattern. Uses 'incl_sides' for lookup when testing border sides and</span>
-  <span class="rem">// uses the pattern for sides inside the pattern.</span>
-  <span class="kwrd">let</span> get_included_sides x y z = 
+  // Calculates set of sides to be included for specific location in the 
+  // pattern. Uses 'incl_sides' for lookup when testing border sides and
+  // uses the pattern for sides inside the pattern.
+  let get_included_sides x y z = 
     Set.of_seq
       (seq 
-        { <span class="rem">// loop over all possible 'directions',</span>
-          <span class="rem">// test if out of range and use either pattern or 'incl_sides'</span>
-          <span class="kwrd">for</span> idx, neq, (dx, dy, dz) <span class="kwrd">in</span> 
-              <span class="op">[</span> (x, 0, (-1,0,0)); (y, 0, (0,-1,0)); (z, 0, (0,0,-1));
-                (x, 2, ( 1,0,0)); (y, 2, (0, 1,0)); (z, 2, (0,0, 1)); <span class="op">]</span> <span class="kwrd">do</span>
-            <span class="kwrd">if</span> ((idx &lt;&gt; neq &amp;&amp; pattern.[x+dx, y+dy, z+dz] = 0) <span class="op">|</span><span class="op">|</span>
-                (idx = neq  &amp;&amp; Set.mem (dx, dy, dz) incl_sides)) <span class="kwrd">then</span> <span class="kwrd">yield</span> (dx, dy, dz) })    
+        { // loop over all possible 'directions',
+          // test if out of range and use either pattern or 'incl_sides'
+          for idx, neq, (dx, dy, dz) in 
+              [ (x, 0, (-1,0,0)); (y, 0, (0,-1,0)); (z, 0, (0,0,-1));
+                (x, 2, ( 1,0,0)); (y, 2, (0, 1,0)); (z, 2, (0,0, 1)); ] do
+            if ((idx &lt;&gt; neq &amp;&amp; pattern.[x+dx, y+dy, z+dz] = 0) ||
+                (idx = neq  &amp;&amp; Set.mem (dx, dy, dz) incl_sides)) then yield (dx, dy, dz) })    
   
-  <span class="rem">// Recursively collect triangles from all the smaller </span>
-  <span class="rem">// cubes that should be included (as specifyied by the pattern).</span>
-  <span class="op">[</span> <span class="kwrd">for</span> x <span class="kwrd">in</span> [0 .. 2] <span class="kwrd">do</span>
-      <span class="kwrd">for</span> y <span class="kwrd">in</span> [0 .. 2] <span class="kwrd">do</span>
-        <span class="kwrd">for</span> z <span class="kwrd">in</span> [0 .. 2] <span class="kwrd">do</span>
-          <span class="kwrd">if</span> (pattern.[x,y,z] = 1) <span class="kwrd">then</span>
-            <span class="kwrd">yield!</span> f (x, y, z) (get_included_sides x y z) <span class="op">]</span>
+  // Recursively collect triangles from all the smaller 
+  // cubes that should be included (as specifyied by the pattern).
+  [ for x in [0 .. 2] do
+      for y in [0 .. 2] do
+        for z in [0 .. 2] do
+          if (pattern.[x,y,z] = 1) then
+            yield! f (x, y, z) (get_included_sides x y z) ]
 </pre>
 <p>The function contains one inner function (<code>get_included_sides</code>), which generates a 
   set with sides to be included for a smaller cube and the return value is generated by 
@@ -180,14 +187,14 @@ The pattern representing the fractal:
   <code>PatternMap</code> giving it a function that calls <code>Generate</code> recursively for 
   every generated cube. Note that the function also needs to move the recursively generated cubes 
   accordingly to the depth of the recursion:</p>
-<pre >
-<span class="kwrd">let</span> <span class="kwrd">rec</span> Generate k incl_sides = 
-  <span class="kwrd">if</span> k = 1 <span class="kwrd">then</span> 
+<pre lang="fsharp">
+let rec Generate k incl_sides = 
+  if k = 1 then 
     (GetCube incl_sides) 
-  <span class="kwrd">else</span>
-    <span class="kwrd">let</span> d = k/3
-    PatternMap incl_sides ( <span class="kwrd">fun</span> (x, y, z) incl_sides <span class="op">-&gt;</span> 
-      (Generate d incl_sides) <span class="op">|</span>&gt; translate (x*d, y*d, -z*d)  )
+  else
+    let d = k/3
+    PatternMap incl_sides ( fun (x, y, z) incl_sides -&gt; 
+      (Generate d incl_sides) |&gt; translate (x*d, y*d, -z*d)  )
 </pre>  
 <p>And that's all - the rest of the code that I didn't comment here mostly deals with conversion
   of the generated triangles (which contained coordinates in the edges) to the format required by
@@ -208,28 +215,28 @@ The pattern representing the fractal:
   of the camera when turning up or down (there are two distinct parts of the animation, first which moves the camera
   up and second which moves the camera down, but the following code sample includes only the first part, because the
   second is similar):</p>
-<pre >
-<span class="kwrd">&lt;</span><span class="html">Storyboard</span><span class="kwrd">&gt;</span>
-  <span class="rem">&lt;!-- First, move to the fractal --&gt;</span>
-  <span class="kwrd">&lt;</span><span class="html">Point3DAnimation</span> <span class="attr">Storyboard</span>.<span class="attr">TargetName</span><span class="kwrd">="cam"</span> 
-    <span class="attr">Storyboard</span>.<span class="attr">TargetProperty</span><span class="kwrd">="Position"</span> <span class="attr">Duration</span><span class="kwrd">="0:0:4"</span> 
-    <span class="attr">From</span><span class="kwrd">="0,0,100"</span> <span class="attr">To</span><span class="kwrd">="0,0,27"</span> <span class="attr">RepeatBehavior</span><span class="kwrd">="1x"</span><span class="kwrd">/&gt;</span>
+<pre lang="xml">
+&lt;Storyboard&gt;
+  &lt;!-- First, move to the fractal --&gt;
+  &lt;Point3DAnimation Storyboard.TargetName="cam" 
+    Storyboard.TargetProperty="Position" Duration="0:0:4" 
+    From="0,0,100" To="0,0,27" RepeatBehavior="1x"/&gt;
     
-  <span class="rem">&lt;!-- Repeat fractal animation forever --&gt;</span>
-  <span class="kwrd">&lt;</span><span class="html">ParallelTimeline</span> <span class="attr">RepeatBehavior</span><span class="kwrd">="Forever"</span> <span class="attr">BeginTime</span><span class="kwrd">="0:0:4"</span><span class="kwrd">&gt;</span>
-    <span class="rem">&lt;!-- Move forward --&gt;</span>
-    <span class="kwrd">&lt;</span><span class="html">Point3DAnimation</span> <span class="attr">Storyboard</span>.<span class="attr">TargetName</span><span class="kwrd">="cam"</span> 
-      <span class="attr">Storyboard</span>.<span class="attr">TargetProperty</span><span class="kwrd">="Position"</span> <span class="attr">BeginTime</span><span class="kwrd">="0:0:0"</span>
-      <span class="attr">From</span><span class="kwrd">="0,0,27"</span> <span class="attr">To</span><span class="kwrd">="0,0,-9"</span> <span class="attr">Duration</span><span class="kwrd">="0:0:4"</span> <span class="attr">RepeatBehavior</span><span class="kwrd">="1x"</span> <span class="kwrd">/&gt;</span>
-    <span class="rem">&lt;!-- Rotate camera up --&gt;</span>
-    <span class="kwrd">&lt;</span><span class="html">Vector3DAnimation</span> <span class="attr">Storyboard</span>.<span class="attr">TargetName</span><span class="kwrd">="cam"</span> 
-      <span class="attr">Storyboard</span>.<span class="attr">TargetProperty</span><span class="kwrd">="LookDirection"</span> <span class="attr">BeginTime</span><span class="kwrd">="0:0:3"</span>
-      <span class="attr">From</span><span class="kwrd">="0, 0, -1"</span> <span class="attr">To</span><span class="kwrd">="0, 1, 0"</span> <span class="attr">Duration</span><span class="kwrd">="0:0:1"</span> <span class="attr">RepeatBehavior</span><span class="kwrd">="1x"</span> <span class="kwrd">/&gt;</span>
+  &lt;!-- Repeat fractal animation forever --&gt;
+  &lt;ParallelTimeline RepeatBehavior="Forever" BeginTime="0:0:4"&gt;
+    &lt;!-- Move forward --&gt;
+    &lt;Point3DAnimation Storyboard.TargetName="cam" 
+      Storyboard.TargetProperty="Position" BeginTime="0:0:0"
+      From="0,0,27" To="0,0,-9" Duration="0:0:4" RepeatBehavior="1x" /&gt;
+    &lt;!-- Rotate camera up --&gt;
+    &lt;Vector3DAnimation Storyboard.TargetName="cam" 
+      Storyboard.TargetProperty="LookDirection" BeginTime="0:0:3"
+      From="0, 0, -1" To="0, 1, 0" Duration="0:0:1" RepeatBehavior="1x" /&gt;
       
-    <span class="rem">&lt;!-- Move forward &amp; rotate camera down --&gt;</span>
-    <span class="rem">&lt;!-- ... --&gt;</span>
-  <span class="kwrd">&lt;/</span><span class="html">ParallelTimeline</span><span class="kwrd">&gt;</span>
-<span class="kwrd">&lt;/</span><span class="html">Storyboard</span><span class="kwrd">&gt;</span></pre>
+    &lt;!-- Move forward &amp; rotate camera down --&gt;
+    &lt;!-- ... --&gt;
+  &lt;/ParallelTimeline&gt;
+&lt;/Storyboard&gt;</pre>
 <p>Animation of <code>Position</code> property is described using <code>Point3DAnimation</code>, which animates
   a property specified by <code>TargetProperty</code> from an initial value (<code>From</code>) to a target value (<code>To</code>)
   interpolating the coordinates of the 3D point linearly. The second animation primitive which I used in this

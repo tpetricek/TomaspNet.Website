@@ -15,6 +15,7 @@
 
   <link rel="alternate" type="application/rss+xml" href="http://tomasp.net/rss.xml" title="RSS feed for Tomas Petricek's blog">
   <link rel="author" href="https://plus.google.com/109855146654605967051" />
+  <link rel="icon" type="image/png" href="http://tomasp.net/img/favicon.png" />
     
   <!-- Reference custom CSS and tooltips -->
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/style.css" />
@@ -2057,17 +2058,17 @@ writing numeric code. For more information, take a look at the MSDN overview art
   The following example shows what we'll be able to write at the end 
   of this article:</p>
 
-<pre >
-<span class="rem">// Call 'GetProducts' procedure with 'CategoryID' set to 1</span>
-<span class="kwrd">use</span> conn = <span class="kwrd">new</span> DynamicSqlConnection(connectionString)
-<span class="kwrd">use</span> cmd = conn?GetProducts
-cmd?CategoryID <span class="op">&lt;-</span> 1
+<pre lang="fsharp">
+// Call 'GetProducts' procedure with 'CategoryID' set to 1
+use conn = new DynamicSqlConnection(connectionString)
+use cmd = conn?GetProducts
+cmd?CategoryID &lt;- 1
 conn.Open()
 
-<span class="rem">// Read all products and print their names</span>
-<span class="kwrd">use</span> reader = cmd.ExecuteReader()
-<span class="kwrd">while</span> reader.Read() <span class="kwrd">do</span>
-  printfn <span class="str">"Product: %s"</span> reader?ProductName
+// Read all products and print their names
+use reader = cmd.ExecuteReader()
+while reader.Read() do
+  printfn "Product: %s" reader?ProductName
 </pre>
 
 <p>If you ever tried to call a SQL stored procedure directly using the 
@@ -2523,11 +2524,11 @@ conn.Open()
   using F# computation expressions and I showed how to implement computation named <code>imperative</code>
   that allows us to write for example the <code>exists</code> function for working with sequences
   like this:</p>
-<pre >
-<span class="kwrd">let</span> exists f inp = imperative {
-  <span class="kwrd">for</span> v <span class="kwrd">in</span> inp <span class="kwrd">do</span> 
-    <span class="kwrd">if</span> f(v) <span class="kwrd">then</span> <span class="kwrd">return</span> <span class="kwrd">true</span>
-  <span class="kwrd">return</span> <span class="kwrd">false</span> }
+<pre lang="fsharp">
+let exists f inp = imperative {
+  for v in inp do 
+    if f(v) then return true
+  return false }
 </pre>  
 <p>In this article, we're going to look at two more imperative constructs and we're going
   to talk about <code>break</code> and <code>continue</code>. We'll see that we can quite
@@ -2535,11 +2536,11 @@ conn.Open()
   that is syntactically very close to what you would write in C#. As I already mentioned,
   there are of course some performance overheads when using computation expressions, but 
   I find it very interesting how nice imperative syntax we can get in functional F#:</p>
-<pre >
+<pre lang="fsharp">
 imperative { 
-  <span class="kwrd">for</span> x <span class="kwrd">in</span> 1 .. 10 <span class="kwrd">do</span> 
-    <span class="kwrd">if</span> (x % 3 = 0) <span class="kwrd">then</span> <span class="kwrd">do!</span> continue
-    printfn <span class="str">"number = %d"</span> x }
+  for x in 1 .. 10 do 
+    if (x % 3 = 0) then do! continue
+    printfn "number = %d" x }
 </pre>  
 <p>The only difference between this code and the code we'd probably write if F# supported
   <code>continue</code> as a keyword is that we need to wrap the code inside the <code>imperative</code>
@@ -2927,26 +2928,26 @@ imperative {
   F# compiler uses whitespace to determine end of the blocks (and some other constructs). This compiler option is
   relatively new so it is still evolving. First issue that I had is with class declaration - the following 
   code is not valid with the latest F# version:</p>
-<pre >
-<span class="kwrd">type</span> MyForm = <span class="kwrd">class</span> <span class="kwrd">inherit</span> Form <span class="kwrd">as</span> base
-  <span class="rem">// ...</span>
-<span class="kwrd">end</span>
+<pre lang="fsharp">
+type MyForm = class inherit Form as base
+  // ...
+end
 </pre>  
 <p>I used it because it looks more familiar to C# developers :-). Instead of it you have to write the following:</p>
-<pre >
-<span class="kwrd">type</span> MyForm = <span class="kwrd">class</span> 
-  <span class="kwrd">inherit</span> Form <span class="kwrd">as</span> base
-  <span class="rem">// ...</span>
-<span class="kwrd">end</span>
+<pre lang="fsharp">
+type MyForm = class 
+  inherit Form as base
+  // ...
+end
 </pre>  
 <p>The second issue was with the pipeline operator which is useful when working with lists (or other sequences). The 
   correct syntax for using pipeline operator (for expressions that are longer than one line) is following:</p>
-<pre >
-<span class="kwrd">let</span> filteredList = 
+<pre lang="fsharp">
+let filteredList = 
        oldArray
-    <span class="op">|</span>&gt; Array.to_list 
-    <span class="op">|</span>&gt; List.map ( <span class="kwrd">fun</span> m <span class="op">-&gt;</span> /* ... */ ) 
-    <span class="op">|</span>&gt; List.filter ( <span class="kwrd">fun</span> m <span class="op">-&gt;</span> /* ... */ ) 
+    |> Array.to_list 
+    |> List.map ( fun m -> /* ... */ ) 
+    |> List.filter ( fun m -> /* ... */ ) 
 </pre>  
       
   <p class="meta">

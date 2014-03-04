@@ -15,11 +15,18 @@
 
   <link rel="alternate" type="application/rss+xml" href="http://tomasp.net/rss.xml" title="RSS feed for Tomas Petricek's blog">
   <link rel="author" href="https://plus.google.com/109855146654605967051" />
+  <link rel="icon" type="image/png" href="http://tomasp.net/img/favicon.png" />
     
   <!-- Reference custom CSS and tooltips -->
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/style.css" />
   <script type="text/javascript" src="http://tomasp.net/custom/tooltips.js"></script>
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/tooltips.css" />
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:creator" content="@tomaspetricek">
+  <meta name="twitter:title" content="Safer asynchronous workflows for GUI programming">
+  <meta name="twitter:description" content="When writing reactive applications using F# asynchronous workflows, it is important to run some operations on the right thread. User interface elements are accessible only on GUI threads and CPU-intensive computations should be done on a background thread. This article describes an extension of F# asynchronous workflows that guarantees correct use of threads using types.">
+
 </head>
 <body>
 

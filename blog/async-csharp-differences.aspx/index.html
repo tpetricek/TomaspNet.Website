@@ -15,11 +15,18 @@
 
   <link rel="alternate" type="application/rss+xml" href="http://tomasp.net/rss.xml" title="RSS feed for Tomas Petricek's blog">
   <link rel="author" href="https://plus.google.com/109855146654605967051" />
+  <link rel="icon" type="image/png" href="http://tomasp.net/img/favicon.png" />
     
   <!-- Reference custom CSS and tooltips -->
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/style.css" />
   <script type="text/javascript" src="http://tomasp.net/custom/tooltips.js"></script>
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/tooltips.css" />
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:creator" content="@tomaspetricek">
+  <meta name="twitter:title" content="Asynchronous C# and F# (II.): How do they differ?">
+  <meta name="twitter:description" content="The asynchronous programming support in C# announced at PDC 2010 is largely inspired by F# asynchronous workflows. In this article we look at some of the differences between the two including cancellation support in F# and the distinction between "hot task" model of C# and "task generator" model of F#.">
+
 </head>
 <body>
 
@@ -174,28 +181,28 @@
   It is generally a good idea to check before and after each asynchronous operation (as these may take
   most of the time). Most importantly, we need to check inside the loop, because this is probably a 
   place where the method spends the most of the time:</p>
-<pre >
-<span class="kwrd">async</span> Task&lt;Tuple&lt;<span class="kwrd">string</span>, <span class="kwrd">int</span>&gt;&gt; DownloadPageAsync
-    (<span class="kwrd">string</span> url, CancellationToken cancellationToken) {
-  <span class="kwrd">var</span> request = HttpWebRequest.Create(url);
-  <span class="rem">// Check if cancellation was triggered</span>
+<pre lang="csharp">
+async Task&lt;Tuple&lt;string, int&gt;&gt; DownloadPageAsync
+    (string url, CancellationToken cancellationToken) {
+  var request = HttpWebRequest.Create(url);
+  // Check if cancellation was triggered
   cancellationToken.ThrowIfCancellationRequested();
-  <span class="kwrd">using</span> (<span class="kwrd">var</span> response = await request.GetResponseAsync())
-  <span class="kwrd">using</span> (<span class="kwrd">var</span> stream = response.GetResponseStream()) {
-    <span class="rem">// Check if cancellation was triggered </span>
+  using (var response = await request.GetResponseAsync())
+  using (var stream = response.GetResponseStream()) {
+    // Check if cancellation was triggered 
     cancellationToken.ThrowIfCancellationRequested();
-    <span class="kwrd">var</span> buffer = <span class="kwrd">new</span> <span class="kwrd">byte</span>[4096];
-    <span class="kwrd">var</span> temp = <span class="kwrd">new</span> MemoryStream();
-    <span class="kwrd">int</span> count;
-    <span class="kwrd">do</span> {
-      <span class="rem">// Check if cancellation was triggered (at each loop iteration)</span>
+    var buffer = new byte[4096];
+    var temp = new MemoryStream();
+    int count;
+    do {
+      // Check if cancellation was triggered (at each loop iteration)
       cancellationToken.ThrowIfCancellationRequested();
       count = await stream.ReadAsync(buffer, 0, buffer.Length);
       await temp.WriteAsync(buffer, 0, count);
-    } <span class="kwrd">while</span> (count &gt; 0);
+    } while (count > 0);
     temp.Seek(0, SeekOrigin.Begin);
-    <span class="kwrd">var</span> html = <span class="kwrd">new</span> StreamReader(temp).ReadToEnd();
-    <span class="kwrd">return</span> Tuple.Create(regTitle.Match(html).Groups[1].Value, html.Length);
+    var html = new StreamReader(temp).ReadToEnd();
+    return Tuple.Create(regTitle.Match(html).Groups[1].Value, html.Length);
   }
 }
 </pre>
@@ -213,19 +220,19 @@
   all of them are cancelled when the user requests it). We could also check for cancellation
   inside the body of the method, but I didn't add that, because when the <code>await</code>
   call completes, we only need to print the results: </p>
-<pre >
-<span class="kwrd">async</span> Task ComparePagesAsync(CancellationToken cancellationToken) {
-  <span class="kwrd">try</span> {
-    <span class="kwrd">var</span> urls = <span class="kwrd">new</span>[] { <span class="str">"http://www.google.com"</span>,
-      <span class="str">"http://www.bing.com"</span>, <span class="str">"http://www.yahoo.com"</span>, };
-    <span class="rem">// Pass cancellation token to the method we're calling explicitly</span>
-    <span class="kwrd">var</span> downloads = urls.Select(url =&gt; 
+<pre lang="csharp">
+async Task ComparePagesAsync(CancellationToken cancellationToken) {
+  try {
+    var urls = new[] { "http://www.google.com",
+      "http://www.bing.com", "http://www.yahoo.com", };
+    // Pass cancellation token to the method we're calling explicitly
+    var downloads = urls.Select(url => 
       DownloadPageAsync(url, cancellationToken));
-    <span class="kwrd">var</span> results = await TaskEx.WhenAll(downloads);
-    <span class="kwrd">foreach</span> (<span class="kwrd">var</span> item <span class="kwrd">in</span> results)
-      Console.WriteLine(<span class="str">"{0} (length {1})"</span>, item.Item1, item.Item2);
-  } <span class="kwrd">catch</span>(OperationCancelledException) {
-    Console.WriteLine(<span class="str">"Finished"</span>);
+    var results = await TaskEx.WhenAll(downloads);
+    foreach (var item in results)
+      Console.WriteLine("{0} (length {1})", item.Item1, item.Item2);
+  } catch(OperationCancelledException) {
+    Console.WriteLine("Finished");
   }
 }
 </pre>
@@ -234,12 +241,12 @@
   cancellation token and then start the download by calling <code>ComparePagesAsync</code>
   passing it the cancellation token as an argument:</p>
 
-<pre >
-<span class="kwrd">static</span> <span class="kwrd">void</span> Main() {
-  <span class="rem">// Create cancellation token and give it to the asynchronous method</span>
-  <span class="kwrd">var</span> cts = <span class="kwrd">new</span> CancellationTokenSource();
+<pre lang="csharp">
+static void Main() {
+  // Create cancellation token and give it to the asynchronous method
+  var cts = new CancellationTokenSource();
   ComparePagesAsync(cts.Token);
-  <span class="rem">// Cancel download when the user hits Enter</span>
+  // Cancel download when the user hits Enter
   Console.ReadLine();
   cts.Cancel();
   Console.ReadLine();
@@ -315,27 +322,27 @@
 
 <p>If we just literally translated the code to C# then the behavior would be quite different: </p>
 
-<pre >
-<span class="rem">// Download page content and return the title</span>
-<span class="kwrd">static</span> <span class="kwrd">async</span> Task&lt;<span class="kwrd">string</span>&gt; DownloadPageAsync(<span class="kwrd">string</span> url) {
-  Console.WriteLine(<span class="str">"Downloading {0}"</span>, url);
-  <span class="kwrd">var</span> wc = <span class="kwrd">new</span> WebClient();
-  <span class="kwrd">var</span> html = await wc.DownloadStringTaskAsync(<span class="kwrd">new</span> Uri(url));
-  <span class="kwrd">return</span> regTitle.Match(html).Groups[1].Value;
+<pre lang="csharp">
+// Download page content and return the title
+static async Task&lt;string&gt; DownloadPageAsync(string url) {
+  Console.WriteLine("Downloading {0}", url);
+  var wc = new WebClient();
+  var html = await wc.DownloadStringTaskAsync(new Uri(url));
+  return regTitle.Match(html).Groups[1].Value;
 }
 
-<span class="rem">// Prints title of a page. Uses a backup server if the </span>
-<span class="rem">// main server is not available at the moment</span>
-<span class="kwrd">static</span> <span class="kwrd">async</span> Task PrintTitleAsync(Task&lt;<span class="kwrd">string</span>&gt; main, Task&lt;<span class="kwrd">string</span>&gt; backup) {
-  <span class="kwrd">var</span> title = await (useMainServer?main:backup);
+// Prints title of a page. Uses a backup server if the 
+// main server is not available at the moment
+static async Task PrintTitleAsync(Task&lt;string&gt; main, Task&lt;string&gt; backup) {
+  var title = await (useMainServer?main:backup);
   Console.WriteLine(title);
 }
 
-<span class="rem">// Start the work with main and backup workflow as arguments</span>
-<span class="kwrd">static</span> <span class="kwrd">void</span> Main() {
+// Start the work with main and backup workflow as arguments
+static void Main() {
   PrintTitleAsync
-    ( DownloadPageAsync(<span class="str">"http://fsharp.net"</span>),
-      DownloadPageAsync(<span class="str">"http://backup.fsharp.net"</span>) ).Wait();
+    ( DownloadPageAsync("http://fsharp.net"),
+      DownloadPageAsync("http://backup.fsharp.net") ).Wait();
 }
 </pre>  
 
@@ -396,19 +403,19 @@
   easy to accidentally write code that is supposed to run in parallel, but does not. The following
   trivial example ilustrates the problem:</p>
 
-<pre >
-<span class="rem">// Asynchronous operation that performs long-running</span>
-<span class="rem">// synchronous work before the first use of 'await'</span>
-<span class="kwrd">async</span> Task LongStartingOperation(<span class="kwrd">string</span> name) {
-  Console.WriteLine(<span class="str">"Starting {0}"</span>, name);
+<pre lang="csharp">
+// Asynchronous operation that performs long-running
+// synchronous work before the first use of 'await'
+async Task LongStartingOperation(string name) {
+  Console.WriteLine("Starting {0}", name);
   Thread.Sleep(1000);
-  Console.WriteLine(<span class="str">"Completed {0}"</span>, name);
+  Console.WriteLine("Completed {0}", name);
   await TaskEx.Yield();
 }
 
-<span class="rem">// Start the operation twice as a task</span>
-<span class="kwrd">var</span> t1 = LongStartingOperation(<span class="str">"first"</span>);
-<span class="kwrd">var</span> t2 = LongStartingOperation(<span class="str">"second"</span>);
+// Start the operation twice as a task
+var t1 = LongStartingOperation("first");
+var t2 = LongStartingOperation("second");
 </pre>
 
 <p>If you run this code snippet, you'll see that the code runs fully synchronously. It first

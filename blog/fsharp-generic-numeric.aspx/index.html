@@ -15,11 +15,18 @@
 
   <link rel="alternate" type="application/rss+xml" href="http://tomasp.net/rss.xml" title="RSS feed for Tomas Petricek's blog">
   <link rel="author" href="https://plus.google.com/109855146654605967051" />
+  <link rel="icon" type="image/png" href="http://tomasp.net/img/favicon.png" />
     
   <!-- Reference custom CSS and tooltips -->
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/style.css" />
   <script type="text/javascript" src="http://tomasp.net/custom/tooltips.js"></script>
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/tooltips.css" />
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:creator" content="@tomaspetricek">
+  <meta name="twitter:title" content="F# Math (IV.) - Writing generic numeric code">
+  <meta name="twitter:description" content="Writing generic numeric code in .NET is difficult, because .NET generics do not support constraints specifying that a type has to support certain numeric operations. In this article, we look how to solve the problem in F#. Using static member constraints, it is possible to write simple generic calculations and using the INumeric interface, we can capture numeric operations for a type and use them when implementing complex types such as a matrix.">
+
 </head>
 <body>
 

@@ -15,11 +15,18 @@
 
   <link rel="alternate" type="application/rss+xml" href="http://tomasp.net/rss.xml" title="RSS feed for Tomas Petricek's blog">
   <link rel="author" href="https://plus.google.com/109855146654605967051" />
+  <link rel="icon" type="image/png" href="http://tomasp.net/img/favicon.png" />
     
   <!-- Reference custom CSS and tooltips -->
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/style.css" />
   <script type="text/javascript" src="http://tomasp.net/custom/tooltips.js"></script>
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/tooltips.css" />
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:creator" content="@tomaspetricek">
+  <meta name="twitter:title" content="Parallel Programming in F# (III.): Aggregating data">
+  <meta name="twitter:description" content="In this article, we'll take a look at F# samples from Chapter 4 of Parallel Programming with Microsoft .NET. We'll discuss several options for implementing the Map/Reduce pattern.">
+
 </head>
 <body>
 
@@ -192,14 +199,14 @@
   samples and will be eventually included in F# PowerPack too. Let's start by looking 
   at the type signature of the function:</p>
 
-<pre >
-<span class="kwrd">val</span> mapReduce :
-    initf:    (unit <span class="op">-&gt;</span> 'TState) <span class="op">-&gt;</span>                 <span class="rem">// (1)</span>
-    processf: ('TState <span class="op">-&gt;</span> 'TInput <span class="op">-&gt;</span> 'TState) <span class="op">-&gt;</span>   <span class="rem">// (2)</span>
-    mergef:   ('TState <span class="op">-&gt;</span> 'TState <span class="op">-&gt;</span> 'TState) <span class="op">-&gt;</span>   <span class="rem">// (3)</span>
-    resultf:  ('TState <span class="op">-&gt;</span> 'TResult) <span class="op">-&gt;</span>             <span class="rem">// (4)</span>
-    input:    pseq&lt;'TInput&gt; <span class="op">-&gt;</span>     <span class="rem">// Input data sequence</span>
-              'TResult             <span class="rem">// Calculated result</span>
+<pre lang="fsharp">
+val mapReduce :
+    initf:    (unit -&gt; 'TState) -&gt;                 // (1)
+    processf: ('TState -&gt; 'TInput -&gt; 'TState) -&gt;   // (2)
+    mergef:   ('TState -&gt; 'TState -&gt; 'TState) -&gt;   // (3)
+    resultf:  ('TState -&gt; 'TResult) -&gt;             // (4)
+    input:    pseq&lt;'TInput&gt; -&gt;     // Input data sequence
+              'TResult             // Calculated result
 </pre>
 
 <p>The function looks rather complex, but once you understand what is going on, it should become

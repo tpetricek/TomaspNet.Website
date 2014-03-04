@@ -15,11 +15,18 @@
 
   <link rel="alternate" type="application/rss+xml" href="http://tomasp.net/rss.xml" title="RSS feed for Tomas Petricek's blog">
   <link rel="author" href="https://plus.google.com/109855146654605967051" />
+  <link rel="icon" type="image/png" href="http://tomasp.net/img/favicon.png" />
     
   <!-- Reference custom CSS and tooltips -->
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/style.css" />
   <script type="text/javascript" src="http://tomasp.net/custom/tooltips.js"></script>
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/tooltips.css" />
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:creator" content="@tomaspetricek">
+  <meta name="twitter:title" content="Coeffects: The next big programming challenge">
+  <meta name="twitter:description" content="This blog post is a tabloid-style introduction to my PhD thesis. I look at how practical motivations influence langauge design. One such practical motivation, that is becoming increasingly important, is capturing how program uses the context (or environment) where it runs. Coeffect are a way to track this property...">
+
 </head>
 <body>
 
@@ -190,11 +197,11 @@ that use a particular programming language.</p>
 <p>For example, take a look at the following LINQ query that selects product names where the
 first upper case letter is "C":</p>
 
-<pre ><span class="kwrd">var</span> db = <span class="kwrd">new</span> NorthwindDataContext();
+<pre lang="csharp"><span class="k">var</span> db = <span class="k">new</span> NorthwindDataContext();
 
-<span class="kwrd">from</span> p <span class="kwrd">in</span> db.Products
-<span class="kwrd">where</span> p.ProductName.First(c =&gt; Char.IsUpper(c)) == <span class="str">"C"</span>
-<span class="kwrd">select</span> p.ProductName;</pre>
+<span class="k">from</span> p <span class="k">in</span> db.Products
+<span class="k">where</span> p.ProductName.First(c =&gt; Char.IsUpper(c)) == <span class="s">"C"</span>
+<span class="k">select</span> p.ProductName;</pre>
 
 <p>This looks like a perfectly fine piece of code and it compiles fine. But when you try running
 it, you get the following error:</p>

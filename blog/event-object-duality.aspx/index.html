@@ -15,11 +15,18 @@
 
   <link rel="alternate" type="application/rss+xml" href="http://tomasp.net/rss.xml" title="RSS feed for Tomas Petricek's blog">
   <link rel="author" href="https://plus.google.com/109855146654605967051" />
+  <link rel="icon" type="image/png" href="http://tomasp.net/img/favicon.png" />
     
   <!-- Reference custom CSS and tooltips -->
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/style.css" />
   <script type="text/javascript" src="http://tomasp.net/custom/tooltips.js"></script>
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/tooltips.css" />
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:creator" content="@tomaspetricek">
+  <meta name="twitter:title" content="The Duality of Object and Event references">
+  <meta name="twitter:description" content="This article describes an interesting example of mathematical duality in programming languages - the duality between references between objects and references between events. The idea is useful for understading what events are garbage and can be garbage collected.">
+
 </head>
 <body>
 
@@ -85,12 +92,12 @@
   <em>product type</em> (usually called tuple or record) is dual of <em>sum type</em>
   (called discriminated union in F#). Let me demonstrate this using a simple example.
   Here are two simple type declarations:</p>
-<pre >
-<span class="rem">// Color with R, G, B components   // Shape can be one of three types</span>
-<span class="kwrd">type</span> Color =                       <span class="kwrd">type</span> Shape = 
-  { Red : int                        <span class="op">|</span> Square <span class="kwrd">of</span> Point * int
-    Green : int                      <span class="op">|</span> Circle <span class="kwrd">of</span> Point * int
-    Blue : int }                     <span class="op">|</span> Triangle <span class="kwrd">of</span> Point * Point * Point
+<pre lang="fsharp">
+// Color with R, G, B components   // Shape can be one of three types
+type Color =                       type Shape = 
+  { Red : int                        | Square of Point * int
+    Green : int                      | Circle of Point * int
+    Blue : int }                     | Triangle of Point * Point * Point
 </pre>
 <p>What is <em>dual</em> about these two types? When you have a record type consisting of three
   values (such as <code>Color</code>), you get three functions for extracting individual 
@@ -169,18 +176,18 @@
   events and emit the value that they receive only when it matches some predicate or 
   for example emit a value that is calculated based on the original value. Let's 
   demonstrate the idea using a simple snippet that uses first-class events in F#:</p>
-<pre >
-<span class="rem">// Creates an event that emits a value whenever one of </span>
-<span class="rem">// the two events (MouseDown of btnOne or btnTwo) emit </span>
-<span class="kwrd">let</span> anyButton = 
+<pre lang="fsharp">
+// Creates an event that emits a value whenever one of 
+// the two events (MouseDown of btnOne or btnTwo) emit 
+let anyButton = 
   Event.merge btnOne.MouseDown btnTwo.MouseDown
 
-<span class="rem">// Creates an event that emits a string "click!"</span>
-<span class="rem">// whenever user clicks on any button with left-click</span>
-<span class="kwrd">let</span> anyLeft = anyButton 
-  <span class="op">|</span>&gt; Event.filter (<span class="kwrd">fun</span> e <span class="op">-&gt;</span> 
+// Creates an event that emits a string "click!"
+// whenever user clicks on any button with left-click
+let anyLeft = anyButton 
+  |&gt; Event.filter (fun e -&gt; 
     e.Button = MouseButtons.Left)
-  <span class="op">|</span>&gt; Event.map (<span class="kwrd">fun</span> <span class="op">_</span> <span class="op">-&gt;</span> <span class="str">"click!"</span>)
+  |&gt; Event.map (fun _ -&gt; "click!")
 </pre>
 <p>These two examples are pretty simple, but they should illustrate the point.
   You can write pretty complicated event processing code just by creating and 

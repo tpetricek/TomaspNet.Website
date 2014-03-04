@@ -15,11 +15,18 @@
 
   <link rel="alternate" type="application/rss+xml" href="http://tomasp.net/rss.xml" title="RSS feed for Tomas Petricek's blog">
   <link rel="author" href="https://plus.google.com/109855146654605967051" />
+  <link rel="icon" type="image/png" href="http://tomasp.net/img/favicon.png" />
     
   <!-- Reference custom CSS and tooltips -->
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/style.css" />
   <script type="text/javascript" src="http://tomasp.net/custom/tooltips.js"></script>
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/tooltips.css" />
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:creator" content="@tomaspetricek">
+  <meta name="twitter:title" content="Functional Programming in .NET using C# and F# (Manning Greenpaper)">
+  <meta name="twitter:description" content="This article is partially an excerpt from my book. It introduces the benefits of functional pogramming, and explains the essential aspects of the functional style using F# and C# 3.0. Finally, it also shows how functional style influences the application architecture.">
+
 </head>
 <body>
 
@@ -155,8 +162,8 @@
   multiplies the result by the second number. A typical implementation of something like this in C# 
   would look like this:</p>
 
-<pre >
-<span class="kwrd">int</span> res = 0;
+<pre lang="csharp">
+int res = 0;
 res = res + ReadInt32();
 res = res * ReadInt32();
 WriteInt32(res);
@@ -165,10 +172,10 @@ WriteInt32(res);
 <p>As you can see, we created a variable <code>res</code> and modified it two times when reading the input value from 
   the console. Now, let’s look at the same code implemented without modifying a value of variables:</p>
 
-<pre >
-<span class="kwrd">int</span> res0 = 0;
-<span class="kwrd">int</span> res1 = res0 + ReadInt32();
-<span class="kwrd">int</span> res2 = res1 * ReadInt32();
+<pre lang="csharp">
+int res0 = 0;
+int res1 = res0 + ReadInt32();
+int res2 = res1 * ReadInt32();
 WriteInt32(res2);
 </pre>
 
@@ -187,12 +194,12 @@ WriteInt32(res2);
   specified range (this can be of course calculated directly, but I’ll use it as an example of a 
   calculation which uses a loop): </p>
 
-<pre >
-<span class="kwrd">int</span> SumNumbers(<span class="kwrd">int</span> <span class="kwrd">from</span>, <span class="kwrd">int</span> to) {
-    <span class="kwrd">int</span> res = 0;
-    <span class="kwrd">for</span> (<span class="kwrd">int</span> i = <span class="kwrd">from</span>; i &lt;= to; i++)
+<pre lang="csharp">
+int SumNumbers(int from, int to) {
+    int res = 0;
+    for (int i = from; i &lt;= to; i++)
         res = res + i;
-    <span class="kwrd">return</span> res;
+    return res;
 }
 </pre>
 
@@ -202,12 +209,12 @@ WriteInt32(res2);
   the state. Thus we need to do a more fundamental change in the code and use a technique called 
   recursion instead of using loops:</p>
 
-<pre >
-<span class="kwrd">int</span> SumNumbers(<span class="kwrd">int</span> <span class="kwrd">from</span>, <span class="kwrd">int</span> to) {
-    <span class="kwrd">if</span> (<span class="kwrd">from</span> &gt; to) 
-        <span class="kwrd">return</span> 0;
-    <span class="kwrd">int</span> sumRest = SumNumbers(<span class="kwrd">from</span> + 1, to);
-    <span class="kwrd">return</span> <span class="kwrd">from</span> + sumRest;
+<pre lang="csharp">
+int SumNumbers(int from, int to) {
+    if (from &gt; to) 
+        return 0;
+    int sumRest = SumNumbers(from + 1, to);
+    return from + sumRest;
 }
 </pre>
 
@@ -260,11 +267,11 @@ WriteInt32(res2);
   already know is a <code>string</code> type, which is immutable in .NET. This means that all operations performed 
   on strings return a copy and don’t modify the original value:</p>
 
-<pre >
-<span class="kwrd">string</span> input = <span class="str">"hElLo wOrLD!"</span>;
-<span class="kwrd">string</span> first = input.Substring(0, 1).ToUpper();
-<span class="kwrd">string</span> rest = input.Substring(1).ToLower();
-<span class="kwrd">string</span> result = first + rest;
+<pre lang="csharp">
+string input = "hElLo wOrLD!";
+string first = input.Substring(0, 1).ToUpper();
+string rest = input.Substring(1).ToLower();
+string result = first + rest;
 </pre>
 
 <p>As you can see in this example, working with immutable data types is quite simple. Instead of 
@@ -273,7 +280,7 @@ WriteInt32(res2);
   data types as well. Let’s look for example at the type for storing a collection of integers 
   implemented as an immutable data structure:</p>
 
-<pre >
+<pre lang="csharp">
 FunctionalList list0 = FunctionalList.Empty();
 FunctionalList list1 = list0.Add(1);
 FunctionalList list2 = list1.Add(3);
@@ -288,7 +295,7 @@ FunctionalList list4 = list3.Add(7);
   elegantly, without declaring all the unnecessary temporary variables. We could just call the <code>Add</code> 
   operation straight away on the returned temporary list:</p>
 
-<pre >
+<pre lang="csharp">
 FunctionalList res = FunctionalList.Empty().Add(1).Add(3).Add(5).Add(7);
 </pre>
 
@@ -312,17 +319,17 @@ FunctionalList res = FunctionalList.Empty().Add(1).Add(3).Add(5).Add(7);
   of evaluation is not important and evaluating a function two times leads always to the same result. 
   This means that the following two examples perform exactly the same thing:</p>
 
-<pre >
+<pre lang="csharp">
 FunctionalList l = GetData();
-<span class="kwrd">return</span> ProcessList(l) + ProcessList(l);
+return ProcessList(l) + ProcessList(l);
 </pre>
 
 <p>In the second version, we optimize the code to run the <code>ProcessList</code> function only once:</p>
 
-<pre >
+<pre lang="csharp">
 FunctionalList l = GetData();
-<span class="kwrd">int</span> tmp = ProcessList(l);
-<span class="kwrd">return</span> tmp + tmp;
+int tmp = ProcessList(l);
+return tmp + tmp;
 </pre>
 
 <p>Indeed, you would expect that this code does the same thing, but it isn’t always true in imperative 
@@ -365,15 +372,15 @@ FunctionalList l = GetData();
   content of the F# interactive window after entering and executing a line of code that calls the 
   <code>printfn</code> function, which is a function defined in the standard F# library:</p>
 
-<pre >
+<pre lang="fsharp">
 MSR F# Interactive, (c) Microsoft Corporation, All Rights Reserved
-F# Version 1.9.4.17, compiling <span class="kwrd">for</span> .NET Framework Version v2.0.50727
+F# Version 1.9.4.17, compiling for .NET Framework Version v2.0.50727
 
-&gt; <span class="preproc">#light</span>
-  printfn <span class="str">"Hello world!"</span>
+&gt; #light
+  printfn "Hello world!"
   ;;
 Hello world!
-<span class="kwrd">val</span> it : unit = ()
+val it : unit = ()
 </pre>
 
 <p>The first line contains a directive #light, which turns on the lightweight F# syntax – this is a 
@@ -392,19 +399,19 @@ Hello world!
   function in F#. If you’re not familiar with factorial, it is a function that takes a number n and 
   returns 1 when n is less than 2 and returns factorial of n – 1 multiplied by n otherwise:</p>
 
-<pre >
-&gt; <span class="preproc">#light</span>
-  <span class="rem">// Declaration of the factorial function</span>
-  <span class="kwrd">let</span> <span class="kwrd">rec</span> factorial num =
-      <span class="kwrd">match</span> num <span class="kwrd">with</span>
-      <span class="op">|</span> n <span class="kwrd">when</span> n &lt;= 1 <span class="op">-&gt;</span> 1            <span class="rem">// First case branch</span>
-      <span class="op">|</span> n <span class="op">-&gt;</span> n * (factorial (n - 1))  <span class="rem">// Second case branch</span>
+<pre lang="fsharp">
+&gt; #light
+  // Declaration of the factorial function
+  let rec factorial num =
+      match num with
+      | n when n &lt;= 1 -&gt; 1            // First case branch
+      | n -&gt; n * (factorial (n - 1))  // Second case branch
   ;;
-<span class="kwrd">val</span> factorial : int <span class="op">-&gt;</span> int
+val factorial : int -&gt; int
 
-&gt; <span class="rem">// Testing the factorial</span>
+&gt; // Testing the factorial
   factorial 5
-<span class="kwrd">val</span> it : int = 120
+val it : int = 120
 </pre>
 
 <p>The first command entered to the F# interactive is a declaration of the function to compute the 
@@ -440,25 +447,25 @@ Hello world!
   application. It creates a simple form with a label on it. You can see the source code in the 
   following listing with a screenshot of the running application below:</p>
 
-<pre >
-&gt; <span class="rem">// Import useful .NET namespaces</span>
-  <span class="kwrd">open</span> System
-  <span class="kwrd">open</span> System.Drawing
-  <span class="kwrd">open</span> System.Windows.Forms
+<pre lang="fsharp">
+&gt; // Import useful .NET namespaces
+  open System
+  open System.Drawing
+  open System.Windows.Forms
 
-  <span class="rem">// Create the form and a label objects</span>
-  <span class="kwrd">let</span> frm = <span class="kwrd">new</span> Form(Text = <span class="str">"Hello world!"</span>, Height = 150)
-  <span class="kwrd">let</span> lbl = <span class="kwrd">new</span> Label(Text = <span class="str">"Click here!"</span>, Dock = DockStyle.Fill, 
+  // Create the form and a label objects
+  let frm = new Form(Text = "Hello world!", Height = 150)
+  let lbl = new Label(Text = "Click here!", Dock = DockStyle.Fill, 
                       TextAlign = ContentAlignment.MiddleCenter)
 
-  <span class="rem">// Set ‘Font’ property of the label and add label to the form</span>
-  lbl.Font <span class="op">&lt;-</span> <span class="kwrd">new</span> Font(<span class="str">"Calibri"</span>, 24.0f)
+  // Set ‘Font’ property of the label and add label to the form
+  lbl.Font &lt;- new Font("Calibri", 24.0f)
   frm.Controls.Add(lbl)
   frm.Show()
   ;;
 
-<span class="kwrd">val</span> frm : Form
-<span class="kwrd">val</span> btn : Label
+val frm : Form
+val btn : Label
 </pre>
 
 <img src="/articles/functional-overview/winforms1.png" style="margin:15px;float:right" alt="Windows Forms in F#"/>
@@ -487,24 +494,24 @@ Hello world!
   how it affects the running program. This is exactly what we’re going to do next – we use the previous 
   example and add some event handling to the code:</p>
 
-<pre >
-&gt; <span class="rem">// Create random number generator</span>
-  <span class="kwrd">let</span> rnd = <span class="kwrd">new</span> Random()   
+<pre lang="fsharp">
+&gt; // Create random number generator
+  let rnd = new Random()   
 
-  <span class="rem">// Function that changes the text of the label and back color of the form</span>
-  <span class="kwrd">let</span> handleClick (e:EventArgs) =
-      <span class="kwrd">let</span> r = rnd.Next(256) 
-      <span class="kwrd">let</span> g = rnd.Next(256)
-      <span class="kwrd">let</span> b = rnd.Next(256)
-      <span class="rem">// Set the text and the new back color</span>
-      lbl.Text <span class="op">&lt;-</span> <span class="kwrd">if</span> (lbl.Text = <span class="str">"Tock!"</span>) <span class="kwrd">then</span> <span class="str">"Tick!"</span> <span class="kwrd">else</span> <span class="str">"Tock!"</span>
-      frm.BackColor <span class="op">&lt;-</span> Color.FromArgb(r, g, b)
+  // Function that changes the text of the label and back color of the form
+  let handleClick (e:EventArgs) =
+      let r = rnd.Next(256) 
+      let g = rnd.Next(256)
+      let b = rnd.Next(256)
+      // Set the text and the new back color
+      lbl.Text &lt;- if (lbl.Text = "Tock!") then "Tick!" else "Tock!"
+      frm.BackColor &lt;- Color.FromArgb(r, g, b)
 
-  <span class="rem">// Add ‘handleClick’ as an event handler to the label</span>
+  // Add ‘handleClick’ as an event handler to the label
   lbl.Click.Add(handleClick)
   ;;
-<span class="kwrd">val</span> rnd : Random
-<span class="kwrd">val</span> handleClick : EventArgs <span class="op">-&gt;</span> unit
+val rnd : Random
+val handleClick : EventArgs -&gt; unit
 </pre>
 
 <img src="/articles/functional-overview/winforms2.png" style="margin:15px;float:right" alt="Windows Forms in F#"/>
@@ -538,12 +545,12 @@ Hello world!
   first section. We started with a code that sums all numbers in a specified range. You can see our 
   original code in the following listing:</p>
 
-<pre >
-<span class="kwrd">int</span> SumNumbers(<span class="kwrd">int</span> <span class="kwrd">from</span>, <span class="kwrd">int</span> to) {
-    <span class="kwrd">if</span> (<span class="kwrd">from</span> &gt; to) 
-        <span class="kwrd">return</span> 0;
-    <span class="kwrd">int</span> rest = SumNumbers(<span class="kwrd">from</span> + 1, to);
-&amp;#160;&amp;#160;   <span class="kwrd">return</span> <span class="kwrd">from</span> + rest;
+<pre lang="csharp">
+int SumNumbers(int from, int to) {
+    if (from &gt; to) 
+        return 0;
+    int rest = SumNumbers(from + 1, to);
+&#160;&#160;   return from + rest;
 }
 </pre>
 
@@ -559,12 +566,12 @@ Hello world!
   calculating a result from variables <code>from</code> and <code>rest</code>. Let’s start by looking at the solution in C# 
   language (using the 3.0 version):</p>
 
-<pre >
-<span class="kwrd">int</span> AggregateNumbers(Func&lt;<span class="kwrd">int</span>, <span class="kwrd">int</span>, <span class="kwrd">int</span>&gt; f, <span class="kwrd">int</span> init, <span class="kwrd">int</span> <span class="kwrd">from</span>, <span class="kwrd">int</span> to) {
-    <span class="kwrd">if</span> (<span class="kwrd">from</span> &gt; to) 
-        <span class="kwrd">return</span> init;
-    <span class="kwrd">int</span> rest = AggregateNumbers(f, init, <span class="kwrd">from</span> + 1, to);
-    <span class="kwrd">return</span> f(<span class="kwrd">from</span>, rest);
+<pre lang="csharp">
+int AggregateNumbers(Func&lt;int, int, int&gt; f, int init, int from, int to) {
+    if (from &gt; to) 
+        return init;
+    int rest = AggregateNumbers(f, init, from + 1, to);
+    return f(from, rest);
 }
 </pre>
 
@@ -575,12 +582,12 @@ Hello world!
   parameters and return value of the referenced piece of code are. Just for a review, here is a 
   declaration of the delegate (showing also similar delegate written without generics):</p>
 
-<pre >
-<span class="rem">// Declartion of the generic Func delegate with 2 arguments </span>
-<span class="kwrd">delegate</span> TResult Func&lt;T1, T2, TResult&gt;(T1 arg1, T2 arg2); 
+<pre lang="csharp">
+// Declartion of the generic Func delegate with 2 arguments 
+delegate TResult Func&lt;T1, T2, TResult&gt;(T1 arg1, T2 arg2); 
 
-<span class="rem">// Instance used in our example earlier (without generics):</span>
-<span class="kwrd">delegate</span> <span class="kwrd">int</span> Func_IntIntInt(<span class="kwrd">int</span> arg1, <span class="kwrd">int</span> arg2); 
+// Instance used in our example earlier (without generics):
+delegate int Func_IntIntInt(int arg1, int arg2); 
 </pre>
 
 <p>Delegates can be used similarly as methods in the code, so on the last line of the <code>AggregateNumbers</code>, 
@@ -599,13 +606,13 @@ Hello world!
   feature called lambda functions (which is an extension and simplification of anonymous delegates that 
   appeared in C# 2.0):</p>
 
-<pre >
-<span class="rem">// Aggregate numbers using "+" and using "*" operators</span>
-<span class="kwrd">int</span> r1 = AggregateNumbers( (a, b) =&gt; a + b, 0, 1, 5);
-<span class="kwrd">int</span> r2 = AggregateNumbers( (a, b) =&gt; a * b, 1, 1, 5);
+<pre lang="csharp">
+// Aggregate numbers using "+" and using "*" operators
+int r1 = AggregateNumbers( (a, b) =&gt; a + b, 0, 1, 5);
+int r2 = AggregateNumbers( (a, b) =&gt; a * b, 1, 1, 5);
 
-<span class="rem">// Outputs: "add: 15, mul: 120"</span>
-Console.WriteLine(<span class="str">"add: {0}, mul: {1}"</span>, r1, r2);
+// Outputs: "add: 15, mul: 120"
+Console.WriteLine("add: {0}, mul: {1}", r1, r2);
 </pre>
 
 <p>You can see two examples of lambda functions on the first two lines. The arrow symbol (<code>=&gt;</code>) separates 
@@ -625,13 +632,13 @@ Console.WriteLine(<span class="str">"add: {0}, mul: {1}"</span>, r1, r2);
 <p>Let’s now look at exactly the same code implemented in F#. Of course, in F#, we’ll implement 
   <code>aggregateNumbers</code> simply as a function using <code>let rec</code> keyword instead of method in some class:</p>
 
-<pre >
-&gt; <span class="kwrd">let</span> <span class="kwrd">rec</span> aggregateNumbers (f:int <span class="op">-&gt;</span> int <span class="op">-&gt;</span> int) init nfrom nto =
-      <span class="kwrd">if</span> nfrom &gt; nto <span class="kwrd">then</span> init <span class="kwrd">else</span>
-          <span class="kwrd">let</span> rest = aggregateNumbers f init (nfrom + 1) nto
+<pre lang="fsharp">
+&gt; let rec aggregateNumbers (f:int -&gt; int -&gt; int) init nfrom nto =
+      if nfrom &gt; nto then init else
+          let rest = aggregateNumbers f init (nfrom + 1) nto
           f nfrom rest
   ;;
-<span class="kwrd">val</span> aggregateNumbers : (int <span class="op">-&gt;</span> int <span class="op">-&gt;</span> int) <span class="op">-&gt;</span> int <span class="op">-&gt;</span> int <span class="op">-&gt;</span> int <span class="op">-&gt;</span> int
+val aggregateNumbers : (int -&gt; int -&gt; int) -&gt; int -&gt; int -&gt; int -&gt; int
 </pre>
 
 <p>Most of the code is similar to the previous C# version. It contains <code>if</code> expression with <code>then</code> branch 
@@ -649,9 +656,9 @@ Console.WriteLine(<span class="str">"add: {0}, mul: {1}"</span>, r1, r2);
   To call it, we’ll again use lambda functions, but this time in F#. This represents exactly the same 
   idea as the previous C# version, but with a slightly different syntax:</p>
 
-<pre >
-&gt; aggregateNumbers (<span class="kwrd">fun</span> a b <span class="op">-&gt;</span> a + b) 0 1 5;;
-<span class="kwrd">val</span> it : int = 15
+<pre lang="fsharp">
+&gt; aggregateNumbers (fun a b -&gt; a + b) 0 1 5;;
+val it : int = 15
 </pre>
 
 <p>In F#, lambda functions are written using the fun keyword, which is followed by the declaration of 
@@ -670,19 +677,19 @@ Console.WriteLine(<span class="str">"add: {0}, mul: {1}"</span>, r1, r2);
   only the remaining arguments. In our case, we’ll specify only the operator for aggregation and the 
   initial value:</p>
 
-<pre >
-&gt; <span class="rem">// Declare 'sumNumbers' and 'mulNumbers' using partial application</span>
-  <span class="kwrd">let</span> sumNumbers = aggregateNumbers ( + ) 0
-  <span class="kwrd">let</span> mulNumbers = aggregateNumbers ( * ) 1
+<pre lang="fsharp">
+&gt; // Declare 'sumNumbers' and 'mulNumbers' using partial application
+  let sumNumbers = aggregateNumbers ( + ) 0
+  let mulNumbers = aggregateNumbers ( * ) 1
   ;;
-<span class="kwrd">val</span> sumNumbers : (int <span class="op">-&gt;</span> int <span class="op">-&gt;</span> int)
-<span class="kwrd">val</span> mulNumbers : (int <span class="op">-&gt;</span> int <span class="op">-&gt;</span> int)
+val sumNumbers : (int -&gt; int -&gt; int)
+val mulNumbers : (int -&gt; int -&gt; int)
 
-&gt; <span class="rem">// Test the returned functions:</span>
+&gt; // Test the returned functions:
   sumNumbers 1 5;;
-<span class="kwrd">val</span> it : int = 15
+val it : int = 15
 &gt; mulNumbers 1 5;;
-<span class="kwrd">val</span> it : int = 120
+val it : int = 120
 </pre>
 
 <p>On the first two lines, we use partial application to create two specialized functions using 
@@ -725,10 +732,10 @@ Console.WriteLine(<span class="str">"add: {0}, mul: {1}"</span>, r1, r2);
 
 <p>The code that references <code>List</code> module and initializes list called <code>l</code> in F# looks like this:</p>
 
-<pre >
-&gt; <span class="kwrd">open</span> List;;
-&gt; <span class="kwrd">let</span> l = <span class="op">[</span> 1 .. 10 <span class="op">]</span>;;
-<span class="kwrd">val</span> l : int list = [1; 2; 3; 4; 5; 6; 7; 8; 9; 10]
+<pre lang="fsharp">
+&gt; open List;;
+&gt; let l = [ 1 .. 10 ];;
+val l : int list = [1; 2; 3; 4; 5; 6; 7; 8; 9; 10]
 </pre>
 
 <p>The list is written in square brackets and can be written by listing all the elements as you can see 
@@ -736,8 +743,8 @@ Console.WriteLine(<span class="str">"add: {0}, mul: {1}"</span>, r1, r2);
   which is a simplified notation for creating list containing a range of numbers. In C#, we can use 
   collection initializers to write very similar code:</p>
 
-<pre >
-<span class="kwrd">var</span> l = <span class="kwrd">new</span> List&lt;<span class="kwrd">int</span>&gt; { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+<pre lang="csharp">
+var l = new List&lt;int&gt; { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
 </pre>
 
 <p>Collection initializers are new feature of C# 3.0 and allow us to use similar expression when 
@@ -765,24 +772,24 @@ Console.WriteLine(<span class="str">"add: {0}, mul: {1}"</span>, r1, r2);
   The code for this is surprisingly similar, so you can see both F# and C# version side by side:</p>
 
 <table width="100%"><tr><td width="49%">
-<pre  style="width:100%">
-&gt; <span class="rem">// Select multiples of three</span>
-  <span class="kwrd">let</span> l1 = filter (<span class="kwrd">fun</span> n <span class="op">-&gt;</span> n%3 = 0) l;;
-<span class="kwrd">val</span> l1 : int list = [3; 6; 9]
+<pre lang="fsharp" style="width:100%">
+&gt; // Select multiples of three
+  let l1 = filter (fun n -&gt; n%3 = 0) l;;
+val l1 : int list = [3; 6; 9]
 
-&gt; <span class="rem">// Multiply every element by two</span>
-  <span class="kwrd">let</span> l2 = map (<span class="kwrd">fun</span> n <span class="op">-&gt;</span> n*2) l1;;
-<span class="kwrd">val</span> l2 : int list = [6; 12; 18]&amp;#160;&amp;#160;&amp;#160;&amp;#160;
+&gt; // Multiply every element by two
+  let l2 = map (fun n -&gt; n*2) l1;;
+val l2 : int list = [6; 12; 18]&#160;&#160;&#160;&#160;
 </pre>
 </td><td width="49%">
-<pre  style="width:100%">
-<span class="rem">// Select mutiples of three</span>
-<span class="kwrd">var</span> l1 = l.Where(n =&gt; n%3 == 0);
-<span class="rem">// result l1: [3; 6; 9]</span>
+<pre lang="csharp" style="width:100%">
+// Select mutiples of three
+var l1 = l.Where(n =&gt; n%3 == 0);
+// result l1: [3; 6; 9]
 
-<span class="rem">// Multiply every element by two</span>
-<span class="kwrd">var</span> l2 = l1.Select(n =&gt; n*2);
-<span class="rem">// result l2: [6; 12; 18]</span>
+// Multiply every element by two
+var l2 = l1.Select(n =&gt; n*2);
+// result l2: [6; 12; 18]
 </pre>
 </td></tr></table>
 
@@ -807,18 +814,18 @@ Console.WriteLine(<span class="str">"add: {0}, mul: {1}"</span>, r1, r2);
   but we’ll still have to do some improvements to the F# version:</p>
 
 <table width="100%"><tr><td width="49%">
-<pre  style="width:100%">
-&gt; map (<span class="kwrd">fun</span> n <span class="op">-&gt;</span> n*2) 
-      (filter (<span class="kwrd">fun</span> n <span class="op">-&gt;</span> n%3 = 0) l)
+<pre lang="fsharp" style="width:100%">
+&gt; map (fun n -&gt; n*2) 
+      (filter (fun n -&gt; n%3 = 0) l)
   ;;
 
-<span class="kwrd">val</span> it : int list = [6; 12; 18]
-</pre></td><td width="49%"><pre  style="width:100%">
-<span class="kwrd">var</span> it = 
+val it : int list = [6; 12; 18]
+</pre></td><td width="49%"><pre lang="csharp" style="width:100%">
+var it = 
   l.Where(l, n =&gt; n%3 == 0)
    .Select(n =&gt; n*2);
 
-<span class="rem">// result it: [6; 12; 18]</span>
+// result it: [6; 12; 18]
 </pre></td></tr></table>
 
 <p>The C# version looks elegant, because we were already using extension methods that were added to C# 3.0
@@ -832,11 +839,11 @@ Console.WriteLine(<span class="str">"add: {0}, mul: {1}"</span>, r1, r2);
   for this problem. The solution is to use pipelining operator (written as <code>|&gt;</code>), which allows us to 
   write a sequence of operations:</p>
 
-<pre >
-&gt; l <span class="op">|</span>&gt; filter (<span class="kwrd">fun</span> n <span class="op">-&gt;</span> n%3 = 0) 
-    <span class="op">|</span>&gt; map (<span class="kwrd">fun</span> n <span class="op">-&gt;</span> n*2)
+<pre lang="fsharp">
+&gt; l |&gt; filter (fun n -&gt; n%3 = 0) 
+    |&gt; map (fun n -&gt; n*2)
   ;;
-<span class="kwrd">val</span> it : int list = [6; 12; 18]
+val it : int list = [6; 12; 18]
 </pre>
 
 <p>Using the query operator, we get a similar structure of the code as we had in the previous C# 3.0 
@@ -858,11 +865,11 @@ Console.WriteLine(<span class="str">"add: {0}, mul: {1}"</span>, r1, r2);
   syntactically similar to SQL. You should however keep in mind that this is just a syntactic sugar and 
   the code is translated to exactly the same code as we’ve used in the last example:</p>
 
-<pre >
-<span class="kwrd">var</span> it = 
-    <span class="kwrd">from</span> n <span class="kwrd">in</span> l
-    <span class="kwrd">where</span> n % 3 == 0
-    <span class="kwrd">select</span> n * 2;
+<pre lang="csharp">
+var it = 
+    from n in l
+    where n % 3 == 0
+    select n * 2;
 </pre>
 
 <p>F# has a more general feature that can be used for writing computations like this, which is called 
@@ -876,9 +883,9 @@ Console.WriteLine(<span class="str">"add: {0}, mul: {1}"</span>, r1, r2);
   There is one interesting option for making the previous F# code even more compact and that is using 
   partial application (or currying), which I shortly introduced earlier:</p>
 
-<pre >
-l <span class="op">|</span>&gt; filter (<span class="kwrd">fun</span> n <span class="op">-&gt;</span> n%3 = 0) 
-  <span class="op">|</span>&gt; map ((*) 2)
+<pre lang="fsharp">
+l |&gt; filter (fun n -&gt; n%3 = 0) 
+  |&gt; map ((*) 2)
 </pre>
 
 <p>You can see that we did a change to the second line and instead of using lambda function as a 
@@ -910,12 +917,12 @@ l <span class="op">|</span>&gt; filter (<span class="kwrd">fun</span> n <span cl
   for working with collections are excellent example for this. Let’s first look at declarations of the C#
   extension methods that we were using:</p>
 
-<pre >
-<span class="rem">// Filters elements of ‘source’ based on ‘predicate’</span>
-IEnumerable&lt;T&gt; Where&lt;T&gt;(IEnumerable&lt;T&gt; source, Func&lt;T, <span class="kwrd">bool</span>&gt; predicate);
+<pre lang="csharp">
+// Filters elements of ‘source’ based on ‘predicate’
+IEnumerable&lt;T&gt; Where&lt;T&gt;(IEnumerable&lt;T&gt; source, Func&lt;T, bool&gt; predicate);
 
-<span class="rem">// Projects each element in a sequence ‘source’ into a new form using ‘selector’</span>
-IEnumerable&lt;R&gt; Select&lt;S, R&gt;(<span class="kwrd">this</span> IEnumerable&lt;S&gt; source, Func&lt;S, R&gt; selector);
+// Projects each element in a sequence ‘source’ into a new form using ‘selector’
+IEnumerable&lt;R&gt; Select&lt;S, R&gt;(this IEnumerable&lt;S&gt; source, Func&lt;S, R&gt; selector);
 </pre>
 
 <p>The first method has a single type parameter (called <code>T</code>), which represents the type of elements in the 
@@ -939,11 +946,11 @@ IEnumerable&lt;R&gt; Select&lt;S, R&gt;(<span class="kwrd">this</span> IEnumerab
   type and the value. A function is just some compiled code, so it cannot be reasonably printed, but 
   we’re interested in the type:</p>
 
-<pre >
+<pre lang="fsharp">
 &gt; List.filter;;
-<span class="kwrd">val</span> it : (('a <span class="op">-&gt;</span> bool) <span class="op">-&gt;</span> 'a list <span class="op">-&gt;</span> 'a list) = &lt;...&gt;
+val it : (('a -&gt; bool) -&gt; 'a list -&gt; 'a list) = &lt;...&gt;
 &gt; List.map;;
-<span class="kwrd">val</span> it : (('a <span class="op">-&gt;</span> 'b) <span class="op">-&gt;</span> 'a list <span class="op">-&gt;</span> 'b list) = &lt;...&gt;
+val it : (('a -&gt; 'b) -&gt; 'a list -&gt; 'b list) = &lt;...&gt;
 </pre>
 
 <p>In this example, I entered the full name of the function including a module name. In our discussion 
@@ -986,12 +993,12 @@ IEnumerable&lt;R&gt; Select&lt;S, R&gt;(<span class="kwrd">this</span> IEnumerab
   that take general <code>IEnumerable&lt;T&gt;</code> type. Nevertheless, it is a good example for demonstrating 
   automatic generalization in F#:</p>
 
-<pre >
+<pre lang="csharp">
 List&lt;R&gt; Map&lt;S, R&gt;(Func&lt;S, R&gt; f, List&lt;S&gt; source) {
-    List&lt;R&gt; res = <span class="kwrd">new</span> List&lt;R&gt;();
-    <span class="kwrd">foreach</span> (S el <span class="kwrd">in</span> source) 
+    List&lt;R&gt; res = new List&lt;R&gt;();
+    foreach (S el in source) 
         res.Add(f(el));
-    <span class="kwrd">return</span> res;
+    return res;
 }
 </pre>
 
@@ -1003,8 +1010,8 @@ List&lt;R&gt; Map&lt;S, R&gt;(Func&lt;S, R&gt; f, List&lt;S&gt; source) {
   functional pseudo-C# language. First, I’d like to shortly recapitulate one new feature in 
   C# 3.0 – a new keyword <code>var</code>, which can be used for declaring local variables in a method body:</p>
 
-<pre >
-<span class="kwrd">var</span> n = 10;
+<pre lang="csharp">
+var n = 10;
 </pre>
 
 <p>The <code>var</code> keyword simply instructs the compiler to look at the expression assigned to the 
@@ -1015,12 +1022,12 @@ List&lt;R&gt; Map&lt;S, R&gt;(Func&lt;S, R&gt; f, List&lt;S&gt; source) {
   In the pseudo-C# language that I made up to demonstrate automatic generalization, you can use 
   <code>var</code> almost anywhere, where a type is expected, so you can write the following code:</p>
 
-<pre >
-<span class="kwrd">var</span> Filter(<span class="kwrd">var</span> f, List&lt;<span class="kwrd">var</span>&gt; source) {
-    <span class="kwrd">var</span> res = <span class="kwrd">new</span> List&lt;<span class="kwrd">var</span>&gt;();
-    <span class="kwrd">foreach</span> (<span class="kwrd">var</span> el <span class="kwrd">in</span> source) 
+<pre lang="csharp">
+var Filter(var f, List&lt;var&gt; source) {
+    var res = new List&lt;var&gt;();
+    foreach (var el in source) 
         res.Add(f(el));
-    <span class="kwrd">return</span> res;
+    return res;
 }
 </pre>
 
@@ -1069,13 +1076,13 @@ List&lt;R&gt; Map&lt;S, R&gt;(Func&lt;S, R&gt; f, List&lt;S&gt; source) {
   this article and that is list, so we can for example imagine that in a game, we have a list 
   storing information about all characters in a game:</p>
 
-<pre >
-&gt; <span class="rem">// Stores information about computer controlled agents in the game</span>
-  <span class="kwrd">type</span> GameCharacter = ... 
+<pre lang="fsharp">
+&gt; // Stores information about computer controlled agents in the game
+  type GameCharacter = ... 
 
-&gt; <span class="rem">// List with all characters currently in the game</span>
-  <span class="kwrd">let</span> characters = <span class="op">[</span> ... <span class="op">]</span>
-<span class="kwrd">val</span> characters : GameCharacter list
+&gt; // List with all characters currently in the game
+  let characters = [ ... ]
+val characters : GameCharacter list
 </pre>
 
 <p>There is some type called <code>GameCharacter</code> that represents a single AI character controlled by the 
@@ -1087,13 +1094,13 @@ List&lt;R&gt; Map&lt;S, R&gt;(Func&lt;S, R&gt; f, List&lt;S&gt; source) {
   step in the game, like moving the character, and a function that tests whether the character is 
   still alive (or whether it died for some reason during the last update):</p>
 
-<pre >
-&gt; <span class="rem">// Calculates a new position, etc. of the character</span>
-  <span class="kwrd">let</span> updateCharacter ch = ...
-<span class="kwrd">val</span> updateCharacter : GameCharacter <span class="op">-&gt;</span> GameCharacter 
-&gt; <span class="rem">// Tests whether the character is alive</span>
-  <span class="kwrd">let</span> isCharacterAlive ch = ...
-<span class="kwrd">val</span> isCharacterAlive : GameCharacter <span class="op">-&gt;</span> bool
+<pre lang="fsharp">
+&gt; // Calculates a new position, etc. of the character
+  let updateCharacter ch = ...
+val updateCharacter : GameCharacter -&gt; GameCharacter 
+&gt; // Tests whether the character is alive
+  let isCharacterAlive ch = ...
+val isCharacterAlive : GameCharacter -&gt; bool
 </pre>
 
 <p>Now that we have the data structures that represent our game and several basic functions that 
@@ -1103,13 +1110,13 @@ List&lt;R&gt; Map&lt;S, R&gt;(Func&lt;S, R&gt; f, List&lt;S&gt; source) {
   structure to store our characters, we can of course use previously discussed functions for 
   working with lists:</p>
 
-<pre >
-&gt; <span class="rem">// Updates all characters and removes those who died during the last update</span>
-  <span class="kwrd">let</span> updateCharacters characters = 
+<pre lang="fsharp">
+&gt; // Updates all characters and removes those who died during the last update
+  let updateCharacters characters = 
     characters
-        <span class="op">|</span>&gt; map updateCharacter
-        <span class="op">|</span>&gt; filter isCharacterAlive
-<span class="kwrd">val</span> updateCharacters : GameCharacter list <span class="op">-&gt;</span> GameCharacter list
+        |&gt; map updateCharacter
+        |&gt; filter isCharacterAlive
+val updateCharacters : GameCharacter list -&gt; GameCharacter list
 </pre>
 
 <p>The data structure to store characters is immutable, so the <code>updateCharacters</code> function takes a 
@@ -1131,11 +1138,11 @@ List&lt;R&gt; Map&lt;S, R&gt;(Func&lt;S, R&gt; f, List&lt;S&gt; source) {
   to use multiple threads to calculating new state of the characters. It turns out that doing 
   change like this is astonishingly simple: </p>
 
-<pre >
-<span class="kwrd">let</span> updateCharacters characters = 
+<pre lang="fsharp">
+let updateCharacters characters = 
     characters 
-        <span class="op">|</span>&gt; parallelMap updateCharacter
-        <span class="op">|</span>&gt; parallelFilter isCharacterAlive
+        |&gt; parallelMap updateCharacter
+        |&gt; parallelFilter isCharacterAlive
 </pre>
 
 <p>In this example, we just changed call to <code>map</code> with a <code>parallelMap</code> and similarly replaced <code>filter</code> 
@@ -1162,9 +1169,9 @@ List&lt;R&gt; Map&lt;S, R&gt;(Func&lt;S, R&gt; f, List&lt;S&gt; source) {
   that we have a list of characters and methods <code>UpdateCharacter</code> and <code>IsCharacterAlive</code>, we can 
   rewrite the previous F# code to C# as follows:</p>
 
-<pre >
+<pre lang="csharp">
 List&lt;GameCharacter&gt; UpdateCharacters(List&lt;GameCharacter&gt; characters) {
-    <span class="kwrd">return</span> characters
+    return characters
             .AsParallel()
             .Select(UpdateCharacter)
             .Where(IsCharacterAlive);
@@ -1224,8 +1231,8 @@ List&lt;GameCharacter&gt; UpdateCharacters(List&lt;GameCharacter&gt; characters)
   example demonstrates a “language” for describing animations in a functional way from Chapter 20 
   of our book:</p>
 
-<pre >
-<span class="kwrd">let</span> solarSystem = 
+<pre lang="fsharp">
+let solarSystem = 
   sun
     -- (rotate 80.00f 4.1f mercury)      
     -- (rotate 150.0f 1.6f venus)        
@@ -1266,11 +1273,11 @@ List&lt;GameCharacter&gt; UpdateCharacters(List&lt;GameCharacter&gt; characters)
   takes a collection of customers, filters those who live in London and returns a collection of 
   their names:</p>
 
-<pre >
-<span class="kwrd">let</span> res = 
+<pre lang="fsharp">
+let res = 
   customers 
-    <span class="op">|</span>&gt; filter (<span class="kwrd">fun</span> cust <span class="op">-&gt;</span> cust.City = <span class="str">"London"</span>) 
-    <span class="op">|</span>&gt; map (<span class="kwrd">fun</span> cust <span class="op">-&gt;</span> cust.Name)
+    |&gt; filter (fun cust -&gt; cust.City = "London") 
+    |&gt; map (fun cust -&gt; cust.Name)
 </pre>
 
 <p>The code is very similar to our earlier examples for working with lists. This is because we’re 
@@ -1285,18 +1292,18 @@ List&lt;GameCharacter&gt; UpdateCharacters(List&lt;GameCharacter&gt; characters)
   alternative way is to execute it as an SQL query using a database engine. The following example 
   shows how we could implement these two alternatives in F#:</p>
 
-<pre >
-<span class="rem">// Executing a ‘query’ on in-memory data in parallel</span>
-<span class="kwrd">let</span> res = 
+<pre lang="fsharp">
+// Executing a ‘query’ on in-memory data in parallel
+let res = 
   customers 
-    <span class="op">|</span>&gt; parallelFilter (<span class="kwrd">fun</span> cust <span class="op">-&gt;</span> cust.City = <span class="str">"London"</span>) 
-    <span class="op">|</span>&gt; parallelMap (<span class="kwrd">fun</span> cust <span class="op">-&gt;</span> cust.Name)
+    |&gt; parallelFilter (fun cust -&gt; cust.City = "London") 
+    |&gt; parallelMap (fun cust -&gt; cust.Name)
 
-<span class="rem">// Executing a ‘query’ on database by translating it to SQL</span>
-<span class="kwrd">let</span> res = 
-  SQL <span class="op">&lt;@</span> %db.Customers 
-           <span class="op">|</span>&gt; filter (<span class="kwrd">fun</span> cust <span class="op">-&gt;</span> cust.City = <span class="str">"London"</span>) 
-           <span class="op">|</span>&gt; map (<span class="kwrd">fun</span> cust <span class="op">-&gt;</span> cust.Name) <span class="op">@&gt;</span>
+// Executing a ‘query’ on database by translating it to SQL
+let res = 
+  SQL &lt;@ %db.Customers 
+           |&gt; filter (fun cust -&gt; cust.City = "London") 
+           |&gt; map (fun cust -&gt; cust.Name) @&gt;
 </pre>
 
 <p>The first example uses <code>parallelFilter</code> and <code>parallelMap</code> primitives that we already discussed. The 

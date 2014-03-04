@@ -15,11 +15,18 @@
 
   <link rel="alternate" type="application/rss+xml" href="http://tomasp.net/rss.xml" title="RSS feed for Tomas Petricek's blog">
   <link rel="author" href="https://plus.google.com/109855146654605967051" />
+  <link rel="icon" type="image/png" href="http://tomasp.net/img/favicon.png" />
     
   <!-- Reference custom CSS and tooltips -->
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/style.css" />
   <script type="text/javascript" src="http://tomasp.net/custom/tooltips.js"></script>
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/tooltips.css" />
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:creator" content="@tomaspetricek">
+  <meta name="twitter:title" content="Reactive programming (II.) - Introducing Reactive LINQ">
+  <meta name="twitter:description" content="In the second part of the series about reactive programming, I introduction the Reactive LINQ project, which allows writing event processing code in C# using LINQ queries.">
+
 </head>
 <body>
 
@@ -102,18 +109,18 @@
   appear in the stream whenever the cursor position changes. In the first part, we're interested only in
   the cases where the cursor moved out of the path, so we'll use the <code>where</code> clause to filter
   values that are on the path. Let's take a look at the first part of the code:</p>
-<pre >
-<span class="rem">// Move cursor to the start location and load the bitmap</span>
-Cursor.Position = <span class="kwrd">this</span>.PointToScreen(<span class="kwrd">new</span> Point(150, 200));
-Bitmap bmp = (Bitmap)<span class="kwrd">this</span>.BackgroundImage;
+<pre lang="csharp">
+// Move cursor to the start location and load the bitmap
+Cursor.Position = this.PointToScreen(new Point(150, 200));
+Bitmap bmp = (Bitmap)this.BackgroundImage;
 
-<span class="rem">// Create stream for the 'MouseMove' event and</span>
-<span class="rem">// filter events when the mouse cursor is on the path</span>
-<span class="kwrd">var</span> eOut =
-  <span class="kwrd">from</span> me <span class="kwrd">in</span> <span class="kwrd">this</span>.AttachEvent&lt;MouseEventArgs&gt;(<span class="str">"MouseMove"</span>)
-  <span class="kwrd">let</span> clr = bmp.GetPixel(me.X, me.Y)
-  <span class="kwrd">where</span> clr.R != 255 || clr.G != 255 || clr.B != 255
-  <span class="kwrd">select</span> <span class="str">"Oops!\nYou stepped on the grass!"</span>;
+// Create stream for the 'MouseMove' event and
+// filter events when the mouse cursor is on the path
+var eOut =
+  from me in this.AttachEvent&lt;MouseEventArgs&gt;("MouseMove")
+  let clr = bmp.GetPixel(me.X, me.Y)
+  where clr.R != 255 || clr.G != 255 || clr.B != 255
+  select "Oops!\nYou stepped on the grass!";
 </pre>  
 <p>We start by loading the bitmap and by moving the cursor to the starting position in the maze.
   The second statement is much more interesting. It is a LINQ query that processes values called
@@ -133,11 +140,11 @@ Bitmap bmp = (Bitmap)<span class="kwrd">this</span>.BackgroundImage;
 <p>Under the hood, this is translated to an expression that calls <code>Where</code> and <code>Select</code>
   LINQ operators and looks roughly like this (the <code>let</code> clause makes it a bit difficult, but
   we don't have to care about that, because we're interested only in the structure):</p>
-<pre >
-<span class="kwrd">var</span> eOut = 
-  <span class="kwrd">this</span>.AttachEvent&lt;MouseEventArgs&gt;(<span class="str">"MouseMove"</span>)
-    .Where(args =&gt; <span class="rem">/* some lambda expression */</span> )
-    .Select(args =&gt; <span class="rem">/* some lambda expression */</span> );          
+<pre lang="csharp">
+var eOut = 
+  this.AttachEvent&lt;MouseEventArgs&gt;("MouseMove")
+    .Where(args =&gt; /* some lambda expression */ )
+    .Select(args =&gt; /* some lambda expression */ );          
 </pre>  
 <p>This means, that we create some representation of event using <code>AttachEvent</code> and the 
   <strong>Reactive LINQ</strong> library provides standard LINQ query operators for this representation.
@@ -169,7 +176,7 @@ Bitmap bmp = (Bitmap)<span class="kwrd">this</span>.BackgroundImage;
 <p>We'll first implement a handler that will show a message box when the user fails and later we'll finish the 
   second part of the game, which is testing whether the cursor is close to the target point. Adding handler to 
   the event value <code>eOut</code> is quite easy:</p>  
-<pre >
+<pre lang="csharp">
 eOut.Listen(str =&gt; MessageBox.Show(str));
 </pre>
 <p></p>
@@ -195,15 +202,15 @@ eOut.Listen(str =&gt; MessageBox.Show(str));
   whether this distance is small enough and if yes, we'll trigger the event with a message that 
   the game was successfully completed:</p>
 
-<pre >
-<span class="rem">// Filter events when mouse is far from the target</span>
-<span class="rem">// if the cursor is close, we return a message </span>
-<span class="kwrd">var</span> eFinish =
-  <span class="kwrd">from</span> me <span class="kwrd">in</span> <span class="kwrd">this</span>.AttachEvent&lt;MouseEventArgs&gt;(<span class="str">"MouseMove"</span>)
-  <span class="kwrd">let</span> dist = Math.Pow(450 - me.X, 2) + 
+<pre lang="csharp">
+// Filter events when mouse is far from the target
+// if the cursor is close, we return a message 
+var eFinish =
+  from me in this.AttachEvent&lt;MouseEventArgs&gt;("MouseMove")
+  let dist = Math.Pow(450 - me.X, 2) + 
              Math.Pow(250 - me.Y, 2)
-  <span class="kwrd">where</span> dist &lt; 250
-  <span class="kwrd">select</span> <span class="str">"Congratulations!\nYou made it to the end!"</span>;
+  where dist &lt; 250
+  select "Congratulations!\nYou made it to the end!";
 </pre>
 <p>As I mentioned earlier, the query is essentially the same as the first one, with the exception
   that it has a different condition and returns a different message. An important thing to note is 
@@ -224,10 +231,10 @@ eOut.Listen(str =&gt; MessageBox.Show(str));
   where we implemented a reaction to the <code>eOut</code> event, because now we'll react
   to both of the events at once:</p>  
 
-<pre >
-<span class="rem">// Wait for either of the events</span>
-<span class="rem">// then stop all processing and show the message</span>
-<span class="kwrd">var</span> eMerged = Reactive.Merge(eOut, eFinish);
+<pre lang="csharp">
+// Wait for either of the events
+// then stop all processing and show the message
+var eMerged = Reactive.Merge(eOut, eFinish);
 eMerged.First().Listen(str =&gt; MessageBox.Show(str));
 </pre>
 <p>We start by merging the events into an event called <code>eMerged</code>. This event has again a type

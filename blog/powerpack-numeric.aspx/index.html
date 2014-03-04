@@ -15,11 +15,18 @@
 
   <link rel="alternate" type="application/rss+xml" href="http://tomasp.net/rss.xml" title="RSS feed for Tomas Petricek's blog">
   <link rel="author" href="https://plus.google.com/109855146654605967051" />
+  <link rel="icon" type="image/png" href="http://tomasp.net/img/favicon.png" />
     
   <!-- Reference custom CSS and tooltips -->
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/style.css" />
   <script type="text/javascript" src="http://tomasp.net/custom/tooltips.js"></script>
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/tooltips.css" />
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:creator" content="@tomaspetricek">
+  <meta name="twitter:title" content="F# Math (I.) - Numeric types in PowerPack">
+  <meta name="twitter:description" content="This article discusses two numeric types that are available in F# PowerPack - BigRational represents arbitrary precision rational numbers and complex represents (floating-point) complex numbers. The types can be nicely used from F# as well as from C#.">
+
 </head>
 <body>
 
@@ -202,12 +209,12 @@
   Gregory–Leibniz series. The implementation uses loop instead of recursion, because recursive
   iterators cannot be written efficiently in C#:</p>
 
-<pre >
-<span class="kwrd">static</span> IEnumerable&lt;BigRational&gt; Series() {
-  <span class="kwrd">var</span> n = BigRational.FromInt(1);
-  <span class="kwrd">var</span> q = BigRational.FromInt(1);
-  <span class="kwrd">while</span> (<span class="kwrd">true</span>) {
-    <span class="kwrd">yield</span> <span class="kwrd">return</span> q * BigRational.FromInt(4) / n;
+<pre lang="csharp">
+static IEnumerable&lt;BigRational&gt; Series() {
+  var n = BigRational.FromInt(1);
+  var q = BigRational.FromInt(1);
+  while (true) {
+    yield return q * BigRational.FromInt(4) / n;
     n = n + BigRational.FromInt(2);
     q = q * BigRational.FromInt(-1);
   }
@@ -220,8 +227,8 @@
   <code>BigRational.PowN</code> (to calculate power). To get approximate value of π as
   a floating point number, we can write:</p>
 
-<pre >
-<span class="kwrd">var</span> pi = Series().Take(300).Aggregate((a, b) =&gt; a + b);
+<pre lang="csharp">
+var pi = Series().Take(300).Aggregate((a, b) =&gt; a + b);
 Console.WriteLine(BigRational.ToDouble(pi));
 </pre>
 

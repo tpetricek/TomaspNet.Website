@@ -15,11 +15,18 @@
 
   <link rel="alternate" type="application/rss+xml" href="http://tomasp.net/rss.xml" title="RSS feed for Tomas Petricek's blog">
   <link rel="author" href="https://plus.google.com/109855146654605967051" />
+  <link rel="icon" type="image/png" href="http://tomasp.net/img/favicon.png" />
     
   <!-- Reference custom CSS and tooltips -->
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/style.css" />
   <script type="text/javascript" src="http://tomasp.net/custom/tooltips.js"></script>
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/tooltips.css" />
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:creator" content="@tomaspetricek">
+  <meta name="twitter:title" content="F# Quotations Samples on CodePlex">
+  <meta name="twitter:description" content="This article describes a few samples available in the F# Samples project at CodePlex that demonstrate how to work with the F# quotations using active patterns.">
+
 </head>
 <body>
 
@@ -83,21 +90,21 @@
   to SQL (so they can be executed efficiently) and indeed, one of the F# goals was to enable this as well.
   I already wrote about this topic on my blog [<a href="#fssamplesquotlinks">2</a>], but here is a quick example how the code looks
   (note that the Unicode quotation symbols used in the sample can be also written as <code>&lt;@ .. @&gt;</code>):</p>
-<pre >
-<span class="rem">// Select all customers from UK</span>
-<span class="kwrd">let</span> ukCustomers =
-  SQL « { <span class="kwrd">for</span> c <span class="kwrd">in</span> (§db.Customers) 
-          <span class="kwrd">when</span> c.Country = <span class="str">"UK"</span>
-          <span class="op">-&gt;</span> c } »
+<pre lang="fsharp">
+// Select all customers from UK
+let ukCustomers =
+  SQL « { for c in (§db.Customers) 
+          when c.Country = "UK"
+          -> c } »
 </pre>  
 <p>In this example, a query comprehension (in the curly braces) is wrapped in quotation marks, which allows the <code>SQL</code>
   function to analyze the F# code and translate it to the appropriate SQL code. Another interesting use is that a
   code that performs some matrix operations can be executed on GPU (using pixel and vertex shaders). You can imagine writing
   something like the following:</p>
-<pre >
-<span class="kwrd">let</span> avgMatrices =
-  « <span class="kwrd">fun</span> a b <span class="op">-&gt;</span>
-      Matrix.init 512 512 (<span class="kwrd">fun</span> x y <span class="op">-&gt;</span> 
+<pre lang="fsharp">
+let avgMatrices =
+  « fun a b ->
+      Matrix.init 512 512 (fun x y -> 
         ((Matrix.get a x y) + (Matrix.get b x y)) / 2) »
 </pre>  
 <p>It would be then possible to translate this code to GPU code and process matrices on the graphics card (BTW: I'd like to write about
@@ -105,16 +112,16 @@
   one more use can be found in the F# Web Toolkit project [<a href="#fssamplesquotlinks">3</a>] that I worked on recently - 
   it uses quotations to allow writing client-side code running in web browser (the code is then translated to JavaScript).
   An example might look like the following:</p>
-<pre >
-<span class="op">[</span>&lt;ReflectedDefinition&gt;<span class="op">]</span>
-<span class="kwrd">member</span> x.HandleClientClick() =
+<pre lang="fsharp">
+[&lt;ReflectedDefinition&gt;]
+member x.HandleClientClick() =
   client
-    { x.btnHello.Text <span class="op">&lt;-</span> <span class="str">"Clicked (client)!"</span>
-      <span class="kwrd">do</span> Window.Alert(<span class="str">"Hello world!"</span>) }
+    { x.btnHello.Text &lt;- "Clicked (client)!"
+      do Window.Alert("Hello world!") }
 
-<span class="kwrd">member</span> x.HandleServerClick() =
+member x.HandleServerClick() =
   server
-    { x.btnHello.Text <span class="op">&lt;-</span> <span class="str">"Clicked (server)!"</span> }
+    { x.btnHello.Text &lt;- "Clicked (server)!" }
 </pre>  
 <p>You might be wondering where the quotation symbols are hiding in this example! Actually, this is using one more 
   quotations feature (which I personally find very interesting) and that is the <code>ReflectedDefinition</code> attribute.
@@ -133,21 +140,21 @@
   demonstrates how to analyze F# quotation and translate it to another representation of the code. It takes a simple
   numerical expression (something like: <code>« (2*3 + 10/5)/2 - 2 »</code>) and translates it to 
   the following representation:</p>
-<pre >
-<span class="rem">// Discriminated union representing an expression</span>
-<span class="kwrd">type</span> SimpleExpr =
-  <span class="op">|</span> Int <span class="kwrd">of</span> int
-  <span class="op">|</span> Add <span class="kwrd">of</span> SimpleExpr * SimpleExpr
-  <span class="op">|</span> // ...</pre>
+<pre lang="fsharp">
+// Discriminated union representing an expression
+type SimpleExpr =
+  | Int of int
+  | Add of SimpleExpr * SimpleExpr
+  | // ...</pre>
 <p>The code that processes the quotation is a set of recursive functions that use active patterns to match the quotation
   with the possible patterns:</p>
-<pre >
-<span class="rem">// Parse function converts F# quotation to 'SimpleExpr' representation</span>
-<span class="kwrd">let</span> <span class="kwrd">rec</span> parse x =
-  <span class="kwrd">match</span> x <span class="kwrd">with</span>  
-    <span class="op">|</span> Int32 (x) <span class="op">-&gt;</span> Int(x)
-    <span class="op">|</span> TopDefnApp <span class="op">&lt;@@</span> ( + ) <span class="op">@@&gt;</span> [x1;x2] <span class="op">-&gt;</span> Add(parse x1, parse x2)
-    <span class="op">|</span> // ... </pre>
+<pre lang="fsharp">
+// Parse function converts F# quotation to 'SimpleExpr' representation
+let rec parse x =
+  match x with  
+    | Int32 (x) -> Int(x)
+    | TopDefnApp &lt;@@ ( + ) @@&gt; [x1;x2] -> Add(parse x1, parse x2)
+    | // ... </pre>
 <p>This sample first uses <code>Int32</code> active pattern (which is simply a guard that can be used in the
   <code>match</code> expression) to test if the value <code>x</code> contains a quoted integer. The second 
   active pattern (<code>TopDefnApp</code>) matches the value with the use of a specific top-level value - 
@@ -156,55 +163,55 @@
   basic functions to the <code>SimpleExpr</code> type, which means that having a value of <code>SimpleExpr</code>
   you can for example write <code>se.Eval()</code> to evaluate the value or you can uses static method to create it
   from an F# quotation: <code>SimpleExpr.Parse(quot)</code>:</p>
-<pre >
-<span class="kwrd">type</span> SimpleExpr <span class="kwrd">with</span>
-  <span class="kwrd">static</span> <span class="kwrd">member</span> Parse(s) = parse s
-  <span class="kwrd">member</span> x.Eval() = eval x</pre>
+<pre lang="fsharp">
+type SimpleExpr with
+  static member Parse(s) = parse s
+  member x.Eval() = eval x</pre>
 <h3>Basic Quotation Demos: Printer</h3>
 <p>The second sample is based on forum posts at the <a href="http://cs.hubfs.net">F# community site</a> [<a href="http://cs.hubfs.net" target="_blank">^</a>]
   by me and <a href="http://www.strangelights.com/">Robert Pickering</a> [<a href="http://www.strangelights.com/" target="_blank">^</a>]
   in which we demonstrated how to write a simple printer for the F# quotations. It demonstrates most of the common active patterns
   used for processing quotations and it also demonstrates how to work with the <code>ReflectedDefinition</code> attribute.
   The following sample shows a simplified part of the recursive <code>print</code> function:</p>
-<pre >
-<span class="rem">// Prints F# quotation..</span>
-<span class="kwrd">let</span> <span class="kwrd">rec</span> print spaces expr = 
-  <span class="kwrd">match</span> expr <span class="kwrd">with</span>
-  <span class="op">|</span> Let((var,value), body) <span class="op">-&gt;</span> 
-      <span class="rem">// Represents: let [var] = [value] in [body]</span>
-      printf <span class="str">"%slet %s = "</span> spaces (makeNiceVar var.Text)
+<pre lang="fsharp">
+// Prints F# quotation..
+let rec print spaces expr = 
+  match expr with
+  | Let((var,value), body) -> 
+      // Represents: let [var] = [value] in [body]
+      printf "%slet %s = " spaces (makeNiceVar var.Text)
       print value
-      printfn <span class="str">" in"</span>
+      printfn " in"
       print spaces body
 
-  <span class="op">|</span> Lambda(var, body) <span class="op">-&gt;</span> 
-      <span class="rem">// Represents lambda function declaration (with one argument)</span>
-      printfn <span class="str">"%s(fun %s -&gt; "</span> spaces (makeNiceVar var.Text)
-      print (spaces + <span class="str">"  "</span>) body
-      printf <span class="str">"\n%s)"</span> spaces
+  | Lambda(var, body) -> 
+      // Represents lambda function declaration (with one argument)
+      printfn "%s(fun %s -> " spaces (makeNiceVar var.Text)
+      print (spaces + "  ") body
+      printf "\n%s)" spaces
       
-  <span class="op">|</span> // .. other cases ..</pre>  
+  | // .. other cases ..</pre>  
 <p>The more interesting part of this example is a code that extracts quotation from a top-level value
   marked with the <code>ReflectedDefinition</code> attribute. To do this, we first need to get a quotation
   that represents a reference to the value - this can be easily done by marking the value using quotation
   symbols:</p>  
-<pre >
-<span class="op">[</span>&lt;ReflectedDefinition&gt;<span class="op">]</span>
-<span class="kwrd">let</span> expr_topdef () =
-  print_string <span class="str">"Running 'expr_topdef'!"</span>
+<pre lang="fsharp">
+[&lt;ReflectedDefinition&gt;]
+let expr_topdef () =
+  print_string "Running 'expr_topdef'!"
 
-<span class="kwrd">do</span>  
-  <span class="rem">// Get top level definition</span>
-  <span class="kwrd">let</span> quotref = <span class="op">&lt;@@</span> expr_topdef <span class="op">@@&gt;</span>
-  <span class="kwrd">let</span> tdd = 
-    <span class="kwrd">match</span> quotref <span class="kwrd">with</span> 
-    <span class="op">|</span> AnyTopDefnUse(td) <span class="op">-&gt;</span> td 
-    <span class="op">|</span> <span class="op">_</span> <span class="op">-&gt;</span> failwith <span class="str">"Failed to match with top defn"</span>
-  <span class="kwrd">let</span> expr =
-    <span class="kwrd">match</span> (ResolveTopDefinition tdd) <span class="kwrd">with</span>
-    <span class="op">|</span> Some e <span class="op">-&gt;</span> e
-    <span class="op">|</span> None <span class="op">-&gt;</span> failwith <span class="str">"Failed to get quotation!"</span>
-  print <span class="str">""</span> expr
+do  
+  // Get top level definition
+  let quotref = &lt;@@ expr_topdef @@&gt;
+  let tdd = 
+    match quotref with 
+    | AnyTopDefnUse(td) -> td 
+    | _ -> failwith "Failed to match with top defn"
+  let expr =
+    match (ResolveTopDefinition tdd) with
+    | Some e -> e
+    | None -> failwith "Failed to get quotation!"
+  print "" expr
 </pre>
 <p>Once we have the quoted value, we can match it with a <code>AnyTopDefnUse</code> active pattern, which
   succeeds when a quotation represents a reference to a global value. This active patterns returns an tuple

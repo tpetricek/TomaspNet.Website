@@ -15,11 +15,18 @@
 
   <link rel="alternate" type="application/rss+xml" href="http://tomasp.net/rss.xml" title="RSS feed for Tomas Petricek's blog">
   <link rel="author" href="https://plus.google.com/109855146654605967051" />
+  <link rel="icon" type="image/png" href="http://tomasp.net/img/favicon.png" />
     
   <!-- Reference custom CSS and tooltips -->
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/style.css" />
   <script type="text/javascript" src="http://tomasp.net/custom/tooltips.js"></script>
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/tooltips.css" />
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:creator" content="@tomaspetricek">
+  <meta name="twitter:title" content="Applicative functors: definition and syntax">
+  <meta name="twitter:description" content="In a recent blog post, Edward Z. Yang talks about applicative functors. He mentions two equivalent definitions - the standard one used in Haskell and an alternative mentioned in the original paper. In this blog post, I describe some reasons why the alternative definition is useful.">
+
 </head>
 <body>
 
@@ -169,11 +176,11 @@ I'll talk about the syntactic support for <em>applicative functors</em> that Has
 programming with applicative functors (see also <a href="https://personal.cis.strath.ac.uk/conor.mcbride/pub/she/idiom.html" title="C. McBride: Idiom brackets (She's effectful)">idiom brackets in She</a>&#160;[<a href="#rf12082101">2</a>]).
 When you write:</p>
 
-<pre >(| f a1 .. an |) </pre>
+<pre lang="haskell">(| f a1 .. an |) </pre>
 
 <p>The syntax is desugared to:</p>
 
-<pre >(pure f) <span class="preproc">&lt;</span>*<span class="preproc">&gt;</span> a1 <span class="preproc">&lt;</span>*<span class="preproc">&gt;</span> .. <span class="preproc">&lt;</span>*<span class="preproc">&gt;</span> an</pre>
+<pre lang="haskell">(pure f) &lt;*&gt; a1 &lt;*&gt; .. &lt;*&gt; an</pre>
 
 <p>This is a nice and useful simplification if you're using the <em>applicative</em> style.
 It even more clearly highlights the intuition that applicative functors are useful

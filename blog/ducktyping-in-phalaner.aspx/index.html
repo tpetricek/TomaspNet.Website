@@ -15,11 +15,18 @@
 
   <link rel="alternate" type="application/rss+xml" href="http://tomasp.net/rss.xml" title="RSS feed for Tomas Petricek's blog">
   <link rel="author" href="https://plus.google.com/109855146654605967051" />
+  <link rel="icon" type="image/png" href="http://tomasp.net/img/favicon.png" />
     
   <!-- Reference custom CSS and tooltips -->
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/style.css" />
   <script type="text/javascript" src="http://tomasp.net/custom/tooltips.js"></script>
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/tooltips.css" />
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:creator" content="@tomaspetricek">
+  <meta name="twitter:title" content="Using PHP objects from C# in a type-safe way">
+  <meta name="twitter:description" content="In this article we present new features in the Phalanger beta 4 which make it possible to use objects from any PHP script in C# using type-safe way.">
+
 </head>
 <body>
 
@@ -72,11 +79,11 @@
   type-safe way.</p>
 <h2>Duck typing introduction</h2>
 <p>Let's start with a simple PHP object:</p>
-<pre >
-<span class="kwrd">class</span> SampleObj {
-  <span class="kwrd">public</span> $Message = <span class="str">"Hello world!"</span>;
-  <span class="kwrd">function</span> Add($a, $b) {
-    <span class="kwrd">return</span> $a + $b;
+<pre lang="php">
+class SampleObj {
+  public $Message = "Hello world!";
+  function Add($a, $b) {
+    return $a + $b;
   }
 }
 </pre>
@@ -98,37 +105,37 @@ phpc /target:dll /out:PhpClassLib.dll main.php
   correspond to the <code>SampleObj</code> and later we will create instance of this object and cast it
   to the declared interface using duck typing type coercion to get an view of the object allowing us
   to easily call are required PHP methods and access PHP fields:</p>
-<pre >
+<pre lang="csharp">
 [DuckType]
-<span class="kwrd">public</span> <span class="kwrd">interface</span> ISampleObj
+public interface ISampleObj
 {
-  <span class="kwrd">string</span> Message { get; set; }
-  <span class="kwrd">int</span> Add(<span class="kwrd">int</span> i1, <span class="kwrd">int</span> i2);
+  string Message { get; set; }
+  int Add(int i1, int i2);
 }
 </pre>  
 <p>First we need to load the PHP library in the C# application:</p>
-<pre >
-<span class="rem">// Get current PHP script context, set output to the console</span>
+<pre lang="csharp">
+// Get current PHP script context, set output to the console
 ScriptContext ctx = ScriptContext.CurrentContext;
 ctx.Output = Console.Out;
 
-<span class="rem">// Load the PhpClassLib library and include the "main.php" source</span>
-Type library_representative = <span class="kwrd">typeof</span>(PhpClassLib);
-ctx.IncludeScript(<span class="str">"main.php"</span>, library_representative);
+// Load the PhpClassLib library and include the "main.php" source
+Type library_representative = typeof(PhpClassLib);
+ctx.IncludeScript("main.php", library_representative);
 </pre>
 <p>Now we need to get an instance of the <code>SampleObj</code> class and coerce it to the
   C# <code>ISampleObj</code> interface:</p>
-<pre >
-<span class="rem">// Create instance of object 'SampleObj' declared in PHP</span>
-ISampleObj so = ctx.NewObject&lt;ISampleObj&gt;(<span class="str">"SampleObj"</span>);
+<pre lang="php">
+// Create instance of object 'SampleObj' declared in PHP
+ISampleObj so = ctx.NewObject&lt;ISampleObj&gt;("SampleObj");
 
-<span class="rem">// Set and then read the 'Message' property</span>
-so.Message = <span class="str">"Hello from C# (via PHP)!"</span>;
+// Set and then read the 'Message' property
+so.Message = "Hello from C# (via PHP)!";
 Console.WriteLine(so.Message);
 
-<span class="rem">// Call add method with integers as an arguments</span>
+// Call add method with integers as an arguments
 int r1 = so.Add(24, 18);
-Console.WriteLine(<span class="str">"Math: 24 + 18 = {0}"</span>, r1);
+Console.WriteLine("Math: 24 + 18 = {0}", r1);
 </pre>
 <p>As you can see in this example, once you defined the interface, calling PHP objects is
   amazingly simple! You use the interface as a type parameter of the <code>NewObject</code>
@@ -144,13 +151,13 @@ Console.WriteLine(<span class="str">"Math: 24 + 18 = {0}"</span>, r1);
   be called with floating point numbers as a parameter and it will add them and return result as a
   floating point number. It isn't difficult to get the same functionality in C#, because you can
   include more overloaded versions of the method in the interface:</p>
-<pre >
+<pre lang="csharp">
 [DuckType]
-<span class="kwrd">public</span> <span class="kwrd">interface</span> ISampleObj
+public interface ISampleObj
 {
-  <span class="kwrd">string</span> Message { get; set; }
-  <span class="kwrd">int</span> Add(<span class="kwrd">int</span> i1, <span class="kwrd">int</span> i2);
-  <span class="kwrd">double</span> Add(<span class="kwrd">double</span> d1, <span class="kwrd">double</span> d2);
+  string Message { get; set; }
+  int Add(int i1, int i2);
+  double Add(double d1, double d2);
 }
 </pre>
 <p>Another interesting situation is when the PHP object returns another PHP object as a result of the 
@@ -164,20 +171,20 @@ Console.WriteLine(<span class="str">"Math: 24 + 18 = {0}"</span>, r1);
 <p>To make the following sample even more interesting, we will use one more dynamic PHP feature - 
   the magic functions <code>__call</code> and <code>__get</code>. These two functions are invoked
   when script calls a member function or a member field that isn't explicitly declared.</p>
-<pre >
-<span class="kwrd">class</span> MagicSample {
-  <span class="kwrd">function</span> __call($name, $args) {
-    <span class="kwrd">echo</span> <span class="str">"Calling unknown function '$name' with "</span>.count($args).<span class="str">" arguments.\n"</span>;
+<pre lang="php">
+class MagicSample {
+  function __call($name, $args) {
+    echo "Calling unknown function '$name' with ".count($args)." arguments.\n";
   }
   
-  <span class="kwrd">function</span> __get($name) {
-    <span class="kwrd">return</span> <span class="str">"Reading unknown '$name' value."</span>;
+  function __get($name) {
+    return "Reading unknown '$name' value.";
   }
 }
 
-<span class="kwrd">class</span> SampleObj {
-  <span class="kwrd">function</span> NewMagic() {
-    <span class="kwrd">return</span> <span class="kwrd">new</span> MagicSample;
+class SampleObj {
+  function NewMagic() {
+    return new MagicSample;
   }
 }
 </pre>  
@@ -186,30 +193,30 @@ Console.WriteLine(<span class="str">"Math: 24 + 18 = {0}"</span>, r1);
   know the name of the function you want to call (we'll show more real-world example later). If you 
   want to call function <code>SomeMethod</code> and read the field <code>SomeProp</code> from C#, 
   you will need to define interfaces as follows:</p>
-<pre >
+<pre lang="csharp">
 [DuckType]
-<span class="kwrd">public</span> <span class="kwrd">interface</span> ISampleObj {
+public interface ISampleObj {
   ISecondSample NewMagic();
 }
 
 [DuckType]
-<span class="kwrd">public</span> <span class="kwrd">interface</span> IMagicSample {
-  <span class="kwrd">void</span> SomeMethod(<span class="kwrd">int</span> p1, <span class="kwrd">int</span> p2, <span class="kwrd">int</span> p3);
-  <span class="kwrd">string</span> SomeProp { get; }
+public interface IMagicSample {
+  void SomeMethod(int p1, int p2, int p3);
+  string SomeProp { get; }
 }
 </pre>  
 <p>Using this two objects gives the same results you would expect when using them directly from PHP:</p>
-<pre >
-<span class="rem">// Create instance of object 'SampleObj' declared in PHP</span>
-ISampleObj so = ctx.NewObject&lt;ISampleObj&gt;(<span class="str">"SampleObj"</span>);
+<pre lang="csharp">
+// Create instance of object 'SampleObj' declared in PHP
+ISampleObj so = ctx.NewObject&lt;ISampleObj&gt;("SampleObj");
 
-<span class="rem">// Returning PHP objects from PHP</span>
+// Returning PHP objects from PHP
 IMagicSample mag = so.NewMagic();
 
-<span class="rem">// Call unknown method</span>
+// Call unknown method
 mag.SomeMethod(1, 2, 3);
 
-<span class="rem">// Read unknown field</span>
+// Read unknown field
 Console.WriteLine(mag.SomeProp);
 </pre>
 <p>Executing this program prints:</p>
@@ -225,23 +232,23 @@ Reading unknown 'SomeProp' value.
   to access these fields from C# we will need to define a few interfaces first (the following
   sample includes only a few of all the required interfaces, the complete sample is attached and 
   you can download it):</p>
-<pre >
+<pre lang="csharp">
 [DuckType]
-<span class="kwrd">public</span> <span class="kwrd">interface</span> IRssRssNode {
+public interface IRssRssNode {
   IRssChannelNode channel { get; }
 }
 
 [DuckType]
-<span class="kwrd">public</span> <span class="kwrd">interface</span> IRssChannelNode {
-  <span class="kwrd">string</span> title { get; }
+public interface IRssChannelNode {
+  string title { get; }
   
-  [DuckName(<span class="str">"item"</span>)]
+  [DuckName("item")]
   IDuckEnumerable&lt;IRssItemNode&gt; items { get; }
 }
 
 [DuckType]
-<span class="kwrd">public</span> <span class="kwrd">interface</span> IRssItemNode {
-  <span class="kwrd">string</span> title { get; }
+public interface IRssItemNode {
+  string title { get; }
 }
 </pre>
 <p>This sample contains two new features that were not mentioned earlier - first we used 
@@ -253,14 +260,14 @@ Reading unknown 'SomeProp' value.
   where <code>IRssItemNode</code> is another interface marked using <code>DuckType</code>, which means that
   when iterating over the elements, every element will be coerced to the interface representing the item in RSS document.
   The following sample uses interfaces declared above to read sample RSS feed:</p>
-<pre >
-IRssXml xml = ctx.Call&lt;IRssXml&gt;(<span class="str">"simplexml_load_file"</span>, 
-  <span class="str">"http://www.nytimes.com/services/xml/rss/nyt/HomePage.xml"</span>);
-Console.WriteLine(<span class="str">"Title: {0}"</span>, xml.rss.channel.title);
+<pre lang="csharp">
+IRssXml xml = ctx.Call&lt;IRssXml&gt;("simplexml_load_file", 
+  "http://www.nytimes.com/services/xml/rss/nyt/HomePage.xml");
+Console.WriteLine("Title: {0}", xml.rss.channel.title);
 
-<span class="rem">// Iterate over items in the channel node:</span>
-<span class="kwrd">foreach</span> (IRssItemNode item <span class="kwrd">in</span> xml.rss.channel.items) {
-  Console.WriteLine(<span class="str">" - {0}"</span>, item.title);
+// Iterate over items in the channel node:
+foreach (IRssItemNode item in xml.rss.channel.items) {
+  Console.WriteLine(" - {0}", item.title);
 }
 </pre>
 <h2>Conclusion</h2>

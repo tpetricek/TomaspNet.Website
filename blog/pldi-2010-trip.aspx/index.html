@@ -15,11 +15,18 @@
 
   <link rel="alternate" type="application/rss+xml" href="http://tomasp.net/rss.xml" title="RSS feed for Tomas Petricek's blog">
   <link rel="author" href="https://plus.google.com/109855146654605967051" />
+  <link rel="icon" type="image/png" href="http://tomasp.net/img/favicon.png" />
     
   <!-- Reference custom CSS and tooltips -->
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/style.css" />
   <script type="text/javascript" src="http://tomasp.net/custom/tooltips.js"></script>
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/tooltips.css" />
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:creator" content="@tomaspetricek">
+  <meta name="twitter:title" content="PLDI 2010 Trip Report">
+  <meta name="twitter:description" content="In June, I attended PLDI 2010, which is one of the big "programming language" conferences. I presented a paper based on some work that I did during my internship at MSR at one of the workshops and I also attended many interesting talks...">
+
 </head>
 <body>
 
@@ -133,14 +140,14 @@
   result. The paper presents a static verification algorithm that checks whether the "recalculation"
   needs to rollback some side-effects (which would be impossible). The authors also presented 
   a C# library, which allows us to write something like this:</p>
-<pre >
+<pre lang="csharp">
 Speculation.Iterate(0, numTasks,
   (i, state) =&gt; {
-    <span class="rem">// Body of the stateful loop </span>
-    <span class="rem">// - calculate new state based on current 'state' and index 'i'</span>
+    // Body of the stateful loop 
+    // - calculate new state based on current 'state' and index 'i'
   }, (i) =&gt;
-    <span class="rem">// Prediction function</span>
-    <span class="rem">// - calculate new state without knowing the current 'state'</span>
+    // Prediction function
+    // - calculate new state without knowing the current 'state'
   });
 </pre>
 <p>This raises some interesting problems for F# as well. It turns out that encoding this

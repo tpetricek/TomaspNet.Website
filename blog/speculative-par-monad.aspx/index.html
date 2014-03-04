@@ -15,11 +15,18 @@
 
   <link rel="alternate" type="application/rss+xml" href="http://tomasp.net/rss.xml" title="RSS feed for Tomas Petricek's blog">
   <link rel="author" href="https://plus.google.com/109855146654605967051" />
+  <link rel="icon" type="image/png" href="http://tomasp.net/img/favicon.png" />
     
   <!-- Reference custom CSS and tooltips -->
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/style.css" />
   <script type="text/javascript" src="http://tomasp.net/custom/tooltips.js"></script>
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/tooltips.css" />
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:creator" content="@tomaspetricek">
+  <meta name="twitter:title" content="Explicit speculative parallelism for Haskell's Par monad">
+  <meta name="twitter:description" content="This article shows how to extend Haskell's Par monad to support cancellation of computations. This makes it possible to implement speculative parallelism using the monad and to build other high-level abstraction such as the unamb operator designed by Conal Elliott.">
+
 </head>
 <body>
 
@@ -97,20 +104,20 @@
   
 <p>Here is a basic example:</p>
 
-<pre >
-<span class="rem">-- Naive calculation of Fibonacci numbers</span>
-fib <span class="preproc">::</span> Int64 <span class="preproc">-</span><span class="preproc">&gt;</span> Int64
-fib x | x <span class="preproc">&lt;</span> 1 <span class="preproc">=</span> 1
-fib x <span class="preproc">=</span> fib (x-2) <span class="preproc">+</span> fib (x-1)
+<pre lang="haskell">
+-- Naive calculation of Fibonacci numbers
+fib :: Int64 -&gt; Int64
+fib x | x &lt; 1 = 1
+fib x = fib (x-2) + fib (x-1)
 
-<span class="rem">-- Parallel version of the function</span>
-pfib <span class="preproc">::</span> Int64 <span class="preproc">-</span><span class="preproc">&gt;</span> Par Int64
-pfib n | n <span class="preproc">&lt;</span> 25 <span class="preproc">=</span> return (fib n)
-pfib n <span class="preproc">=</span> <span class="kwrd">do</span> 
-  av <span class="preproc">&lt;</span><span class="preproc">-</span> spawn (pfib (n <span class="preproc">-</span> 1))
-  b  <span class="preproc">&lt;</span><span class="preproc">-</span> pfib (n <span class="preproc">-</span> 2)  
-  a  <span class="preproc">&lt;</span><span class="preproc">-</span> get av
-  return (a <span class="preproc">+</span> b)
+-- Parallel version of the function
+pfib :: Int64 -&gt; Par Int64
+pfib n | n &lt; 25 = return (fib n)
+pfib n = do 
+  av &lt;- spawn (pfib (n - 1))
+  b  &lt;- pfib (n - 2)  
+  a  &lt;- get av
+  return (a + b)
 </pre>
 
 <p>The <code>fib</code> function is a usual (non-parallel) function for calculating Fibonacci numbers. The 
@@ -118,8 +125,8 @@ pfib n <span class="preproc">=</span> <span class="kwrd">do</span>
   is smaller than 25, it runs sequential <code>fib</code> to avoid generating too many small work items. 
   If the argument is sufficiently large, the function <em>spawns</em> a computation to calculate 
   <code>pfib (n-1)</code> in parallel. The type of the <code>spawn</code> function is:</p>
-<pre >
-spawn <span class="preproc">::</span> NFData a <span class="preproc">=</span><span class="preproc">&gt;</span> Par a <span class="preproc">-</span><span class="preproc">&gt;</span> Par (IVar a)
+<pre lang="haskell">
+spawn :: NFData a =&gt; Par a -&gt; Par (IVar a)
 </pre>
 <p>The <code>NFData</code> requirement specifies that it should be possible to fully evaluate the 
   data structure. The rest of the signature says that the function takes some computations and returns
@@ -127,8 +134,8 @@ spawn <span class="preproc">::</span> NFData a <span class="preproc">=</span><sp
   computation. When writing code in the <code>Par</code> monad, we can get a value from the variable
   using <code>get</code> function. The function blocks the computation until a value becomes
   available and has the following type:</p>
-<pre >
-get <span class="preproc">::</span> IVar a <span class="preproc">-</span><span class="preproc">&gt;</span> Par a
+<pre lang="haskell">
+get :: IVar a -&gt; Par a
 </pre>
 <p>Now it should be easy to understand the rest of the <code>pfib</code> body. It spawns one recursive
   computation (as a background task), then runs the second recursive call on the main thread and then
@@ -136,12 +143,12 @@ get <span class="preproc">::</span> IVar a <span class="preproc">-</span><span c
 
 <p>The following simple snippet shows how to run the two functions and it shows some approximate
   performance measurements:</p>
-<pre >
-main <span class="preproc">=</span> <span class="kwrd">do</span> 
-  <span class="rem">-- Naive sequential fibonacci (1.8 sec)</span>
-  print <span class="preproc">$</span> fib 32
-  <span class="rem">-- Parallel version with 25 threshold (1.0 sec)</span>
-  print <span class="preproc">$</span> runPar <span class="preproc">$</span> pfib 32
+<pre lang="haskell">
+main = do 
+  -- Naive sequential fibonacci (1.8 sec)
+  print $ fib 32
+  -- Parallel version with 25 threshold (1.0 sec)
+  print $ runPar $ pfib 32
 </pre>
 <p>When we have a value of type <code>Par a</code>, we can evaluate it (to get an <code>a</code> value)
   using the <code>runPar</code> function. When running the parallel function on dual-core machine,
@@ -174,10 +181,10 @@ main <span class="preproc">=</span> <span class="kwrd">do</span>
   However, when <code>a</code> doesn't terminate, the overall expression will also never
   yield a value, because it will start evaluating <code>a</code> first. Using <code>unamb</code>,
   you can write:</p>
-<pre >
+<pre lang="haskell">
 import Data.Unamb
 
-c <span class="preproc">=</span> unamb (a <span class="preproc">&amp;&amp;</span> b) (b <span class="preproc">&amp;&amp;</span> a)
+c = unamb (a &amp;&amp; b) (b &amp;&amp; a)
 </pre>
 <p>This use clearly matches the compatibility requirement. When both arguments terminate, the
   result is same in both of the cases. However, the expression returns <code>False</code>
@@ -189,9 +196,9 @@ c <span class="preproc">=</span> unamb (a <span class="preproc">&amp;&amp;</span
   the inputs, but not for all of them. Using <code>unamb</code>, we can write the following 
   helper that takes two functions and returns the value that is produced first:</p>
 
-<pre >
-tryBoth <span class="preproc">::</span> (t <span class="preproc">-</span><span class="preproc">&gt;</span> a) <span class="preproc">-</span><span class="preproc">&gt;</span> (t <span class="preproc">-</span><span class="preproc">&gt;</span> a) <span class="preproc">-</span><span class="preproc">&gt;</span> t <span class="preproc">-</span><span class="preproc">&gt;</span> a
-tryBoth f1 f2 n <span class="preproc">=</span> unamb (f1 n) (f2 n)
+<pre lang="haskell">
+tryBoth :: (t -&gt; a) -&gt; (t -&gt; a) -&gt; t -&gt; a
+tryBoth f1 f2 n = unamb (f1 n) (f2 n)
 </pre>
 
 <p>To demonstrate how the function works, I implemented a more clever function for calculating
@@ -199,13 +206,13 @@ tryBoth f1 f2 n <span class="preproc">=</span> unamb (f1 n) (f2 n)
   generated numbers. If you want to play with it, you can find the complete source code at 
   the end of the article. The following example shows the results:</p>
 
-<pre >
-main <span class="preproc">=</span> <span class="kwrd">do</span>
-  <span class="rem">-- Naive recursive implementation (~1.7 sec)</span>
+<pre lang="haskell">
+main = do
+  -- Naive recursive implementation (~1.7 sec)
   print fib 32
-  <span class="rem">-- Efficient implementation (~0.01 sec)</span>
+  -- Efficient implementation (~0.01 sec)
   print ffib 32
-  <span class="rem">-- Tries evaluating result using both functions (~0.01 sec)</span>
+  -- Tries evaluating result using both functions (~0.01 sec)
   tryBoth fib ffib 32 
 </pre>
 
@@ -233,19 +240,19 @@ main <span class="preproc">=</span> <span class="kwrd">do</span>
   that provide higher-level of abstraction. For example, it is quite easy to implement 
   <code>unamb</code> operator for <code>Par a</code> values:</p>
 
-<pre >
-<span class="rem">-- Unambiguous choice between two parallel computations</span>
-<span class="rem">-- Assumes that computations p1 and p2 are compatible</span>
-punamb <span class="preproc">::</span> NFData a <span class="preproc">=</span><span class="preproc">&gt;</span> Par a <span class="preproc">-</span><span class="preproc">&gt;</span> Par a <span class="preproc">-</span><span class="preproc">&gt;</span> Par a
-punamb p1 p2 <span class="preproc">=</span> <span class="kwrd">do</span>
-  res <span class="preproc">&lt;</span><span class="preproc">-</span> newBlocking
-  ct1 <span class="preproc">&lt;</span><span class="preproc">-</span> newCancelToken
-  ct2 <span class="preproc">&lt;</span><span class="preproc">-</span> newCancelToken
-  forkWith ct1 (<span class="kwrd">do</span>
-    a <span class="preproc">&lt;</span><span class="preproc">-</span> p1; put res a; cancel ct2)
-  forkWith ct2 (<span class="kwrd">do</span>
-    a <span class="preproc">&lt;</span><span class="preproc">-</span> p2; put res a; cancel ct1)
-  v <span class="preproc">&lt;</span><span class="preproc">-</span> get res
+<pre lang="haskell">
+-- Unambiguous choice between two parallel computations
+-- Assumes that computations p1 and p2 are compatible
+punamb :: NFData a =&gt; Par a -&gt; Par a -&gt; Par a
+punamb p1 p2 = do
+  res &lt;- newBlocking
+  ct1 &lt;- newCancelToken
+  ct2 &lt;- newCancelToken
+  forkWith ct1 (do
+    a &lt;- p1; put res a; cancel ct2)
+  forkWith ct2 (do
+    a &lt;- p2; put res a; cancel ct1)
+  v &lt;- get res
   return v
 </pre>
 
@@ -278,14 +285,14 @@ punamb p1 p2 <span class="preproc">=</span> <span class="kwrd">do</span>
 <p>The following snippet uses <code>punamb</code> to implement an example similar to the 
   earlier demonstration of <code>unamb</code>. The <code>pffib</code> function (not shown in this
   article) is a faster implementation of Fibonacci numbers embedded in the <code>Par</code> monad:</p>
-<pre >
-main <span class="preproc">=</span> <span class="kwrd">do</span>
-  <span class="rem">-- Naive recursion using Par monad (~1.1 sec)</span>
-  print <span class="preproc">$</span> runPar <span class="preproc">$</span> pfib 32
-  <span class="rem">-- Efficient recursion using Par monad (~0.01 sec)</span>
-  print <span class="preproc">$</span> runPar <span class="preproc">$</span> pffib 32
-  <span class="rem">-- Tries evaluating both &amp; returns the first (~0.04 sec)</span>
-  print <span class="preproc">$</span> runPar <span class="preproc">$</span> punamb (pfib 32) (pffib 32)
+<pre lang="haskell">
+main = do
+  -- Naive recursion using Par monad (~1.1 sec)
+  print $ runPar $ pfib 32
+  -- Efficient recursion using Par monad (~0.01 sec)
+  print $ runPar $ pffib 32
+  -- Tries evaluating both &amp; returns the first (~0.04 sec)
+  print $ runPar $ punamb (pfib 32) (pffib 32)
 </pre>
 <p>As you would expect, the <code>punamb</code> operation behaves similarly to <code>unamb</code>.
   When given two computations, it finishes after the first one completes. The time is slightly larger,
@@ -329,24 +336,24 @@ main <span class="preproc">=</span> <span class="kwrd">do</span>
 
 <p>The example uses the following simple tree structure:</p>
 
-<pre >
-<span class="kwrd">data</span> Tree a 
-  <span class="preproc">=</span> Leaf a
+<pre lang="haskell">
+data Tree a 
+  = Leaf a
   | Node (Tree a) (Tree a)
 </pre>
 
 <p>The following snippet shows a basic parallel version of <code>forall</code>. It uses the same recursive
   parallel processing pattern that was used earlier in the <code>pfib</code> function:</p>
 
-<pre >
-<span class="rem">-- Test whether all elements match the given predicate (in parallel)</span>
-forallp <span class="preproc">::</span> (a <span class="preproc">-</span><span class="preproc">&gt;</span> Bool) <span class="preproc">-</span><span class="preproc">&gt;</span> Tree a <span class="preproc">-</span><span class="preproc">&gt;</span> Par Bool
-forallp p (Leaf num) <span class="preproc">=</span> return <span class="preproc">$</span> p num
-forallp p (Node left right) <span class="preproc">=</span> <span class="kwrd">do</span>
-  al' <span class="preproc">&lt;</span><span class="preproc">-</span> spawn <span class="preproc">$</span> forallp p left
-  ar  <span class="preproc">&lt;</span><span class="preproc">-</span> forallp p right
-  al  <span class="preproc">&lt;</span><span class="preproc">-</span> get al'
-  return (al <span class="preproc">&amp;&amp;</span> ar)
+<pre lang="haskell">
+-- Test whether all elements match the given predicate (in parallel)
+forallp :: (a -&gt; Bool) -&gt; Tree a -&gt; Par Bool
+forallp p (Leaf num) = return $ p num
+forallp p (Node left right) = do
+  al' &lt;- spawn $ forallp p left
+  ar  &lt;- forallp p right
+  al  &lt;- get al'
+  return (al &amp;&amp; ar)
 </pre>
 
 <p>When processing a leaf, the function calls the predicate and returns the result. When processing a node, 
@@ -361,35 +368,35 @@ forallp p (Node left right) <span class="preproc">=</span> <span class="kwrd">do
   other computation completes before it can set the final result.</p>
 
 <p>The following snippet shows the speculative version:</p>
-<pre >
-<span class="rem">-- Test whether all elements match the given predicate</span>
-<span class="rem">-- (Speculatively - False is returned immediately)</span>
-foralls <span class="preproc">::</span> (a <span class="preproc">-</span><span class="preproc">&gt;</span> Bool) <span class="preproc">-</span><span class="preproc">&gt;</span> Tree a <span class="preproc">-</span><span class="preproc">&gt;</span> Par Bool
-foralls p tree <span class="preproc">=</span> <span class="kwrd">do</span>
-    tok <span class="preproc">&lt;</span><span class="preproc">-</span> newCancelToken
-    r <span class="preproc">&lt;</span><span class="preproc">-</span> forall' p tok tree
+<pre lang="haskell">
+-- Test whether all elements match the given predicate
+-- (Speculatively - False is returned immediately)
+foralls :: (a -&gt; Bool) -&gt; Tree a -&gt; Par Bool
+foralls p tree = do
+    tok &lt;- newCancelToken
+    r &lt;- forall' p tok tree
     cancel tok 
     return r
-  <span class="kwrd">where</span> 
-    <span class="rem">-- Recursively start computations using the same cancellation token</span>
-    forall' p tok (Leaf v) <span class="preproc">=</span> return (p v)
-    forall' p tok (Node left right) <span class="preproc">=</span> <span class="kwrd">do</span>
-      leftRes <span class="preproc">&lt;</span><span class="preproc">-</span> new
-      rightRes <span class="preproc">&lt;</span><span class="preproc">-</span> new
-      finalRes <span class="preproc">&lt;</span><span class="preproc">-</span> newBlocking
-      forkWith tok (forall' p tok left <span class="preproc">&gt;</span><span class="preproc">&gt;</span><span class="preproc">=</span> 
+  where 
+    -- Recursively start computations using the same cancellation token
+    forall' p tok (Leaf v) = return (p v)
+    forall' p tok (Node left right) = do
+      leftRes &lt;- new
+      rightRes &lt;- new
+      finalRes &lt;- newBlocking
+      forkWith tok (forall' p tok left &gt;&gt;= 
         completed leftRes rightRes finalRes)
-      forkWith tok (forall' p tok right <span class="preproc">&gt;</span><span class="preproc">&gt;</span><span class="preproc">=</span> 
+      forkWith tok (forall' p tok right &gt;&gt;= 
         completed rightRes leftRes finalRes)
       get finalRes
 
     
-    <span class="rem">-- Called when one of the branches complete. Write result immediately</span>
-    <span class="rem">-- if it is False, otherwise wait for the second computation.</span>
-    completed varA varB fin resA <span class="preproc">=</span> <span class="kwrd">do</span>
+    -- Called when one of the branches complete. Write result immediately
+    -- if it is False, otherwise wait for the second computation.
+    completed varA varB fin resA = do
       put varA resA
       if not resA then put fin False
-      else get varB <span class="preproc">&gt;</span><span class="preproc">&gt;</span><span class="preproc">=</span> put fin . (<span class="preproc">&amp;&amp;</span> resA)
+      else get varB &gt;&gt;= put fin . (&amp;&amp; resA)
 </pre>
 
 <p>The main body of the function creates a new <code>CancelToken</code> and then calls a helper that does 
@@ -417,17 +424,17 @@ foralls p tree <span class="preproc">=</span> <span class="kwrd">do</span>
 <p>The complete source code contains a full example that you can run to test the function. Assuming we have
   a tree value named <code>tree</code>, we can write the following test. It demonstrates the performance of a 
   simple sequential version, parallel version and a speculative version from the last listing:</p>
-<pre >
-main <span class="preproc">=</span> <span class="kwrd">do</span>
-  <span class="rem">-- Binary tree contains ~270 large primes and a single</span>
-  <span class="rem">-- non-prime number. The tree is fully evaluated.</span>
+<pre lang="haskell">
+main = do
+  -- Binary tree contains ~270 large primes and a single
+  -- non-prime number. The tree is fully evaluated.
 
-  <span class="rem">-- Single-threaded version (see source code link) (~3.7 sec)</span>
-  measure <span class="str">"Non-prime num (Seq) "</span> (forall isPrime tree2)
-  <span class="rem">-- Simple parallel version (~1.9 sec)</span>
-  measure <span class="str">"Non-prime num (Par) "</span> (runPar <span class="preproc">$</span> forallp isPrime tree2)
-  <span class="rem">-- Parallel version with shortcircuiting (~0.01 sec)</span>
-  measure <span class="str">"Non-prime num (Shr) "</span> (runPar <span class="preproc">$</span> foralls isPrime tree2)
+  -- Single-threaded version (see source code link) (~3.7 sec)
+  measure "Non-prime num (Seq) " (forall isPrime tree2)
+  -- Simple parallel version (~1.9 sec)
+  measure "Non-prime num (Par) " (runPar $ forallp isPrime tree2)
+  -- Parallel version with shortcircuiting (~0.01 sec)
+  measure "Non-prime num (Shr) " (runPar $ foralls isPrime tree2)
 </pre>
 
 <p>The example generates a tree containing large prime numbers and one number that is not a prime. 

@@ -15,11 +15,18 @@
 
   <link rel="alternate" type="application/rss+xml" href="http://tomasp.net/rss.xml" title="RSS feed for Tomas Petricek's blog">
   <link rel="author" href="https://plus.google.com/109855146654605967051" />
+  <link rel="icon" type="image/png" href="http://tomasp.net/img/favicon.png" />
     
   <!-- Reference custom CSS and tooltips -->
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/style.css" />
   <script type="text/javascript" src="http://tomasp.net/custom/tooltips.js"></script>
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/tooltips.css" />
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:creator" content="@tomaspetricek">
+  <meta name="twitter:title" content="Imperative computation in F# (II.) - Writing break and continue">
+  <meta name="twitter:description" content="In the previous article of this series, we've implemented a computation expression that allows us to write imperative 'return' in F#. In this article, we'll add support for 'break' and 'continue'.">
+
 </head>
 <body>
 
@@ -69,11 +76,11 @@
   using F# computation expressions and I showed how to implement computation named <code>imperative</code>
   that allows us to write for example the <code>exists</code> function for working with sequences
   like this:</p>
-<pre >
-<span class="kwrd">let</span> exists f inp = imperative {
-  <span class="kwrd">for</span> v <span class="kwrd">in</span> inp <span class="kwrd">do</span> 
-    <span class="kwrd">if</span> f(v) <span class="kwrd">then</span> <span class="kwrd">return</span> <span class="kwrd">true</span>
-  <span class="kwrd">return</span> <span class="kwrd">false</span> }
+<pre lang="fsharp">
+let exists f inp = imperative {
+  for v in inp do 
+    if f(v) then return true
+  return false }
 </pre>  
 <p>In this article, we're going to look at two more imperative constructs and we're going
   to talk about <code>break</code> and <code>continue</code>. We'll see that we can quite
@@ -81,11 +88,11 @@
   that is syntactically very close to what you would write in C#. As I already mentioned,
   there are of course some performance overheads when using computation expressions, but 
   I find it very interesting how nice imperative syntax we can get in functional F#:</p>
-<pre >
+<pre lang="fsharp">
 imperative { 
-  <span class="kwrd">for</span> x <span class="kwrd">in</span> 1 .. 10 <span class="kwrd">do</span> 
-    <span class="kwrd">if</span> (x % 3 = 0) <span class="kwrd">then</span> <span class="kwrd">do!</span> continue
-    printfn <span class="str">"number = %d"</span> x }
+  for x in 1 .. 10 do 
+    if (x % 3 = 0) then do! continue
+    printfn "number = %d" x }
 </pre>  
 <p>The only difference between this code and the code we'd probably write if F# supported
   <code>continue</code> as a keyword is that we need to wrap the code inside the <code>imperative</code>
@@ -110,13 +117,13 @@ imperative {
   we'll need to add a case that represents a computation that is <em>jumping</em> out of the 
   iteration of a loop. We can declare the type like this:</p>
 
-<pre >
-<span class="kwrd">type</span> ImperativeResult&lt;'T&gt; = 
-  <span class="op">|</span> ImpValue <span class="kwrd">of</span> 'T
-  <span class="op">|</span> ImpJump <span class="kwrd">of</span> bool
-  <span class="op">|</span> ImpNone 
+<pre lang="fsharp">
+type ImperativeResult&lt;'T&gt; = 
+  | ImpValue of 'T
+  | ImpJump of bool
+  | ImpNone 
   
-<span class="kwrd">type</span> Imperative&lt;'T&gt; = unit <span class="op">-&gt;</span> ImperativeResult&lt;'T&gt;
+type Imperative&lt;'T&gt; = unit -&gt; ImperativeResult&lt;'T&gt;
 </pre>
 <p>The <code>ImperativeResult&lt;'T&gt;</code> type is in principle just an extension of the 
   <code>option&lt;'T&gt;</code> type that adds one case - the <code>ImpJump</code> discriminator.
@@ -131,37 +138,37 @@ imperative {
   as in the previous article and we'll start with the basic primitives that aren't related
   to loops. </p> 
 
-<pre >
-<span class="kwrd">type</span> ImperativeBuilder() = 
-  <span class="rem">// When returning a value, we'll use the 'ImpValue' discriminator</span>
-  <span class="kwrd">member</span> x.Return(v) : Imperative&lt;<span class="op">_</span>&gt; = 
-    (<span class="kwrd">fun</span> () <span class="op">-&gt;</span> ImpValue(v))
-  <span class="rem">// Expression that doesn't represent any value returns 'ImpNone'</span>
-  <span class="kwrd">member</span> x.Zero() = (<span class="kwrd">fun</span> () <span class="op">-&gt;</span> ImpNone)
+<pre lang="fsharp">
+type ImperativeBuilder() = 
+  // When returning a value, we'll use the 'ImpValue' discriminator
+  member x.Return(v) : Imperative&lt;_&gt; = 
+    (fun () -&gt; ImpValue(v))
+  // Expression that doesn't represent any value returns 'ImpNone'
+  member x.Zero() = (fun () -&gt; ImpNone)
   
-  <span class="rem">// Create a delayed imperative computation from a function</span>
-  <span class="kwrd">member</span> x.Delay(f:unit <span class="op">-&gt;</span> Imperative&lt;<span class="op">_</span>&gt;) = 
-    (<span class="kwrd">fun</span> () <span class="op">-&gt;</span> f()())
+  // Create a delayed imperative computation from a function
+  member x.Delay(f:unit -&gt; Imperative&lt;_&gt;) = 
+    (fun () -&gt; f()())
 
-  <span class="rem">// Combine two delayed computations that may return or jump</span>
-  <span class="kwrd">member</span> x.Combine(a, b) = (<span class="kwrd">fun</span> () <span class="op">-&gt;</span>
-    <span class="kwrd">match</span> a() <span class="kwrd">with</span> 
-    <span class="rem">// The computation doesn't have value - evaluate the next</span>
-    <span class="op">|</span> ImpNone <span class="op">-&gt;</span> b() 
-    <span class="rem">// If the computation returned value or called break/return</span>
-    <span class="rem">// we'll propagate the value representing the result</span>
-    <span class="op">|</span> res <span class="op">-&gt;</span> res)
+  // Combine two delayed computations that may return or jump
+  member x.Combine(a, b) = (fun () -&gt;
+    match a() with 
+    // The computation doesn't have value - evaluate the next
+    | ImpNone -&gt; b() 
+    // If the computation returned value or called break/return
+    // we'll propagate the value representing the result
+    | res -&gt; res)
   
-  <span class="rem">// Execute the imperative computation given as the argument  </span>
-  <span class="kwrd">member</span> x.Run&lt;'T&gt;(imp) = 
-    <span class="rem">// When the computation returns 'ImpJump' it is an indication</span>
-    <span class="rem">// that 'break' or 'continue' was used incorrectly.</span>
-    <span class="kwrd">match</span> imp() <span class="kwrd">with</span>
-    <span class="op">|</span> ImpValue(v) <span class="op">-&gt;</span> v
-    <span class="op">|</span> ImpJump <span class="op">_</span> <span class="op">-&gt;</span> failwith <span class="str">"Invalid use of break/continue!"</span>
-    <span class="op">|</span> <span class="op">_</span> <span class="op">-&gt;</span> failwith <span class="str">"No value has been returend!"</span>
+  // Execute the imperative computation given as the argument  
+  member x.Run&lt;'T&gt;(imp) = 
+    // When the computation returns 'ImpJump' it is an indication
+    // that 'break' or 'continue' was used incorrectly.
+    match imp() with
+    | ImpValue(v) -&gt; v
+    | ImpJump _ -&gt; failwith "Invalid use of break/continue!"
+    | _ -&gt; failwith "No value has been returend!"
 
-<span class="kwrd">let</span> imperative = <span class="kwrd">new</span> ImperativeBuilder()  
+let imperative = new ImperativeBuilder()  
 </pre>
 <p>If you compare the listing with the code from the previous article, you'll see
   that there are relatively few changes. First of all, we've changed all occurrences
@@ -193,46 +200,46 @@ imperative {
   case, because the <code>Combine</code> primitive doesn't call the second computation when
   it gets <code>ImpJump</code> as the result from the first one).</p>  
 
-<pre >
-<span class="kwrd">type</span> ImperativeBuilder <span class="kwrd">with</span> 
-  <span class="rem">// A local helper used when composing iterations of loops</span>
-  <span class="rem">// in the 'For' and 'While' primitives below.</span>
-  <span class="kwrd">member</span> x.CombineLoop(a, b) = (<span class="kwrd">fun</span> () <span class="op">-&gt;</span>
-    <span class="kwrd">match</span> a() <span class="kwrd">with</span> 
-    <span class="rem">// When the last iteration returns a value, propagate the result</span>
-    <span class="op">|</span> ImpValue(v) <span class="op">-&gt;</span> ImpValue(v) 
-    <span class="rem">// The last iteration contained 'break', so we'll </span>
-    <span class="rem">// return missing value as the result from the loop</span>
-    <span class="op">|</span> ImpJump(<span class="kwrd">false</span>) <span class="op">-&gt;</span> ImpNone
-    <span class="rem">// When the last iteration didn't contain any special construct</span>
-    <span class="rem">// or when it ended with 'continue', we'll continue looping</span>
-    <span class="op">|</span> ImpJump(<span class="kwrd">true</span>)
-    <span class="op">|</span> ImpNone <span class="op">-&gt;</span> b() )
+<pre lang="fsharp">
+type ImperativeBuilder with 
+  // A local helper used when composing iterations of loops
+  // in the 'For' and 'While' primitives below.
+  member x.CombineLoop(a, b) = (fun () -&gt;
+    match a() with 
+    // When the last iteration returns a value, propagate the result
+    | ImpValue(v) -&gt; ImpValue(v) 
+    // The last iteration contained 'break', so we'll 
+    // return missing value as the result from the loop
+    | ImpJump(false) -&gt; ImpNone
+    // When the last iteration didn't contain any special construct
+    // or when it ended with 'continue', we'll continue looping
+    | ImpJump(true)
+    | ImpNone -&gt; b() )
   
-  <span class="rem">// 'For' and 'While' members that implement the looping constructs</span>
-  <span class="rem">// are similar as in the previous version, with the exception that they</span>
-  <span class="rem">// compose iterations using the special 'CombineLoop' primitive</span>
-  <span class="kwrd">member</span> x.For(inp:seq&lt;<span class="op">_</span>&gt;, f) =
-    <span class="kwrd">let</span> <span class="kwrd">rec</span> loop(en:IEnumerator&lt;<span class="op">_</span>&gt;) = 
-      <span class="kwrd">if</span> not(en.MoveNext()) <span class="kwrd">then</span> x.Zero() <span class="kwrd">else</span>
-        x.CombineLoop(f(en.Current), x.Delay(<span class="kwrd">fun</span> () <span class="op">-&gt;</span> loop(en)))
+  // 'For' and 'While' members that implement the looping constructs
+  // are similar as in the previous version, with the exception that they
+  // compose iterations using the special 'CombineLoop' primitive
+  member x.For(inp:seq&lt;_&gt;, f) =
+    let rec loop(en:IEnumerator&lt;_&gt;) = 
+      if not(en.MoveNext()) then x.Zero() else
+        x.CombineLoop(f(en.Current), x.Delay(fun () -&gt; loop(en)))
     loop(inp.GetEnumerator())
-  <span class="kwrd">member</span> x.While(gd, body) = 
-    <span class="kwrd">let</span> <span class="kwrd">rec</span> loop() =
-      <span class="kwrd">if</span> not(gd()) <span class="kwrd">then</span> x.Zero() <span class="kwrd">else</span>
-        x.CombineLoop(body, x.Delay(<span class="kwrd">fun</span> () <span class="op">-&gt;</span> loop()))
+  member x.While(gd, body) = 
+    let rec loop() =
+      if not(gd()) then x.Zero() else
+        x.CombineLoop(body, x.Delay(fun () -&gt; loop()))
     loop()         
   
-  <span class="rem">// A call to this member is inserted when we use the 'do!' construct. If the 'v'</span>
-  <span class="rem">// value is either 'break' or 'continue', we will return 'ImpJump' as the result</span>
-  <span class="kwrd">member</span> x.Bind(v:Imperative&lt;unit&gt;, f : unit <span class="op">-&gt;</span> Imperative&lt;<span class="op">_</span>&gt;) = (<span class="kwrd">fun</span> () <span class="op">-&gt;</span>
-    <span class="kwrd">match</span> v() <span class="kwrd">with</span>
-    <span class="op">|</span> ImpJump(kind) <span class="op">-&gt;</span> ImpJump(kind)
-    <span class="op">|</span> <span class="op">_</span> <span class="op">-&gt;</span> f()() )
+  // A call to this member is inserted when we use the 'do!' construct. If the 'v'
+  // value is either 'break' or 'continue', we will return 'ImpJump' as the result
+  member x.Bind(v:Imperative&lt;unit&gt;, f : unit -&gt; Imperative&lt;_&gt;) = (fun () -&gt;
+    match v() with
+    | ImpJump(kind) -&gt; ImpJump(kind)
+    | _ -&gt; f()() )
      
-<span class="rem">// Primitives that return the 'ImpJump' value when executed </span>
-<span class="kwrd">let</span> break = (<span class="kwrd">fun</span> () <span class="op">-&gt;</span> ImpJump(<span class="kwrd">false</span>))
-<span class="kwrd">let</span> continue = (<span class="kwrd">fun</span> () <span class="op">-&gt;</span> ImpJump(<span class="kwrd">true</span>))
+// Primitives that return the 'ImpJump' value when executed 
+let break = (fun () -&gt; ImpJump(false))
+let continue = (fun () -&gt; ImpJump(true))
 </pre>
 
 <p>As you can see, we've added a primitive named <code>CombineLoop</code> and used
@@ -255,11 +262,11 @@ imperative {
   write a <code>for</code> loop and we'll use <code>continue</code> to skip evaluation of some iterations
   of the loop: </p>
 
-<pre >
+<pre lang="fsharp">
 &gt; imperative { 
-    <span class="kwrd">for</span> x <span class="kwrd">in</span> 1 .. 5 <span class="kwrd">do</span> 
-      <span class="kwrd">if</span> (x % 2 = 0) <span class="kwrd">then</span> <span class="kwrd">do!</span> continue
-      printfn <span class="str">"number = %d"</span> x };;
+    for x in 1 .. 5 do 
+      if (x % 2 = 0) then do! continue
+      printfn "number = %d" x };;
 <em>number = 1
 number = 3
 number = 5</em>
@@ -270,12 +277,12 @@ number = 5</em>
   mutable variable (using F# reference cell) and we increment it in each iteration. When the number
   reaches some number, we'll stop looping using <code>break</code>:</p>
 
-<pre >    
+<pre lang="fsharp">    
 &gt; imperative { 
-    <span class="kwrd">let</span> x = ref 1
-    <span class="kwrd">while</span> <span class="kwrd">true</span> <span class="kwrd">do</span>
-      <span class="kwrd">if</span> (!x % 4 = 0) <span class="kwrd">then</span> <span class="kwrd">do!</span> break
-      printfn <span class="str">"number = %d"</span> !x
+    let x = ref 1
+    while true do
+      if (!x % 4 = 0) then do! break
+      printfn "number = %d" !x
       x := !x + 1 };;
 <em>number = 1
 number = 2

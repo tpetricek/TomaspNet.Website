@@ -15,11 +15,18 @@
 
   <link rel="alternate" type="application/rss+xml" href="http://tomasp.net/rss.xml" title="RSS feed for Tomas Petricek's blog">
   <link rel="author" href="https://plus.google.com/109855146654605967051" />
+  <link rel="icon" type="image/png" href="http://tomasp.net/img/favicon.png" />
     
   <!-- Reference custom CSS and tooltips -->
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/style.css" />
   <script type="text/javascript" src="http://tomasp.net/custom/tooltips.js"></script>
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/tooltips.css" />
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:creator" content="@tomaspetricek">
+  <meta name="twitter:title" content="Parallel Programming in F# (II.): Using PLINQ and Tasks">
+  <meta name="twitter:description" content="In this article, we'll look at several F# samples from Chapters 2 and 3 of Parallel Programming with Microsoft .NET. We'll look at using Task Parallel Library (TPL) and Parallel LINQ from F#, including the PSeq module from F# PowerPack.">
+
 </head>
 <body>
 
@@ -200,9 +207,9 @@
   used in the lambda function passed to the <code>StartNew</code> method. The variable is <em>captured
   in a closure</em>, which means that the lambda function keeps reference to it:</p>
 
-<pre >
-Task[] tasks = <span class="kwrd">new</span> Task[4];
-<span class="kwrd">for</span> (<span class="kwrd">int</span> i = 0; i &lt; 4; i++) {
+<pre lang="csharp">
+Task[] tasks = new Task[4];
+for (int i = 0; i &lt; 4; i++) {
     tasks[i] = Task.Factory.StartNew(() =&gt; 
         Console.WriteLine(i));
 }

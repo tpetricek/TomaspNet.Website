@@ -15,11 +15,18 @@
 
   <link rel="alternate" type="application/rss+xml" href="http://tomasp.net/rss.xml" title="RSS feed for Tomas Petricek's blog">
   <link rel="author" href="https://plus.google.com/109855146654605967051" />
+  <link rel="icon" type="image/png" href="http://tomasp.net/img/favicon.png" />
     
   <!-- Reference custom CSS and tooltips -->
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/style.css" />
   <script type="text/javascript" src="http://tomasp.net/custom/tooltips.js"></script>
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/tooltips.css" />
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:creator" content="@tomaspetricek">
+  <meta name="twitter:title" content="Regions and navigation bar for F# in Visual Studio">
+  <meta name="twitter:description" content="The beginning of a new year may be a good time for writing one lightweight blog post - this article shows two hidden features of F# IntelliSense in Visual Studio and also talks about writing plugins using the F# open-source release.">
+
 </head>
 <body>
 
@@ -91,11 +98,11 @@
   <code>C:\Program Files (x86)\Microsoft Visual Studio 10.0</code>. You need to add
   the following <code>appSettings</code> section to the root <code>configuration</code> element:</p>
 
-<pre >
-<span class="kwrd">&lt;</span><span class="html">appSettings</span><span class="kwrd">&gt;</span>
-    <span class="kwrd">&lt;</span><span class="html">add</span> <span class="attr">key</span><span class="kwrd">="fsharp-navigationbar-enabled"</span> <span class="attr">value</span><span class="kwrd">="true"</span> <span class="kwrd">/&gt;</span>
-    <span class="kwrd">&lt;</span><span class="html">add</span> <span class="attr">key</span><span class="kwrd">="fsharp-regions-enabled"</span> <span class="attr">value</span><span class="kwrd">="true"</span> <span class="kwrd">/&gt;</span>
-<span class="kwrd">&lt;/</span><span class="html">appSettings</span><span class="kwrd">&gt;</span>
+<pre lang="xml">
+&lt;appSettings&gt;
+    &lt;add key="fsharp-navigationbar-enabled" value="true" /&gt;
+    &lt;add key="fsharp-regions-enabled" value="true" /&gt;
+&lt;/appSettings&gt;
 </pre>
   
   <p>After adding these two keys, you should see navigation bar and buttons for collapsing
@@ -165,21 +172,21 @@
   declarations using the <code>InteractiveChecker</code> type. Assuming we have an instance
   <code>checker</code> and a few other values that are required to run the parsing, we can write:</p>
 
-<pre >
-<span class="rem">// Run parsing of a file loaded in 'source'</span>
-<span class="kwrd">let</span> untypedInfo = checker.UntypedParse(fileName, source, checkOptions) 
-<span class="rem">// Get declaration items for the file</span>
-<span class="kwrd">let</span> declarations = untypedInfo.GetNavigationItems().Declarations
+<pre lang="fsharp">
+// Run parsing of a file loaded in 'source'
+let untypedInfo = checker.UntypedParse(fileName, source, checkOptions) 
+// Get declaration items for the file
+let declarations = untypedInfo.GetNavigationItems().Declarations
 
-<span class="rem">// Iterate over all top-level declarations (modules, types)</span>
-<span class="kwrd">for</span> topLevel <span class="kwrd">in</span> decls <span class="kwrd">do</span>
-  <span class="kwrd">let</span> (s1, e1), (s2, e2) = topLevel.Declaration.Range
-  printfn <span class="str">"[%d:%d-%d:%d] %s"</span> s1 e1 s2 e2 topLevel.Declaration.Name
+// Iterate over all top-level declarations (modules, types)
+for topLevel in decls do
+  let (s1, e1), (s2, e2) = topLevel.Declaration.Range
+  printfn "[%d:%d-%d:%d] %s" s1 e1 s2 e2 topLevel.Declaration.Name
   
-  <span class="rem">// Print all child declarations (members, functions, values)</span>
-  <span class="kwrd">for</span> nested <span class="kwrd">in</span> topLevel.Nested <span class="kwrd">do</span>
-    <span class="kwrd">let</span> (s1, e1), (s2, e2) = nested.Range
-    printfn <span class="str">"  - [%d:%d-%d:%d] %s"</span> s1 e1 s2 e2 nested.Name
+  // Print all child declarations (members, functions, values)
+  for nested in topLevel.Nested do
+    let (s1, e1), (s2, e2) = nested.Range
+    printfn "  - [%d:%d-%d:%d] %s" s1 e1 s2 e2 nested.Name
 </pre>
 
 <p>The function <code>GetNavigationItems</code> is used by the Visual Studio code that 

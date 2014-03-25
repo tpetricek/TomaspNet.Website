@@ -7,6 +7,7 @@
    "be fun? Here is a story of how I managed to do that with F# at New Year's eve! " +
    "I got a puzzle as a gift for Christmas and after a few days of failed attempts, " +
    "I managed to solve it with F# in about 1 hour...";
+  Image = "http://tomasp.net/blog/2014/puzzling-fsharp/cube.jpg";
 *)
 (*** hide ***)
 #nowarn "1189"

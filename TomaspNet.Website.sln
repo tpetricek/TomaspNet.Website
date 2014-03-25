@@ -47,8 +47,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuGet", "NuGet", "{6B802CA3
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharpFormat", "tools\csharpformat\CSharpFormat.csproj", "{9AB3650B-CC24-4404-A175-A573DA928475}"
-EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FsBlogLib", "tools\FsBlogLib\FsBlogLib.fsproj", "{B83F5E3E-8CEC-4F4E-B251-D2C853816C62}"
 EndProject
 Global
@@ -61,16 +59,6 @@ Global
 		Release|Mixed Platforms = Release|Mixed Platforms
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{9AB3650B-CC24-4404-A175-A573DA928475}.Debug|.NET.ActiveCfg = Debug|Any CPU
-		{9AB3650B-CC24-4404-A175-A573DA928475}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9AB3650B-CC24-4404-A175-A573DA928475}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9AB3650B-CC24-4404-A175-A573DA928475}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{9AB3650B-CC24-4404-A175-A573DA928475}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{9AB3650B-CC24-4404-A175-A573DA928475}.Release|.NET.ActiveCfg = Release|Any CPU
-		{9AB3650B-CC24-4404-A175-A573DA928475}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9AB3650B-CC24-4404-A175-A573DA928475}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9AB3650B-CC24-4404-A175-A573DA928475}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{9AB3650B-CC24-4404-A175-A573DA928475}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{B83F5E3E-8CEC-4F4E-B251-D2C853816C62}.Debug|.NET.ActiveCfg = Debug|Any CPU
 		{B83F5E3E-8CEC-4F4E-B251-D2C853816C62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B83F5E3E-8CEC-4F4E-B251-D2C853816C62}.Debug|Any CPU.Build.0 = Debug|Any CPU
@@ -86,7 +74,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{9AB3650B-CC24-4404-A175-A573DA928475} = {5C7045D5-4574-4BA7-A3BA-905C9C074F5B}
 		{B83F5E3E-8CEC-4F4E-B251-D2C853816C62} = {5C7045D5-4574-4BA7-A3BA-905C9C074F5B}
 		{4D31843E-8781-4D84-8C86-149BF3A9E08D} = {9DF5F21E-92C6-4C46-AEB9-D32284D99438}
 		{F6F70A4C-7C06-45E8-BAF3-C94FCC29F92F} = {801A3857-01D3-4355-8D2E-22C1B7DBEA95}

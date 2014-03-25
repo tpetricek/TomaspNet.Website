@@ -93,6 +93,7 @@ module BlogPosts =
     |> Seq.mapi (fun i v -> 
         GetBlogHeaderAndAbstract transformer (sprintf "abs%d_" i) v 
         |> ParseBlogHeader renameTag blog )
+    |> Seq.filter (fun bh -> bh.Title.ToUpper().Contains("[DRAFT]") |> not)
     |> Seq.sortBy (fun b -> b.Date)
     |> Array.ofSeq 
     |> Array.rev

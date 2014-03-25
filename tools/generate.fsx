@@ -50,7 +50,7 @@ let special =
 let output = __SOURCE_DIRECTORY__ ++ "../../output"
 
 // Dependencies - if any of these files change, then we must regenerate all
-let dependencies =
+let dependencies = 
   [ yield! Directory.GetFiles(layouts) 
     yield! Directory.GetFiles(parts) 
     yield calendarMonth 
@@ -135,4 +135,3 @@ buildSite (true) // true - update tag archives
 buildSite (false)
 
 clean()
-

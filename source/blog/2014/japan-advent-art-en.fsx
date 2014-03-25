@@ -7,6 +7,7 @@
     "organized every year by the Japanese F# community - and so the article is inspired " +
     "by the Japanese culture. We look at a list of Japanese artists in Freebase "+
     "and try to recreate one piece using fractals and FunScript!";
+  Image = "http://tomasp.net/blog/2014/japan-advent-art-en/hokusai_sm.jpg";
 *)
 (**
 

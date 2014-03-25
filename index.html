@@ -21,6 +21,7 @@
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/style.css" />
   <script type="text/javascript" src="http://tomasp.net/custom/tooltips.js"></script>
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/tooltips.css" />
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   <meta name="twitter:card" content="summary">
   <meta name="twitter:creator" content="@tomaspetricek">
@@ -68,64 +69,47 @@
   <!-- Print more details about the first blog post -->
 
   <div>
-  <h1><a href="http://tomasp.net/blog/2014/japan-advent-art-en/index.html">Advent Art: Generating Hokusai paintings</a></h1>
-  <div id="myModal" class="reveal-modal xlarge" data-reveal>
-  <iframe src="http://tomasp.net/blog/2014/japan-advent-art-en/hokusai.html" style="width:100%; height:850px;border-style:none;"></iframe>
-  <a class="close-reveal-modal">&#215;</a>
+  <h1><a href="http://tomasp.net/blog/2014/puzzling-fsharp/index.html">Solving fun puzzles with F#</a></h1>
+  <p>Do you need to convince your friends &amp; family that programming can be fun? 
+For the last Christmas, I got a puzzle as a gift. It is a number of small
+cubes, joined together, that can be rotated and folded to form a bigger
+(4x4x4) cube.</p>
+
+<p>We spent the last few days of the year with family and a couple of friends
+and I left the puzzle on the table. Every time I walked around, someone was
+playing with it without much success. In the end, I said that if noone solves
+it until 31 December, I'll write a program to do it. Which I did between 7 PM
+and 8 PM and, voilà, here is what I got...</p>
+
+<div style="text-align:center;margin:10px">
+<a href="http://tomasp.net/blog/2014/puzzling-fsharp/puzzle.jpg" target="_blank"><img src="http://tomasp.net/blog/2014/puzzling-fsharp/puzzle.jpg" style="height:200px;margin-right:20px;border-style:none" /></a>
+<a href="http://tomasp.net/blog/2014/puzzling-fsharp/cube.jpg" target="_blank"><img src="http://tomasp.net/blog/2014/puzzling-fsharp/cube.jpg" style="height:200px;margin-left:20px;border-style:none" /></a>
 </div>
 
-<div class="rdecor" style="text-align:center">
-<a href="#" data-reveal-id="myModal" style="text-align:center">
-<img src="http://tomasp.net/blog/2014/japan-advent-art-en/hokusai_sm.jpg" style="margin-bottom:10px;border:4px solid black" title="The Great Wave off Kanagawa" /><br />
-<small style="font-size:90%">Click here to see the result live!</small>
-</a>
-</div>
-
-<p>For the last few years, the Japanese F# community has been running the F# Advent Calendar 
-(<a href="http://atnd.org/events/10685">2010</a>, <a href="http://partake.in/events/1c24993a-c475-4fc2-bca4-7a1cd2f81869">2011</a>, <a href="http://atnd.org/events/33927">2012</a>). 
-Each advent day, one person writes an article about something interesting in F#. I have 
-been following the advent calendar last year on Twitter and when the planning started for 
-this year, I offered to write an article too. You might have noticed that I posted a 
-<a href="http://tomasp.net/blog/2013/japan-advent-art/index.html">Japanse version of the article</a>
-in December as part of the <a href="http://connpass.com/event/3935/">advent calendar 2013</a>.</p>
-
-<p>A number of people helped to make this happen - <a href="http://twitter.com/igeta">@igeta</a> arranged everything and 
-helped with reviewing, <a href="http://twitter.com/yukitos">@yukitos</a> translated the article and 
-<a href="http://twitter.com/gab_km">@gab_km</a> reviewed the translation. Thanks!</p>
-
-<p>But what should I write about? It would be nice to look at some of the F# open-source libraries
-and projects that have been developing over the last year in the F# community. At the same time,
-can I relate the topic of the article to Japan? After some thinking, I came up with the following
-plan:</p>
-
-<ul>
-<li><p>First, we'll use the <a href="http://fsharp.github.io/FSharp.Data/">F# Data</a> library and the <a href="http://www.freebase.com">Freebase</a> to learn
-something about Japanese art. I should add that thanks to <a href="https://twitter.com/yukitos">@yukitos</a> the library now also has
-a <a href="http://fsharp.github.io/FSharp.Data/jp">documentation in Japanese</a>.</p></li>
-<li><p>Then we'll pick one art work and try to recreate it in F#. Given my artistic skills, this 
-part will definitely fail, but we can try :-).</p></li>
-<li><p>Finally, we'll use the <a href="http://funscript.info">FunScript project</a> to turn our F# code into
-JavaScript, so that we can run it as a pure HTML web application that also works on mobile
-phones and other devices.</p></li>
-</ul>
+<p>So, how do you solve a puzzle in about 1 hour on New Year's eve?</p>
 
 
       
   <p class="meta">
-    <span><strong>Published</strong>: Tuesday, 21 January 2014, 6:49 PM</span>
+    <span><strong>Published</strong>: Tuesday, 25 March 2014, 2:27 PM</span>
       <br />      
-      <span class="tags"><strong>Tags</strong>: f#, art, fractals, funscript, f# data </span> 
+      <span class="tags"><strong>Tags</strong>: f#, fun, functional programming </span> 
     <br />
-    <a href="http://tomasp.net/blog/2014/japan-advent-art-en/index.html">Read the complete article</a>
+    <a href="http://tomasp.net/blog/2014/puzzling-fsharp/index.html">Read the complete article</a>
   </p>
   </div>
 
   <!-- For remaining articles, just print short summary with abstract -->
   <h1><a href="http://tomasp.net/blog/index.html">Recent articles from my blog</a></h1>
+    <h2><a href="http://tomasp.net/blog/2014/japan-advent-art-en/index.html">Advent Art: Generating Hokusai paintings</a></h2>
+    <p class="smdate">Tuesday, 21 January 2014, 6:49 PM</p>
+    <p class="description">
+        This article is a contribution to the F# Advent Calendar that is organized every year by the Japanese F# community - and so the article is inspired by the Japanese culture. We look at a list of Japanese artists in Freebase and try to recreate one piece using fractals and FunScript!
+    </p>
     <h2><a href="http://tomasp.net/blog/2014/why-coeffects-matter/index.html">Coeffects: The next big programming challenge</a></h2>
     <p class="smdate">Wednesday, 8 January 2014, 3:31 PM</p>
     <p class="description">
-        This blog post is a tabloid-style introduction to my PhD thesis. I look at how practical motivations influence langauge design. One such practical motivation, that is becoming increasingly important, is capturing how program uses the context (or environment) where it runs. Coeffect are a way to track this property...
+        This blog post is a tabloid-style introduction to my PhD thesis. I look at how practical motivations influence language design. One such practical motivation, that is becoming increasingly important, is capturing how program uses the context (or environment) where it runs. Coeffects are a way to track this property...
     </p>
     <h2><a href="http://tomasp.net/blog/2013/japan-advent-art/index.html">Advent Art：北斎の絵を生成する</a></h2>
     <p class="smdate">Tuesday, 24 December 2013, 3:58 AM</p>
@@ -136,11 +120,6 @@ phones and other devices.</p></li>
     <p class="smdate">Friday, 8 November 2013, 6:42 AM</p>
     <p class="description">
         A month or so back, I wrote a tweet saying that F# computation expressions are amazing and no other language has anything like that. I can finally provide all the evidence by linking to a PADL 2014 paper about them.
-    </p>
-    <h2><a href="http://tomasp.net/blog/2013/great-open-source/index.html">Building great open-source libraries</a></h2>
-    <p class="smdate">Thursday, 31 October 2013, 1:29 PM</p>
-    <p class="description">
-        The hard part about open-source development is not putting the source code on the internet. The hard part is keeping the source, releases and documentation up-to-date. I'm still amazed how nicely FAKE solves this problem for F#.
     </p>
 
   <p class="meta">
@@ -164,7 +143,7 @@ phones and other devices.</p></li>
       </div>
     </div>
 
-    <h2>Trainings, writing &amp; consluting</h2>
+    <h2>Trainings, writing &amp; consulting</h2>
     <p>I'm a frequent speaker at F# and .NET events, founding member of the 
       <a href="http://fsharp.org">F# Foundation</a> author of C# and F# book, numerous articles and a 
       <a href="http://stackoverflow.com/users/33518/tomas-petricek">StackOverflow addict</a>. I have 
@@ -181,7 +160,7 @@ phones and other devices.</p></li>
       <li><strong>Public courses.</strong> Together with <a href="http://trelford.com/blog/">Phil Trelford</a>, we run regular public
         F# courses in New York and London. For more, see <a href="http://skillsmatter.com/course/scala/tomas-petricek-phil-trelford-fast-track-to-fsharp/ps-6679">Fast Track to F#</a> at SkillsMatter.
       </li>
-      <li><strong>Consulting and trainings.</strong> I also provide private F# trainings and consluting through my company <a href="http://dualnotion.com/">Dual Notion ltd.</a> If you are interested <a href="mailto:tomas@tomasp.net">email me</a>!</li>
+      <li><strong>Consulting and trainings.</strong> I also provide private F# trainings and consulting through my company <a href="http://dualnotion.com/">Dual Notion ltd.</a> If you are interested <a href="mailto:tomas@tomasp.net">email me</a>!</li>
     </ul>
 
     <h2>Research &amp; teaching</h2>
@@ -230,6 +209,7 @@ phones and other devices.</p></li>
   </div>
 </div>
 
+
   <div class="row" id="footer">
   <footer>   
     <div class="large-3 columns">
@@ -246,7 +226,8 @@ phones and other devices.</p></li>
     </div>
     <div class="large-7 columns">
     <h4>Blog archives <a href="http://tomasp.net/rss.xml"><img src="http://tomasp.net/img/rss.gif" /></a></h4>
-      <a href="http://tomasp.net/blog/archive/january-2014/index.html">
+      <a href="http://tomasp.net/blog/archive/march-2014/index.html">
+        March 2014 (1)</a>,      <a href="http://tomasp.net/blog/archive/january-2014/index.html">
         January 2014 (2)</a>,      <a href="http://tomasp.net/blog/archive/december-2013/index.html">
         December 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/november-2013/index.html">
         November 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/october-2013/index.html">

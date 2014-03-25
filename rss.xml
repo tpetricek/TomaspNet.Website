@@ -4,6 +4,31 @@
     <link>http://tomasp.net</link>
     <description>Writing about software development in F# and .NET, sharing materials from my F# trainings and talks, writing about programming language research and theory.</description>
     <item>
+      <title>Solving fun puzzles with F#</title>
+      <guid>http://tomasp.net/blog/2014/puzzling-fsharp</guid>
+      <link>http://tomasp.net/blog/2014/puzzling-fsharp/index.html</link>
+      <pubDate>Tue, 25 Mar 2014 14:27:08 GMT</pubDate>
+      <description>&lt;p&gt;Do you need to convince your friends &amp;amp; family that programming can be fun? 
+For the last Christmas, I got a puzzle as a gift. It is a number of small
+cubes, joined together, that can be rotated and folded to form a bigger
+(4x4x4) cube.&lt;/p&gt;
+
+&lt;p&gt;We spent the last few days of the year with family and a couple of friends
+and I left the puzzle on the table. Every time I walked around, someone was
+playing with it without much success. In the end, I said that if noone solves
+it until 31 December, I'll write a program to do it. Which I did between 7 PM
+and 8 PM and, voilà, here is what I got...&lt;/p&gt;
+
+&lt;div style="text-align:center;margin:10px"&gt;
+&lt;a href="http://tomasp.net/blog/2014/puzzling-fsharp/puzzle.jpg" target="_blank"&gt;&lt;img src="http://tomasp.net/blog/2014/puzzling-fsharp/puzzle.jpg" style="height:200px;margin-right:20px;border-style:none" /&gt;&lt;/a&gt;
+&lt;a href="http://tomasp.net/blog/2014/puzzling-fsharp/cube.jpg" target="_blank"&gt;&lt;img src="http://tomasp.net/blog/2014/puzzling-fsharp/cube.jpg" style="height:200px;margin-left:20px;border-style:none" /&gt;&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;So, how do you solve a puzzle in about 1 hour on New Year's eve?&lt;/p&gt;
+
+</description>
+    </item>
+    <item>
       <title>Advent Art: Generating Hokusai paintings</title>
       <guid>http://tomasp.net/blog/2014/japan-advent-art-en</guid>
       <link>http://tomasp.net/blog/2014/japan-advent-art-en/index.html</link>
@@ -588,30 +613,6 @@ we have been &lt;a href="http://functional-programming.net/courses/"&gt;teaching
 
 &lt;p&gt;The two main things that I'm going to be involved in are SkilsMatter trainings in London and New York
   and a few events at the biggest functional conference (ICFP) in Copenhagen...&lt;/p&gt;
-</description>
-    </item>
-    <item>
-      <title>The theory behind covariance and contravariance in C# 4</title>
-      <guid>http://tomasp.net/blog/variance-explained.aspx</guid>
-      <link>http://tomasp.net/blog/variance-explained.aspx/index.html</link>
-      <pubDate>Tue, 19 Jun 2012 13:24:52 GMT</pubDate>
-      <description>&lt;img src="http://tomasp.net/articles/variance-explained/icon.png" title="Category theory is sometimes called 'general abstract nonsense', but it can actually be useful!" class="rdecor" /&gt;
-
-&lt;p&gt;In C# 4.0, we can annotate generic type parameters with &lt;code&gt;out&lt;/code&gt; and &lt;code&gt;in&lt;/code&gt; annotations to 
-specify whether they should behave &lt;em&gt;covariantly&lt;/em&gt; or &lt;em&gt;contravariantly&lt;/em&gt;. This is mainly
-useful when using already defined standard interfaces. Covariance means that you can use
-&lt;code&gt;IEnumerable&amp;lt;string&amp;gt;&lt;/code&gt; in place where &lt;code&gt;IEnumerable&amp;lt;object&amp;gt;&lt;/code&gt; is expected. Contravariance
-allows you to pass &lt;code&gt;IComparable&amp;lt;object&amp;gt;&lt;/code&gt; as an argument of a method taking &lt;code&gt;IComparable&amp;lt;string&amp;gt;&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;So far, so good. If you already learned about covariance and contravariance in C# 4, then 
-the above two examples are probably familiar. If you're new to the concepts, then 
-the examples should make sense (after a bit of thinking, but I'll say more about them). 
-However, there is still a number of questions. Is there some easy way to explain the 
-two concepts? Why one option makes sense for some types and the other for different types? 
-And why the hell is it called &lt;em&gt;covariance&lt;/em&gt; and &lt;em&gt;contravariance&lt;/em&gt; anyway?&lt;/p&gt;
-
-&lt;p&gt;In this blog post, I'll explain some of the mathematics that you can use to think 
-about covariance and contravariance.&lt;/p&gt;
 </description>
     </item>
   </channel>

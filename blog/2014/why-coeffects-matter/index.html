@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <title>Coeffects: The next big programming challenge</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="This blog post is a tabloid-style introduction to my PhD thesis. I look at how practical motivations influence langauge design. One such practical motivation, that is becoming increasingly important, is capturing how program uses the context (or environment) where it runs. Coeffect are a way to track this property...">
+  <meta name="description" content="This blog post is a tabloid-style introduction to my PhD thesis. I look at how practical motivations influence language design. One such practical motivation, that is becoming increasingly important, is capturing how program uses the context (or environment) where it runs. Coeffects are a way to track this property...">
   <meta name="author" content="Tomas Petricek">
 
   <!-- Reference Foundation -->
@@ -21,11 +21,12 @@
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/style.css" />
   <script type="text/javascript" src="http://tomasp.net/custom/tooltips.js"></script>
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/tooltips.css" />
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   <meta name="twitter:card" content="summary">
   <meta name="twitter:creator" content="@tomaspetricek">
   <meta name="twitter:title" content="Coeffects: The next big programming challenge">
-  <meta name="twitter:description" content="This blog post is a tabloid-style introduction to my PhD thesis. I look at how practical motivations influence langauge design. One such practical motivation, that is becoming increasingly important, is capturing how program uses the context (or environment) where it runs. Coeffect are a way to track this property...">
+  <meta name="twitter:description" content="This blog post is a tabloid-style introduction to my PhD thesis. I look at how practical motivations influence language design. One such practical motivation, that is becoming increasingly important, is capturing how program uses the context (or environment) where it runs. Coeffects are a way to track this property...">
 </head>
 <body>
 
@@ -120,14 +121,14 @@ devices where programs need to run increases, dealing with diverse contexts will
 more and more important (and I'm not even talking about <em>ubiquitous computing</em> where you need
 to compile your code to a coffee machine).</p>
 
-<p>We do not preceive the above things as problems (at best, annoyances that we just have to 
-deal with), because we do not realize that there should be a better way. Let me digg into
+<p>We do not perceive the above things as problems (at best, annoyances that we just have to 
+deal with), because we do not realize that there should be a better way. Let me dig into
 four examples in a bit more detail.</p>
 
 <h3>Context awareness #1: Platform versioning</h3>
 
 <p>The number of different platform versions that you need to target is increasing, no matter what 
-platform are you using. For Android, there is a number called <a href="http://developer.android.com/guide/topics/manifest/uses-sdk-element.html#ApiLevels">API Level</a>
+platform you are using. For Android, there is a number called <a href="http://developer.android.com/guide/topics/manifest/uses-sdk-element.html#ApiLevels">API Level</a>
 with mostly additive changes (<em>mostly</em> sounds very reassuring). In the .NET world, there are multiple
 versions, mobile editions, multiple versions of Silverlight etc. So, code that targets multiple
 frameworks easily ends up looking as the following sample from <a href="https://github.com/fsharp/FSharp.Data/blob/master/src/Net/Http.fs">the Http module in F# Data</a>:</p>
@@ -221,7 +222,7 @@ links. So yes - this is an issue that people are hitting all the time.</p>
 <h3>Context awareness #3: Confidentiality and provenance</h3>
 
 <p>The previous two examples were mainly related to the (non-)existence of some API functions
-or to their behaviour. However, this is not the only case of context-awarness that is important
+or to their behaviour. However, this is not the only case of context-awareness that is important
 in every day programming.</p>
 
 <p>Most readers of this blog will immediately see what is wrong with the following code, but that
@@ -242,7 +243,7 @@ of systems that contain something similar):</p>
 </tr>
 </table>
 
-<p>The problem is obviously <a href="http://en.wikipedia.org/wiki/SQL_injection">SQL Injenction</a>. Concatenating
+<p>The problem is obviously <a href="http://en.wikipedia.org/wiki/SQL_injection">SQL Injection</a>. Concatenating
 strings to build an SQL command is a bad practice, but it is an example of a more general problem.</p>
 
 <p>Sometimes, we have special kinds of variables that should have some contextual meta-data associated
@@ -253,7 +254,7 @@ we try passing this - potentially unsafe - input to <code>SqlCommand</code>. Sim
 should not, for example, be sent over an unsecured network connection.
 As a side note - this idea is related to a technique called <a href="http://en.wikipedia.org/wiki/Taint_checking">taint checking</a>.</p>
 
-<p>In another context, if you are working with data (e.g. in some data jouranlism application), it would be
+<p>In another context, if you are working with data (e.g. in some data journalism application), it would be
 great if your sources were annotated with meta-data about the quality and source of the data (e.g.
 can it be trusted? how up-to-date is it?) The meta-data could propagate to the result and tell you how
 accurate and trustworthy your result is.</p>
@@ -267,7 +268,7 @@ these two parts should be written as a single program that is cross-compiled to 
 (and I tried to <a href="http://tomasp.net/blog/fswebtools-intro.aspx/">make that possible with F# Web Tools</a>
 a long time ago; more recently <a href="http://websharper.com/">WebSharper</a> implemented a similar idea).</p>
 
-<p>So, say we have a function <code>validateInput</code>, <code>readData</code> and <code>displayMessage</code> in my prorgam.
+<p>So, say we have a function <code>validateInput</code>, <code>readData</code> and <code>displayMessage</code> in my program.
 I want to look at their types and see what resources (or <em>context</em>) they require. For example,
 <code>readData</code> requires <em>database</em> (or perhaps a database with a specific name), <code>displayMessage</code> 
 requires access to <em>user interface</em> and <code>validateInput</code> has no special requirements.</p>
@@ -417,7 +418,7 @@ When a function is available on both platforms, I want to be able to reuse the c
 calls it. When some function is available on only one platform, I want to solve this by
 designing my own abstraction, rather than resorting to ugly <code>#if</code> pragmas.</p>
 
-<p>Then, I want to take this single program (again, strutured using whatever abstractions
+<p>Then, I want to take this single program (again, structured using whatever abstractions
 I find appropriate) and compile it. As a result, I want to get a component (containing
 <code>lookupNews</code>) that I can deploy to the server-side and two packages for iPhone and 
 Windows respectively, that reference only one or the other platform.</p>
@@ -454,7 +455,7 @@ programming languages can skip to the next section.</p>
 
 <div style="margin-bottom:15px;text-align:center"><img src="typing-1.png" /></div>
 
-<p>The judgement means that, given some variables described by <em>Γ</em>, the expression or programm <em>e</em>
+<p>The judgement means that, given some variables described by <em>Γ</em>, the expression or program <em>e</em>
 has a type <em>τ</em>. What does this mean? For example, what is a type of the expression <code>x + y</code>?
 Well, this depends - in F# it could be some numeric type or even a string, depending on the types
 of <code>x</code> and <code>y</code>. That's why we need the variable context <em>Γ</em> which specifies the types of variables.
@@ -477,13 +478,13 @@ expression that prints a number:</p>
 
 <div style="margin-bottom:15px;text-align:center"><img src="typing-3.png" /></div>
 
-<p>This is a reasonable typing in F# (and ML languages), but it ingores the important fact that the 
+<p>This is a reasonable typing in F# (and ML languages), but it ignores the important fact that the 
 expression has a <em>side-effect</em> and prints the number to the console. In Haskell, this would not be
 a valid typing, because <code>print</code> would return an <code>IO</code> computation rather than just plain <code>unit</code> (for
 more information see <a href="http://www.haskell.org/haskellwiki/IO_inside">IO in Haskell</a>).</p>
 
 <p>However, monads are not the only way to be more precise about side-effects. Another option is
-to use <a href="http://en.wikipedia.org/wiki/Effect_system">effect system</a> which essentially annotates the 
+to use an <a href="http://en.wikipedia.org/wiki/Effect_system">effect system</a> which essentially annotates the 
 result of the typing judgement with more information about the <em>effects</em> that occur as part of
 evaluation of the expression (here, in orange):</p>
 
@@ -543,7 +544,7 @@ aware of the context in which they run. The context includes things such as exec
 (databases, resources, available devices), platform and framework (different versions, different
 platforms) and meta-data about data we access (sensitivity, security, provenance).</p>
 
-<p>This may not be preceived as a major problem - we are all used to write code that deals with
+<p>This may not be perceived as a major problem - we are all used to write code that deals with
 such things. However, I believe that the area of <em>context-aware</em> programming is a source of
 many problems and pains - and programming languages can help!</p>
 
@@ -713,7 +714,7 @@ comonads and might be a nice way to embed coeffects in Haskell</p></li>
     <h4>Blog tags</h4>
     <p>
 
-      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(91),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(27),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(30),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/writing/">writing</a>&nbsp;(11),       <a href="http://tomasp.net/blog/tag/fsharp-data/">f# data</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/haskell/">haskell</a>&nbsp;(7),       <a href="http://tomasp.net/blog/tag/open-source/">open source</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/art/">art</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fractals/">fractals</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/funscript/">funscript</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/new-york/">new york</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/manning/">manning</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/books/">books</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/coeffects/">coeffects</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/comonads/">comonads</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/fake/">fake</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/fsharp-formatting/">f# formatting</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/training/">training</a>&nbsp;(1)    </p>
+      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(92),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(27),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(30),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(5),       <a href="http://tomasp.net/blog/tag/writing/">writing</a>&nbsp;(11),       <a href="http://tomasp.net/blog/tag/fsharp-data/">f# data</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/haskell/">haskell</a>&nbsp;(7),       <a href="http://tomasp.net/blog/tag/open-source/">open source</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/art/">art</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fractals/">fractals</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/funscript/">funscript</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/new-york/">new york</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/manning/">manning</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/books/">books</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/coeffects/">coeffects</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/comonads/">comonads</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/fake/">fake</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/fsharp-formatting/">f# formatting</a>&nbsp;(1)    </p>
 
   </div>
 </div>
@@ -735,7 +736,8 @@ comonads and might be a nice way to embed coeffects in Haskell</p></li>
     </div>
     <div class="large-7 columns">
     <h4>Blog archives <a href="http://tomasp.net/rss.xml"><img src="http://tomasp.net/img/rss.gif" /></a></h4>
-      <a href="http://tomasp.net/blog/archive/january-2014/index.html">
+      <a href="http://tomasp.net/blog/archive/march-2014/index.html">
+        March 2014 (1)</a>,      <a href="http://tomasp.net/blog/archive/january-2014/index.html">
         January 2014 (2)</a>,      <a href="http://tomasp.net/blog/archive/december-2013/index.html">
         December 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/november-2013/index.html">
         November 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/october-2013/index.html">

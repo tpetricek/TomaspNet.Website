@@ -11,3 +11,5 @@ The C# 6.0 compiler, together with [the full source code][source] has been relea
 > **UPDATE:** In case you are reading this article later than on the day when it was
 > published, let me just point out that this was released on 1 April 2014. Just to 
 > avoid any disappoinments. Have fun ;-).
+
+ [source]: http://fsharppowerpack.codeplex.com/SourceControl/latest#compiler/3.1/Nov2013/src/

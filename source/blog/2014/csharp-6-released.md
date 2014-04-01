@@ -22,6 +22,10 @@ C# 6.0 features.
 
 The C# 6.0 compiler, together with [the full source code][source] has been released today!
 
+> **UPDATE:** In case you are reading this article later than on the day when it was
+> published, let me just point out that this was released on 1 April 2014. Just to 
+> avoid any disappoinments. Have fun ;-).
+
 The new "Roslyn" implementation
 -------------------------------
 
@@ -41,10 +45,10 @@ and it saved the project. [Mads Torgersen](http://blogs.msdn.com/b/madst/) from 
 > even active patterns! Once we discovered that it is already in Visual Studio, we started from 
 > scratch and finished the new managed C# compiler in just two months! 
 
-To those familiar with F#, this is not a surprise. An F# community member, Niel Danson recently
+To those familiar with F#, this is not a surprise. An F# community member, Neil Danson recently
 [implemented a C# sub-set in F#](http://neildanson.wordpress.com/2014/02/11/building-a-c-compiler-in-f/).
 Indeed, the C# team decided to stand on the shoulders of giants: <em>"It was easy. We just took
-Niel's code, added a couple of missing features and it was ready to ship!"</em>
+Neil's code, added a couple of missing features and it was ready to ship!"</em>
 As the "new Microsoft" is a big proponent of open-source, the C# team follows and released the complete
 source code:
 
@@ -55,7 +59,7 @@ Why is the release done so secretly? The "new Microsoft" not only cares about op
 is also sensitive to social issues. After all, the creator of C# 6.0, Anders Hejlsberg is Danish. 
 He explains:
 
-> We added a few new langauge features and it made the language quite powerful. Maybe a bit too much.
+> We added a few new language features and it made the language quite powerful. Maybe a bit too much.
 > If everyone starts using this, it can badly affect the unemployment rate, because solving problems
 > will be just too easy! So we wanted to hide it a little bit... 
 
@@ -93,7 +97,7 @@ In the final version of C# 6.0,  you can write the class as follows:
       member this.Y = y
       member this.Distance = sqrt(x*x + y*y)
 
-The arguments `x` and `y` are still annotated with types, but the rest of the types is 
+The arguments `x` and `y` are still annotated with types, but the rest of the types are
 inferred automatically. The compiler is smart enough to know that multiplication and addition
 of floating point numbers is also a floating point.
 

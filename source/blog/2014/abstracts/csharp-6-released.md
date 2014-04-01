@@ -7,3 +7,7 @@ the team made an enormous progress over the last two months and even implemented
 C# 6.0 features.
 
 The C# 6.0 compiler, together with [the full source code][source] has been released today!
+
+> **UPDATE:** In case you are reading this article later than on the day when it was
+> published, let me just point out that this was released on 1 April 2014. Just to 
+> avoid any disappoinments. Have fun ;-).

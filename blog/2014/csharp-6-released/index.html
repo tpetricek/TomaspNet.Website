@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<!--[if IE 8]> 				 <html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+
+<head>
+  <meta charset="utf-8">
+  <title>BREAKING: Open-source C# 6.0 released</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="At last, the long wait is fianlly over! After 4 years of waiting, the fully managed implementation of the C# compiler codenamed Roslyn has been finally released.">
+  <meta name="author" content="Tomas Petricek">
+
+  <!-- Reference Foundation -->
+  <link rel="stylesheet" href="http://tomasp.net/css/foundation.css">
+  <script src="js/vendor/custom.modernizr.js"></script>
+
+  <link rel="alternate" type="application/rss+xml" href="http://tomasp.net/rss.xml" title="RSS feed for Tomas Petricek's blog">
+  <link rel="author" href="https://plus.google.com/109855146654605967051" />
+  <link rel="icon" type="image/png" href="http://tomasp.net/img/favicon.png" />
+    
+  <!-- Reference custom CSS and tooltips -->
+  <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/style.css" />
+  <script type="text/javascript" src="http://tomasp.net/custom/tooltips.js"></script>
+  <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/tooltips.css" />
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:creator" content="@tomaspetricek">
+  <meta name="twitter:title" content="BREAKING: Open-source C# 6.0 released">
+  <meta name="twitter:description" content="At last, the long wait is fianlly over! After 4 years of waiting, the fully managed implementation of the C# compiler codenamed Roslyn has been finally released.">
+    <meta name="twitter:image" content="http://tomasp.net/blog/2014/csharp-6-released/csharp.jpg">
+</head>
+<body>
+
+   <header id="top-header">
+    <div class="row">
+      <div class="twelve columns">
+        <h1><a href="http://tomasp.net/">Tomas Petricek's blog</a></h1>
+        <p>Writing about practical F# coding and programming language research</p>
+      </div>
+    </div>
+  </header>
+
+  <header class="top-bar-header">
+    <div class="contain-to-grid sticky">
+    <nav class="top-bar">
+
+    <ul class="title-area">
+      <li class="name"><h1><a href="#"></a></h1></li>
+      <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+    </ul>
+    <section class="top-bar-section">
+      <ul class="right">
+        <li><a href="http://tomasp.net/blog/index.html">Blog</a></li>
+        <li><a href="http://functional-programming.net">Trainings</a></li>
+        <li><a href="http://functional-programming.net">Books</a></li>
+        <li><a href="http://lanyrd.com/profile/tomasp">Talks</a></li>
+        <li><a href="http://tomasp.net/academic">Research & Teaching</a></li>
+      </ul>
+    </section>
+
+    </nav></div>
+  </header>
+  
+  
+<div class="row">
+	<div class="large-8 columns main-content">
+    <content>
+      
+
+<h1>BREAKING: Open-source C# 6.0 released</h1>
+
+<img src="http://tomasp.net/blog/2014/csharp-6-released/csharp.jpg" style="width:170px;float:right;margin:15px" />
+
+<p>At last, the long wait is fianlly over! After 4 years of waiting, the fully managed implementation
+of the C# compiler <a href="http://en.wikipedia.org/wiki/Microsoft_Roslyn">codenamed "Roslyn"</a> has been finally released. In the recent months, 
+"Roslyn" has been slowly turning into <a href="http://en.wikipedia.org/wiki/Vaporware">vaporware</a>, but thanks to the recent breakthrough,
+the team made an enormous progress over the last two months and even implemented a number of new
+C# 6.0 features.</p>
+
+<p>The C# 6.0 compiler, together with <a href="http://fsharppowerpack.codeplex.com/SourceControl/latest#compiler/3.1/Nov2013/src/">the full source code</a> has been released today!</p>
+
+<h2>The new "Roslyn" implementation</h2>
+
+<p>Roslyn team started by re-implementing the compiler in C#. A team member
+who prefers to remain anonymous comments: <em>"Writing a language X in X is kind of cool, right?
+We just had to try! We also have a secret project to implement Excel fully as an Excel spreadsheet."</em> 
+This turned out not to be a good idea. While C# is a fine language for
+writing line-of-business applications, it lacks many features that are practically a must-have when
+writing a compiler such as <em>algebraic data types</em> and <em>pattern matching</em>.</p>
+
+<p>As is often the case, the breakthrough was due to a lucky accident: <em>"One of our colleagues came
+back to work after a long party and accidentally clicked a wrong button! His vision was a bit fuzzy
+and so he just mistook F for C."</em> It turns out that the button was labeled "New F# Project" 
+and it saved the project. <a href="http://blogs.msdn.com/b/madst/">Mads Torgersen</a> from the C# team comments:</p>
+
+<blockquote>
+  <p>You know, F# has all you need to implement Roslyn - algebraic data types, pattern matching and
+even active patterns! Once we discovered that it is already in Visual Studio, we started from 
+scratch and finished the new managed C# compiler in just two months!</p>
+</blockquote>
+
+<p>To those familiar with F#, this is not a surprise. An F# community member, Niel Danson recently
+<a href="http://neildanson.wordpress.com/2014/02/11/building-a-c-compiler-in-f/">implemented a C# sub-set in F#</a>.
+Indeed, the C# team decided to stand on the shoulders of giants: <em>"It was easy. We just took
+Niel's code, added a couple of missing features and it was ready to ship!"</em>
+As the "new Microsoft" is a big proponent of open-source, the C# team follows and released the complete
+source code:</p>
+
+<ul>
+<li><a href="http://fsharppowerpack.codeplex.com/SourceControl/latest#compiler/3.1/Nov2013/src/">C# 6.0 compiler source code</a> - 
+available on CodePlex, cleverly hidden under the "F# PowerPack with F# Compiler Source Drops" project.</li>
+</ul>
+
+<p>Why is the release done so secretly? The "new Microsoft" not only cares about open-source, but
+is also sensitive to social issues. After all, the creator of C# 6.0, Anders Hejlsberg is Danish. 
+He explains:</p>
+
+<blockquote>
+  <p>We added a few new langauge features and it made the language quite powerful. Maybe a bit too much.
+If everyone starts using this, it can badly affect the unemployment rate, because solving problems
+will be just too easy! So we wanted to hide it a little bit...</p>
+</blockquote>
+
+<p>What do the new features look like? The C# team started a <a href="http://www.tryfsharp.org/Learn">nice web site where you can try it 
+yourself</a>, but let's have a quick look.</p>
+
+<h2>Introducing new features in C# 6</h2>
+
+<p>At the <a href="https://channel9.msdn.com/Forums/Coffeehouse/Mads-Torgersen--NDC-London--The-Future-of-C">NDC 2013 talk in London</a>, 
+Mads Torgersen discussed some ideas for C# 6.0. You can find a <a href="http://damieng.com/blog/2013/12/09/probable-c-6-0-features-illustrated">nice write-up here</a>.
+The final version of C# 6.0 goes even further. In the talk, Mads discussed the example of implementing
+a simple <code>Point</code> class and ended up with the following:</p>
+
+<pre lang="csharp"><span class="k">public</span> <span class="k">class</span> Point(<span class="k">double</span> x, <span class="k">double</span> y) {
+  <span class="k">public</span> <span class="k">double</span> X =&gt; x;
+  <span class="k">public</span> <span class="k">double</span> Y =&gt; y;
+  <span class="k">public</span> <span class="k">double</span> Distance =&gt; Math.Sqrt(x*x + y*y);
+}</pre>
+
+<p>Compared to C# 5, there are a few nice things. First, you can write so called <em>main constructor</em>
+that makes parameters <code>x</code> and <code>y</code> automatically visible to the body. Creating properties and 
+methods is also simplified using the <code>=&gt;</code> syntax.  Yet, the code was still not completely 
+satisfactory. Anders Hejlsberg provides an explanation:</p>
+
+<blockquote>
+  <p>In C# 3.0, we introduced the <code>var</code> keyword and type-infernece. So, why do we have
+to write <code>double</code> five times? Also, there is a lot of noise when you have to mark 
+everything as <code>public</code> explicitly. We just want to make developer's life easier!</p>
+</blockquote>
+
+<p>In the final version of C# 6.0,  you can write the class as follows:</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip">
+<span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+</pre>
+</td>
+<td class="snippet"><pre class="fssnip">
+<span class="k">type</span> <span onmouseout="hideTip(event, 'fs1', 1)" onmouseover="showTip(event, 'fs1', 1)" class="i">Point</span>(<span onmouseout="hideTip(event, 'fs2', 2)" onmouseover="showTip(event, 'fs2', 2)" class="i">x</span><span class="o">:</span><span onmouseout="hideTip(event, 'fs3', 3)" onmouseover="showTip(event, 'fs3', 3)" class="i">float</span>, <span onmouseout="hideTip(event, 'fs4', 4)" onmouseover="showTip(event, 'fs4', 4)" class="i">y</span><span class="o">:</span><span onmouseout="hideTip(event, 'fs3', 5)" onmouseover="showTip(event, 'fs3', 5)" class="i">float</span>) <span class="o">=</span>
+  <span class="k">member</span> <span onmouseout="hideTip(event, 'fs5', 6)" onmouseover="showTip(event, 'fs5', 6)" class="i">this</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs6', 7)" onmouseover="showTip(event, 'fs6', 7)" class="i">X</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs2', 8)" onmouseover="showTip(event, 'fs2', 8)" class="i">x</span>
+  <span class="k">member</span> <span onmouseout="hideTip(event, 'fs5', 9)" onmouseover="showTip(event, 'fs5', 9)" class="i">this</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs7', 10)" onmouseover="showTip(event, 'fs7', 10)" class="i">Y</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs4', 11)" onmouseover="showTip(event, 'fs4', 11)" class="i">y</span>
+  <span class="k">member</span> <span onmouseout="hideTip(event, 'fs5', 12)" onmouseover="showTip(event, 'fs5', 12)" class="i">this</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs8', 13)" onmouseover="showTip(event, 'fs8', 13)" class="i">Distance</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs9', 14)" onmouseover="showTip(event, 'fs9', 14)" class="i">sqrt</span>(<span onmouseout="hideTip(event, 'fs2', 15)" onmouseover="showTip(event, 'fs2', 15)" class="i">x</span><span class="o">*</span><span onmouseout="hideTip(event, 'fs2', 16)" onmouseover="showTip(event, 'fs2', 16)" class="i">x</span> <span class="o">+</span> <span onmouseout="hideTip(event, 'fs4', 17)" onmouseover="showTip(event, 'fs4', 17)" class="i">y</span><span class="o">*</span><span onmouseout="hideTip(event, 'fs4', 18)" onmouseover="showTip(event, 'fs4', 18)" class="i">y</span>)</pre>
+</td>
+</tr>
+</table>
+
+<p>The arguments <code>x</code> and <code>y</code> are still annotated with types, but the rest of the types is 
+inferred automatically. The compiler is smart enough to know that multiplication and addition
+of floating point numbers is also a floating point.</p>
+
+<p>You can also see that the <code>class</code> keyword has been replaced with <code>type</code>. Mads Torgersen
+explains this design decision:</p>
+
+<blockquote>
+  <p>Well, classes are not the only useful type. There are interfaces, delegates and so on.
+So, we just made the language more uniform and added a few more useful types!</p>
+</blockquote>
+
+<p>The addition of "a few more useful types" means that we can make the <code>Point</code> even simpler
+using the <em>record</em> type:</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip">
+<span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+</pre>
+</td>
+<td class="snippet"><pre class="fssnip">
+<span class="k">type</span> <span onmouseout="hideTip(event, 'fs1', 19)" onmouseover="showTip(event, 'fs1', 19)" class="i">Point</span> <span class="o">=</span> 
+  { <span class="i">X</span><span class="o">:</span><span onmouseout="hideTip(event, 'fs3', 20)" onmouseover="showTip(event, 'fs3', 20)" class="i">float</span>; <span class="i">Y</span><span class="o">:</span><span onmouseout="hideTip(event, 'fs3', 21)" onmouseover="showTip(event, 'fs3', 21)" class="i">float</span> }
+  <span class="k">member</span> <span onmouseout="hideTip(event, 'fs5', 22)" onmouseover="showTip(event, 'fs5', 22)" class="i">this</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs10', 23)" onmouseover="showTip(event, 'fs10', 23)" class="i">Distance</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs9', 24)" onmouseover="showTip(event, 'fs9', 24)" class="i">sqrt</span>(<span onmouseout="hideTip(event, 'fs2', 25)" onmouseover="showTip(event, 'fs2', 25)" class="i">x</span><span class="o">*</span><span onmouseout="hideTip(event, 'fs2', 26)" onmouseover="showTip(event, 'fs2', 26)" class="i">x</span> <span class="o">+</span> <span onmouseout="hideTip(event, 'fs4', 27)" onmouseover="showTip(event, 'fs4', 27)" class="i">y</span><span class="o">*</span><span onmouseout="hideTip(event, 'fs4', 28)" onmouseover="showTip(event, 'fs4', 28)" class="i">y</span>)</pre>
+</td>
+</tr>
+</table>
+
+<p>Another new type that has been added is called <em>discriminated union</em>. This basically lets you
+implement an entire class hierarchy in just 3 lines of code. For example, say you want to model
+2D shapes including <code>Rectangle</code> and <code>Circle</code>. Instead of writing abstract class with two 
+inherited classes (in 3 separate files), you can just write:</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip">
+<span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+</pre>
+</td>
+<td class="snippet"><pre class="fssnip">
+<span class="k">type</span> <span onmouseout="hideTip(event, 'fs11', 29)" onmouseover="showTip(event, 'fs11', 29)" class="i">Shape</span> <span class="o">=</span> 
+  | <span onmouseout="hideTip(event, 'fs12', 30)" onmouseover="showTip(event, 'fs12', 30)" class="i">Rectangle</span> <span class="k">of</span> <span class="i">x1</span><span class="o">:</span><span onmouseout="hideTip(event, 'fs3', 31)" onmouseover="showTip(event, 'fs3', 31)" class="i">float</span><span class="o">*</span><span class="i">y1</span><span class="o">:</span><span onmouseout="hideTip(event, 'fs3', 32)" onmouseover="showTip(event, 'fs3', 32)" class="i">float</span> <span class="o">*</span> <span class="i">x2</span><span class="o">:</span><span onmouseout="hideTip(event, 'fs3', 33)" onmouseover="showTip(event, 'fs3', 33)" class="i">float</span><span class="o">*</span><span class="i">y2</span><span class="o">:</span><span onmouseout="hideTip(event, 'fs3', 34)" onmouseover="showTip(event, 'fs3', 34)" class="i">float</span>
+  | <span onmouseout="hideTip(event, 'fs13', 35)" onmouseover="showTip(event, 'fs13', 35)" class="i">Circle</span> <span class="k">of</span> <span class="i">x</span><span class="o">:</span><span onmouseout="hideTip(event, 'fs3', 36)" onmouseover="showTip(event, 'fs3', 36)" class="i">float</span><span class="o">*</span><span class="i">y</span><span class="o">:</span><span onmouseout="hideTip(event, 'fs3', 37)" onmouseover="showTip(event, 'fs3', 37)" class="i">float</span> <span class="o">*</span> <span class="i">diameter</span><span class="o">:</span><span onmouseout="hideTip(event, 'fs3', 38)" onmouseover="showTip(event, 'fs3', 38)" class="i">float</span></pre>
+</td>
+</tr>
+</table>
+
+<p>The documentation is still somewhat sparse, but the new C# 6.0 features are heavily inspired
+by Scala and you can find great documentation on the <a href="http://scalaforfunandprofit.com/posts/designing-with-types-intro/">Scala for Fun and Profit</a>
+web site.</p>
+
+<h2>Conclusions</h2>
+
+<p>This release presents an important milestone in the development of C#. Not only is the compiler
+now implemented in a <a href="http://fsharp.github.io/FSharp.Compiler.Service/">fully managed and extensible way</a>, 
+but it has also been open-sourced. The community has already used it to develop useful <a href="http://fsprojects.github.io/VisualFSharpPowerTools/">addins for the
+Visual Studio IDE</a> as well as <a href="http://tpetricek.github.io/FSharp.Formatting/">other tools</a>.</p>
+
+<p>The new langauge features in C# 6 make the language significantly more powerful and expressive.
+The only worry expressed by some is: <em>"Doesn't C# 6.0 look a little like F#?"</em> Anders Hejlsberg
+dismisses this worry:</p>
+
+<blockquote>
+  <p>The C# design obviously takes inspiration from other languages. So, yes, you can definitely
+see a lot of inspiration from F# in the C# 6.0 release. We are happy to adopt good ideas 
+developed elsewhere and F# simply has a lot of good ideas!</p>
+</blockquote>
+
+<div class="tip" id="fs1">Multiple items<br />type Point =<br />&#160;&#160;new : x:float * y:float -&gt; Point<br />&#160;&#160;member Distance : float<br />&#160;&#160;member X : float<br />&#160;&#160;member Y : float<br /><br />Full name: csharpreleased.Point<br /><br />--------------------<br />new : x:float * y:float -&gt; Point</div>
+<div class="tip" id="fs2">val x : float</div>
+<div class="tip" id="fs3">Multiple items<br />val float : value:&#39;T -&gt; float (requires member op_Explicit)<br /><br />Full name: Microsoft.FSharp.Core.Operators.float<br /><br />--------------------<br />type float = System.Double<br /><br />Full name: Microsoft.FSharp.Core.float<br /><br />--------------------<br />type float&lt;&#39;Measure&gt; = float<br /><br />Full name: Microsoft.FSharp.Core.float&lt;_&gt;</div>
+<div class="tip" id="fs4">val y : float</div>
+<div class="tip" id="fs5">val this : Point</div>
+<div class="tip" id="fs6">member Point.X : float<br /><br />Full name: csharpreleased.Point.X</div>
+<div class="tip" id="fs7">member Point.Y : float<br /><br />Full name: csharpreleased.Point.Y</div>
+<div class="tip" id="fs8">member Point.Distance : float<br /><br />Full name: csharpreleased.Point.Distance</div>
+<div class="tip" id="fs9">val sqrt : value:&#39;T -&gt; &#39;U (requires member Sqrt)<br /><br />Full name: Microsoft.FSharp.Core.Operators.sqrt</div>
+<div class="tip" id="fs10">property Point.Distance: float</div>
+<div class="tip" id="fs11">type Shape =<br />&#160;&#160;| Rectangle of x1: float * y1: float * x2: float * y2: float<br />&#160;&#160;| Circle of x: float * y: float * diameter: float<br /><br />Full name: csharpreleased.Shape</div>
+<div class="tip" id="fs12">union case Shape.Rectangle: x1: float * y1: float * x2: float * y2: float -&gt; Shape</div>
+<div class="tip" id="fs13">union case Shape.Circle: x: float * y: float * diameter: float -&gt; Shape</div>
+
+
+<div class="row">
+  <div class="small-6 columns"><p class="post-discuss">
+		Discuss <a href="http://twitter.com/tomaspetricek">on twitter</a>, <script type="text/javascript" src="http://www.reddit.com/buttonlite.js?i=0"></script>.<br />
+		Send corrections via <a href="https://github.com/tpetricek/TomaspNet.Website">GitHub pull requests</a>.
+	</p></div>
+  <div class="small-6 columns">
+
+<!-- AddThis Button BEGIN -->
+<div class="addthis_toolbox addthis_default_style addthis_16x16_style">
+<a class="addthis_button_twitter"></a>
+<a class="addthis_button_reddit"></a>
+<a class="addthis_button_google_plusone_share"></a>
+<a class="addthis_button_hackernews"></a>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_compact"></a><a class="addthis_counter addthis_bubble_style"></a>
+</div>
+<script type="text/javascript">var addthis_config = { "data_track_addressbar": false };</script>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-521c32162e6001a0"></script>
+<!-- AddThis Button END -->
+
+<p class="post-meta">
+  <span><strong>Published</strong>: Tuesday, 1 April 2014, 2:24 PM</span><br />      
+  <span class="tags"><strong>Tags</strong>: c#, fun, functional programming</span>
+</p>
+
+  </div>
+</div>
+
+    </content>
+
+  </div>
+  <div class="large-4 columns" id="right-bar">
+    <div class="right-item" id="right-calendar">
+<script type="text/javascript">
+  var monthNames =
+    ["January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December"];
+  var d = new Date();
+  var m = monthNames[d.getMonth()];
+  var y = d.getFullYear();
+  var ml = m.toLowerCase();
+  document.writeln("<h4>Calendar - " + m + " " + y + "</h4>");
+  document.writeln("<a href=\"http://tomasp.net/calendar/" + y + "/" + ml + ".html\">" +
+    "<img src=\"http://tomasp.net/calendar/" + y + "/" + ml + "-preview.jpg\" style=\"border-style:none;\" />" +
+    "</a>");
+</script> 
+<p>The calendar shows a new picture each month since 
+  <a href="http://tomasp.net/calendar/2005">2005</a>, <a href="http://tomasp.net/calendar/2006">2006</a>, 
+  <a href="http://tomasp.net/calendar/2007">2007</a>, <a href="http://tomasp.net/calendar/2008">2008</a>, 
+  <a href="http://tomasp.net/calendar/2009">2009</a>, <a href="http://tomasp.net/calendar/2010">2010</a>, 
+  <a href="http://tomasp.net/calendar/2011">2011</a>, <a href="http://tomasp.net/calendar/2012">2012</a>,
+  <a href="http://tomasp.net/calendar/2013">2013</a>. <br />
+  See the first photos of <a href="http://tomasp.net/calendar/2014">2014</a>.
+</p>
+</div>
+
+    <h3>Welcome!</h3>
+    <img src="http://tomasp.net/img/tomas.jpg" alt="Tomas Petricek" style="float:right;margin:10px 0px 10px 10px;" />
+    <p>I'm an F# enthusiast, book author and a PhD student at the University of Cambridge.
+      When offline, I enjoy traveling and taking pictures. You can find me at
+      at <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a> or email 
+      <a href="mailto:tomas@tomasp.net">tomas@tomasp.net</a>.
+    </p>
+
+    <script type="text/javascript" src="http://tomasp.net/news/news.js"></script>
+    <h4>What's new? &#160; <small><script type="text/javascript">document.write(news.date)</script></small></h4>
+    <script>
+      document.write(news.info);
+    </script>
+
+    <h4>Trainings and consulting</h4>
+    <img src="http://tomasp.net/img/skillsmatter.png" alt="Tomas Petricek" style="float:right;margin:15px 0px 10px 10px;" />
+    <p>I run F# and functional programming courses in <strong>London</strong>
+      and <strong>New York</strong> with SkillsMatter.
+    </p>
+    <ul>
+      <li>Check out our <a href="http://skillsmatter.com/course/scala/tomas-petricek-phil-trelford-fast-track-to-fsharp/ps-6679">Fast Track to F#</a> course</li>
+      <li><a href="mailto:tomas@tomasp.net">Email me</a> for info about private trainings</li>
+    </ul>
+    
+    <h4>F# Books and articles</h4>
+    <div style="float:right;">
+      <a href="http://www.amazon.com/gp/product/1933988924/ref=as_li_tf_il?ie=UTF8&amp;tag=httptomasnet-20&amp;linkCode=as2&amp;camp=217145&amp;creative=399369&amp;creativeASIN=1933988924">
+        <img src="http://tomasp.net/img/rwfp.jpg" alt="Real World Functional Programming" style="float:right;margin:10px 0px 10px 10px;border-style:none;" />
+      </a>
+    </div>
+    <p><a href="http://www.manning.com/petricek">Real World Functional Programming</a> explains functional
+      concepts using F# and C#. You can get it from <a href="http://www.amazon.com/dp/1933988924?tag=httptomasnet-20&amp;camp=213381&amp;creative=390973&amp;linkCode=as4&amp;creativeASIN=1933988924&amp;adid=0F1DP260JGG4KY0CDGP6">Amazon.com</a>, <a href="https://www.amazon.co.uk/dp/1933988924?tag=tomasnet-21&amp;camp=1406&amp;creative=6394&amp;linkCode=as1&amp;creativeASIN=1933988924&amp;adid=1CTY87YCCQEJW965GNDF">Amazon.co.uk</a> or your favorite book store.
+      Some chapters and new materials are also available on <a href="http://msdn.microsoft.com/en-us/library/hh314518.aspx">MSDN</a>.</p>
+    
+    <p>Currently, I'm putting together <a href="http://www.manning.com/petricek2/">F# Deep Dives</a> - a collection
+      of practical F# essays written by community leaders and commercial users of F#.</p>
+    <p>I also wrote a series of tutorials on <a href="http://www.tryfsharp.org/Learn/financial-computing">financial computing</a>
+      for Try F# - an interactive environment that let's you try F# in the browser.</p>
+
+    <h4>Research and teaching</h4>
+    <img src="http://tomasp.net/img/cam.png" alt="University of Cambride" style="float:right;margin:25px 0px 10px 10px;" />
+    <p>I'm finishing PhD in computer science at the <a href="http://www.cl.cam.ac.uk/">University of Cambridge</a>.
+      I'm working on making better types for programs that run in rich context (like F# type providers, distributed 
+      prog&shy;ramming or data-flow). See <a href="http://www.cl.cam.ac.uk/~tp322/">my academic page</a> for
+      more.</p>
+
+    <h4>Blog tags</h4>
+    <p>
+
+      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(92),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(31),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(27),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(6),       <a href="http://tomasp.net/blog/tag/writing/">writing</a>&nbsp;(11),       <a href="http://tomasp.net/blog/tag/haskell/">haskell</a>&nbsp;(7),       <a href="http://tomasp.net/blog/tag/fsharp-data/">f# data</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/art/">art</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fractals/">fractals</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/funscript/">funscript</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/open-source/">open source</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/new-york/">new york</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/manning/">manning</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/books/">books</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/coeffects/">coeffects</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/comonads/">comonads</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/fake/">fake</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/fsharp-formatting/">f# formatting</a>&nbsp;(1)    </p>
+
+  </div>
+</div>
+
+
+  <div class="row" id="footer">
+  <footer>   
+    <div class="large-3 columns">
+      <h4>Contact &amp; about</h4>
+      <p>This site is hosted on GitHub and is generated using <a href="https://github.com/tpetricek/FSharp.Formatting">F# Formatting</a>.
+        For more info, see the <a href="https://github.com/tpetricek/TomaspNet.Website">website source on GitHub</a>.
+      </p>
+      <p>Please submit issues &amp; corrections on GitHub. Use pull requests for minor corrections only.</p>
+      <ul>
+        <li>Email me: <a href="mailto:tomas@tomasp.net">tomas@tomasp.net</a></li>
+        <li>Connect via Twitter: <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a></li>
+        <li>More: <a href="http://uk.linkedin.com/in/tomaspetricek">LinkedIn</a> | <a href="http://lanyrd.com/profile/tomasp/">Lanyrd</a> | <a href="https://github.com/tpetricek">GitHub</a></li>
+      </ul>
+    </div>
+    <div class="large-7 columns">
+    <h4>Blog archives <a href="http://tomasp.net/rss.xml"><img src="http://tomasp.net/img/rss.gif" /></a></h4>
+      <a href="http://tomasp.net/blog/archive/april-2014/index.html">
+        April 2014 (1)</a>,      <a href="http://tomasp.net/blog/archive/march-2014/index.html">
+        March 2014 (1)</a>,      <a href="http://tomasp.net/blog/archive/january-2014/index.html">
+        January 2014 (2)</a>,      <a href="http://tomasp.net/blog/archive/december-2013/index.html">
+        December 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/november-2013/index.html">
+        November 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/october-2013/index.html">
+        October 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/september-2013/index.html">
+        September 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/august-2013/index.html">
+        August 2013 (2)</a>,      <a href="http://tomasp.net/blog/archive/may-2013/index.html">
+        May 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/april-2013/index.html">
+        April 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/march-2013/index.html">
+        March 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/february-2013/index.html">
+        February 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/january-2013/index.html">
+        January 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/december-2012/index.html">
+        December 2012 (2)</a>,      <a href="http://tomasp.net/blog/archive/october-2012/index.html">
+        October 2012 (1)</a>,      <a href="http://tomasp.net/blog/archive/august-2012/index.html">
+        August 2012 (3)</a>,      <a href="http://tomasp.net/blog/archive/june-2012/index.html">
+        June 2012 (2)</a>,      <a href="http://tomasp.net/blog/archive/april-2012/index.html">
+        April 2012 (1)</a>,      <a href="http://tomasp.net/blog/archive/march-2012/index.html">
+        March 2012 (4)</a>,      <a href="http://tomasp.net/blog/archive/february-2012/index.html">
+        February 2012 (5)</a>,      <a href="http://tomasp.net/blog/archive/january-2012/index.html">
+        January 2012 (2)</a>,      <a href="http://tomasp.net/blog/archive/november-2011/index.html">
+        November 2011 (5)</a>,      <a href="http://tomasp.net/blog/archive/august-2011/index.html">
+        August 2011 (3)</a>,      <a href="http://tomasp.net/blog/archive/july-2011/index.html">
+        July 2011 (2)</a>,      <a href="http://tomasp.net/blog/archive/june-2011/index.html">
+        June 2011 (2)</a>,      <a href="http://tomasp.net/blog/archive/may-2011/index.html">
+        May 2011 (2)</a>,      <a href="http://tomasp.net/blog/archive/march-2011/index.html">
+        March 2011 (4)</a>,      <a href="http://tomasp.net/blog/archive/december-2010/index.html">
+        December 2010 (1)</a>,      <a href="http://tomasp.net/blog/archive/november-2010/index.html">
+        November 2010 (6)</a>,      <a href="http://tomasp.net/blog/archive/october-2010/index.html">
+        October 2010 (6)</a>,      <a href="http://tomasp.net/blog/archive/september-2010/index.html">
+        September 2010 (4)</a>,      <a href="http://tomasp.net/blog/archive/july-2010/index.html">
+        July 2010 (3)</a>,      <a href="http://tomasp.net/blog/archive/june-2010/index.html">
+        June 2010 (2)</a>,      <a href="http://tomasp.net/blog/archive/may-2010/index.html">
+        May 2010 (1)</a>,      <a href="http://tomasp.net/blog/archive/february-2010/index.html">
+        February 2010 (2)</a>,      <a href="http://tomasp.net/blog/archive/january-2010/index.html">
+        January 2010 (3)</a>,      <a href="http://tomasp.net/blog/archive/december-2009/index.html">
+        December 2009 (3)</a>,      <a href="http://tomasp.net/blog/archive/july-2009/index.html">
+        July 2009 (1)</a>,      <a href="http://tomasp.net/blog/archive/june-2009/index.html">
+        June 2009 (3)</a>,      <a href="http://tomasp.net/blog/archive/may-2009/index.html">
+        May 2009 (2)</a>,      <a href="http://tomasp.net/blog/archive/april-2009/index.html">
+        April 2009 (1)</a>,      <a href="http://tomasp.net/blog/archive/march-2009/index.html">
+        March 2009 (2)</a>,      <a href="http://tomasp.net/blog/archive/february-2009/index.html">
+        February 2009 (1)</a>,      <a href="http://tomasp.net/blog/archive/december-2008/index.html">
+        December 2008 (1)</a>,      <a href="http://tomasp.net/blog/archive/november-2008/index.html">
+        November 2008 (5)</a>,      <a href="http://tomasp.net/blog/archive/october-2008/index.html">
+        October 2008 (1)</a>,      <a href="http://tomasp.net/blog/archive/september-2008/index.html">
+        September 2008 (1)</a>,      <a href="http://tomasp.net/blog/archive/june-2008/index.html">
+        June 2008 (1)</a>,      <a href="http://tomasp.net/blog/archive/march-2008/index.html">
+        March 2008 (3)</a>,      <a href="http://tomasp.net/blog/archive/february-2008/index.html">
+        February 2008 (1)</a>,      <a href="http://tomasp.net/blog/archive/december-2007/index.html">
+        December 2007 (2)</a>,      <a href="http://tomasp.net/blog/archive/november-2007/index.html">
+        November 2007 (6)</a>,      <a href="http://tomasp.net/blog/archive/october-2007/index.html">
+        October 2007 (1)</a>,      <a href="http://tomasp.net/blog/archive/september-2007/index.html">
+        September 2007 (1)</a>,      <a href="http://tomasp.net/blog/archive/august-2007/index.html">
+        August 2007 (1)</a>,      <a href="http://tomasp.net/blog/archive/july-2007/index.html">
+        July 2007 (2)</a>,      <a href="http://tomasp.net/blog/archive/april-2007/index.html">
+        April 2007 (2)</a>,      <a href="http://tomasp.net/blog/archive/march-2007/index.html">
+        March 2007 (3)</a>,      <a href="http://tomasp.net/blog/archive/february-2007/index.html">
+        February 2007 (3)</a>,      <a href="http://tomasp.net/blog/archive/january-2007/index.html">
+        January 2007 (2)</a>,      <a href="http://tomasp.net/blog/archive/november-2006/index.html">
+        November 2006 (1)</a>,      <a href="http://tomasp.net/blog/archive/october-2006/index.html">
+        October 2006 (3)</a>,      <a href="http://tomasp.net/blog/archive/august-2006/index.html">
+        August 2006 (2)</a>,      <a href="http://tomasp.net/blog/archive/july-2006/index.html">
+        July 2006 (1)</a>,      <a href="http://tomasp.net/blog/archive/june-2006/index.html">
+        June 2006 (3)</a>,      <a href="http://tomasp.net/blog/archive/may-2006/index.html">
+        May 2006 (2)</a>,      <a href="http://tomasp.net/blog/archive/april-2006/index.html">
+        April 2006 (2)</a>,      <a href="http://tomasp.net/blog/archive/december-2005/index.html">
+        December 2005 (1)</a>,      <a href="http://tomasp.net/blog/archive/july-2005/index.html">
+        July 2005 (4)</a>,      <a href="http://tomasp.net/blog/archive/june-2005/index.html">
+        June 2005 (5)</a>,      <a href="http://tomasp.net/blog/archive/may-2005/index.html">
+        May 2005 (1)</a>,      <a href="http://tomasp.net/blog/archive/april-2005/index.html">
+        April 2005 (3)</a>,      <a href="http://tomasp.net/blog/archive/march-2005/index.html">
+        March 2005 (3)</a>,      <a href="http://tomasp.net/blog/archive/january-2005/index.html">
+        January 2005 (1)</a>,      <a href="http://tomasp.net/blog/archive/december-2004/index.html">
+        December 2004 (3)</a>,      <a href="http://tomasp.net/blog/archive/november-2004/index.html">
+        November 2004 (2)</a>,    </div>
+    <div class="large-2 columns">
+      <h4>License</h4>
+      <p>Unless explicitly mentioned, all articles on this site are licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution Share Alike</a>. 
+        All source code samples are licensed under Apache 2.0.
+      </p>
+      <img src="http://tomasp.net/img/cc-sa.png" alt="CC License logo" />
+    </div>
+  </footer>
+  </div>
+  
+  <script>
+  document.write('<script src=' +
+  ('__proto__' in {} ? 'http://tomasp.net/js/vendor/zepto' : 'http://tomasp.net/js/vendor/jquery') +
+  '.js><\/script>')
+  </script>
+  
+  <script src="http://tomasp.net/js/foundation.min.js"></script>
+  <script>
+    $(document).foundation();
+  </script>
+  <script type="text/javascript">
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-1561220-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function () {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+
+  </script>
+  <script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
+</body>
+</html>

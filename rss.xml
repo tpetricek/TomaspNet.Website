@@ -4,6 +4,23 @@
     <link>http://tomasp.net</link>
     <description>Writing about software development in F# and .NET, sharing materials from my F# trainings and talks, writing about programming language research and theory.</description>
     <item>
+      <title>BREAKING: Open-source C# 6.0 released</title>
+      <guid>http://tomasp.net/blog/2014/csharp-6-released</guid>
+      <link>http://tomasp.net/blog/2014/csharp-6-released/index.html</link>
+      <pubDate>Tue, 01 Apr 2014 13:24:30 GMT</pubDate>
+      <description>&lt;img src="http://tomasp.net/blog/2014/csharp-6-released/csharp.jpg" style="width:170px;float:right;margin:15px" /&gt;
+
+&lt;p&gt;At last, the long wait is fianlly over! After 4 years of waiting, the fully managed implementation
+of the C# compiler [codenamed "Roslyn"][roslyn] has been finally released. In the recent months, 
+"Roslyn" has been slowly turning into [vaporware][vaporware], but thanks to the recent breakthrough,
+the team made an enormous progress over the last two months and even implemented a number of new
+C# 6.0 features.&lt;/p&gt;
+
+&lt;p&gt;The C# 6.0 compiler, together with [the full source code][source] has been released today!&lt;/p&gt;
+
+</description>
+    </item>
+    <item>
       <title>Solving fun puzzles with F#</title>
       <guid>http://tomasp.net/blog/2014/puzzling-fsharp</guid>
       <link>http://tomasp.net/blog/2014/puzzling-fsharp/index.html</link>
@@ -591,29 +608,6 @@ type-first approach made it easier to understand and discuss the problem.&lt;/p&
 &lt;p&gt;In many ways, TFD is a very simple approach, so this article just gives a name
 to a practice that is quite common among functional and F# programmers (and 
 we have been &lt;a href="http://functional-programming.net/courses/"&gt;teaching it at our F# trainings&lt;/a&gt; for the last year)...&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>F# Courses and Talks for Autumn 2012 (I.)</title>
-      <guid>http://tomasp.net/blog/events-autumn-2012.aspx</guid>
-      <link>http://tomasp.net/blog/events-autumn-2012.aspx/index.html</link>
-      <pubDate>Wed, 08 Aug 2012 02:47:08 GMT</pubDate>
-      <description>&lt;img src="http://tomasp.net/articles/events-autumn-2012/tomas.jpg" class="rdecor" title="Tomas Petricek" style="margin-bottom:15px"/&gt;
-
-&lt;p&gt;Similarly to the &lt;a href="http://tomasp.net/blog/fsharp-autumn-2011.aspx"&gt;last year&lt;/a&gt;,
-  I already have a number of F# events planned for the end of the summer and autumn that 
-  I'd like to invite you to!&lt;/p&gt;
-
-&lt;p&gt;The &lt;a href="http://www.infoq.com/news/2012/08/VS2012-Live"&gt;Visual Studio 2012 has been completed&lt;/a&gt;
-  recently and it comes with F# 3.0. For me, this means two things. Firstly, it is the second
-  Visual Studio version of F#, which means that functional programming is worth taking seriously.
-  Secondly, F# 3.0 comes with &lt;em&gt;type providers&lt;/em&gt;, which is a killer feature for working with
-  data. No matter if you're a C# programmer now to functional programming or if you're an F#
-  user in the real-world, I hope you can find some interesting and useful event below!
-&lt;/p&gt;
-
-&lt;p&gt;The two main things that I'm going to be involved in are SkilsMatter trainings in London and New York
-  and a few events at the biggest functional conference (ICFP) in Copenhagen...&lt;/p&gt;
-</description>
     </item>
   </channel>
 </rss>

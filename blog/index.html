@@ -67,6 +67,28 @@
       
 
   <div>
+  <h1><a href="http://tomasp.net/blog/2014/csharp-6-released/index.html">BREAKING: Open-source C# 6.0 released</a></h1>
+  <img src="http://tomasp.net/blog/2014/csharp-6-released/csharp.jpg" style="width:170px;float:right;margin:15px" />
+
+<p>At last, the long wait is fianlly over! After 4 years of waiting, the fully managed implementation
+of the C# compiler [codenamed "Roslyn"][roslyn] has been finally released. In the recent months, 
+"Roslyn" has been slowly turning into [vaporware][vaporware], but thanks to the recent breakthrough,
+the team made an enormous progress over the last two months and even implemented a number of new
+C# 6.0 features.</p>
+
+<p>The C# 6.0 compiler, together with [the full source code][source] has been released today!</p>
+
+
+      
+  <p class="meta">
+    <span><strong>Published</strong>: Tuesday, 1 April 2014, 2:24 PM</span>
+      <br />      
+      <span class="tags"><strong>Tags</strong>: c#, fun, functional programming </span> 
+    <br />
+    <a href="http://tomasp.net/blog/2014/csharp-6-released/index.html">Read the complete article</a>
+  </p>
+  </div>
+  <div>
   <h1><a href="http://tomasp.net/blog/2014/puzzling-fsharp/index.html">Solving fun puzzles with F#</a></h1>
   <p>Do you need to convince your friends &amp; family that programming can be fun? 
 For the last Christmas, I got a puzzle as a gift. It is a number of small
@@ -568,60 +590,6 @@ Here are the most important links:</p>
     <a href="http://tomasp.net/blog/fsharp-literate-programming.aspx/index.html">Read the complete article</a>
   </p>
   </div>
-  <div>
-  <h1><a href="http://tomasp.net/blog/tree-zipper-query.aspx/index.html">Processing trees with F# zipper computation</a></h1>
-  <p>One of the less frequently advertised new features in F# 3.0 is the <em>query syntax</em>.
-It is an extension that makes it possible to add custom operations in an F#
-computation expression. The standard <code>query { .. }</code> computation uses this to define
-operations such as sorting (<code>sortBy</code> and <code>sortByDescending</code>) or operations for taking
-and skipping elements (<code>take</code>, <code>takeWhile</code>, ...). For example, you can write:</p>
-<pre class="fssnip">
-<span class="l">1: </span><span onmouseout="hideTip(event, 'fs1', 1)" onmouseover="showTip(event, 'fs1', 1)" class="i">query</span> { <span class="k">for</span> <span onmouseout="hideTip(event, 'fs2', 2)" onmouseover="showTip(event, 'fs2', 2)" class="i">x</span> <span class="k">in</span> <span class="n">1</span> <span class="o">..</span> <span class="n">10</span> <span class="k">do</span>
-<span class="l">2: </span>        <span onmouseout="hideTip(event, 'fs3', 3)" onmouseover="showTip(event, 'fs3', 3)" class="k">take</span> <span class="n">3</span>
-<span class="l">3: </span>        <span onmouseout="hideTip(event, 'fs4', 4)" onmouseover="showTip(event, 'fs4', 4)" class="k">sortByDescending</span> <span onmouseout="hideTip(event, 'fs2', 5)" onmouseover="showTip(event, 'fs2', 5)" class="i">x</span> }</pre>
-<p>In this article I'll use the same notation for processing trees using the <em>zipper</em>
-pattern. I'll show how to define a computation that allows you to traverse a tree
-and perform transformations on (parts) of the tree. For example, we'll be able to 
-say "Go to the left sub-tree, multiply all values by 2. Then go back and to the
-right sub-tree and divide all values by 2" as follows:</p>
-<pre class="fssnip">
-<span class="l">1: </span><span onmouseout="hideTip(event, 'fsd1', 1)" onmouseover="showTip(event, 'fsd1', 1)" class="i">tree</span> { <span class="k">for</span> <span onmouseout="hideTip(event, 'fsd2', 2)" onmouseover="showTip(event, 'fsd2', 2)" class="i">x</span> <span class="k">in</span> <span class="i">sample</span> <span class="k">do</span>
-<span class="l">2: </span>       <span onmouseout="hideTip(event, 'fsd3', 3)" onmouseover="showTip(event, 'fsd3', 3)" class="k">left</span> 
-<span class="l">3: </span>       <span onmouseout="hideTip(event, 'fsd4', 4)" onmouseover="showTip(event, 'fsd4', 4)" class="k">map</span> (<span onmouseout="hideTip(event, 'fsd2', 5)" onmouseover="showTip(event, 'fsd2', 5)" class="i">x</span> <span class="o">*</span> <span class="n">2</span>) 
-<span class="l">4: </span>       <span onmouseout="hideTip(event, 'fsd5', 6)" onmouseover="showTip(event, 'fsd5', 6)" class="k">up</span>
-<span class="l">5: </span>       <span onmouseout="hideTip(event, 'fsd6', 7)" onmouseover="showTip(event, 'fsd6', 7)" class="k">right</span>
-<span class="l">6: </span>       <span onmouseout="hideTip(event, 'fsd4', 8)" onmouseover="showTip(event, 'fsd4', 8)" class="k">map</span> (<span onmouseout="hideTip(event, 'fsd2', 9)" onmouseover="showTip(event, 'fsd2', 9)" class="i">x</span> <span class="o">/</span> <span class="n">2</span>) 
-<span class="l">7: </span>       <span onmouseout="hideTip(event, 'fsd7', 10)" onmouseover="showTip(event, 'fsd7', 10)" class="k">top</span> }</pre>
-<p>This example behaves quite differently to the usual <code>query</code> computation. It mostly
-relies on custom operations like <code>left</code>, <code>right</code> and <code>up</code> that allow us to navigate
-through a tree (descend along the left or right sub-tree, go back to the parent node). 
-The only operation that <em>does something</em> is the <code>map</code> operation which transforms the
-current sub-tree.</p>
-
-<p>This was just a brief introduction to what is possible, so let's take a detailed look
-at how this works...</p>
-
-<div class="tip" id="fs1">val query : Linq.QueryBuilder<br /><br />Full name: Microsoft.FSharp.Core.ExtraTopLevelOperators.query</div>
-<div class="tip" id="fs2">val x : int</div>
-<div class="tip" id="fs3">custom operation: take (int)<br /><br />Calls Linq.QueryBuilder.Take </div>
-<div class="tip" id="fs4">custom operation: sortByDescending (&#39;Key)<br /><br />Calls Linq.QueryBuilder.SortByDescending </div>
-<div class="tip" id="fsd1">val tree : TreeZipperBuilder<br /><br />Full name: Tree-zipper-query.aspx_.tree<br /><em><br /><br />&#160;Global instance of the computation builder</em></div>
-<div class="tip" id="fsd2">val x : int</div>
-<div class="tip" id="fsd3">custom operation: left<br /><br />Calls TreeZipperBuilder.Left </div>
-<div class="tip" id="fsd4">custom operation: map (&#39;a)<br /><br />Calls TreeZipperBuilder.Select <br /><em><br /><br />&#160;Transform the current sub-tree using &#39;f&#39;</em></div>
-<div class="tip" id="fsd5">custom operation: up<br /><br />Calls TreeZipperBuilder.Up </div>
-<div class="tip" id="fsd6">custom operation: right<br /><br />Calls TreeZipperBuilder.Right </div>
-<div class="tip" id="fsd7">custom operation: top<br /><br />Calls TreeZipperBuilder.Top </div>
-
-      
-  <p class="meta">
-    <span><strong>Published</strong>: Wednesday, 19 December 2012, 2:22 PM</span>
-      <br />      
-      <span class="tags"><strong>Tags</strong>: f#, haskell, research, monads, linq </span> 
-    <br />
-    <a href="http://tomasp.net/blog/tree-zipper-query.aspx/index.html">Read the complete article</a>
-  </p>
-  </div>
 
     </content>
 
@@ -700,7 +668,7 @@ at how this works...</p>
     <h4>Blog tags</h4>
     <p>
 
-      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(92),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(27),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(30),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(5),       <a href="http://tomasp.net/blog/tag/writing/">writing</a>&nbsp;(11),       <a href="http://tomasp.net/blog/tag/fsharp-data/">f# data</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/haskell/">haskell</a>&nbsp;(7),       <a href="http://tomasp.net/blog/tag/open-source/">open source</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/art/">art</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fractals/">fractals</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/funscript/">funscript</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/new-york/">new york</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/manning/">manning</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/books/">books</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/coeffects/">coeffects</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/comonads/">comonads</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/fake/">fake</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/fsharp-formatting/">f# formatting</a>&nbsp;(1)    </p>
+      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(92),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(31),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(27),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(6),       <a href="http://tomasp.net/blog/tag/writing/">writing</a>&nbsp;(11),       <a href="http://tomasp.net/blog/tag/haskell/">haskell</a>&nbsp;(7),       <a href="http://tomasp.net/blog/tag/fsharp-data/">f# data</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/art/">art</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fractals/">fractals</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/funscript/">funscript</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/open-source/">open source</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/new-york/">new york</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/manning/">manning</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/books/">books</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/coeffects/">coeffects</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/comonads/">comonads</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/fake/">fake</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/fsharp-formatting/">f# formatting</a>&nbsp;(1)    </p>
 
   </div>
 </div>
@@ -722,7 +690,8 @@ at how this works...</p>
     </div>
     <div class="large-7 columns">
     <h4>Blog archives <a href="http://tomasp.net/rss.xml"><img src="http://tomasp.net/img/rss.gif" /></a></h4>
-      <a href="http://tomasp.net/blog/archive/march-2014/index.html">
+      <a href="http://tomasp.net/blog/archive/april-2014/index.html">
+        April 2014 (1)</a>,      <a href="http://tomasp.net/blog/archive/march-2014/index.html">
         March 2014 (1)</a>,      <a href="http://tomasp.net/blog/archive/january-2014/index.html">
         January 2014 (2)</a>,      <a href="http://tomasp.net/blog/archive/december-2013/index.html">
         December 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/november-2013/index.html">

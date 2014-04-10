@@ -109,7 +109,20 @@ I worked on _computation expressions_ in F#, both by developing the theory
 
 ## Recent publications
 
-#### **[November 2013]** [The F# Computation Expression Zoo](@Model.Root/academic/papers/computation-zoo/)
+#### **[April 2014]** [What can Programming Language Research  Learn from the Philosophy of Science?](@Model.Root/academic/papers/philosophy-pl/)
+
+> Tomas Petricek. In Proceedings of AISB 2014
+
+This essay looks how theories from philosophy of science apply
+to programming language research. I argue that it is important to clearly state research 
+programme, avoid early over-emphasis on precision and I consider how to produce truly reusable
+experiments.
+
+ - [abstract](@Model.Root/academic/papers/philosophy-pl/) | [cite](@Model.Root/academic/papers/philosophy-pl/#cite) | 
+   [talk](@Model.Root/academic/papers/philosophy-pl/philosophy-pl-aisb.pdf) | 
+   [paper](@Model.Root/academic/papers/philosophy-pl/philosophy-pl.pdf)
+
+#### [The F# Computation Expression Zoo](@Model.Root/academic/papers/computation-zoo/)
 
 > Tomas Petricek and Don Syme. In Proceedings of PADL 2014.
 
@@ -264,17 +277,6 @@ application.
 ## Work in progress
 Start here if you want to know that I'm currently working on and what I recently 
 completed. Unpublished drafts are marked as such and I'm always looking for feedback!
-
-#### **[January 2014]** Draft: [What can Programming Language Research  Learn from the Philosophy of Science?](@Model.Root/academic/drafts/philosophy-pl/)
-
-> Tomas Petricek. Unpublished draft.
-
-This essay looks how theories from philosophy of science apply
-to programming language research. I argue that it is important to clearly state research 
-programme, avoid early over-emphasis on precision and I consider how to produce truly reusable
-experiments.
-
- - [abstract](@Model.Root/academic/drafts/philosophy-pl/) | [draft](@Model.Root/academic/drafts/philosophy-pl/philosophy-pl.pdf)
 
 #### **[July 2013]** Draft: [Analysing context dependence in programs](@Model.Root/academic/drafts/coeffects-structural/)
 

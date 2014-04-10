@@ -4,6 +4,41 @@
     <link>http://tomasp.net</link>
     <description>Writing about software development in F# and .NET, sharing materials from my F# trainings and talks, writing about programming language research and theory.</description>
     <item>
+      <title>What can programming language research learn from the philosophy of science?</title>
+      <guid>http://tomasp.net/blog/2014/philosophy-pl</guid>
+      <link>http://tomasp.net/blog/2014/philosophy-pl/index.html</link>
+      <pubDate>Thu, 10 Apr 2014 16:16:36 GMT</pubDate>
+      <description>&lt;p&gt;As someone doing programming language research, I find it really interesting to think
+about &lt;em&gt;how&lt;/em&gt; programming language research is done, how it has been done in the past
+and how it &lt;em&gt;should&lt;/em&gt; be done. This kind of questions are usually asked by philosophy
+of science, but only a few people have discussed this in the context of computing
+(or even programming languages).&lt;/p&gt;
+
+&lt;p&gt;So, my starting point was to look at the classic works in the general philosophy of science 
+and see which of these could tell us something about programming languages.&lt;/p&gt;
+
+&lt;p&gt;I wrote an article about some of these ideas and presented it last week at the
+second symposium on &lt;a href="http://www.computing-conference.ugent.be/hapop2"&gt;History and Philosophy of Programming&lt;/a&gt;.
+For me, it was amazing to talk with interesting people working on so many great 
+related ideas! Anyway, now that the paper has been published and I did a talk, I should 
+also share it on my blog:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://tomasp.net/academic/papers/philosophy-pl/index.html"&gt;What can Programming Language Research Learn from the Philosophy of 
+Science?&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Fairly minimalistic &lt;a href="http://tomasp.net/academic/papers/philosophy-pl/philosophy-pl-aisb.pdf"&gt;slides from my talk at the 
+symposium&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;One feedback that I got when I submitted the paper to Onward! Essays last year was that
+the paper uses a lot of philosophy of science terminology. This was partly the point of 
+the paper, but the feedback inspired me to write a more readable overview in a form of 
+blog post. So, if you want to get a quick peek at some of the ideas, you can also read
+this short blog (and then perhaps go back to the paper)!&lt;/p&gt;
+
+</description>
+    </item>
+    <item>
       <title>BREAKING: Open-source C# 6.0 released</title>
       <guid>http://tomasp.net/blog/2014/csharp-6-released</guid>
       <link>http://tomasp.net/blog/2014/csharp-6-released/index.html</link>
@@ -586,34 +621,6 @@ a basis for an F# syntax extension that allows writing code using applicative
 functors in a similar style as using monads (which is discussed in my draft 
 paper about &lt;a href="http://www.cl.cam.ac.uk/~tp322/papers/notations.html" title="T. Petricek and D. Syme: Syntax Matters: Writing abstract computations in F#"&gt;writing abstract computations in F#&lt;/a&gt;). And I also think that
 &lt;em&gt;commutative&lt;/em&gt; applicative functors deserve more attention.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Why type-first development matters</title>
-      <guid>http://tomasp.net/blog/type-first-development.aspx</guid>
-      <link>http://tomasp.net/blog/type-first-development.aspx/index.html</link>
-      <pubDate>Wed, 15 Aug 2012 23:21:21 GMT</pubDate>
-      <description>&lt;img src="http://tomasp.net/articles/type-first-development/tfd.png" class="rdecor" /&gt;
-
-&lt;p&gt;Using functional programming language changes the way you write code in a number
-of ways. Many of the changes are at a &lt;em&gt;small-scale&lt;/em&gt;. For example, you learn how to express 
-computations in a shorter, more declarative way using higher-order functions.
-However, there are also many changes at a &lt;em&gt;large-scale&lt;/em&gt;. The most notable one
-is that, when designing a program, you start thinking about the (data) types 
-that represent the data your code works with.&lt;/p&gt;
-
-&lt;p&gt;In this article, I describe this approach. Since the acronym TDD is already taken,
-I call the approach Type-First Development (TFD), which is probably a better name anyway.
-The development is not &lt;em&gt;driven&lt;/em&gt; by types. It &lt;em&gt;starts&lt;/em&gt; with types, but the rest of the
-implementation can still use test-driven development for the implementation.&lt;/p&gt;
-
-&lt;p&gt;This article demonstrates the approach using a case study from a real life: 
-My example is a project that I started working on with a friend who needed a 
-system to log journeys with a company car (for expense reports). Using the 
-type-first approach made it easier to understand and discuss the problem.&lt;/p&gt;
-
-&lt;p&gt;In many ways, TFD is a very simple approach, so this article just gives a name
-to a practice that is quite common among functional and F# programmers (and 
-we have been &lt;a href="http://functional-programming.net/courses/"&gt;teaching it at our F# trainings&lt;/a&gt; for the last year)...&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

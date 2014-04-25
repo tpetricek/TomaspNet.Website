@@ -231,7 +231,7 @@ The article presents several monads that can benefit from the _parallel monad co
 notation that is supported in the re-designed monad comprehension syntax in Haskell. The examples
 are inspired by the work on joinads and include parsers, parallel and concurrent computations.
 
- - [details](@Model.Root/academic/articles/comprefun/) | [article](@Model.Root/academic/articles/comprefun.pdf) | [online](http://tomasp.net/blog/comprefun.aspx/)
+ - [details](@Model.Root/academic/articles/comprefun/) | [article](@Model.Root/academic/articles/comprefun/comprefun.pdf) | [online](http://tomasp.net/blog/comprefun.aspx/)
 
 #### [Effect and coeffect type systems](@Model.Root/academic/theses/first-year/first-year.pdf)
 

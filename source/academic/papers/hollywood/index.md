@@ -30,7 +30,7 @@ imperative model.
 ## Paper and more information
 
  - Download [the paper from ACM (free PDF)](http://dl.acm.org/authorize?357245), or use a [local backup (PDF)](hollywood.pdf)
- - View [slides from ISMM 2010 (PDF)](hollywood-ismm.pdf)
+ - View [slides from ISMM 2010 (PDF)](ismm-talk.pdf)
  - Read a [related blog post](http://tomasp.net/blog/event-object-duality.aspx)
 
 ## <a id="cite">Bibtex</a>

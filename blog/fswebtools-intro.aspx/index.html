@@ -64,6 +64,7 @@
 	<div class="large-8 columns main-content">
     <content>
       
+
 <h1>F# Web Tools: "Ajax" applications made simple</h1>
 <p>I started thinking about working on "Ajax" framework quite a long time ago - the key thing
   I really wanted from the beginning was using the same language for writing both client and 
@@ -93,14 +94,14 @@
   projects are Volta from Microsoft [<a href="#fswtintrolinks">1</a>], Links language [<a href="#fswtintrolinks">3</a>] 
   from the University of Edinburgh and Google Web Toolkit [<a href="#fswtintrolinks">2</a>], but none of the projects solve 
   all three problems at once.</p> 
-   
+
 <h3>1. Limited client-side environment</h3>
 <p>First of the problems with "Ajax" style applications is that significant part of the application
   runs on the client-side (in a web browser). Currently majority of the web applications use 
   JavaScript to execute code in the browser, so in the F# Web Tools we wanted to use JavaScript
   as well, however in the future, when installation of Silverlight [<a href="#fswtintrolinks">4</a>] becomes more common, we would like to 
   allow using Silverlight as an alternative.</p>
-    
+
 <p>F# Web Tools allows you to write client-side code in F# 
   (so if you don't know JavaScript, you don't have to learn it!) and also use your existing knowledge 
   of .NET and F# classes and functions (so you can use some of the .NET and F# types when
@@ -145,22 +146,43 @@
   First, we need to define the code-behind file for the ASP.NET page - the page itself is quite simple,
   it contains just two controls - textbox for entering word that you're looking for (<code>txtInput</code>)
   and generic element for displaying results (<code>ctlOutput</code>), so let's look at the code-behind:</p>
-<pre lang="fsharp">
-// F# record type, which will be used for sending lookup 
-// results from the server-side to the client-side
-type SearchResult = { English:string; Other:string; }
 
-// Code-behind type for the ASP.NET page
-[&lt;MixedSide&gt;]
-type Suggest = 
-  inherit ClientPage as base
-  
-  // Controls for entering text and displaying result
-  val mutable txtInput : TextBox
-  val mutable ctlOutput : Element
-
-  (* .. interaction of components will go here .. *)
+<table class="pre"><tr><td class="lines"><pre class="fssnip">
+<span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
 </pre>
+</td>
+<td class="snippet"><pre class="fssnip">
+<span class="c">// F# record type, which will be used for sending lookup </span>
+<span class="c">// results from the server-side to the client-side</span>
+<span class="k">type</span> <span onmouseout="hideTip(event, 'fs1', 1)" onmouseover="showTip(event, 'fs1', 1)" class="i">SearchResult</span> <span class="o">=</span> { <span onmouseout="hideTip(event, 'fs2', 2)" onmouseover="showTip(event, 'fs2', 2)" class="i">English</span><span class="o">:</span><span onmouseout="hideTip(event, 'fs3', 3)" onmouseover="showTip(event, 'fs3', 3)" class="i">string</span>; <span onmouseout="hideTip(event, 'fs4', 4)" onmouseover="showTip(event, 'fs4', 4)" class="i">Other</span><span class="o">:</span><span onmouseout="hideTip(event, 'fs3', 5)" onmouseover="showTip(event, 'fs3', 5)" class="i">string</span>; }
+
+<span class="c">// Code-behind type for the ASP.NET page</span>
+[&lt;<span class="i">MixedSide</span>&gt;]
+<span class="k">type</span> <span onmouseout="hideTip(event, 'fs5', 6)" onmouseover="showTip(event, 'fs5', 6)" class="i">Suggest</span> <span class="o">=</span> 
+  <span class="k">inherit</span> <span class="i">ClientPage</span> <span class="k">as</span> <span class="k">base</span>
+
+  <span class="c">// Controls for entering text and displaying result</span>
+  <span class="k">val</span> <span class="k">mutable</span> <span onmouseout="hideTip(event, 'fs6', 7)" onmouseover="showTip(event, 'fs6', 7)" class="i">txtInput</span> <span class="o">:</span> <span class="i">TextBox</span>
+  <span class="k">val</span> <span class="k">mutable</span> <span onmouseout="hideTip(event, 'fs7', 8)" onmouseover="showTip(event, 'fs7', 8)" class="i">ctlOutput</span> <span class="o">:</span> <span class="i">Element</span>
+
+  <span class="c">(* .. interaction of components will go here .. *)</span></pre>
+</td>
+</tr>
+</table>
+
 <p>Aside from the code-behind class, we also defined a type (<code>SearchResult</code>), which will be used
   for returning loaded results from server to the client side - it is just a F# record containing two strings
   (word in English and word in the language we're translating to). Now let's look at the methods that define
@@ -168,18 +190,35 @@ type Suggest =
   takes entered text as an argument and returns a collection of results (<code>ResizeArray&lt;SearchResult&gt;</code>)
   - it is a static method, so it can't modify anything else on the page (I will write about non-static methods 
   in one of the next articles):</p>
-<pre lang="fsharp">
-// Searches the dictionary for specified prefix
-static member LoadSuggestions(prefix) = 
-  server
-    { let db = DictionaryDb(connectionString)
-      let res = 
-        SQL &lt;@ { for p in §db.Dictionary
-                 when p.English.StartsWith(§prefix) 
-                 -&gt; {English=p.English; Other=p.Other} }
-                 |> truncate 10 @&gt; 
-      return (new ResizeArray&lt;_&gt;(res)) }
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip">
+<span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
 </pre>
+</td>
+<td class="snippet"><pre class="fssnip">
+<span class="c">// Searches the dictionary for specified prefix</span>
+<span class="k">static</span> <span class="k">member</span> <span class="i">LoadSuggestions</span>(<span class="i">prefix</span>) <span class="o">=</span> 
+  <span class="i">server</span>
+    { <span class="k">let</span> <span class="i">db</span> <span class="o">=</span> <span class="i">DictionaryDb</span>(<span class="i">connectionString</span>)
+      <span class="k">let</span> <span class="i">res</span> <span class="o">=</span> 
+        <span class="i">SQL</span> &lt;@ { <span class="k">for</span> <span class="i">p</span> <span class="k">in</span> 
+                 <span class="k">when</span> <span class="i">p</span><span class="o">.</span><span class="i">English</span><span class="o">.</span><span class="i">StartsWith</span>(
+                 <span class="k">-&gt;</span> {<span class="i">English</span><span class="o">=</span><span class="i">p</span><span class="o">.</span><span class="i">English</span>; <span class="i">Other</span><span class="o">=</span><span class="i">p</span><span class="o">.</span><span class="i">Other</span>} }
+                 <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs8', 9)" onmouseover="showTip(event, 'fs8', 9)" class="i">truncate</span> <span class="n">10</span> @&gt; 
+      <span class="k">return</span> (<span class="k">new</span> <span onmouseout="hideTip(event, 'fs9', 10)" onmouseover="showTip(event, 'fs9', 10)" class="i">ResizeArray</span><span class="o">&lt;</span>_<span class="o">&gt;</span>(<span class="i">res</span>)) }</pre>
+</td>
+</tr>
+</table>
+
 <p>The method is all wrapped in <code>server</code> computational expression (this is one of the new F# features - it will be 
   in details described in the Expert F# [<a href="#fswtintrolinks">6</a>] book, but I'll definitely write a few lines about it as well) - for now you can read it as (almost) ordinary
   F# code wrapped in a block that specifies how the code should be executed. The <code>server</code> block is executed
@@ -190,27 +229,52 @@ static member LoadSuggestions(prefix) =
   </p>
 <p>Now, let's look at the members that define client-side interaction. The entry point on the client-side is a method
   called <code>Client_Load</code>, which is executed when the page is loaded in the browser:</p>
-<pre lang="fsharp">
-/// Initialization on the client side - attach event handlers    
-[&lt;ReflectedDefinition&gt;]
-member this.Client_Load(sender, e) =
-  client
-    { do this.txtInput.ClientKeyUp.AddClient(this.UpdateSuggestions) }
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip">
+<span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
 </pre>
+</td>
+<td class="snippet"><pre class="fssnip">
+<span class="c">/// Initialization on the client side - attach event handlers    </span>
+[&lt;<span onmouseout="hideTip(event, 'fs10', 11)" onmouseover="showTip(event, 'fs10', 11)" class="i">ReflectedDefinition</span>&gt;]
+<span class="k">member</span> <span class="i">this</span><span class="o">.</span><span class="i">Client_Load</span>(<span class="i">sender</span>, <span class="i">e</span>) <span class="o">=</span>
+  <span class="i">client</span>
+    { <span class="k">do</span> <span class="i">this</span><span class="o">.</span><span class="i">txtInput</span><span class="o">.</span><span class="i">ClientKeyUp</span><span class="o">.</span><span class="i">AddClient</span>(<span class="i">this</span><span class="o">.</span><span class="i">UpdateSuggestions</span>) }</pre>
+</td>
+</tr>
+</table>
+
 <p>In this case we just register an event handler that will be called whenever user types something to the 
   <code>txtInput</code> textbox. It is important to note that this code will be executed in JavaScript - even though
   when writing it, it is easy to forget about this! You can see the method that is used as an event handler in the next 
   code sample (this whole method will be executed in JS as well):</p>
-<pre lang="fsharp">
-[&lt;ReflectedDefinition&gt;]
-member this.UpdateSuggestions(sender, e) =
-  client
-    { do! asyncExecute
-           (client_async 
-             { let  sprefix = this.txtInput.Text
-               let! sugs = serverExecute(Suggest.LoadSuggestions(sprefix))
-               do!  this.DisplayResponse(sugs) }) }            
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip">
+<span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
+<span class="l">7: </span>
 </pre>
+</td>
+<td class="snippet"><pre class="fssnip">
+<span class="k">member</span> <span class="i">this</span><span class="o">.</span><span class="i">UpdateSuggestions</span>(<span class="i">sender</span>, <span class="i">e</span>) <span class="o">=</span>
+  <span class="i">client</span>
+    { <span class="k">do!</span> <span class="i">asyncExecute</span>
+           (<span class="i">client_async</span> 
+             { <span class="k">let</span>  <span class="i">sprefix</span> <span class="o">=</span> <span class="i">this</span><span class="o">.</span><span class="i">txtInput</span><span class="o">.</span><span class="i">Text</span>
+               <span class="k">let!</span> <span class="i">sugs</span> <span class="o">=</span> <span class="i">serverExecute</span>(<span onmouseout="hideTip(event, 'fs5', 12)" onmouseover="showTip(event, 'fs5', 12)" class="i">Suggest</span><span class="o">.</span><span class="i">LoadSuggestions</span>(<span class="i">sprefix</span>))
+               <span class="k">do!</span>  <span class="i">this</span><span class="o">.</span><span class="i">DisplayResponse</span>(<span class="i">sugs</span>) }) }            </pre>
+</td>
+</tr>
+</table>
+
 <p>If you look at the method, you can see that it contains call to the <code>asyncExecute</code> function and the 
   argument given to the function is entire block of F# code marked using <code>client_async</code> computational expression.
   The <code>asyncExecute</code> function executes the given block <em>asynchronously</em>, which means that it doesn't
@@ -224,17 +288,31 @@ member this.UpdateSuggestions(sender, e) =
   we're calling a methods that are written using F# computational expressions (<code>server</code> or <code>client</code> blocks).
   In general when you're calling any ordinary code, you can use the operators without the exclamation mark, but when 
   calling a code wrapped in a block you have to use <code>let!</code> or <code>do!</code>.</p>
-<pre lang="fsharp">
-[&lt;ReflectedDefinition&gt;]
-member this.DisplayResponse (sugs:ResizeArray&lt;Result&gt;) =
-  client
-    { let sb = StringBuilder()
-      let array = sugs.ToArray()
-      do  Array.iter (fun (res) -&gt; 
-            sb.Append("&lt;li&gt;&lt;strong&gt;" + r.Source + 
-                      "&lt;/strong&gt; - " + r.Target + "&lt;/li&gt;") |> ignore)
-      do   this.ctlOutput.InnerHtml &lt;- "&lt;ul&gt;" + (sb.ToString()) + "&lt;ul&gt;" }
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip">
+<span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
+<span class="l">7: </span>
+<span class="l">8: </span>
 </pre>
+</td>
+<td class="snippet"><pre class="fssnip">
+<span class="k">member</span> <span class="i">this</span><span class="o">.</span><span class="i">DisplayResponse</span> (<span class="i">sugs</span><span class="o">:</span><span onmouseout="hideTip(event, 'fs9', 13)" onmouseover="showTip(event, 'fs9', 13)" class="i">ResizeArray</span><span class="o">&lt;</span><span class="i">Result</span><span class="o">&gt;</span>) <span class="o">=</span>
+  <span class="i">client</span>
+    { <span class="k">let</span> <span class="i">sb</span> <span class="o">=</span> <span class="i">StringBuilder</span>()
+      <span class="k">let</span> <span onmouseout="hideTip(event, 'fs11', 14)" onmouseover="showTip(event, 'fs11', 14)" class="i">array</span> <span class="o">=</span> <span class="i">sugs</span><span class="o">.</span><span class="i">ToArray</span>()
+      <span class="k">do</span>  <span onmouseout="hideTip(event, 'fs12', 15)" onmouseover="showTip(event, 'fs12', 15)" class="i">Array</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs13', 16)" onmouseover="showTip(event, 'fs13', 16)" class="i">iter</span> (<span class="k">fun</span> (<span class="i">res</span>) <span class="k">-&gt;</span> 
+            <span class="i">sb</span><span class="o">.</span><span class="i">Append</span>(<span class="s">&quot;</span><span class="s">&lt;</span><span class="s">li</span><span class="s">&gt;</span><span class="s">&lt;</span><span class="s">strong</span><span class="s">&gt;</span><span class="s">&quot;</span> <span class="o">+</span> <span class="i">r</span><span class="o">.</span><span class="i">Source</span> <span class="o">+</span> 
+                      <span class="s">&quot;</span><span class="s">&lt;</span><span class="s">/</span><span class="s">strong</span><span class="s">&gt;</span><span class="s"> </span><span class="s">-</span><span class="s"> </span><span class="s">&quot;</span> <span class="o">+</span> <span class="i">r</span><span class="o">.</span><span class="i">Target</span> <span class="o">+</span> <span class="s">&quot;</span><span class="s">&lt;</span><span class="s">/</span><span class="s">li</span><span class="s">&gt;</span><span class="s">&quot;</span>) <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs14', 17)" onmouseover="showTip(event, 'fs14', 17)" class="i">ignore</span>)
+      <span class="k">do</span>   <span class="i">this</span><span class="o">.</span><span class="i">ctlOutput</span><span class="o">.</span><span class="i">InnerHtml</span> <span class="o">&lt;-</span> <span class="s">&quot;</span><span class="s">&lt;</span><span class="s">ul</span><span class="s">&gt;</span><span class="s">&quot;</span> <span class="o">+</span> (<span class="i">sb</span><span class="o">.</span><span class="i">ToString</span>()) <span class="o">+</span> <span class="s">&quot;</span><span class="s">&lt;</span><span class="s">ul</span><span class="s">&gt;</span><span class="s">&quot;</span> }</pre>
+</td>
+</tr>
+</table>
+
 <p>In this last sample code, we just generate HTML code from the data we received from the server and display them.
   It is interesting to note, that the code is running on the client-side (it's wrapped in the <code>client</code> block),
   but you can still use some F#/.NET types and functions in the code (we're using <code>ResizeArray</code>, 
@@ -269,6 +347,21 @@ member this.DisplayResponse (sugs:ResizeArray&lt;Result&gt;) =
   <li>[8] <a href="http://research.microsoft.com/~dsyme/papers/ml03-syme.pdf">Leveraging .NET Meta-programming Components from F#</a> (PDF)</li>
 
 </ul>
+
+<div class="tip" id="fs1">type SearchResult =<br />&#160;&#160;{English: string;<br />&#160;&#160;&#160;Other: string;}<br /><br />Full name: fswebtoolsintroaspx.SearchResult</div>
+<div class="tip" id="fs2">SearchResult.English: string</div>
+<div class="tip" id="fs3">Multiple items<br />val string : value:&#39;T -&gt; string<br /><br />Full name: Microsoft.FSharp.Core.Operators.string<br /><br />--------------------<br />type string = System.String<br /><br />Full name: Microsoft.FSharp.Core.string</div>
+<div class="tip" id="fs4">SearchResult.Other: string</div>
+<div class="tip" id="fs5">type Suggest =<br />&#160;&#160;inherit obj<br />&#160;&#160;val mutable txtInput: obj<br />&#160;&#160;val mutable ctlOutput: obj<br /><br />Full name: fswebtoolsintroaspx.Suggest</div>
+<div class="tip" id="fs6">Suggest.txtInput: obj</div>
+<div class="tip" id="fs7">Suggest.ctlOutput: obj</div>
+<div class="tip" id="fs8">val truncate : value:&#39;T -&gt; &#39;T (requires member Truncate)<br /><br />Full name: Microsoft.FSharp.Core.Operators.truncate</div>
+<div class="tip" id="fs9">type ResizeArray&lt;&#39;T&gt; = System.Collections.Generic.List&lt;&#39;T&gt;<br /><br />Full name: Microsoft.FSharp.Collections.ResizeArray&lt;_&gt;</div>
+<div class="tip" id="fs10">Multiple items<br />type ReflectedDefinitionAttribute =<br />&#160;&#160;inherit Attribute<br />&#160;&#160;new : unit -&gt; ReflectedDefinitionAttribute<br /><br />Full name: Microsoft.FSharp.Core.ReflectedDefinitionAttribute<br /><br />--------------------<br />new : unit -&gt; ReflectedDefinitionAttribute</div>
+<div class="tip" id="fs11">type &#39;T array = &#39;T []<br /><br />Full name: Microsoft.FSharp.Core.array&lt;_&gt;</div>
+<div class="tip" id="fs12">module Array<br /><br />from Microsoft.FSharp.Collections</div>
+<div class="tip" id="fs13">val iter : action:(&#39;T -&gt; unit) -&gt; array:&#39;T [] -&gt; unit<br /><br />Full name: Microsoft.FSharp.Collections.Array.iter</div>
+<div class="tip" id="fs14">val ignore : value:&#39;T -&gt; unit<br /><br />Full name: Microsoft.FSharp.Core.Operators.ignore</div>
 
 
 <div class="row">

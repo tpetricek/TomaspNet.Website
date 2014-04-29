@@ -261,15 +261,19 @@
 <span class="l">5: </span>
 <span class="l">6: </span>
 <span class="l">7: </span>
+<span class="l">8: </span>
+<span class="l">9: </span>
 </pre>
 </td>
 <td class="snippet"><pre class="fssnip">
+<span class="c">/// When text changes, trigger server call to update suggestions</span>
+[&lt;<span onmouseout="hideTip(event, 'fs10', 12)" onmouseover="showTip(event, 'fs10', 12)" class="i">ReflectedDefinition</span>&gt;]
 <span class="k">member</span> <span class="i">this</span><span class="o">.</span><span class="i">UpdateSuggestions</span>(<span class="i">sender</span>, <span class="i">e</span>) <span class="o">=</span>
   <span class="i">client</span>
     { <span class="k">do!</span> <span class="i">asyncExecute</span>
            (<span class="i">client_async</span> 
              { <span class="k">let</span>  <span class="i">sprefix</span> <span class="o">=</span> <span class="i">this</span><span class="o">.</span><span class="i">txtInput</span><span class="o">.</span><span class="i">Text</span>
-               <span class="k">let!</span> <span class="i">sugs</span> <span class="o">=</span> <span class="i">serverExecute</span>(<span onmouseout="hideTip(event, 'fs5', 12)" onmouseover="showTip(event, 'fs5', 12)" class="i">Suggest</span><span class="o">.</span><span class="i">LoadSuggestions</span>(<span class="i">sprefix</span>))
+               <span class="k">let!</span> <span class="i">sugs</span> <span class="o">=</span> <span class="i">serverExecute</span>(<span onmouseout="hideTip(event, 'fs5', 13)" onmouseover="showTip(event, 'fs5', 13)" class="i">Suggest</span><span class="o">.</span><span class="i">LoadSuggestions</span>(<span class="i">sprefix</span>))
                <span class="k">do!</span>  <span class="i">this</span><span class="o">.</span><span class="i">DisplayResponse</span>(<span class="i">sugs</span>) }) }            </pre>
 </td>
 </tr>
@@ -290,24 +294,28 @@
   calling a code wrapped in a block you have to use <code>let!</code> or <code>do!</code>.</p>
 
 <table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l">1: </span>
-<span class="l">2: </span>
-<span class="l">3: </span>
-<span class="l">4: </span>
-<span class="l">5: </span>
-<span class="l">6: </span>
-<span class="l">7: </span>
-<span class="l">8: </span>
+<span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
 </pre>
 </td>
 <td class="snippet"><pre class="fssnip">
-<span class="k">member</span> <span class="i">this</span><span class="o">.</span><span class="i">DisplayResponse</span> (<span class="i">sugs</span><span class="o">:</span><span onmouseout="hideTip(event, 'fs9', 13)" onmouseover="showTip(event, 'fs9', 13)" class="i">ResizeArray</span><span class="o">&lt;</span><span class="i">Result</span><span class="o">&gt;</span>) <span class="o">=</span>
+<span class="c">/// Display newly received array with results</span>
+[&lt;<span onmouseout="hideTip(event, 'fs10', 14)" onmouseover="showTip(event, 'fs10', 14)" class="i">ReflectedDefinition</span>&gt;]
+<span class="k">member</span> <span class="i">this</span><span class="o">.</span><span class="i">DisplayResponse</span> (<span class="i">sugs</span><span class="o">:</span><span onmouseout="hideTip(event, 'fs9', 15)" onmouseover="showTip(event, 'fs9', 15)" class="i">ResizeArray</span><span class="o">&lt;</span><span class="i">Result</span><span class="o">&gt;</span>) <span class="o">=</span>
   <span class="i">client</span>
     { <span class="k">let</span> <span class="i">sb</span> <span class="o">=</span> <span class="i">StringBuilder</span>()
-      <span class="k">let</span> <span onmouseout="hideTip(event, 'fs11', 14)" onmouseover="showTip(event, 'fs11', 14)" class="i">array</span> <span class="o">=</span> <span class="i">sugs</span><span class="o">.</span><span class="i">ToArray</span>()
-      <span class="k">do</span>  <span onmouseout="hideTip(event, 'fs12', 15)" onmouseover="showTip(event, 'fs12', 15)" class="i">Array</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs13', 16)" onmouseover="showTip(event, 'fs13', 16)" class="i">iter</span> (<span class="k">fun</span> (<span class="i">res</span>) <span class="k">-&gt;</span> 
+      <span class="k">let</span> <span onmouseout="hideTip(event, 'fs11', 16)" onmouseover="showTip(event, 'fs11', 16)" class="i">array</span> <span class="o">=</span> <span class="i">sugs</span><span class="o">.</span><span class="i">ToArray</span>()
+      <span class="k">do</span>  <span onmouseout="hideTip(event, 'fs12', 17)" onmouseover="showTip(event, 'fs12', 17)" class="i">Array</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs13', 18)" onmouseover="showTip(event, 'fs13', 18)" class="i">iter</span> (<span class="k">fun</span> (<span class="i">res</span>) <span class="k">-&gt;</span> 
             <span class="i">sb</span><span class="o">.</span><span class="i">Append</span>(<span class="s">&quot;</span><span class="s">&lt;</span><span class="s">li</span><span class="s">&gt;</span><span class="s">&lt;</span><span class="s">strong</span><span class="s">&gt;</span><span class="s">&quot;</span> <span class="o">+</span> <span class="i">r</span><span class="o">.</span><span class="i">Source</span> <span class="o">+</span> 
-                      <span class="s">&quot;</span><span class="s">&lt;</span><span class="s">/</span><span class="s">strong</span><span class="s">&gt;</span><span class="s"> </span><span class="s">-</span><span class="s"> </span><span class="s">&quot;</span> <span class="o">+</span> <span class="i">r</span><span class="o">.</span><span class="i">Target</span> <span class="o">+</span> <span class="s">&quot;</span><span class="s">&lt;</span><span class="s">/</span><span class="s">li</span><span class="s">&gt;</span><span class="s">&quot;</span>) <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs14', 17)" onmouseover="showTip(event, 'fs14', 17)" class="i">ignore</span>)
+                      <span class="s">&quot;</span><span class="s">&lt;</span><span class="s">/</span><span class="s">strong</span><span class="s">&gt;</span><span class="s"> </span><span class="s">-</span><span class="s"> </span><span class="s">&quot;</span> <span class="o">+</span> <span class="i">r</span><span class="o">.</span><span class="i">Target</span> <span class="o">+</span> <span class="s">&quot;</span><span class="s">&lt;</span><span class="s">/</span><span class="s">li</span><span class="s">&gt;</span><span class="s">&quot;</span>) <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs14', 19)" onmouseover="showTip(event, 'fs14', 19)" class="i">ignore</span>)
       <span class="k">do</span>   <span class="i">this</span><span class="o">.</span><span class="i">ctlOutput</span><span class="o">.</span><span class="i">InnerHtml</span> <span class="o">&lt;-</span> <span class="s">&quot;</span><span class="s">&lt;</span><span class="s">ul</span><span class="s">&gt;</span><span class="s">&quot;</span> <span class="o">+</span> (<span class="i">sb</span><span class="o">.</span><span class="i">ToString</span>()) <span class="o">+</span> <span class="s">&quot;</span><span class="s">&lt;</span><span class="s">ul</span><span class="s">&gt;</span><span class="s">&quot;</span> }</pre>
 </td>
 </tr>

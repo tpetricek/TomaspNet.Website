@@ -233,6 +233,17 @@ are inspired by the work on joinads and include parsers, parallel and concurrent
 
  - [details](@Model.Root/academic/articles/comprefun/) | [article](@Model.Root/academic/articles/comprefun/comprefun.pdf) | [online](http://tomasp.net/blog/comprefun.aspx/)
 
+#### [F# Web Tools: Rich client/server web applications in F#](@Model.Root/academic/articles/fswebtools/)
+
+> Tomas Petricek. Unpublished draft, 2007
+
+This paper presents one of the first "Ajax" programming frameworks that let you develop 
+integrated client/server applications in an integrated way using a single language. The 
+framework lets you use F# on both sides and provides a smooth integration between client
+and server-side code. 
+
+ - [details](@Model.Root/academic/articles/fswebtools/) | [article](@Model.Root/academic/articles/fswebtools/fswebtools-ml.pdf)
+
 #### [Effect and coeffect type systems](@Model.Root/academic/theses/first-year/first-year.pdf)
 
 > Tomas Petricek. First year report, Computer Laboratory.

@@ -144,6 +144,7 @@
   when writing it, it is easy to forget about this! You can see the method that is used as an event handler in the next 
   code sample (this whole method will be executed in JS as well):</p>
 
+    /// When text changes, trigger server call to update suggestions
     [<ReflectedDefinition>]
     member this.UpdateSuggestions(sender, e) =
       client
@@ -167,6 +168,7 @@
   In general when you're calling any ordinary code, you can use the operators without the exclamation mark, but when 
   calling a code wrapped in a block you have to use <code>let!</code> or <code>do!</code>.</p>
 
+    /// Display newly received array with results
     [<ReflectedDefinition>]
     member this.DisplayResponse (sugs:ResizeArray<Result>) =
       client

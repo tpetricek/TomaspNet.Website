@@ -125,15 +125,15 @@ If you're not familiar with F#, you can freely skip over this definition, just r
 that we now have functions `unit` and `apply` and an operator `++`:
 *)
 
-/// Returns the value of 'Unit' property on the ^S type
-let inline unit< ^S when ^S : 
-    (static member Unit : ^S)> () : ^S =
-  (^S : (static member Unit : ^S) ()) 
+/// Returns the value of 'Unit' property on the ^U type
+let inline unit< ^U when ^U : 
+    (static member Unit : ^U)> () : ^U =
+  (^U : (static member Unit : ^U) ()) 
 
-/// Invokes Combine operation on a pair of ^S values
-let inline (++)< ^S when ^S : 
-    (static member Combine : ^S * ^S -> ^S )> a b : ^S =
-  (^S : (static member Combine : ^S * ^S -> ^S) (a, b)) 
+/// Invokes Combine operation on a pair of ^U values
+let inline (++)< ^U when ^U : 
+    (static member Combine : ^U * ^U -> ^U )> a b : ^U =
+  (^U : (static member Combine : ^U * ^U -> ^U) (a, b)) 
 
 /// Invokes Apply operation on state and update ^S * ^U
 let inline apply< ^S, ^U when ^U : 

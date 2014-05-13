@@ -66,6 +66,42 @@
       
 
   <div>
+  <h1><a href="http://tomasp.net/blog/2014/update-monads/index.html">Stateful computations in F# with update monads</a></h1>
+  <img src="code.png" style="float:right;margin:20px;width:200px" />
+
+<p>Most discussions about monads, even in F#, start by looking at the well-known standard 
+monads for handling state from Haskell. The <em>reader</em> monad gives us a way to propagate 
+some read-only state, the <em>writer</em> monad makes it possible to (imperatively) produce 
+values such as logs and the <em>state</em> monad encapsulates state that can be read and changed.</p>
+
+<p>These are no doubt useful in Haskell, but I never found them as important for F#.
+The first reason is that F# supports state and mutation and often it is just easier
+to use a mutable state. The second reason is that you have to implement three 
+different computation builders for them. This does not fit very well with the F# style
+where you need to name the computation explicitly, e.g. by writing <code>async { ... }</code>
+(See also my [recent blog about the F# Computation Zoo paper][zoo]).</p>
+
+<p>When visiting the Tallinn university in December (thanks to James Chapman, Juhan Ernits 
+&amp; Tarmo Uustalu for hosting me!), I discovered the work on <em>update monads</em> by Danel Ahman 
+and Tarmo Uustalu on [update monads][um], which elegantly unifies <em>reader</em>, <em>writer</em> and 
+<em>state</em> monads using a single abstraction.</p>
+
+<p>In this article, I implement the idea of <em>update monads</em> in F#. Update monads are 
+parameterized by <em>acts</em> that capture the operations that can be done on the state.
+This means that we can define just a single computation expression <code>update { ... }</code> 
+and use it for writing computations of all three aforementioned kinds.</p>
+
+
+      
+  <p class="meta">
+    <span><strong>Published</strong>: Tuesday, 13 May 2014, 4:41 PM</span>
+      <br />      
+      <span class="tags"><strong>Tags</strong>: f#, research, functional programming, monads </span> 
+    <br />
+    <a href="http://tomasp.net/blog/2014/update-monads/index.html">Read the complete article</a>
+  </p>
+  </div>
+  <div>
   <h1><a href="http://tomasp.net/blog/2014/puzzling-fsharp/index.html">Solving fun puzzles with F#</a></h1>
   <p>Do you need to convince your friends &amp; family that programming can be fun? 
 For the last Christmas, I got a puzzle as a gift. It is a number of small
@@ -88,7 +124,7 @@ and 8 PM and, voilà, here is what I got...</p>
 
       
   <p class="meta">
-    <span><strong>Published</strong>: Tuesday, 25 March 2014, 2:27 PM</span>
+    <span><strong>Published</strong>: Tuesday, 25 March 2014, 3:27 PM</span>
       <br />      
       <span class="tags"><strong>Tags</strong>: f#, fun, functional programming </span> 
     <br />
@@ -195,7 +231,7 @@ F#コードをJavaScriptに変換します。
 
       
   <p class="meta">
-    <span><strong>Published</strong>: Tuesday, 24 December 2013, 3:58 AM</span>
+    <span><strong>Published</strong>: Tuesday, 24 December 2013, 4:58 AM</span>
       <br />      
       <span class="tags"><strong>Tags</strong>: f#, art, fractals, funscript, f# data </span> 
     <br />
@@ -220,7 +256,7 @@ often not very well explained and so the general preception is more like this...
 
       
   <p class="meta">
-    <span><strong>Published</strong>: Friday, 8 November 2013, 6:42 AM</span>
+    <span><strong>Published</strong>: Friday, 8 November 2013, 7:42 AM</span>
       <br />      
       <span class="tags"><strong>Tags</strong>: haskell, research, f#, functional programming </span> 
     <br />
@@ -249,7 +285,7 @@ have a look at some of the tools that make this possible...</p>
 
       
   <p class="meta">
-    <span><strong>Published</strong>: Thursday, 31 October 2013, 1:29 PM</span>
+    <span><strong>Published</strong>: Thursday, 31 October 2013, 2:29 PM</span>
       <br />      
       <span class="tags"><strong>Tags</strong>: open source, f#, fake, f# formatting </span> 
     <br />
@@ -295,7 +331,7 @@ the world looks from the C# perspective...</p>
 
       
   <p class="meta">
-    <span><strong>Published</strong>: Tuesday, 17 September 2013, 2:11 PM</span>
+    <span><strong>Published</strong>: Tuesday, 17 September 2013, 3:11 PM</span>
       <br />      
       <span class="tags"><strong>Tags</strong>: c#, f#, functional programming </span> 
     <br />
@@ -323,7 +359,7 @@ convince your colleagues or boss that F# is a good choice.</p>
 
       
   <p class="meta">
-    <span><strong>Published</strong>: Thursday, 29 August 2013, 2:02 PM</span>
+    <span><strong>Published</strong>: Thursday, 29 August 2013, 3:02 PM</span>
       <br />      
       <span class="tags"><strong>Tags</strong>: f#, training, talks, new york </span> 
     <br />
@@ -360,7 +396,7 @@ that they are all busy people, but we have close to half of the planned chapters
 
       
   <p class="meta">
-    <span><strong>Published</strong>: Tuesday, 27 August 2013, 4:15 AM</span>
+    <span><strong>Published</strong>: Tuesday, 27 August 2013, 5:15 AM</span>
       <br />      
       <span class="tags"><strong>Tags</strong>: manning, f#, writing, books, deep dives </span> 
     <br />
@@ -2910,6 +2946,8 @@ imperative {
 <li>Components in web frameworks are only server-side</li>
 </ol>
 <p>The aim of the F# Web Toolkit is to solve all these three problems...</p>
+
+
       
   <p class="meta">
     <span><strong>Published</strong>: Friday, 13 July 2007, 4:32 AM</span>
@@ -3297,7 +3335,7 @@ Seminar was mostly focused on Rotor and .NET internals, so if you want to learn 
     <h4>Blog tags</h4>
     <p>
 
-      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(92),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(28),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(31),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(6),       <a href="http://tomasp.net/blog/tag/writing/">writing</a>&nbsp;(11),       <a href="http://tomasp.net/blog/tag/haskell/">haskell</a>&nbsp;(7),       <a href="http://tomasp.net/blog/tag/fsharp-data/">f# data</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/art/">art</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fractals/">fractals</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/funscript/">funscript</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/open-source/">open source</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/new-york/">new york</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/manning/">manning</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/books/">books</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/coeffects/">coeffects</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/comonads/">comonads</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/fake/">fake</a>&nbsp;(1)    </p>
+      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(93),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(29),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(31),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(7),       <a href="http://tomasp.net/blog/tag/writing/">writing</a>&nbsp;(11),       <a href="http://tomasp.net/blog/tag/haskell/">haskell</a>&nbsp;(7),       <a href="http://tomasp.net/blog/tag/fsharp-data/">f# data</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/art/">art</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fractals/">fractals</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/funscript/">funscript</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/open-source/">open source</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/monads/">monads</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/new-york/">new york</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/manning/">manning</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/books/">books</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/coeffects/">coeffects</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/comonads/">comonads</a>&nbsp;(1)    </p>
 
   </div>
 </div>
@@ -3319,7 +3357,8 @@ Seminar was mostly focused on Rotor and .NET internals, so if you want to learn 
     </div>
     <div class="large-7 columns">
     <h4>Blog archives <a href="http://tomasp.net/rss.xml"><img src="http://tomasp.net/img/rss.gif" /></a></h4>
-      <a href="http://tomasp.net/blog/archive/april-2014/index.html">
+      <a href="http://tomasp.net/blog/archive/may-2014/index.html">
+        May 2014 (1)</a>,      <a href="http://tomasp.net/blog/archive/april-2014/index.html">
         April 2014 (2)</a>,      <a href="http://tomasp.net/blog/archive/march-2014/index.html">
         March 2014 (1)</a>,      <a href="http://tomasp.net/blog/archive/january-2014/index.html">
         January 2014 (2)</a>,      <a href="http://tomasp.net/blog/archive/december-2013/index.html">

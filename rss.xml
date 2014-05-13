@@ -4,6 +4,37 @@
     <link>http://tomasp.net</link>
     <description>Writing about software development in F# and .NET, sharing materials from my F# trainings and talks, writing about programming language research and theory.</description>
     <item>
+      <title>Stateful computations in F# with update monads</title>
+      <guid>http://tomasp.net/blog/2014/update-monads</guid>
+      <link>http://tomasp.net/blog/2014/update-monads/index.html</link>
+      <pubDate>Tue, 13 May 2014 14:41:01 GMT</pubDate>
+      <description>&lt;img src="http://tomasp.net/blog/2014/update-monads/code.png" style="float:right;margin:20px;width:200px" /&gt;
+
+&lt;p&gt;Most discussions about monads, even in F#, start by looking at the well-known standard 
+monads for handling state from Haskell. The &lt;em&gt;reader&lt;/em&gt; monad gives us a way to propagate 
+some read-only state, the &lt;em&gt;writer&lt;/em&gt; monad makes it possible to (imperatively) produce 
+values such as logs and the &lt;em&gt;state&lt;/em&gt; monad encapsulates state that can be read and changed.&lt;/p&gt;
+
+&lt;p&gt;These are no doubt useful in Haskell, but I never found them as important for F#.
+The first reason is that F# supports state and mutation and often it is just easier
+to use a mutable state. The second reason is that you have to implement three 
+different computation builders for them. This does not fit very well with the F# style
+where you need to name the computation explicitly, e.g. by writing &lt;code&gt;async { ... }&lt;/code&gt;
+(See also my &lt;a href="http://tomasp.net/blog/2013/computation-zoo-padl"&gt;recent blog about the F# Computation Zoo paper&lt;/a&gt;).&lt;/p&gt;
+
+&lt;p&gt;When visiting the Tallinn university in December (thanks to James Chapman, Juhan Ernits 
+&amp;amp; Tarmo Uustalu for hosting me!), I discovered the work on &lt;em&gt;update monads&lt;/em&gt; by Danel Ahman 
+and Tarmo Uustalu on &lt;a href="http://cs.ioc.ee/~tarmo/papers/types13.pdf"&gt;update monads&lt;/a&gt;, which elegantly unifies &lt;em&gt;reader&lt;/em&gt;, &lt;em&gt;writer&lt;/em&gt; and 
+&lt;em&gt;state&lt;/em&gt; monads using a single abstraction.&lt;/p&gt;
+
+&lt;p&gt;In this article, I implement the idea of &lt;em&gt;update monads&lt;/em&gt; in F#. Update monads are 
+parameterized by &lt;em&gt;acts&lt;/em&gt; that capture the operations that can be done on the state.
+This means that we can define just a single computation expression &lt;code&gt;update { ... }&lt;/code&gt; 
+and use it for writing computations of all three aforementioned kinds.&lt;/p&gt;
+
+</description>
+    </item>
+    <item>
       <title>What can programming language research learn from the philosophy of science?</title>
       <guid>http://tomasp.net/blog/2014/philosophy-pl</guid>
       <link>http://tomasp.net/blog/2014/philosophy-pl/index.html</link>
@@ -90,7 +121,7 @@ and 8 PM and, voilà, here is what I got...&lt;/p&gt;
       <title>Advent Art: Generating Hokusai paintings</title>
       <guid>http://tomasp.net/blog/2014/japan-advent-art-en</guid>
       <link>http://tomasp.net/blog/2014/japan-advent-art-en/index.html</link>
-      <pubDate>Tue, 21 Jan 2014 18:49:00 GMT</pubDate>
+      <pubDate>Tue, 21 Jan 2014 17:49:00 GMT</pubDate>
       <description>&lt;div id="myModal" class="reveal-modal xlarge" data-reveal&gt;
   &lt;iframe src="http://tomasp.net/blog/2014/japan-advent-art-en/hokusai.html" style="width:100%; height:850px;border-style:none;"&gt;&lt;/iframe&gt;
   &lt;a class="close-reveal-modal"&gt;&amp;#215;&lt;/a&gt;
@@ -360,7 +391,7 @@ that they are all busy people, but we have close to half of the planned chapters
       <title>Power of mathematics: Reasoning about functional types</title>
       <guid>http://tomasp.net/blog/types-and-math.aspx</guid>
       <link>http://tomasp.net/blog/types-and-math.aspx/index.html</link>
-      <pubDate>Tue, 14 May 2013 16:54:00 GMT</pubDate>
+      <pubDate>Tue, 14 May 2013 15:54:00 GMT</pubDate>
       <description>&lt;img src="http://tomasp.net/articles/types-and-maths/distributivity.png" class="rdecor" /&gt;
 
 &lt;p&gt;One of the most amazing aspects of mathematics is that it applies to such a wide range 
@@ -388,7 +419,7 @@ classes or sum types). It turns out that these two types are closely related to
       <title>Async in C# and F#: Asynchronous gotchas in C#</title>
       <guid>http://tomasp.net/blog/csharp-async-gotchas.aspx</guid>
       <link>http://tomasp.net/blog/csharp-async-gotchas.aspx/index.html</link>
-      <pubDate>Mon, 15 Apr 2013 03:00:03 GMT</pubDate>
+      <pubDate>Mon, 15 Apr 2013 02:00:03 GMT</pubDate>
       <description>&lt;p&gt;Back in February, I attended the annual MVP summit - an &lt;a href="http://www.2013mvpsummit.com/about"&gt;event organized by Microsoft
 for MVPs&lt;/a&gt;. I used that opportunity to also visit
 Boston and New York and do two F# talks and to record a &lt;a href="http://channel9.msdn.com/posts/Tomas-Petricek-How-F-Learned-to-Stop-Worrying-and-Love-the-Data" title="Tomas Petricek (Channel 9): How F# Learned to Stop Worrying and Love the Data"&gt;Channel9 lecutre about type
@@ -412,7 +443,7 @@ F# part of the audience as follows...&lt;/p&gt;
       <title>F# Data: New type provider library</title>
       <guid>http://tomasp.net/blog/fsharp-data.aspx</guid>
       <link>http://tomasp.net/blog/fsharp-data.aspx/index.html</link>
-      <pubDate>Thu, 28 Mar 2013 03:23:41 GMT</pubDate>
+      <pubDate>Thu, 28 Mar 2013 02:23:41 GMT</pubDate>
       <description>&lt;img src="https://raw.github.com/fsharp/FSharp.Data/master/misc/logo.png" class="rdecor" style="width:120px;height:120px;" /&gt;
 
 &lt;p&gt;When F# 3.0 type providers were still in beta version, I wrote a couple of type 
@@ -448,7 +479,7 @@ so continue reading if you're interested...)&lt;/p&gt;
       <title>Upcoming F# talks and trainings (London, NYC &amp; Boston)</title>
       <guid>http://tomasp.net/blog/events-winter-2013.aspx</guid>
       <link>http://tomasp.net/blog/events-winter-2013.aspx/index.html</link>
-      <pubDate>Thu, 07 Feb 2013 23:00:22 GMT</pubDate>
+      <pubDate>Thu, 07 Feb 2013 22:00:22 GMT</pubDate>
       <description>&lt;img src="http://tomasp.net/articles/events-winter-2013/mvplogo.png" class="rdecor" title="Tomas Petricek" style="margin:10px 35px 15px 35px;width:100px"/&gt;
 
 &lt;p&gt;After a few years, I finally managed to find the time to attend the 
@@ -469,7 +500,7 @@ so continue reading if you're interested...)&lt;/p&gt;
       <title>Announcing: Literate programming tools for F#</title>
       <guid>http://tomasp.net/blog/fsharp-literate-programming.aspx</guid>
       <link>http://tomasp.net/blog/fsharp-literate-programming.aspx/index.html</link>
-      <pubDate>Tue, 22 Jan 2013 17:35:36 GMT</pubDate>
+      <pubDate>Tue, 22 Jan 2013 16:35:36 GMT</pubDate>
       <description>&lt;img src="https://raw.github.com/tpetricek/FSharp.Formatting/master/docs/misc/logo.png" class="rdecor" style="width:120px;height:120px;" /&gt;
 
 &lt;p&gt;For some time now, I've been writing my F# blog posts (and other F# articles 
@@ -497,7 +528,7 @@ Here are the most important links:&lt;/p&gt;
       <title>Processing trees with F# zipper computation</title>
       <guid>http://tomasp.net/blog/tree-zipper-query.aspx</guid>
       <link>http://tomasp.net/blog/tree-zipper-query.aspx/index.html</link>
-      <pubDate>Wed, 19 Dec 2012 14:22:47 GMT</pubDate>
+      <pubDate>Wed, 19 Dec 2012 13:22:47 GMT</pubDate>
       <description>&lt;p&gt;One of the less frequently advertised new features in F# 3.0 is the &lt;em&gt;query syntax&lt;/em&gt;.
 It is an extension that makes it possible to add custom operations in an F#
 computation expression. The standard &lt;code&gt;query { .. }&lt;/code&gt; computation uses this to define
@@ -546,7 +577,7 @@ at how this works...&lt;/p&gt;
       <title>Manning: F# Deep Dives deal of the day</title>
       <guid>http://tomasp.net/blog/manning-deep-dives.aspx</guid>
       <link>http://tomasp.net/blog/manning-deep-dives.aspx/index.html</link>
-      <pubDate>Tue, 18 Dec 2012 17:19:57 GMT</pubDate>
+      <pubDate>Tue, 18 Dec 2012 16:19:57 GMT</pubDate>
       <description>
 &lt;img src="http://tomasp.net/articles/manning-deep-dives/cover.jpg" class="rdecor" title="F# Deep Dives" style="margin-bottom:15px"/&gt;
 
@@ -580,7 +611,7 @@ at how this works...&lt;/p&gt;
       <title>Learn F# at TechMesh and SkillsMetter</title>
       <guid>http://tomasp.net/blog/more-events-autumn-2012.aspx</guid>
       <link>http://tomasp.net/blog/more-events-autumn-2012.aspx/index.html</link>
-      <pubDate>Sun, 21 Oct 2012 15:53:04 GMT</pubDate>
+      <pubDate>Sun, 21 Oct 2012 14:53:04 GMT</pubDate>
       <description>&lt;img src="http://tomasp.net/articles/more-events-autumn-2012/tomas-qcon.jpg" class="rdecor" title="Tomas Petricek" style="margin-bottom:15px"/&gt;
 
 &lt;p&gt;Autumn is a busy period and I already invited you to a 
@@ -597,30 +628,6 @@ at how this works...&lt;/p&gt;
   with F#, here are some talks that you should not miss...
 &lt;/p&gt;
 </description>
-    </item>
-    <item>
-      <title>Applicative functors: definition and syntax</title>
-      <guid>http://tomasp.net/blog/applicative-functors.aspx</guid>
-      <link>http://tomasp.net/blog/applicative-functors.aspx/index.html</link>
-      <pubDate>Tue, 21 Aug 2012 13:23:19 GMT</pubDate>
-      <description>&lt;p&gt;In a recent blog post, &lt;a href="http://blog.ezyang.com/2012/08/applicative-functors/" title="Edward Z. Yang: Applicative functors"&gt;Edward Z. Yang talks about applicative functors&lt;/a&gt;. 
-He mentions two equivalent definitions of applicative functors - the standard
-definition used in Haskell libraries (&lt;code&gt;Applicative&lt;/code&gt;) and an alternative that
-has been also presented in the &lt;a href="http://www.soi.city.ac.uk/~ross/papers/Applicative.html" title="C. McBride and R. Paterson: Applicative Programming with Effects"&gt;original paper&lt;/a&gt;, but is generally less
-familiar (&lt;code&gt;Monoidal&lt;/code&gt;).&lt;/p&gt;
-
-&lt;p&gt;The standard definition makes a perfect sense with the standard uses in Haskell,
-however I always preferred the alternative definition. Edward uses the alternative
-(&lt;code&gt;Monoidal&lt;/code&gt;) definition to explain the laws that should hold about applicative 
-functors and to explain &lt;em&gt;commutative&lt;/em&gt; applicative functors, but I think it
-is even more useful.&lt;/p&gt;
-
-&lt;p&gt;The &lt;code&gt;Monoidal&lt;/code&gt; definition fits nicely with a trick that you can use to 
-&lt;a href="http://tomasp.net/blog/idioms-in-linq.aspx" title="T. Petricek: Beyond the Monad fashion (I.): Writing idioms in LINQ"&gt;encode applicative functors in C# using LINQ&lt;/a&gt; and I also used it as 
-a basis for an F# syntax extension that allows writing code using applicative 
-functors in a similar style as using monads (which is discussed in my draft 
-paper about &lt;a href="http://www.cl.cam.ac.uk/~tp322/papers/notations.html" title="T. Petricek and D. Syme: Syntax Matters: Writing abstract computations in F#"&gt;writing abstract computations in F#&lt;/a&gt;). And I also think that
-&lt;em&gt;commutative&lt;/em&gt; applicative functors deserve more attention.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

@@ -4,9 +4,9 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Stateful computations in F# with update monads [DRAFT]</title>
+  <title>Stateful computations in F# with update monads</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="This article is a contribution to the F# Advent Calendar that is organized every year by the Japanese F# community - and so the article is inspired by the Japanese culture. We look at a list of Japanese artists in Freebase and try to recreate one piece using fractals and FunScript!">
+  <meta name="description" content="Most discussions about monads, even in F#, start by looking at the well-known monads for handling state (reader, writer and state). In a recent paper, Danel Ahman and Tarmo Uustalu revisit these and build a nicer abstraction called <em>update monads</em>. I implemented the idea in F# and I find that update monads are an excellent fit for F# computation expressions!">
   <meta name="author" content="Tomas Petricek">
 
   <!-- Reference Foundation -->
@@ -24,8 +24,9 @@
 
   <meta name="twitter:card" content="summary">
   <meta name="twitter:creator" content="@tomaspetricek">
-  <meta name="twitter:title" content="Stateful computations in F# with update monads [DRAFT]">
-  <meta name="twitter:description" content="This article is a contribution to the F# Advent Calendar that is organized every year by the Japanese F# community - and so the article is inspired by the Japanese culture. We look at a list of Japanese artists in Freebase and try to recreate one piece using fractals and FunScript!">
+  <meta name="twitter:title" content="Stateful computations in F# with update monads">
+  <meta name="twitter:description" content="Most discussions about monads, even in F#, start by looking at the well-known monads for handling state (reader, writer and state). In a recent paper, Danel Ahman and Tarmo Uustalu revisit these and build a nicer abstraction called <em>update monads</em>. I implemented the idea in F# and I find that update monads are an excellent fit for F# computation expressions!">
+    <meta name="twitter:image" content="http://tomasp.net/blog/2014/update-monads/code.png">
 </head>
 <body>
 
@@ -67,6 +68,8 @@
 
 <h1>Stateful computations in F# with update monads</h1>
 
+<img src="http://tomasp.net/blog/2014/update-monads/code.png" style="float:right;margin:20px;width:200px" />
+
 <p>Most discussions about monads, even in F#, start by looking at the well-known standard 
 monads for handling state from Haskell. The <em>reader</em> monad gives us a way to propagate 
 some read-only state, the <em>writer</em> monad makes it possible to (imperatively) produce 
@@ -81,8 +84,8 @@ where you need to name the computation explicitly, e.g. by writing <code>async {
 
 <p>When visiting the Tallinn university in December (thanks to James Chapman, Juhan Ernits 
 &amp; Tarmo Uustalu for hosting me!), I discovered the work on <em>update monads</em> by Danel Ahman 
-and Tarmo Uustalu, which elegantly unifies <em>reader</em>, <em>writer</em> and <em>state</em> monads using
-a single abstraction.</p>
+and Tarmo Uustalu on <a href="http://cs.ioc.ee/~tarmo/papers/types13.pdf">update monads</a>, which elegantly unifies <em>reader</em>, <em>writer</em> and 
+<em>state</em> monads using a single abstraction.</p>
 
 <p>In this article, I implement the idea of <em>update monads</em> in F#. Update monads are 
 parameterized by <em>acts</em> that capture the operations that can be done on the state.
@@ -92,7 +95,7 @@ and use it for writing computations of all three aforementioned kinds.</p>
 <h2>Introducing update monads</h2>
 
 <p>Before looking at the definition of update monads, it is useful to review the three
-monads that we want to unify. The <a href="http://homepages.inf.ed.ac.uk/s1225336/talks/types13.pdf">update monads paper</a> has more details and you 
+monads that we want to unify. The <a href="http://cs.ioc.ee/~tarmo/papers/types13.pdf">update monads paper</a> has more details and you 
 can also find other tutorials that implement these in F# - here, we'll only look at the
 type definitions:</p>
 
@@ -827,7 +830,7 @@ of them in <a href="http://tomasp.net/blog/2013/computation-zoo-padl">a recent b
 
 <p>As a result, using reader, writer and state monads in F# was always a bit 
 cumbersome. In this blog post, I looked at an F# implementation of the recent
-idea called <em>update monads</em> (see <a href="http://homepages.inf.ed.ac.uk/s1225336/talks/types13.pdf">the original paper (PDF)</a>), which unifies
+idea called <em>update monads</em> (see <a href="http://cs.ioc.ee/~tarmo/papers/types13.pdf">the original paper (PDF)</a>), which unifies
 the three state-related monads into a single type. This works very nicely with F#
 - we can define just a single computation builder for all state-related computations
 and then define a concrete state-related monad by defining two simple types.
@@ -982,7 +985,7 @@ update monads are the way to go.</p>
 <!-- AddThis Button END -->
 
 <p class="post-meta">
-  <span><strong>Published</strong> Wednesday, 29 January 2014, 1:29 PM</span><br />      
+  <span><strong>Published</strong> Tuesday, 13 May 2014, 4:41 PM</span><br />      
   <span><strong>By</strong> <a href="https://plus.google.com/+TomasPetriceks?rel=author">Tomas Petricek</a></span><br />
   <span class="tags"><strong>Tags</strong> f#, research, functional programming, monads</span>
 </p>
@@ -1067,7 +1070,7 @@ update monads are the way to go.</p>
     <h4>Blog tags</h4>
     <p>
 
-      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(92),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(28),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(31),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(6),       <a href="http://tomasp.net/blog/tag/writing/">writing</a>&nbsp;(11),       <a href="http://tomasp.net/blog/tag/haskell/">haskell</a>&nbsp;(7),       <a href="http://tomasp.net/blog/tag/fsharp-data/">f# data</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/art/">art</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fractals/">fractals</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/funscript/">funscript</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/open-source/">open source</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/new-york/">new york</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/manning/">manning</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/books/">books</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/coeffects/">coeffects</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/comonads/">comonads</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/fake/">fake</a>&nbsp;(1)    </p>
+      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(93),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(29),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(31),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(7),       <a href="http://tomasp.net/blog/tag/writing/">writing</a>&nbsp;(11),       <a href="http://tomasp.net/blog/tag/haskell/">haskell</a>&nbsp;(7),       <a href="http://tomasp.net/blog/tag/fsharp-data/">f# data</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/art/">art</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fractals/">fractals</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/funscript/">funscript</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/open-source/">open source</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/monads/">monads</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/new-york/">new york</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/manning/">manning</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/books/">books</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/coeffects/">coeffects</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/comonads/">comonads</a>&nbsp;(1)    </p>
 
   </div>
 </div>
@@ -1089,7 +1092,8 @@ update monads are the way to go.</p>
     </div>
     <div class="large-7 columns">
     <h4>Blog archives <a href="http://tomasp.net/rss.xml"><img src="http://tomasp.net/img/rss.gif" /></a></h4>
-      <a href="http://tomasp.net/blog/archive/april-2014/index.html">
+      <a href="http://tomasp.net/blog/archive/may-2014/index.html">
+        May 2014 (1)</a>,      <a href="http://tomasp.net/blog/archive/april-2014/index.html">
         April 2014 (2)</a>,      <a href="http://tomasp.net/blog/archive/march-2014/index.html">
         March 2014 (1)</a>,      <a href="http://tomasp.net/blog/archive/january-2014/index.html">
         January 2014 (2)</a>,      <a href="http://tomasp.net/blog/archive/december-2013/index.html">

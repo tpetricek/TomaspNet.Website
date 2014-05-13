@@ -68,55 +68,56 @@
   <!-- Print more details about the first blog post -->
 
   <div>
-  <h1><a href="http://tomasp.net/blog/2014/philosophy-pl/index.html">What can programming language research learn from the philosophy of science?</a></h1>
-  <p>As someone doing programming language research, I find it really interesting to think
-about <em>how</em> programming language research is done, how it has been done in the past
-and how it <em>should</em> be done. This kind of questions are usually asked by philosophy
-of science, but only a few people have discussed this in the context of computing
-(or even programming languages).</p>
+  <h1><a href="http://tomasp.net/blog/2014/update-monads/index.html">Stateful computations in F# with update monads</a></h1>
+  <img src="http://tomasp.net/blog/2014/update-monads/code.png" style="float:right;margin:20px;width:200px" />
 
-<p>So, my starting point was to look at the classic works in the general philosophy of science 
-and see which of these could tell us something about programming languages.</p>
+<p>Most discussions about monads, even in F#, start by looking at the well-known standard 
+monads for handling state from Haskell. The <em>reader</em> monad gives us a way to propagate 
+some read-only state, the <em>writer</em> monad makes it possible to (imperatively) produce 
+values such as logs and the <em>state</em> monad encapsulates state that can be read and changed.</p>
 
-<p>I wrote an article about some of these ideas and presented it last week at the
-second symposium on <a href="http://www.computing-conference.ugent.be/hapop2">History and Philosophy of Programming</a>.
-For me, it was amazing to talk with interesting people working on so many great 
-related ideas! Anyway, now that the paper has been published and I did a talk, I should 
-also share it on my blog:</p>
+<p>These are no doubt useful in Haskell, but I never found them as important for F#.
+The first reason is that F# supports state and mutation and often it is just easier
+to use a mutable state. The second reason is that you have to implement three 
+different computation builders for them. This does not fit very well with the F# style
+where you need to name the computation explicitly, e.g. by writing <code>async { ... }</code>
+(See also my <a href="http://tomasp.net/blog/2013/computation-zoo-padl">recent blog about the F# Computation Zoo paper</a>).</p>
 
-<ul>
-<li><a href="http://tomasp.net/academic/papers/philosophy-pl/index.html">What can Programming Language Research Learn from the Philosophy of 
-Science?</a></li>
-<li>Fairly minimalistic <a href="http://tomasp.net/academic/papers/philosophy-pl/philosophy-pl-aisb.pdf">slides from my talk at the 
-symposium</a></li>
-</ul>
+<p>When visiting the Tallinn university in December (thanks to James Chapman, Juhan Ernits 
+&amp; Tarmo Uustalu for hosting me!), I discovered the work on <em>update monads</em> by Danel Ahman 
+and Tarmo Uustalu on <a href="http://cs.ioc.ee/~tarmo/papers/types13.pdf">update monads</a>, which elegantly unifies <em>reader</em>, <em>writer</em> and 
+<em>state</em> monads using a single abstraction.</p>
 
-<p>One feedback that I got when I submitted the paper to Onward! Essays last year was that
-the paper uses a lot of philosophy of science terminology. This was partly the point of 
-the paper, but the feedback inspired me to write a more readable overview in a form of 
-blog post. So, if you want to get a quick peek at some of the ideas, you can also read
-this short blog (and then perhaps go back to the paper)!</p>
+<p>In this article, I implement the idea of <em>update monads</em> in F#. Update monads are 
+parameterized by <em>acts</em> that capture the operations that can be done on the state.
+This means that we can define just a single computation expression <code>update { ... }</code> 
+and use it for writing computations of all three aforementioned kinds.</p>
 
 
       
   <p class="meta">
-    <span><strong>Published</strong>: Thursday, 10 April 2014, 5:16 PM</span>
+    <span><strong>Published</strong>: Tuesday, 13 May 2014, 4:41 PM</span>
       <br />      
-      <span class="tags"><strong>Tags</strong>: research, philosophy </span> 
+      <span class="tags"><strong>Tags</strong>: f#, research, functional programming, monads </span> 
     <br />
-    <a href="http://tomasp.net/blog/2014/philosophy-pl/index.html">Read the complete article</a>
+    <a href="http://tomasp.net/blog/2014/update-monads/index.html">Read the complete article</a>
   </p>
   </div>
 
   <!-- For remaining articles, just print short summary with abstract -->
   <h1><a href="http://tomasp.net/blog/index.html">Recent articles from my blog</a></h1>
+    <h2><a href="http://tomasp.net/blog/2014/philosophy-pl/index.html">What can programming language research learn from the philosophy of science?</a></h2>
+    <p class="smdate">Thursday, 10 April 2014, 6:16 PM</p>
+    <p class="description">
+        This article looks at programming language research from the perspective of philosophy of science. We look at classic theories such as Popper's falsificationism and Feyerabend's theoretical anarchism and then look what can programming language research learn from the history.
+    </p>
     <h2><a href="http://tomasp.net/blog/2014/csharp-6-released/index.html">BREAKING: Open-source C# 6.0 released</a></h2>
-    <p class="smdate">Tuesday, 1 April 2014, 2:24 PM</p>
+    <p class="smdate">Tuesday, 1 April 2014, 3:24 PM</p>
     <p class="description">
         At last, the long wait is fianlly over! After 4 years of waiting, the fully managed implementation of the C# compiler codenamed Roslyn has been finally released.
     </p>
     <h2><a href="http://tomasp.net/blog/2014/puzzling-fsharp/index.html">Solving fun puzzles with F#</a></h2>
-    <p class="smdate">Tuesday, 25 March 2014, 2:27 PM</p>
+    <p class="smdate">Tuesday, 25 March 2014, 3:27 PM</p>
     <p class="description">
         Do you need to convince your friends and family that programming can be fun? Here is a story of how I managed to do that with F# at New Year's eve! I got a puzzle as a gift for Christmas and after a few days of failed attempts, I managed to solve it with F# in about 1 hour...
     </p>
@@ -124,11 +125,6 @@ this short blog (and then perhaps go back to the paper)!</p>
     <p class="smdate">Tuesday, 21 January 2014, 6:49 PM</p>
     <p class="description">
         This article is a contribution to the F# Advent Calendar that is organized every year by the Japanese F# community - and so the article is inspired by the Japanese culture. We look at a list of Japanese artists in Freebase and try to recreate one piece using fractals and FunScript!
-    </p>
-    <h2><a href="http://tomasp.net/blog/2014/why-coeffects-matter/index.html">Coeffects: The next big programming challenge</a></h2>
-    <p class="smdate">Wednesday, 8 January 2014, 3:31 PM</p>
-    <p class="description">
-        This blog post is a tabloid-style introduction to my PhD thesis. I look at how practical motivations influence language design. One such practical motivation, that is becoming increasingly important, is capturing how program uses the context (or environment) where it runs. Coeffects are a way to track this property...
     </p>
 
   <p class="meta">
@@ -235,7 +231,8 @@ this short blog (and then perhaps go back to the paper)!</p>
     </div>
     <div class="large-7 columns">
     <h4>Blog archives <a href="http://tomasp.net/rss.xml"><img src="http://tomasp.net/img/rss.gif" /></a></h4>
-      <a href="http://tomasp.net/blog/archive/april-2014/index.html">
+      <a href="http://tomasp.net/blog/archive/may-2014/index.html">
+        May 2014 (1)</a>,      <a href="http://tomasp.net/blog/archive/april-2014/index.html">
         April 2014 (2)</a>,      <a href="http://tomasp.net/blog/archive/march-2014/index.html">
         March 2014 (1)</a>,      <a href="http://tomasp.net/blog/archive/january-2014/index.html">
         January 2014 (2)</a>,      <a href="http://tomasp.net/blog/archive/december-2013/index.html">

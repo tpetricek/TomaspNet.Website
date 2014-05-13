@@ -11,15 +11,21 @@
 
   <!-- Reference Foundation -->
   <link rel="stylesheet" href="http://tomasp.net/css/foundation.css">
-  <script src="cjs/vendor/custom.modernizr.js"></script>
+  <script src="js/vendor/custom.modernizr.js"></script>
 
   <link rel="alternate" type="application/rss+xml" href="http://tomasp.net/rss.xml" title="RSS feed for Tomas Petricek's blog">
-  <link rel="author" href="https://plus.google.com/109855146654605967051" />
+  <link rel="icon" type="image/png" href="http://tomasp.net/img/favicon.png" />
     
   <!-- Reference custom CSS and tooltips -->
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/style.css" />
   <script type="text/javascript" src="http://tomasp.net/custom/tooltips.js"></script>
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/tooltips.css" />
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:creator" content="@tomaspetricek">
+  <meta name="twitter:title" content="Tomas Petricek's blog">
+  <meta name="twitter:description" content="Writing about software development in F# and .NET, sharing materials from my F# trainings and talks, writing about programming language research and theory.">
 </head>
 <body>
 
@@ -59,6 +65,42 @@
     <content>
       
 
+  <div>
+  <h1><a href="http://tomasp.net/blog/2014/update-monads/index.html">Stateful computations in F# with update monads</a></h1>
+  <img src="code.png" style="float:right;margin:20px;width:200px" />
+
+<p>Most discussions about monads, even in F#, start by looking at the well-known standard 
+monads for handling state from Haskell. The <em>reader</em> monad gives us a way to propagate 
+some read-only state, the <em>writer</em> monad makes it possible to (imperatively) produce 
+values such as logs and the <em>state</em> monad encapsulates state that can be read and changed.</p>
+
+<p>These are no doubt useful in Haskell, but I never found them as important for F#.
+The first reason is that F# supports state and mutation and often it is just easier
+to use a mutable state. The second reason is that you have to implement three 
+different computation builders for them. This does not fit very well with the F# style
+where you need to name the computation explicitly, e.g. by writing <code>async { ... }</code>
+(See also my [recent blog about the F# Computation Zoo paper][zoo]).</p>
+
+<p>When visiting the Tallinn university in December (thanks to James Chapman, Juhan Ernits 
+&amp; Tarmo Uustalu for hosting me!), I discovered the work on <em>update monads</em> by Danel Ahman 
+and Tarmo Uustalu on [update monads][um], which elegantly unifies <em>reader</em>, <em>writer</em> and 
+<em>state</em> monads using a single abstraction.</p>
+
+<p>In this article, I implement the idea of <em>update monads</em> in F#. Update monads are 
+parameterized by <em>acts</em> that capture the operations that can be done on the state.
+This means that we can define just a single computation expression <code>update { ... }</code> 
+and use it for writing computations of all three aforementioned kinds.</p>
+
+
+      
+  <p class="meta">
+    <span><strong>Published</strong>: Tuesday, 13 May 2014, 4:41 PM</span>
+      <br />      
+      <span class="tags"><strong>Tags</strong>: f#, research, functional programming, monads </span> 
+    <br />
+    <a href="http://tomasp.net/blog/2014/update-monads/index.html">Read the complete article</a>
+  </p>
+  </div>
   <div>
   <h1><a href="http://tomasp.net/blog/tree-zipper-query.aspx/index.html">Processing trees with F# zipper computation</a></h1>
   <p>One of the less frequently advertised new features in F# 3.0 is the <em>query syntax</em>.
@@ -136,8 +178,9 @@ at how this works...</p>
   <a href="http://tomasp.net/calendar/2005">2005</a>, <a href="http://tomasp.net/calendar/2006">2006</a>, 
   <a href="http://tomasp.net/calendar/2007">2007</a>, <a href="http://tomasp.net/calendar/2008">2008</a>, 
   <a href="http://tomasp.net/calendar/2009">2009</a>, <a href="http://tomasp.net/calendar/2010">2010</a>, 
-  <a href="http://tomasp.net/calendar/2011">2011</a>, <a href="http://tomasp.net/calendar/2012">2012</a>. <br />
-  See the first photos of <a href="http://tomasp.net/calendar/2013">2013</a>.
+  <a href="http://tomasp.net/calendar/2011">2011</a>, <a href="http://tomasp.net/calendar/2012">2012</a>,
+  <a href="http://tomasp.net/calendar/2013">2013</a>. <br />
+  See the first photos of <a href="http://tomasp.net/calendar/2014">2014</a>.
 </p>
 </div>
 
@@ -190,7 +233,7 @@ at how this works...</p>
     <h4>Blog tags</h4>
     <p>
 
-      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(89),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(26),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(30),       <a href="http://tomasp.net/blog/tag/writing/">writing</a>&nbsp;(11),       <a href="http://tomasp.net/blog/tag/haskell/">haskell</a>&nbsp;(7),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/open-source/">open source</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/new-york/">new york</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/manning/">manning</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/books/">books</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fake/">fake</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/fsharp-formatting/">f# formatting</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/training/">training</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/deep-dives/">deep dives</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/async/">async</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/fsharp-data/">f# data</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/type-providers/">type providers</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/events/">events</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/trainings/">trainings</a>&nbsp;(1)    </p>
+      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(93),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(29),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(31),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(7),       <a href="http://tomasp.net/blog/tag/writing/">writing</a>&nbsp;(11),       <a href="http://tomasp.net/blog/tag/haskell/">haskell</a>&nbsp;(7),       <a href="http://tomasp.net/blog/tag/fsharp-data/">f# data</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/art/">art</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fractals/">fractals</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/funscript/">funscript</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/open-source/">open source</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/monads/">monads</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/new-york/">new york</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/manning/">manning</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/books/">books</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/coeffects/">coeffects</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/comonads/">comonads</a>&nbsp;(1)    </p>
 
   </div>
 </div>
@@ -212,7 +255,12 @@ at how this works...</p>
     </div>
     <div class="large-7 columns">
     <h4>Blog archives <a href="http://tomasp.net/rss.xml"><img src="http://tomasp.net/img/rss.gif" /></a></h4>
-      <a href="http://tomasp.net/blog/archive/november-2013/index.html">
+      <a href="http://tomasp.net/blog/archive/may-2014/index.html">
+        May 2014 (1)</a>,      <a href="http://tomasp.net/blog/archive/april-2014/index.html">
+        April 2014 (2)</a>,      <a href="http://tomasp.net/blog/archive/march-2014/index.html">
+        March 2014 (1)</a>,      <a href="http://tomasp.net/blog/archive/january-2014/index.html">
+        January 2014 (2)</a>,      <a href="http://tomasp.net/blog/archive/december-2013/index.html">
+        December 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/november-2013/index.html">
         November 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/october-2013/index.html">
         October 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/september-2013/index.html">
         September 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/august-2013/index.html">

@@ -1,12 +1,13 @@
 ﻿(*@
   Layout = "post";
-  Title = "Stateful computations in F# with update monads [DRAFT]";
+  Title = "Stateful computations in F# with update monads";
   Tags = "f#, research, functional programming, monads";
-  Date = "2014-01-29T09:29:06.2249127-04:00";
-  Description = "This article is a contribution to the F# Advent Calendar that is " +
-    "organized every year by the Japanese F# community - and so the article is inspired " +
-    "by the Japanese culture. We look at a list of Japanese artists in Freebase "+
-    "and try to recreate one piece using fractals and FunScript!";
+  Date = "2014-05-13T16:41:01.7294268+02:00";
+  Description = "Most discussions about monads, even in F#, start by looking at the well-known " +
+    "monads for handling state (reader, writer and state). In a recent paper, Danel Ahman and Tarmo " +
+    "Uustalu revisit these and build a nicer abstraction called <em>update monads</em>. I implemented " + 
+    "the idea in F# and I find that update monads are an excellent fit for F# computation expressions!";
+  Image = "http://tomasp.net/blog/2014/update-monads/code.png";
 *)
 (*** hide ***)
 #nowarn "1189"
@@ -14,6 +15,8 @@
 
 Stateful computations in F# with update monads
 ==============================================
+
+<img src="http://tomasp.net/blog/2014/update-monads/code.png" style="float:right;margin:20px;width:200px" />
 
 Most discussions about monads, even in F#, start by looking at the well-known standard 
 monads for handling state from Haskell. The _reader_ monad gives us a way to propagate 
@@ -29,8 +32,8 @@ where you need to name the computation explicitly, e.g. by writing `async { ... 
 
 When visiting the Tallinn university in December (thanks to James Chapman, Juhan Ernits 
 & Tarmo Uustalu for hosting me!), I discovered the work on _update monads_ by Danel Ahman 
-and Tarmo Uustalu, which elegantly unifies _reader_, _writer_ and _state_ monads using
-a single abstraction.
+and Tarmo Uustalu on [update monads][um], which elegantly unifies _reader_, _writer_ and 
+_state_ monads using a single abstraction.
 
 In this article, I implement the idea of _update monads_ in F#. Update monads are 
 parameterized by _acts_ that capture the operations that can be done on the state.
@@ -535,7 +538,7 @@ update monads are the way to go.
 
   [zoo]: http://tomasp.net/blog/2013/computation-zoo-padl
   [zoopaper]: http://tomasp.net/academic/papers/computation-zoo/
-  [um]: http://homepages.inf.ed.ac.uk/s1225336/talks/types13.pdf
+  [um]: http://cs.ioc.ee/~tarmo/papers/types13.pdf
   [smc]: http://msdn.microsoft.com/en-us/library/dd233203.aspx
   [fsspec]: http://fsharp.org/about/index.html#specification
 *)

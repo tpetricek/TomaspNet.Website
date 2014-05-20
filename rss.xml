@@ -121,7 +121,7 @@ and 8 PM and, voilà, here is what I got...&lt;/p&gt;
       <title>Advent Art: Generating Hokusai paintings</title>
       <guid>http://tomasp.net/blog/2014/japan-advent-art-en</guid>
       <link>http://tomasp.net/blog/2014/japan-advent-art-en/index.html</link>
-      <pubDate>Tue, 21 Jan 2014 17:49:00 GMT</pubDate>
+      <pubDate>Tue, 21 Jan 2014 18:49:00 GMT</pubDate>
       <description>&lt;div id="myModal" class="reveal-modal xlarge" data-reveal&gt;
   &lt;iframe src="http://tomasp.net/blog/2014/japan-advent-art-en/hokusai.html" style="width:100%; height:850px;border-style:none;"&gt;&lt;/iframe&gt;
   &lt;a class="close-reveal-modal"&gt;&amp;#215;&lt;/a&gt;
@@ -391,7 +391,7 @@ that they are all busy people, but we have close to half of the planned chapters
       <title>Power of mathematics: Reasoning about functional types</title>
       <guid>http://tomasp.net/blog/types-and-math.aspx</guid>
       <link>http://tomasp.net/blog/types-and-math.aspx/index.html</link>
-      <pubDate>Tue, 14 May 2013 15:54:00 GMT</pubDate>
+      <pubDate>Tue, 14 May 2013 16:54:00 GMT</pubDate>
       <description>&lt;img src="http://tomasp.net/articles/types-and-maths/distributivity.png" class="rdecor" /&gt;
 
 &lt;p&gt;One of the most amazing aspects of mathematics is that it applies to such a wide range 
@@ -419,7 +419,7 @@ classes or sum types). It turns out that these two types are closely related to
       <title>Async in C# and F#: Asynchronous gotchas in C#</title>
       <guid>http://tomasp.net/blog/csharp-async-gotchas.aspx</guid>
       <link>http://tomasp.net/blog/csharp-async-gotchas.aspx/index.html</link>
-      <pubDate>Mon, 15 Apr 2013 02:00:03 GMT</pubDate>
+      <pubDate>Mon, 15 Apr 2013 03:00:03 GMT</pubDate>
       <description>&lt;p&gt;Back in February, I attended the annual MVP summit - an &lt;a href="http://www.2013mvpsummit.com/about"&gt;event organized by Microsoft
 for MVPs&lt;/a&gt;. I used that opportunity to also visit
 Boston and New York and do two F# talks and to record a &lt;a href="http://channel9.msdn.com/posts/Tomas-Petricek-How-F-Learned-to-Stop-Worrying-and-Love-the-Data" title="Tomas Petricek (Channel 9): How F# Learned to Stop Worrying and Love the Data"&gt;Channel9 lecutre about type
@@ -443,7 +443,7 @@ F# part of the audience as follows...&lt;/p&gt;
       <title>F# Data: New type provider library</title>
       <guid>http://tomasp.net/blog/fsharp-data.aspx</guid>
       <link>http://tomasp.net/blog/fsharp-data.aspx/index.html</link>
-      <pubDate>Thu, 28 Mar 2013 02:23:41 GMT</pubDate>
+      <pubDate>Thu, 28 Mar 2013 03:23:41 GMT</pubDate>
       <description>&lt;img src="https://raw.github.com/fsharp/FSharp.Data/master/misc/logo.png" class="rdecor" style="width:120px;height:120px;" /&gt;
 
 &lt;p&gt;When F# 3.0 type providers were still in beta version, I wrote a couple of type 
@@ -479,7 +479,7 @@ so continue reading if you're interested...)&lt;/p&gt;
       <title>Upcoming F# talks and trainings (London, NYC &amp; Boston)</title>
       <guid>http://tomasp.net/blog/events-winter-2013.aspx</guid>
       <link>http://tomasp.net/blog/events-winter-2013.aspx/index.html</link>
-      <pubDate>Thu, 07 Feb 2013 22:00:22 GMT</pubDate>
+      <pubDate>Thu, 07 Feb 2013 23:00:22 GMT</pubDate>
       <description>&lt;img src="http://tomasp.net/articles/events-winter-2013/mvplogo.png" class="rdecor" title="Tomas Petricek" style="margin:10px 35px 15px 35px;width:100px"/&gt;
 
 &lt;p&gt;After a few years, I finally managed to find the time to attend the 
@@ -500,7 +500,7 @@ so continue reading if you're interested...)&lt;/p&gt;
       <title>Announcing: Literate programming tools for F#</title>
       <guid>http://tomasp.net/blog/fsharp-literate-programming.aspx</guid>
       <link>http://tomasp.net/blog/fsharp-literate-programming.aspx/index.html</link>
-      <pubDate>Tue, 22 Jan 2013 16:35:36 GMT</pubDate>
+      <pubDate>Tue, 22 Jan 2013 17:35:36 GMT</pubDate>
       <description>&lt;img src="https://raw.github.com/tpetricek/FSharp.Formatting/master/docs/misc/logo.png" class="rdecor" style="width:120px;height:120px;" /&gt;
 
 &lt;p&gt;For some time now, I've been writing my F# blog posts (and other F# articles 
@@ -528,7 +528,7 @@ Here are the most important links:&lt;/p&gt;
       <title>Processing trees with F# zipper computation</title>
       <guid>http://tomasp.net/blog/tree-zipper-query.aspx</guid>
       <link>http://tomasp.net/blog/tree-zipper-query.aspx/index.html</link>
-      <pubDate>Wed, 19 Dec 2012 13:22:47 GMT</pubDate>
+      <pubDate>Wed, 19 Dec 2012 14:22:47 GMT</pubDate>
       <description>&lt;p&gt;One of the less frequently advertised new features in F# 3.0 is the &lt;em&gt;query syntax&lt;/em&gt;.
 It is an extension that makes it possible to add custom operations in an F#
 computation expression. The standard &lt;code&gt;query { .. }&lt;/code&gt; computation uses this to define
@@ -577,7 +577,7 @@ at how this works...&lt;/p&gt;
       <title>Manning: F# Deep Dives deal of the day</title>
       <guid>http://tomasp.net/blog/manning-deep-dives.aspx</guid>
       <link>http://tomasp.net/blog/manning-deep-dives.aspx/index.html</link>
-      <pubDate>Tue, 18 Dec 2012 16:19:57 GMT</pubDate>
+      <pubDate>Tue, 18 Dec 2012 17:19:57 GMT</pubDate>
       <description>
 &lt;img src="http://tomasp.net/articles/manning-deep-dives/cover.jpg" class="rdecor" title="F# Deep Dives" style="margin-bottom:15px"/&gt;
 
@@ -611,7 +611,7 @@ at how this works...&lt;/p&gt;
       <title>Learn F# at TechMesh and SkillsMetter</title>
       <guid>http://tomasp.net/blog/more-events-autumn-2012.aspx</guid>
       <link>http://tomasp.net/blog/more-events-autumn-2012.aspx/index.html</link>
-      <pubDate>Sun, 21 Oct 2012 14:53:04 GMT</pubDate>
+      <pubDate>Sun, 21 Oct 2012 15:53:04 GMT</pubDate>
       <description>&lt;img src="http://tomasp.net/articles/more-events-autumn-2012/tomas-qcon.jpg" class="rdecor" title="Tomas Petricek" style="margin-bottom:15px"/&gt;
 
 &lt;p&gt;Autumn is a busy period and I already invited you to a 

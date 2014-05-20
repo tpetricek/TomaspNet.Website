@@ -4,9 +4,9 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Tomas Petricek's blog</title>
+  <title>Welcome fsharpWorks & F# events [DRAFT]</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Writing about software development in F# and .NET, sharing materials from my F# trainings and talks, writing about programming language research and theory.">
+  <meta name="description" content="If you are following me or the #fsharp hashtag on Twitter,you might have already come across a link to fsharpWorks or one of theupcoming F# events organized by fsharpWorks. So, what is fsharpWorks and what are we planningfor you?">
   <meta name="author" content="Tomas Petricek">
 
   <!-- Reference Foundation -->
@@ -24,8 +24,9 @@
 
   <meta name="twitter:card" content="summary">
   <meta name="twitter:creator" content="@tomaspetricek">
-  <meta name="twitter:title" content="Tomas Petricek's blog">
-  <meta name="twitter:description" content="Writing about software development in F# and .NET, sharing materials from my F# trainings and talks, writing about programming language research and theory.">
+  <meta name="twitter:title" content="Welcome fsharpWorks & F# events [DRAFT]">
+  <meta name="twitter:description" content="If you are following me or the #fsharp hashtag on Twitter,you might have already come across a link to fsharpWorks or one of theupcoming F# events organized by fsharpWorks. So, what is fsharpWorks and what are we planningfor you?">
+    <meta name="twitter:image" content="http://tomasp.net/blog/2014/fsharpworks-events/logo-sm.png">
 </head>
 <body>
 
@@ -65,42 +66,179 @@
     <content>
       
 
-  <div>
-  <h1><a href="http://tomasp.net/blog/2014/update-monads/index.html">Stateful computations in F# with update monads</a></h1>
-  <img src="http://tomasp.net/blog/2014/update-monads/code.png" style="float:right;margin:20px;width:200px" />
+<h1>Welcome fsharpWorks &amp; Upcoming F# events</h1>
 
-<p>Most discussions about monads, even in F#, start by looking at the well-known standard 
-monads for handling state from Haskell. The <em>reader</em> monad gives us a way to propagate 
-some read-only state, the <em>writer</em> monad makes it possible to (imperatively) produce 
-values such as logs and the <em>state</em> monad encapsulates state that can be read and changed.</p>
+<p>If you are following me or the <a href="https://twitter.com/hashtag/fsharp">#fsharp</a> hashtag on Twitter,
+you might have already come across a link to <a href="http://fsharpworks.com/">fsharpWorks</a> or one of the
+upcoming F# events organized by fsharpWorks. So, what is fsharpWorks and what are we planning
+for you?</p>
 
-<p>These are no doubt useful in Haskell, but I never found them as important for F#.
-The first reason is that F# supports state and mutation and often it is just easier
-to use a mutable state. The second reason is that you have to implement three 
-different computation builders for them. This does not fit very well with the F# style
-where you need to name the computation explicitly, e.g. by writing <code>async { ... }</code>
-(See also my <a href="http://tomasp.net/blog/2013/computation-zoo-padl">recent blog about the F# Computation Zoo paper</a>).</p>
+<img src="http://tomasp.net/blog/2014/fsharpworks-events/logo-sm.png" style="width:200px;float:right;margin:15px" />
 
-<p>When visiting the Tallinn university in December (thanks to James Chapman, Juhan Ernits 
-&amp; Tarmo Uustalu for hosting me!), I discovered the work on <em>update monads</em> by Danel Ahman 
-and Tarmo Uustalu on <a href="http://cs.ioc.ee/~tarmo/papers/types13.pdf">update monads</a>, which elegantly unifies <em>reader</em>, <em>writer</em> and 
-<em>state</em> monads using a single abstraction.</p>
+<h2>Welcome fsharpWorks!</h2>
 
-<p>In this article, I implement the idea of <em>update monads</em> in F#. Update monads are 
-parameterized by <em>acts</em> that capture the operations that can be done on the state.
-This means that we can define just a single computation expression <code>update { ... }</code> 
-and use it for writing computations of all three aforementioned kinds.</p>
+<p>I have been doing a number of <a href="https://skillsmatter.com/courses/473-tomas-petricek-phil-trelford-fast-track-to-fsharp">F# trainings</a>,
+talks and occasional F# consulting over the last few years. During that time, I had the pleasure of collaborating
+with many great minds in the F# community, including <a href="http://trelford.com/blog/">Phil Trelford</a>, 
+<a href="http://www.clear-lines.com/blog/">Mathias Brandewinder</a> and <a href="http://fsharpforfunandprofit.com/">Scott Wlaschin</a>.</p>
+
+<p>At the same time, F# has seen an <a href="http://www.eweek.com/developer/microsofts-f-language-number-12-with-a-bullet.html">explosive growth in 2013</a>,
+the number of <a href="http://fsharp.org/testimonials/">successful industrial users</a> is growing at a steady rate
+and there is a <a href="https://github.com/fsharp/">great</a> <a href="https://github.com/fsprojects/">number</a> of 
+<a href="https://github.com/BlueMountainCapital/Deedle">interesting</a>
+<a href="https://github.com/BlueMountainCapital/FSharpRProvider/">open-source</a> projects!
+The demand for professional F# and functional-first trainings, consulting
+and other services is also growing. So, to satisfy these needs, we decided to join forces
+and form <strong>fsharpWorks</strong>!</p>
+
+<h4>What to expect from fsharpWorks?</h4>
+
+<ul>
+<li><p>At fsharpWorks, you can get a help from a team of F# experts who have years of experience
+solving real-world problems with F# in a range of areas &amp; who also contribute to the core F#
+open-source projects.</p></li>
+<li><p>We offer a range of F# trainings focused on functional-first programming,
+domain modelling, machine-learning as well as finance. This includes the
+<a href="https://skillsmatter.com/courses/473-tomas-petricek-phil-trelford-fast-track-to-fsharp">F# FastTrack course</a>
+with SkillsMatter and a number of new courses that will be announced soon.</p></li>
+<li><p>We also provide in-house trainings based on your needs, consulting, support and other
+services with a guaranteed availability. If you are interested in our services
+<a href="mailto:info@fsharpworks.com">let us know!</a></p></li>
+<li><p>Joining forces at fsharpWorks also makes it easier for us to speak at community events,
+conferences and to host affordable one day F# workshops. To see what is coming up soon,
+continue reading!</p></li>
+</ul>
+
+<h2>Upcoming F# events</h2>
+
+<img src="http://tomasp.net/blog/2014/fsharpworks-events/qsh.jpg" style="width:120px;float:right;margin:15px" />
+
+<p>The list of the events planned for June is simply too long! But here are some things that you
+should not miss. After NDC, I'm going to Stockholm and we're doing 1 day workshop 
+<a href="http://www.eventbrite.com/e/machine-learning-with-f-tickets-11594646901">F# via Machine Learning</a>
+with Mathias. This is a fantastic way to learn F#!</p>
+
+<p>Back in London, I'm collaborating with <a href="http://www.quantshub.com/">QuantasHub</a> and we are 
+doing a <a href="http://wbstraining.com/php/events/showevent.php?id=237">Workshop &amp; online course on F# in finance</a>
+as well as <a href="http://wbstraining.com/php/conferences/?id=127">Big-data in Finance conference</a>.</p>
+
+<p>And if you really want to dig deep into F#, then we are also running our established
+<a href="https://skillsmatter.com/courses/473-tomas-petricek-phil-trelford-fast-track-to-fsharp">Fast Track to F# course</a> 
+with SkillsMatter. If you <a href="mailto:tomas@tomasp.net">email me</a>, we can offer the readers of this
+blog 25% off!</p>
+
+<div class="row"><div class="small-6 columns">
+
+<h4><a href="http://www.ndcoslo.com/">NDC Oslo 2014</a></h4>
+
+<p><em>2-6 June, Oslo</em></p>
+
+<p>Time to get a ticket. I'm speaking on Domain-Specific Languages, Mathias
+is speaking on F# and Machine Learning and Scott is speaking on Domain
+Modelling with functional types!</p>
+
+</div><div class="small-6 columns">
+
+<h4><a href="http://www.eventbrite.com/e/machine-learning-with-f-tickets-11594646901">Machine Learning with F#</a></h4>
+
+<p><em>9 June, Stockholm (SEK 1148.00)</em></p>
+
+<p>In this one day workshop, you'll learn how to use the power of F# by building 
+simple but effective machine learning predictive models and solving real-world 
+problems. Book by May 25 for Early Bird price!</p>
+
+</div></div><div class="row"><div class="small-6 columns">
+
+<h4><a href="https://www.eventbrite.com/e/notes-on-using-f-in-production-tickets-11658377521">Building Stuff That Works with F#</a></h4>
+
+<p><em>9 June, Stockholm (Free)</em></p>
+
+<p>How does the F# community manage to build tested, frequently released and 
+well-documented libraries that work? In this free talk, we'll look at the awesome F# 
+tools, many of which can be used with any .NET language.</p>
+
+</div><div class="small-6 columns">
+
+<h4><a href="http://www.meetup.com/MoedegruppeFunktionelleKoebenhavnere/events/183190562/">FsLab and F# type-providers hands-on</a></h4>
+
+<p><em>June 10, 2014, Copenhagen (Free)</em></p>
+
+<p>In this session, I'll show a couple of demos of the recent developments in F# 
+tools for data-science. After a short (optional) break, we’ll try to find a 
+hidden treasure in the Type Provider treasure hunt!</p>
+
+</div></div><div class="row"><div class="small-6 columns">
+
+<h4><a href="http://wbstraining.com/php/conferences/?id=127">Big Data in Quantitative Finance Conference</a></h4>
+
+<p><em>13 June, London (£1899)</em></p>
+
+<p>I'm doing a talk about Deedle and F# data science at the conference. Together with 
+Antoaneta Serguieva (UCL), we're also run an interactive tutorial
+using the <a href="http://www.tryfsharp.org/Learn">Financial Computing materials at TryF#</a>.</p>
+
+</div><div class="small-6 columns">
+
+<h4><a href="http://wbstraining.com/php/events/showevent.php?id=237">F# and Functional Programming in Finance</a></h4>
+
+<p><em>16-17th June, London (£1398)</em></p>
+
+<p>This two day workshop is filming of an F# material for an upcoming online course, but it 
+is also a great opportunity to learn about <em>everything</em> you need to know about F# if you 
+are working in finance. Of course, you'll get access to the online course too!</p>
+
+</div></div><div class="row"><div class="small-6 columns">
+
+<h4><a href="https://skillsmatter.com/courses/473-tomas-petricek-phil-trelford-fast-track-to-fsharp">Fast Track to F#</a></h4>
+
+<p><em>19-20 June, London (£1165)</em></p>
+
+<p>This two-day course is a comprehensive introduction to F#, covering the basics of the language,
+application areas including domain modelling, data analysis and asynchronous &amp; concurrent 
+programming. <a href="mailto:tomas@tomasp.net">Email me</a> for a 25% discount!</p>
+
+</div><div class="small-6 columns">
+
+<h4><a href="http://fsharpworks.com/paris/2014.html">fsharpWorks |> Paris '14</a></h4>
+
+<p><em>27 June, 2014 (€75)</em></p>
+
+<p>The first <em>ever</em> F# conference with F# experts from fsharpWorks, Steffen Forkmann (author of FAKE),
+Robert Pickering and many others! The program consists of morning talks and afternoon hands-on
+workshops. Book by June 9 for an early bird discount!</p>
+
+</div></div>
 
 
-      
-  <p class="meta">
-    <span><strong>Published</strong>: Tuesday, 13 May 2014, 3:41 PM</span>
-      <br />      
-      <span class="tags"><strong>Tags</strong>: f#, research, functional programming, monads </span> 
-    <br />
-    <a href="http://tomasp.net/blog/2014/update-monads/index.html">Read the complete article</a>
-  </p>
+
+<div class="row">
+  <div class="small-6 columns"><p class="post-discuss">
+		Discuss <a href="http://twitter.com/tomaspetricek">on twitter</a>, <script type="text/javascript" src="http://www.reddit.com/buttonlite.js?i=0"></script>.<br />
+		Send corrections via <a href="https://github.com/tpetricek/TomaspNet.Website">GitHub pull requests</a>.
+	</p></div>
+  <div class="small-6 columns">
+
+<!-- AddThis Button BEGIN -->
+<div class="addthis_toolbox addthis_default_style addthis_16x16_style">
+<a class="addthis_button_twitter"></a>
+<a class="addthis_button_reddit"></a>
+<a class="addthis_button_google_plusone_share"></a>
+<a class="addthis_button_hackernews"></a>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_compact"></a><a class="addthis_counter addthis_bubble_style"></a>
+</div>
+<script type="text/javascript">var addthis_config = { "data_track_addressbar": false };</script>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-521c32162e6001a0"></script>
+<!-- AddThis Button END -->
+
+<p class="post-meta">
+  <span><strong>Published</strong> Tuesday, 20 May 2014, 1:47 PM</span><br />      
+  <span><strong>By</strong> <a href="https://plus.google.com/+TomasPetriceks?rel=author">Tomas Petricek</a></span><br />
+  <span class="tags"><strong>Tags</strong> c#, f#, functional programming, talks</span>
+</p>
+
   </div>
+</div>
 
     </content>
 

@@ -105,7 +105,7 @@ tools, many of which can be used with any .NET language.
 
 </div></div>
 
-Upcoming F# events in London
+Upcoming F# events in London & Paris
 ------------------
 
 <img src="http://tomasp.net/blog/2014/fsharpworks-events/qsh.jpg" style="width:100px;float:right;margin:15px" />

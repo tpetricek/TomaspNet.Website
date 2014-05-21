@@ -4,6 +4,20 @@
     <link>http://tomasp.net</link>
     <description>Writing about software development in F# and .NET, sharing materials from my F# trainings and talks, writing about programming language research and theory.</description>
     <item>
+      <title>Welcome fsharpWorks &amp; F# events</title>
+      <guid>http://tomasp.net/blog/2014/fsharpworks-events</guid>
+      <link>http://tomasp.net/blog/2014/fsharpworks-events/index.html</link>
+      <pubDate>Tue, 20 May 2014 12:47:06 GMT</pubDate>
+      <description>&lt;img src="http://tomasp.net/blog/2014/fsharpworks-events/logo-sm.png" style="width:150px;float:right;margin-left:5px" /&gt;
+
+&lt;p&gt;If you are following me or the &lt;a href="https://twitter.com/hashtag/fsharp"&gt;#fsharp&lt;/a&gt; hashtag on Twitter,
+you might have already come across a link to &lt;a href="http://fsharpworks.com/"&gt;fsharpWorks&lt;/a&gt; or one of the
+upcoming F# events organized by fsharpWorks. So, what is fsharpWorks and what are we planning
+for you?&lt;/p&gt;
+
+</description>
+    </item>
+    <item>
       <title>Stateful computations in F# with update monads</title>
       <guid>http://tomasp.net/blog/2014/update-monads</guid>
       <link>http://tomasp.net/blog/2014/update-monads/index.html</link>
@@ -604,28 +618,6 @@ at how this works...&lt;/p&gt;
 &lt;p&gt;There is an increasing interest in F#, but many of those who approach it ask (excellent) questions such as:
   &lt;em&gt;"In what problem domains can I benefit from F#?"&lt;/em&gt; or &lt;em&gt;"How do I use F# in finance/science/gaming or web programming?"&lt;/em&gt;
   and most importantly &lt;em&gt;"How do I approach different problems in F#?"&lt;/em&gt;
-&lt;/p&gt;
-</description>
-    </item>
-    <item>
-      <title>Learn F# at TechMesh and SkillsMetter</title>
-      <guid>http://tomasp.net/blog/more-events-autumn-2012.aspx</guid>
-      <link>http://tomasp.net/blog/more-events-autumn-2012.aspx/index.html</link>
-      <pubDate>Sun, 21 Oct 2012 15:53:04 GMT</pubDate>
-      <description>&lt;img src="http://tomasp.net/articles/more-events-autumn-2012/tomas-qcon.jpg" class="rdecor" title="Tomas Petricek" style="margin-bottom:15px"/&gt;
-
-&lt;p&gt;Autumn is a busy period and I already invited you to a 
-  &lt;a href="http://tomasp.net/blog/events-autumn-2012.aspx"&gt;couple of interesting events&lt;/a&gt;, 
-  but there are two more events that you definitely should not miss.
-  In only two weeks, you can come to two-day &lt;a href="http://skillsmatter.com/event/scala/progfsharp-2012"&gt;Progressive F# Tutorials&lt;/a&gt;
-  packed with tutorials for both F# beginners and experts. At the beginning of December,
-  the &lt;a href="http://techmeshconf.com/"&gt;TechMesh Conference&lt;/a&gt; comes with three days of
-  talks about alternative (and future) technologies.
-&lt;/p&gt;
-
-&lt;p&gt;I'll be speaking at both Progressive F# Tutorials and TechMesh and I'm also doing a tutorial
-  at TechMesh, so if you want to learn about F#, type providers in F# 3.0 and financial computing
-  with F#, here are some talks that you should not miss...
 &lt;/p&gt;
 </description>
     </item>

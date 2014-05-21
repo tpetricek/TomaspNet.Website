@@ -68,44 +68,32 @@
   <!-- Print more details about the first blog post -->
 
   <div>
-  <h1><a href="http://tomasp.net/blog/2014/update-monads/index.html">Stateful computations in F# with update monads</a></h1>
-  <img src="http://tomasp.net/blog/2014/update-monads/code.png" style="float:right;margin:20px;width:200px" />
+  <h1><a href="http://tomasp.net/blog/2014/fsharpworks-events/index.html">Welcome fsharpWorks & F# events</a></h1>
+  <img src="http://tomasp.net/blog/2014/fsharpworks-events/logo-sm.png" style="width:150px;float:right;margin-left:5px" />
 
-<p>Most discussions about monads, even in F#, start by looking at the well-known standard 
-monads for handling state from Haskell. The <em>reader</em> monad gives us a way to propagate 
-some read-only state, the <em>writer</em> monad makes it possible to (imperatively) produce 
-values such as logs and the <em>state</em> monad encapsulates state that can be read and changed.</p>
-
-<p>These are no doubt useful in Haskell, but I never found them as important for F#.
-The first reason is that F# supports state and mutation and often it is just easier
-to use a mutable state. The second reason is that you have to implement three 
-different computation builders for them. This does not fit very well with the F# style
-where you need to name the computation explicitly, e.g. by writing <code>async { ... }</code>
-(See also my <a href="http://tomasp.net/blog/2013/computation-zoo-padl">recent blog about the F# Computation Zoo paper</a>).</p>
-
-<p>When visiting the Tallinn university in December (thanks to James Chapman, Juhan Ernits 
-&amp; Tarmo Uustalu for hosting me!), I discovered the work on <em>update monads</em> by Danel Ahman 
-and Tarmo Uustalu on <a href="http://cs.ioc.ee/~tarmo/papers/types13.pdf">update monads</a>, which elegantly unifies <em>reader</em>, <em>writer</em> and 
-<em>state</em> monads using a single abstraction.</p>
-
-<p>In this article, I implement the idea of <em>update monads</em> in F#. Update monads are 
-parameterized by <em>acts</em> that capture the operations that can be done on the state.
-This means that we can define just a single computation expression <code>update { ... }</code> 
-and use it for writing computations of all three aforementioned kinds.</p>
+<p>If you are following me or the <a href="https://twitter.com/hashtag/fsharp">#fsharp</a> hashtag on Twitter,
+you might have already come across a link to <a href="http://fsharpworks.com/">fsharpWorks</a> or one of the
+upcoming F# events organized by fsharpWorks. So, what is fsharpWorks and what are we planning
+for you?</p>
 
 
       
   <p class="meta">
-    <span><strong>Published</strong>: Tuesday, 13 May 2014, 3:41 PM</span>
+    <span><strong>Published</strong>: Tuesday, 20 May 2014, 1:47 PM</span>
       <br />      
-      <span class="tags"><strong>Tags</strong>: f#, research, functional programming, monads </span> 
+      <span class="tags"><strong>Tags</strong>: c#, f#, functional programming, talks </span> 
     <br />
-    <a href="http://tomasp.net/blog/2014/update-monads/index.html">Read the complete article</a>
+    <a href="http://tomasp.net/blog/2014/fsharpworks-events/index.html">Read the complete article</a>
   </p>
   </div>
 
   <!-- For remaining articles, just print short summary with abstract -->
   <h1><a href="http://tomasp.net/blog/index.html">Recent articles from my blog</a></h1>
+    <h2><a href="http://tomasp.net/blog/2014/update-monads/index.html">Stateful computations in F# with update monads</a></h2>
+    <p class="smdate">Tuesday, 13 May 2014, 3:41 PM</p>
+    <p class="description">
+        Most discussions about monads, even in F#, start by looking at the well-known monads for handling state (reader, writer and state). In a recent paper, Danel Ahman and Tarmo Uustalu revisit these and build a nicer abstraction called <em>update monads</em>. I implemented the idea in F# and I find that update monads are an excellent fit for F# computation expressions!
+    </p>
     <h2><a href="http://tomasp.net/blog/2014/philosophy-pl/index.html">What can programming language research learn from the philosophy of science?</a></h2>
     <p class="smdate">Thursday, 10 April 2014, 5:16 PM</p>
     <p class="description">
@@ -120,11 +108,6 @@ and use it for writing computations of all three aforementioned kinds.</p>
     <p class="smdate">Tuesday, 25 March 2014, 2:27 PM</p>
     <p class="description">
         Do you need to convince your friends and family that programming can be fun? Here is a story of how I managed to do that with F# at New Year's eve! I got a puzzle as a gift for Christmas and after a few days of failed attempts, I managed to solve it with F# in about 1 hour...
-    </p>
-    <h2><a href="http://tomasp.net/blog/2014/japan-advent-art-en/index.html">Advent Art: Generating Hokusai paintings</a></h2>
-    <p class="smdate">Tuesday, 21 January 2014, 6:49 PM</p>
-    <p class="description">
-        This article is a contribution to the F# Advent Calendar that is organized every year by the Japanese F# community - and so the article is inspired by the Japanese culture. We look at a list of Japanese artists in Freebase and try to recreate one piece using fractals and FunScript!
     </p>
 
   <p class="meta">
@@ -232,7 +215,7 @@ and use it for writing computations of all three aforementioned kinds.</p>
     <div class="large-7 columns">
     <h4>Blog archives <a href="http://tomasp.net/rss.xml"><img src="http://tomasp.net/img/rss.gif" /></a></h4>
       <a href="http://tomasp.net/blog/archive/may-2014/index.html">
-        May 2014 (1)</a>,      <a href="http://tomasp.net/blog/archive/april-2014/index.html">
+        May 2014 (2)</a>,      <a href="http://tomasp.net/blog/archive/april-2014/index.html">
         April 2014 (2)</a>,      <a href="http://tomasp.net/blog/archive/march-2014/index.html">
         March 2014 (1)</a>,      <a href="http://tomasp.net/blog/archive/january-2014/index.html">
         January 2014 (2)</a>,      <a href="http://tomasp.net/blog/archive/december-2013/index.html">

@@ -4,6 +4,33 @@
     <link>http://tomasp.net</link>
     <description>Writing about software development in F# and .NET, sharing materials from my F# trainings and talks, writing about programming language research and theory.</description>
     <item>
+      <title>New features and improvements in Deedle v1.0</title>
+      <guid>http://tomasp.net/blog/2014/deedle-v1</guid>
+      <link>http://tomasp.net/blog/2014/deedle-v1/index.html</link>
+      <pubDate>Tue, 27 May 2014 14:41:01 GMT</pubDate>
+      <description>&lt;p&gt;As Howard Mansell already &lt;a href="http://techblog.bluemountaincapital.com/2014/05/21/deedle-v1-0-release/"&gt;announced on the BlueMountain Tech blog&lt;/a&gt;,
+we have officially released the "1.0" version of Deedle. In case you have not 
+heard of Deedle yet, it is a .NET library for interactive data analysis and 
+exploration. Deedle works great with both C# and F#. It provides two main data
+structures: &lt;em&gt;series&lt;/em&gt; for working with data and time series and &lt;em&gt;frame&lt;/em&gt; for working
+with collections of series (think CSV files, data tables etc.)&lt;/p&gt;
+
+&lt;p&gt;The great thing about Deedle is that it has been becoming a foundational library
+that makes it possible to integrate a wide range of diverse data-science components.
+For example, the &lt;a href="http://bluemountaincapital.github.io/FSharpRProvider/"&gt;R type provider&lt;/a&gt;
+works well with Deedle and so does &lt;a href="http://fsharp.github.io/FSharp.Charting/"&gt;F# Charting&lt;/a&gt;.
+We've been also working on integrating all of these into a single package called 
+&lt;a href="https://github.com/tpetricek/FsLab"&gt;FsLab&lt;/a&gt;, but more about that next time!&lt;/p&gt;
+
+&lt;p&gt;In this blog post, I'll have a quick look at a couple of new features in Deedle 
+(and corresponding R type provider release). Howard's announcement has a 
+&lt;a href="http://techblog.bluemountaincapital.com/2014/05/21/deedle-v1-0-release/"&gt;more detailed list&lt;/a&gt;, 
+but I just want to give a couple of examples and briefly comment on performance
+improvemens we did.&lt;/p&gt;
+
+</description>
+    </item>
+    <item>
       <title>Welcome fsharpWorks &amp; F# events</title>
       <guid>http://tomasp.net/blog/2014/fsharpworks-events</guid>
       <link>http://tomasp.net/blog/2014/fsharpworks-events/index.html</link>
@@ -585,40 +612,6 @@ at how this works...&lt;/p&gt;
 &lt;div class="tip" id="fsd5"&gt;custom operation: up&lt;br /&gt;&lt;br /&gt;Calls TreeZipperBuilder.Up &lt;/div&gt;
 &lt;div class="tip" id="fsd6"&gt;custom operation: right&lt;br /&gt;&lt;br /&gt;Calls TreeZipperBuilder.Right &lt;/div&gt;
 &lt;div class="tip" id="fsd7"&gt;custom operation: top&lt;br /&gt;&lt;br /&gt;Calls TreeZipperBuilder.Top &lt;/div&gt;
-</description>
-    </item>
-    <item>
-      <title>Manning: F# Deep Dives deal of the day</title>
-      <guid>http://tomasp.net/blog/manning-deep-dives.aspx</guid>
-      <link>http://tomasp.net/blog/manning-deep-dives.aspx/index.html</link>
-      <pubDate>Tue, 18 Dec 2012 17:19:57 GMT</pubDate>
-      <description>
-&lt;img src="http://tomasp.net/articles/manning-deep-dives/cover.jpg" class="rdecor" title="F# Deep Dives" style="margin-bottom:15px"/&gt;
-
-&lt;p&gt;
-  The F# language has been around for longer than many people suspect. My &lt;a href="http://tomasp.net/blog/fsquotations.aspx"&gt;first, completely outdated,
-  blog post&lt;/a&gt; was from May 2006. The Microsoft Research releases, sometime around 2006 were the
-  first stable versions that gained some interest and slowly attracted commercial users.
-&lt;/p&gt;
-
-&lt;p&gt;A lot has changed since the early days. F# now includes powerful features like &lt;em&gt;computation expressions&lt;/em&gt;
-  and &lt;em&gt;asynchronous workflows&lt;/em&gt; and F# 3.0 comes with unique &lt;em&gt;type provider&lt;/em&gt; mechanism.
-&lt;/p&gt;
-
-&lt;p&gt;There is an increasing number of users from diverse domains: F# is used to model complex domains
-  in &lt;a href="http://techmeshconf.com/dl/techmesh-london-2012/slides/TobiasGedell_EdenAnFWPFFrameworkForBuildingGUITools.pdf"&gt;finance&lt;/a&gt; and science; asynchronous and concurrent features are used to write server-side components
-  of &lt;a href="http://theburningmonk.com/"&gt;social games&lt;/a&gt; and &lt;a href="http://www.infoq.com/interviews/trelford-functional"&gt;trading systems&lt;/a&gt;,
-  but also in &lt;a href="http://techmeshconf.com/dl/techmesh-london-2012/slides/AdamGranicz_DevelopingAndIntegratingWebSharperApplicationsWithFacebook.pdf"&gt;web programming&lt;/a&gt;;
-  the expressivity of F# is used by machine learning experts to
-  handle dirty data or &lt;a href="http://www.dotnetrocks.com/default.aspx?showNum=293"&gt;classify XBox players&lt;/a&gt;. Moreover, the &lt;a href="http://fsharp.org"&gt;F# Software Foundation&lt;/a&gt;
-  has been recently founded to support the collaboration between different commercial users, open-source 
-  community and academia.
-&lt;/p&gt;
-
-&lt;p&gt;There is an increasing interest in F#, but many of those who approach it ask (excellent) questions such as:
-  &lt;em&gt;"In what problem domains can I benefit from F#?"&lt;/em&gt; or &lt;em&gt;"How do I use F# in finance/science/gaming or web programming?"&lt;/em&gt;
-  and most importantly &lt;em&gt;"How do I approach different problems in F#?"&lt;/em&gt;
-&lt;/p&gt;
 </description>
     </item>
   </channel>

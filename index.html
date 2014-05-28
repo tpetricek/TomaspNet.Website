@@ -68,27 +68,45 @@
   <!-- Print more details about the first blog post -->
 
   <div>
-  <h1><a href="http://tomasp.net/blog/2014/fsharpworks-events/index.html">Welcome fsharpWorks & F# events</a></h1>
-  <img src="http://tomasp.net/blog/2014/fsharpworks-events/logo-sm.png" style="width:150px;float:right;margin-left:5px" />
+  <h1><a href="http://tomasp.net/blog/2014/deedle-v1/index.html">New features and improvements in Deedle v1.0</a></h1>
+  <p>As Howard Mansell already <a href="http://techblog.bluemountaincapital.com/2014/05/21/deedle-v1-0-release/">announced on the BlueMountain Tech blog</a>,
+we have officially released the "1.0" version of Deedle. In case you have not 
+heard of Deedle yet, it is a .NET library for interactive data analysis and 
+exploration. Deedle works great with both C# and F#. It provides two main data
+structures: <em>series</em> for working with data and time series and <em>frame</em> for working
+with collections of series (think CSV files, data tables etc.)</p>
 
-<p>If you are following me or the <a href="https://twitter.com/hashtag/fsharp">#fsharp</a> hashtag on Twitter,
-you might have already come across a link to <a href="http://fsharpworks.com/">fsharpWorks</a> or one of the
-upcoming F# events organized by fsharpWorks. So, what is fsharpWorks and what are we planning
-for you?</p>
+<p>The great thing about Deedle is that it has been becoming a foundational library
+that makes it possible to integrate a wide range of diverse data-science components.
+For example, the <a href="http://bluemountaincapital.github.io/FSharpRProvider/">R type provider</a>
+works well with Deedle and so does <a href="http://fsharp.github.io/FSharp.Charting/">F# Charting</a>.
+We've been also working on integrating all of these into a single package called 
+<a href="https://github.com/tpetricek/FsLab">FsLab</a>, but more about that next time!</p>
+
+<p>In this blog post, I'll have a quick look at a couple of new features in Deedle 
+(and corresponding R type provider release). Howard's announcement has a 
+<a href="http://techblog.bluemountaincapital.com/2014/05/21/deedle-v1-0-release/">more detailed list</a>, 
+but I just want to give a couple of examples and briefly comment on performance
+improvemens we did.</p>
 
 
       
   <p class="meta">
-    <span><strong>Published</strong>: Tuesday, 20 May 2014, 1:47 PM</span>
+    <span><strong>Published</strong>: Tuesday, 27 May 2014, 3:41 PM</span>
       <br />      
-      <span class="tags"><strong>Tags</strong>: c#, f#, functional programming, talks </span> 
+      <span class="tags"><strong>Tags</strong>: f#, deedle, data science </span> 
     <br />
-    <a href="http://tomasp.net/blog/2014/fsharpworks-events/index.html">Read the complete article</a>
+    <a href="http://tomasp.net/blog/2014/deedle-v1/index.html">Read the complete article</a>
   </p>
   </div>
 
   <!-- For remaining articles, just print short summary with abstract -->
   <h1><a href="http://tomasp.net/blog/index.html">Recent articles from my blog</a></h1>
+    <h2><a href="http://tomasp.net/blog/2014/fsharpworks-events/index.html">Welcome fsharpWorks & F# events</a></h2>
+    <p class="smdate">Tuesday, 20 May 2014, 1:47 PM</p>
+    <p class="description">
+        If you are following me or the #fsharp hashtag on Twitter,you might have already come across a link to fsharpWorks or one of theupcoming F# events organized by fsharpWorks. So, what is fsharpWorks and what are we planningfor you?
+    </p>
     <h2><a href="http://tomasp.net/blog/2014/update-monads/index.html">Stateful computations in F# with update monads</a></h2>
     <p class="smdate">Tuesday, 13 May 2014, 3:41 PM</p>
     <p class="description">
@@ -103,11 +121,6 @@ for you?</p>
     <p class="smdate">Tuesday, 1 April 2014, 2:24 PM</p>
     <p class="description">
         At last, the long wait is fianlly over! After 4 years of waiting, the fully managed implementation of the C# compiler codenamed Roslyn has been finally released.
-    </p>
-    <h2><a href="http://tomasp.net/blog/2014/puzzling-fsharp/index.html">Solving fun puzzles with F#</a></h2>
-    <p class="smdate">Tuesday, 25 March 2014, 2:27 PM</p>
-    <p class="description">
-        Do you need to convince your friends and family that programming can be fun? Here is a story of how I managed to do that with F# at New Year's eve! I got a puzzle as a gift for Christmas and after a few days of failed attempts, I managed to solve it with F# in about 1 hour...
     </p>
 
   <p class="meta">
@@ -215,7 +228,7 @@ for you?</p>
     <div class="large-7 columns">
     <h4>Blog archives <a href="http://tomasp.net/rss.xml"><img src="http://tomasp.net/img/rss.gif" /></a></h4>
       <a href="http://tomasp.net/blog/archive/may-2014/index.html">
-        May 2014 (2)</a>,      <a href="http://tomasp.net/blog/archive/april-2014/index.html">
+        May 2014 (3)</a>,      <a href="http://tomasp.net/blog/archive/april-2014/index.html">
         April 2014 (2)</a>,      <a href="http://tomasp.net/blog/archive/march-2014/index.html">
         March 2014 (1)</a>,      <a href="http://tomasp.net/blog/archive/january-2014/index.html">
         January 2014 (2)</a>,      <a href="http://tomasp.net/blog/archive/december-2013/index.html">

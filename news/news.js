@@ -19,7 +19,7 @@ var news1 =
 // Lanyrd 
 var news =
   {
-    "date": "Talks in Autumn 2013",
+    "date": "",
     "info": '\
      <a href="http://ineta.org/Speakers/SearchCommunitySpeakers.aspx?SpeakerId=e619146f-d59f-4e37-b781-2cb582db19c3">\
        <img src="/img/ineta.png" style="margin-left:5px;float:right;border-style:none;" alt="Request speaker on INETA"  /> \

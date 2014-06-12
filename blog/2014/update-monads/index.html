@@ -83,8 +83,8 @@ where you need to name the computation explicitly, e.g. by writing <code>async {
 (See also my <a href="http://tomasp.net/blog/2013/computation-zoo-padl">recent blog about the F# Computation Zoo paper</a>).</p>
 
 <p>When visiting the Tallinn university in December (thanks to James Chapman, Juhan Ernits 
-&amp; Tarmo Uustalu for hosting me!), I discovered the work on <em>update monads</em> by Danel Ahman 
-and Tarmo Uustalu on <a href="http://cs.ioc.ee/~tarmo/papers/types13.pdf">update monads</a>, which elegantly unifies <em>reader</em>, <em>writer</em> and 
+&amp; Tarmo Uustalu for hosting me!), I discovered the work on <a href="http://cs.ioc.ee/~tarmo/papers/types13.pdf">update monads</a> by Danel 
+Ahman and Tarmo Uustalu, which elegantly unifies <em>reader</em>, <em>writer</em> and 
 <em>state</em> monads using a single abstraction.</p>
 
 <p>In this article, I implement the idea of <em>update monads</em> in F#. Update monads are 
@@ -178,7 +178,7 @@ as an <em>action</em> that transforms state and so the authors use the name <em>
 
 <p>To implement this idea in F#, we can use <a href="http://msdn.microsoft.com/en-us/library/dd233203.aspx">static member constraints</a>. If you do not
 know about static member constrains in F#, you can think of it as a form of duck typing 
-(or light-weight type classes). If a type defines certain members, then the code will 
+(or lightweight type classes). If a type defines certain members, then the code will 
 compile and run fine, otherwise you'll get a compile-time error. We will require
 the user to define two types representing <code>State</code> and <code>Update</code>, respectively. The <code>Update</code>
 type will need to define the three operations. An abstract definition (not valid F# code)
@@ -486,7 +486,7 @@ change the definition to implement other monoids (e.g. to keep the last produced
 
 <h3>Writer monad primitives</h3>
 
-<p>Similarly to the previous example, we now need two primitives - one to add new element 
+<p>Similarly to the previous example, we now need two primitives - one to add a new element 
 to the log (<code>write</code> of the writer monad) and one to run a computation and extract the
 result and the log:</p>
 
@@ -682,7 +682,7 @@ return and so the <code>Zero</code> member is automatically used.</p>
 
 <h2>Implementing the state monad</h2>
 
-<p>Interestingly, standard state monad is <em>not</em> a special case of update monads. However, we
+<p>Interestingly, the standard state monad is <em>not</em> a special case of update monads. However, we
 can define a computation that implements the same functionality - a computation with state
 that we can read and write.</p>
 
@@ -985,7 +985,7 @@ update monads are the way to go.</p>
 <!-- AddThis Button END -->
 
 <p class="post-meta">
-  <span><strong>Published</strong> Tuesday, 13 May 2014, 4:41 PM</span><br />      
+  <span><strong>Published</strong> Tuesday, 13 May 2014, 3:41 PM</span><br />      
   <span><strong>By</strong> <a href="https://plus.google.com/+TomasPetriceks?rel=author">Tomas Petricek</a></span><br />
   <span class="tags"><strong>Tags</strong> f#, research, functional programming, monads</span>
 </p>
@@ -1070,7 +1070,7 @@ update monads are the way to go.</p>
     <h4>Blog tags</h4>
     <p>
 
-      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(93),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(29),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(31),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(7),       <a href="http://tomasp.net/blog/tag/writing/">writing</a>&nbsp;(11),       <a href="http://tomasp.net/blog/tag/haskell/">haskell</a>&nbsp;(7),       <a href="http://tomasp.net/blog/tag/fsharp-data/">f# data</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/art/">art</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fractals/">fractals</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/funscript/">funscript</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/open-source/">open source</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/monads/">monads</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/new-york/">new york</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/manning/">manning</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/books/">books</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/coeffects/">coeffects</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/comonads/">comonads</a>&nbsp;(1)    </p>
+      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(95),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(29),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(32),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(8),       <a href="http://tomasp.net/blog/tag/writing/">writing</a>&nbsp;(11),       <a href="http://tomasp.net/blog/tag/haskell/">haskell</a>&nbsp;(7),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/fsharp-data/">f# data</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/art/">art</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fractals/">fractals</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/funscript/">funscript</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/open-source/">open source</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/monads/">monads</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/new-york/">new york</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/manning/">manning</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/books/">books</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(1)    </p>
 
   </div>
 </div>
@@ -1093,7 +1093,7 @@ update monads are the way to go.</p>
     <div class="large-7 columns">
     <h4>Blog archives <a href="http://tomasp.net/rss.xml"><img src="http://tomasp.net/img/rss.gif" /></a></h4>
       <a href="http://tomasp.net/blog/archive/may-2014/index.html">
-        May 2014 (1)</a>,      <a href="http://tomasp.net/blog/archive/april-2014/index.html">
+        May 2014 (3)</a>,      <a href="http://tomasp.net/blog/archive/april-2014/index.html">
         April 2014 (2)</a>,      <a href="http://tomasp.net/blog/archive/march-2014/index.html">
         March 2014 (1)</a>,      <a href="http://tomasp.net/blog/archive/january-2014/index.html">
         January 2014 (2)</a>,      <a href="http://tomasp.net/blog/archive/december-2013/index.html">

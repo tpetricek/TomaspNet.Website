@@ -4,7 +4,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Coeffects: Unified static analysis of context-dependence</title>
+  <title>Coeffects: A calculus of context-dependent computation</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
   <meta name="author" content="Tomas Petricek">
@@ -60,52 +60,50 @@
   <div class="large-8 columns main-content">
   <content>
     
-<h1>Coeffects: Unified static analysis of context-dependence</h1>
+<h1>Coeffects: A calculus of context-dependent computation</h1>
 
 <blockquote>
   <p>Tomas Petricek, Dominic Orchard and Alan Mycroft</p>
 
-  <p>In Proceedings of ICALP 2013</p>
+  <p>In Proceedings of ICFP 2014</p>
 </blockquote>
 
-<p>Monadic effect systems provide a unified way of tracking
-effects of computations, but there is no unified mechanism for
-tracking how computations rely on the environment in which they are
-executed.  This is becoming an important problem for modern software
-- we need to track where distributed computations run, which
-resources a program uses and how they use other capabilities of the
-environment.</p>
+<p>The notion of <em>context</em> in functional languages no longer refers just to variables
+in scope. Context can capture additional properties of variables (usage patterns
+in linear logics; caching requirements in dataflow languages) as well as additional
+resources or properties of the execution environment (rebindable resources; platform version in a<br />
+cross-platform application). The recently introduced notion of coeffects captures the
+latter, whole-context properties, but it failed to capture fine-grained per-variable properties.</p>
 
-<p>We consider three examples of context-dependence analysis: <em>liveness</em> analysis, 
-tracking the use of <em>implicit parameters</em> (similar to tracking of <em>resource usage</em> in
-distributed computation), and calculating caching requirements for
-<em>dataflow</em> programs. Informed by these cases, we present a unified calculus for
-tracking context dependence in functional languages together with a
-categorical semantics based on <em>indexed comonads</em>.
-We believe that indexed comonads are the right foundation for constructing
-context-aware languages and type systems and that following an approach akin to 
-monads can lead to a widespread use of the concept.</p>
+<p>We remedy this by developing a generalized coeffect system with annotations indexed by
+a coeffect <em>shape</em>. By instantiating a concrete shape, our system captures previously
+studied <em>flat</em> (whole-context) coeffects, but also <em>structural</em> (per-variable) coeffects,
+making coeffect analyses more useful. We show that the structural system enjoys desirable syntactic 
+properties and we give a categorical semantics using extended notions of <em>indexed comonad</em>.</p>
+
+<p>The examples presented in this paper are based on analysis of established language features 
+(liveness, linear logics, dataflow, dynamic scoping) and we argue that such context-aware 
+properties will also be useful for future development of languages for increasingly 
+heterogeneous and distributed platforms.</p>
 
 <h2>Paper and more information</h2>
 
 <ul>
-<li>Download <a href="coeffects-icalp.pdf">the paper (PDF)</a></li>
-<li>View talk slides from <a href="icalp-talk.pdf">ICALP conference</a></li>
-<li>Our <a href="../structural/index.html">ICFP 2014</a> paper extends the work presented here.</li>
+<li>Download <a href="coeffects-icfp.pdf">the paper (PDF)</a></li>
+<li>This work extends our previous <a href="../coeffects/index.html">ICALP paper</a></li>
 </ul>
 
 <h2><a id="cite">Bibtex</a></h2>
 
 <p>If you want to cite the paper, you can use the following BibTeX information, or
-get full details from the <a href="http://dl.acm.org/citation.cfm?id=2525971.2526009&amp;coll=DL&amp;dl=GUIDE&amp;CFID=375487526&amp;CFTOKEN=86636259">paper page on ACM</a>.</p>
+get full details from the paper page on ACM (TBA).</p>
 
-<pre lang="tex">@inproceedings{coeffects-icalp13,
+<pre lang="tex">@inproceedings{coeffects-icfp14,
   author    = {Petricek, Tomas and Orchard, Dominic and Mycroft, Alan},
-  title     = {Coeffects: unified static analysis of context-dependence},
-  booktitle = {Proceedings of International Conference on Automata, 
-               Languages, and Programming - Volume Part II},
-  series    = {ICALP 2013},
-  location  = {Riga, Latvia}
+  title     = {Coeffects: A calculus of context-dependent computation},
+  booktitle = {Proceedings of International Conference on Functional Programming},
+  series    = {ICFP 2014},
+  location  = {Gothenburg, Sweden}
 } </pre>
 
 <p>If you have any comments, suggestions or related ideas, I'll be happy to 

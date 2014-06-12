@@ -109,6 +109,18 @@ I worked on _computation expressions_ in F#, both by developing the theory
 
 ## Recent publications
 
+#### **[June 2014]** [Coeffects: A calculus of context-dependent computation](@Model.Root/academic/papers/structural/)
+
+> Tomas Petricek, Dominic Orchard and Alan Mycroft. In Proceedings of ICFP 2014
+
+We present a general calculus for tracking contextual properties of computations, 
+including per-variable properties (usage patterns, caching requirements) and 
+whole-context properties (platform version, rebindable resources). This resolves
+questions that were left unanswered in the ICALP 2013 paper below.
+
+ - [abstract](@Model.Root/academic/papers/structural/) | [cite](@Model.Root/academic/papers/structural/#cite) | 
+   [paper](@Model.Root/academic/papers/structural/coeffects-icfp.pdf)
+
 #### **[April 2014]** [What can Programming Language Research  Learn from the Philosophy of Science?](@Model.Root/academic/papers/philosophy-pl/)
 
 > Tomas Petricek. In Proceedings of AISB 2014
@@ -136,6 +148,8 @@ shows that the right syntax can often be determined by considering laws.
    [talk](@Model.Root/academic/papers/computation-zoo/talk-tfp.pdf) | 
    [paper](@Model.Root/academic/papers/computation-zoo/computation-zoo.pdf)
 
+## Papers published previously
+
 #### [Coeffects: Unified static analysis of context-dependence](@Model.Root/academic/papers/coeffects/)
 
 > Tomas Petricek, Dominic Orchard and Alan Mycroft. In Proceedings of ICALP 2013.
@@ -148,8 +162,6 @@ data-flow or distributed programs,
  - [abstract](@Model.Root/academic/papers/coeffects/) | [cite](@Model.Root/academic/papers/coeffects/#cite) | 
    [talk](@Model.Root/academic/papers/coeffects/icalp-talk.pdf) | 
    [paper](@Model.Root/academic/papers/coeffects/coeffects-icalp.pdf)
-
-## Papers published previously
 
 #### [Evaluation strategies for monadic computations](@Model.Root/academic/papers/malias/)
 
@@ -289,17 +301,6 @@ application.
 Start here if you want to know that I'm currently working on and what I recently 
 completed. Unpublished drafts are marked as such and I'm always looking for feedback!
 
-#### **[July 2013]** Draft: [Analysing context dependence in programs](@Model.Root/academic/drafts/coeffects-structural/)
-
-> Tomas Petricek, Dominic Orchard, Alan Mycroft. Unpublished draft.
-
-This paper develops _structural coeffect calculus_ which extends our earlier
-work on _coeffects_ to make it more useful for tracking contextual information
-related to individual variables, such as liveness and provenance.
-
- - [abstract](@Model.Root/academic/drafts/coeffects-structural/) | [draft](@Model.Root/academic/drafts/coeffects-structural/coeffects-structural.pdf)
-
-
 #### Draft: [Teaching Functional Programming to Professional .NET Developers](@Model.Root/academic/drafts/fsharp-teaching/)
 
 > Tomas Petricek. In Pre-proceedings of TFPIE 2012.
@@ -316,6 +317,8 @@ developers. This requires a very different approach.
 
 ## Talks and recordings
 
+ * **Video**: [Understanding the World with F#](http://channel9.msdn.com/posts/Understanding-the-World-with-F)  
+   (Video lecture, Recorded at Channel 9, 2013)
  * **Video**: [How F# Learned to Stop Worrying and Love the Data](http://channel9.msdn.com/posts/Tomas-Petricek-How-F-Learned-to-Stop-Worrying-and-Love-the-Data)  
    (Video lecture, Recorded at Channel 9, 2013)
  * [Coeffects: Types for tracking context-dependence](@Model.Root/academic/talks/coeffects-mit.pdf)  

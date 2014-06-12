@@ -31,8 +31,8 @@ where you need to name the computation explicitly, e.g. by writing `async { ... 
 (See also my [recent blog about the F# Computation Zoo paper][zoo]).
 
 When visiting the Tallinn university in December (thanks to James Chapman, Juhan Ernits 
-& Tarmo Uustalu for hosting me!), I discovered the work on _update monads_ by Danel Ahman 
-and Tarmo Uustalu on [update monads][um], which elegantly unifies _reader_, _writer_ and 
+& Tarmo Uustalu for hosting me!), I discovered the work on [update monads][um] by Danel 
+Ahman and Tarmo Uustalu, which elegantly unifies _reader_, _writer_ and 
 _state_ monads using a single abstraction.
 
 In this article, I implement the idea of _update monads_ in F#. Update monads are 
@@ -102,7 +102,7 @@ Implementing update monads in F#
 
 To implement this idea in F#, we can use [static member constraints][smc]. If you do not
 know about static member constrains in F#, you can think of it as a form of duck typing 
-(or light-weight type classes). If a type defines certain members, then the code will 
+(or lightweight type classes). If a type defines certain members, then the code will 
 compile and run fine, otherwise you'll get a compile-time error. We will require
 the user to define two types representing `State` and `Update`, respectively. The `Update`
 type will need to define the three operations. An abstract definition (not valid F# code)
@@ -309,7 +309,7 @@ change the definition to implement other monoids (e.g. to keep the last produced
 
 ### Writer monad primitives
 
-Similarly to the previous example, we now need two primitives - one to add new element 
+Similarly to the previous example, we now need two primitives - one to add a new element 
 to the log (`write` of the writer monad) and one to run a computation and extract the
 result and the log:
 *)
@@ -428,7 +428,7 @@ return and so the `Zero` member is automatically used.
 Implementing the state monad
 ----------------------------
 
-Interestingly, standard state monad is _not_ a special case of update monads. However, we
+Interestingly, the standard state monad is _not_ a special case of update monads. However, we
 can define a computation that implements the same functionality - a computation with state
 that we can read and write.
 

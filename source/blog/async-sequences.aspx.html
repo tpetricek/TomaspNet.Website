@@ -415,7 +415,7 @@
   unfortunate and we'd have to store it in some temporary buffer.</p>
 
 <p>Another area where asynchronous sequences may fit quite nicely is the implementation
-  of <em>pipeline processing</em>. In my <a href="http://tomasp.net/articles/parallel-extra-image-pipeline.aspx">earlier implementation</a> [<a href="#assqrf">1</a>] of pipeline processing
+  of <em>pipeline processing</em>. In my <a href="http://tomasp.net/blog/parallel-extra-image-pipeline.aspx">earlier implementation</a> [<a href="#assqrf">1</a>] of pipeline processing
   in F#, I used a simple blocking queue implemented as an agent (see <code>BlockingQueueAgent</code>
   <a href="http://msdn.microsoft.com/en-us/library/hh297096.aspx">implementation on MSDN</a> [<a href="#assqrf">3</a>]). The queue is used between two processors and controls the process
   by blocking the producer (when the queue is full) or the consumer (when there are no values).
@@ -455,7 +455,7 @@
   <li>View samples on <a href="http://www.fssnip.net/7f">F# snippets</a> (and grab the <a href="http://www.fssnip.net/raw/7f">raw code</a> to post your snippets!)</li>
 </ul>
 <ul>
-  <li>[1] <a href="http://tomasp.net/articles/parallel-extra-image-pipeline.aspx">F# Parallel Extras (I.): Image pipeline using agents</a> - TomasP.Net</li>
+  <li>[1] <a href="http://tomasp.net/blog/parallel-extra-image-pipeline.aspx">F# Parallel Extras (I.): Image pipeline using agents</a> - TomasP.Net</li>
   <li>[2] <a href="http://stackoverflow.com/questions/6995313/mailboxprocessor-tell-when-to-stop">MailboxProcessor - Tell when to stop?</a> - StackOverflow.com</li>
   <li>[3] <a href="http://msdn.microsoft.com/en-us/library/hh297096.aspx">How to: Create a Blocking Queue Using Agents</a> - MSDN Library</li>
 </ul>

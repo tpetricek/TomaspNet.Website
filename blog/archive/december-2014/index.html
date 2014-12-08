@@ -66,41 +66,33 @@
       
 
   <div>
-  <h1><a href="http://tomasp.net/blog/2014/why-coeffects-matter/index.html">Coeffects: The next big programming challenge</a></h1>
-  <p>Many advances in programming language design are driven by some practical motivations.
-Sometimes, the practical motivations are easy to see - for example, when they come from
-some external change such as the rise of multi-core processors. Sometimes, discovering 
-the practical motivations is a tricky task - perhaps because everyone is used to a 
-certain way of doing things that we do not even <em>see</em> how poor our current solution is.</p>
+  <h1><a href="http://tomasp.net/blog/2014/composing-christmas/index.html">Composing Christmas with F#</a></h1>
+  <img src="http://tomasp.net/blog/2014/composing-christmas/glowing.gif" style="float:right;margin:20px; width:200px" /> 
 
-<p>The following two examples are related to the work done in F# (because this is what
-I'm the most familiar with), but you can surely find similar examples in other languages:</p>
+<p>This blog post is a part of the awesome <a href="https://sergeytihon.wordpress.com/2014/11/24/f-advent-calendar-in-english-2014/">F# Advent Calendar</a>
+(see the previous entry about <a href="http://richardminerich.com/2014/12/developing-an-algorithm-in-f-fast-rotational-alignments-with-gospers-hack/">writing algorithms in F#</a>
+from Rick Minerich), so it inevitably needs a Christmassy theme. However, there is also 
+going to be a serious theme for the blog post, which is domain-specific languages.</p>
 
-<ul>
-<li><p><strong>Multi-core</strong> is an easy to see challenge caused by an external development. 
-It led to the popularity of <em>immutable</em> data structures (and functional programming,
-in general) and it was also partly motivation for <a href="http://msdn.microsoft.com/en-us/library/dd233250.aspx" title="Asynchronous Workflows (F#)">asynchronous workflows</a>.</p></li>
-<li><p><strong>Data access</strong> is a more subtle challenge. Technologies like <a href="http://msdn.microsoft.com/en-us/library/bb397926.aspx" title="LINQ (Language-Integrated Query)">LINQ</a> make it
-significantly easier, but it was not easy to see that inline SQL was a poor solution.
-This is even more the case for F# <em>type providers</em>. You will not realize how poor the
-established data access story is until you <em>see</em> something like
-the <a href="http://www.youtube.com/watch?v=cCuGgA9Yqrs" title="F# R Type Provider Demo">WorldBank and R provider</a> or <a href="http://fsharp.github.io/FSharp.Data/library/CsvProvider.html" title="F# Data: CSV type provider">CSV type provider</a>.</p></li>
-</ul>
+<p>One of my favorite examples of Domain-Specific Languages is a simple OpenGL library
+that I wrote some time ago for composing 3D graphics in F#. You can see it in my 
+NDC 2014 talk <a href="http://vimeo.com/97315970">Domain Specific Languages, the functional way</a>
+and I also used it for <a href="http://tomasp.net/blog/2014/puzzling-fsharp/index.html">Solving Puzzles with F#</a>
+earlier on this blog.</p>
 
-<p>I believe that the next important practical challenge for programming language designers
-is of the kind that is not easy to see - because we are so used to doing things in 
-certain ways that we cannot see how poor they are. The problem is designing languages
-that are better at working with (and understanding) the <em>context</em> in which programs are
-executed.</p>
+<p>The nice thing about the library is that it is very simple, but is rich enough to demonstrate
+all the important concepts. In fact, the library is so easy to use that <a href="https://twitter.com/ptrelford/status/538098139430137856">even 8 years old can
+do a talk about it</a>. So, if you're
+spending Christmas with your family, perhaps you can go through this article with your children!</p>
 
 
       
   <p class="meta">
-    <span><strong>Published</strong>: Wednesday, 8 January 2014, 3:31 PM</span>
+    <span><strong>Published</strong>: Monday, 8 December 2014, 5:22 PM</span>
       <br />      
-      <span class="tags"><strong>Tags</strong>: research, coeffects, functional programming, comonads </span> 
+      <span class="tags"><strong>Tags</strong>: f#, fun, functional programming </span> 
     <br />
-    <a href="http://tomasp.net/blog/2014/why-coeffects-matter/index.html">Read the complete article</a>
+    <a href="http://tomasp.net/blog/2014/composing-christmas/index.html">Read the complete article</a>
   </p>
   </div>
 

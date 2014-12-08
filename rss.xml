@@ -4,6 +4,31 @@
     <link>http://tomasp.net</link>
     <description>Writing about software development in F# and .NET, sharing materials from my F# trainings and talks, writing about programming language research and theory.</description>
     <item>
+      <title>Composing Christmas with F#</title>
+      <guid>http://tomasp.net/blog/2014/composing-christmas</guid>
+      <link>http://tomasp.net/blog/2014/composing-christmas/index.html</link>
+      <pubDate>Mon, 08 Dec 2014 17:22:28 GMT</pubDate>
+      <description>&lt;img src="http://tomasp.net/blog/2014/composing-christmas/glowing.gif" style="float:right;margin:20px; width:200px" /&gt; 
+
+&lt;p&gt;This blog post is a part of the awesome &lt;a href="https://sergeytihon.wordpress.com/2014/11/24/f-advent-calendar-in-english-2014/"&gt;F# Advent Calendar&lt;/a&gt;
+(see the previous entry about &lt;a href="http://richardminerich.com/2014/12/developing-an-algorithm-in-f-fast-rotational-alignments-with-gospers-hack/"&gt;writing algorithms in F#&lt;/a&gt;
+from Rick Minerich), so it inevitably needs a Christmassy theme. However, there is also 
+going to be a serious theme for the blog post, which is domain-specific languages.&lt;/p&gt;
+
+&lt;p&gt;One of my favorite examples of Domain-Specific Languages is a simple OpenGL library
+that I wrote some time ago for composing 3D graphics in F#. You can see it in my 
+NDC 2014 talk &lt;a href="http://vimeo.com/97315970"&gt;Domain Specific Languages, the functional way&lt;/a&gt;
+and I also used it for &lt;a href="http://tomasp.net/blog/2014/puzzling-fsharp/index.html"&gt;Solving Puzzles with F#&lt;/a&gt;
+earlier on this blog.&lt;/p&gt;
+
+&lt;p&gt;The nice thing about the library is that it is very simple, but is rich enough to demonstrate
+all the important concepts. In fact, the library is so easy to use that &lt;a href="https://twitter.com/ptrelford/status/538098139430137856"&gt;even 8 years old can
+do a talk about it&lt;/a&gt;. So, if you're
+spending Christmas with your family, perhaps you can go through this article with your children!&lt;/p&gt;
+
+</description>
+    </item>
+    <item>
       <title>New features and improvements in Deedle v1.0</title>
       <guid>http://tomasp.net/blog/2014/deedle-v1</guid>
       <link>http://tomasp.net/blog/2014/deedle-v1/index.html</link>
@@ -563,55 +588,6 @@ Here are the most important links:&lt;/p&gt;
 
 &lt;p&gt;To learn more about this tool and how to use it, &lt;a href="http://tomasp.net/blog/fsharp-literate-programming.aspx"&gt;continue reading&lt;/a&gt;!&lt;/p&gt;
 
-</description>
-    </item>
-    <item>
-      <title>Processing trees with F# zipper computation</title>
-      <guid>http://tomasp.net/blog/tree-zipper-query.aspx</guid>
-      <link>http://tomasp.net/blog/tree-zipper-query.aspx/index.html</link>
-      <pubDate>Wed, 19 Dec 2012 14:22:47 GMT</pubDate>
-      <description>&lt;p&gt;One of the less frequently advertised new features in F# 3.0 is the &lt;em&gt;query syntax&lt;/em&gt;.
-It is an extension that makes it possible to add custom operations in an F#
-computation expression. The standard &lt;code&gt;query { .. }&lt;/code&gt; computation uses this to define
-operations such as sorting (&lt;code&gt;sortBy&lt;/code&gt; and &lt;code&gt;sortByDescending&lt;/code&gt;) or operations for taking
-and skipping elements (&lt;code&gt;take&lt;/code&gt;, &lt;code&gt;takeWhile&lt;/code&gt;, ...). For example, you can write:&lt;/p&gt;
-&lt;pre class="fssnip"&gt;
-&lt;span class="l"&gt;1: &lt;/span&gt;&lt;span onmouseout="hideTip(event, 'fs1', 1)" onmouseover="showTip(event, 'fs1', 1)" class="i"&gt;query&lt;/span&gt; { &lt;span class="k"&gt;for&lt;/span&gt; &lt;span onmouseout="hideTip(event, 'fs2', 2)" onmouseover="showTip(event, 'fs2', 2)" class="i"&gt;x&lt;/span&gt; &lt;span class="k"&gt;in&lt;/span&gt; &lt;span class="n"&gt;1&lt;/span&gt; &lt;span class="o"&gt;..&lt;/span&gt; &lt;span class="n"&gt;10&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt;
-&lt;span class="l"&gt;2: &lt;/span&gt;        &lt;span onmouseout="hideTip(event, 'fs3', 3)" onmouseover="showTip(event, 'fs3', 3)" class="k"&gt;take&lt;/span&gt; &lt;span class="n"&gt;3&lt;/span&gt;
-&lt;span class="l"&gt;3: &lt;/span&gt;        &lt;span onmouseout="hideTip(event, 'fs4', 4)" onmouseover="showTip(event, 'fs4', 4)" class="k"&gt;sortByDescending&lt;/span&gt; &lt;span onmouseout="hideTip(event, 'fs2', 5)" onmouseover="showTip(event, 'fs2', 5)" class="i"&gt;x&lt;/span&gt; }&lt;/pre&gt;
-&lt;p&gt;In this article I'll use the same notation for processing trees using the &lt;em&gt;zipper&lt;/em&gt;
-pattern. I'll show how to define a computation that allows you to traverse a tree
-and perform transformations on (parts) of the tree. For example, we'll be able to 
-say "Go to the left sub-tree, multiply all values by 2. Then go back and to the
-right sub-tree and divide all values by 2" as follows:&lt;/p&gt;
-&lt;pre class="fssnip"&gt;
-&lt;span class="l"&gt;1: &lt;/span&gt;&lt;span onmouseout="hideTip(event, 'fsd1', 1)" onmouseover="showTip(event, 'fsd1', 1)" class="i"&gt;tree&lt;/span&gt; { &lt;span class="k"&gt;for&lt;/span&gt; &lt;span onmouseout="hideTip(event, 'fsd2', 2)" onmouseover="showTip(event, 'fsd2', 2)" class="i"&gt;x&lt;/span&gt; &lt;span class="k"&gt;in&lt;/span&gt; &lt;span class="i"&gt;sample&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt;
-&lt;span class="l"&gt;2: &lt;/span&gt;       &lt;span onmouseout="hideTip(event, 'fsd3', 3)" onmouseover="showTip(event, 'fsd3', 3)" class="k"&gt;left&lt;/span&gt; 
-&lt;span class="l"&gt;3: &lt;/span&gt;       &lt;span onmouseout="hideTip(event, 'fsd4', 4)" onmouseover="showTip(event, 'fsd4', 4)" class="k"&gt;map&lt;/span&gt; (&lt;span onmouseout="hideTip(event, 'fsd2', 5)" onmouseover="showTip(event, 'fsd2', 5)" class="i"&gt;x&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;2&lt;/span&gt;) 
-&lt;span class="l"&gt;4: &lt;/span&gt;       &lt;span onmouseout="hideTip(event, 'fsd5', 6)" onmouseover="showTip(event, 'fsd5', 6)" class="k"&gt;up&lt;/span&gt;
-&lt;span class="l"&gt;5: &lt;/span&gt;       &lt;span onmouseout="hideTip(event, 'fsd6', 7)" onmouseover="showTip(event, 'fsd6', 7)" class="k"&gt;right&lt;/span&gt;
-&lt;span class="l"&gt;6: &lt;/span&gt;       &lt;span onmouseout="hideTip(event, 'fsd4', 8)" onmouseover="showTip(event, 'fsd4', 8)" class="k"&gt;map&lt;/span&gt; (&lt;span onmouseout="hideTip(event, 'fsd2', 9)" onmouseover="showTip(event, 'fsd2', 9)" class="i"&gt;x&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="n"&gt;2&lt;/span&gt;) 
-&lt;span class="l"&gt;7: &lt;/span&gt;       &lt;span onmouseout="hideTip(event, 'fsd7', 10)" onmouseover="showTip(event, 'fsd7', 10)" class="k"&gt;top&lt;/span&gt; }&lt;/pre&gt;
-&lt;p&gt;This example behaves quite differently to the usual &lt;code&gt;query&lt;/code&gt; computation. It mostly
-relies on custom operations like &lt;code&gt;left&lt;/code&gt;, &lt;code&gt;right&lt;/code&gt; and &lt;code&gt;up&lt;/code&gt; that allow us to navigate
-through a tree (descend along the left or right sub-tree, go back to the parent node). 
-The only operation that &lt;em&gt;does something&lt;/em&gt; is the &lt;code&gt;map&lt;/code&gt; operation which transforms the
-current sub-tree.&lt;/p&gt;
-
-&lt;p&gt;This was just a brief introduction to what is possible, so let's take a detailed look
-at how this works...&lt;/p&gt;
-
-&lt;div class="tip" id="fs1"&gt;val query : Linq.QueryBuilder&lt;br /&gt;&lt;br /&gt;Full name: Microsoft.FSharp.Core.ExtraTopLevelOperators.query&lt;/div&gt;
-&lt;div class="tip" id="fs2"&gt;val x : int&lt;/div&gt;
-&lt;div class="tip" id="fs3"&gt;custom operation: take (int)&lt;br /&gt;&lt;br /&gt;Calls Linq.QueryBuilder.Take &lt;/div&gt;
-&lt;div class="tip" id="fs4"&gt;custom operation: sortByDescending (&amp;#39;Key)&lt;br /&gt;&lt;br /&gt;Calls Linq.QueryBuilder.SortByDescending &lt;/div&gt;
-&lt;div class="tip" id="fsd1"&gt;val tree : TreeZipperBuilder&lt;br /&gt;&lt;br /&gt;Full name: Tree-zipper-query.aspx_.tree&lt;br /&gt;&lt;em&gt;&lt;br /&gt;&lt;br /&gt;&amp;#160;Global instance of the computation builder&lt;/em&gt;&lt;/div&gt;
-&lt;div class="tip" id="fsd2"&gt;val x : int&lt;/div&gt;
-&lt;div class="tip" id="fsd3"&gt;custom operation: left&lt;br /&gt;&lt;br /&gt;Calls TreeZipperBuilder.Left &lt;/div&gt;
-&lt;div class="tip" id="fsd4"&gt;custom operation: map (&amp;#39;a)&lt;br /&gt;&lt;br /&gt;Calls TreeZipperBuilder.Select &lt;br /&gt;&lt;em&gt;&lt;br /&gt;&lt;br /&gt;&amp;#160;Transform the current sub-tree using &amp;#39;f&amp;#39;&lt;/em&gt;&lt;/div&gt;
-&lt;div class="tip" id="fsd5"&gt;custom operation: up&lt;br /&gt;&lt;br /&gt;Calls TreeZipperBuilder.Up &lt;/div&gt;
-&lt;div class="tip" id="fsd6"&gt;custom operation: right&lt;br /&gt;&lt;br /&gt;Calls TreeZipperBuilder.Right &lt;/div&gt;
-&lt;div class="tip" id="fsd7"&gt;custom operation: top&lt;br /&gt;&lt;br /&gt;Calls TreeZipperBuilder.Top &lt;/div&gt;
 </description>
     </item>
   </channel>

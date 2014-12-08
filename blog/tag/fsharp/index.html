@@ -66,6 +66,68 @@
       
 
   <div>
+  <h1><a href="http://tomasp.net/blog/2014/composing-christmas/index.html">Composing Christmas with F#</a></h1>
+  <img src="http://tomasp.net/blog/2014/composing-christmas/glowing.gif" style="float:right;margin:20px; width:200px" /> 
+
+<p>This blog post is a part of the awesome <a href="https://sergeytihon.wordpress.com/2014/11/24/f-advent-calendar-in-english-2014/">F# Advent Calendar</a>
+(see the previous entry about <a href="http://richardminerich.com/2014/12/developing-an-algorithm-in-f-fast-rotational-alignments-with-gospers-hack/">writing algorithms in F#</a>
+from Rick Minerich), so it inevitably needs a Christmassy theme. However, there is also 
+going to be a serious theme for the blog post, which is domain-specific languages.</p>
+
+<p>One of my favorite examples of Domain-Specific Languages is a simple OpenGL library
+that I wrote some time ago for composing 3D graphics in F#. You can see it in my 
+NDC 2014 talk <a href="http://vimeo.com/97315970">Domain Specific Languages, the functional way</a>
+and I also used it for <a href="http://tomasp.net/blog/2014/puzzling-fsharp/index.html">Solving Puzzles with F#</a>
+earlier on this blog.</p>
+
+<p>The nice thing about the library is that it is very simple, but is rich enough to demonstrate
+all the important concepts. In fact, the library is so easy to use that <a href="https://twitter.com/ptrelford/status/538098139430137856">even 8 years old can
+do a talk about it</a>. So, if you're
+spending Christmas with your family, perhaps you can go through this article with your children!</p>
+
+
+      
+  <p class="meta">
+    <span><strong>Published</strong>: Monday, 8 December 2014, 5:22 PM</span>
+      <br />      
+      <span class="tags"><strong>Tags</strong>: f#, fun, functional programming </span> 
+    <br />
+    <a href="http://tomasp.net/blog/2014/composing-christmas/index.html">Read the complete article</a>
+  </p>
+  </div>
+  <div>
+  <h1><a href="http://tomasp.net/blog/2014/deedle-v1/index.html">New features and improvements in Deedle v1.0</a></h1>
+  <p>As Howard Mansell already <a href="http://techblog.bluemountaincapital.com/2014/05/21/deedle-v1-0-release/">announced on the BlueMountain Tech blog</a>,
+we have officially released the "1.0" version of Deedle. In case you have not 
+heard of Deedle yet, it is a .NET library for interactive data analysis and 
+exploration. Deedle works great with both C# and F#. It provides two main data
+structures: <em>series</em> for working with data and time series and <em>frame</em> for working
+with collections of series (think CSV files, data tables etc.)</p>
+
+<p>The great thing about Deedle is that it has been becoming a foundational library
+that makes it possible to integrate a wide range of diverse data-science components.
+For example, the <a href="http://bluemountaincapital.github.io/FSharpRProvider/">R type provider</a>
+works well with Deedle and so does <a href="http://fsharp.github.io/FSharp.Charting/">F# Charting</a>.
+We've been also working on integrating all of these into a single package called 
+<a href="https://github.com/tpetricek/FsLab">FsLab</a>, but more about that next time!</p>
+
+<p>In this blog post, I'll have a quick look at a couple of new features in Deedle 
+(and corresponding R type provider release). Howard's announcement has a 
+<a href="http://techblog.bluemountaincapital.com/2014/05/21/deedle-v1-0-release/">more detailed list</a>, 
+but I just want to give a couple of examples and briefly comment on performance
+improvemens we did.</p>
+
+
+      
+  <p class="meta">
+    <span><strong>Published</strong>: Tuesday, 27 May 2014, 3:41 PM</span>
+      <br />      
+      <span class="tags"><strong>Tags</strong>: f#, deedle, data science </span> 
+    <br />
+    <a href="http://tomasp.net/blog/2014/deedle-v1/index.html">Read the complete article</a>
+  </p>
+  </div>
+  <div>
   <h1><a href="http://tomasp.net/blog/2014/fsharpworks-events/index.html">Welcome fsharpWorks & F# events</a></h1>
   <img src="http://tomasp.net/blog/2014/fsharpworks-events/logo-sm.png" style="width:150px;float:right;margin-left:5px" />
 
@@ -1569,7 +1631,7 @@ writing numeric code. For more information, take a look at the MSDN overview art
   (in Visual Studio 2010) and the asynchronous language extensions for C# proposed at PDC 2010.
   In the <a href="http://tomasp.net/blog/csharp-fsharp-async-intro.aspx">first article</a>, I showed
   how both of the language features look and I highlighted a couple of differences. In the
-  <a href="http://tomasp.net/articles/async-csharp-differences.aspx">second article</a>, I discussed
+  <a href="http://tomasp.net/blog/async-csharp-differences.aspx">second article</a>, I discussed
   the support for cancellation (available only in F#) and how the two models differ 
   <em>semantically</em> (i.e. what are differences in the behaviour). However, I didn't talk about more
   techincal differences and, in particular, how is the asynchronous code compiled. We'll look 
@@ -1585,7 +1647,7 @@ writing numeric code. For more information, take a look at the MSDN overview art
   series: </p>
 <ul>
   <li><a href="http://tomasp.net/blog/csharp-fsharp-async-intro.aspx">Asynchronous C# and F# (I.): Simultaneous introduction</a></li>
-  <li><a href="http://tomasp.net/articles/async-csharp-differences.aspx">Asynchronous C# and F# (II.): How do they differ?</a></li>
+  <li><a href="http://tomasp.net/blog/async-csharp-differences.aspx">Asynchronous C# and F# (II.): How do they differ?</a></li>
   <li><strong>Asynchronous C# and F# (III.): How does it work?</strong></li>
   <li>Asynchronous C# and F# (IV.): Calling F# libraries from C# <em>(not yet available)</em></li>
 </ul>  
@@ -2604,7 +2666,7 @@ while reader.Read() do
   </div>
   <div>
   <h1><a href="http://tomasp.net/blog/imperative-ii-break.aspx/index.html">Imperative computation in F# (II.) - Writing break and continue</a></h1>
-  <p>As I already wrote in the <a href="http://tomasp.net/articles/imperative-i-return.aspx">first part of this series</a>,
+  <p>As I already wrote in the <a href="http://tomasp.net/blog/imperative-i-return.aspx">first part of this series</a>,
   the F# language doesn't support some of the language constructs known from imperative
   languages such as C#. In particular, we cannot use imperative <code>return</code> statement
   that returns the result of a function from any place in the function code. In functional languages,
@@ -3354,7 +3416,7 @@ Seminar was mostly focused on Rotor and .NET internals, so if you want to learn 
     <h4>Blog tags</h4>
     <p>
 
-      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(94),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(29),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(32),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(8),       <a href="http://tomasp.net/blog/tag/writing/">writing</a>&nbsp;(11),       <a href="http://tomasp.net/blog/tag/haskell/">haskell</a>&nbsp;(7),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/fsharp-data/">f# data</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/art/">art</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fractals/">fractals</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/funscript/">funscript</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/open-source/">open source</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/monads/">monads</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/new-york/">new york</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/manning/">manning</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/books/">books</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/coeffects/">coeffects</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/comonads/">comonads</a>&nbsp;(1)    </p>
+      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(96),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(29),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(32),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(9),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/fsharp-data/">f# data</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/art/">art</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fractals/">fractals</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/funscript/">funscript</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/monads/">monads</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/coeffects/">coeffects</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/comonads/">comonads</a>&nbsp;(1)    </p>
 
   </div>
 </div>
@@ -3376,8 +3438,9 @@ Seminar was mostly focused on Rotor and .NET internals, so if you want to learn 
     </div>
     <div class="large-7 columns">
     <h4>Blog archives <a href="http://tomasp.net/rss.xml"><img src="http://tomasp.net/img/rss.gif" /></a></h4>
-      <a href="http://tomasp.net/blog/archive/may-2014/index.html">
-        May 2014 (2)</a>,      <a href="http://tomasp.net/blog/archive/april-2014/index.html">
+      <a href="http://tomasp.net/blog/archive/december-2014/index.html">
+        December 2014 (1)</a>,      <a href="http://tomasp.net/blog/archive/may-2014/index.html">
+        May 2014 (3)</a>,      <a href="http://tomasp.net/blog/archive/april-2014/index.html">
         April 2014 (2)</a>,      <a href="http://tomasp.net/blog/archive/march-2014/index.html">
         March 2014 (1)</a>,      <a href="http://tomasp.net/blog/archive/january-2014/index.html">
         January 2014 (2)</a>,      <a href="http://tomasp.net/blog/archive/december-2013/index.html">

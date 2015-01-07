@@ -4,7 +4,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Reactive Programming with Events (Master thesis)</title>
+  <title>Context-aware programming languages (PhD thesis)</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
   <meta name="author" content="Tomas Petricek">
@@ -60,47 +60,68 @@
   <div class="large-8 columns main-content">
   <content>
     
-<h1>Reactive Programming with Events (Master thesis)</h1>
+<h1>Context-aware programming languages (PhD thesis)</h1>
 
 <blockquote>
-  <p>Supervised by Don Syme (Microsoft Research, Cambridge)</p>
+  <p>Supervised by Alan Mycroft</p>
 
-  <p>Charles University in Prague, 2010</p>
+  <p>University of Cambridge, submitted December 2014</p>
 </blockquote>
 
-<p>The reactive programming model is largely different to what we're used to as we 
-don't have a full control over the application's control flow. As a result, reactive 
-applications need to be structured differently and need to be written using different 
-patterns. We build an easier way for developing reactive applications. Our work 
-integrates declarative and imperative approach to reactive programming and uses the 
-notion of event as the unifying concept. We discuss the problem of memory management 
-in this scenario and develop a technique for collecting not only events that are not 
-reachable, but also events that cannot trigger any action. Next, we present a language 
-extension that makes it possible to wait for occurrences of events that match some 
-defined pattern. The extension isn't bound to the reactive programming model and can 
-be used for concurrent and parallel programming scenarios as well. Finally, we develop 
-a reactive programming library that builds on top of the ideas discussed earlier and 
-we present semantics of the library to enable formal reasoning about reactive programs.</p>
+<p>The development of programming languages needs to reflect important changes in the way
+programs execute. In recent years, this has included e.g. the development of parallel programming 
+models (in reaction to the multi-core revolution) or improvements in data access technologies. 
+This thesis is a response to another such revolution - the diversification of devices and 
+systems where programs run.</p>
+
+<p>The key point made by this thesis is the realization that an execution environment or
+a <em>context</em> is fundamental for writing modern applications and that programming 
+languages should provide abstractions for programming with context and verifying how 
+it is accessed.</p>
+
+<p>We identify a number of program properties that were not connected before, but model some notion 
+of context. Our examples include tracking different execution platforms (and their versions) 
+in cross-platform development, resources available in different execution environments (e.g. GPS
+sensor on a phone and database on the server), but also more traditional notions such as 
+variable usage (e.g. in liveness analaysis and linear logics) or past values in 
+stream-based data-flow programming.</p>
+
+<p>Our first contribution is the discovery of the connection between the above examples and
+their novel presentation in the form of calculi (<em>coeffect systems</em>). The presented type 
+systems and formal semantics highlight the relationship between different notions of context. 
+Our second and third contributions are two unified coeffect calculi that capture commonalities 
+in the presented examples. In particular, our <em>flat coeffect calculus</em> models languages 
+with contextual properties of the execution environment and our <em>structural coeffect 
+calculus</em> models languages where the contextual properties are attached to the variable usage.
+We close the thesis with a <em>unified coeffect calculus</em> that captures the two notions
+using a single parameterized system.</p>
+
+<p>Although the focus of this thesis is on the syntactic properties of the presented 
+systems, we also discuss their category-theoretical motivation. We introduce the notion of
+an <em>indexed</em> comonad (based on dualisation of the well-known monad structure) and show 
+how they provide semantics of the two coeffect calculi.</p>
 
 <h2>Thesis and more information</h2>
 
 <ul>
-<li>Download <a href="events.pdf">the thesis (PDF)</a></li>
-<li>For garbage collection of events see <a href="../../papers/hollywood/">ISMM 2010 paper</a></li>
-<li>For pattern matching on monads see <a href="../../papers/joinads/">PADL 2011 paper</a></li>
+<li>Download <a href="thesis.pdf">the thesis (PDF)</a></li>
+<li>For flat coeffect calculus, see <a href="../../papers/coeffects/">ICALP 2013 paper</a></li>
+<li>For structural coeffect calculus, see <a href="../../papers/structural/">ICFP 2014 paper</a></li>
 </ul>
 
 <h2><a id="cite">Bibtex</a></h2>
 
 <p>Most of the (interesting) work from the thesis has been better described in the
-ISMM 2010 and PADL 2011 papers mentioned above, but the thesis can be cited using
+ICALP 2013 and ICFP 2014 papers mentioned above, but the thesis can be cited using
 the following information:</p>
 
-<pre lang="tex">@MastersThesis{events-thesis,
-  author = {Petricek, Tomas},
-  title  = {Reactive {P}rogramming with {E}vents},
-  school = {Charles University in Prague},
-  year   = {2010}
+<pre lang="tex">@phdthesis{coeffects-thesis,
+  author       = {Petricek, Tomas}, 
+  title        = {Context-aware programming languages},
+  school       = {University of Cambridge},
+  year         = {2014},
+  month        = {12},
+  note         = {Submitted}
 }</pre>
 
 <p>If you have any comments, suggestions or related ideas, I'll be happy to 

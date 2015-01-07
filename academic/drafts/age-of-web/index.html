@@ -4,7 +4,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Reactive Programming with Events (Master thesis)</title>
+  <title>Teaching Functional Programming to Professional .NET Developers</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
   <meta name="author" content="Tomas Petricek">
@@ -60,48 +60,41 @@
   <div class="large-8 columns main-content">
   <content>
     
-<h1>Reactive Programming with Events (Master thesis)</h1>
+<h1>In the Age of Web: Typed Functional-First Programming Revisited</h1>
 
 <blockquote>
-  <p>Supervised by Don Syme (Microsoft Research, Cambridge)</p>
+  <p>Tomas Petricek, Don Syme</p>
 
-  <p>Charles University in Prague, 2010</p>
+  <p>Draft - Work in progress</p>
 </blockquote>
 
-<p>The reactive programming model is largely different to what we're used to as we 
-don't have a full control over the application's control flow. As a result, reactive 
-applications need to be structured differently and need to be written using different 
-patterns. We build an easier way for developing reactive applications. Our work 
-integrates declarative and imperative approach to reactive programming and uses the 
-notion of event as the unifying concept. We discuss the problem of memory management 
-in this scenario and develop a technique for collecting not only events that are not 
-reachable, but also events that cannot trigger any action. Next, we present a language 
-extension that makes it possible to wait for occurrences of events that match some 
-defined pattern. The extension isn't bound to the reactive programming model and can 
-be used for concurrent and parallel programming scenarios as well. Finally, we develop 
-a reactive programming library that builds on top of the ideas discussed earlier and 
-we present semantics of the library to enable formal reasoning about reactive programs.</p>
+<p>Most programming languages were designed before the age of web.
+This matters because the web changes many assumptions that typed functional language designers take 
+for granted. For example, programs do not run in a closed word, but must instead interact with 
+(changing and likely unreliable) services and data sources, communication is often asynchronous 
+or event-driven, and programs need to interoperate with untyped environments.</p>
 
-<h2>Thesis and more information</h2>
+<p>In this paper, we present how F# language and libraries face the challenges posed by the web.
+Technically, this comprises using <em>type providers</em> for integration with external information 
+sources and for integration with untyped programming environments, using <em>lightweight 
+meta-programming</em> for targeting JavaScript and <em>computation expressions</em> for writing 
+asynchronous code.</p>
+
+<p>In this inquiry, the holistic perspective is more important than each of the features in isolation.
+We use a practical case study as a starting point and look how F# language and libraries approach 
+the challenges posed by the web. The specific lessons learned are perhaps less interesting than 
+our attempt to uncover hidden assumptions that no longer hold in the age of web.</p>
+
+<h2>Draft and more information</h2>
 
 <ul>
-<li>Download <a href="events.pdf">the thesis (PDF)</a></li>
-<li>For garbage collection of events see <a href="../../papers/hollywood/">ISMM 2010 paper</a></li>
-<li>For pattern matching on monads see <a href="../../papers/joinads/">PADL 2011 paper</a></li>
+<li>Download <a href="age-of-web.pdf">the draft (PDF)</a></li>
+<li>Download (shorter) <a href="ml-abstract.pdf">extended abstract (PDF)</a></li>
+<li>View <a href="ml-talk.pdf">slides from ML workshop talk</a></li>
+<li>Video from ML workshop: <a href="https://www.youtube.com/watch?v=_YOSAXKY-JI">Doing web-based data anlytics with F#</a></li>
 </ul>
 
-<h2><a id="cite">Bibtex</a></h2>
-
-<p>Most of the (interesting) work from the thesis has been better described in the
-ISMM 2010 and PADL 2011 papers mentioned above, but the thesis can be cited using
-the following information:</p>
-
-<pre lang="tex">@MastersThesis{events-thesis,
-  author = {Petricek, Tomas},
-  title  = {Reactive {P}rogramming with {E}vents},
-  school = {Charles University in Prague},
-  year   = {2010}
-}</pre>
+<h2>Comments are welcome!</h2>
 
 <p>If you have any comments, suggestions or related ideas, I'll be happy to 
 hear from you! Send me an email at <a href="mailto:tomas.petricek@cl.cam.ac.uk">tomas.petricek@cl.cam.ac.uk</a>

@@ -27,8 +27,8 @@ we present semantics of the library to enable formal reasoning about reactive pr
 ## Thesis and more information
 
  - Download [the thesis (PDF)](events.pdf)
- - For garbage collection of events see [ISMM 2010 paper](../papers/hollywood/)
- - For pattern matching on monads see [PADL 2011 paper](../papers/joinads/)
+ - For garbage collection of events see [ISMM 2010 paper](../../papers/hollywood/)
+ - For pattern matching on monads see [PADL 2011 paper](../../papers/joinads/)
 
 ## <a id="cite">Bibtex</a>
 Most of the (interesting) work from the thesis has been better described in the

@@ -10,9 +10,9 @@
 
 # Tomas Petricek @@ [Computer Lab](http://www.cl.cam.ac.uk)
 
-I'm a third (final) year PhD Student in the [Computer Laboratory](http://www.cl.cam.ac.uk) at the 
-[University of Cam­bridge](http://www.cam.ac.uk) and a member of the [Programming, Logic and 
-Semantics Group](http://www.cl.cam.ac.uk/research/pls). My supervisors are 
+I recently submitted my PhD thesis at [Computer Laboratory](http://www.cl.cam.ac.uk) at the 
+[University of Cam­bridge](http://www.cam.ac.uk), but I'm still a member of the [Programming, 
+Logic and Semantics Group](http://www.cl.cam.ac.uk/research/pls). My supervisors were
 [Alan Mycroft](http://www.cl.cam.ac.uk/~am21/) from the Computer Lab and 
 [Don Syme](http://research.microsoft.com/en-us/people/dsyme/). 
 Before joining the Computer Laboratory, I studied at the [Faculty of Mathematics and 
@@ -301,6 +301,29 @@ application.
 Start here if you want to know that I'm currently working on and what I recently 
 completed. Unpublished drafts are marked as such and I'm always looking for feedback!
 
+#### Draft: [In the Age of Web: Typed Functional-First Programming Revisited](@Model.Root/academic/drafts/age-of-web/)
+
+> Tomas Petricek, Don Syme. Submitted in ML 2014 post-proceedings
+
+Most programming languages were designed before the age of web. This matters because the web 
+changes many assumptions that typed functional language designers take for granted. 
+In this paper, we present how F# language and libraries face the challenges posed by the web.
+
+ - [abstract](@Model.Root/academic/drafts/age-of-web/) | [talk](@Model.Root/academic/drafts/age-of-web/ml-talk.pdf)
+ | [draft](@Model.Root/academic/drafts/age-of-web/age-of-web.pdf)
+
+#### Draft: [Context-aware programming languages (PhD thesis)](@Model.Root/academic/theses/coeffects/)
+
+> Tomas Petricek. Submitted in December 2014
+
+The key point made by this thesis is the realization that an execution environment or a context is 
+fundamental for writing modern applications and that programming languages should provide abstractions 
+for programming with context and verifying how it is accessed. The thesis summarizes all my work on
+coeffects.
+
+ - [abstract](@Model.Root/academic/theses/coeffects/) 
+ | [draft](@Model.Root/academic/theses/coeffects/thesis.pdf)
+
 #### Draft: [Teaching Functional Programming to Professional .NET Developers](@Model.Root/academic/drafts/fsharp-teaching/)
 
 > Tomas Petricek. In Pre-proceedings of TFPIE 2012.
@@ -317,6 +340,10 @@ developers. This requires a very different approach.
 
 ## Talks and recordings
 
+ * **Video**: [**Coeffects** - a calculus of context-dependent computation](https://www.youtube.com/watch?v=xtxx4iADMbM) 
+   (Presentation from ICFP 2014, Gothenburg)
+ * **Video**: [Doing web-based data anlytics with F#](https://www.youtube.com/watch?v=_YOSAXKY-JI)  
+   (Presentation from ML Workshop 2014, Gothenburg)
  * **Video**: [Understanding the World with F#](http://channel9.msdn.com/posts/Understanding-the-World-with-F)  
    (Video lecture, Recorded at Channel 9, 2013)
  * **Video**: [How F# Learned to Stop Worrying and Love the Data](http://channel9.msdn.com/posts/Tomas-Petricek-How-F-Learned-to-Stop-Worrying-and-Love-the-Data)  
@@ -327,8 +354,6 @@ developers. This requires a very different approach.
    (Invited talk at the ML Workshop, 2012)
  * **Video**: [Coeffects: The essence of context-dependence](http://www.youtube.com/watch?v=gEkXDd46_S8)  
    (Student Research Competition at ICFP 2012)
- * [Tracking context-dependent properties using coeffects](@Model.Root/academic/talks/coeffects-tallinn.pdf)  
-   (Institute of Cybernetics, Tallinn University, 2012)
  * **Video**: [Reactive pattern matching for F#](http://langnetsymposium.com/2009/talks/22-TomasPatricek-Reactive.html)  
    (Lang.NET Symposium 2009, Microsoft, Redmond) 
 

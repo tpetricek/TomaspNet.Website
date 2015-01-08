@@ -4,6 +4,27 @@
     <link>http://tomasp.net</link>
     <description>Writing about software development in F# and .NET, sharing materials from my F# trainings and talks, writing about programming language research and theory.</description>
     <item>
+      <title>Why you should learn F# in 2015 (and how)?</title>
+      <guid>http://tomasp.net/blog/2015/why-fsharp-in-2015</guid>
+      <link>http://tomasp.net/blog/2015/why-fsharp-in-2015/index.html</link>
+      <pubDate>Wed, 07 Jan 2015 13:36:04 GMT</pubDate>
+      <description>&lt;img src="http://tomasp.net/blog/2015/why-fsharp-in-2015/gingerbread.jpg" style="width:200px;float:right;margin:15px" /&gt;
+
+&lt;p&gt;I guess that it might be a bit too late for adding to your list of new year's resulution now.
+But just if you still have an empty slot (or in case an originally taken slot has become
+available), your new year's resolution should be to get involved with F#!&lt;/p&gt;
+
+&lt;p&gt;Obviously, the goal of this blog post is to sell you some of my F# trainings and other materials -
+including the online course on &lt;a href="http://fsharpworks.com/workshops/finance.html"&gt;F# in Finance&lt;/a&gt; and our
+&lt;a href="http://fsharpworks.com/workshops/fast-track.html"&gt;FastTrack to F#&lt;/a&gt; course in London and New York
+and also the &lt;a href="http://manning.com/petricek2"&gt;F# Deep Dives&lt;/a&gt; book. But to conceal this fact, I'm
+going to fill most of the blog post with useful information about F#, the F# Software Foundation
+and the F# community (but if you really just want to read about my courses, scroll down to the
+&lt;a href="http://tomasp.net/blog/2015/why-fsharp-in-2015/index.html#courses"&gt;second section&lt;/a&gt;).&lt;/p&gt;
+
+</description>
+    </item>
+    <item>
       <title>Composing Christmas with F#</title>
       <guid>http://tomasp.net/blog/2014/composing-christmas</guid>
       <link>http://tomasp.net/blog/2014/composing-christmas/index.html</link>
@@ -561,34 +582,6 @@ so continue reading if you're interested...)&lt;/p&gt;
   I'll be talking about different topics (Google tells me that the distance is 
   &lt;em&gt;only&lt;/em&gt; 216 miles!)
 &lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Announcing: Literate programming tools for F#</title>
-      <guid>http://tomasp.net/blog/fsharp-literate-programming.aspx</guid>
-      <link>http://tomasp.net/blog/fsharp-literate-programming.aspx/index.html</link>
-      <pubDate>Tue, 22 Jan 2013 16:35:36 GMT</pubDate>
-      <description>&lt;img src="https://raw.github.com/tpetricek/FSharp.Formatting/master/docs/misc/logo.png" class="rdecor" style="width:120px;height:120px;" /&gt;
-
-&lt;p&gt;For some time now, I've been writing my F# blog posts (and other F# articles 
-published elsewhere) by combining F# code snippets and Markdown formatting. In fact,
-I even wrote a Markdown parser in F# so that I can post-process documents (to 
-generate references etc). You can read about the Markdown parser in an upcoming
-&lt;a href="http://manning.com/petricek2/"&gt;F# Deep Dives&lt;/a&gt; book - currently, it is available 
-as a free chapter!&lt;/p&gt;
-
-&lt;p&gt;During the Christmas break, I finally found enough time to clean-up the code I
-was using and package it properly into a documented library that is easy to install and use.
-Here are the most important links:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href="http://tpetricek.github.com/FSharp.Formatting"&gt;F# Formatting home page&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://github.com/tpetricek/FSharp.Formatting"&gt;F# Formatting source code&lt;/a&gt; on GitHub&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://nuget.org/packages/FSharp.Formatting"&gt;F# Formatting package&lt;/a&gt; on NuGet&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;To learn more about this tool and how to use it, &lt;a href="http://tomasp.net/blog/fsharp-literate-programming.aspx"&gt;continue reading&lt;/a&gt;!&lt;/p&gt;
-
-</description>
     </item>
   </channel>
 </rss>

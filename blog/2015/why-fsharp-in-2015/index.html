@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<!--[if IE 8]> 				 <html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+
+<head>
+  <meta charset="utf-8">
+  <title>Why you should learn F# in 2015 (and how)?</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="I guess that it might be a bit too late for adding to your list of new year's resulution now.But just if you still have an empty slot (or in case an originally taken slot has become available), your new year's resolution should be to get involved with F#!">
+  <meta name="author" content="Tomas Petricek">
+
+  <!-- Reference Foundation -->
+  <link rel="stylesheet" href="http://tomasp.net/css/foundation.css">
+  <script src="js/vendor/custom.modernizr.js"></script>
+
+  <link rel="alternate" type="application/rss+xml" href="http://tomasp.net/rss.xml" title="RSS feed for Tomas Petricek's blog">
+  <link rel="icon" type="image/png" href="http://tomasp.net/img/favicon.png" />
+    
+  <!-- Reference custom CSS and tooltips -->
+  <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/style.css" />
+  <script type="text/javascript" src="http://tomasp.net/custom/tooltips.js"></script>
+  <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/tooltips.css" />
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:creator" content="@tomaspetricek">
+  <meta name="twitter:title" content="Why you should learn F# in 2015 (and how)?">
+  <meta name="twitter:description" content="I guess that it might be a bit too late for adding to your list of new year's resulution now.But just if you still have an empty slot (or in case an originally taken slot has become available), your new year's resolution should be to get involved with F#!">
+    <meta name="twitter:image" content="http://tomasp.net/blog/2015/why-fsharp-in-2015/gingerbread.jpg">
+</head>
+<body>
+
+   <header id="top-header">
+    <div class="row">
+      <div class="twelve columns">
+        <h1><a href="http://tomasp.net/">Tomas Petricek's blog</a></h1>
+        <p>Writing about practical F# coding and programming language research</p>
+      </div>
+    </div>
+  </header>
+
+  <header class="top-bar-header">
+    <div class="contain-to-grid sticky">
+    <nav class="top-bar">
+
+    <ul class="title-area">
+      <li class="name"><h1><a href="#"></a></h1></li>
+      <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+    </ul>
+    <section class="top-bar-section">
+      <ul class="right">
+        <li><a href="http://tomasp.net/blog/index.html">Blog</a></li>
+        <li><a href="http://functional-programming.net">Trainings</a></li>
+        <li><a href="http://functional-programming.net">Books</a></li>
+        <li><a href="http://lanyrd.com/profile/tomasp">Talks</a></li>
+        <li><a href="http://tomasp.net/academic">Research & Teaching</a></li>
+      </ul>
+    </section>
+
+    </nav></div>
+  </header>
+  
+  
+<div class="row">
+	<div class="large-8 columns main-content">
+    <content>
+      
+
+<h1>Why you should learn F# in 2015 (and how)?</h1>
+
+<img src="http://tomasp.net/blog/2015/why-fsharp-in-2015/gingerbread.jpg" style="width:200px;float:right;margin:15px" />
+
+<p>I guess that it might be a bit too late for adding to your list of new year's resulution now.
+But just if you still have an empty slot (or in case an originally taken slot has become 
+available), your new year's resolution should be to get involved with F#!</p>
+
+<p>Obviously, the goal of this blog post is to sell you some of my F# trainings and other materials - 
+including the online course on <a href="http://fsharpworks.com/workshops/finance.html">F# in Finance</a> and our 
+<a href="http://fsharpworks.com/workshops/fast-track.html">FastTrack to F#</a> course in London and New York
+and also the <a href="http://manning.com/petricek2">F# Deep Dives</a> book. But to conceal this fact, I'm
+going to fill most of the blog post with useful information about F#, the F# Software Foundation
+and the F# community (but if you really just want to read about my courses, scroll down to the 
+<a href="#courses">second section</a>).</p>
+
+<h2>Why you should get into F# now?</h2>
+
+<p>F# has been around for some time. So, why should you be interested in F# in 2015? 
+Both the F# community and the F# language and ecosystem have been evolving in the
+last few years. In this article, I'll look at the most interesting recent trends 
+that, I think, make F# more interesting than ever before.</p>
+
+<h3>Friendly and active community</h3>
+
+<img src="man.png" style="float:right;margin:15px;width:150px" />
+
+<p>Perhaps the most amazing thing about F# (and one of the reasons for looking into F#)
+is the community around it. In the last year, I <a href="http://lanyrd.com/profile/tomasp/past/">visited 10 user groups</a>
+in Europe and US and I met fantastic people at every single meetup. For an even more
+comprehensive study, see <a href="http://www.clear-lines.com/blog/post/The-2014-F-Tour-in-numbers.aspx">Mathias Brandewinder's tour report</a>.</p>
+
+<p>Where else do you
+see <a href="http://seantrelford.blogspot.co.uk/2014/11/skills-matter-in-f-hackathon.html">8 year olds making an army of 3D man</a>
+or <a href="https://twitter.com/orlandpm/status/510483892889845761">startup founders having fun with Warhol and Mona Lisa</a>?</p>
+
+<p>The number of user groups on <a href="http://c4fsharp.net/groups.html">the Community for F# page</a>
+is now 31 (compare that with 19 user groups a year ago and 12 user groups two years ago).
+The <a href="http://www.meetup.com/FSharpLondon/">F# meetup in London</a> now has over 860 members
+(more than the <a href="http://www.meetup.com/London-NET-User-Group/">.NET user group</a>). Finally,
+the <a href="https://twitter.com/evelgab/status/553185963082792961">number of #fsharp tweets per day</a>
+is growing too!</p>
+
+<h3>Growing slowly, but surely</h3>
+
+<p>The number of F# user groups simply follows a general trend. F# is not driven by any 
+hype, so there are no crazy jumps, but instead a steady growth. To learn more, you can check
+the growing list of happy <a href="http://fsharp.org/testimonials/">F# user testimonials</a> including
+line-of-business applications, financial systems, startups and even (real) architects.</p>
+
+<p>Last year, F# even managed to get on <a href="http://www.eweek.com/developer/microsofts-f-language-number-12-with-a-bullet.html">12th position on TIOBE</a>,
+which may be a suspicious methodology of measuring programming language popularity, but it
+is certainly showing <em>some</em> trend.</p>
+
+<p>Another great way to see the F# growth is to check <a href="https://sergeytihon.wordpress.com/category/f-weekly/">F# Weekly</a> -
+a newsletter aggregating F# articles and other resources. It is difficult to give a concrete
+number (because of holidays etc.), but it feels that we might need <em>F# Daily</em> soon!</p>
+
+<h3>Serious open source engineering</h3>
+
+<p>One of the reasons why I'm really excited about the F# community is that it takes open source
+very seriously. I guess that this can be sumarized by the following tweet:</p>
+
+<p><div style="margin-left:20px">
+<blockquote class="twitter-tweet" lang="en"><p>Wow. Already 114 pull requests for the official <a href="https://twitter.com/VisualFSharp">@VisualFSharp</a> compiler. As comparison <a href="https://twitter.com/hashtag/roslyn?src=hash">#roslyn</a> has 18. <a href="https://twitter.com/hashtag/fsharp?src=hash">#fsharp</a> community rocks.</p>&amp;mdash; Steffen Forkmann (@sforkmann) <a href="https://twitter.com/sforkmann/status/508869959364386816">September 8, 2014</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+</div></p>
+
+<p>However, this is talking only about the F# compiler and core libraries. The F# community
+is developing an amazing number of libraries (see <a href="http://github.com/fsprojects/">fsprojects</a> on GitHub)
+and is very serious about their quality. This is best demonstrated by the
+<a href="http://fsprojects.github.io/ProjectScaffold/">ProjectScaffold</a> template, which makes it easy
+to create well-documented and tested libraries (see my talk
+<a href="http://vimeo.com/111091463">Taking your craft seriously with F#</a>).</p>
+
+<p>Why does this matter? It encourages the community to be active. <strong>When we do not like 
+something, we do not complain, but we change it!</strong> The best example of this is the
+<a href="http://fsprojects.github.io/VisualFSharpPowerTools/">Visual F# PowerTools</a> project -
+a community effort that adds refactoring and other advanced tooling for F# (and solves
+a common complaint about F#).</p>
+
+<h3>Web, cloud and data science</h3>
+
+<p>What would be a blog post without some buzz-words? However, all the three terms in the
+heading are important and will, no doubt, matter even more in 2015. And the reason why
+I'm mentioning them is that there are great open-source projects for all three of them
+- two of those were actually open-sourced with a permissive license at the end of 2014, 
+so I'm looking forward to the developments next year!</p>
+
+<ul>
+<li>In the area of web development, you should watch <a href="http://www.websharper.com/blog-entry/4124">WebSharper 3.0, which is now Apache
+licensed</a>! WebSharper lets you write both
+client-side and server-side code with F# and is an amazing piece of work.</li>
+<li>For cloud-based and distributed computing, the recently open-sourced 
+<a href="http://www.m-brace.net/">MBrace Framework</a> gives you a fantastic model based on
+distributed computations with the "cloud monad".</li>
+<li>For data science, we're actively working on <a href="http://fslab.org/">FsLab</a>, which puts
+together <a href="http://fsharp.github.io/FSharp.Data/">F# Data type-providers</a>, data analytics
+libraries such as <a href="http://bluemountaincapital.github.io/Deedle/">Deedle</a> and other. If
+you're using Visual Studio, check out the <a href="https://visualstudiogallery.msdn.microsoft.com/45373b36-2a4c-4b6a-b427-93c7a8effddb">FsLab Journal</a> template.</li>
+</ul>
+
+<p>Now, there are many other libraries that I didn't mention here. The main reason is that the
+above 3 have been started (or open-sourced under Apache) in 2014, so I expect there will
+be a lot happening over the next year.</p>
+
+<h3>Setting solid foundations with the F# Foundation</h3>
+
+<p>At the end of 2014, the F# Software Foundation has become an official 
+non-profit organization. This reflects the fact that the community around <a href="http://fsharp.org">fsharp.org</a>
+has become the center-point of many F# activities and needs a proper ownership structure
+with a board elected by the community. At the moment, we are nearly done with setting up the 
+necessary structure and you can <a href="http://foundation.fsharp.org/join">join the foundation</a> and 
+participate in board elections in 2015.</p>
+
+<p>The F# ecosystem is very community-driven and I believe that, once a proper board is elected, the 
+F# Foundation will be an important mechanism for the development of the F# language, core libraries 
+and tools, but also for supporting the community, running interesting events and providing an 
+important long-term guarantee that makes F# attractive to businesses.</p>
+
+<a name="courses"></a>
+
+<p>So, if you want to be  one of the people who were there since the beginning, 
+you can <a href="http://foundation.fsharp.org/join">join now</a>!</p>
+
+<h2>The advertising part: Books, trainings and consulting</h2>
+
+<p>As I promised at the beginning, I'll conclude this article with a bit of advertising. So, if
+you added F# to the list of your new year resolutions, where should you start?</p>
+
+<h3>F# and Functional Programming in Finance</h3>
+
+<img src="http://tomasp.net/blog/2014/fsharpworks-events/qsh.jpg" style="float:right;width:100px;margin:10px" /> 
+
+<p>This is an online course teaching F# from the beginnings. The theme of the course is focused
+on finance, so there is one lecture on numerical computing and one lecture on time-series analysis,
+but it can serve as a good F# introduction even if you're working in another domain.</p>
+
+<p>You can find more information on <a href="http://quantshub.com/content/f-and-functional-programming-finance-tomas-petricek-1">course page at QuantsHub</a>.
+Also, there is a <strong>20% early bird</strong> discount if you book by Friday 9th January 2015
+(drop me an email at <a href="mailto:tomas@tomasp.net">tomas@tomasp.net</a> by Friday if you 
+need to get an approval and Friday is too soon).</p>
+
+<h3>Fast Track to F# in London and NYC</h3>
+
+<p>We will be also running the <a href="https://skillsmatter.com/courses/473-tomas-petricek-phil-trelford-fast-track-to-fsharp">FastTrack to F#</a> course
+with SkillsMatter in London and New York this year. The page does not yet list all the dates,
+but there will be more. I'm happy to offer <strong>10% off</strong> to the readers, so drop me an
+email at <a href="mailto:tomas@tomasp.net">tomas@tomasp.net</a> if you're interested!</p>
+
+<p>The FastTrack to F# course is a 2 day course that combines introduction to the language 
+(to get you started in the first day) with a focus on solving practical problems ranging
+from working with data and type providers to testing and domain specific langauges in the
+second day.</p>
+
+<h3>On-site trainings from F# Works</h3>
+
+<img src="http://tomasp.net/blog/2014/fsharpworks-events/logo-sm.png" style="float:right;width:100px" /> 
+
+<p>Finally, if you are looking for an on-site training or F# consulting (or a combination of
+both) to get your team started with F#, then you should check out <a href="http://fsharpworks.com">F# Works</a>.
+I started F# Works together with three other F# experts: <a href="http://trelford.com/blog/">Phil Trelford</a>,
+<a href="http://www.clear-lines.com/blog/">Mathias Brandewinder</a> and <a href="http://fsharpforfunandprofit.com/">Scott Wlaschin</a>.</p>
+
+<p>F# Works covers pretty much all F# areas that you might be interested in - financial computing,
+domain driven design, machine learning and much more, so if you're ready to take F# seriously in
+2015, drop me an
+email at <a href="mailto:tomas@tomasp.net">tomas@tomasp.net</a>!</p>
+
+<h3>New book: F# Deep Dives</h3>
+
+<img src="http://tomasp.net/blog/2015/why-fsharp-in-2015/dd.jpg" style="width:100px;float:right;margin:15px" />
+
+<p>Finally, after a long wait, the <a href="http://manning.com/petricek2">F# Deep Dives book</a> is finally out!
+Unlike existing books, F# Deep Dives is not really aimed at teaching you F#. Instead, it tries to
+show you the different domains where F# is used in industry and demonstrate how F# developers approach
+problems. It is a collection of real-world case studies, each written by expert practitioners including
+<a href="http://trelford.com/">Phil Trelford</a>, <a href="https://twitter.com/mitekm">Dmitry Morozov</a>, <a href="http://www.evelinag.com">Evelina Gabasova</a>
+and many other.</p>
+
+<p>You can read this book in a number of ways - pick the domain that you are interested in (games, finance,
+line-of-business applications, etc.), pick the technique (domain-specific langauges, type providers, etc.),
+or you can skim the first few pages of each chapter to see how F# is used to solve real-world problems.</p>
+
+
+
+<div class="row">
+  <div class="small-6 columns"><p class="post-discuss">
+		Discuss <a href="http://twitter.com/tomaspetricek">on twitter</a>, <script type="text/javascript" src="http://www.reddit.com/buttonlite.js?i=0"></script>.<br />
+		Send corrections via <a href="https://github.com/tpetricek/TomaspNet.Website">GitHub pull requests</a>.
+	</p></div>
+  <div class="small-6 columns">
+
+<!-- AddThis Button BEGIN -->
+<div class="addthis_toolbox addthis_default_style addthis_16x16_style">
+<a class="addthis_button_twitter"></a>
+<a class="addthis_button_reddit"></a>
+<a class="addthis_button_google_plusone_share"></a>
+<a class="addthis_button_hackernews"></a>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_compact"></a><a class="addthis_counter addthis_bubble_style"></a>
+</div>
+<script type="text/javascript">var addthis_config = { "data_track_addressbar": false };</script>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-521c32162e6001a0"></script>
+<!-- AddThis Button END -->
+
+<p class="post-meta">
+  <span><strong>Published</strong> Wednesday, 7 January 2015, 2:36 PM</span><br />      
+  <span><strong>By</strong> <a href="https://plus.google.com/+TomasPetriceks?rel=author">Tomas Petricek</a></span><br />
+  <span class="tags"><strong>Tags</strong> c#, f#, functional programming, talks</span>
+</p>
+
+  </div>
+</div>
+
+    </content>
+
+  </div>
+  <div class="large-4 columns" id="right-bar">
+    <div class="right-item" id="right-calendar">
+<script type="text/javascript">
+  var monthNames =
+    ["January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December"];
+  var d = new Date();
+  var m = monthNames[d.getMonth()];
+  var y = d.getFullYear();
+  var ml = m.toLowerCase();
+  document.writeln("<h4>Calendar - " + m + " " + y + "</h4>");
+  document.writeln("<a href=\"http://tomasp.net/calendar/" + y + "/" + ml + ".html\">" +
+    "<img src=\"http://tomasp.net/calendar/" + y + "/" + ml + "-preview.jpg\" style=\"border-style:none;\" />" +
+    "</a>");
+</script> 
+<p>The calendar shows a new picture each month. See photos for
+  <a href="http://tomasp.net/calendar/2005">2005</a>, <a href="http://tomasp.net/calendar/2006">2006</a>, 
+  <a href="http://tomasp.net/calendar/2007">2007</a>, <a href="http://tomasp.net/calendar/2008">2008</a>, 
+  <a href="http://tomasp.net/calendar/2009">2009</a>, <a href="http://tomasp.net/calendar/2010">2010</a>, 
+  <a href="http://tomasp.net/calendar/2011">2011</a>, <a href="http://tomasp.net/calendar/2012">2012</a>,
+  <a href="http://tomasp.net/calendar/2013">2013</a>, <a href="http://tomasp.net/calendar/2014">2014</a>
+  and the first photos of <a href="http://tomasp.net/calendar/2015">2015</a>.
+</p>
+</div>
+
+    <h3>Welcome!</h3>
+    <img src="http://tomasp.net/img/tomas.jpg" alt="Tomas Petricek" style="float:right;margin:10px 0px 10px 10px;" />
+    <p>I'm an F# enthusiast, book author and a PhD student at the University of Cambridge.
+      When offline, I enjoy traveling and taking pictures. You can find me at
+      at <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a> or email 
+      <a href="mailto:tomas@tomasp.net">tomas@tomasp.net</a>.
+    </p>
+
+    <script type="text/javascript" src="http://tomasp.net/news/news.js"></script>
+    <h4>What's new? &#160; <small><script type="text/javascript">document.write(news.date)</script></small></h4>
+    <script>
+      document.write(news.info);
+    </script>
+
+    <h4>Trainings and consulting</h4>
+    <img src="http://tomasp.net/img/skillsmatter.png" alt="Tomas Petricek" style="float:right;margin:15px 0px 10px 10px;" />
+    <p>I run F# and functional programming courses in <strong>London</strong>
+      and <strong>New York</strong> with SkillsMatter.
+    </p>
+    <ul>
+      <li>Check out our <a href="http://skillsmatter.com/course/scala/tomas-petricek-phil-trelford-fast-track-to-fsharp/ps-6679">Fast Track to F#</a> course</li>
+      <li><a href="mailto:tomas@tomasp.net">Email me</a> for info about private trainings</li>
+    </ul>
+    
+    <h4>F# Books and articles</h4>
+    <div style="float:right;">
+      <a href="http://www.amazon.com/gp/product/1933988924/ref=as_li_tf_il?ie=UTF8&amp;tag=httptomasnet-20&amp;linkCode=as2&amp;camp=217145&amp;creative=399369&amp;creativeASIN=1933988924">
+        <img src="http://tomasp.net/img/rwfp.jpg" alt="Real World Functional Programming" style="float:right;margin:10px 0px 10px 10px;border-style:none;" />
+      </a>
+    </div>
+    <p><a href="http://www.manning.com/petricek">Real World Functional Programming</a> explains functional
+      concepts using F# and C#. You can get it from <a href="http://www.amazon.com/dp/1933988924?tag=httptomasnet-20&amp;camp=213381&amp;creative=390973&amp;linkCode=as4&amp;creativeASIN=1933988924&amp;adid=0F1DP260JGG4KY0CDGP6">Amazon.com</a>, <a href="https://www.amazon.co.uk/dp/1933988924?tag=tomasnet-21&amp;camp=1406&amp;creative=6394&amp;linkCode=as1&amp;creativeASIN=1933988924&amp;adid=1CTY87YCCQEJW965GNDF">Amazon.co.uk</a> or your favorite book store.
+      Some chapters and new materials are also available on <a href="http://msdn.microsoft.com/en-us/library/hh314518.aspx">MSDN</a>.</p>
+    
+    <p>Currently, I'm putting together <a href="http://www.manning.com/petricek2/">F# Deep Dives</a> - a collection
+      of practical F# essays written by community leaders and commercial users of F#.</p>
+    <p>I also wrote a series of tutorials on <a href="http://www.tryfsharp.org/Learn/financial-computing">financial computing</a>
+      for Try F# - an interactive environment that let's you try F# in the browser.</p>
+
+    <h4>Research and teaching</h4>
+    <img src="http://tomasp.net/img/cam.png" alt="University of Cambride" style="float:right;margin:25px 0px 10px 10px;" />
+    <p>I'm finishing PhD in computer science at the <a href="http://www.cl.cam.ac.uk/">University of Cambridge</a>.
+      I'm working on making better types for programs that run in rich context (like F# type providers, distributed 
+      prog&shy;ramming or data-flow). See <a href="http://www.cl.cam.ac.uk/~tp322/">my academic page</a> for
+      more.</p>
+
+    <h4>Blog tags</h4>
+    <p>
+
+      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(97),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(33),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(29),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(10),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/fsharp-data/">f# data</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/monads/">monads</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/art/">art</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fractals/">fractals</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/funscript/">funscript</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/coeffects/">coeffects</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/comonads/">comonads</a>&nbsp;(1)    </p>
+
+  </div>
+</div>
+
+
+  <div class="row" id="footer">
+  <footer>   
+    <div class="large-3 columns">
+      <h4>Contact &amp; about</h4>
+      <p>This site is hosted on GitHub and is generated using <a href="https://github.com/tpetricek/FSharp.Formatting">F# Formatting</a>.
+        For more info, see the <a href="https://github.com/tpetricek/TomaspNet.Website">website source on GitHub</a>.
+      </p>
+      <p>Please submit issues &amp; corrections on GitHub. Use pull requests for minor corrections only.</p>
+      <ul>
+        <li>Email me: <a href="mailto:tomas@tomasp.net">tomas@tomasp.net</a></li>
+        <li>Connect via Twitter: <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a></li>
+        <li>More: <a href="http://uk.linkedin.com/in/tomaspetricek">LinkedIn</a> | <a href="http://lanyrd.com/profile/tomasp/">Lanyrd</a> | <a href="https://github.com/tpetricek">GitHub</a></li>
+      </ul>
+    </div>
+    <div class="large-7 columns">
+    <h4>Blog archives <a href="http://tomasp.net/rss.xml"><img src="http://tomasp.net/img/rss.gif" /></a></h4>
+      <a href="http://tomasp.net/blog/archive/january-2015/index.html">
+        January 2015 (1)</a>,      <a href="http://tomasp.net/blog/archive/december-2014/index.html">
+        December 2014 (1)</a>,      <a href="http://tomasp.net/blog/archive/may-2014/index.html">
+        May 2014 (3)</a>,      <a href="http://tomasp.net/blog/archive/april-2014/index.html">
+        April 2014 (2)</a>,      <a href="http://tomasp.net/blog/archive/march-2014/index.html">
+        March 2014 (1)</a>,      <a href="http://tomasp.net/blog/archive/january-2014/index.html">
+        January 2014 (2)</a>,      <a href="http://tomasp.net/blog/archive/december-2013/index.html">
+        December 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/november-2013/index.html">
+        November 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/october-2013/index.html">
+        October 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/september-2013/index.html">
+        September 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/august-2013/index.html">
+        August 2013 (2)</a>,      <a href="http://tomasp.net/blog/archive/may-2013/index.html">
+        May 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/april-2013/index.html">
+        April 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/march-2013/index.html">
+        March 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/february-2013/index.html">
+        February 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/january-2013/index.html">
+        January 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/december-2012/index.html">
+        December 2012 (2)</a>,      <a href="http://tomasp.net/blog/archive/october-2012/index.html">
+        October 2012 (1)</a>,      <a href="http://tomasp.net/blog/archive/august-2012/index.html">
+        August 2012 (3)</a>,      <a href="http://tomasp.net/blog/archive/june-2012/index.html">
+        June 2012 (2)</a>,      <a href="http://tomasp.net/blog/archive/april-2012/index.html">
+        April 2012 (1)</a>,      <a href="http://tomasp.net/blog/archive/march-2012/index.html">
+        March 2012 (4)</a>,      <a href="http://tomasp.net/blog/archive/february-2012/index.html">
+        February 2012 (5)</a>,      <a href="http://tomasp.net/blog/archive/january-2012/index.html">
+        January 2012 (2)</a>,      <a href="http://tomasp.net/blog/archive/november-2011/index.html">
+        November 2011 (5)</a>,      <a href="http://tomasp.net/blog/archive/august-2011/index.html">
+        August 2011 (3)</a>,      <a href="http://tomasp.net/blog/archive/july-2011/index.html">
+        July 2011 (2)</a>,      <a href="http://tomasp.net/blog/archive/june-2011/index.html">
+        June 2011 (2)</a>,      <a href="http://tomasp.net/blog/archive/may-2011/index.html">
+        May 2011 (2)</a>,      <a href="http://tomasp.net/blog/archive/march-2011/index.html">
+        March 2011 (4)</a>,      <a href="http://tomasp.net/blog/archive/december-2010/index.html">
+        December 2010 (1)</a>,      <a href="http://tomasp.net/blog/archive/november-2010/index.html">
+        November 2010 (6)</a>,      <a href="http://tomasp.net/blog/archive/october-2010/index.html">
+        October 2010 (6)</a>,      <a href="http://tomasp.net/blog/archive/september-2010/index.html">
+        September 2010 (4)</a>,      <a href="http://tomasp.net/blog/archive/july-2010/index.html">
+        July 2010 (3)</a>,      <a href="http://tomasp.net/blog/archive/june-2010/index.html">
+        June 2010 (2)</a>,      <a href="http://tomasp.net/blog/archive/may-2010/index.html">
+        May 2010 (1)</a>,      <a href="http://tomasp.net/blog/archive/february-2010/index.html">
+        February 2010 (2)</a>,      <a href="http://tomasp.net/blog/archive/january-2010/index.html">
+        January 2010 (3)</a>,      <a href="http://tomasp.net/blog/archive/december-2009/index.html">
+        December 2009 (3)</a>,      <a href="http://tomasp.net/blog/archive/july-2009/index.html">
+        July 2009 (1)</a>,      <a href="http://tomasp.net/blog/archive/june-2009/index.html">
+        June 2009 (3)</a>,      <a href="http://tomasp.net/blog/archive/may-2009/index.html">
+        May 2009 (2)</a>,      <a href="http://tomasp.net/blog/archive/april-2009/index.html">
+        April 2009 (1)</a>,      <a href="http://tomasp.net/blog/archive/march-2009/index.html">
+        March 2009 (2)</a>,      <a href="http://tomasp.net/blog/archive/february-2009/index.html">
+        February 2009 (1)</a>,      <a href="http://tomasp.net/blog/archive/december-2008/index.html">
+        December 2008 (1)</a>,      <a href="http://tomasp.net/blog/archive/november-2008/index.html">
+        November 2008 (5)</a>,      <a href="http://tomasp.net/blog/archive/october-2008/index.html">
+        October 2008 (1)</a>,      <a href="http://tomasp.net/blog/archive/september-2008/index.html">
+        September 2008 (1)</a>,      <a href="http://tomasp.net/blog/archive/june-2008/index.html">
+        June 2008 (1)</a>,      <a href="http://tomasp.net/blog/archive/march-2008/index.html">
+        March 2008 (3)</a>,      <a href="http://tomasp.net/blog/archive/february-2008/index.html">
+        February 2008 (1)</a>,      <a href="http://tomasp.net/blog/archive/december-2007/index.html">
+        December 2007 (2)</a>,      <a href="http://tomasp.net/blog/archive/november-2007/index.html">
+        November 2007 (6)</a>,      <a href="http://tomasp.net/blog/archive/october-2007/index.html">
+        October 2007 (1)</a>,      <a href="http://tomasp.net/blog/archive/september-2007/index.html">
+        September 2007 (1)</a>,      <a href="http://tomasp.net/blog/archive/august-2007/index.html">
+        August 2007 (1)</a>,      <a href="http://tomasp.net/blog/archive/july-2007/index.html">
+        July 2007 (2)</a>,      <a href="http://tomasp.net/blog/archive/april-2007/index.html">
+        April 2007 (2)</a>,      <a href="http://tomasp.net/blog/archive/march-2007/index.html">
+        March 2007 (3)</a>,      <a href="http://tomasp.net/blog/archive/february-2007/index.html">
+        February 2007 (3)</a>,      <a href="http://tomasp.net/blog/archive/january-2007/index.html">
+        January 2007 (2)</a>,      <a href="http://tomasp.net/blog/archive/november-2006/index.html">
+        November 2006 (1)</a>,      <a href="http://tomasp.net/blog/archive/october-2006/index.html">
+        October 2006 (3)</a>,      <a href="http://tomasp.net/blog/archive/august-2006/index.html">
+        August 2006 (2)</a>,      <a href="http://tomasp.net/blog/archive/july-2006/index.html">
+        July 2006 (1)</a>,      <a href="http://tomasp.net/blog/archive/june-2006/index.html">
+        June 2006 (3)</a>,      <a href="http://tomasp.net/blog/archive/may-2006/index.html">
+        May 2006 (2)</a>,      <a href="http://tomasp.net/blog/archive/april-2006/index.html">
+        April 2006 (2)</a>,      <a href="http://tomasp.net/blog/archive/december-2005/index.html">
+        December 2005 (1)</a>,      <a href="http://tomasp.net/blog/archive/july-2005/index.html">
+        July 2005 (4)</a>,      <a href="http://tomasp.net/blog/archive/june-2005/index.html">
+        June 2005 (5)</a>,      <a href="http://tomasp.net/blog/archive/may-2005/index.html">
+        May 2005 (1)</a>,      <a href="http://tomasp.net/blog/archive/april-2005/index.html">
+        April 2005 (3)</a>,      <a href="http://tomasp.net/blog/archive/march-2005/index.html">
+        March 2005 (3)</a>,      <a href="http://tomasp.net/blog/archive/january-2005/index.html">
+        January 2005 (1)</a>,      <a href="http://tomasp.net/blog/archive/december-2004/index.html">
+        December 2004 (3)</a>,      <a href="http://tomasp.net/blog/archive/november-2004/index.html">
+        November 2004 (2)</a>,    </div>
+    <div class="large-2 columns">
+      <h4>License</h4>
+      <p>Unless explicitly mentioned, all articles on this site are licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution Share Alike</a>. 
+        All source code samples are licensed under Apache 2.0.
+      </p>
+      <img src="http://tomasp.net/img/cc-sa.png" alt="CC License logo" />
+    </div>
+  </footer>
+  </div>
+  
+  <script>
+  document.write('<script src=' +
+  ('__proto__' in {} ? 'http://tomasp.net/js/vendor/zepto' : 'http://tomasp.net/js/vendor/jquery') +
+  '.js><\/script>')
+  </script>
+  
+  <script src="http://tomasp.net/js/foundation.min.js"></script>
+  <script>
+    $(document).foundation();
+  </script>
+  <script type="text/javascript">
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-1561220-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function () {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+
+  </script>
+  <script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
+</body>
+</html>

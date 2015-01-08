@@ -62,6 +62,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="CSharpFormat">
+      <HintPath>..\..\packages\FSharp.Formatting.2.4.0\lib\net40\CSharpFormat.dll</HintPath>
+    </Reference>
     <Reference Include="FSharp.CodeFormat">
       <HintPath>..\..\packages\FSharp.Formatting.2.4.0\lib\net40\FSharp.CodeFormat.dll</HintPath>
       <Private>True</Private>

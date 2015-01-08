@@ -102,19 +102,19 @@
   explained. If you want to see the translation in its full beauty, then you can use
   <a href="http://www.red-gate.com/products/reflector/">Reflector</a>. We'll look at the 
   compilation of the following snippet:</p>
-<pre lang="csharp">
-var request = HttpWebRequest.Create(url);
-var response = await request.GetResponseAsync();
-var stream = response.GetResponseStream();
+<pre >
+<span class="k">var</span> request = HttpWebRequest.Create(url);
+<span class="k">var</span> response = await request.GetResponseAsync();
+<span class="k">var</span> stream = response.GetResponseStream();
 
-do {
+<span class="k">do</span> {
   count = await stream.ReadAsync(buffer, 0, buffer.Length);
   temp.Write(buffer, 0, count);
-} while (count &gt; 0);
+} <span class="k">while</span> (count &gt; 0);
 
 temp.Seek(0, SeekOrigin.Begin);
-// (Some code at the end of the method omitted)
-return Tuple.Create(title, html.Length);
+<span class="c">// (Some code at the end of the method omitted)</span>
+<span class="k">return</span> Tuple.Create(title, html.Length);
 </pre>
 
 <p>Leaving synchronous code aside, the snippet starts by asynchronously getting HTTP response
@@ -136,41 +136,41 @@ return Tuple.Create(title, html.Length);
   that contains a big <code>switch</code> that runs the next block (which is stored in a
   private field <code>_state</code>):</p>
 
-<pre lang="csharp">
-public void MoveNext() {  
-  switch (this._state) {
-  case Initial:
-    // State when the method is called - start getting response
-    this._request = HttpWebRequest.Create(this._url);
-    this._awaitResponse = request.GetResponseAsync();
-    this._awaitResponse.TrySetContinuation(this.MoveNextDelegate);
-    this._state = GotResponse;
-    break;
+<pre >
+<span class="k">public</span> <span class="k">void</span> MoveNext() {  
+  <span class="k">switch</span> (<span class="k">this</span>._state) {
+  <span class="k">case</span> Initial:
+    <span class="c">// State when the method is called - start getting response</span>
+    <span class="k">this</span>._request = HttpWebRequest.Create(<span class="k">this</span>._url);
+    <span class="k">this</span>._awaitResponse = request.GetResponseAsync();
+    <span class="k">this</span>._awaitResponse.TrySetContinuation(<span class="k">this</span>.MoveNextDelegate);
+    <span class="k">this</span>._state = GotResponse;
+    <span class="k">break</span>;
 
-  case GotResponse:
-    // Got response - obtain the stream and start the loop
-    this._response = this._awaitResponse.GetResult&lt;WebResponse&gt;();
-    this._stream = this._response.GetResponseStream();
-    goto case LoopBodyStart:
+  <span class="k">case</span> GotResponse:
+    <span class="c">// Got response - obtain the stream and start the loop</span>
+    <span class="k">this</span>._response = <span class="k">this</span>._awaitResponse.GetResult&lt;WebResponse&gt;();
+    <span class="k">this</span>._stream = <span class="k">this</span>._response.GetResponseStream();
+    <span class="k">goto</span> <span class="k">case</span> LoopBodyStart:
 
-  case LoopBodyStart: 
-    // Loop body - start reading next chunk of data to a buffer 
-    this._awaitRead = this._stream.ReadAsync(this._buffer, 0, this._buffer.Length);
-    this._awaitRead.TrySetContinuation(this.MoveNextDelegate);
-    this._state = LoopAfterRead;
-    break;
+  <span class="k">case</span> LoopBodyStart: 
+    <span class="c">// Loop body - start reading next chunk of data to a buffer </span>
+    <span class="k">this</span>._awaitRead = <span class="k">this</span>._stream.ReadAsync(<span class="k">this</span>._buffer, 0, <span class="k">this</span>._buffer.Length);
+    <span class="k">this</span>._awaitRead.TrySetContinuation(<span class="k">this</span>.MoveNextDelegate);
+    <span class="k">this</span>._state = LoopAfterRead;
+    <span class="k">break</span>;
 
-  case LoopAfterRead: 
-    // Downloading completed - read the result and start writing
-    this._count = this._awaitRead.GetResult&lt;int&gt;();
-    this._temp.Write(this._buffer, 0, this._count);
-    // If the loop has not completed, go to the beginning
-    if (this._count &lt; 0) goto case LoopBodyStart;
+  <span class="k">case</span> LoopAfterRead: 
+    <span class="c">// Downloading completed - read the result and start writing</span>
+    <span class="k">this</span>._count = <span class="k">this</span>._awaitRead.GetResult&lt;<span class="k">int</span>&gt;();
+    <span class="k">this</span>._temp.Write(<span class="k">this</span>._buffer, 0, <span class="k">this</span>._count);
+    <span class="c">// If the loop has not completed, go to the beginning</span>
+    <span class="k">if</span> (<span class="k">this</span>._count &lt; 0) <span class="k">goto</span> <span class="k">case</span> LoopBodyStart;
 
-    this._temp.Seek(0L, SeekOrigin.Begin);
-    // (Some code at the end of the method omitted)
-    this._state = Returned;
-    this._result = Tuple.Create(this._title, this._html.Length);
+    <span class="k">this</span>._temp.Seek(0L, SeekOrigin.Begin);
+    <span class="c">// (Some code at the end of the method omitted)</span>
+    <span class="k">this</span>._state = Returned;
+    <span class="k">this</span>._result = Tuple.Create(<span class="k">this</span>._title, <span class="k">this</span>._html.Length);
   }
 }
 </pre>
@@ -487,7 +487,7 @@ public void MoveNext() {
     <h4>Blog tags</h4>
     <p>
 
-      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(97),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(33),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(29),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(10),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/fsharp-data/">f# data</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/monads/">monads</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/art/">art</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fractals/">fractals</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/funscript/">funscript</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/coeffects/">coeffects</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/comonads/">comonads</a>&nbsp;(1)    </p>
+      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(97),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(33),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(10),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(29),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/fsharp-data/">f# data</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/monads/">monads</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/art/">art</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fractals/">fractals</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/funscript/">funscript</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(1)    </p>
 
   </div>
 </div>

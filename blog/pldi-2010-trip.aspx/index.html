@@ -139,14 +139,14 @@
   result. The paper presents a static verification algorithm that checks whether the "recalculation"
   needs to rollback some side-effects (which would be impossible). The authors also presented 
   a C# library, which allows us to write something like this:</p>
-<pre lang="csharp">
+<pre >
 Speculation.Iterate(0, numTasks,
   (i, state) =&gt; {
-    // Body of the stateful loop 
-    // - calculate new state based on current 'state' and index 'i'
+    <span class="c">// Body of the stateful loop </span>
+    <span class="c">// - calculate new state based on current 'state' and index 'i'</span>
   }, (i) =&gt;
-    // Prediction function
-    // - calculate new state without knowing the current 'state'
+    <span class="c">// Prediction function</span>
+    <span class="c">// - calculate new state without knowing the current 'state'</span>
   });
 </pre>
 <p>This raises some interesting problems for F# as well. It turns out that encoding this
@@ -339,7 +339,7 @@ val (hours, minutes, seconds) =
     <h4>Blog tags</h4>
     <p>
 
-      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(97),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(33),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(29),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(10),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/fsharp-data/">f# data</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/monads/">monads</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/art/">art</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fractals/">fractals</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/funscript/">funscript</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/coeffects/">coeffects</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/comonads/">comonads</a>&nbsp;(1)    </p>
+      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(97),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(33),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(10),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(29),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/fsharp-data/">f# data</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/monads/">monads</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/art/">art</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fractals/">fractals</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/funscript/">funscript</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(1)    </p>
 
   </div>
 </div>

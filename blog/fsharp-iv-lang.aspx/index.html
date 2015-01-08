@@ -95,15 +95,15 @@
 <p>Probably the simplest example of domain-specific language that can be embedded in the F# code is a discriminated union, 
   which can be used for writing declarative specifications of behavior or for example for representing and processing mathematical 
   expressions:</p>
-<pre lang="fsharp">
-&gt; type Expr = 
-  | Binary of string * Expr * Expr
-  | Var    of string 
-  | Const  of int;;
+<pre >
+&gt; <span class="k">type</span> Expr = 
+  <span class="o">|</span> Binary <span class="k">of</span> string * Expr * Expr
+  <span class="o">|</span> Var    <span class="k">of</span> string 
+  <span class="o">|</span> Const  <span class="k">of</span> int;;
 (...)
 
-&gt; let e = Binary("+", Const(2), Binary("*", Var("x"), Const(4)));;
-val e : Expr
+&gt; <span class="k">let</span> e = Binary(<span class="s">"+"</span>, Const(2), Binary(<span class="s">"*"</span>, Var(<span class="s">"x"</span>), Const(4)));;
+<span class="k">val</span> e : Expr
 </pre>
 <p>In this example we created a discriminated union and used it for building a value representing a mathematical expression.
   This is of course very primitive ‘language’, but when you implement functions for working with these values (for example
@@ -127,12 +127,12 @@ val e : Expr
   second possible use of active patterns is extending the ‘vocabulary’ of a language built using discriminated union. In the 
   following example we will implement an active pattern <code>Commutative</code> that allows us to decompose a value of type 
   <code>Expr</code> into a call to commutative binary operator:</p>
-<pre lang="fsharp">
-&gt; let (|Commutative|_|) x =
-    match x with
-    | Binary(s, e1, e2) when (s = "+") || (s = "*") -&gt; Some(s, e1, e2)
-    | _ -&gt; None;;
-val ( |Commutative|_| ) : Expr -&gt; (string * Expr * Expr) option
+<pre >
+&gt; <span class="k">let</span> (|Commutative|<span class="o">_</span>|) x =
+    <span class="k">match</span> x <span class="k">with</span>
+    <span class="o">|</span> Binary(s, e1, e2) <span class="k">when</span> (s = <span class="s">"+"</span>) <span class="o">|</span><span class="o">|</span> (s = <span class="s">"*"</span>) <span class="o">-&gt;</span> Some(s, e1, e2)
+    <span class="o">|</span> <span class="o">_</span> <span class="o">-&gt;</span> None;;
+<span class="k">val</span> ( |Commutative|<span class="o">_</span>| ) : Expr <span class="o">-&gt;</span> (string * Expr * Expr) option
 </pre>
 
 <p>As you can see, the declaration of active pattern looks like a function declaration, but uses a strangely looking function 
@@ -149,18 +149,18 @@ val ( |Commutative|_| ) : Expr -&gt; (string * Expr * Expr) option
 <p>In the next example we will look at one advanced example of using the numerical language that we define earlier. We 
   will implement a function that tests whether two expressions are equal using the commutativity rule, meaning that for example
   <code>10*(a+5)</code> will be considered as equal to <code>(5+a)*10</code>:</p>
-<pre lang="fsharp">
-&gt; let rec equal e1 e2 = 
-    match e1, e2 with
-    | Commutative(o1, l1, r1), Commutative(o2, l2, r2) -&gt;
+<pre >
+&gt; <span class="k">let</span> <span class="k">rec</span> equal e1 e2 = 
+    <span class="k">match</span> e1, e2 <span class="k">with</span>
+    <span class="o">|</span> Commutative(o1, l1, r1), Commutative(o2, l2, r2) <span class="o">-&gt;</span>
        (o1 = o2) &amp;&amp; (equal l1 r2) &amp;&amp; (equal r1 l2)
-    | _ -&gt; e1 = e2;;
-val equal : Expr -&gt; Expr -&gt; bool
+    <span class="o">|</span> <span class="o">_</span> <span class="o">-&gt;</span> e1 = e2;;
+<span class="k">val</span> equal : Expr <span class="o">-&gt;</span> Expr <span class="o">-&gt;</span> bool
 
-&gt; let e1 = Binary("*", Binary("+", Const(10), Var("x")), Const(4));;
-  let e2 = Binary("*", Const(4), Binary("+", Var("x"), Const(10)));;
+&gt; <span class="k">let</span> e1 = Binary(<span class="s">"*"</span>, Binary(<span class="s">"+"</span>, Const(10), Var(<span class="s">"x"</span>)), Const(4));;
+  <span class="k">let</span> e2 = Binary(<span class="s">"*"</span>, Const(4), Binary(<span class="s">"+"</span>, Var(<span class="s">"x"</span>), Const(10)));;
   equal e1 e2;;
-val it : bool = true</pre>
+<span class="k">val</span> it : bool = <span class="k">true</span></pre>
   
 <p>As you can see, implementing the <code>equal</code> function that uses the commutativity rule
   is much easier using the <code>Commutative</code> active pattern than it would be explicitly by testing
@@ -174,14 +174,14 @@ val it : bool = true</pre>
   allows us to generate sequences, lists and arrays of data in F# and as we will see later it can
   be generalized to allow solving several related problems. Anyway, let's first look at an
   example that filters an F# list:</p>
-<pre lang="fsharp">
-&gt; let people = [ ("Joe", 55); ("John", 32); ("Jane", 24); ("Jimmy", 42) ];;
-val people : (string * int) list
+<pre >
+&gt; <span class="k">let</span> people = <span class="o">[</span> (<span class="s">"Joe"</span>, 55); (<span class="s">"John"</span>, 32); (<span class="s">"Jane"</span>, 24); (<span class="s">"Jimmy"</span>, 42) <span class="o">]</span>;;
+<span class="k">val</span> people : (string * int) list
 
-&gt; [ for (name, age) in people
-    when age &lt; 30
-    -&gt; name ];;
-val it : string list = ["Jane"]</pre>
+&gt; <span class="o">[</span> <span class="k">for</span> (name, age) <span class="k">in</span> people
+    <span class="k">when</span> age &lt; 30
+    <span class="o">-&gt;</span> name <span class="o">]</span>;;
+<span class="k">val</span> it : string list = <span class="o">[</span><span class="s">"Jane"</span><span class="o">]</span></pre>
 <p>In this example we first declared a list with some data and then used a sequence expression, wrapped
   between square brackets <code>[</code> and <code>]</code>, to select only some elements from the list. 
   The use of square brackets indicate that the result should be an F# list (you can also use <code>[| .. |]</code> 
@@ -189,11 +189,11 @@ val it : string list = ["Jane"]</pre>
   comprehension can contain most of the ordinary F# expressions, but in this example I used one extension,
   the <code>when .. -&gt;</code> construct, which can be used for typical filtering and projection operations.
   The same code can be written like this:</p> 
-<pre lang="fsharp">
-&gt; [ for (name, age) in people do
-    if (age &lt; 30) then
-      yield name ];;
-val it : string list = ["Jane"]</pre>
+<pre >
+&gt; <span class="o">[</span> <span class="k">for</span> (name, age) <span class="k">in</span> people <span class="k">do</span>
+    <span class="k">if</span> (age &lt; 30) <span class="k">then</span>
+      <span class="k">yield</span> name <span class="o">]</span>;;
+<span class="k">val</span> it : string list = <span class="o">[</span><span class="s">"Jane"</span><span class="o">]</span></pre>
 <p>In this example, we used an ordinary <code>for .. do</code> loop (in the previous example the <code>do</code>
   keyword was missing and we used <code>if .. then</code> condition instead of <code>when</code>. Finally, 
   returning a value from a sequence comprehension can be done using the <code>yield</code> construct.
@@ -201,18 +201,18 @@ val it : string list = ["Jane"]</pre>
   some specific set of expressions and can, in fact, contain very complex F# code. I will demonstrate the
   flexibility of sequence comprehensions in one more example - the code will generate all possible words
   (of specified length) that can be generated using the given alphabet:</p>
-<pre lang="fsharp">
-&gt; let rec generateWords letters start len =
-    seq { for l in letters do
-            let word = (start ^ l)
-            if len = 1 then
-              yield  word
-            if len &gt; 1 then
-              yield! generateWords letters word (len-1) }
-val generateWords : #seq&lt;string&gt; -&gt; string -&gt; int -&gt; seq&lt;string&gt;
+<pre >
+&gt; <span class="k">let</span> <span class="k">rec</span> generateWords letters start len =
+    seq { <span class="k">for</span> l <span class="k">in</span> letters <span class="k">do</span>
+            <span class="k">let</span> word = (start ^ l)
+            <span class="k">if</span> len = 1 <span class="k">then</span>
+              <span class="k">yield</span>  word
+            <span class="k">if</span> len &gt; 1 <span class="k">then</span>
+              <span class="k">yield!</span> generateWords letters word (len-1) }
+<span class="k">val</span> generateWords : #seq&lt;string&gt; <span class="o">-&gt;</span> string <span class="o">-&gt;</span> int <span class="o">-&gt;</span> seq&lt;string&gt;
               
-&gt; generateWords ["a"; "b"; "c"] "" 4;;
-val it : seq&lt;string&gt; = seq ["aaaa"; "aaab"; "aaac"; "aaba"; ...]
+&gt; generateWords <span class="o">[</span><span class="s">"a"</span>; <span class="s">"b"</span>; <span class="s">"c"</span><span class="o">]</span> <span class="s">""</span> 4;;
+<span class="k">val</span> it : seq&lt;string&gt; = seq <span class="o">[</span><span class="s">"aaaa"</span>; <span class="s">"aaab"</span>; <span class="s">"aaac"</span>; <span class="s">"aaba"</span>; ...<span class="o">]</span>
 </pre>
 <p>This example introduces two interesting constructs. First of all, we're using <code>seq { .. }</code> expression
   to build the sequence, which is a lazy data structure, meaning that the code will be evaluated on demand. When 
@@ -232,25 +232,25 @@ val it : seq&lt;string&gt; = seq ["aaaa"; "aaab"; "aaac"; "aaba"; ...]
   execution when some operation fails and return <code>None</code> immediately, without executing the
   rest of the code inside the block. Let's first implement a simple function that can either return some
   value or can fail and return <code>None</code>:</p>  
-<pre lang="fsharp">
-let readNum () =
-  let s = Console.ReadLine()
-  let succ,v = Int32.TryParse(s)
-  if (succ) then Some(v) else None
+<pre >
+<span class="k">let</span> readNum () =
+  <span class="k">let</span> s = Console.ReadLine()
+  <span class="k">let</span> succ,v = Int32.TryParse(s)
+  <span class="k">if</span> (succ) <span class="k">then</span> Some(v) <span class="k">else</span> None
 </pre>
 
 <p>Now, we can write a code that reads two numbers from the console and adds them together, producing
   a value <code>Some(a+b)</code>. However, when a call to <code>readNum</code> fails, we want to return
   <code>None</code> immediately without executing the second call to <code>readNum</code>. This is
   exactly what the <code>maybe</code> block will do (I'll show the implementation of the block shortly):</p>
-<pre lang="fsharp">
-let n = 
-  maybe { do   printf "Enter a: "
-          let! a = readNum()
-          do   printf "Enter b: "
-          let! b = readNum()
-          return a + b }  
-printf "Result is: %A" n</pre>
+<pre >
+<span class="k">let</span> n = 
+  maybe { <span class="k">do</span>   printf <span class="s">"Enter a: "</span>
+          <span class="k">let!</span> a = readNum()
+          <span class="k">do</span>   printf <span class="s">"Enter b: "</span>
+          <span class="k">let!</span> b = readNum()
+          <span class="k">return</span> a + b }  
+printf <span class="s">"Result is: %A"</span> n</pre>
 <p>The code inside the block first calls <code>printf</code> and then uses a <code>let!</code> construct
   to call the <code>readNum</code> function. This operation is called <em>monadic bind</em> and the implementation
   of <code>maybe</code> block specifies the behavior of this operation. Similarly, it can also specify
@@ -263,12 +263,12 @@ printf "Result is: %A" n</pre>
   functions that we'll need to implement. Every block (usually called <em>computation expression</em> in F#) is
   implemented by a <em>monadic builder</em> which has the following members that define elementary operators:</p>
 
-<pre lang="fsharp">
-// Signature of the builder for monad M
-type MaybeBuilder with
-  member Bind   : M&lt;'a&gt; * ('a -&gt; M&lt;'b&gt;) -&gt; M&lt;'b&gt;
-  member Return : 'a -&gt; M&lt;'a&gt;
-  member Delay  : (unit -&gt; M&lt;'a&gt;) -&gt; M&lt;'a&gt;
+<pre >
+<span class="c">// Signature of the builder for monad M</span>
+<span class="k">type</span> MaybeBuilder <span class="k">with</span>
+  <span class="k">member</span> Bind   : M&lt;'a&gt; * ('a <span class="o">-&gt;</span> M&lt;'b&gt;) <span class="o">-&gt;</span> M&lt;'b&gt;
+  <span class="k">member</span> Return : 'a <span class="o">-&gt;</span> M&lt;'a&gt;
+  <span class="k">member</span> Delay  : (unit <span class="o">-&gt;</span> M&lt;'a&gt;) <span class="o">-&gt;</span> M&lt;'a&gt;
 </pre>
 
 <p>We'll shortly discuss how the F# compiler uses these members to execute the computation expression, but let me 
@@ -283,12 +283,12 @@ type MaybeBuilder with
   is simply translated to calls to the basic monadic operation, which we looked at earlier. The following example should
   put some light on the problem, because it shows how the F# compiler translates the code written using the <code>maybe</code>
   block:</p>
-<pre lang="fsharp">
-maybe.Delay(fun () -&gt;
-  printf "Enter a"
-  maybe.Bind(readNum(), fun a -&gt;
-    printf "Enter b"
-    maybe.Bind(readNum(), fun b -&gt;
+<pre >
+maybe.Delay(<span class="k">fun</span> () <span class="o">-&gt;</span>
+  printf <span class="s">"Enter a"</span>
+  maybe.Bind(readNum(), <span class="k">fun</span> a <span class="o">-&gt;</span>
+    printf <span class="s">"Enter b"</span>
+    maybe.Bind(readNum(), <span class="k">fun</span> b <span class="o">-&gt;</span>
       maybe.Return(a + b))</pre>         
 
 <p>As we can see, the original code is split into single expressions and these are evaluated separately as
@@ -314,23 +314,23 @@ maybe.Delay(fun () -&gt;
   ordinary value into a monadic type - in our example it will take a value <code>a</code> (of type <code>'a</code>)
   and turn it into a value <code>Some(a)</code> (of type M&lt;'a&gt;):</p>
 
-<pre lang="fsharp">
-type M&lt;'a&gt; = option&lt;'a&gt;
+<pre >
+<span class="k">type</span> M&lt;'a&gt; = option&lt;'a&gt;
 
-let bind f d = 
-  match d with
-   | None -> None
-   | Some(v) -> f v
-let result v = Some(v)
-let delay  f = f()
+<span class="k">let</span> bind f d = 
+  <span class="k">match</span> d <span class="k">with</span>
+   <span class="o">|</span> None <span class="o">-&gt;</span> None
+   <span class="o">|</span> Some(v) <span class="o">-&gt;</span> f v
+<span class="k">let</span> result v = Some(v)
+<span class="k">let</span> delay  f = f()
   
-type MaybeBuilder() =
-  member x.Bind(v, f) = bind v f
-  member x.Return(v)  = result v
-  member x.Delay(f)   = delay f 
-  member x.Let(v, f)  = bind (result v) f
+<span class="k">type</span> MaybeBuilder() =
+  <span class="k">member</span> x.Bind(v, f) = bind v f
+  <span class="k">member</span> x.Return(v)  = result v
+  <span class="k">member</span> x.Delay(f)   = delay f 
+  <span class="k">member</span> x.Let(v, f)  = bind (result v) f
   
-let maybe = MaybeBuilder()</pre>
+<span class="k">let</span> maybe = MaybeBuilder()</pre>
 <p>In this example we looked at computation expressions and implemented a simple <em>monadic builder</em> for 
   representing a computations that can fail. We implemented support only for basic language constructs (like
   <code>let</code> and <code>let!</code>), but in general the computation expression can allow using constructs
@@ -357,36 +357,36 @@ let maybe = MaybeBuilder()</pre>
 <p>The F# library also extends the .NET <code>System.Reflection</code> to give additional information about F# data types – 
   for example we can use the F# reflection library to examine possible values of the <code>Expr</code> type (discriminated 
   union) declared earlier:</p>
-<pre lang="fsharp">
-&gt; open Microsoft.FSharp.Reflection;;
-&gt; let exprTy = typeof&lt;Expr&gt;
-  if FSharpType.IsUnion(exprTy) then
-    let opts = FSharpType.GetUnionCases(exprTy)
-    opts |> Array.map (fun m -> m.Name)
-  else
-    [| |];;
-val it : string[] = [| "Binary"; "Var"; "Const" |]</pre>
+<pre >
+&gt; <span class="k">open</span> Microsoft.FSharp.Reflection;;
+&gt; <span class="k">let</span> exprTy = typeof&lt;Expr&gt;
+  <span class="k">if</span> FSharpType.IsUnion(exprTy) <span class="k">then</span>
+    <span class="k">let</span> opts = FSharpType.GetUnionCases(exprTy)
+    opts <span class="o">|</span>&gt; Array.map (<span class="k">fun</span> m <span class="o">-&gt;</span> m.Name)
+  <span class="k">else</span>
+    <span class="o">[|</span> <span class="o">|</span><span class="o">]</span>;;
+<span class="k">val</span> it : string[<span class="o">]</span> = <span class="o">[|</span> <span class="s">"Binary"</span>; <span class="s">"Var"</span>; <span class="s">"Const"</span> <span class="o">|</span><span class="o">]</span></pre>
 <p>An important part of the .NET reflection mechanism is the use of custom attributes, which can be used to annotate any 
   program construct accessible via reflection with additional metadata. The following example demonstrates the syntax for 
   attributes in F# by declaring <code>Documentation</code> attribute (simply by inheriting from the <code>System.Attribute</code> 
   base class) and also demonstrates how a static method in a class can be annotated with the attribute: </p>
-<pre lang="fsharp">
-type DocumentationAttribute(doc:string) =
-  inherit System.Attribute()
-  member x.Documentation = doc
+<pre >
+<span class="k">type</span> DocumentationAttribute(doc:string) =
+  <span class="k">inherit</span> System.Attribute()
+  <span class="k">member</span> x.Documentation = doc
 
-type Demo =
-  [&lt;Documentation("Adds one to a given number")&gt;]
-  static member AddOne x = x + 1</pre>
+<span class="k">type</span> Demo =
+  <span class="o">[</span>&lt;Documentation(<span class="s">"Adds one to a given number"</span>)<span class="o">&gt;]</span>
+  <span class="k">static</span> <span class="k">member</span> AddOne x = x + 1</pre>
 <p>Using the .NET <code>System.Reflection</code> library it is possible to examine members of the <code>Demo</code> type 
   including reading of the associated attributes (which are stored in the compiled DLL and are available at run-time):</p>
-<pre lang="fsharp">
-&gt; let ty = typeof&lt;Demo&gt;
-  let mi = ty.GetMethod("AddOne")
-  let at = mi.GetCustomAttributes
-                (typeof&lt;DocumentationAttribute&gt;, false)
+<pre >
+&gt; <span class="k">let</span> ty = typeof&lt;Demo&gt;
+  <span class="k">let</span> mi = ty.GetMethod(<span class="s">"AddOne"</span>)
+  <span class="k">let</span> at = mi.GetCustomAttributes
+                (typeof&lt;DocumentationAttribute&gt;, <span class="k">false</span>)
   (at.[0] :?&gt; DocumentationAttribute).Doc;;
-val it : string = "Adds one to a given number"</pre>
+<span class="k">val</span> it : string = <span class="s">"Adds one to a given number"</span></pre>
 
 <h3>F# Quotations</h3>
 <p>F# quotations form the second part of the meta-programming mechanism, by allowing the capture of type-checked F# 
@@ -394,34 +394,34 @@ val it : string = "Adds one to a given number"</pre>
   and explicitly mark a piece of code as a quotation and the second way is to use <code>ReflectedDefinition</code> attribute, which instructs 
   the compiler to store quotation data for a specified top-level member. The following example demonstrates a few simple 
   quoted F# expressions – the quoted expressions are ordinary type-checked F# expressions wrapped between &lt;@ and @&gt;:</p>
-<pre lang="fsharp">&gt; open Microsoft.FSharp.Quotations;;
-&gt; &lt;@ 1 + 1 @&gt;
-val it : Expr&lt;int&gt;
+<pre >&gt; <span class="k">open</span> Microsoft.FSharp.Quotations;;
+&gt; <span class="o">&lt;@</span> 1 + 1 <span class="o">@&gt;</span>
+<span class="k">val</span> it : Expr&lt;int&gt;
 
-&gt; &lt;@ (fun x -&gt; x + 1) @&gt;
-val it : Expr&lt;int -&gt; int&gt;</pre>
+&gt; <span class="o">&lt;@</span> (<span class="k">fun</span> x <span class="o">-&gt;</span> x + 1) <span class="o">@&gt;</span>
+<span class="k">val</span> it : Expr&lt;int <span class="o">-&gt;</span> int&gt;</pre>
 <p>Quotation processing is usually done on the raw representation of the quotations, which is represented by the non-generic 
   <code>Expr</code> type (however the type information about the quoted expression is still available dynamically via the <code>Type</code> property). 
   The following example implements a trivial evaluator for quotations. <code>GenericTopDefnApp</code> is an active pattern 
   that matches with the use of a function given as a first argument (in this example a plus operator), the <code>Int32</code> 
   pattern recognizes a constant of type <code>int</code>):</p>
-<pre lang="fsharp">
-&gt; open Microsoft.FSharp.Quotations.Patterns;;
-&gt; open Microsoft.FSharp.Quotations.DerivedPatterns;;
-&gt; let plusOp = &lt;@ (+) @&gt;
-  let rec eval x =
-    match x with
-    | SpecificCall plusOp (_, [l; r]) -&gt;
+<pre >
+&gt; <span class="k">open</span> Microsoft.FSharp.Quotations.Patterns;;
+&gt; <span class="k">open</span> Microsoft.FSharp.Quotations.DerivedPatterns;;
+&gt; <span class="k">let</span> plusOp = <span class="o">&lt;@</span> (+) <span class="o">@&gt;</span>
+  <span class="k">let</span> <span class="k">rec</span> eval x =
+    <span class="k">match</span> x <span class="k">with</span>
+    <span class="o">|</span> SpecificCall plusOp (<span class="o">_</span>, [l; r]) <span class="o">-&gt;</span>
         (eval l) + (eval r)
-    | Int32(n) -&gt; 
+    <span class="o">|</span> Int32(n) <span class="o">-&gt;</span> 
         n
-    | _ -&gt;        
-        failwith "unknonw construct"  
-val eval : Expr -&gt; int
+    <span class="o">|</span> <span class="o">_</span> <span class="o">-&gt;</span>        
+        failwith <span class="s">"unknonw construct"</span>  
+<span class="k">val</span> eval : Expr <span class="o">-&gt;</span> int
 
-&gt; let tst = &lt;@ (1+2) + (3+4) @&gt;
+&gt; <span class="k">let</span> tst = <span class="o">&lt;@</span> (1+2) + (3+4) <span class="o">@&gt;</span>
   eval tst
-val it : int = 10</pre>
+<span class="k">val</span> it : int = 10</pre>
 
 
 <h3>Quotation Templates and Splicing</h3>
@@ -430,12 +430,12 @@ val it : int = 10</pre>
   that contains one or more <em>holes</em>. Holes are written using the underscore symbol and define a place, where another quotation
   can be filled in the template. In the following example, we will look at a template that contains two holes and can be used
   for generating a quotation that represents addition of two values:</p>
-<pre lang="fsharp">
-&gt; let addTempl a b = &lt;@ %a + %b @&gt;;;
-val addTempl : Expr&lt;int&gt; -&gt; Expr&lt;int&gt; -&gt; Expr&lt;int&gt;
+<pre >
+&gt; <span class="k">let</span> addTempl a b = <span class="o">&lt;@</span> %a + %b <span class="o">@&gt;</span>;;
+<span class="k">val</span> addTempl : Expr&lt;int&gt; <span class="o">-&gt;</span> Expr&lt;int&gt; <span class="o">-&gt;</span> Expr&lt;int&gt;
 
-&gt; eval(addTempl &lt;@ 2 @&gt; &lt;@ 40 @&gt;);;
-val it : int = 42</pre>
+&gt; eval(addTempl <span class="o">&lt;@</span> 2 <span class="o">@&gt;</span> <span class="o">&lt;@</span> 40 <span class="o">@&gt;</span>);;
+<span class="k">val</span> it : int = 42</pre>
 <p>In this example, we first create a quotation template <code>addTempl</code>. This template takes two expressions as parameters and constructs an expression that represnts addition. The two expression given as an argument ar 'spliced' into the created expression using the <code>%</code> operator. Note that the holes are typed, meaning that the values that can be filled
   in the template have to be quotations representing an expression of type <code>int</code>.  </p>
 
@@ -445,11 +445,11 @@ val it : int = 42</pre>
   which applies the argument on the left hand side to the function on the right hand side). This example is based
   on the FLINQ project, which allows writing database queries in F# and executing them as SQL queries on a database
   engine:</p>
-<pre lang="fsharp">
-&gt; &lt;@ (%db).Customers 
-      |&gt; filter (fun x -&gt; x.City = "London")
-      |&gt; map (fun x -&gt; x.Name) @&gt;
-val it : Expr&lt;seq&lt;string&gt;&gt;</pre>
+<pre >
+&gt; <span class="o">&lt;@</span> (%db).Customers 
+      <span class="o">|</span>&gt; filter (<span class="k">fun</span> x <span class="o">-&gt;</span> x.City = <span class="s">"London"</span>)
+      <span class="o">|</span>&gt; map (<span class="k">fun</span> x <span class="o">-&gt;</span> x.Name) <span class="o">@&gt;</span>
+<span class="k">val</span> it : Expr&lt;seq&lt;string&gt;&gt;</pre>
 <p>In the raw representation, the spliced value can be recognized using the <code>LiftedValue</code> pattern, which returns a 
   value of type <code>obj</code>, which can contain any F# value.</p>
 
@@ -459,9 +459,9 @@ val it : Expr&lt;seq&lt;string&gt;&gt;</pre>
   called <em>non-intrusive meta-programming</em>, because it allows processing of the member body (e.g. translating it to 
   some other language and executing it heterogeneously), but doesn’t require any deep understanding of meta-programming 
   from the user of the library. The following code gives a simple example:</p>
-<pre lang="fsharp">
-[&lt;ReflectedDefinition&gt;]
-let addOne x = 
+<pre >
+<span class="o">[</span>&lt;ReflectedDefinition&gt;<span class="o">]</span>
+<span class="k">let</span> addOne x = 
   x + 1</pre>
 <p>The quotation of a top-level definition (which can be either a function or a class member) annotated using the 
   <code>ReflectedDefinition</code> attribute is then made available through the F# quotation library at runtime using 
@@ -469,14 +469,14 @@ let addOne x =
 <p>When a quotation represents a use of a top-level definition it is possible to check if this top-level definition
   was annotated using the <code>ReflectedDefinition</code> attribute and so the quotation of the definition is accessible.
   This can be done using the <code>ResolveTopDefinition</code> function as demonstrated in the following example:</p>  
-<pre lang="fsharp">
-let expandedQuotation = 
-  match &lt;@ addOne @&gt; with 
-  | Lambda(_, Call(_, mi, _)) -&gt; 
-      match mi with
-      | MethodWithReflectedDefinition(quot) -&gt; quot
-      | _ -&gt; faliwith "Quotation not available!"
-  | _ -&gt; failwith "Not a method use!"      
+<pre >
+<span class="k">let</span> expandedQuotation = 
+  <span class="k">match</span> <span class="o">&lt;@</span> addOne <span class="o">@&gt;</span> <span class="k">with</span> 
+  <span class="o">|</span> Lambda(<span class="o">_</span>, Call(<span class="o">_</span>, mi, <span class="o">_</span>)) <span class="o">-&gt;</span> 
+      <span class="k">match</span> mi <span class="k">with</span>
+      <span class="o">|</span> MethodWithReflectedDefinition(quot) <span class="o">-&gt;</span> quot
+      <span class="o">|</span> <span class="o">_</span> <span class="o">-&gt;</span> faliwith <span class="s">"Quotation not available!"</span>
+  <span class="o">|</span> <span class="o">_</span> <span class="o">-&gt;</span> failwith <span class="s">"Not a method use!"</span>      
 </pre>  
 
 <h3>Using Active Patterns with Quotations</h3>
@@ -485,21 +485,21 @@ let expandedQuotation =
   pattern matching as a convenient way to decompose and analyze F# quotation terms. Active-patterns
   can be also used when implementing a quotation processor, because they can be used to group similar cases 
   together. In the following example we declare an active pattern that recognizes two binary operations:</p>
-<pre lang="fsharp">
-let plusOp  = &lt;@ (+) @&gt;
-let minusOp = &lt;@ (-) @&gt;
-let (|BinaryOp|_|) x =
-  match x with
-  | SpecificCall plusOp (_, [l; r]) -&gt; Some("+", l, r)
-  | SpecificCall minusOp (_, [l; r]) -&gt; Some("-", l, r)
-  | _ -&gt; None
+<pre >
+<span class="k">let</span> plusOp  = <span class="o">&lt;@</span> (+) <span class="o">@&gt;</span>
+<span class="k">let</span> minusOp = <span class="o">&lt;@</span> (-) <span class="o">@&gt;</span>
+<span class="k">let</span> (|BinaryOp|<span class="o">_</span>|) x =
+  <span class="k">match</span> x <span class="k">with</span>
+  <span class="o">|</span> SpecificCall plusOp (<span class="o">_</span>, [l; r]) <span class="o">-&gt;</span> Some(<span class="s">"+"</span>, l, r)
+  <span class="o">|</span> SpecificCall minusOp (<span class="o">_</span>, [l; r]) <span class="o">-&gt;</span> Some(<span class="s">"-"</span>, l, r)
+  <span class="o">|</span> <span class="o">_</span> <span class="o">-&gt;</span> None
 
-let rec eval x =
-  match x with
-  | BinaryOp (op, l, r) -&gt;
-      if (op = "+") then (eval l) + (eval r)
-        else (eval l) - (eval r)
-  (* ... *)
+<span class="k">let</span> <span class="k">rec</span> eval x =
+  <span class="k">match</span> x <span class="k">with</span>
+  <span class="o">|</span> BinaryOp (op, l, r) <span class="o">-&gt;</span>
+      <span class="k">if</span> (op = <span class="s">"+"</span>) <span class="k">then</span> (eval l) + (eval r)
+        <span class="k">else</span> (eval l) - (eval r)
+  <span class="c">(* ... *)</span>
 </pre>
 <p>In this example we declared <code>BinaryOp</code> active pattern, which can be used for matching a quotation
   that represents either addition or subtraction. In a code that processes quotations, grouping of related
@@ -628,7 +628,7 @@ let rec eval x =
     <h4>Blog tags</h4>
     <p>
 
-      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(97),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(33),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(29),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(10),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/fsharp-data/">f# data</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/monads/">monads</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/art/">art</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fractals/">fractals</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/funscript/">funscript</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/coeffects/">coeffects</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/comonads/">comonads</a>&nbsp;(1)    </p>
+      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(97),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(33),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(10),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(29),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/fsharp-data/">f# data</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/monads/">monads</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/art/">art</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fractals/">fractals</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/funscript/">funscript</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(1)    </p>
 
   </div>
 </div>

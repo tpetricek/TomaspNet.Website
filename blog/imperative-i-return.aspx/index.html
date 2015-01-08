@@ -108,11 +108,11 @@
   into the details. Now, C# allows you to use <code>return</code> as a <em>statement</em>
   anywhere, but you cannot use it as an <em>expression</em>, which means that the 
   following isn't valid C# code:</p>
-<pre lang="csharp">
-return 
+<pre >
+<span class="k">return</span> 
   (input == 1)
     ? (20 + 22) 
-    : (4 * (return false));
+    : (4 * (<span class="k">return</span> <span class="k">false</span>));
 </pre>  
 <p>The purpose of this example was just to demonstrate that disallowing imperative 
   <code>return</code> in F# makes quite a good sense. The next point that I want to make
@@ -121,10 +121,10 @@ return
   For example, let's say that you want to return <code>true</code> when some input
   collection of integers contains a number larger than 10 and <code>false</code> otherwise.
   The usual way to write this in C# would be something like this:</p>
-<pre lang="csharp">
-foreach(var n in input) 
-  if (n &gt; 10) return true;
-return false;
+<pre >
+<span class="k">foreach</span>(<span class="k">var</span> n <span class="k">in</span> input) 
+  <span class="k">if</span> (n &gt; 10) <span class="k">return</span> <span class="k">true</span>;
+<span class="k">return</span> <span class="k">false</span>;
 </pre>
 <p>There are various ways to write the same thing in F# - if you wanted to write this
   for the <code>IEnumerable&lt;T&gt;</code> type directly in F#, you couldn't use 
@@ -133,8 +133,8 @@ return false;
   function to do the processing. That sounds like a lot of pain. However, the F#
   library contains many generally useful higher order functions that make problems
   like this trivial. The previous example can be implemented in F# like this: </p>
-<pre lang="fsharp">
-Seq.exists (fun n -&gt; n &gt; 10) input
+<pre >
+Seq.exists (<span class="k">fun</span> n <span class="o">-&gt;</span> n &gt; 10) input
 </pre>
 <p>As you can see, this is even easier than the original imperative solution. 
   In fact, when using C# 3.0 and LINQ you would probably use one of the extension
@@ -152,8 +152,8 @@ Seq.exists (fun n -&gt; n &gt; 10) input
   of the builder in a second. Once we'll have it - we'll call it <code>ImperativeBuilder</code>,
   we can write the following code to create <code>imperative</code> value that's used when
   writing all the imperative computations.</p>
-<pre lang="fsharp">
-let imperative = new ImperativeBuilder()  
+<pre >
+<span class="k">let</span> imperative = <span class="k">new</span> ImperativeBuilder()  
 </pre>
 <p>This one line of code created the builder, which we can now use to write imperative
   style of code in F#. We'll start by looking at some trivial example to demonstrate
@@ -162,11 +162,11 @@ let imperative = new ImperativeBuilder()
   The following listing shows a single imperative function that contains the <code>return</code>
   statement two times. The behavior should be the same as C# - we want the first value
   to be returned and we don't want the <code>printfn</code> function to be ever called.</p>    
-<pre lang="fsharp">
-let test() = imperative {
-  return 0
-  printfn "after return!"
-  return 1 }
+<pre >
+<span class="k">let</span> test() = imperative {
+  <span class="k">return</span> 0
+  printfn <span class="s">"after return!"</span>
+  <span class="k">return</span> 1 }
 </pre>
 <p>When the F# compiler sees this code, it translates it into a couple of calls to 
   primitives provided by the <code>imperative</code> builder. The most important primitives
@@ -175,12 +175,12 @@ let test() = imperative {
   sub-expression, so when we use it multiple times, the compiler needs some way to combine
   these sub-expressions into one and that's exactly when it uses the <code>Combine</code>
   primitive.</p>
-<pre lang="fsharp">
+<pre >
 imperative.Run
  (imperative.Combine
    (imperative.Return(0),
-    imperative.Delay(fun () ->
-      printfn "after return"
+    imperative.Delay(<span class="k">fun</span> () <span class="o">-&gt;</span>
+      printfn <span class="s">"after return"</span>
       imperative.Return(1))))
 </pre>
 <p>There are a few other primitives that you can see in this example. We'll talk about them
@@ -213,8 +213,8 @@ imperative.Run
   represent a value that may be missing in F# is to use the <code>option&lt;'T&gt;</code>
   type, so we'll end up with a type that looks like this:</p>  
 
-<pre lang="fsharp">
-type Imperative&lt;'T&gt; = unit -&gt; option&lt;'T&gt;
+<pre >
+<span class="k">type</span> Imperative&lt;'T&gt; = unit <span class="o">-&gt;</span> option&lt;'T&gt;
 </pre>
 
 <p>This type can easily represent the two parts of the computation we've seen above.
@@ -234,37 +234,37 @@ type Imperative&lt;'T&gt; = unit -&gt; option&lt;'T&gt;
   of the article, we'll also add support for two looping constructs that can be 
   used inside computation expressions (<code>for</code> and <code>while</code> loops).</p>
 
-<pre lang="fsharp">
-type ImperativeBuilder() = 
-  // Creatae computation that returns the given value  
-  member x.Return(v) : Imperative&lt;_&gt; = 
-    (fun () -&gt; Some(v))
-  // Create computation that doesn't return any value
-  member x.Zero() = (fun () -&gt; None)
+<pre >
+<span class="k">type</span> ImperativeBuilder() = 
+  <span class="c">// Creatae computation that returns the given value  </span>
+  <span class="k">member</span> x.Return(v) : Imperative&lt;<span class="o">_</span>&gt; = 
+    (<span class="k">fun</span> () <span class="o">-&gt;</span> Some(v))
+  <span class="c">// Create computation that doesn't return any value</span>
+  <span class="k">member</span> x.Zero() = (<span class="k">fun</span> () <span class="o">-&gt;</span> None)
 
-  // Return a computation that will evaluate the provided function  
-  // only when the computation is being evaluated
-  member x.Delay(f:unit -&gt; Imperative&lt;_&gt;) = 
-    (fun () -&gt; f()())
+  <span class="c">// Return a computation that will evaluate the provided function  </span>
+  <span class="c">// only when the computation is being evaluated</span>
+  <span class="k">member</span> x.Delay(f:unit <span class="o">-&gt;</span> Imperative&lt;<span class="o">_</span>&gt;) = 
+    (<span class="k">fun</span> () <span class="o">-&gt;</span> f()())
   
-  // Combines two delayed computations (that may return 
-  // value imperatively using 'return') into one  
-  member x.Combine(a, b) = (fun () -&gt;
-    // run the first part of the computation
-    match a() with 
-    // if it returned, we can return the result immediately
-    | Some(v) -&gt; Some(v) 
-    // otherwise, we need to run the second part
-    | _ -&gt; b() )
+  <span class="c">// Combines two delayed computations (that may return </span>
+  <span class="c">// value imperatively using 'return') into one  </span>
+  <span class="k">member</span> x.Combine(a, b) = (<span class="k">fun</span> () <span class="o">-&gt;</span>
+    <span class="c">// run the first part of the computation</span>
+    <span class="k">match</span> a() <span class="k">with</span> 
+    <span class="c">// if it returned, we can return the result immediately</span>
+    <span class="o">|</span> Some(v) <span class="o">-&gt;</span> Some(v) 
+    <span class="c">// otherwise, we need to run the second part</span>
+    <span class="o">|</span> <span class="o">_</span> <span class="o">-&gt;</span> b() )
   
-  // Execute the imperative computation 
-  // expression given as an argument
-  member x.Run(imp) = 
-    // run the computation and return the result or 
-    // fail when the computation didn't return anything
-    match imp() with 
-    | Some(v) -&gt; v 
-    | None -&gt; failwith "nothing returned!"
+  <span class="c">// Execute the imperative computation </span>
+  <span class="c">// expression given as an argument</span>
+  <span class="k">member</span> x.Run(imp) = 
+    <span class="c">// run the computation and return the result or </span>
+    <span class="c">// fail when the computation didn't return anything</span>
+    <span class="k">match</span> imp() <span class="k">with</span> 
+    <span class="o">|</span> Some(v) <span class="o">-&gt;</span> v 
+    <span class="o">|</span> None <span class="o">-&gt;</span> failwith <span class="s">"nothing returned!"</span>
 </pre>
 <p>The first two members give us a way to construct primitive computations. The 
   computation created using <code>Return</code> is used when you write <code>return</code>
@@ -304,28 +304,28 @@ type ImperativeBuilder() =
   well-formed name. It uses various heuristics such as that the name should be
   at least two words, both reasonably long and both starting with an uppercase letter
   (By the way, sorry if your name doesn't pass the test - it's just a demo!)</p>
-<pre lang="fsharp">
-&gt; let validateName(arg:string) = imperative {
-    // Should be non-empty and should contain space
-    if (arg = null) then return false
-    let idx = arg.IndexOf(" ")
-    if (idx = -1) then return false
+<pre >
+&gt; <span class="k">let</span> validateName(arg:string) = imperative {
+    <span class="c">// Should be non-empty and should contain space</span>
+    <span class="k">if</span> (arg = <span class="k">null</span>) <span class="k">then</span> <span class="k">return</span> <span class="k">false</span>
+    <span class="k">let</span> idx = arg.IndexOf(<span class="s">" "</span>)
+    <span class="k">if</span> (idx = -1) <span class="k">then</span> <span class="k">return</span> <span class="k">false</span>
     
-    // Verify the name and the surname
-    let name = arg.Substring(0, idx)
-    let surname = arg.Substring(idx + 1, arg.Length - idx - 1)
-    if (surname.Length &lt; 1 || name.Length &lt; 1) then return false
-    if (Char.IsLower(surname.[0]) || Char.IsLower(name.[0])) then return false
+    <span class="c">// Verify the name and the surname</span>
+    <span class="k">let</span> name = arg.Substring(0, idx)
+    <span class="k">let</span> surname = arg.Substring(idx + 1, arg.Length - idx - 1)
+    <span class="k">if</span> (surname.Length &lt; 1 <span class="o">|</span><span class="o">|</span> name.Length &lt; 1) <span class="k">then</span> <span class="k">return</span> <span class="k">false</span>
+    <span class="k">if</span> (Char.IsLower(surname.[0]) <span class="o">|</span><span class="o">|</span> Char.IsLower(name.[0])) <span class="k">then</span> <span class="k">return</span> <span class="k">false</span>
 
-    // Looks like we've got a valid name!
-    return true }
-<em>val validateName : string -&gt; bool</em>
+    <span class="c">// Looks like we've got a valid name!</span>
+    <span class="k">return</span> <span class="k">true</span> }
+<em>val validateName : string <span class="o">-&gt;</span> bool</em>
 
-&gt; validateName(null);;
+&gt; validateName(<span class="k">null</span>);;
 <em>val it : bool = false</em>
-&gt; validateName("Tomas");;
+&gt; validateName(<span class="s">"Tomas"</span>);;
 <em>val it : bool = false</em>
-&gt; validateName("Tomas Petricek");;
+&gt; validateName(<span class="s">"Tomas Petricek"</span>);;
 <em>val it : bool = true</em>
 </pre>
 
@@ -355,26 +355,26 @@ type ImperativeBuilder() =
   However, in the next articles of this series, we'll need to change this implementation
   a bit, so it is good that the F# language allows us to implement this ourselves.</p>
 
-<pre lang="fsharp">
-type ImperativeBuilder with
-  member x.For(inp:seq&lt;_&gt;, f) =
-    // Process next element from the sequence
-    let rec loop(en:IEnumerator&lt;_&gt;) = 
-      // If ther are no more elements, return empty computation
-      if not(en.MoveNext()) then x.Zero() else
-        // Otherwise call body and combine it with a 
-        // computation that continues looping
-        x.Combine(f(en.Current), x.Delay(fun () -&gt; loop(en)))
-    // Start enumerating from the first element
+<pre >
+<span class="k">type</span> ImperativeBuilder <span class="k">with</span>
+  <span class="k">member</span> x.For(inp:seq&lt;<span class="o">_</span>&gt;, f) =
+    <span class="c">// Process next element from the sequence</span>
+    <span class="k">let</span> <span class="k">rec</span> loop(en:IEnumerator&lt;<span class="o">_</span>&gt;) = 
+      <span class="c">// If ther are no more elements, return empty computation</span>
+      <span class="k">if</span> not(en.MoveNext()) <span class="k">then</span> x.Zero() <span class="k">else</span>
+        <span class="c">// Otherwise call body and combine it with a </span>
+        <span class="c">// computation that continues looping</span>
+        x.Combine(f(en.Current), x.Delay(<span class="k">fun</span> () <span class="o">-&gt;</span> loop(en)))
+    <span class="c">// Start enumerating from the first element</span>
     loop(inp.GetEnumerator())
     
-  member x.While(gd, body) = 
-    // Perform one step of the 'looping'
-    let rec loop() =
-      // If the condition is false, return empty computation
-      if not(gd()) then x.Zero() else
-        // Otherwise, call body and then loop again
-        x.Combine(body, x.Delay(fun () -&gt; loop()))
+  <span class="k">member</span> x.While(gd, body) = 
+    <span class="c">// Perform one step of the 'looping'</span>
+    <span class="k">let</span> <span class="k">rec</span> loop() =
+      <span class="c">// If the condition is false, return empty computation</span>
+      <span class="k">if</span> not(gd()) <span class="k">then</span> x.Zero() <span class="k">else</span>
+        <span class="c">// Otherwise, call body and then loop again</span>
+        x.Combine(body, x.Delay(<span class="k">fun</span> () <span class="o">-&gt;</span> loop()))
     loop()
 </pre>
 <p>We use type augmentation to add the two members to the existing 
@@ -396,22 +396,22 @@ type ImperativeBuilder with
   real world problems. We'll start with the <code>while</code> loop and we'll use it
   to create a loop that reads names from the console and returns the first one that's valid:</p>  
 
-<pre lang="fsharp">
-&gt; let readFirstName() = imperative {
-    // Loop until the user enters valid name
-    while true do
-      let name = Console.ReadLine()
-      // If the name is valid, we return it, otherwise
-      // we continue looping...
-      if (validateName(name)) then return name
-      printfn "That's not a valid name! Try again..." }
-<em>val it : (unit -> string) = &lt;fun:clo@0&gt;</em>
+<pre >
+&gt; <span class="k">let</span> readFirstName() = imperative {
+    <span class="c">// Loop until the user enters valid name</span>
+    <span class="k">while</span> <span class="k">true</span> <span class="k">do</span>
+      <span class="k">let</span> name = Console.ReadLine()
+      <span class="c">// If the name is valid, we return it, otherwise</span>
+      <span class="c">// we continue looping...</span>
+      <span class="k">if</span> (validateName(name)) <span class="k">then</span> <span class="k">return</span> name
+      printfn <span class="s">"That's not a valid name! Try again..."</span> }
+<em>val it : (unit <span class="o">-&gt;</span> string) = &lt;<span class="k">fun</span>:clo@0&gt;</em>
 
 &gt; readFirstName();;
 <em>Tomas
 That's not a valid name! Try again...
 Tomas Petricek
-val it : string = "Tomas Petricek"</em>
+<span class="k">val</span> it : string = <span class="s">"Tomas Petricek"</span></em>
 </pre>
 <p>The listing starts by implementing the <code>readFirstName</code> function. If we look at 
   its signature printed by the F# interactive, we can see that it returns <code>string</code>,
@@ -446,14 +446,14 @@ val it : string = "Tomas Petricek"</em>
   is very easy, because we can simply use <code>for</code> loop to enumerate over the source 
   sequence. When the predicate returns <code>true</code> for the first time, 
   we can immediately terminate the execution and return <code>true</code> as the overall result.</p>
-<pre lang="fsharp">
-&gt; let exists f inp = imperative {
-    for v in inp do 
-      if f(v) then return true
-    return false }
-<em>val exists : ('a -&gt; bool) -&gt; seq&lt;'a&gt; -> bool</em>
+<pre >
+&gt; <span class="k">let</span> exists f inp = imperative {
+    <span class="k">for</span> v <span class="k">in</span> inp <span class="k">do</span> 
+      <span class="k">if</span> f(v) <span class="k">then</span> <span class="k">return</span> <span class="k">true</span>
+    <span class="k">return</span> <span class="k">false</span> }
+<em>val exists : ('a <span class="o">-&gt;</span> bool) <span class="o">-&gt;</span> seq&lt;'a&gt; <span class="o">-&gt;</span> bool</em>
 
-&gt; [ 1 .. 10 ] |&gt; exists (fun v -&gt; v % 3 = 0)
+&gt; <span class="o">[</span> 1 .. 10 <span class="o">]</span> <span class="o">|</span>&gt; exists (<span class="k">fun</span> v <span class="o">-&gt;</span> v % 3 = 0)
 <em>val it : bool = true</em>
 </pre>
 <p>As you can see, the implementation of the function couldn't be easier. If the 
@@ -591,7 +591,7 @@ val it : string = "Tomas Petricek"</em>
     <h4>Blog tags</h4>
     <p>
 
-      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(97),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(33),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(29),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(10),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/fsharp-data/">f# data</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/monads/">monads</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/art/">art</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fractals/">fractals</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/funscript/">funscript</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/coeffects/">coeffects</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/comonads/">comonads</a>&nbsp;(1)    </p>
+      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(97),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(33),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(10),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(29),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/fsharp-data/">f# data</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/monads/">monads</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/art/">art</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fractals/">fractals</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/funscript/">funscript</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(1)    </p>
 
   </div>
 </div>

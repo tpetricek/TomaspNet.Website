@@ -124,41 +124,41 @@ private void DrawBranch(Graphics output,
   snowflake melting. <code>RandomSnowFlake</code> is class derived from
   <code>SnowFlake</code>. Only one difference is that, all properties of snowflake are
   generated from random numbers in constructor, so you don't have to set all properties
-  if you want to create snowflake.</p><pre lang="cs"><span class="c">// Draw snowflakes in Paint event handler</span>
-private void Form_Paint(object sender, PaintEventArgs pe)
+  if you want to create snowflake.</p><pre >&lt;span <span class="k">class</span>=<span class="s">"c"</span>&gt;<span class="c">// Draw snowflakes in Paint event handler&lt;/span&gt;</span>
+<span class="k">private</span> <span class="k">void</span> Form_Paint(<span class="k">object</span> sender, PaintEventArgs pe)
 {
-  Random rndGen=new Random();
+  Random rndGen=<span class="k">new</span> Random();
   pe.Graphics.Clear(Color.Black);
-  SnowFlake flake=new SnowFlake(),
-    random=new RandomSnowFlake(rndGen.Next(Int32.MaxValue));
+  SnowFlake flake=<span class="k">new</span> SnowFlake(),
+    random=<span class="k">new</span> RandomSnowFlake(rndGen.Next(Int32.MaxValue));
           
-  <span class="c">// draw snowflake</span>
-  flake.Draw(pe.Graphics,new PointF(70.0f,70.0f));
+  &lt;span <span class="k">class</span>=<span class="s">"c"</span>&gt;<span class="c">// draw snowflake&lt;/span&gt;</span>
+  flake.Draw(pe.Graphics,<span class="k">new</span> PointF(70.0f,70.0f));
 
-  <span class="c">// draw melting snowflake</span>
-  flake.Draw(pe.Graphics,new PointF(70.0f,140.0f,128));
+  &lt;span <span class="k">class</span>=<span class="s">"c"</span>&gt;<span class="c">// draw melting snowflake&lt;/span&gt;</span>
+  flake.Draw(pe.Graphics,<span class="k">new</span> PointF(70.0f,140.0f,128));
 
-  <span class="c">// draw random snowflake</span>
-  random.Draw(pe.Graphics,new PointF(105.0f,105.0f));
+  &lt;span <span class="k">class</span>=<span class="s">"c"</span>&gt;<span class="c">// draw random snowflake&lt;/span&gt;</span>
+  random.Draw(pe.Graphics,<span class="k">new</span> PointF(105.0f,105.0f));
 }
 </pre><h4>Using SnowControl</h4><p><code>SnowControl</code> is the control for creating falling snowflakes. This is
   exactly the same control as control filling the whole screen of screensaver. This
   control can be added to a <code>Form</code> using designer, or manually using code
   similar to following:</p><p>This control has a lot of properties, that are described in <i>Screen saver
-  settings</i> section.</p><pre lang="cs">
+  settings</i> section.</p><pre >
 SnowControl snowCtrl;
 
-public Form()
+<span class="k">public</span> Form()
 {
-  <span class="c">// Create control</span>
-  snowCtrl=new SnowControl();
+  &lt;span <span class="k">class</span>=<span class="s">"c"</span>&gt;<span class="c">// Create control&lt;/span&gt;</span>
+  snowCtrl=<span class="k">new</span> SnowControl();
   Controls.Add(snowCtrl);
   snowCtrl.Dock=DockStyle.Fill;
 }
 
-private void Form_Load(object sender,EventArgs e)
+<span class="k">private</span> <span class="k">void</span> Form_Load(<span class="k">object</span> sender,EventArgs e)
 {
-  <span class="c">// Start animation</span>
+  &lt;span <span class="k">class</span>=<span class="s">"c"</span>&gt;<span class="c">// Start animation&lt;/span&gt;</span>
   snowCtrl.Start();
 }
 </pre><p><img height="112" alt="Screen saver" src="fractalsnow/screensaver.gif" width="125" align="right" /></p><h2>SnowControl and Screensaver settings</h2><h4>Environment</h4><p>Property called <code>StopFalling</code> is length in pixels from bottom of the
@@ -290,7 +290,7 @@ private void Form_Load(object sender,EventArgs e)
     <h4>Blog tags</h4>
     <p>
 
-      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(97),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(33),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(29),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(10),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/fsharp-data/">f# data</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/monads/">monads</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/art/">art</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fractals/">fractals</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/funscript/">funscript</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/coeffects/">coeffects</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/comonads/">comonads</a>&nbsp;(1)    </p>
+      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(97),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(33),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(10),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(29),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/fsharp-data/">f# data</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/monads/">monads</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/art/">art</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fractals/">fractals</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/funscript/">funscript</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(1)    </p>
 
   </div>
 </div>

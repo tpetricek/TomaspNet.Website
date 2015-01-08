@@ -101,13 +101,13 @@
   when we want to compile code as quotations, we mark it explicitly. The following example
   demonstrates a quoted lambda function that implements blurring of F# <code>Matrix</code>
   values (only in the X coordinate to make the code simpler):</p>
-<pre lang="fsharp">
-&gt; &lt;@ fun input -&gt;
-    let sum = (shift input -1 0) .+
+<pre >
+&gt; <span class="o">&lt;@</span> <span class="k">fun</span> input <span class="o">-&gt;</span>
+    <span class="k">let</span> sum = (shift input -1 0) .+
      input .+ (shift input +1 0) 
-    sum /| 3.0f
-  @&gt;;;
-val it : Expr&lt;Matrix&lt;float32&gt; -&gt; Matrix&lt;float32&gt;&gt;  
+    sum /<span class="o">|</span> 3.0f
+  <span class="o">@&gt;</span>;;
+<span class="k">val</span> it : Expr&lt;Matrix&lt;float32&gt; <span class="o">-&gt;</span> Matrix&lt;float32&gt;&gt;  
 </pre>
 <p>You'll understand the implementation of the function in full details after 
   reading the article. Briefly, the <code>shift</code> function moves values in the 
@@ -133,13 +133,13 @@ val it : Expr&lt;Matrix&lt;float32&gt; -&gt; Matrix&lt;float32&gt;&gt;
   However, there is one more interesting thing when it comes to quotations. We can also
   take a quotation of a standard F# function when it is marked with the 
   <code>ReflectedDefinition</code> attribute:</p>  
-<pre lang="fsharp">
-&gt; [&lt;ReflectedDefinition&gt;]
-  let blur input =
-    let sum = (shift input -1) .+
+<pre >
+&gt; <span class="o">[</span>&lt;ReflectedDefinition&gt;<span class="o">]</span>
+  <span class="k">let</span> blur input =
+    <span class="k">let</span> sum = (shift input -1) .+
       input .+ (shift input +1) 
-    sum /| 3.0f;;
-val blur : Matrix&lt;float32&gt; -&gt; Matrix&lt;float32&gt;
+    sum /<span class="o">|</span> 3.0f;;
+<span class="k">val</span> blur : Matrix&lt;float32&gt; <span class="o">-&gt;</span> Matrix&lt;float32&gt;
 </pre>
 <p>This time, we wrote a standard function named <code>blur</code>. As you can see, 
   the inferred type signature is also a usual function. The interesting thing about
@@ -177,22 +177,22 @@ val blur : Matrix&lt;float32&gt; -&gt; Matrix&lt;float32&gt;
   <code>Float4</code> module in the implementation. We'll introduce the type with a single
   example:
 </p>
-<pre lang="fsharp">
-&gt; #r "FSharp.PowerPack.dll";;
-&gt; #load "Float4.fs";;
-&gt; open System.Drawing
-  open FSharp.Math;;
+<pre >
+&gt; #r <span class="s">"FSharp.PowerPack.dll"</span>;;
+&gt; #load <span class="s">"Float4.fs"</span>;;
+&gt; <span class="k">open</span> System.Drawing
+  <span class="k">open</span> FSharp.Math;;
 
-&gt; let clr1 = float4(1.0f, 0.5f, 1.0f, 0.0f)
-  let clr2 = Float4.ofColor Color.Magenta;;
-val clr1 : Float4 = (1,0.5,1,0)
-val clr2 : Float4 = (1,1,0,1)
+&gt; <span class="k">let</span> clr1 = float4(1.0f, 0.5f, 1.0f, 0.0f)
+  <span class="k">let</span> clr2 = Float4.ofColor Color.Magenta;;
+<span class="k">val</span> clr1 : Float4 = (1,0.5,1,0)
+<span class="k">val</span> clr2 : Float4 = (1,1,0,1)
 
-&gt; let sum = List.sum [clr1; clr2];;
-val sum : Float4 = (2,1.5,1,1)
+&gt; <span class="k">let</span> sum = List.sum [clr1; clr2];;
+<span class="k">val</span> sum : Float4 = (2,1.5,1,1)
  
 &gt; sum / Float4.ofSingle(2.0f);;
-val it : Float4 = (1,0.75,0.5,0.5)
+<span class="k">val</span> it : Float4 = (1,0.75,0.5,0.5)
 </pre>
 <p>We start by loading the implementation of the type. Note that you may need to specify
   the full path to the implementation file. Then we create two <code>float4</code> values.
@@ -210,19 +210,19 @@ val it : Float4 = (1,0.75,0.5,0.5)
   <code>Microsoft.FSharp.Math</code> namespace. We're going to use a generic version
   of the type (the non-generic one simply stores values of type <code>float</code>).
   We can work with it using numerous higher-order functions provided by the F# library:</p>
-<pre lang="fsharp">
-&gt; open Microsoft.FSharp.Math
-  module Matrix = Matrix.Generic;;
+<pre >
+&gt; <span class="k">open</span> Microsoft.FSharp.Math
+  <span class="k">module</span> Matrix = Matrix.Generic;;
 
-&gt; let m1 = Matrix.init 4 4 (fun y x -&gt; float32(x*10 + y));;
-val m1 : Matrix&lt;float32&gt; = 
-  matrix [[0.0f; 10.0f; 20.0f; 30.0f]; [1.0f; 11.0f; 21.0f; 31.0f]
-          [2.0f; 12.0f; 22.0f; 32.0f]; [3.0f; 13.0f; 23.0f; 33.0f]]
+&gt; <span class="k">let</span> m1 = Matrix.init 4 4 (<span class="k">fun</span> y x <span class="o">-&gt;</span> float32(x*10 + y));;
+<span class="k">val</span> m1 : Matrix&lt;float32&gt; = 
+  matrix <span class="o">[</span>[0.0f; 10.0f; 20.0f; 30.0f]; [1.0f; 11.0f; 21.0f; 31.0f]
+          [2.0f; 12.0f; 22.0f; 32.0f]; [3.0f; 13.0f; 23.0f; 33.0f]<span class="o">]</span>
 
-&gt; let m2 = m1 |> Matrix.map (fun v -&gt; sqrt(v));;
-val m2 : Matrix&lt;float32&gt; =
-  matrix [[0.0f; 3.1f; 4.4f; 5.4f]; [1.0f; 3.3f; 4.5f; 5.5f]
-          [1.4f; 3.4f; 4.6f; 5.6f]; [1.7f; 3.6f; 4.7f; 5.7f]]
+&gt; <span class="k">let</span> m2 = m1 <span class="o">|</span>&gt; Matrix.map (<span class="k">fun</span> v <span class="o">-&gt;</span> sqrt(v));;
+<span class="k">val</span> m2 : Matrix&lt;float32&gt; =
+  matrix <span class="o">[</span>[0.0f; 3.1f; 4.4f; 5.4f]; [1.0f; 3.3f; 4.5f; 5.5f]
+          [1.4f; 3.4f; 4.6f; 5.6f]; [1.7f; 3.6f; 4.7f; 5.7f]<span class="o">]</span>
 </pre>
 <p>We started by opening the namespace with various mathematical types and 
   modules and by creating an alias for a module, which contains functions for working
@@ -257,30 +257,30 @@ val m2 : Matrix&lt;float32&gt; =
   Let's first look how to implement the same functionality as in previous listing,
   using operations from the <code>DataParallel</code> module:</p>  
 
-<pre lang="fsharp">
-&gt; #load @"DataParallel.fs";;
-&gt; open FSharp.Math
-  open FSharp.Math.DataParallel;;
+<pre >
+&gt; #load <span class="s">@"DataParallel.fs"</span>;;
+&gt; <span class="k">open</span> FSharp.Math
+  <span class="k">open</span> FSharp.Math.DataParallel;;
 
-&gt; let posX = positions 4 4 1
-  let posY = positions 4 4 0;;
-val posX : Matrix&lt;int&gt; = 
-  matrix [[0; 0; 0; 0]; [1; 1; 1; 1]
-          [2; 2; 2; 2]; [3; 3; 3; 3]]
-val posY : Matrix&lt;int&gt; = 
-  matrix [[0; 1; 2; 3]; [0; 1; 2; 3]
-          [0; 1; 2; 3]; [0; 1; 2; 3]]
+&gt; <span class="k">let</span> posX = positions 4 4 1
+  <span class="k">let</span> posY = positions 4 4 0;;
+<span class="k">val</span> posX : Matrix&lt;int&gt; = 
+  matrix <span class="o">[</span>[0; 0; 0; 0]; [1; 1; 1; 1]
+          [2; 2; 2; 2]; [3; 3; 3; 3]<span class="o">]</span>
+<span class="k">val</span> posY : Matrix&lt;int&gt; = 
+  matrix <span class="o">[</span>[0; 1; 2; 3]; [0; 1; 2; 3]
+          [0; 1; 2; 3]; [0; 1; 2; 3]<span class="o">]</span>
 
-&gt; let m1Ints = posX *| 10 .+ posY
-  let m1 = Conversions.singleOfInt m1Ints;;
-val m1 : Matrix&lt;float32&gt; = 
-  matrix [[0.0f; 10.0f; 20.0f; 30.0f]; [1.0f; 11.0f; 21.0f; 31.0f]
-          [2.0f; 12.0f; 22.0f; 32.0f]; [3.0f; 13.0f; 23.0f; 33.0f]]
+&gt; <span class="k">let</span> m1Ints = posX *<span class="o">|</span> 10 .+ posY
+  <span class="k">let</span> m1 = Conversions.singleOfInt m1Ints;;
+<span class="k">val</span> m1 : Matrix&lt;float32&gt; = 
+  matrix <span class="o">[</span>[0.0f; 10.0f; 20.0f; 30.0f]; [1.0f; 11.0f; 21.0f; 31.0f]
+          [2.0f; 12.0f; 22.0f; 32.0f]; [3.0f; 13.0f; 23.0f; 33.0f]<span class="o">]</span>
 
-&gt; let m2 = pointwiseSqrt m1;;
-val m2 : Matrix&lt;float32&gt; = 
-  matrix [[0.0f; 3.1f; 4.4f; 5.4f]; [1.0f; 3.3f; 4.5f; 5.5f]
-          [1.4f; 3.4f; 4.6f; 5.6f]; [1.7f; 3.6f; 4.7f; 5.7f]]
+&gt; <span class="k">let</span> m2 = pointwiseSqrt m1;;
+<span class="k">val</span> m2 : Matrix&lt;float32&gt; = 
+  matrix <span class="o">[</span>[0.0f; 3.1f; 4.4f; 5.4f]; [1.0f; 3.3f; 4.5f; 5.5f]
+          [1.4f; 3.4f; 4.6f; 5.6f]; [1.7f; 3.6f; 4.7f; 5.7f]<span class="o">]</span>
 </pre>
 <p>The listing starts by loading the file with the implementation (later we'll use it 
   in a project, so you can reference the library or include the file in your project) and
@@ -324,26 +324,26 @@ val m2 : Matrix&lt;float32&gt; =
   <code>DataParallel</code> module. In the next section, we'll look how to run the function
   on GPU (which is also a reason why the declaration is marked with the 
   <code>ReflectedDefinition</code> attribute).</p>
-<pre lang="fsharp">
-[&lt;ReflectedDefinition&gt;]
-let rotateImage s c w h whalf hhalf (data:Matrix&lt;float4&gt;) =
-  // Initialize arrays with X and Y coordinates of a bitmap 
-  // and convert numbers to mid-image coordinates
-  let posX = (Conversions.singleOfInt (positions w h 0)) -| whalf
-  let posY = (Conversions.singleOfInt (positions w h 1)) -| hhalf
+<pre >
+<span class="o">[</span>&lt;ReflectedDefinition&gt;<span class="o">]</span>
+<span class="k">let</span> rotateImage s c w h whalf hhalf (data:Matrix&lt;float4&gt;) =
+  <span class="c">// Initialize arrays with X and Y coordinates of a bitmap </span>
+  <span class="c">// and convert numbers to mid-image coordinates</span>
+  <span class="k">let</span> posX = (Conversions.singleOfInt (positions w h 0)) -<span class="o">|</span> whalf
+  <span class="k">let</span> posY = (Conversions.singleOfInt (positions w h 1)) -<span class="o">|</span> hhalf
     
-  // Calculate rotated coordinates 
-  let rotatedX = posX *| c .- posY *| s
-  let rotatedY = posY *| c .+ posX *| s
+  <span class="c">// Calculate rotated coordinates </span>
+  <span class="k">let</span> rotatedX = posX *<span class="o">|</span> c .- posY *<span class="o">|</span> s
+  <span class="k">let</span> rotatedY = posY *<span class="o">|</span> c .+ posX *<span class="o">|</span> s
   
-  // Convert back to corner coordinates.
-  let posX = rotatedX +| whalf
-  let posY = rotatedY +| hhalf
+  <span class="c">// Convert back to corner coordinates.</span>
+  <span class="k">let</span> posX = rotatedX +<span class="o">|</span> whalf
+  <span class="k">let</span> posY = rotatedY +<span class="o">|</span> hhalf
 
-  // Calculate X and Y indices and get values at indices  
-  // Note: We'll implement version wiht smoothing later!
-  let indX = Conversions.intOfSingle posX
-  let indY = Conversions.intOfSingle posY
+  <span class="c">// Calculate X and Y indices and get values at indices  </span>
+  <span class="c">// Note: We'll implement version wiht smoothing later!</span>
+  <span class="k">let</span> indX = Conversions.intOfSingle posX
+  <span class="k">let</span> indY = Conversions.intOfSingle posY
   gather data indX indY
 </pre>
 <p>We start with the matrices created by the <code>positions</code> function,
@@ -395,17 +395,17 @@ let rotateImage s c w h whalf hhalf (data:Matrix&lt;float4&gt;) =
   CPU and GPU versions. It takes an actual function that performs the rotation as 
   the first parameter. The second parameter and the return type are the same
   and contain the rotated image and the desired angle (<code>Matrix&lt;float4&gt; * float</code>).</p>  
-<pre lang="fsharp">
-let bmp = Bitmap.FromFile(Application.StartupPath+"\\prague.jpg") :?> Bitmap   
-let data = bmp |> Conversions.matrixOfBitmap Float4.ofColor
+<pre >
+<span class="k">let</span> bmp = Bitmap.FromFile(Application.StartupPath+<span class="s">"\\prague.jpg"</span>) :?&gt; Bitmap   
+<span class="k">let</span> data = bmp <span class="o">|</span>&gt; Conversions.matrixOfBitmap Float4.ofColor
 
-/// Performs pre-computation of sin and cos values and then
-/// invokes the rotation function passed as the first parameter
-let rotationStep invokeRotation (_, angle) =    
-  let angle = if (angle >= 359.0) then 0.0 else (angle + 1.0)
-  let angleRad = Math.PI / 180.0 * angle
-  let (s, c) = float32(Math.Sin(angleRad)), float32(Math.Cos(angleRad))      
-  let (w, h) = (bmp.Width, bmp.Height)
+<span class="c">/// Performs pre-computation of sin and cos values and then</span>
+<span class="c">/// invokes the rotation function passed as the first parameter</span>
+<span class="k">let</span> rotationStep invokeRotation (<span class="o">_</span>, angle) =    
+  <span class="k">let</span> angle = <span class="k">if</span> (angle &gt;= 359.0) <span class="k">then</span> 0.0 <span class="k">else</span> (angle + 1.0)
+  <span class="k">let</span> angleRad = Math.PI / 180.0 * angle
+  <span class="k">let</span> (s, c) = float32(Math.Sin(angleRad)), float32(Math.Cos(angleRad))      
+  <span class="k">let</span> (w, h) = (bmp.Width, bmp.Height)
   (invokeRotation s c w h (w / 2) (h / 2), angle)
 </pre>  
 <p>We start by loading a bitmap from the application startup folder and then
@@ -426,10 +426,10 @@ let rotationStep invokeRotation (_, angle) =
   We'll use a form similar to the one we used when showing the Game of Life to
   run the function iteratively and display the result after each step:
   </p>  
-<pre lang="fsharp">
-let run = rotationStep (fun sn cs wid hgt widhalf hgthalf -&gt;
+<pre >
+<span class="k">let</span> run = rotationStep (<span class="k">fun</span> sn cs wid hgt widhalf hgthalf <span class="o">-&gt;</span>
   rotateImage sn cs wid hgt widhalf hgthalf data)
-let toBitmap = fst >> Conversions.bitmapOfMatrix Float4.toColor  
+<span class="k">let</span> toBitmap = fst &gt;&gt; Conversions.bitmapOfMatrix Float4.toColor  
 DrawingForm.Run((data, 0.0), run, toBitmap)
 </pre>
 <p>The first parameter of the form is an initial state. The second parameter is a
@@ -450,19 +450,19 @@ DrawingForm.Run((data, 0.0), run, toBitmap)
   Now we can use a translator I implemented (which is available as a source
   code download below). The translator evaluates quoted data-parallel code using
   Accelerator, so we only need to invoke it:</p>
-<pre lang="fsharp">
-open FSharp.Accelerator
-open FSharp.Accelerator.EvalTransformation
+<pre >
+<span class="k">open</span> FSharp.Accelerator
+<span class="k">open</span> FSharp.Accelerator.EvalTransformation
 
-let target = new Microsoft.ParallelArrays.DX9Target()
-let processed = Accelerate.accelerate &lt;@@ rotateImage @@&gt;
-let runAcc =    
-  rotationStep (fun sn cs wid hgt widhalf hgthalf -&gt;
+<span class="k">let</span> target = <span class="k">new</span> Microsoft.ParallelArrays.DX9Target()
+<span class="k">let</span> processed = Accelerate.accelerate <span class="o">&lt;@@</span> rotateImage <span class="o">@@&gt;</span>
+<span class="k">let</span> runAcc =    
+  rotationStep (<span class="k">fun</span> sn cs wid hgt widhalf hgthalf <span class="o">-&gt;</span>
     eval&lt;Matrix&lt;float4&gt;&gt; target processed
-      [ makeValue sn; makeValue cs; makeValue wid; makeValue hgt;  
-        makeValue widhalf; makeValue hgthalf; makeValue data ])
+      <span class="o">[</span> makeValue sn; makeValue cs; makeValue wid; makeValue hgt;  
+        makeValue widhalf; makeValue hgthalf; makeValue data <span class="o">]</span>)
 
-let toBitmap = fst >> Conversions.bitmapOfMatrix Float4.toColor
+<span class="k">let</span> toBitmap = fst &gt;&gt; Conversions.bitmapOfMatrix Float4.toColor
 DrawingForm.Run((data, 0.0), runAcc, toBitmap)
 </pre>
 <p>The code is slightly more complicated than the version running on CPU, but 
@@ -634,7 +634,7 @@ DrawingForm.Run((data, 0.0), runAcc, toBitmap)
     <h4>Blog tags</h4>
     <p>
 
-      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(97),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(33),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(29),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(10),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/fsharp-data/">f# data</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/monads/">monads</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/art/">art</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fractals/">fractals</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/funscript/">funscript</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/coeffects/">coeffects</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/comonads/">comonads</a>&nbsp;(1)    </p>
+      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(97),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(33),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(10),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(29),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/fsharp-data/">f# data</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/monads/">monads</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/art/">art</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fractals/">fractals</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/funscript/">funscript</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(1)    </p>
 
   </div>
 </div>

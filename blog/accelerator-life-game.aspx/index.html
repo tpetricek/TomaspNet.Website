@@ -125,14 +125,14 @@
   of the specified size that contain constant values. We're using the <code>FPA</code>
   type alias from the <a href="accelerator-intro.aspx">previous article</a>.</p>
 
-<pre lang="fsharp">
-// Configuration of the game
-let gridSize, formSize = 512, 512
+<pre >
+<span class="c">// Configuration of the game</span>
+<span class="k">let</span> gridSize, formSize = 512, 512
 
-// Initialization of constant 2D arrays
-let shape = [| gridSize; gridSize; |]
-let [zero; one; two; three] =
-  [ for f in [0.0f; 1.0f; 2.0f; 3.0f] -&gt; new FPA(f, shape) ]
+<span class="c">// Initialization of constant 2D arrays</span>
+<span class="k">let</span> shape = <span class="o">[|</span> gridSize; gridSize; <span class="o">|</span><span class="o">]</span>
+<span class="k">let</span> [zero; one; two; three] =
+  <span class="o">[</span> <span class="k">for</span> f <span class="k">in</span> [0.0f; 1.0f; 2.0f; 3.0f] <span class="o">-&gt;</span> <span class="k">new</span> FPA(f, shape) <span class="o">]</span>
 </pre>
 <p>The code uses a simple sequence expression that iterates over a list of 
   constants stored as floats and yields a new <code>FPA</code> instance with
@@ -148,14 +148,14 @@ let [zero; one; two; three] =
   we'll also implement a single function that wrap the Accelerator 
   functionality and three custom operators:</p>
   
-<pre lang="fsharp">
-// Calculating with 2D float arrays 
-let rotate (a:FPA) (dx:int) dy = PA.Rotate(a, [| dx; dy |]);
+<pre >
+<span class="c">// Calculating with 2D float arrays </span>
+<span class="k">let</span> rotate (a:FPA) (dx:int) dy = PA.Rotate(a, <span class="o">[|</span> dx; dy <span class="o">|</span><span class="o">]</span>);
 
-// Custom operators - simulating logical operations using floats
-let (&amp;&amp;.) (a:FPA) (b:FPA) = PA.Min(a, b)
-let (||.) (a:FPA) (b:FPA) = PA.Max(a, b)
-let (==.) (a:FPA) (b:FPA) = PA.Cond(PA.CompareEqual(a, b), one, zero)
+<span class="c">// Custom operators - simulating logical operations using floats</span>
+<span class="k">let</span> (&amp;&amp;.) (a:FPA) (b:FPA) = PA.Min(a, b)
+<span class="k">let</span> (<span class="o">|</span><span class="o">|</span>.) (a:FPA) (b:FPA) = PA.Max(a, b)
+<span class="k">let</span> (==.) (a:FPA) (b:FPA) = PA.Cond(PA.CompareEqual(a, b), one, zero)
 </pre>
 
 <p>As you can see, all of our functions and operators are simple wrappers for
@@ -196,10 +196,10 @@ let (==.) (a:FPA) (b:FPA) = PA.Cond(PA.CompareEqual(a, b), one, zero)
   and the first row and column of the grid (<code>x = 0 || y = 0</code>). This is
   enough to start a very interesting simulation. If you'll later want to experiment
   with the code, you may try changing the initial configuration:</p>
-<pre lang="fsharp">
-// Create an initial data grid
-let initial = Array2D.init gridSize gridSize (fun x y -&gt; 
-  if x = 0 || y = 0 || x = y then 1.0f else 0.0f)
+<pre >
+<span class="c">// Create an initial data grid</span>
+<span class="k">let</span> initial = Array2D.init gridSize gridSize (<span class="k">fun</span> x y <span class="o">-&gt;</span> 
+  <span class="k">if</span> x = 0 <span class="o">|</span><span class="o">|</span> y = 0 <span class="o">|</span><span class="o">|</span> x = y <span class="k">then</span> 1.0f <span class="k">else</span> 0.0f)
 </pre>
 <p>The code uses F# library function <code>Array2D.init</code>, which takes the
   dimensions of an array as first two arguments. The last argument is a function
@@ -210,20 +210,20 @@ let initial = Array2D.init gridSize gridSize (fun x y -&gt;
   result. As I explained earlier, this is just a representation of a computation
   that can be executed later. We'll run the constructed computation later to get a 
   result of type <code>float32[,]</code>, which can be easily visualized.</p>  
-<pre lang="fsharp">
-let nextGeneration (grid:FPA) =
-  // Generate grids shifted by 1 in every direction
-  let hd::tl = 
-    [ for dx in -1 .. 1 do
-        for dy in -1 .. 1 do
-          if dx &lt;&gt; 0 || dy &lt;&gt; 0 then 
-            yield rotate grid dx dy ]
+<pre >
+<span class="k">let</span> nextGeneration (grid:FPA) =
+  <span class="c">// Generate grids shifted by 1 in every direction</span>
+  <span class="k">let</span> hd::tl = 
+    <span class="o">[</span> <span class="k">for</span> dx <span class="k">in</span> -1 .. 1 <span class="k">do</span>
+        <span class="k">for</span> dy <span class="k">in</span> -1 .. 1 <span class="k">do</span>
+          <span class="k">if</span> dx &lt;&gt; 0 <span class="o">|</span><span class="o">|</span> dy &lt;&gt; 0 <span class="k">then</span> 
+            <span class="k">yield</span> rotate grid dx dy <span class="o">]</span>
 
-  // Count neighbors of each grid element
-  let sum = tl |&gt; List.fold (+) hd
+  <span class="c">// Count neighbors of each grid element</span>
+  <span class="k">let</span> sum = tl <span class="o">|</span>&gt; List.fold (+) hd
   
-  // Implements the Game of Life logic
-  (sum ==. three) ||. ((sum ==. two) &amp;&amp;. grid)
+  <span class="c">// Implements the Game of Life logic</span>
+  (sum ==. three) <span class="o">|</span><span class="o">|</span>. ((sum ==. two) &amp;&amp;. grid)
 </pre>
 <p>In the first step, the function creates a list of 8 grids rotated in all 
   of the 8 possible directions (north, northeast, east, southeast, etc). 
@@ -265,24 +265,24 @@ let nextGeneration (grid:FPA) =
   running the step operation in a loop and we'll look at its source in 
   the next subsection.</p>
 
-<pre lang="fsharp">
-let life(target:Target) =
-  // Functions to calculate next state and to draw it
-  let nextState (g:float32[,]) =
-    target.ToArray2D(nextGeneration(new FPA(g)))
-  let display (data:float32[,]) =
-    data |&gt; toBitmap (fun f -&gt; 
-      if (f &lt; 0.5f) then Color.White else Color.DarkCyan)
+<pre >
+<span class="k">let</span> life(target:Target) =
+  <span class="c">// Functions to calculate next state and to draw it</span>
+  <span class="k">let</span> nextState (g:float32[,<span class="o">]</span>) =
+    target.ToArray2D(nextGeneration(<span class="k">new</span> FPA(g)))
+  <span class="k">let</span> display (data:float32[,<span class="o">]</span>) =
+    data <span class="o">|</span>&gt; toBitmap (<span class="k">fun</span> f <span class="o">-&gt;</span> 
+      <span class="k">if</span> (f &lt; 0.5f) <span class="k">then</span> Color.White <span class="k">else</span> Color.DarkCyan)
 
-  // Run the drawing form with life game
-  let gameForm = 
-    new DrawingForm&lt;_&gt;
+  <span class="c">// Run the drawing form with life game</span>
+  <span class="k">let</span> gameForm = 
+    <span class="k">new</span> DrawingForm&lt;<span class="o">_</span>&gt;
       (initial, nextState, display, 
        ClientSize = Size(formSize, formSize))
   Application.Run(gameForm)  
 
-do
-  life(new DX9Target())
+<span class="k">do</span>
+  life(<span class="k">new</span> DX9Target())
 </pre>
 <p>We already have the <code>nextGeneration</code> function, which has a type
   <code>FPA -&gt; FPA</code>. It returns a computation that represents the next 
@@ -317,19 +317,19 @@ do
   recomputed using the provided function when the form is running. We'll implement 
   the form using the implicit class syntax:</p>
   
-<pre lang="fsharp">
-type DrawingForm&lt;'TState&gt;(initial, update, draw) as x = 
-  inherit Form()
-  // Loop that runs computation &amp; redraws form
-  let rec drawingLoop(state) = 
-    if not x.IsDisposed then
-      ( use gr = x.CreateGraphics()
-        gr.InterpolationMode &lt;- Drawing2D.InterpolationMode.NearestNeighbor
+<pre >
+<span class="k">type</span> DrawingForm&lt;'TState&gt;(initial, update, draw) <span class="k">as</span> x = 
+  <span class="k">inherit</span> Form()
+  <span class="c">// Loop that runs computation &amp; redraws form</span>
+  <span class="k">let</span> <span class="k">rec</span> drawingLoop(state) = 
+    <span class="k">if</span> not x.IsDisposed <span class="k">then</span>
+      ( <span class="k">use</span> gr = x.CreateGraphics()
+        gr.InterpolationMode <span class="o">&lt;-</span> Drawing2D.InterpolationMode.NearestNeighbor
         gr.DrawImage(draw(state), x.ClientRectangle) )
       drawingLoop(update(state))
 
-  do
-    // Run the computation
+  <span class="k">do</span>
+    <span class="c">// Run the computation</span>
     Async.Start(async { drawingLoop(initial) })
 </pre>
 <p>The form doesn't contain any members, so the entire body is essentially just a 
@@ -498,7 +498,7 @@ type DrawingForm&lt;'TState&gt;(initial, update, draw) as x =
     <h4>Blog tags</h4>
     <p>
 
-      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(97),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(33),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(29),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(10),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/fsharp-data/">f# data</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/monads/">monads</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/art/">art</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fractals/">fractals</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/funscript/">funscript</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/coeffects/">coeffects</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/comonads/">comonads</a>&nbsp;(1)    </p>
+      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(97),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(33),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(10),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(29),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/fsharp-data/">f# data</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/monads/">monads</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/art/">art</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fractals/">fractals</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/funscript/">funscript</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(1)    </p>
 
   </div>
 </div>

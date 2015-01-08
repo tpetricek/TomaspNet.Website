@@ -135,19 +135,19 @@ This article is no longer up-to-date. Although the techniques described in the a
   distribution should contain the correct version number, but the incorrect configuration is a common issue when working
   with ASP.NET in F#, so it is useful to know what the configuration should look like:</p>  
 
-<pre lang="xml">
-&lt;?xml version="1.0"?&gt;
-&lt;configuration&gt;&lt;system.web&gt;
-&lt;compilation debug="true"&gt;  
-  &lt;compilers&gt;
-    &lt;compiler 
-      language="F#;f#;fs;fsharp" extension=".fs" 
-      type="Microsoft.FSharp.Compiler.CodeDom.FSharpAspNetCodeProvider, 
-            FSharp.Compiler.CodeDom, Version=<strong style="color:red;">1.9.3.14</strong>, 
-            Culture=neutral, PublicKeyToken=a19089b1c74d0809"/&gt;
-  &lt;/compilers&gt;
-&lt;/compilation&gt;&lt;/system.web&gt;
-&lt;/configuration&gt;
+<pre >
+<span class="prep">&lt;?</span>xml version=<span class="s">"1.0"</span><span class="prep">?&gt;</span>
+<span class="k">&lt;</span><span class="i">configuration</span><span class="k">&gt;&lt;</span><span class="i">system.web</span><span class="k">&gt;</span>
+<span class="k">&lt;</span><span class="i">compilation</span> <span class="o">debug</span><span class="k">="true"</span><span class="k">&gt;</span>  
+  <span class="k">&lt;</span><span class="i">compilers</span><span class="k">&gt;</span>
+    <span class="k">&lt;</span><span class="i">compiler</span> 
+      <span class="o">language</span><span class="k">="F#;f#;fs;fsharp"</span> <span class="o">extension</span><span class="k">=".fs"</span> 
+      <span class="o">type</span><span class="k">="Microsoft.FSharp.Compiler.CodeDom.FSharpAspNetCodeProvider, 
+            FSharp.Compiler.CodeDom, Version=&lt;strong style="</span><span class="o">color:red</span>;"<span class="k">&gt;</span>1.9.3.14<span class="k">&lt;/</span><span class="i">strong</span><span class="k">&gt;</span>, 
+            Culture=neutral, PublicKeyToken=a19089b1c74d0809"<span class="k">/&gt;</span>
+  <span class="k">&lt;/</span><span class="i">compilers</span><span class="k">&gt;</span>
+<span class="k">&lt;/</span><span class="i">compilation</span><span class="k">&gt;&lt;/</span><span class="i">system.web</span><span class="k">&gt;</span>
+<span class="k">&lt;/</span><span class="i">configuration</span><span class="k">&gt;</span>
 </pre>
 
 <p>Now, let's look at the <code>Default.aspx</code> and <code>Default.aspx.fs</code> files that together represent a simple page.
@@ -155,17 +155,17 @@ This article is no longer up-to-date. Although the techniques described in the a
   result of some calculation is displayed in the label (the calculation is executed on the server-side). The following code is 
   a (slightly simplified) content of the <code>Default.aspx</code>
   file, which defines the HTML markup together with the ASP.NET controls that are on the page:</p>  
-<pre lang="aspx">
-&lt;%@ Page Language="F#" 
-  CodeFile="Default.aspx.fs" Inherits="FSharpWeb.Default" %&gt;
-&lt;html&gt;
-&lt;body&gt;&lt;form runat="server"&gt;
-  &lt;asp:Button 
-    ID="btnTest" RunAt="server" Text="Click me!" 
-    OnClick="ButtonClicked" /&gt;&lt;br /&gt;
-  &lt;asp:Label ID="lblResult" RunAt="server" /&gt;
-&lt;/form&gt;&lt;/body&gt;
-&lt;/html&gt;
+<pre >
+<span class="prep">&lt;%@ Page Language="F#" 
+  CodeFile="Default.aspx.fs" Inherits="FSharpWeb.Default" %&gt;</span>
+<span class="k">&lt;</span><span class="i">html</span><span class="k">&gt;</span>
+<span class="k">&lt;</span><span class="i">body</span><span class="k">&gt;&lt;</span><span class="i">form</span> <span class="o">runat</span><span class="k">="server"</span><span class="k">&gt;</span>
+  <span class="k">&lt;</span><span class="i">asp:Button</span> 
+    <span class="o">ID</span><span class="k">="btnTest"</span> <span class="o">RunAt</span><span class="k">="server"</span> <span class="o">Text</span><span class="k">="Click me!"</span> 
+    <span class="o">OnClick</span><span class="k">="ButtonClicked"</span> <span class="k">/&gt;&lt;</span><span class="i">br</span> <span class="k">/&gt;</span>
+  <span class="k">&lt;</span><span class="i">asp:Label</span> <span class="o">ID</span><span class="k">="lblResult"</span> <span class="o">RunAt</span><span class="k">="server"</span> <span class="k">/&gt;</span>
+<span class="k">&lt;/</span><span class="i">form</span><span class="k">&gt;&lt;/</span><span class="i">body</span><span class="k">&gt;</span>
+<span class="k">&lt;/</span><span class="i">html</span><span class="k">&gt;</span>
 </pre>
 <p>You can easily identify two server-side controls, because these are written using prefix <code>asp</code> and
   also contain the <code>RunAt="server"</code> attribute, which means that the control is processed on the server-side.
@@ -176,25 +176,25 @@ This article is no longer up-to-date. Although the techniques described in the a
   so the event can be processed on the server). The file also contains the first special line, which tells the ASP.NET engine that the 
   page is written in F# and it also tells what source file contains the code-behind code and what is the name of type declared in that file.
   The code-behind file (<code>Default.aspx.fs</code>) has the following content:</p>
-<pre lang="fsharp">
-#light
-namespace FSharpWeb
-open System
-open System.Web
-open System.Web.UI.WebControls
+<pre >
+<span class="prep">#light</span>
+<span class="k">namespace</span> FSharpWeb
+<span class="k">open</span> System
+<span class="k">open</span> System.Web
+<span class="k">open</span> System.Web.UI.WebControls
 
-type Default() =
-  inherit Page()
+<span class="k">type</span> Default() =
+  <span class="k">inherit</span> Page()
   
-  [&lt;DefaultValue&gt;]
-  val mutable btnTest : Button
+  <span class="o">[</span>&lt;DefaultValue&gt;<span class="o">]</span>
+  <span class="k">val</span> <span class="k">mutable</span> btnTest : Button
 
-  [&lt;DefaultValue&gt;]
-  val mutable lblResult : Label
+  <span class="o">[</span>&lt;DefaultValue&gt;<span class="o">]</span>
+  <span class="k">val</span> <span class="k">mutable</span> lblResult : Label
 
-  member this.ButtonClicked(sender, e) =
-    this.lblResult.Text &lt;- 
-      (sprintf "Factorial of 5 is: %d" 
+  <span class="k">member</span> this.ButtonClicked(sender, e) =
+    this.lblResult.Text <span class="o">&lt;-</span> 
+      (sprintf <span class="s">"Factorial of 5 is: %d"</span> 
                (FSharpWeb.Logic.factorial 5))
 </pre>
 <p>As we can see, the file contains an F# object type (named <code>Default</code>), inherited from the base ASP.NET <code>Page</code>
@@ -251,14 +251,14 @@ type Default() =
   In the opened dialog window, you can add the databases (by selecting the MDF file) and click the "OK" button to attach the databases.
   Finally, you'll need to modify the <code>web.config</code> file in the Personal WebSite sample to include the following section:
 </p>  
-<pre lang="xml">
-&lt;connectionStrings&gt;
- &lt;add name="Personal" providerName="System.Data.SqlClient" connectionString=
-      "Data Source=.;Integrated Security=True;Database=PWS_WebPersonal" /&gt;
- &lt;remove name="LocalSqlServer"/&gt;
- &lt;add name="LocalSqlServer" connectionString=
-      "Data Source=.;Integrated Security=True;Database=PWS_AspNetDb" /&gt;
-&lt;/connectionStrings&gt;
+<pre >
+<span class="k">&lt;</span><span class="i">connectionStrings</span><span class="k">&gt;</span>
+ <span class="k">&lt;</span><span class="i">add</span> <span class="o">name</span><span class="k">="Personal"</span> <span class="o">providerName</span><span class="k">="System.Data.SqlClient"</span> <span class="o">connectionString</span>=
+      <span class="k">"Data Source=.;Integrated Security=True;Database=PWS_WebPersonal"</span> <span class="k">/&gt;</span>
+ <span class="k">&lt;</span><span class="i">remove</span> <span class="o">name</span><span class="k">="LocalSqlServer"</span><span class="k">/&gt;</span>
+ <span class="k">&lt;</span><span class="i">add</span> <span class="o">name</span><span class="k">="LocalSqlServer"</span> <span class="o">connectionString</span>=
+      <span class="k">"Data Source=.;Integrated Security=True;Database=PWS_AspNetDb"</span> <span class="k">/&gt;</span>
+<span class="k">&lt;/</span><span class="i">connectionStrings</span><span class="k">&gt;</span>
 </pre>
 <p>The <code>Data Source</code> parameter in the connection string specifies the instance of the SQL Server, where the databases are attached.
   By default this is the name of your computer (which can be written shortly using dot "."). When using the SQL Express the default
@@ -271,27 +271,27 @@ type Default() =
   with F# is I believe quite interesting, so I'll write a few notes about it. Let's look for example at the
   <code>Photos.aspx</code> file, which displays a list of photos in a gallery. The most important parts
   of the file related to data access are shown in the following code snippet:</p>
-<pre lang="aspx">
-&lt;asp:DataList RunAt="server" DataSourceID="photoSource" EnableViewState="false"&gt;
-&lt;ItemTemplate&gt;
-  &lt;!-- ... --&gt;
-  &lt;a href='Details.aspx?AlbumID=&lt;%# base.Eval("PhotoAlbumID") %&gt;'&gt;
-    &lt;img src="Handler.ashx?PhotoID=&lt;%# base.Eval("PhotoID") %&gt;&amp;Size=S" 
-      class="photo_198" style="border:4px solid white" 
-      alt='Thumbnail of Photo Number &lt;%# base.Eval("PhotoID") %&gt;' /&gt;
-  &lt;/a&gt;
-  &lt;!-- ... --&gt;
-&lt;/ItemTemplate&gt;
-&lt;/asp:DataList&gt;
+<pre >
+<span class="k">&lt;</span><span class="i">asp:DataList</span> <span class="o">RunAt</span><span class="k">="server"</span> <span class="o">DataSourceID</span><span class="k">="photoSource"</span> <span class="o">EnableViewState</span><span class="k">="false"</span><span class="k">&gt;</span>
+<span class="k">&lt;</span><span class="i">ItemTemplate</span><span class="k">&gt;</span>
+  <span class="c">&lt;!-- ... --&gt;</span>
+  <span class="k">&lt;</span><span class="i">a</span> <span class="o">href</span><span class="k">='Details.aspx?AlbumID=&lt;%# base.Eval("PhotoAlbumID") %&gt;'</span><span class="k">&gt;</span>
+    <span class="k">&lt;</span><span class="i">img</span> <span class="o">src</span><span class="k">="Handler.ashx?PhotoID=&lt;%# base.Eval("</span><span class="o">PhotoID</span><span class="k">") %&gt;&amp;Size=S"</span> 
+      <span class="o">class</span><span class="k">="photo_198"</span> <span class="o">style</span><span class="k">="border:4px solid white"</span> 
+      <span class="o">alt</span><span class="k">='Thumbnail of Photo Number &lt;%# base.Eval("PhotoID") %&gt;'</span> <span class="k">/&gt;</span>
+  <span class="k">&lt;/</span><span class="i">a</span><span class="k">&gt;</span>
+  <span class="c">&lt;!-- ... --&gt;</span>
+<span class="k">&lt;/</span><span class="i">ItemTemplate</span><span class="k">&gt;</span>
+<span class="k">&lt;/</span><span class="i">asp:DataList</span><span class="k">&gt;</span>
 
-&lt;asp:ObjectDataSource ID="photoSource" RunAt="server" 
-  TypeName="PersonalWebSite.PhotoManager" 
-  SelectMethod="GetPhotos"&gt;
-  &lt;SelectParameters&gt;
-    &lt;asp:QueryStringParameter Name="AlbumID" Type="Int32" 
-      QueryStringField="albumID" DefaultValue="0"/&gt;
-  &lt;/SelectParameters&gt;
-&lt;/asp:ObjectDataSource&gt;
+<span class="k">&lt;</span><span class="i">asp:ObjectDataSource</span> <span class="o">ID</span><span class="k">="photoSource"</span> <span class="o">RunAt</span><span class="k">="server"</span> 
+  <span class="o">TypeName</span><span class="k">="PersonalWebSite.PhotoManager"</span> 
+  <span class="o">SelectMethod</span><span class="k">="GetPhotos"</span><span class="k">&gt;</span>
+  <span class="k">&lt;</span><span class="i">SelectParameters</span><span class="k">&gt;</span>
+    <span class="k">&lt;</span><span class="i">asp:QueryStringParameter</span> <span class="o">Name</span><span class="k">="AlbumID"</span> <span class="o">Type</span><span class="k">="Int32"</span> 
+      <span class="o">QueryStringField</span><span class="k">="albumID"</span> <span class="o">DefaultValue</span><span class="k">="0"</span><span class="k">/&gt;</span>
+  <span class="k">&lt;/</span><span class="i">SelectParameters</span><span class="k">&gt;</span>
+<span class="k">&lt;/</span><span class="i">asp:ObjectDataSource</span><span class="k">&gt;</span>
 </pre>
 
 <p>The first ASP.NET control used in the code is <code>asp:DataList</code>, which is a control that 
@@ -303,8 +303,8 @@ type Default() =
   in <code>&lt;%# ... %&gt;</code> tells ASP.NET that we want to render the result of the expression as
   a part of the item template.
   The record that we're using in this example is very simple and has the following structure:</p>
-<pre lang="fsharp">
-type Photo = 
+<pre >
+<span class="k">type</span> Photo = 
   { PhotoID:int; 
     PhotoAlbumID:int; 
     PhotoCaption:string; }
@@ -330,35 +330,35 @@ type Photo =
   (we could of course use FLinq for loading the data, but I wanted to keep things simple for now, so we're using
   standard <code>SqlDataReader</code> object from .NET):</p>
 
-<pre lang="fsharp">
-namespace PersonalWebSite
-// ...
+<pre >
+<span class="k">namespace</span> PersonalWebSite
+<span class="c">// ...</span>
 
-module PhotoManager = 
-  // Function will be called by ASP.NET when loading data
-  // for the asp:DataList control in the 'Photos.aspx' page
-  let GetPhotos (albumID:int) =
-    // Open connection &amp; create command
-    use conn = new SqlConnection(" ... ")
-    use cmd  = new SqlCommand("GetPhotos", conn)
+<span class="k">module</span> PhotoManager = 
+  <span class="c">// Function will be called by ASP.NET when loading data</span>
+  <span class="c">// for the asp:DataList control in the 'Photos.aspx' page</span>
+  <span class="k">let</span> GetPhotos (albumID:int) =
+    <span class="c">// Open connection &amp; create command</span>
+    <span class="k">use</span> conn = <span class="k">new</span> SqlConnection(<span class="s">" ... "</span>)
+    <span class="k">use</span> cmd  = <span class="k">new</span> SqlCommand(<span class="s">"GetPhotos"</span>, conn)
     
-    // Can the user see 'private' photos?
-    let usr = HttpContext.Current.User
-    let filter = not (usr.IsInRole("Friends") || usr.IsInRole("Administrators"))
-    cmd.CommandType &lt;- CommandType.StoredProcedure)
-    cmd.Parameters.Add(SqlParameter("@AlbumID", albumID)) |&gt; ignore
-    command.Parameters.Add(SqlParameter("@IsPublic", filter)) |&gt; ignore
+    <span class="c">// Can the user see 'private' photos?</span>
+    <span class="k">let</span> usr = HttpContext.Current.User
+    <span class="k">let</span> filter = not (usr.IsInRole(<span class="s">"Friends"</span>) <span class="o">|</span><span class="o">|</span> usr.IsInRole(<span class="s">"Administrators"</span>))
+    cmd.CommandType <span class="o">&lt;-</span> CommandType.StoredProcedure)
+    cmd.Parameters.Add(SqlParameter(<span class="s">"@AlbumID"</span>, albumID)) <span class="o">|</span>&gt; ignore
+    command.Parameters.Add(SqlParameter(<span class="s">"@IsPublic"</span>, filter)) <span class="o">|</span>&gt; ignore
     conn.Open()
     
-    // Read all photos into a .NET ResizeArray type
-    let list = new ResizeArray&lt;_&gt;()
-    use reader = command.ExecuteReader()
-    while (reader.Read()) do
-      list.Add({ PhotoID = unbox (reader.get_Item("PhotoID")) 
-                 PhotoAlbumID = unbox (reader.get_Item("AlbumID")) 
-                 PhotoCaption = unbox (reader.get_Item("Caption")) }) 
+    <span class="c">// Read all photos into a .NET ResizeArray type</span>
+    <span class="k">let</span> list = <span class="k">new</span> ResizeArray&lt;<span class="o">_</span>&gt;()
+    <span class="k">use</span> reader = command.ExecuteReader()
+    <span class="k">while</span> (reader.Read()) <span class="k">do</span>
+      list.Add({ PhotoID = unbox (reader.get_Item(<span class="s">"PhotoID"</span>)) 
+                 PhotoAlbumID = unbox (reader.get_Item(<span class="s">"AlbumID"</span>)) 
+                 PhotoCaption = unbox (reader.get_Item(<span class="s">"Caption"</span>)) }) 
                  
-    // Return the created collection
+    <span class="c">// Return the created collection</span>
     list 
 </pre>
 <p>I hope this article explained some of the interesting things that you may find in the ASP.NET samples provided with 
@@ -485,7 +485,7 @@ module PhotoManager =
     <h4>Blog tags</h4>
     <p>
 
-      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(97),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(33),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(29),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(10),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/fsharp-data/">f# data</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/monads/">monads</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/art/">art</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fractals/">fractals</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/funscript/">funscript</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/coeffects/">coeffects</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/comonads/">comonads</a>&nbsp;(1)    </p>
+      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(97),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(33),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(10),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(29),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/fsharp-data/">f# data</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/monads/">monads</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/art/">art</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fractals/">fractals</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/funscript/">funscript</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(1)    </p>
 
   </div>
 </div>

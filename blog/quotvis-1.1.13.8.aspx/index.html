@@ -82,26 +82,26 @@
   F# compiler uses whitespace to determine end of the blocks (and some other constructs). This compiler option is
   relatively new so it is still evolving. First issue that I had is with class declaration - the following 
   code is not valid with the latest F# version:</p>
-<pre lang="fsharp">
-type MyForm = class inherit Form as base
-  // ...
-end
+<pre >
+<span class="k">type</span> MyForm = <span class="k">class</span> <span class="k">inherit</span> Form <span class="k">as</span> base
+  <span class="c">// ...</span>
+<span class="k">end</span>
 </pre>  
 <p>I used it because it looks more familiar to C# developers :-). Instead of it you have to write the following:</p>
-<pre lang="fsharp">
-type MyForm = class 
-  inherit Form as base
-  // ...
-end
+<pre >
+<span class="k">type</span> MyForm = <span class="k">class</span> 
+  <span class="k">inherit</span> Form <span class="k">as</span> base
+  <span class="c">// ...</span>
+<span class="k">end</span>
 </pre>  
 <p>The second issue was with the pipeline operator which is useful when working with lists (or other sequences). The 
   correct syntax for using pipeline operator (for expressions that are longer than one line) is following:</p>
-<pre lang="fsharp">
-let filteredList = 
+<pre >
+<span class="k">let</span> filteredList = 
        oldArray
-    |> Array.to_list 
-    |> List.map ( fun m -> /* ... */ ) 
-    |> List.filter ( fun m -> /* ... */ ) 
+    <span class="o">|</span>&gt; Array.to_list 
+    <span class="o">|</span>&gt; List.map ( <span class="k">fun</span> m <span class="o">-&gt;</span> /* ... */ ) 
+    <span class="o">|</span>&gt; List.filter ( <span class="k">fun</span> m <span class="o">-&gt;</span> /* ... */ ) 
 </pre>  
 
 <div class="row">
@@ -210,7 +210,7 @@ let filteredList =
     <h4>Blog tags</h4>
     <p>
 
-      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(97),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(33),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(29),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(10),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/fsharp-data/">f# data</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/monads/">monads</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/art/">art</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fractals/">fractals</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/funscript/">funscript</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/coeffects/">coeffects</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/comonads/">comonads</a>&nbsp;(1)    </p>
+      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(97),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(33),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(10),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(29),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/fsharp-data/">f# data</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/monads/">monads</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/art/">art</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fractals/">fractals</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/funscript/">funscript</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(1)    </p>
 
   </div>
 </div>

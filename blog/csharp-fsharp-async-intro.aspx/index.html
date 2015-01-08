@@ -118,17 +118,17 @@
   construct. The following snippet shows the initialization of the HTTP request - we'll
   discuss the actual downloading in the next snippet.</p>
 
-<pre lang="csharp">
-async Task&lt;Tuple&lt;string, int&gt;&gt; DownloadPage(string url) {
-  // Create web request to download a web site
-  var request = HttpWebRequest.Create(url);
-  // Asynchronously obtain the HTTP response
-  using (var response = await request.GetResponseAsync()) {
-    // Start reading the response stream
-    using (var stream = response.GetResponseStream()) {
-      // TODO: Asynchronously copy content of the stream
-      // TODO: Read 'html' content and extract 'title'
-      return Tuple.Create(title, html.Length);
+<pre >
+<span class="k">async</span> Task&lt;Tuple&lt;<span class="k">string</span>, <span class="k">int</span>&gt;&gt; DownloadPage(<span class="k">string</span> url) {
+  <span class="c">// Create web request to download a web site</span>
+  <span class="k">var</span> request = HttpWebRequest.Create(url);
+  <span class="c">// Asynchronously obtain the HTTP response</span>
+  <span class="k">using</span> (<span class="k">var</span> response = await request.GetResponseAsync()) {
+    <span class="c">// Start reading the response stream</span>
+    <span class="k">using</span> (<span class="k">var</span> stream = response.GetResponseStream()) {
+      <span class="c">// TODO: Asynchronously copy content of the stream</span>
+      <span class="c">// TODO: Read 'html' content and extract 'title'</span>
+      <span class="k">return</span> Tuple.Create(title, html.Length);
     }
   }
 }
@@ -172,26 +172,26 @@ async Task&lt;Tuple&lt;string, int&gt;&gt; DownloadPage(string url) {
   the page content using 1kB buffer. When it completes, it extracts
   title of the page and returns it together with the length of the page:</p>
 
-<pre lang="csharp">
-// Regular expression for extracting page title
-Regex regTitle = new Regex(@"\&lt;title\&gt;([^\&lt;]+)\&lt;/title\&gt;");
+<pre >
+<span class="c">// Regular expression for extracting page title</span>
+Regex regTitle = <span class="k">new</span> Regex(<span class="s">@"\&lt;title\&gt;([^\&lt;]+)\&lt;/title\&gt;"</span>);
 
-// Create a buffer and stream to copy data to
-var buffer = new byte[1024];
-var temp = new MemoryStream();
-int count;
-do {
-  // Asynchronously read next 1kB of data
+<span class="c">// Create a buffer and stream to copy data to</span>
+<span class="k">var</span> buffer = <span class="k">new</span> <span class="k">byte</span>[1024];
+<span class="k">var</span> temp = <span class="k">new</span> MemoryStream();
+<span class="k">int</span> count;
+<span class="k">do</span> {
+  <span class="c">// Asynchronously read next 1kB of data</span>
   count = await stream.ReadAsync(buffer, 0, buffer.Length);
-  // Write data to memory stream
+  <span class="c">// Write data to memory stream</span>
   temp.Write(buffer, 0, count);
-} while (count &gt; 0);
+} <span class="k">while</span> (count &gt; 0);
 
-// Read data as string and find page title
+<span class="c">// Read data as string and find page title</span>
 temp.Seek(0, SeekOrigin.Begin);
-var html = new StreamReader(temp).ReadToEnd();
-var title = regTitle.Match(html).Groups[1].Value;
-return Tuple.Create(title, html.Length);
+<span class="k">var</span> html = <span class="k">new</span> StreamReader(temp).ReadToEnd();
+<span class="k">var</span> title = regTitle.Match(html).Groups[1].Value;
+<span class="k">return</span> Tuple.Create(title, html.Length);
 </pre>
 
 <p>Again, this looks like a completely normal C# code with a loop inside.
@@ -215,16 +215,16 @@ return Tuple.Create(title, html.Length);
   merged with standard <code>Task</code> class in a new .NET). The task has a very useful
   method named <code>WhenAll</code>:</p>
 
-<pre lang="csharp">
-async static Task ComparePages() {
-  var urls = new[] { "http://www.google.com",
-    "http://www.bing.com", "http://www.yahoo.com", };
-  var downloads = urls.Select(DownloadPage);
-  var results = await TaskEx.WhenAll(downloads);
-  foreach (var item in results)
-    Console.WriteLine("{0} (length {1})", item.Item1, item.Item2);
+<pre >
+<span class="k">async</span> <span class="k">static</span> Task ComparePages() {
+  <span class="k">var</span> urls = <span class="k">new</span>[] { <span class="s">"http://www.google.com"</span>,
+    <span class="s">"http://www.bing.com"</span>, <span class="s">"http://www.yahoo.com"</span>, };
+  <span class="k">var</span> downloads = urls.Select(DownloadPage);
+  <span class="k">var</span> results = await TaskEx.WhenAll(downloads);
+  <span class="k">foreach</span> (<span class="k">var</span> item <span class="k">in</span> results)
+    Console.WriteLine(<span class="s">"{0} (length {1})"</span>, item.Item1, item.Item2);
 }
-static void Main() {
+<span class="k">static</span> <span class="k">void</span> Main() {
   ComparePages().Wait();
 }
 </pre>
@@ -599,7 +599,7 @@ static void Main() {
     <h4>Blog tags</h4>
     <p>
 
-      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(97),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(33),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(29),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(10),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/fsharp-data/">f# data</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/monads/">monads</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/art/">art</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fractals/">fractals</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/funscript/">funscript</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/coeffects/">coeffects</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/comonads/">comonads</a>&nbsp;(1)    </p>
+      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(97),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(33),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(10),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(29),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/fsharp-data/">f# data</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/monads/">monads</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/art/">art</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fractals/">fractals</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/funscript/">funscript</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(1)    </p>
 
   </div>
 </div>

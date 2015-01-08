@@ -81,14 +81,14 @@
 <p>This application works with raw quotations (this means the internal representation that is used when
   writing quotation compilers). You can get F# quotations using <code>&lt;@@ ... @@&gt;</code> operator 
   and the type of raw quotations is <code>expr</code>. The <code>expr</code> type is following discriminated union:</p>
-<pre lang="fsharp">
-type expr =
-  | ConstExpr  of exprConstr * dtype list
-  | VarExpr    of exprVarName
-  | QuoteExpr  of expr 
-  | LambdaExpr of exprVar * expr 
-  | AppExpr    of expr * expr
-  | HoleExpr   of dtype 
+<pre >
+<span class="k">type</span> expr =
+  <span class="o">|</span> ConstExpr  <span class="k">of</span> exprConstr * dtype list
+  <span class="o">|</span> VarExpr    <span class="k">of</span> exprVarName
+  <span class="o">|</span> QuoteExpr  <span class="k">of</span> expr 
+  <span class="o">|</span> LambdaExpr <span class="k">of</span> exprVar * expr 
+  <span class="o">|</span> AppExpr    <span class="k">of</span> expr * expr
+  <span class="o">|</span> HoleExpr   <span class="k">of</span> dtype 
 </pre>  
 <p>You can see that there are only a few types of quotations, but when you are writing application 
   that works with quotations, you can use set of object that provide simplier view on quotations structure.
@@ -97,22 +97,22 @@ type expr =
   All these objects have <code>Query</code> method that expects parameter of type <code>expr</code> and that either
   splits given expression into several sub-expressions or returns <code>None</code> (if parameter doesn't match). 
   So let's look at the example:</p>
-<pre lang="fsharp">let q = &lt;@@ if (a = 0) then 1 else 2 @@&gt;</pre>  
+<pre ><span class="k">let</span> q = <span class="o">&lt;@@</span> <span class="k">if</span> (a = 0) <span class="k">then</span> 1 <span class="k">else</span> 2 <span class="o">@@&gt;</span></pre>  
 <p>This is the quotation that represents conditional expression, but it is internally stored using <code>AppExpr</code> 
   (one variant of discriminated union), but you can use the <code>efCond.Query</code> method to test whether it is
   conditional expression and you can also get expression that represents the condition and expressions representating
   both true and false branches.</p>
-<pre lang="fsharp">
-// Test whether q is conditional expression using efCond.Query
-match Raw.efCond.Query q with
-  | Some (_,(cond,trueBranch,falseBranch)) -&gt;
-      // cond        - 'expr' that represents condition
-      // trueBranch  - 'expr' that represents the true branch
-      // falseBranch - 'expr' that represents the false branch
-      print_string "If-then-else statement"
+<pre >
+<span class="c">// Test whether q is conditional expression using efCond.Query</span>
+<span class="k">match</span> Raw.efCond.Query q <span class="k">with</span>
+  <span class="o">|</span> Some (<span class="o">_</span>,(cond,trueBranch,falseBranch)) <span class="o">-&gt;</span>
+      <span class="c">// cond        - 'expr' that represents condition</span>
+      <span class="c">// trueBranch  - 'expr' that represents the true branch</span>
+      <span class="c">// falseBranch - 'expr' that represents the false branch</span>
+      print_string <span class="s">"If-then-else statement"</span>
       
-  | None -&gt; 
-      print_string "Something else"
+  <span class="o">|</span> None <span class="o">-&gt;</span> 
+      print_string <span class="s">"Something else"</span>
 </pre>  
 <p>This was just a few words to explain what the application does and to help you understand the 
   source code of the most interesting part of application that builds the TreeView tree.</p>
@@ -284,7 +284,7 @@ match Raw.efCond.Query q with
     <h4>Blog tags</h4>
     <p>
 
-      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(97),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(33),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(29),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(10),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/fsharp-data/">f# data</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/monads/">monads</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/art/">art</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fractals/">fractals</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/funscript/">funscript</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/coeffects/">coeffects</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/comonads/">comonads</a>&nbsp;(1)    </p>
+      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(97),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(33),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(10),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(29),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/fsharp-data/">f# data</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/monads/">monads</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/art/">art</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fractals/">fractals</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/funscript/">funscript</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(1)    </p>
 
   </div>
 </div>

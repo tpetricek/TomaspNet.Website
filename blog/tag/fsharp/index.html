@@ -2236,17 +2236,17 @@ writing numeric code. For more information, take a look at the MSDN overview art
   The following example shows what we'll be able to write at the end 
   of this article:</p>
 
-<pre lang="fsharp">
-// Call 'GetProducts' procedure with 'CategoryID' set to 1
-use conn = new DynamicSqlConnection(connectionString)
-use cmd = conn?GetProducts
-cmd?CategoryID &lt;- 1
+<pre >
+<span class="c">// Call 'GetProducts' procedure with 'CategoryID' set to 1</span>
+<span class="k">use</span> conn = <span class="k">new</span> DynamicSqlConnection(connectionString)
+<span class="k">use</span> cmd = conn?GetProducts
+cmd?CategoryID <span class="o">&lt;-</span> 1
 conn.Open()
 
-// Read all products and print their names
-use reader = cmd.ExecuteReader()
-while reader.Read() do
-  printfn "Product: %s" reader?ProductName
+<span class="c">// Read all products and print their names</span>
+<span class="k">use</span> reader = cmd.ExecuteReader()
+<span class="k">while</span> reader.Read() <span class="k">do</span>
+  printfn <span class="s">"Product: %s"</span> reader?ProductName
 </pre>
 
 <p>If you ever tried to call a SQL stored procedure directly using the 
@@ -2702,11 +2702,11 @@ while reader.Read() do
   using F# computation expressions and I showed how to implement computation named <code>imperative</code>
   that allows us to write for example the <code>exists</code> function for working with sequences
   like this:</p>
-<pre lang="fsharp">
-let exists f inp = imperative {
-  for v in inp do 
-    if f(v) then return true
-  return false }
+<pre >
+<span class="k">let</span> exists f inp = imperative {
+  <span class="k">for</span> v <span class="k">in</span> inp <span class="k">do</span> 
+    <span class="k">if</span> f(v) <span class="k">then</span> <span class="k">return</span> <span class="k">true</span>
+  <span class="k">return</span> <span class="k">false</span> }
 </pre>  
 <p>In this article, we're going to look at two more imperative constructs and we're going
   to talk about <code>break</code> and <code>continue</code>. We'll see that we can quite
@@ -2714,11 +2714,11 @@ let exists f inp = imperative {
   that is syntactically very close to what you would write in C#. As I already mentioned,
   there are of course some performance overheads when using computation expressions, but 
   I find it very interesting how nice imperative syntax we can get in functional F#:</p>
-<pre lang="fsharp">
+<pre >
 imperative { 
-  for x in 1 .. 10 do 
-    if (x % 3 = 0) then do! continue
-    printfn "number = %d" x }
+  <span class="k">for</span> x <span class="k">in</span> 1 .. 10 <span class="k">do</span> 
+    <span class="k">if</span> (x % 3 = 0) <span class="k">then</span> <span class="k">do!</span> continue
+    printfn <span class="s">"number = %d"</span> x }
 </pre>  
 <p>The only difference between this code and the code we'd probably write if F# supported
   <code>continue</code> as a keyword is that we need to wrap the code inside the <code>imperative</code>
@@ -3108,26 +3108,26 @@ imperative {
   F# compiler uses whitespace to determine end of the blocks (and some other constructs). This compiler option is
   relatively new so it is still evolving. First issue that I had is with class declaration - the following 
   code is not valid with the latest F# version:</p>
-<pre lang="fsharp">
-type MyForm = class inherit Form as base
-  // ...
-end
+<pre >
+<span class="k">type</span> MyForm = <span class="k">class</span> <span class="k">inherit</span> Form <span class="k">as</span> base
+  <span class="c">// ...</span>
+<span class="k">end</span>
 </pre>  
 <p>I used it because it looks more familiar to C# developers :-). Instead of it you have to write the following:</p>
-<pre lang="fsharp">
-type MyForm = class 
-  inherit Form as base
-  // ...
-end
+<pre >
+<span class="k">type</span> MyForm = <span class="k">class</span> 
+  <span class="k">inherit</span> Form <span class="k">as</span> base
+  <span class="c">// ...</span>
+<span class="k">end</span>
 </pre>  
 <p>The second issue was with the pipeline operator which is useful when working with lists (or other sequences). The 
   correct syntax for using pipeline operator (for expressions that are longer than one line) is following:</p>
-<pre lang="fsharp">
-let filteredList = 
+<pre >
+<span class="k">let</span> filteredList = 
        oldArray
-    |> Array.to_list 
-    |> List.map ( fun m -> /* ... */ ) 
-    |> List.filter ( fun m -> /* ... */ ) 
+    <span class="o">|</span>&gt; Array.to_list 
+    <span class="o">|</span>&gt; List.map ( <span class="k">fun</span> m <span class="o">-&gt;</span> /* ... */ ) 
+    <span class="o">|</span>&gt; List.filter ( <span class="k">fun</span> m <span class="o">-&gt;</span> /* ... */ ) 
 </pre>  
       
   <p class="meta">
@@ -3442,7 +3442,7 @@ Seminar was mostly focused on Rotor and .NET internals, so if you want to learn 
     <h4>Blog tags</h4>
     <p>
 
-      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(97),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(33),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(29),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(10),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/fsharp-data/">f# data</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/monads/">monads</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/art/">art</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fractals/">fractals</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/funscript/">funscript</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/coeffects/">coeffects</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/comonads/">comonads</a>&nbsp;(1)    </p>
+      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(97),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(33),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(10),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(29),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/fsharp-data/">f# data</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/monads/">monads</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/art/">art</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fractals/">fractals</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/funscript/">funscript</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(1)    </p>
 
   </div>
 </div>

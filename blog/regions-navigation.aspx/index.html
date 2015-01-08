@@ -97,11 +97,11 @@
   <code>C:\Program Files (x86)\Microsoft Visual Studio 10.0</code>. You need to add
   the following <code>appSettings</code> section to the root <code>configuration</code> element:</p>
 
-<pre lang="xml">
-&lt;appSettings&gt;
-    &lt;add key="fsharp-navigationbar-enabled" value="true" /&gt;
-    &lt;add key="fsharp-regions-enabled" value="true" /&gt;
-&lt;/appSettings&gt;
+<pre >
+<span class="k">&lt;</span><span class="i">appSettings</span><span class="k">&gt;</span>
+    <span class="k">&lt;</span><span class="i">add</span> <span class="o">key</span><span class="k">="fsharp-navigationbar-enabled"</span> <span class="o">value</span><span class="k">="true"</span> <span class="k">/&gt;</span>
+    <span class="k">&lt;</span><span class="i">add</span> <span class="o">key</span><span class="k">="fsharp-regions-enabled"</span> <span class="o">value</span><span class="k">="true"</span> <span class="k">/&gt;</span>
+<span class="k">&lt;/</span><span class="i">appSettings</span><span class="k">&gt;</span>
 </pre>
   
   <p>After adding these two keys, you should see navigation bar and buttons for collapsing
@@ -171,21 +171,21 @@
   declarations using the <code>InteractiveChecker</code> type. Assuming we have an instance
   <code>checker</code> and a few other values that are required to run the parsing, we can write:</p>
 
-<pre lang="fsharp">
-// Run parsing of a file loaded in 'source'
-let untypedInfo = checker.UntypedParse(fileName, source, checkOptions) 
-// Get declaration items for the file
-let declarations = untypedInfo.GetNavigationItems().Declarations
+<pre >
+<span class="c">// Run parsing of a file loaded in 'source'</span>
+<span class="k">let</span> untypedInfo = checker.UntypedParse(fileName, source, checkOptions) 
+<span class="c">// Get declaration items for the file</span>
+<span class="k">let</span> declarations = untypedInfo.GetNavigationItems().Declarations
 
-// Iterate over all top-level declarations (modules, types)
-for topLevel in decls do
-  let (s1, e1), (s2, e2) = topLevel.Declaration.Range
-  printfn "[%d:%d-%d:%d] %s" s1 e1 s2 e2 topLevel.Declaration.Name
+<span class="c">// Iterate over all top-level declarations (modules, types)</span>
+<span class="k">for</span> topLevel <span class="k">in</span> decls <span class="k">do</span>
+  <span class="k">let</span> (s1, e1), (s2, e2) = topLevel.Declaration.Range
+  printfn <span class="s">"[%d:%d-%d:%d] %s"</span> s1 e1 s2 e2 topLevel.Declaration.Name
   
-  // Print all child declarations (members, functions, values)
-  for nested in topLevel.Nested do
-    let (s1, e1), (s2, e2) = nested.Range
-    printfn "  - [%d:%d-%d:%d] %s" s1 e1 s2 e2 nested.Name
+  <span class="c">// Print all child declarations (members, functions, values)</span>
+  <span class="k">for</span> nested <span class="k">in</span> topLevel.Nested <span class="k">do</span>
+    <span class="k">let</span> (s1, e1), (s2, e2) = nested.Range
+    printfn <span class="s">"  - [%d:%d-%d:%d] %s"</span> s1 e1 s2 e2 nested.Name
 </pre>
 
 <p>The function <code>GetNavigationItems</code> is used by the Visual Studio code that 
@@ -300,7 +300,7 @@ for topLevel in decls do
     <h4>Blog tags</h4>
     <p>
 
-      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(97),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(33),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(29),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(10),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/fsharp-data/">f# data</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/monads/">monads</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/art/">art</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fractals/">fractals</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/funscript/">funscript</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/coeffects/">coeffects</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/comonads/">comonads</a>&nbsp;(1)    </p>
+      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(97),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(33),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(10),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(29),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/fsharp-data/">f# data</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/monads/">monads</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/art/">art</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fractals/">fractals</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/funscript/">funscript</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(1)    </p>
 
   </div>
 </div>

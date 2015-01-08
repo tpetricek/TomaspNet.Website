@@ -131,10 +131,10 @@
 <p>To demonstrate a typical script file that can be used to run samples in F# Interactive, 
   we'll look at "Script.fsx" from the "BasicParallelLoops" project in Chapter 2. Every script
   file first needs to load several references and then loads files that implement the examples:</p>
-<pre lang="fsharp">
-&gt; #r @"..\..\Utilities\bin\Release\Utilities.dll"
-  #load @"..\..\PSeq.fs"
-  #load "ParallelForExample.fs";;
+<pre >
+&gt; #r <span class="s">@"..\..\Utilities\bin\Release\Utilities.dll"</span>
+  #load <span class="s">@"..\..\PSeq.fs"</span>
+  #load <span class="s">"ParallelForExample.fs"</span>;;
 </pre>
 <p>The first <code>#r</code> directive loads the "Utilities" project, which contains various
   helper functions that are used by most of the samples (e.g. calculations, simulation of CPU and I/O
@@ -148,32 +148,32 @@
   (in this case, configuration is a simple record that is passed to the example). In F# Interactive we 
   can also use built-in support for time measurement, so we turn it on using <code>#time "on"</code>:</p>
 
-<pre lang="fsharp">
-&gt; open System
-  open Microsoft.Practices.ParallelGuideSamples.BasicParallelLoops.Examples;;
+<pre >
+&gt; <span class="k">open</span> System
+  <span class="k">open</span> Microsoft.Practices.ParallelGuideSamples.BasicParallelLoops.Examples;;
 
-&gt; let opts = { LoopBodyComplexity = 10000; NumberOfSteps = 10000 }
-      VerifyResult = false; SimulateInternalError = false };;
-val opts : ExampleOptions = { (...) }
+&gt; <span class="k">let</span> opts = { LoopBodyComplexity = 10000; NumberOfSteps = 10000 }
+      VerifyResult = <span class="k">false</span>; SimulateInternalError = <span class="k">false</span> };;
+<span class="k">val</span> opts : ExampleOptions = { (...) }
 
-&gt; #time "on";;
---&gt; Timing now on
+&gt; #time <span class="s">"on"</span>;;
+-<span class="o">-&gt;</span> Timing now on
 </pre>
 
 <p>Now we have everything we need to run the samples. Thanks to the interactive environment
   it is quite easy to run the samples that you're interested in as well as to go back to the
   configuration, change some properties of the sample and re-run it. The following example compares sequential version of a sample with a parallel version using the <code>PSeq</code> module (which we'll discuss in part II. of the series).</p>
 
-<pre lang="fsharp">
-&gt; let results = Chapter2.Example01 opts;; // Sequential 'for'
+<pre >
+&gt; <span class="k">let</span> results = Chapter2.Example01 opts;; <span class="c">// Sequential 'for'</span>
 Real: 00:00:00.986, CPU: 00:00:00.998, GC gen0: 0, gen1: 0, gen2: 0
-val results : float [] =
-  [|0.0; 250025000.0; 500050000.0; (...) |]
+<span class="k">val</span> results : float <span class="o">[</span><span class="o">]</span> =
+  <span class="o">[</span>|0.0; 250025000.0; 500050000.0; (...) <span class="o">|</span><span class="o">]</span>
 
-&gt; let results = Chapter2.Example04 opts;; // Parallel using F# PSeq
+&gt; <span class="k">let</span> results = Chapter2.Example04 opts;; <span class="c">// Parallel using F# PSeq</span>
 Real: 00:00:00.543, CPU: 00:00:00.998, GC gen0: 0, gen1: 0, gen2: 0
-val results : float [] =
-  [|0.0; 250025000.0; 500050000.0; (...) |]
+<span class="k">val</span> results : float <span class="o">[</span><span class="o">]</span> =
+  <span class="o">[</span>|0.0; 250025000.0; 500050000.0; (...) <span class="o">|</span><span class="o">]</span>
 </pre>
 
 <h2>Additional Information</h2>
@@ -345,7 +345,7 @@ val results : float [] =
     <h4>Blog tags</h4>
     <p>
 
-      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(97),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(33),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(29),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(10),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/fsharp-data/">f# data</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/monads/">monads</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/art/">art</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fractals/">fractals</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/funscript/">funscript</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/coeffects/">coeffects</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/comonads/">comonads</a>&nbsp;(1)    </p>
+      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(97),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(33),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(10),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(29),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/fsharp-data/">f# data</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/monads/">monads</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/art/">art</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fractals/">fractals</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/funscript/">funscript</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(1)    </p>
 
   </div>
 </div>

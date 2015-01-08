@@ -81,28 +81,28 @@
 <h2>Stubs in Phalanger beta 3</h2>
 <p>Let's now look at the generated stubs in latest Phalanger releases. I was working on a demo to demonstrate Phalanger interoperability
   some time ago and I was a bit surprised with the result of the following code:</p>
-<pre lang="php">
-Console::WriteLine("Hello world!");
+<pre >
+Console::WriteLine(<span class="s">"Hello world!"</span>);
 </pre>  
 <p>I was expecting that <code>"Hello world!"</code> will appear in the console window, but it didn't! Instead it just printed <code>"true"</code>.
   The reason is that Phalanger used one of the implicit conversions described above and converted string to boolean. The generated stub first
   uses parameter count to determine what overloads might be compatible and than generates something like the following code (in pseudo-C#) 
   to choose the best overload (this is very simple situation, because method has only one parameter and no overload with <code>[Params]</code>
   attribute is involved, but it explains the problem well):</p>
-<pre lang="csharp">
-// Stub that chooses between foo(string), foo(int) and foo(bool)
-object p = PopParameter();
-bool bval;
-int ival;
-string sval;
+<pre >
+<span class="c">// Stub that chooses between foo(string), foo(int) and foo(bool)</span>
+<span class="k">object</span> p = PopParameter();
+<span class="k">bool</span> bval;
+<span class="k">int</span> ival;
+<span class="k">string</span> sval;
 
-if (Convert.ConvertToBool(p, out bval))
-  return foo(bval);
-if (Convert.ConvertToInt32(p, out ival))
-  return foo(ival);
-if (Convert.ConvertToString(p, out sval))
-  return foo(sval);
-throw new ConversionFailedException();  
+<span class="k">if</span> (Convert.ConvertToBool(p, <span class="k">out</span> bval))
+  <span class="k">return</span> foo(bval);
+<span class="k">if</span> (Convert.ConvertToInt32(p, <span class="k">out</span> ival))
+  <span class="k">return</span> foo(ival);
+<span class="k">if</span> (Convert.ConvertToString(p, <span class="k">out</span> sval))
+  <span class="k">return</span> foo(sval);
+<span class="k">throw</span> <span class="k">new</span> ConversionFailedException();  
 </pre>  
 <p>The conversion functions are called in some non-specified order, so in this case Phalanger first tries to convert parameter to bool.
   The <code>ConvertToBool</code> function tries to perform all implicit conversions and when the parameter is string it converts it
@@ -112,55 +112,55 @@ throw new ConversionFailedException();
   using acceptable conversion, but it doesn't always call the method that you would expect. That's why we
   decided to implement a bit more complex algorithm, which would prefer overloads that don't require any implicit conversions.
   The stub generated using the new algorithm looks like this:</p>
-<pre lang="csharp">
-// Stub that chooses between foo(string), foo(int) and foo(bool)
-object p = PopParameter();
-// To store conversion result
-bool bval;
-int ival;
-string sval;
+<pre >
+<span class="c">// Stub that chooses between foo(string), foo(int) and foo(bool)</span>
+<span class="k">object</span> p = PopParameter();
+<span class="c">// To store conversion result</span>
+<span class="k">bool</span> bval;
+<span class="k">int</span> ival;
+<span class="k">string</span> sval;
 
-// Temporary variables
-byte result;
-int bestIndex;
-byte bestResult = Byte.MaxValue;
+<span class="c">// Temporary variables</span>
+<span class="k">byte</span> result;
+<span class="k">int</span> bestIndex;
+<span class="k">byte</span> bestResult = Byte.MaxValue;
 
-// Perform conversions to specific types
-result = Convert.ConvertToBool(p, out bval);
-// Set the best overload index 
-// (if result is better then result of previous conversions) 
-if (result &lt; bestResult) 
+<span class="c">// Perform conversions to specific types</span>
+result = Convert.ConvertToBool(p, <span class="k">out</span> bval);
+<span class="c">// Set the best overload index </span>
+<span class="c">// (if result is better then result of previous conversions) </span>
+<span class="k">if</span> (result &lt; bestResult) 
   { bestResult = result; bestIndex = 0; }
-// If this is the best match (no implicit conversion) 
-// skip the rest of conversions and call the overload
-if (result == BestConversion) 
-  goto call;  
+<span class="c">// If this is the best match (no implicit conversion) </span>
+<span class="c">// skip the rest of conversions and call the overload</span>
+<span class="k">if</span> (result == BestConversion) 
+  <span class="k">goto</span> call;  
 
-// Same as previous..
-result = Convert.ConvertToInt32(p, out ival);
-if (result &lt; bestResult) 
+<span class="c">// Same as previous..</span>
+result = Convert.ConvertToInt32(p, <span class="k">out</span> ival);
+<span class="k">if</span> (result &lt; bestResult) 
   { bestResult = result; bestIndex = 1; }
-if (result == BestConversion) 
-  goto call;
+<span class="k">if</span> (result == BestConversion) 
+  <span class="k">goto</span> call;
 
-// Same as previous..
-result = Convert.ConvertToString(p, out sval);
-if (result &lt; bestResult) 
+<span class="c">// Same as previous..</span>
+result = Convert.ConvertToString(p, <span class="k">out</span> sval);
+<span class="k">if</span> (result &lt; bestResult) 
   { bestResult = result; bestIndex = 2; }
-if (result == BestConversion) 
-  goto call;
+<span class="k">if</span> (result == BestConversion) 
+  <span class="k">goto</span> call;
 
-// No overload is appropriate
-if (bestResult == FailedConversion) 
-  throw new ConversionFailedException();  
+<span class="c">// No overload is appropriate</span>
+<span class="k">if</span> (bestResult == FailedConversion) 
+  <span class="k">throw</span> <span class="k">new</span> ConversionFailedException();  
 
-// Call the best overload
+<span class="c">// Call the best overload</span>
 call:;
-switch(bestIndex)
+<span class="k">switch</span>(bestIndex)
 {
-  case 0: return foo(bval);
-  case 1: return foo(ival);
-  case 2: return foo(sval);
+  <span class="k">case</span> 0: <span class="k">return</span> foo(bval);
+  <span class="k">case</span> 1: <span class="k">return</span> foo(ival);
+  <span class="k">case</span> 2: <span class="k">return</span> foo(sval);
 }
 </pre>  
 <p>In this code we use slightly modified version of <code>ConvertToXxx</code> methods. Instead of returning boolean value (whether conversion
@@ -290,7 +290,7 @@ switch(bestIndex)
     <h4>Blog tags</h4>
     <p>
 
-      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(97),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(33),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(29),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(10),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/fsharp-data/">f# data</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/monads/">monads</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/art/">art</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fractals/">fractals</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/funscript/">funscript</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/coeffects/">coeffects</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/comonads/">comonads</a>&nbsp;(1)    </p>
+      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(97),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(33),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(10),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(29),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/fsharp-data/">f# data</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/monads/">monads</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/art/">art</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fractals/">fractals</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/funscript/">funscript</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(1)    </p>
 
   </div>
 </div>

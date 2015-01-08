@@ -131,11 +131,11 @@
   The following snippet gets a list of regions (such as OECD countries, EU countries, Middle East
   etc.):</p>
 
-<pre lang="csharp">
-dynamic wb = new DynamicWorldBank();
-dynamic regions = wb.Region(new { PerPage = 100 });
-foreach (var reg in regions.Regions.Region) {
-  Console.WriteLine("{0} ({1})", reg.Name.Value, reg.Code.Value);
+<pre >
+<span class="k">dynamic</span> wb = <span class="k">new</span> DynamicWorldBank();
+<span class="k">dynamic</span> regions = wb.Region(<span class="k">new</span> { PerPage = 100 });
+<span class="k">foreach</span> (<span class="k">var</span> reg <span class="k">in</span> regions.Regions.Region) {
+  Console.WriteLine(<span class="s">"{0} ({1})"</span>, reg.Name.Value, reg.Code.Value);
 }
 </pre>
 
@@ -352,33 +352,33 @@ foreach (var reg in regions.Regions.Region) {
   charting library</a> to generate a chart showing the central government debt for 
   several EU countries (screenshot above):</p>
 
-<pre lang="fsharp">
-#r @"WorldBank\Samples.WorldBank.TypeProvider.dll"
-#load @"FSharpChart\FSharpChart.fsx"
+<pre >
+#r <span class="s">@"WorldBank\Samples.WorldBank.TypeProvider.dll"</span>
+#load <span class="s">@"FSharpChart\FSharpChart.fsx"</span>
 
-open Samples.Charting
-open System.Drawing
-open System.Windows.Forms.DataVisualization.Charting
+<span class="k">open</span> Samples.Charting
+<span class="k">open</span> System.Drawing
+<span class="k">open</span> System.Windows.Forms.DataVisualization.Charting
 
-// Represents properties of a chart grid
-let dashGrid = Grid(LineColor = Color.Gainsboro, LineDashStyle = ChartDashStyle.Dash)
+<span class="c">// Represents properties of a chart grid</span>
+<span class="k">let</span> dashGrid = Grid(LineColor = Color.Gainsboro, LineDashStyle = ChartDashStyle.Dash)
 
-// Create a list of countries we're interested in
-let countries = 
-  [ WorldBank.Countries.Greece; WorldBank.Countries.Ireland; 
+<span class="c">// Create a list of countries we're interested in</span>
+<span class="k">let</span> countries = 
+  <span class="o">[</span> WorldBank.Countries.Greece; WorldBank.Countries.Ireland; 
     WorldBank.Countries.Denmark; WorldBank.Countries.``United Kingdom``;
-    WorldBank.Countries.``Czech Republic`` ]
+    WorldBank.Countries.``Czech Republic`` <span class="o">]</span>
 
 
-// Generate line chart with debt data series for every country 
-// then combine the lines into a single combined chart 
+<span class="c">// Generate line chart with debt data series for every country </span>
+<span class="c">// then combine the lines into a single combined chart </span>
 FSharpChart.Combine
-  [ for country in countries do
-      let data = country.``Central government debt, total (% of GDP)``|> Seq.sortBy fst 
-      yield upcast FSharpChart.Line(data, Name=unbox country) ]
-|> FSharpChart.WithLegend(Docking = Docking.Left)
-|> FSharpChart.WithArea.AxisY(MajorGrid = dashGrid) 
-|> FSharpChart.WithArea.AxisX(MajorGrid = dashGrid)
+  <span class="o">[</span> <span class="k">for</span> country <span class="k">in</span> countries <span class="k">do</span>
+      <span class="k">let</span> data = country.``Central government debt, total (% <span class="k">of</span> GDP)``<span class="o">|</span>&gt; Seq.sortBy fst 
+      <span class="k">yield</span> <span class="k">upcast</span> FSharpChart.Line(data, Name=unbox country) <span class="o">]</span>
+<span class="o">|</span>&gt; FSharpChart.WithLegend(Docking = Docking.Left)
+<span class="o">|</span>&gt; FSharpChart.WithArea.AxisY(MajorGrid = dashGrid) 
+<span class="o">|</span>&gt; FSharpChart.WithArea.AxisX(MajorGrid = dashGrid)
 </pre>
 
 <p>The type provider is a .NET assembly (<code>Samples.WorldBank.TypeProvider.dll</code>) that 
@@ -625,7 +625,7 @@ FSharpChart.Combine
     <h4>Blog tags</h4>
     <p>
 
-      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(97),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(33),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(29),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(10),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/fsharp-data/">f# data</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/monads/">monads</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/art/">art</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fractals/">fractals</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/funscript/">funscript</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/coeffects/">coeffects</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/comonads/">comonads</a>&nbsp;(1)    </p>
+      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(97),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(33),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(10),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(29),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/fsharp-data/">f# data</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/monads/">monads</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/art/">art</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fractals/">fractals</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/funscript/">funscript</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(1)    </p>
 
   </div>
 </div>

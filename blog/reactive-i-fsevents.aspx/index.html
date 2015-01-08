@@ -107,19 +107,19 @@
   with a small green ellipse somewhere on the form. You can see the expected result in the attached screenshot.
   If you paste the source code to the F# interactive, a form should appear (Note, you can open the code in 
   Visual Studio, select it and hit <strong>Alt + Enter</strong> to run it in the F# interactive):</p>
-<pre lang="fsharp">
-#light
-open System.Drawing
-open System.Windows.Forms
+<pre >
+<span class="prep">#light</span>
+<span class="k">open</span> System.Drawing
+<span class="k">open</span> System.Windows.Forms
 
-// Generate random location for the ellipse
-let rnd = new System.Random()
-let x, y = rnd.Next(550), rnd.Next(350)
+<span class="c">// Generate random location for the ellipse</span>
+<span class="k">let</span> rnd = <span class="k">new</span> System.Random()
+<span class="k">let</span> x, y = rnd.Next(550), rnd.Next(350)
 
-// Create the main form
-let frm = new Form(ClientSize=Size(600,400))
-// Add event handler to paint the ellipse
-frm.Paint.Add(fun e -&gt;
+<span class="c">// Create the main form</span>
+<span class="k">let</span> frm = <span class="k">new</span> Form(ClientSize=Size(600,400))
+<span class="c">// Add event handler to paint the ellipse</span>
+frm.Paint.Add(<span class="k">fun</span> e <span class="o">-&gt;</span>
     e.Graphics.FillRectangle(Brushes.White, 0, 0, 600, 400)
     e.Graphics.FillEllipse(Brushes.DarkOliveGreen, x, y, 50, 50)  
   )
@@ -147,11 +147,11 @@ frm.Show()
   uses the given function to transform an element (for example a number <code>n</code>) into something
   else (for example a type that contains the original number and its square). Let's take a look at an example
   that demonstrates this:</p>
-<pre lang="fsharp">
-> [1 .. 10]
-    |&gt; List.filter (fun n -&gt; n % 2 = 1)
-    |&gt; List.map (fun n -&gt; (n, n*n));;
-val it : (int * int) list = [(1, 1); (3, 9); (5, 25); (7, 49); (9, 81)]
+<pre >
+&gt; [1 .. 10]
+    <span class="o">|</span>&gt; List.filter (<span class="k">fun</span> n <span class="o">-&gt;</span> n % 2 = 1)
+    <span class="o">|</span>&gt; List.map (<span class="k">fun</span> n <span class="o">-&gt;</span> (n, n*n));;
+<span class="k">val</span> it : (int * int) list = <span class="o">[</span>(1, 1); (3, 9); (5, 25); (7, 49); (9, 81)<span class="o">]</span>
 </pre>  
 <p>In this example, we took a list of numbers from 1 to 10. Then we filtered it using <code>List.filter</code>, so
   the result contained only odd numbers. Finally, we used the <code>List.map</code> function to transform the 
@@ -165,27 +165,27 @@ val it : (int * int) list = [(1, 1); (3, 9); (5, 25); (7, 49); (9, 81)]
   can use <code>map</code> to turn information about the click into something more interesting, such as
   a message that we'll show to the user. Let's finally implement the code that handles clicks on the ellipse 
   using these event processing functions:</p>
-<pre lang="fsharp">
-&gt; // Utility function to calculate the distance 
-  open System
-  let dist (x1, y1) (x2, y2) =
+<pre >
+&gt; <span class="c">// Utility function to calculate the distance </span>
+  <span class="k">open</span> System
+  <span class="k">let</span> dist (x1, y1) (x2, y2) =
     Math.Sqrt(Math.Pow(x1 - x2, 2.0) + Math.Pow(y1 - y2, 2.0))
   ;;
-val dist : float * float -> float * float -> float
+<span class="k">val</span> dist : float * float <span class="o">-&gt;</span> float * float <span class="o">-&gt;</span> float
 
-&gt; let evtMessages =
+&gt; <span class="k">let</span> evtMessages =
     frm.MouseDown
-      |&gt; Event.filter (fun mi -&gt; 
-          // The distance between click location and 
-          // the center of the ellipse is less than 25
+      <span class="o">|</span>&gt; Event.filter (<span class="k">fun</span> mi <span class="o">-&gt;</span> 
+          <span class="c">// The distance between click location and </span>
+          <span class="c">// the center of the ellipse is less than 25</span>
           dist (float mi.X, float mi.Y) (float(x + 25), float(y + 25)) &lt; 25.0 )
-      |&gt; Event.map (fun mi -&gt;
-          // Return message that we'll show to the user
-          if (int (mi.Button &amp;&amp;&amp; MouseButtons.Left) &lt;&gt; 0) then "Left button"
-          elif (int (mi.Button &amp;&amp;&amp; MouseButtons.Right) &lt;&gt; 0) then "Right button"
-          else "Some trick!")
+      <span class="o">|</span>&gt; Event.map (<span class="k">fun</span> mi <span class="o">-&gt;</span>
+          <span class="c">// Return message that we'll show to the user</span>
+          <span class="k">if</span> (int (mi.Button &amp;&amp;&amp; MouseButtons.Left) &lt;&gt; 0) <span class="k">then</span> <span class="s">"Left button"</span>
+          elif (int (mi.Button &amp;&amp;&amp; MouseButtons.Right) &lt;&gt; 0) <span class="k">then</span> <span class="s">"Right button"</span>
+          <span class="k">else</span> <span class="s">"Some trick!"</span>)
   ;;
-val evtMessages : IEvent&lt;string&gt;
+<span class="k">val</span> evtMessages : IEvent&lt;string&gt;
 </pre>  
 <p>We aren't yet done with the application, but we did two important steps. Let's take a look at them in detail.
   We first used the <code>Event.filter</code> processing function. The predicate that we gave it tests whether
@@ -217,10 +217,10 @@ val evtMessages : IEvent&lt;string&gt;
   function composition. These are in detail explained in my <a href="http://tomasp.net/blog/functional-net-update.aspx">F# book</a>,
   but you can get some idea from the F# overview [<a href="#react1links">5</a>] that I wrote some time ago. </p>  
   
-<pre lang="fsharp">
+<pre >
 evtMessages
-  |&gt; Event.map (sprintf "Hey, you clicked on the ellipse.\nUsing: %s")
-  |&gt; Event.listen (MessageBox.Show &gt;&gt; ignore)
+  <span class="o">|</span>&gt; Event.map (sprintf <span class="s">"Hey, you clicked on the ellipse.\nUsing: %s"</span>)
+  <span class="o">|</span>&gt; Event.listen (MessageBox.Show &gt;&gt; ignore)
 </pre>
 <p>This time we'll writing processing code for the <code>evtMessages</code> value, which is an event that
   we constructed in the previous example. In the first line, we use the <code>Event.map</code> function to 
@@ -376,7 +376,7 @@ evtMessages
     <h4>Blog tags</h4>
     <p>
 
-      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(97),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(33),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(29),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(10),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/fsharp-data/">f# data</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/monads/">monads</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/art/">art</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fractals/">fractals</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/funscript/">funscript</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/coeffects/">coeffects</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/comonads/">comonads</a>&nbsp;(1)    </p>
+      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(97),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(33),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(10),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(29),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/fsharp-data/">f# data</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/monads/">monads</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/art/">art</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fractals/">fractals</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/funscript/">funscript</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(1)    </p>
 
   </div>
 </div>

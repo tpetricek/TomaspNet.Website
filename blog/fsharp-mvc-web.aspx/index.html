@@ -133,31 +133,31 @@
   is implemented as an F# module, which means that it will appear as static class to .NET. Modules
   are quite useful for storing functionality that doesn't need to be encapsulated in a class, so
   this is a perfect fit:</p>
-<pre lang="fsharp">
-namespace WebApplication.Core
+<pre >
+<span class="k">namespace</span> WebApplication.Core
 
-open Microsoft.FSharp.Quotations
-open Microsoft.FSharp.Linq
-open Microsoft.FSharp.Linq.Query
+<span class="k">open</span> Microsoft.FSharp.Quotations
+<span class="k">open</span> Microsoft.FSharp.Linq
+<span class="k">open</span> Microsoft.FSharp.Linq.Query
 
-// Namespace with LINQ to SQL generated classes
-open WebApplication.Data
+<span class="c">// Namespace with LINQ to SQL generated classes</span>
+<span class="k">open</span> WebApplication.Data
 
-// Stores information about product (will be used later)
-type ProductInfo = {
+<span class="c">// Stores information about product (will be used later)</span>
+<span class="k">type</span> ProductInfo = {
   ID : int
   Name : string
   Category : string
   Price : System.Decimal }
 
-// Implementes the model for our MVC application
-module Model = 
-  // Returns the 'Product' entity with the given ID
-  let ProductDetail (id) =
-    let dx = new NorthwindDataContext()
-    &lt;@ seq { for p in dx.Products do
-               if (p.ProductID = id) then yield p }
-               |&gt; Seq.head @&gt; |&gt; query
+<span class="c">// Implementes the model for our MVC application</span>
+<span class="k">module</span> Model = 
+  <span class="c">// Returns the 'Product' entity with the given ID</span>
+  <span class="k">let</span> ProductDetail (id) =
+    <span class="k">let</span> dx = <span class="k">new</span> NorthwindDataContext()
+    <span class="o">&lt;@</span> seq { <span class="k">for</span> p <span class="k">in</span> dx.Products <span class="k">do</span>
+               <span class="k">if</span> (p.ProductID = id) <span class="k">then</span> <span class="k">yield</span> p }
+               <span class="o">|</span>&gt; Seq.head <span class="o">@&gt;</span> <span class="o">|</span>&gt; query
 </pre>
 <p>The <code>ProductDetail</code> function first creates a new instance of the generated data context
   and then runs the query. A query in F# is written using quotations. This means that the data-processing
@@ -178,16 +178,16 @@ module Model =
   some its property (or even calculated value). For example, to sort products using the length
   of the product name, the key selector would be <code>&lt;@ fun p -> p.ProductName.Length @&gt;</code>.
   Let's first look at the code and I'll explain how the key selector is used after that:</p>
-<pre lang="fsharp">
-let ListProducts (keySelector:Expr&lt;Product -> 'T&gt;) =
-  let dx = new NorthwindDataContext()
-  &lt;@ seq { for p in dx.Products |&gt; Seq.sortBy %keySelector do
-              for c in dx.Categories do
-                if (p.CategoryID.Value = c.CategoryID) then
-                  yield { ID = p.ProductID
+<pre >
+<span class="k">let</span> ListProducts (keySelector:Expr&lt;Product <span class="o">-&gt;</span> 'T&gt;) =
+  <span class="k">let</span> dx = <span class="k">new</span> NorthwindDataContext()
+  <span class="o">&lt;@</span> seq { <span class="k">for</span> p <span class="k">in</span> dx.Products <span class="o">|</span>&gt; Seq.sortBy %keySelector <span class="k">do</span>
+              <span class="k">for</span> c <span class="k">in</span> dx.Categories <span class="k">do</span>
+                <span class="k">if</span> (p.CategoryID.Value = c.CategoryID) <span class="k">then</span>
+                  <span class="k">yield</span> { ID = p.ProductID
                           Name = p.ProductName 
                           Category = c.CategoryName 
-                          Price = p.UnitPrice.Value } } @&gt; |&gt; query
+                          Price = p.UnitPrice.Value } } <span class="o">@&gt;</span> <span class="o">|</span>&gt; query
 </pre>
 <p>The <code>keySelector</code> parameter has a type <code>Expr&lt;Product -> 'T&gt;</code>, which
   means that it is an expression tree (or a quotation, in the F# terminology) of some 
@@ -217,23 +217,23 @@ let ListProducts (keySelector:Expr&lt;Product -> 'T&gt;) =
   <code>List</code> loads a list of products from the database. It has a parameter which may be
   <code>null</code> and specifies the ordering of products (simply as an integer). The second
   member returns details about the specified product and is named <code>Detail</code>:</p>  
-<pre lang="fsharp">
-let (|NonNull|_|) (a:Nullable&lt;_&gt;) =
-  if a.HasValue then Some(a.Value) else None
+<pre >
+<span class="k">let</span> (|NonNull|<span class="o">_</span>|) (a:Nullable&lt;<span class="o">_</span>&gt;) =
+  <span class="k">if</span> a.HasValue <span class="k">then</span> Some(a.Value) <span class="k">else</span> None
 
-type ProductsController() =
-  inherit Controller()
+<span class="k">type</span> ProductsController() =
+  <span class="k">inherit</span> Controller()
   
-  member x.List(id:Nullable&lt;int&gt;) =
-    x.ViewData.Model &lt;- 
-      match id with
-      | NonNull(1) -&gt; Model.ListProducts &lt;@ fun p -&gt; p.UnitPrice.Value @&gt;
-      | NonNull(2) -&gt; Model.ListProducts &lt;@ fun p -&gt; p.CategoryID.Value @&gt;
-      | _ -&gt; Model.ListProducts &lt;@ fun p -&gt; p.ProductName @&gt;
+  <span class="k">member</span> x.List(id:Nullable&lt;int&gt;) =
+    x.ViewData.Model <span class="o">&lt;-</span> 
+      <span class="k">match</span> id <span class="k">with</span>
+      <span class="o">|</span> NonNull(1) <span class="o">-&gt;</span> Model.ListProducts <span class="o">&lt;@</span> <span class="k">fun</span> p <span class="o">-&gt;</span> p.UnitPrice.Value <span class="o">@&gt;</span>
+      <span class="o">|</span> NonNull(2) <span class="o">-&gt;</span> Model.ListProducts <span class="o">&lt;@</span> <span class="k">fun</span> p <span class="o">-&gt;</span> p.CategoryID.Value <span class="o">@&gt;</span>
+      <span class="o">|</span> <span class="o">_</span> <span class="o">-&gt;</span> Model.ListProducts <span class="o">&lt;@</span> <span class="k">fun</span> p <span class="o">-&gt;</span> p.ProductName <span class="o">@&gt;</span>
     x.View() 
 
-  member x.Detail(id:int) =
-    x.ViewData.Model &lt;- Model.ProductDetail id
+  <span class="k">member</span> x.Detail(id:int) =
+    x.ViewData.Model <span class="o">&lt;-</span> Model.ProductDetail id
     x.View() 
 </pre>
 <p>The listing first defines a simple active pattern that is useful when working with 
@@ -395,7 +395,7 @@ type ProductsController() =
     <h4>Blog tags</h4>
     <p>
 
-      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(97),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(33),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(29),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(10),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/fsharp-data/">f# data</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/monads/">monads</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/art/">art</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fractals/">fractals</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/funscript/">funscript</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/coeffects/">coeffects</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/comonads/">comonads</a>&nbsp;(1)    </p>
+      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(97),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(33),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(10),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(29),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/fsharp-data/">f# data</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/monads/">monads</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/art/">art</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fractals/">fractals</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/funscript/">funscript</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(1)    </p>
 
   </div>
 </div>

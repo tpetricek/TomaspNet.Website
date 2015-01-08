@@ -105,33 +105,33 @@
   XAML file is loaded and this is where the Silverlight application starts executing.
   Let's now look at the structure of <code>simplegui.xaml</code> file:</p>  
   
-<pre lang="xml">
-&lt;Canvas x:Name="parentCanvas"
-    xmlns="http://schemas.microsoft.com/client/2007" 
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
-    xmlns:php="clr-namespace:PHP.Silverlight;assembly=ClientBin/PhpNetCore.dll"
-    Width="800" Height="600" Background="White" &gt;
-  &lt;!-- Specifies the PHP code that drives the application --&gt;
-  &lt;php:PhalangerLoader Source="Simplegui.phpx" /&gt;
+<pre >
+<span class="k">&lt;</span><span class="i">Canvas</span> <span class="o">x:Name</span><span class="k">="parentCanvas"</span>
+    <span class="o">xmlns</span><span class="k">="http://schemas.microsoft.com/client/2007"</span> 
+    <span class="o">xmlns:x</span><span class="k">="http://schemas.microsoft.com/winfx/2006/xaml"</span> 
+    <span class="o">xmlns:php</span><span class="k">="clr-namespace:PHP.Silverlight;assembly=ClientBin/PhpNetCore.dll"</span>
+    <span class="o">Width</span><span class="k">="800"</span> <span class="o">Height</span><span class="k">="600"</span> <span class="o">Background</span><span class="k">="White"</span> <span class="k">&gt;</span>
+  <span class="c">&lt;!-- Specifies the PHP code that drives the application --&gt;</span>
+  <span class="k">&lt;</span><span class="i">php:PhalangerLoader</span> <span class="o">Source</span><span class="k">="Simplegui.phpx"</span> <span class="k">/&gt;</span>
 
-  &lt;Canvas.Resources&gt;
-    &lt;!-- Animation that moves the car object --&gt;
-    &lt;Storyboard x:Name="moveCar"&gt;
-      &lt;DoubleAnimation From="0" To="810" Duration="0:0:2" 
-                       Storyboard.TargetName="carCanvas" 
-                       Storyboard.TargetProperty="(Canvas.Left)"/&gt;
-    &lt;/Storyboard&gt;
-    &lt;!-- (...) more animations --&gt;
-  &lt;/Canvas.Resources&gt;
+  <span class="k">&lt;</span><span class="i">Canvas.Resources</span><span class="k">&gt;</span>
+    <span class="c">&lt;!-- Animation that moves the car object --&gt;</span>
+    <span class="k">&lt;</span><span class="i">Storyboard</span> <span class="o">x:Name</span><span class="k">="moveCar"</span><span class="k">&gt;</span>
+      <span class="k">&lt;</span><span class="i">DoubleAnimation</span> <span class="o">From</span><span class="k">="0"</span> <span class="o">To</span><span class="k">="810"</span> <span class="o">Duration</span><span class="k">="0:0:2"</span> 
+                       <span class="o">Storyboard</span>.<span class="o">TargetName</span><span class="k">="carCanvas"</span> 
+                       <span class="o">Storyboard</span>.<span class="o">TargetProperty</span><span class="k">="(Canvas.Left)"</span><span class="k">/&gt;</span>
+    <span class="k">&lt;/</span><span class="i">Storyboard</span><span class="k">&gt;</span>
+    <span class="c">&lt;!-- (...) more animations --&gt;</span>
+  <span class="k">&lt;/</span><span class="i">Canvas.Resources</span><span class="k">&gt;</span>
 
-  &lt;!-- Car - composed from ellipses and rectangles --&gt;
-  &lt;Canvas x:Name="carCanvas"&gt;
-    &lt;!-- Back wheel --&gt;
-    &lt;Ellipse x:Name="wheel1" Width="47" Height="47" Stroke="#FF000000" 
-             Canvas.Left="5" Canvas.Top="228" /&gt;
-    &lt;!-- (...) other car parts --&gt;
-  &lt;/Canvas&gt;  
-&lt;/Canvas&gt;
+  <span class="c">&lt;!-- Car - composed from ellipses and rectangles --&gt;</span>
+  <span class="k">&lt;</span><span class="i">Canvas</span> <span class="o">x:Name</span><span class="k">="carCanvas"</span><span class="k">&gt;</span>
+    <span class="c">&lt;!-- Back wheel --&gt;</span>
+    <span class="k">&lt;</span><span class="i">Ellipse</span> <span class="o">x:Name</span><span class="k">="wheel1"</span> <span class="o">Width</span><span class="k">="47"</span> <span class="o">Height</span><span class="k">="47"</span> <span class="o">Stroke</span><span class="k">="#FF000000"</span> 
+             <span class="o">Canvas</span>.<span class="o">Left</span><span class="k">="5"</span> <span class="o">Canvas</span>.<span class="o">Top</span><span class="k">="228"</span> <span class="k">/&gt;</span>
+    <span class="c">&lt;!-- (...) other car parts --&gt;</span>
+  <span class="k">&lt;/</span><span class="i">Canvas</span><span class="k">&gt;</span>  
+<span class="k">&lt;/</span><span class="i">Canvas</span><span class="k">&gt;</span>
 </pre>
 <p>There are a few important things to note. First, the whole content is contained in a <code>Canvas</code>
   element, which is a container for other elements. The root element contains several standard <code>xmlns</code>
@@ -165,32 +165,32 @@
 <p>Let's now look at the PHP code file that controls the demo with a car (available <a href="http://tomasp.net/articles/php-in-silverlight/simplegui.html" type="external">here</a>).
   The PHP file contains code that defines the interaction for our application, which is in this example very simple - when a user clicks on 
   the car we want to start the animation:</p>
-<pre lang="php">
-&lt;?
-import namespace System:::Windows:::Input;
-// Include common Silverlight utilities
-include("slutils.phpx");
+<pre >
+<span class="prep">&lt;?</span>
+<span class="k">import</span> <span class="k">namespace</span> System:::Windows:::Input;
+<span class="c">// Include common Silverlight utilities</span>
+<span class="k">include</span>(<span class="s">"slutils.phpx"</span>);
 
-// Initialize canvas wrapper for working with the XAML elements
-global $CANVAS;
-global $cv;
-$cv = new CanvasWrapper($CANVAS);
+<span class="c">// Initialize canvas wrapper for working with the XAML elements</span>
+<span class="k">global</span> $CANVAS;
+<span class="k">global</span> $cv;
+$cv = <span class="k">new</span> CanvasWrapper($CANVAS);
 
-// Called when user clicks on the car
-function OnClick() {
-  global $cv;
-  // Start the animation declared in XAML
+<span class="c">// Called when user clicks on the car</span>
+<span class="k">function</span> OnClick() {
+  <span class="k">global</span> $cv;
+  <span class="c">// Start the animation declared in XAML</span>
   $cv-&gt;moveCar-&gt;Begin();
 }
 
-// Called when the Silverlight component loads in browser
-function OnLoad() {
-  global $cv;
-  // Attach the event handler for 'MouseLeftButtonDown' of the 'carCanvas'
+<span class="c">// Called when the Silverlight component loads in browser</span>
+<span class="k">function</span> OnLoad() {
+  <span class="k">global</span> $cv;
+  <span class="c">// Attach the event handler for 'MouseLeftButtonDown' of the 'carCanvas'</span>
   $cv-&gt;carCanvas-&gt;MouseLeftButtonDown-&gt;Add
-    (new MouseEventHandler("OnClick"));
+    (<span class="k">new</span> MouseEventHandler(<span class="s">"OnClick"</span>));
 }
-?&gt;
+<span class="prep">?&gt;</span>
 </pre>
 <p>On the first line, you can see the <code>import namespace</code> statement, which imports objects from the 
   specified .NET (Silverlight) namespace. This is a non-standard extension to the PHP language which is available
@@ -207,14 +207,14 @@ function OnLoad() {
   If you look at the <code>OnClick</code> method (which will be called by the system when user clicks on the car element)
   you can see a code that starts the animation, by calling <code>Begin</code> method of the <code>Storyboard</code> element
   declared in XAML. The following example demonstrates how the <code>CanvasWrapper</code> simplifies the code:</p>  
-<pre lang="php">
-// Using CanvasWrapper we can just access 
-// 'moveCar' as a member using magical '__get'
+<pre >
+<span class="c">// Using CanvasWrapper we can just access </span>
+<span class="c">// 'moveCar' as a member using magical '__get'</span>
 $cv-&gt;moveCar-&gt;Begin();
 
-// Without CanvasWrapper the element has to 
-// be accessed using 'FindName' method
-$cv-&gt;FindName("moveCar")-&gt;Begin();
+<span class="c">// Without CanvasWrapper the element has to </span>
+<span class="c">// be accessed using 'FindName' method</span>
+$cv-&gt;FindName(<span class="s">"moveCar"</span>)-&gt;Begin();
 </pre>
 <p>There are of course some other tricks that the <code>slutils.phpx</code> implements, but this is the only one that 
   we needed in this example. The implementation of <code>OnClick</code> function is quite simple, so let's look at the
@@ -390,7 +390,7 @@ $cv-&gt;FindName("moveCar")-&gt;Begin();
     <h4>Blog tags</h4>
     <p>
 
-      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(97),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(33),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(29),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(10),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/fsharp-data/">f# data</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/monads/">monads</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/art/">art</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fractals/">fractals</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/funscript/">funscript</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/coeffects/">coeffects</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/comonads/">comonads</a>&nbsp;(1)    </p>
+      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(97),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(33),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(10),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(29),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/fsharp-data/">f# data</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/monads/">monads</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/art/">art</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fractals/">fractals</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/funscript/">funscript</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(1)    </p>
 
   </div>
 </div>

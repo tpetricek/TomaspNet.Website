@@ -198,14 +198,14 @@
   samples and will be eventually included in F# PowerPack too. Let's start by looking 
   at the type signature of the function:</p>
 
-<pre lang="fsharp">
-val mapReduce :
-    initf:    (unit -&gt; 'TState) -&gt;                 // (1)
-    processf: ('TState -&gt; 'TInput -&gt; 'TState) -&gt;   // (2)
-    mergef:   ('TState -&gt; 'TState -&gt; 'TState) -&gt;   // (3)
-    resultf:  ('TState -&gt; 'TResult) -&gt;             // (4)
-    input:    pseq&lt;'TInput&gt; -&gt;     // Input data sequence
-              'TResult             // Calculated result
+<pre >
+<span class="k">val</span> mapReduce :
+    initf:    (unit <span class="o">-&gt;</span> 'TState) <span class="o">-&gt;</span>                 <span class="c">// (1)</span>
+    processf: ('TState <span class="o">-&gt;</span> 'TInput <span class="o">-&gt;</span> 'TState) <span class="o">-&gt;</span>   <span class="c">// (2)</span>
+    mergef:   ('TState <span class="o">-&gt;</span> 'TState <span class="o">-&gt;</span> 'TState) <span class="o">-&gt;</span>   <span class="c">// (3)</span>
+    resultf:  ('TState <span class="o">-&gt;</span> 'TResult) <span class="o">-&gt;</span>             <span class="c">// (4)</span>
+    input:    pseq&lt;'TInput&gt; <span class="o">-&gt;</span>     <span class="c">// Input data sequence</span>
+              'TResult             <span class="c">// Calculated result</span>
 </pre>
 
 <p>The function looks rather complex, but once you understand what is going on, it should become
@@ -488,7 +488,7 @@ val mapReduce :
     <h4>Blog tags</h4>
     <p>
 
-      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(97),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(33),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(29),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(10),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/fsharp-data/">f# data</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/monads/">monads</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/art/">art</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fractals/">fractals</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/funscript/">funscript</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/coeffects/">coeffects</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/comonads/">comonads</a>&nbsp;(1)    </p>
+      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(97),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(33),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(10),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(29),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/fsharp-data/">f# data</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/monads/">monads</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/art/">art</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fractals/">fractals</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/funscript/">funscript</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(1)    </p>
 
   </div>
 </div>

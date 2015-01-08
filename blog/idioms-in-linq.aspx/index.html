@@ -93,10 +93,10 @@ that LINQ syntax can be used for encoding <em>queries</em> (obviously), <em>mona
   (<code>Option.Some</code>) or it can be empty (<code>Option.None</code>). It is similar to <code>Nullable&lt;T&gt;</code> with 
   the only difference that the contained value can also be a reference type). When working with options, you can use LINQ syntax to 
   write computations that can fail and return <code>Option.None</code> at any time without explicitly checking for it:</p>
-<pre lang="csharp">
-var res = from n in TryReadInt()
-          from m in TryReadInt()
-          select n + m;
+<pre >
+<span class="k">var</span> res = <span class="k">from</span> n <span class="k">in</span> TryReadInt()
+          <span class="k">from</span> m <span class="k">in</span> TryReadInt()
+          <span class="k">select</span> n + m;
 </pre>
 <p>The sample tries to read number from the console (<code>TryReadInt</code>). If the user enters two valid numbers, the result 
   will be <code>Option.Some</code> containing the sum. However, if the user enters wrong input, the rest of the computation
@@ -133,12 +133,12 @@ var res = from n in TryReadInt()
   <em>unit</em>, <em>map</em> and <small style="font-size:70%;">&#9733;</small>). The operations should have the following types
   (I'm using the F# syntax, so <code>-&gt;</code> stands for the <code>Func</code> delegate or a method):</p>
 
-<pre lang="csharp">
-// Operations required by a Monad
+<pre >
+<span class="c">// Operations required by a Monad</span>
 Return : R -&gt; Monad&lt;R&gt;
 Bind   : Monad&lt;T&gt; -&gt; Func&lt;T, Monad&lt;R&gt;&gt; -&gt; Monad&lt;R&gt;
 
-// Operations required by an Idiom
+<span class="c">// Operations required by an Idiom</span>
 Return : R -&gt; Idiom&lt;R&gt;
 Select : Idiom&lt;T&gt; -&gt; Func&lt;T, R&gt;) -&gt; Idiom&lt;R&gt;
 Merge  : Idiom&lt;T1&gt; -&gt; Idiom&lt;T2&gt; -&gt; Idiom&lt;Tuple&lt;T1, T2&gt;&gt;
@@ -173,21 +173,21 @@ Merge  : Idiom&lt;T1&gt; -&gt; Idiom&lt;T2&gt; -&gt; Idiom&lt;Tuple&lt;T1, T2&gt
   <code>[a; b; c]</code> you'll get <code>[1,a; 2,b; 3,c]</code>. There is only a single sensible way to implement the <code>Select</code>
   and that's to use the same behavior as LINQ. However, the <code>Return</code> operation may be surprising. Let's look at the three methods:</p>
 
-<pre lang="csharp">
-// Returns an infinite sequence containing the specified value
-public static IEnumerable&lt;T&gt; Return&lt;T&gt;(T value) {
-  while (true) yield return value;
+<pre >
+<span class="c">// Returns an infinite sequence containing the specified value</span>
+<span class="k">public</span> <span class="k">static</span> IEnumerable&lt;T&gt; Return&lt;T&gt;(T <span class="k">value</span>) {
+  <span class="k">while</span> (<span class="k">true</span>) <span class="k">yield</span> <span class="k">return</span> <span class="k">value</span>;
 }
 
-// Merges corresponding elements from two sequences into tuples
-public static IEnumerable&lt;Tuple&lt;T1, T2&gt;&gt; Merge&lt;T1, T2&gt;
-    (this IEnumerable&lt;T1&gt; first, IEnumerable&lt;T2&gt; second) {
-  return Enumerable.Zip(first, second, Tuple.Create);
+<span class="c">// Merges corresponding elements from two sequences into tuples</span>
+<span class="k">public</span> <span class="k">static</span> IEnumerable&lt;Tuple&lt;T1, T2&gt;&gt; Merge&lt;T1, T2&gt;
+    (<span class="k">this</span> IEnumerable&lt;T1&gt; first, IEnumerable&lt;T2&gt; second) {
+  <span class="k">return</span> Enumerable.Zip(first, second, Tuple.Create);
 }
 
-// Applies the specified function to all elements of source 
-public static IEnumerable&lt;R&gt; Select&lt;T, R&gt;(this IEnumerable&lt;T&gt; source, Func&lt;T, R&gt; func) {
-  foreach(var el in source) yield return func(el);
+<span class="c">// Applies the specified function to all elements of source </span>
+<span class="k">public</span> <span class="k">static</span> IEnumerable&lt;R&gt; Select&lt;T, R&gt;(<span class="k">this</span> IEnumerable&lt;T&gt; source, Func&lt;T, R&gt; func) {
+  <span class="k">foreach</span>(<span class="k">var</span> el <span class="k">in</span> source) <span class="k">yield</span> <span class="k">return</span> func(el);
 }
 </pre>
 
@@ -196,10 +196,10 @@ public static IEnumerable&lt;R&gt; Select&lt;T, R&gt;(this IEnumerable&lt;T&gt; 
   examples, you'll see that this implementation allows us to write useful things just using the idiom operations. Another 
   reason is that idioms should obey some laws to give a reasonable definition. You can think of laws as unit tests that should
   hold for any random input. One of the laws about <code>Return</code> is:</p>
-<pre lang="csharp">
+<pre >
 [Test]
-public void LeftIdentity&lt;T&gt;(IEnumerable&lt;T&gt; source) {
-  Assert.AreEqual( source, source.Merge(ZipList.Return(0)).Select(tup => tup.Item1) );
+<span class="k">public</span> <span class="k">void</span> LeftIdentity&lt;T&gt;(IEnumerable&lt;T&gt; source) {
+  Assert.AreEqual( source, source.Merge(ZipList.Return(0)).Select(tup =&gt; tup.Item1) );
 }
 </pre>
 
@@ -213,23 +213,23 @@ public void LeftIdentity&lt;T&gt;(IEnumerable&lt;T&gt; source) {
   We'll start with a basic example that calculates average price of stock prices over several days that are stored
   in sequence of sequences:</p>
 
-<pre lang="csharp">
-// Changing prices of 4 different stocks over 3 days
-var prices = new[] { 
-  new[] { 10.0, 4.0, 13.0, 20.0 },
-  new[] { 12.0, 3.0, 11.0, 25.0 },
-  new[] {  9.0, 1.0, 16.0, 24.0 },
+<pre >
+<span class="c">// Changing prices of 4 different stocks over 3 days</span>
+<span class="k">var</span> prices = <span class="k">new</span>[] { 
+  <span class="k">new</span>[] { 10.0, 4.0, 13.0, 20.0 },
+  <span class="k">new</span>[] { 12.0, 3.0, 11.0, 25.0 },
+  <span class="k">new</span>[] {  9.0, 1.0, 16.0, 24.0 },
 };
 
-// Calculate average price for each stock
-var res = ZipList.Return(0.0);
-foreach (var day in prices)
-  res = res.Merge(day).Select(tup => tup.Item1 + tup.Item2);
-var avg = res.Select(sum => sum / prices.Count());
+<span class="c">// Calculate average price for each stock</span>
+<span class="k">var</span> res = ZipList.Return(0.0);
+<span class="k">foreach</span> (<span class="k">var</span> day <span class="k">in</span> prices)
+  res = res.Merge(day).Select(tup =&gt; tup.Item1 + tup.Item2);
+<span class="k">var</span> avg = res.Select(sum =&gt; sum / prices.Count());
 
-// Print results: 10.3, 2.6, 13.3 and 23 
-foreach (var price in avg)
-  Console.Write("{0}, ", price);
+<span class="c">// Print results: 10.3, 2.6, 13.3 and 23 </span>
+<span class="k">foreach</span> (<span class="k">var</span> price <span class="k">in</span> avg)
+  Console.Write(<span class="s">"{0}, "</span>, price);
 </pre>
 
 <p>How does the calculation of the average work? We first need to sum all prices over the three days. To do that, we 
@@ -247,13 +247,13 @@ foreach (var price in avg)
   next blog post, we'll look at a larger example and the syntax will be quite useful. The keyword that we can
   misuse is <code>join</code>:</p>
 
-<pre lang="csharp">
-var res = ZipEnumerable.Return(0.0);
-foreach (var day in prices)
-  res = from sum in res
-        join price in day on 1 equals 1
-        select sum + price;
-var avg = from sum in res select sum / prices.Count();
+<pre >
+<span class="k">var</span> res = ZipEnumerable.Return(0.0);
+<span class="k">foreach</span> (<span class="k">var</span> day <span class="k">in</span> prices)
+  res = <span class="k">from</span> sum <span class="k">in</span> res
+        <span class="k">join</span> price <span class="k">in</span> day <span class="k">on</span> 1 <span class="k">equals</span> 1
+        <span class="k">select</span> sum + price;
+<span class="k">var</span> avg = <span class="k">from</span> sum <span class="k">in</span> res <span class="k">select</span> sum / prices.Count();
 </pre>
 
 <p>When using <code>join</code> for implementing actual database joins, we can specify keys that should be
@@ -270,10 +270,10 @@ var avg = from sum in res select sum / prices.Count();
   clause will be combined using <code>Merge</code>. Then the query will use <code>Select</code> to evaluate the expression
   specified in <code>select</code>. This is different than monads encoded using multiple <code>from</code> clauses 
   where the next <code>from</code> expression can depend on earlier variables. For example, when using monads, you can write:</p>
-<pre lang="csharp">
-var q = from cat in RandomCategories()
-        from prod in ProductsInCategory(cat.ID)
-        select prod.Name;
+<pre >
+<span class="k">var</span> q = <span class="k">from</span> cat <span class="k">in</span> RandomCategories()
+        <span class="k">from</span> prod <span class="k">in</span> ProductsInCategory(cat.ID)
+        <span class="k">select</span> prod.Name;
 </pre>
 <p>Note that we can use the <code>cat</code> value in the <code>in</code> part of the second <code>from</code> clause.
   This is because the translation that C# uses for multiple <code>from</code> clauses and the translation used
@@ -283,18 +283,18 @@ var q = from cat in RandomCategories()
   two key selectors), you can easily find a way to implement it in terms of <code>Merge</code> and <code>Select</code>
   provided by any idiom:</p>
 
-<pre lang="csharp">
-// Allows using of the join keyword for writing idiom computations
-// (they two key selectors are ignored and users can just write 'on 1 equals 1')
-public static IEnumerable&lt;TResult&gt; Join&lt;TOuter, TInner, TKey, TResult&gt;
-  (this IEnumerable&lt;TOuter&gt; outer, IEnumerable&lt;TInner&gt; inner,
+<pre >
+<span class="c">// Allows using of the join keyword for writing idiom computations</span>
+<span class="c">// (they two key selectors are ignored and users can just write 'on 1 equals 1')</span>
+<span class="k">public</span> <span class="k">static</span> IEnumerable&lt;TResult&gt; Join&lt;TOuter, TInner, TKey, TResult&gt;
+  (<span class="k">this</span> IEnumerable&lt;TOuter&gt; outer, IEnumerable&lt;TInner&gt; inner,
     Func&lt;TOuter, TKey&gt; outerKeySelector,
     Func&lt;TInner, TKey&gt; innerKeySelector,
     Func&lt;TOuter, TInner, TResult&gt; resultSelector) {
 
-  // Implementation using just 'Merge' and 'Select'
-  // that can be provided by any idiom
-  return outer.Merge(inner).Select(tup =&gt; resultSelector(tup.Item1, tup.Item2));
+  <span class="c">// Implementation using just 'Merge' and 'Select'</span>
+  <span class="c">// that can be provided by any idiom</span>
+  <span class="k">return</span> outer.Merge(inner).Select(tup =&gt; resultSelector(tup.Item1, tup.Item2));
 }
 </pre>
 <p>In fact, the implementation could just directly use <code>Enumerable.Zip</code>. However, I wanted to write it
@@ -317,18 +317,18 @@ public static IEnumerable&lt;TResult&gt; Join&lt;TOuter, TInner, TKey, TResult&g
   we can rewrite any example from the original article. The following method implements the transposition
   using the LINQ syntax for idioms:</p>
 
-<pre lang="csharp">
-IEnumerable&lt;IEnumerable&lt;T&gt;&gt; Transpose&lt;T&gt;(this IEnumerable&lt;IEnumerable&lt;T&gt;&gt; matrix) {
-  return matrix.Count() == 0 ?
+<pre >
+IEnumerable&lt;IEnumerable&lt;T&gt;&gt; Transpose&lt;T&gt;(<span class="k">this</span> IEnumerable&lt;IEnumerable&lt;T&gt;&gt; matrix) {
+  <span class="k">return</span> matrix.Count() == 0 ?
 
-    // Processed all rows - return infinite sequence of empty lists
+    <span class="c">// Processed all rows - return infinite sequence of empty lists</span>
     ZipList.Return(Enumerable.Empty&lt;T&gt;()) :
 
-    // Zip all elements from the first row 'matrix.First()' with rows of 
-    // recursively transposed sub-matrix starting from the second row
-    from xs in matrix.First()
-    join xss in Transpose(matrix.Skip(1)) on 1 equals 1
-    select Enumerable.Concat(new[] { xs }, xss);
+    <span class="c">// Zip all elements from the first row 'matrix.First()' with rows of </span>
+    <span class="c">// recursively transposed sub-matrix starting from the second row</span>
+    <span class="k">from</span> xs <span class="k">in</span> matrix.First()
+    <span class="k">join</span> xss <span class="k">in</span> Transpose(matrix.Skip(1)) <span class="k">on</span> 1 <span class="k">equals</span> 1
+    <span class="k">select</span> Enumerable.Concat(<span class="k">new</span>[] { xs }, xss);
 }
 </pre>
 
@@ -347,10 +347,10 @@ IEnumerable&lt;IEnumerable&lt;T&gt;&gt; Transpose&lt;T&gt;(this IEnumerable&lt;I
 
 <p>If we wanted to write the same thing explicitly using the idiom operations, we'd just need to change the
   else clause of the conditional operator and use the following:</p>
-<pre lang="csharp">
+<pre >
 ZipList.
   Merge(matrix.First(), Transpose(matrix.Skip(1))).
-  Select(tuple => Enumerable.Concat(new[] { tuple.Item1 }, tuple.Item2));
+  Select(tuple =&gt; Enumerable.Concat(<span class="k">new</span>[] { tuple.Item1 }, tuple.Item2));
 </pre>
 <p>As I already mentioned, the difference between the two syntactic options isn't as huge in this basic
   example. The main benefit of (mis-)using the query syntax is that we can avoid using tuples explicitly,
@@ -495,7 +495,7 @@ ZipList.
     <h4>Blog tags</h4>
     <p>
 
-      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(97),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(33),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(29),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(10),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/fsharp-data/">f# data</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/monads/">monads</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/art/">art</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fractals/">fractals</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/funscript/">funscript</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/coeffects/">coeffects</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/comonads/">comonads</a>&nbsp;(1)    </p>
+      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(97),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(33),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(10),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(29),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/fsharp-data/">f# data</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/monads/">monads</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/art/">art</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fractals/">fractals</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/funscript/">funscript</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(1)    </p>
 
   </div>
 </div>

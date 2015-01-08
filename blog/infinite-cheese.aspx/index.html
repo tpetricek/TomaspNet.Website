@@ -98,25 +98,25 @@
 <p>First, we'll define triangles from which the cube is composed. This needs to be done by hand and it is
   just a bunch of numbers, so you can look at the attached source code for the complete declaration. The type of this
   value is however interesting, so let's look at the type:</p>
-<pre lang="fsharp">
-// 3D point represented using integers
-type pointi3d = int * int * int
-// Triangle using integral points
-type trianglei = pointi3d * pointi3d * pointi3d
-// A value that represents a cube
-val cube : ((int * int * int) * trianglei list) list
+<pre >
+<span class="c">// 3D point represented using integers</span>
+<span class="k">type</span> pointi3d = int * int * int
+<span class="c">// Triangle using integral points</span>
+<span class="k">type</span> trianglei = pointi3d * pointi3d * pointi3d
+<span class="c">// A value that represents a cube</span>
+<span class="k">val</span> cube : ((int * int * int) * trianglei list) list
 </pre>
 <p>As we can see the cube is represented as a list of sides (so the length of the list will be 6) and for each side
   we have a tuple that represents the side (for example left side will have <code>(-1, 0, 0)</code>, bottom side will have 
   <code>(0, -1, 0)</code> etc.) and the side is represented as collection of triangles (we need two triangles for every 
   rectangular side). The cube represented by a <code>cube</code> value has size <code>1*1*1</code>. Now that we have a 
   cube, we also need a function that will return only the sides that we need:</p>
-<pre lang="fsharp">
-// Returns a cube with filtered sides
-let GetCube incl_sides = 
-  [ for (side,trigs) in cube 
-      when Set.mem side incl_sides
-      -&gt;&gt; trigs ]
+<pre >
+<span class="c">// Returns a cube with filtered sides</span>
+<span class="k">let</span> GetCube incl_sides = 
+  <span class="o">[</span> <span class="k">for</span> (side,trigs) <span class="k">in</span> cube 
+      <span class="k">when</span> Set.mem side incl_sides
+      <span class="o">-&gt;</span>&gt; trigs <span class="o">]</span>
 </pre>
 <p>The natural representation of needed sides is a set which contains tuples that represent the needed sides (which I
   mentioned earlier), so the type of <code>incl_sides</code> value is <code>Set&lt;int*int*int&gt;</code>. The function
@@ -142,37 +142,37 @@ The pattern representing the fractal:
   the triangles. This function takes coordinates (x, y, z) of the smaller cube to generate and a set of
   sides that should be included for this smaller cube (this set depends on the pattern, but also on the
   argument specifying which sides should of the large cube should be included):</p>
-<pre lang="fsharp">  
-// Takes set representing included sides (around the cube) and calls 'f'
-// for every sub-cube in the cube where pattern has '1', giving it  
-// coordinates and set with sides to include in the cube.
-//
-// Type signature:
-//   type side = int*int*int
-//   Set&lt;side&gt; -&gt; (int*int*int -&gt; Set&lt;side&gt; -&gt; #seq&lt;'b&gt;) -&gt; list&lt;'b&gt;
-let PatternMap incl_sides f =
+<pre >  
+<span class="c">// Takes set representing included sides (around the cube) and calls 'f'</span>
+<span class="c">// for every sub-cube in the cube where pattern has '1', giving it  </span>
+<span class="c">// coordinates and set with sides to include in the cube.</span>
+<span class="c">//</span>
+<span class="c">// Type signature:</span>
+<span class="c">//   type side = int*int*int</span>
+<span class="c">//   Set&lt;side&gt; -&gt; (int*int*int -&gt; Set&lt;side&gt; -&gt; #seq&lt;'b&gt;) -&gt; list&lt;'b&gt;</span>
+<span class="k">let</span> PatternMap incl_sides f =
 
-  // Calculates set of sides to be included for specific location in the 
-  // pattern. Uses 'incl_sides' for lookup when testing border sides and
-  // uses the pattern for sides inside the pattern.
-  let get_included_sides x y z = 
+  <span class="c">// Calculates set of sides to be included for specific location in the </span>
+  <span class="c">// pattern. Uses 'incl_sides' for lookup when testing border sides and</span>
+  <span class="c">// uses the pattern for sides inside the pattern.</span>
+  <span class="k">let</span> get_included_sides x y z = 
     Set.of_seq
       (seq 
-        { // loop over all possible 'directions',
-          // test if out of range and use either pattern or 'incl_sides'
-          for idx, neq, (dx, dy, dz) in 
-              [ (x, 0, (-1,0,0)); (y, 0, (0,-1,0)); (z, 0, (0,0,-1));
-                (x, 2, ( 1,0,0)); (y, 2, (0, 1,0)); (z, 2, (0,0, 1)); ] do
-            if ((idx &lt;&gt; neq &amp;&amp; pattern.[x+dx, y+dy, z+dz] = 0) ||
-                (idx = neq  &amp;&amp; Set.mem (dx, dy, dz) incl_sides)) then yield (dx, dy, dz) })    
+        { <span class="c">// loop over all possible 'directions',</span>
+          <span class="c">// test if out of range and use either pattern or 'incl_sides'</span>
+          <span class="k">for</span> idx, neq, (dx, dy, dz) <span class="k">in</span> 
+              <span class="o">[</span> (x, 0, (-1,0,0)); (y, 0, (0,-1,0)); (z, 0, (0,0,-1));
+                (x, 2, ( 1,0,0)); (y, 2, (0, 1,0)); (z, 2, (0,0, 1)); <span class="o">]</span> <span class="k">do</span>
+            <span class="k">if</span> ((idx &lt;&gt; neq &amp;&amp; pattern.[x+dx, y+dy, z+dz] = 0) <span class="o">|</span><span class="o">|</span>
+                (idx = neq  &amp;&amp; Set.mem (dx, dy, dz) incl_sides)) <span class="k">then</span> <span class="k">yield</span> (dx, dy, dz) })    
   
-  // Recursively collect triangles from all the smaller 
-  // cubes that should be included (as specifyied by the pattern).
-  [ for x in [0 .. 2] do
-      for y in [0 .. 2] do
-        for z in [0 .. 2] do
-          if (pattern.[x,y,z] = 1) then
-            yield! f (x, y, z) (get_included_sides x y z) ]
+  <span class="c">// Recursively collect triangles from all the smaller </span>
+  <span class="c">// cubes that should be included (as specifyied by the pattern).</span>
+  <span class="o">[</span> <span class="k">for</span> x <span class="k">in</span> [0 .. 2] <span class="k">do</span>
+      <span class="k">for</span> y <span class="k">in</span> [0 .. 2] <span class="k">do</span>
+        <span class="k">for</span> z <span class="k">in</span> [0 .. 2] <span class="k">do</span>
+          <span class="k">if</span> (pattern.[x,y,z] = 1) <span class="k">then</span>
+            <span class="k">yield!</span> f (x, y, z) (get_included_sides x y z) <span class="o">]</span>
 </pre>
 <p>The function contains one inner function (<code>get_included_sides</code>), which generates a 
   set with sides to be included for a smaller cube and the return value is generated by 
@@ -186,14 +186,14 @@ let PatternMap incl_sides f =
   <code>PatternMap</code> giving it a function that calls <code>Generate</code> recursively for 
   every generated cube. Note that the function also needs to move the recursively generated cubes 
   accordingly to the depth of the recursion:</p>
-<pre lang="fsharp">
-let rec Generate k incl_sides = 
-  if k = 1 then 
+<pre >
+<span class="k">let</span> <span class="k">rec</span> Generate k incl_sides = 
+  <span class="k">if</span> k = 1 <span class="k">then</span> 
     (GetCube incl_sides) 
-  else
-    let d = k/3
-    PatternMap incl_sides ( fun (x, y, z) incl_sides -&gt; 
-      (Generate d incl_sides) |&gt; translate (x*d, y*d, -z*d)  )
+  <span class="k">else</span>
+    <span class="k">let</span> d = k/3
+    PatternMap incl_sides ( <span class="k">fun</span> (x, y, z) incl_sides <span class="o">-&gt;</span> 
+      (Generate d incl_sides) <span class="o">|</span>&gt; translate (x*d, y*d, -z*d)  )
 </pre>  
 <p>And that's all - the rest of the code that I didn't comment here mostly deals with conversion
   of the generated triangles (which contained coordinates in the edges) to the format required by
@@ -214,28 +214,28 @@ let rec Generate k incl_sides =
   of the camera when turning up or down (there are two distinct parts of the animation, first which moves the camera
   up and second which moves the camera down, but the following code sample includes only the first part, because the
   second is similar):</p>
-<pre lang="xml">
-&lt;Storyboard&gt;
-  &lt;!-- First, move to the fractal --&gt;
-  &lt;Point3DAnimation Storyboard.TargetName="cam" 
-    Storyboard.TargetProperty="Position" Duration="0:0:4" 
-    From="0,0,100" To="0,0,27" RepeatBehavior="1x"/&gt;
+<pre >
+<span class="k">&lt;</span><span class="i">Storyboard</span><span class="k">&gt;</span>
+  <span class="c">&lt;!-- First, move to the fractal --&gt;</span>
+  <span class="k">&lt;</span><span class="i">Point3DAnimation</span> <span class="o">Storyboard</span>.<span class="o">TargetName</span><span class="k">="cam"</span> 
+    <span class="o">Storyboard</span>.<span class="o">TargetProperty</span><span class="k">="Position"</span> <span class="o">Duration</span><span class="k">="0:0:4"</span> 
+    <span class="o">From</span><span class="k">="0,0,100"</span> <span class="o">To</span><span class="k">="0,0,27"</span> <span class="o">RepeatBehavior</span><span class="k">="1x"</span><span class="k">/&gt;</span>
     
-  &lt;!-- Repeat fractal animation forever --&gt;
-  &lt;ParallelTimeline RepeatBehavior="Forever" BeginTime="0:0:4"&gt;
-    &lt;!-- Move forward --&gt;
-    &lt;Point3DAnimation Storyboard.TargetName="cam" 
-      Storyboard.TargetProperty="Position" BeginTime="0:0:0"
-      From="0,0,27" To="0,0,-9" Duration="0:0:4" RepeatBehavior="1x" /&gt;
-    &lt;!-- Rotate camera up --&gt;
-    &lt;Vector3DAnimation Storyboard.TargetName="cam" 
-      Storyboard.TargetProperty="LookDirection" BeginTime="0:0:3"
-      From="0, 0, -1" To="0, 1, 0" Duration="0:0:1" RepeatBehavior="1x" /&gt;
+  <span class="c">&lt;!-- Repeat fractal animation forever --&gt;</span>
+  <span class="k">&lt;</span><span class="i">ParallelTimeline</span> <span class="o">RepeatBehavior</span><span class="k">="Forever"</span> <span class="o">BeginTime</span><span class="k">="0:0:4"</span><span class="k">&gt;</span>
+    <span class="c">&lt;!-- Move forward --&gt;</span>
+    <span class="k">&lt;</span><span class="i">Point3DAnimation</span> <span class="o">Storyboard</span>.<span class="o">TargetName</span><span class="k">="cam"</span> 
+      <span class="o">Storyboard</span>.<span class="o">TargetProperty</span><span class="k">="Position"</span> <span class="o">BeginTime</span><span class="k">="0:0:0"</span>
+      <span class="o">From</span><span class="k">="0,0,27"</span> <span class="o">To</span><span class="k">="0,0,-9"</span> <span class="o">Duration</span><span class="k">="0:0:4"</span> <span class="o">RepeatBehavior</span><span class="k">="1x"</span> <span class="k">/&gt;</span>
+    <span class="c">&lt;!-- Rotate camera up --&gt;</span>
+    <span class="k">&lt;</span><span class="i">Vector3DAnimation</span> <span class="o">Storyboard</span>.<span class="o">TargetName</span><span class="k">="cam"</span> 
+      <span class="o">Storyboard</span>.<span class="o">TargetProperty</span><span class="k">="LookDirection"</span> <span class="o">BeginTime</span><span class="k">="0:0:3"</span>
+      <span class="o">From</span><span class="k">="0, 0, -1"</span> <span class="o">To</span><span class="k">="0, 1, 0"</span> <span class="o">Duration</span><span class="k">="0:0:1"</span> <span class="o">RepeatBehavior</span><span class="k">="1x"</span> <span class="k">/&gt;</span>
       
-    &lt;!-- Move forward &amp; rotate camera down --&gt;
-    &lt;!-- ... --&gt;
-  &lt;/ParallelTimeline&gt;
-&lt;/Storyboard&gt;</pre>
+    <span class="c">&lt;!-- Move forward &amp; rotate camera down --&gt;</span>
+    <span class="c">&lt;!-- ... --&gt;</span>
+  <span class="k">&lt;/</span><span class="i">ParallelTimeline</span><span class="k">&gt;</span>
+<span class="k">&lt;/</span><span class="i">Storyboard</span><span class="k">&gt;</span></pre>
 <p>Animation of <code>Position</code> property is described using <code>Point3DAnimation</code>, which animates
   a property specified by <code>TargetProperty</code> from an initial value (<code>From</code>) to a target value (<code>To</code>)
   interpolating the coordinates of the 3D point linearly. The second animation primitive which I used in this
@@ -359,7 +359,7 @@ let rec Generate k incl_sides =
     <h4>Blog tags</h4>
     <p>
 
-      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(97),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(33),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(29),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(10),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/fsharp-data/">f# data</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/monads/">monads</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/art/">art</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fractals/">fractals</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/funscript/">funscript</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/coeffects/">coeffects</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/comonads/">comonads</a>&nbsp;(1)    </p>
+      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(97),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(33),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(10),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(29),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/fsharp-data/">f# data</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/monads/">monads</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/art/">art</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fractals/">fractals</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/funscript/">funscript</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(1)    </p>
 
   </div>
 </div>

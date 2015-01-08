@@ -11,15 +11,21 @@
 
   <!-- Reference Foundation -->
   <link rel="stylesheet" href="http://tomasp.net/css/foundation.css">
-  <script src="cjs/vendor/custom.modernizr.js"></script>
+  <script src="js/vendor/custom.modernizr.js"></script>
 
   <link rel="alternate" type="application/rss+xml" href="http://tomasp.net/rss.xml" title="RSS feed for Tomas Petricek's blog">
-  <link rel="author" href="https://plus.google.com/109855146654605967051" />
+  <link rel="icon" type="image/png" href="http://tomasp.net/img/favicon.png" />
     
   <!-- Reference custom CSS and tooltips -->
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/style.css" />
   <script type="text/javascript" src="http://tomasp.net/custom/tooltips.js"></script>
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/tooltips.css" />
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:creator" content="@tomaspetricek">
+  <meta name="twitter:title" content="Tomas Petricek's blog">
+  <meta name="twitter:description" content="Writing about software development in F# and .NET, sharing materials from my F# trainings and talks, writing about programming language research and theory.">
 </head>
 <body>
 
@@ -46,7 +52,7 @@
         <li><a href="http://functional-programming.net">Trainings</a></li>
         <li><a href="http://functional-programming.net">Books</a></li>
         <li><a href="http://lanyrd.com/profile/tomasp">Talks</a></li>
-        <li><a href="http://www.cl.cam.ac.uk/~tp322">Research & Teaching</a></li>
+        <li><a href="http://tomasp.net/academic">Research & Teaching</a></li>
       </ul>
     </section>
 
@@ -144,27 +150,28 @@
   </div>
   <div class="large-4 columns" id="right-bar">
     <div class="right-item" id="right-calendar">
-      <script type="text/javascript">
-        var monthNames =
-          ["January", "February", "March", "April", "May", "June",
-            "July", "August", "September", "October", "November", "December"];
-        var d = new Date();
-        var m = monthNames[d.getMonth()];
-        var y = d.getFullYear();
-        var ml = m.toLowerCase();
-        document.writeln("<h4>Calendar - " + m + " " + y + "</h4>");
-        document.writeln("<a href=\"http://tomasp.net/calendar/" + y + "/" + ml + ".html\">" +
-          "<img src=\"http://tomasp.net/calendar/" + y + "/" + ml + "-preview.jpg\" style=\"border-style:none;\" />" +
-          "</a>");
-      </script> 
-      <p>The calendar shows a new picture each month since 
-        <a href="http://tomasp.net/calendar/2005">2005</a>, <a href="http://tomasp.net/calendar/2006">2006</a>, 
-        <a href="http://tomasp.net/calendar/2007">2007</a>, <a href="http://tomasp.net/calendar/2008">2008</a>, 
-        <a href="http://tomasp.net/calendar/2009">2009</a>, <a href="http://tomasp.net/calendar/2010">2010</a>, 
-        <a href="http://tomasp.net/calendar/2011">2011</a>, <a href="http://tomasp.net/calendar/2012">2012</a>. <br />
-        See the first photos of <a href="http://tomasp.net/calendar/2013">2013</a>.
-      </p>
-    </div>
+<script type="text/javascript">
+  var monthNames =
+    ["January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December"];
+  var d = new Date();
+  var m = monthNames[d.getMonth()];
+  var y = d.getFullYear();
+  var ml = m.toLowerCase();
+  document.writeln("<h4>Calendar - " + m + " " + y + "</h4>");
+  document.writeln("<a href=\"http://tomasp.net/calendar/" + y + "/" + ml + ".html\">" +
+    "<img src=\"http://tomasp.net/calendar/" + y + "/" + ml + "-preview.jpg\" style=\"border-style:none;\" />" +
+    "</a>");
+</script> 
+<p>The calendar shows a new picture each month. See photos for
+  <a href="http://tomasp.net/calendar/2005">2005</a>, <a href="http://tomasp.net/calendar/2006">2006</a>, 
+  <a href="http://tomasp.net/calendar/2007">2007</a>, <a href="http://tomasp.net/calendar/2008">2008</a>, 
+  <a href="http://tomasp.net/calendar/2009">2009</a>, <a href="http://tomasp.net/calendar/2010">2010</a>, 
+  <a href="http://tomasp.net/calendar/2011">2011</a>, <a href="http://tomasp.net/calendar/2012">2012</a>,
+  <a href="http://tomasp.net/calendar/2013">2013</a>, <a href="http://tomasp.net/calendar/2014">2014</a>
+  and the first photos of <a href="http://tomasp.net/calendar/2015">2015</a>.
+</p>
+</div>
 
     <h3>Welcome!</h3>
     <img src="http://tomasp.net/img/tomas.jpg" alt="Tomas Petricek" style="float:right;margin:10px 0px 10px 10px;" />
@@ -215,7 +222,7 @@
     <h4>Blog tags</h4>
     <p>
 
-      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(86),       <a href="http://tomasp.net/blog/tag/functional/">functional</a>&nbsp;(63),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(25),       <a href="http://tomasp.net/blog/tag/writing/">writing</a>&nbsp;(11),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(29),       <a href="http://tomasp.net/blog/tag/links/">links</a>&nbsp;(15),       <a href="http://tomasp.net/blog/tag/presentations/">presentations</a>&nbsp;(14),       <a href="http://tomasp.net/blog/tag/haskell/">haskell</a>&nbsp;(6),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/new-york/">new york</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/manning/">manning</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/books/">books</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/open-source/">open source</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/training/">training</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/deep-dives/">deep dives</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/async/">async</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/fsharp-data/">f# data</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/type-providers/">type providers</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/events/">events</a>&nbsp;(1)    </p>
+      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(97),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(33),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(10),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(29),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/fsharp-data/">f# data</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/monads/">monads</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/art/">art</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fractals/">fractals</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/funscript/">funscript</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(1)    </p>
 
   </div>
 </div>
@@ -237,7 +244,17 @@
     </div>
     <div class="large-7 columns">
     <h4>Blog archives <a href="http://tomasp.net/rss.xml"><img src="http://tomasp.net/img/rss.gif" /></a></h4>
-      <a href="http://tomasp.net/blog/archive/august-2013/index.html">
+      <a href="http://tomasp.net/blog/archive/january-2015/index.html">
+        January 2015 (1)</a>,      <a href="http://tomasp.net/blog/archive/december-2014/index.html">
+        December 2014 (1)</a>,      <a href="http://tomasp.net/blog/archive/may-2014/index.html">
+        May 2014 (3)</a>,      <a href="http://tomasp.net/blog/archive/april-2014/index.html">
+        April 2014 (2)</a>,      <a href="http://tomasp.net/blog/archive/march-2014/index.html">
+        March 2014 (1)</a>,      <a href="http://tomasp.net/blog/archive/january-2014/index.html">
+        January 2014 (2)</a>,      <a href="http://tomasp.net/blog/archive/december-2013/index.html">
+        December 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/november-2013/index.html">
+        November 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/october-2013/index.html">
+        October 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/september-2013/index.html">
+        September 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/august-2013/index.html">
         August 2013 (2)</a>,      <a href="http://tomasp.net/blog/archive/may-2013/index.html">
         May 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/april-2013/index.html">
         April 2013 (1)</a>,      <a href="http://tomasp.net/blog/archive/march-2013/index.html">
@@ -340,5 +357,6 @@
     })();
 
   </script>
+  <script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
 </body>
 </html>

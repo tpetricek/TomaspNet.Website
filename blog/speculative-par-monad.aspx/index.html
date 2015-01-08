@@ -103,20 +103,20 @@
   
 <p>Here is a basic example:</p>
 
-<pre lang="haskell">
--- Naive calculation of Fibonacci numbers
-fib :: Int64 -&gt; Int64
-fib x | x &lt; 1 = 1
-fib x = fib (x-2) + fib (x-1)
+<pre >
+<span class="c">-- Naive calculation of Fibonacci numbers</span>
+fib <span class="prep">::</span> Int64 <span class="prep">-</span><span class="prep">&gt;</span> Int64
+fib x | x <span class="prep">&lt;</span> 1 <span class="prep">=</span> 1
+fib x <span class="prep">=</span> fib (x-2) <span class="prep">+</span> fib (x-1)
 
--- Parallel version of the function
-pfib :: Int64 -&gt; Par Int64
-pfib n | n &lt; 25 = return (fib n)
-pfib n = do 
-  av &lt;- spawn (pfib (n - 1))
-  b  &lt;- pfib (n - 2)  
-  a  &lt;- get av
-  return (a + b)
+<span class="c">-- Parallel version of the function</span>
+pfib <span class="prep">::</span> Int64 <span class="prep">-</span><span class="prep">&gt;</span> Par Int64
+pfib n | n <span class="prep">&lt;</span> 25 <span class="prep">=</span> return (fib n)
+pfib n <span class="prep">=</span> <span class="k">do</span> 
+  av <span class="prep">&lt;</span><span class="prep">-</span> spawn (pfib (n <span class="prep">-</span> 1))
+  b  <span class="prep">&lt;</span><span class="prep">-</span> pfib (n <span class="prep">-</span> 2)  
+  a  <span class="prep">&lt;</span><span class="prep">-</span> get av
+  return (a <span class="prep">+</span> b)
 </pre>
 
 <p>The <code>fib</code> function is a usual (non-parallel) function for calculating Fibonacci numbers. The 
@@ -124,8 +124,8 @@ pfib n = do
   is smaller than 25, it runs sequential <code>fib</code> to avoid generating too many small work items. 
   If the argument is sufficiently large, the function <em>spawns</em> a computation to calculate 
   <code>pfib (n-1)</code> in parallel. The type of the <code>spawn</code> function is:</p>
-<pre lang="haskell">
-spawn :: NFData a =&gt; Par a -&gt; Par (IVar a)
+<pre >
+spawn <span class="prep">::</span> NFData a <span class="prep">=</span><span class="prep">&gt;</span> Par a <span class="prep">-</span><span class="prep">&gt;</span> Par (IVar a)
 </pre>
 <p>The <code>NFData</code> requirement specifies that it should be possible to fully evaluate the 
   data structure. The rest of the signature says that the function takes some computations and returns
@@ -133,8 +133,8 @@ spawn :: NFData a =&gt; Par a -&gt; Par (IVar a)
   computation. When writing code in the <code>Par</code> monad, we can get a value from the variable
   using <code>get</code> function. The function blocks the computation until a value becomes
   available and has the following type:</p>
-<pre lang="haskell">
-get :: IVar a -&gt; Par a
+<pre >
+get <span class="prep">::</span> IVar a <span class="prep">-</span><span class="prep">&gt;</span> Par a
 </pre>
 <p>Now it should be easy to understand the rest of the <code>pfib</code> body. It spawns one recursive
   computation (as a background task), then runs the second recursive call on the main thread and then
@@ -142,12 +142,12 @@ get :: IVar a -&gt; Par a
 
 <p>The following simple snippet shows how to run the two functions and it shows some approximate
   performance measurements:</p>
-<pre lang="haskell">
-main = do 
-  -- Naive sequential fibonacci (1.8 sec)
-  print $ fib 32
-  -- Parallel version with 25 threshold (1.0 sec)
-  print $ runPar $ pfib 32
+<pre >
+main <span class="prep">=</span> <span class="k">do</span> 
+  <span class="c">-- Naive sequential fibonacci (1.8 sec)</span>
+  print <span class="prep">$</span> fib 32
+  <span class="c">-- Parallel version with 25 threshold (1.0 sec)</span>
+  print <span class="prep">$</span> runPar <span class="prep">$</span> pfib 32
 </pre>
 <p>When we have a value of type <code>Par a</code>, we can evaluate it (to get an <code>a</code> value)
   using the <code>runPar</code> function. When running the parallel function on dual-core machine,
@@ -180,10 +180,10 @@ main = do
   However, when <code>a</code> doesn't terminate, the overall expression will also never
   yield a value, because it will start evaluating <code>a</code> first. Using <code>unamb</code>,
   you can write:</p>
-<pre lang="haskell">
+<pre >
 import Data.Unamb
 
-c = unamb (a &amp;&amp; b) (b &amp;&amp; a)
+c <span class="prep">=</span> unamb (a <span class="prep">&amp;&amp;</span> b) (b <span class="prep">&amp;&amp;</span> a)
 </pre>
 <p>This use clearly matches the compatibility requirement. When both arguments terminate, the
   result is same in both of the cases. However, the expression returns <code>False</code>
@@ -195,9 +195,9 @@ c = unamb (a &amp;&amp; b) (b &amp;&amp; a)
   the inputs, but not for all of them. Using <code>unamb</code>, we can write the following 
   helper that takes two functions and returns the value that is produced first:</p>
 
-<pre lang="haskell">
-tryBoth :: (t -&gt; a) -&gt; (t -&gt; a) -&gt; t -&gt; a
-tryBoth f1 f2 n = unamb (f1 n) (f2 n)
+<pre >
+tryBoth <span class="prep">::</span> (t <span class="prep">-</span><span class="prep">&gt;</span> a) <span class="prep">-</span><span class="prep">&gt;</span> (t <span class="prep">-</span><span class="prep">&gt;</span> a) <span class="prep">-</span><span class="prep">&gt;</span> t <span class="prep">-</span><span class="prep">&gt;</span> a
+tryBoth f1 f2 n <span class="prep">=</span> unamb (f1 n) (f2 n)
 </pre>
 
 <p>To demonstrate how the function works, I implemented a more clever function for calculating
@@ -205,13 +205,13 @@ tryBoth f1 f2 n = unamb (f1 n) (f2 n)
   generated numbers. If you want to play with it, you can find the complete source code at 
   the end of the article. The following example shows the results:</p>
 
-<pre lang="haskell">
-main = do
-  -- Naive recursive implementation (~1.7 sec)
+<pre >
+main <span class="prep">=</span> <span class="k">do</span>
+  <span class="c">-- Naive recursive implementation (~1.7 sec)</span>
   print fib 32
-  -- Efficient implementation (~0.01 sec)
+  <span class="c">-- Efficient implementation (~0.01 sec)</span>
   print ffib 32
-  -- Tries evaluating result using both functions (~0.01 sec)
+  <span class="c">-- Tries evaluating result using both functions (~0.01 sec)</span>
   tryBoth fib ffib 32 
 </pre>
 
@@ -239,19 +239,19 @@ main = do
   that provide higher-level of abstraction. For example, it is quite easy to implement 
   <code>unamb</code> operator for <code>Par a</code> values:</p>
 
-<pre lang="haskell">
--- Unambiguous choice between two parallel computations
--- Assumes that computations p1 and p2 are compatible
-punamb :: NFData a =&gt; Par a -&gt; Par a -&gt; Par a
-punamb p1 p2 = do
-  res &lt;- newBlocking
-  ct1 &lt;- newCancelToken
-  ct2 &lt;- newCancelToken
-  forkWith ct1 (do
-    a &lt;- p1; put res a; cancel ct2)
-  forkWith ct2 (do
-    a &lt;- p2; put res a; cancel ct1)
-  v &lt;- get res
+<pre >
+<span class="c">-- Unambiguous choice between two parallel computations</span>
+<span class="c">-- Assumes that computations p1 and p2 are compatible</span>
+punamb <span class="prep">::</span> NFData a <span class="prep">=</span><span class="prep">&gt;</span> Par a <span class="prep">-</span><span class="prep">&gt;</span> Par a <span class="prep">-</span><span class="prep">&gt;</span> Par a
+punamb p1 p2 <span class="prep">=</span> <span class="k">do</span>
+  res <span class="prep">&lt;</span><span class="prep">-</span> newBlocking
+  ct1 <span class="prep">&lt;</span><span class="prep">-</span> newCancelToken
+  ct2 <span class="prep">&lt;</span><span class="prep">-</span> newCancelToken
+  forkWith ct1 (<span class="k">do</span>
+    a <span class="prep">&lt;</span><span class="prep">-</span> p1; put res a; cancel ct2)
+  forkWith ct2 (<span class="k">do</span>
+    a <span class="prep">&lt;</span><span class="prep">-</span> p2; put res a; cancel ct1)
+  v <span class="prep">&lt;</span><span class="prep">-</span> get res
   return v
 </pre>
 
@@ -284,14 +284,14 @@ punamb p1 p2 = do
 <p>The following snippet uses <code>punamb</code> to implement an example similar to the 
   earlier demonstration of <code>unamb</code>. The <code>pffib</code> function (not shown in this
   article) is a faster implementation of Fibonacci numbers embedded in the <code>Par</code> monad:</p>
-<pre lang="haskell">
-main = do
-  -- Naive recursion using Par monad (~1.1 sec)
-  print $ runPar $ pfib 32
-  -- Efficient recursion using Par monad (~0.01 sec)
-  print $ runPar $ pffib 32
-  -- Tries evaluating both &amp; returns the first (~0.04 sec)
-  print $ runPar $ punamb (pfib 32) (pffib 32)
+<pre >
+main <span class="prep">=</span> <span class="k">do</span>
+  <span class="c">-- Naive recursion using Par monad (~1.1 sec)</span>
+  print <span class="prep">$</span> runPar <span class="prep">$</span> pfib 32
+  <span class="c">-- Efficient recursion using Par monad (~0.01 sec)</span>
+  print <span class="prep">$</span> runPar <span class="prep">$</span> pffib 32
+  <span class="c">-- Tries evaluating both &amp; returns the first (~0.04 sec)</span>
+  print <span class="prep">$</span> runPar <span class="prep">$</span> punamb (pfib 32) (pffib 32)
 </pre>
 <p>As you would expect, the <code>punamb</code> operation behaves similarly to <code>unamb</code>.
   When given two computations, it finishes after the first one completes. The time is slightly larger,
@@ -335,24 +335,24 @@ main = do
 
 <p>The example uses the following simple tree structure:</p>
 
-<pre lang="haskell">
-data Tree a 
-  = Leaf a
+<pre >
+<span class="k">data</span> Tree a 
+  <span class="prep">=</span> Leaf a
   | Node (Tree a) (Tree a)
 </pre>
 
 <p>The following snippet shows a basic parallel version of <code>forall</code>. It uses the same recursive
   parallel processing pattern that was used earlier in the <code>pfib</code> function:</p>
 
-<pre lang="haskell">
--- Test whether all elements match the given predicate (in parallel)
-forallp :: (a -&gt; Bool) -&gt; Tree a -&gt; Par Bool
-forallp p (Leaf num) = return $ p num
-forallp p (Node left right) = do
-  al' &lt;- spawn $ forallp p left
-  ar  &lt;- forallp p right
-  al  &lt;- get al'
-  return (al &amp;&amp; ar)
+<pre >
+<span class="c">-- Test whether all elements match the given predicate (in parallel)</span>
+forallp <span class="prep">::</span> (a <span class="prep">-</span><span class="prep">&gt;</span> Bool) <span class="prep">-</span><span class="prep">&gt;</span> Tree a <span class="prep">-</span><span class="prep">&gt;</span> Par Bool
+forallp p (Leaf num) <span class="prep">=</span> return <span class="prep">$</span> p num
+forallp p (Node left right) <span class="prep">=</span> <span class="k">do</span>
+  al' <span class="prep">&lt;</span><span class="prep">-</span> spawn <span class="prep">$</span> forallp p left
+  ar  <span class="prep">&lt;</span><span class="prep">-</span> forallp p right
+  al  <span class="prep">&lt;</span><span class="prep">-</span> get al'
+  return (al <span class="prep">&amp;&amp;</span> ar)
 </pre>
 
 <p>When processing a leaf, the function calls the predicate and returns the result. When processing a node, 
@@ -367,35 +367,35 @@ forallp p (Node left right) = do
   other computation completes before it can set the final result.</p>
 
 <p>The following snippet shows the speculative version:</p>
-<pre lang="haskell">
--- Test whether all elements match the given predicate
--- (Speculatively - False is returned immediately)
-foralls :: (a -&gt; Bool) -&gt; Tree a -&gt; Par Bool
-foralls p tree = do
-    tok &lt;- newCancelToken
-    r &lt;- forall' p tok tree
+<pre >
+<span class="c">-- Test whether all elements match the given predicate</span>
+<span class="c">-- (Speculatively - False is returned immediately)</span>
+foralls <span class="prep">::</span> (a <span class="prep">-</span><span class="prep">&gt;</span> Bool) <span class="prep">-</span><span class="prep">&gt;</span> Tree a <span class="prep">-</span><span class="prep">&gt;</span> Par Bool
+foralls p tree <span class="prep">=</span> <span class="k">do</span>
+    tok <span class="prep">&lt;</span><span class="prep">-</span> newCancelToken
+    r <span class="prep">&lt;</span><span class="prep">-</span> forall' p tok tree
     cancel tok 
     return r
-  where 
-    -- Recursively start computations using the same cancellation token
-    forall' p tok (Leaf v) = return (p v)
-    forall' p tok (Node left right) = do
-      leftRes &lt;- new
-      rightRes &lt;- new
-      finalRes &lt;- newBlocking
-      forkWith tok (forall' p tok left &gt;&gt;= 
+  <span class="k">where</span> 
+    <span class="c">-- Recursively start computations using the same cancellation token</span>
+    forall' p tok (Leaf v) <span class="prep">=</span> return (p v)
+    forall' p tok (Node left right) <span class="prep">=</span> <span class="k">do</span>
+      leftRes <span class="prep">&lt;</span><span class="prep">-</span> new
+      rightRes <span class="prep">&lt;</span><span class="prep">-</span> new
+      finalRes <span class="prep">&lt;</span><span class="prep">-</span> newBlocking
+      forkWith tok (forall' p tok left <span class="prep">&gt;</span><span class="prep">&gt;</span><span class="prep">=</span> 
         completed leftRes rightRes finalRes)
-      forkWith tok (forall' p tok right &gt;&gt;= 
+      forkWith tok (forall' p tok right <span class="prep">&gt;</span><span class="prep">&gt;</span><span class="prep">=</span> 
         completed rightRes leftRes finalRes)
       get finalRes
 
     
-    -- Called when one of the branches complete. Write result immediately
-    -- if it is False, otherwise wait for the second computation.
-    completed varA varB fin resA = do
+    <span class="c">-- Called when one of the branches complete. Write result immediately</span>
+    <span class="c">-- if it is False, otherwise wait for the second computation.</span>
+    completed varA varB fin resA <span class="prep">=</span> <span class="k">do</span>
       put varA resA
       if not resA then put fin False
-      else get varB &gt;&gt;= put fin . (&amp;&amp; resA)
+      else get varB <span class="prep">&gt;</span><span class="prep">&gt;</span><span class="prep">=</span> put fin . (<span class="prep">&amp;&amp;</span> resA)
 </pre>
 
 <p>The main body of the function creates a new <code>CancelToken</code> and then calls a helper that does 
@@ -423,17 +423,17 @@ foralls p tree = do
 <p>The complete source code contains a full example that you can run to test the function. Assuming we have
   a tree value named <code>tree</code>, we can write the following test. It demonstrates the performance of a 
   simple sequential version, parallel version and a speculative version from the last listing:</p>
-<pre lang="haskell">
-main = do
-  -- Binary tree contains ~270 large primes and a single
-  -- non-prime number. The tree is fully evaluated.
+<pre >
+main <span class="prep">=</span> <span class="k">do</span>
+  <span class="c">-- Binary tree contains ~270 large primes and a single</span>
+  <span class="c">-- non-prime number. The tree is fully evaluated.</span>
 
-  -- Single-threaded version (see source code link) (~3.7 sec)
-  measure "Non-prime num (Seq) " (forall isPrime tree2)
-  -- Simple parallel version (~1.9 sec)
-  measure "Non-prime num (Par) " (runPar $ forallp isPrime tree2)
-  -- Parallel version with shortcircuiting (~0.01 sec)
-  measure "Non-prime num (Shr) " (runPar $ foralls isPrime tree2)
+  <span class="c">-- Single-threaded version (see source code link) (~3.7 sec)</span>
+  measure <span class="s">"Non-prime num (Seq) "</span> (forall isPrime tree2)
+  <span class="c">-- Simple parallel version (~1.9 sec)</span>
+  measure <span class="s">"Non-prime num (Par) "</span> (runPar <span class="prep">$</span> forallp isPrime tree2)
+  <span class="c">-- Parallel version with shortcircuiting (~0.01 sec)</span>
+  measure <span class="s">"Non-prime num (Shr) "</span> (runPar <span class="prep">$</span> foralls isPrime tree2)
 </pre>
 
 <p>The example generates a tree containing large prime numbers and one number that is not a prime. 
@@ -582,7 +582,7 @@ main = do
     <h4>Blog tags</h4>
     <p>
 
-      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(97),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(33),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(29),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(10),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/fsharp-data/">f# data</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/monads/">monads</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/art/">art</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fractals/">fractals</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/funscript/">funscript</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/coeffects/">coeffects</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/comonads/">comonads</a>&nbsp;(1)    </p>
+      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(97),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(33),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(10),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(29),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/fsharp-data/">f# data</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/monads/">monads</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/art/">art</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fractals/">fractals</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/funscript/">funscript</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(1)    </p>
 
   </div>
 </div>

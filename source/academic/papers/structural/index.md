@@ -28,6 +28,13 @@ The examples presented in this paper are based on analysis of established langua
 properties will also be useful for future development of languages for increasingly 
 heterogeneous and distributed platforms.
 
+## Watch the talk
+
+Thanks to the ICFP workshop organizers, the video from my talk,
+[Coeffects: A Calculus of Context-Dependent Computation](https://www.youtube.com/watch?v=xtxx4iADMbM) is on YouTube!
+
+<iframe style="margin-left:25px"  width="560" height="315" src="//www.youtube.com/embed/xtxx4iADMbM" frameborder="0" allowfullscreen></iframe>
+
 ## Paper and more information
 
  - Download [the paper (PDF)](coeffects-icfp.pdf)

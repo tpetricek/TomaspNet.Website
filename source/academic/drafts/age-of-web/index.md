@@ -27,13 +27,20 @@ We use a practical case study as a starting point and look how F# language and l
 the challenges posed by the web. The specific lessons learned are perhaps less interesting than 
 our attempt to uncover hidden assumptions that no longer hold in the age of web.
 
+## Watch the talk
+
+Thanks to the ML workshop organizers, the video from my original talk,
+[Doing web-based data anlytics with F#](https://www.youtube.com/watch?v=_YOSAXKY-JI) is on YouTube!
+  
+<iframe style="margin-left:25px" width="420" height="315" src="//www.youtube.com/embed/_YOSAXKY-JI" frameborder="0" allowfullscreen></iframe>
+
 ## Draft and more information
 
  - Download [the draft (PDF)](age-of-web.pdf)
  - Download (shorter) [extended abstract (PDF)](ml-abstract.pdf)
  - View [slides from ML workshop talk](ml-talk.pdf)
- - Video from ML workshop: [Doing web-based data anlytics with F#](https://www.youtube.com/watch?v=_YOSAXKY-JI)
-   
+ - The source code & running demo of the case study is [on the FunScript website](http://funscript.info/samples/worldbank/)
+
 ## Comments are welcome!
 
 If you have any comments, suggestions or related ideas, I'll be happy to 

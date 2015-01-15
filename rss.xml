@@ -7,7 +7,7 @@
       <title>FnuPlot: Cross-platform charting with gnuplot</title>
       <guid>http://tomasp.net/blog/2015/fnuplot</guid>
       <link>http://tomasp.net/blog/2015/fnuplot/index.html</link>
-      <pubDate>Wed, 27 May 2015 14:41:01 GMT</pubDate>
+      <pubDate>Thu, 15 Jan 2015 16:58:17 GMT</pubDate>
       <description>&lt;img src="http://fsprojects.github.io/FnuPlot/img/logo.png" style="width:120px;float:right;margin:10px" /&gt;
 
 &lt;p&gt;There is a bunch of visualization and charting libraries for F#. Sadly, perhaps the most

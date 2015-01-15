@@ -4,6 +4,31 @@
     <link>http://tomasp.net</link>
     <description>Writing about software development in F# and .NET, sharing materials from my F# trainings and talks, writing about programming language research and theory.</description>
     <item>
+      <title>FnuPlot: Cross-platform charting with gnuplot</title>
+      <guid>http://tomasp.net/blog/2015/fnuplot</guid>
+      <link>http://tomasp.net/blog/2015/fnuplot/index.html</link>
+      <pubDate>Wed, 27 May 2015 14:41:01 GMT</pubDate>
+      <description>&lt;img src="http://fsprojects.github.io/FnuPlot/img/logo.png" style="width:120px;float:right;margin:10px" /&gt;
+
+&lt;p&gt;There is a bunch of visualization and charting libraries for F#. Sadly, perhaps the most
+advanced one, &lt;a href="http://fsharp.github.io/FSharp.Charting/"&gt;F# Charting&lt;/a&gt;, does not work 
+particularly well outside of Windows at the moment. There are also some work-in-progress
+libraries based on HTML like &lt;a href="http://fsprojects.github.io/Foogle.Charts/"&gt;Foogle Charts&lt;/a&gt; and
+&lt;a href="http://tahahachana.github.io/FsPlot/"&gt;FsPlot&lt;/a&gt;, which are cross-platform, but not quite
+ready yet.&lt;/p&gt;
+
+&lt;p&gt;Before Christmas, I got a &lt;a href="https://github.com/fsprojects/FnuPlot/pull/2"&gt;notification from GitHub&lt;/a&gt;
+about a pull request for a simple gnuplot wrapper that I wrote a long time ago (and which used
+to be carfully hidden &lt;a href="http://fsxplat.codeplex.com"&gt;on CodePlex&lt;/a&gt;).&lt;/p&gt;
+
+&lt;p&gt;The library is incomplete and I don't expect to dedicate too much time to maintaining it,
+but it works quite nicely for basic charts and so I though I'd add the 
+&lt;a href="http://fsprojects.github.io/ProjectScaffold/"&gt;ProjectScaffold&lt;/a&gt; structure, do a few tweaks
+and make it available as a modern F# project.&lt;/p&gt;
+
+</description>
+    </item>
+    <item>
       <title>Why you should learn F# in 2015 (and how)?</title>
       <guid>http://tomasp.net/blog/2015/why-fsharp-in-2015</guid>
       <link>http://tomasp.net/blog/2015/why-fsharp-in-2015/index.html</link>
@@ -561,27 +586,6 @@ who made some amazing contributions to the library! (More contributors are alway
 so continue reading if you're interested...)&lt;/p&gt;
 
 </description>
-    </item>
-    <item>
-      <title>Upcoming F# talks and trainings (London, NYC &amp; Boston)</title>
-      <guid>http://tomasp.net/blog/events-winter-2013.aspx</guid>
-      <link>http://tomasp.net/blog/events-winter-2013.aspx/index.html</link>
-      <pubDate>Thu, 07 Feb 2013 22:00:22 GMT</pubDate>
-      <description>&lt;img src="http://tomasp.net/articles/events-winter-2013/mvplogo.png" class="rdecor" title="Tomas Petricek" style="margin:10px 35px 15px 35px;width:100px"/&gt;
-
-&lt;p&gt;After a few years, I finally managed to find the time to attend the 
-  &lt;a href="http://www.2013mvpsummit.com/"&gt;MVP Summit&lt;/a&gt; this year. The Summit is
-  an annual event where people who are active in Microsoft technical communities come
-  to the Microsoft headquarters to learn about new things (and, of course, tell them 
-  how they should be doing their job :-)). The Summit is a great place to meet interesting
-  people (so if you're reading this and will be there, definitely get in touch!)
-&lt;/p&gt;
-
-&lt;p&gt;The good news - for those interested in F# - is that I'll be doing two F# talks 
-  on the way. I'll stop in &lt;strong&gt;Boston&lt;/strong&gt; on &lt;strong&gt;February 13&lt;/strong&gt; and then in &lt;strong&gt;New York&lt;/strong&gt; on &lt;strong&gt;February 25&lt;/strong&gt;.
-  I'll be talking about different topics (Google tells me that the distance is 
-  &lt;em&gt;only&lt;/em&gt; 216 miles!)
-&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

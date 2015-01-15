@@ -68,34 +68,43 @@
   <!-- Print more details about the first blog post -->
 
   <div>
-  <h1><a href="http://tomasp.net/blog/2015/why-fsharp-in-2015/index.html">Why you should learn F# in 2015 (and how)?</a></h1>
-  <img src="http://tomasp.net/blog/2015/why-fsharp-in-2015/gingerbread.jpg" style="width:200px;float:right;margin:15px" />
+  <h1><a href="http://tomasp.net/blog/2015/fnuplot/index.html">FnuPlot: Cross-platform charting with gnuplot</a></h1>
+  <img src="http://fsprojects.github.io/FnuPlot/img/logo.png" style="width:120px;float:right;margin:10px" />
 
-<p>I guess that it might be a bit too late for adding to your list of new year's resulution now.
-But just if you still have an empty slot (or in case an originally taken slot has become
-available), your new year's resolution should be to get involved with F#!</p>
+<p>There is a bunch of visualization and charting libraries for F#. Sadly, perhaps the most
+advanced one, <a href="http://fsharp.github.io/FSharp.Charting/">F# Charting</a>, does not work 
+particularly well outside of Windows at the moment. There are also some work-in-progress
+libraries based on HTML like <a href="http://fsprojects.github.io/Foogle.Charts/">Foogle Charts</a> and
+<a href="http://tahahachana.github.io/FsPlot/">FsPlot</a>, which are cross-platform, but not quite
+ready yet.</p>
 
-<p>Obviously, the goal of this blog post is to sell you some of my F# trainings and other materials -
-including the online course on <a href="http://fsharpworks.com/workshops/finance.html">F# in Finance</a> and our
-<a href="http://fsharpworks.com/workshops/fast-track.html">FastTrack to F#</a> course in London and New York
-and also the <a href="http://manning.com/petricek2">F# Deep Dives</a> book. But to conceal this fact, I'm
-going to fill most of the blog post with useful information about F#, the F# Software Foundation
-and the F# community (but if you really just want to read about my courses, scroll down to the
-<a href="http://tomasp.net/blog/2015/why-fsharp-in-2015/index.html#courses">second section</a>).</p>
+<p>Before Christmas, I got a <a href="https://github.com/fsprojects/FnuPlot/pull/2">notification from GitHub</a>
+about a pull request for a simple gnuplot wrapper that I wrote a long time ago (and which used
+to be carfully hidden <a href="http://fsxplat.codeplex.com">on CodePlex</a>).</p>
+
+<p>The library is incomplete and I don't expect to dedicate too much time to maintaining it,
+but it works quite nicely for basic charts and so I though I'd add the 
+<a href="http://fsprojects.github.io/ProjectScaffold/">ProjectScaffold</a> structure, do a few tweaks
+and make it available as a modern F# project.</p>
 
 
       
   <p class="meta">
-    <span><strong>Published</strong>: Wednesday, 7 January 2015, 2:36 PM</span>
+    <span><strong>Published</strong>: Wednesday, 27 May 2015, 4:41 PM</span>
       <br />      
-      <span class="tags"><strong>Tags</strong>: c#, f#, functional programming, talks </span> 
+      <span class="tags"><strong>Tags</strong>: f#, fslab, data science </span> 
     <br />
-    <a href="http://tomasp.net/blog/2015/why-fsharp-in-2015/index.html">Read the complete article</a>
+    <a href="http://tomasp.net/blog/2015/fnuplot/index.html">Read the complete article</a>
   </p>
   </div>
 
   <!-- For remaining articles, just print short summary with abstract -->
   <h1><a href="http://tomasp.net/blog/index.html">Recent articles from my blog</a></h1>
+    <h2><a href="http://tomasp.net/blog/2015/why-fsharp-in-2015/index.html">Why you should learn F# in 2015 (and how)?</a></h2>
+    <p class="smdate">Wednesday, 7 January 2015, 2:36 PM</p>
+    <p class="description">
+        I guess that it might be a bit too late for adding to your list of new year's resulution now.But just if you still have an empty slot (or in case an originally taken slot has become available), your new year's resolution should be to get involved with F#!
+    </p>
     <h2><a href="http://tomasp.net/blog/2014/composing-christmas/index.html">Composing Christmas with F#</a></h2>
     <p class="smdate">Monday, 8 December 2014, 6:22 PM</p>
     <p class="description">
@@ -110,11 +119,6 @@ and the F# community (but if you really just want to read about my courses, scro
     <p class="smdate">Tuesday, 20 May 2014, 2:47 PM</p>
     <p class="description">
         If you are following me or the #fsharp hashtag on Twitter,you might have already come across a link to fsharpWorks or one of theupcoming F# events organized by fsharpWorks. So, what is fsharpWorks and what are we planningfor you?
-    </p>
-    <h2><a href="http://tomasp.net/blog/2014/update-monads/index.html">Stateful computations in F# with update monads</a></h2>
-    <p class="smdate">Tuesday, 13 May 2014, 4:41 PM</p>
-    <p class="description">
-        Most discussions about monads, even in F#, start by looking at the well-known monads for handling state (reader, writer and state). In a recent paper, Danel Ahman and Tarmo Uustalu revisit these and build a nicer abstraction called <em>update monads</em>. I implemented the idea in F# and I find that update monads are an excellent fit for F# computation expressions!
     </p>
 
   <p class="meta">
@@ -221,7 +225,8 @@ and the F# community (but if you really just want to read about my courses, scro
     </div>
     <div class="large-7 columns">
     <h4>Blog archives <a href="http://tomasp.net/rss.xml"><img src="http://tomasp.net/img/rss.gif" /></a></h4>
-      <a href="http://tomasp.net/blog/archive/january-2015/index.html">
+      <a href="http://tomasp.net/blog/archive/may-2015/index.html">
+        May 2015 (1)</a>,      <a href="http://tomasp.net/blog/archive/january-2015/index.html">
         January 2015 (1)</a>,      <a href="http://tomasp.net/blog/archive/december-2014/index.html">
         December 2014 (1)</a>,      <a href="http://tomasp.net/blog/archive/may-2014/index.html">
         May 2014 (3)</a>,      <a href="http://tomasp.net/blog/archive/april-2014/index.html">

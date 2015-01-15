@@ -68,8 +68,6 @@ module Blog =
           razor.ProcessFile(html.FileName)
       | ".html" | ".cshtml" ->
           razor.ProcessFile(current)
-          |> CSharpFormat.SyntaxHighlighter.FormatHtml
-
       | _ -> failwith "Not supported file!"
     File.WriteAllText(target, html)
 

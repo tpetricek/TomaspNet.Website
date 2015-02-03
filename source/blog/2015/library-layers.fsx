@@ -1,8 +1,8 @@
 ﻿(*@
   Layout = "post";
   Title = "Library patterns: Multiple levels of abstraction";
-  Tags = "todo";
-  Date = "2015-02-15T17:58:17.9508797+01:00";
+  Tags = "f#, open source, functional programming";
+  Date = "2015-02-03T16:54:30.6183730+01:00";
   Description = "Over the last few years, I created or contributed to a number of libraries. " +
     "In this blog post (or perhaps a series), I'll share some of the things I learned when trying " +
     "to answer the question: What should a good library look like? I'll start by looking at a " +

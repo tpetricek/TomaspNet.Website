@@ -21,12 +21,9 @@ var news =
   {
     "date": "",
     "info": '\
-     <a href="http://ineta.org/Speakers/SearchCommunitySpeakers.aspx?SpeakerId=e619146f-d59f-4e37-b781-2cb582db19c3">\
-       <img src="/img/ineta.png" style="margin-left:5px;float:right;border-style:none;" alt="Request speaker on INETA"  /> \
-     </a> \
      <p>See my <a href="http://lanyrd.com/profile/tomasp/">Lanyrd page</a> for more events.  \
-       Invite me to your user group <a href="http://ineta.org/Speakers/SearchCommunitySpeakers.aspx?SpeakerId=e619146f-d59f-4e37-b781-2cb582db19c3">via INETA</a>! \
-        </p>\
+       Interested in a user group or conference talk? Drop <a href="mailto:tomas@tomasp.net">me an email</a>! \
+     </p>\
      <div class="lanyrd-target-splat"> \
        <a href="http://lanyrd.com/profile/tomasp/" class="lanyrd-splat lanyrd-template-standard lanyrd-number-3 lanyrd-nolink lanyrd-nostyles lanyrd-headingstart-h5" rel="me">\
          See my conferences on Lanyrd\

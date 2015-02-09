@@ -49,10 +49,10 @@
     <section class="top-bar-section">
       <ul class="right">
         <li><a href="http://tomasp.net/blog/index.html">Blog</a></li>
-        <li><a href="http://functional-programming.net">Trainings</a></li>
         <li><a href="http://functional-programming.net">Books</a></li>
-        <li><a href="http://lanyrd.com/profile/tomasp">Talks</a></li>
-        <li><a href="http://tomasp.net/academic">Research & Teaching</a></li>
+        <li><a href="http://fsharpworks.com/workshops.html">Trainings</a></li>
+        <li><a href="http://fsharpworks.com">Consulting</a></li>
+        <li><a href="http://tomasp.net/academic">Research</a></li>
       </ul>
     </section>
 
@@ -102,19 +102,19 @@
   explained. If you want to see the translation in its full beauty, then you can use
   <a href="http://www.red-gate.com/products/reflector/">Reflector</a>. We'll look at the 
   compilation of the following snippet:</p>
-<pre >
-<span class="k">var</span> request = HttpWebRequest.Create(url);
-<span class="k">var</span> response = await request.GetResponseAsync();
-<span class="k">var</span> stream = response.GetResponseStream();
+<pre lang="csharp">
+var request = HttpWebRequest.Create(url);
+var response = await request.GetResponseAsync();
+var stream = response.GetResponseStream();
 
-<span class="k">do</span> {
+do {
   count = await stream.ReadAsync(buffer, 0, buffer.Length);
   temp.Write(buffer, 0, count);
-} <span class="k">while</span> (count &gt; 0);
+} while (count &gt; 0);
 
 temp.Seek(0, SeekOrigin.Begin);
-<span class="c">// (Some code at the end of the method omitted)</span>
-<span class="k">return</span> Tuple.Create(title, html.Length);
+// (Some code at the end of the method omitted)
+return Tuple.Create(title, html.Length);
 </pre>
 
 <p>Leaving synchronous code aside, the snippet starts by asynchronously getting HTTP response
@@ -136,41 +136,41 @@ temp.Seek(0, SeekOrigin.Begin);
   that contains a big <code>switch</code> that runs the next block (which is stored in a
   private field <code>_state</code>):</p>
 
-<pre >
-<span class="k">public</span> <span class="k">void</span> MoveNext() {  
-  <span class="k">switch</span> (<span class="k">this</span>._state) {
-  <span class="k">case</span> Initial:
-    <span class="c">// State when the method is called - start getting response</span>
-    <span class="k">this</span>._request = HttpWebRequest.Create(<span class="k">this</span>._url);
-    <span class="k">this</span>._awaitResponse = request.GetResponseAsync();
-    <span class="k">this</span>._awaitResponse.TrySetContinuation(<span class="k">this</span>.MoveNextDelegate);
-    <span class="k">this</span>._state = GotResponse;
-    <span class="k">break</span>;
+<pre lang="csharp">
+public void MoveNext() {  
+  switch (this._state) {
+  case Initial:
+    // State when the method is called - start getting response
+    this._request = HttpWebRequest.Create(this._url);
+    this._awaitResponse = request.GetResponseAsync();
+    this._awaitResponse.TrySetContinuation(this.MoveNextDelegate);
+    this._state = GotResponse;
+    break;
 
-  <span class="k">case</span> GotResponse:
-    <span class="c">// Got response - obtain the stream and start the loop</span>
-    <span class="k">this</span>._response = <span class="k">this</span>._awaitResponse.GetResult&lt;WebResponse&gt;();
-    <span class="k">this</span>._stream = <span class="k">this</span>._response.GetResponseStream();
-    <span class="k">goto</span> <span class="k">case</span> LoopBodyStart:
+  case GotResponse:
+    // Got response - obtain the stream and start the loop
+    this._response = this._awaitResponse.GetResult&lt;WebResponse&gt;();
+    this._stream = this._response.GetResponseStream();
+    goto case LoopBodyStart:
 
-  <span class="k">case</span> LoopBodyStart: 
-    <span class="c">// Loop body - start reading next chunk of data to a buffer </span>
-    <span class="k">this</span>._awaitRead = <span class="k">this</span>._stream.ReadAsync(<span class="k">this</span>._buffer, 0, <span class="k">this</span>._buffer.Length);
-    <span class="k">this</span>._awaitRead.TrySetContinuation(<span class="k">this</span>.MoveNextDelegate);
-    <span class="k">this</span>._state = LoopAfterRead;
-    <span class="k">break</span>;
+  case LoopBodyStart: 
+    // Loop body - start reading next chunk of data to a buffer 
+    this._awaitRead = this._stream.ReadAsync(this._buffer, 0, this._buffer.Length);
+    this._awaitRead.TrySetContinuation(this.MoveNextDelegate);
+    this._state = LoopAfterRead;
+    break;
 
-  <span class="k">case</span> LoopAfterRead: 
-    <span class="c">// Downloading completed - read the result and start writing</span>
-    <span class="k">this</span>._count = <span class="k">this</span>._awaitRead.GetResult&lt;<span class="k">int</span>&gt;();
-    <span class="k">this</span>._temp.Write(<span class="k">this</span>._buffer, 0, <span class="k">this</span>._count);
-    <span class="c">// If the loop has not completed, go to the beginning</span>
-    <span class="k">if</span> (<span class="k">this</span>._count &lt; 0) <span class="k">goto</span> <span class="k">case</span> LoopBodyStart;
+  case LoopAfterRead: 
+    // Downloading completed - read the result and start writing
+    this._count = this._awaitRead.GetResult&lt;int&gt;();
+    this._temp.Write(this._buffer, 0, this._count);
+    // If the loop has not completed, go to the beginning
+    if (this._count &lt; 0) goto case LoopBodyStart;
 
-    <span class="k">this</span>._temp.Seek(0L, SeekOrigin.Begin);
-    <span class="c">// (Some code at the end of the method omitted)</span>
-    <span class="k">this</span>._state = Returned;
-    <span class="k">this</span>._result = Tuple.Create(<span class="k">this</span>._title, <span class="k">this</span>._html.Length);
+    this._temp.Seek(0L, SeekOrigin.Begin);
+    // (Some code at the end of the method omitted)
+    this._state = Returned;
+    this._result = Tuple.Create(this._title, this._html.Length);
   }
 }
 </pre>
@@ -440,54 +440,66 @@ temp.Seek(0, SeekOrigin.Begin);
 
     <h3>Welcome!</h3>
     <img src="http://tomasp.net/img/tomas.jpg" alt="Tomas Petricek" style="float:right;margin:10px 0px 10px 10px;" />
-    <p>I'm an F# enthusiast, book author and a PhD student at the University of Cambridge.
+    <p>I'm an F# open-source developer, book author and computer scientist. I submitted my PhD thesis recently.
       When offline, I enjoy traveling and taking pictures. You can find me at
       at <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a> or email 
       <a href="mailto:tomas@tomasp.net">tomas@tomasp.net</a>.
     </p>
 
+    <h4>Trainings and consulting</h4>
+    <a href="http://fsharpworks.com"><img src="http://tomasp.net/img/fsharpworks.png" alt="F# Works" style="float:right;margin:15px 0px 10px 10px; width:150px" /></a>
+    <p>I'm an experienced F# developer and trainer. <br /> I offer training and consulting
+      services through <a href="http://fsharpworks.com">F# Works</a>.
+    </p>
+    <ul>
+      <li>Check out my <a href="http://fsharpworks.com/workshops/fast-track.html">in-person Fast Track to F#</a> course</li>
+      <li>Check out my <a href="http://fsharpworks.com/workshops/finance.html">online F# in Finance</a> course</li>
+      <li><a href="mailto:tomas@tomasp.net">Email me</a> for info about private trainings</li>
+    </ul>
+    
     <script type="text/javascript" src="http://tomasp.net/news/news.js"></script>
     <h4>What's new? &#160; <small><script type="text/javascript">document.write(news.date)</script></small></h4>
     <script>
       document.write(news.info);
     </script>
 
-    <h4>Trainings and consulting</h4>
-    <img src="http://tomasp.net/img/skillsmatter.png" alt="Tomas Petricek" style="float:right;margin:15px 0px 10px 10px;" />
-    <p>I run F# and functional programming courses in <strong>London</strong>
-      and <strong>New York</strong> with SkillsMatter.
-    </p>
-    <ul>
-      <li>Check out our <a href="http://skillsmatter.com/course/scala/tomas-petricek-phil-trelford-fast-track-to-fsharp/ps-6679">Fast Track to F#</a> course</li>
-      <li><a href="mailto:tomas@tomasp.net">Email me</a> for info about private trainings</li>
-    </ul>
-    
-    <h4>F# Books and articles</h4>
+    <h4>Functional F# and C# books</h4>
     <div style="float:right;">
       <a href="http://www.amazon.com/gp/product/1933988924/ref=as_li_tf_il?ie=UTF8&amp;tag=httptomasnet-20&amp;linkCode=as2&amp;camp=217145&amp;creative=399369&amp;creativeASIN=1933988924">
-        <img src="http://tomasp.net/img/rwfp.jpg" alt="Real World Functional Programming" style="float:right;margin:10px 0px 10px 10px;border-style:none;" />
+        <img src="http://tomasp.net/img/deepdives.png" alt="F# Deep Dives" style="float:right;margin:15px 0px 15px 10px;border-style:none;" />
       </a>
     </div>
-    <p><a href="http://www.manning.com/petricek">Real World Functional Programming</a> explains functional
-      concepts using F# and C#. You can get it from <a href="http://www.amazon.com/dp/1933988924?tag=httptomasnet-20&amp;camp=213381&amp;creative=390973&amp;linkCode=as4&amp;creativeASIN=1933988924&amp;adid=0F1DP260JGG4KY0CDGP6">Amazon.com</a>, <a href="https://www.amazon.co.uk/dp/1933988924?tag=tomasnet-21&amp;camp=1406&amp;creative=6394&amp;linkCode=as1&amp;creativeASIN=1933988924&amp;adid=1CTY87YCCQEJW965GNDF">Amazon.co.uk</a> or your favorite book store.
-      Some chapters and new materials are also available on <a href="http://msdn.microsoft.com/en-us/library/hh314518.aspx">MSDN</a>.</p>
-    
-    <p>Currently, I'm putting together <a href="http://www.manning.com/petricek2/">F# Deep Dives</a> - a collection
-      of practical F# essays written by community leaders and commercial users of F#.</p>
-    <p>I also wrote a series of tutorials on <a href="http://www.tryfsharp.org/Learn/financial-computing">financial computing</a>
-      for Try F# - an interactive environment that let's you try F# in the browser.</p>
+    <p>
+      I wrote or contributed to two books on F# and functional programming:
+      <a href="http://functional-programming.net/rwfp">Real World Functional Programming</a> explains functional
+      concepts using F# and C# and <a href="http://functional-programming.net/deepdives">F# Deep Dives</a> is a 
+      collection of case studies written by industry experts.</p>
+    <ul>
+      <li><a href="http://functional-programming.net/rwfp"><strong>Real World Funcitonal Programming</strong></a> home page. See
+        <a href="http://manning.com/petricek">Manning</a>,
+        <a href="https://www.amazon.com/dp/1933988924?tag=httptomasnet-20&amp;camp=213381&amp;creative=390973&amp;linkCode=as4&amp;creativeASIN=1933988924&amp;adid=0F1DP260JGG4KY0CDGP6">Amazon.com</a> or
+        <a href="https://www.amazon.co.uk/dp/1933988924?tag=tomasnet-21&amp;camp=1406&amp;creative=6394&amp;linkCode=as1&amp;creativeASIN=1933988924&amp;adid=1CTY87YCCQEJW965GNDF">Amazon.co.uk</a>.
+      </li>
+      <li><a href="http://functional-programming.net/deepdives"><strong>F# Deep Dives</strong></a> home page. Get it from
+        <a href="http://www.manning.com/petricek2">Manning.com</a>,
+        <a href="http://www.amazon.com/gp/product/1617291323/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=1617291323&linkCode=as2&tag=httptomasnet-20&linkId=U4FPJJSKKCCKGNHD">Amazon.com</a> or
+        <a href="http://www.amazon.co.uk/gp/product/1617291323/ref=as_li_tl?ie=UTF8&camp=1634&creative=19450&creativeASIN=1617291323&linkCode=as2&tag=tomasnet-21&linkId=HTUYVHHGWB4Q7X6V">Amazon.co.uk</a>.
+      </li>
+    </ul>    
+    <p>I also wrote a series of tutorials on <a href="http://www.tryfsharp.org/Learn/financial-computing">financial computing for Try F#</a>.
+      This interactive environment let's you try F# in the browser.</p>
 
     <h4>Research and teaching</h4>
     <img src="http://tomasp.net/img/cam.png" alt="University of Cambride" style="float:right;margin:25px 0px 10px 10px;" />
-    <p>I'm finishing PhD in computer science at the <a href="http://www.cl.cam.ac.uk/">University of Cambridge</a>.
-      I'm working on making better types for programs that run in rich context (like F# type providers, distributed 
-      prog&shy;ramming or data-flow). See <a href="http://www.cl.cam.ac.uk/~tp322/">my academic page</a> for
+    <p>I submitted my PhD thesis at the <a href="http://www.cl.cam.ac.uk/">University of Cambridge</a>,
+      working on making better types for programs that run in rich context (like F# type providers, distributed 
+      prog&shy;ramming or data-flow). See <a href="http://tomasp.net/academic/">my academic page</a> for
       more.</p>
 
     <h4>Blog tags</h4>
     <p>
 
-      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(97),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(33),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(10),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(29),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/fsharp-data/">f# data</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/monads/">monads</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/art/">art</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fractals/">fractals</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/funscript/">funscript</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(1)    </p>
+      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(99),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(33),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(11),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(29),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/open-source/">open source</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/monads/">monads</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fslab/">fslab</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(1)    </p>
 
   </div>
 </div>
@@ -509,8 +521,9 @@ temp.Seek(0, SeekOrigin.Begin);
     </div>
     <div class="large-7 columns">
     <h4>Blog archives <a href="http://tomasp.net/rss.xml"><img src="http://tomasp.net/img/rss.gif" /></a></h4>
-      <a href="http://tomasp.net/blog/archive/january-2015/index.html">
-        January 2015 (1)</a>,      <a href="http://tomasp.net/blog/archive/december-2014/index.html">
+      <a href="http://tomasp.net/blog/archive/february-2015/index.html">
+        February 2015 (1)</a>,      <a href="http://tomasp.net/blog/archive/january-2015/index.html">
+        January 2015 (2)</a>,      <a href="http://tomasp.net/blog/archive/december-2014/index.html">
         December 2014 (1)</a>,      <a href="http://tomasp.net/blog/archive/may-2014/index.html">
         May 2014 (3)</a>,      <a href="http://tomasp.net/blog/archive/april-2014/index.html">
         April 2014 (2)</a>,      <a href="http://tomasp.net/blog/archive/march-2014/index.html">

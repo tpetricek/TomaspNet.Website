@@ -49,10 +49,10 @@
     <section class="top-bar-section">
       <ul class="right">
         <li><a href="http://tomasp.net/blog/index.html">Blog</a></li>
-        <li><a href="http://functional-programming.net">Trainings</a></li>
         <li><a href="http://functional-programming.net">Books</a></li>
-        <li><a href="http://lanyrd.com/profile/tomasp">Talks</a></li>
-        <li><a href="http://tomasp.net/academic">Research & Teaching</a></li>
+        <li><a href="http://fsharpworks.com/workshops.html">Trainings</a></li>
+        <li><a href="http://fsharpworks.com">Consulting</a></li>
+        <li><a href="http://tomasp.net/academic">Research</a></li>
       </ul>
     </section>
 
@@ -118,42 +118,42 @@
 </p>
 
 <pre class="header"><a href="javascript:switchLang(1, 'cs');">Visual C#</a><a href="javascript:switchLang(1, 'fs');">Visual F#</a><a href="javascript:switchLang(1, 'vb');">Visual Basic</a>Counting the number of clicks</pre>
-<pre  id="code_vb_1" class="withheader">
-<span class="c">' Display the number of clicks</span>
-<span class="k">Dim</span> eClicked = _
-  Aggregate md <span class="k">In</span> PicSmiley.AttachEvent(Of MouseEventArgs)(<span class="s">"MouseDown"</span>) _
+<pre lang="basic" id="code_vb_1" class="withheader">
+' Display the number of clicks
+Dim eClicked = _
+  Aggregate md In PicSmiley.AttachEvent(Of MouseEventArgs)("MouseDown") _
   Where md.Button = MouseButtons.Left _
   Where Math.Pow(PicSmiley.Width / 2 - md.X, 2) + _
         Math.Pow(PicSmiley.Height / 2 - md.Y, 2) &lt; 2250 _
   Into Sum(1)
-eClicked.Listen(<span class="k">Function</span>(sum) _
-  SetText(LblScore, <span class="k">String</span>.Format(<span class="s">"Score: {0}"</span>, sum)))
+eClicked.Listen(Function(sum) _
+  SetText(LblScore, String.Format("Score: {0}", sum)))
 </pre>
-<pre  id="code_cs_1" class="withheader">
-<span class="c">// Display the number of clicks</span>
-<span class="k">var</span> eClicked = 
-  (<span class="k">from</span> md <span class="k">in</span> picSmiley.AttachEvent&lt;MouseEventArgs&gt;(<span class="s">"MouseDown"</span>) 
-   <span class="k">where</span> md.Button == MouseButtons.Left 
-   <span class="k">where</span> Math.Pow(picSmiley.Width / 2 - md.X, 2) + 
+<pre lang="csharp" id="code_cs_1" class="withheader">
+// Display the number of clicks
+var eClicked = 
+  (from md in picSmiley.AttachEvent&lt;MouseEventArgs&gt;("MouseDown") 
+   where md.Button == MouseButtons.Left 
+   where Math.Pow(picSmiley.Width / 2 - md.X, 2) + 
           Math.Pow(picSmiley.Height / 2 - md.Y, 2) &lt; 2250
-   <span class="k">select</span> 1).Sum().Pass(sum =&gt; 
-     lblScore.Text = String.Format(<span class="s">"Score: {0}"</span>, sum));
+   select 1).Sum().Pass(sum =&gt; 
+     lblScore.Text = String.Format("Score: {0}", sum));
 </pre>
-<pre  id="code_fs_1" class="withheader">
-<span class="c">// Utility function that creates 'constant function'</span>
-<span class="k">let</span> cns n = (<span class="k">fun</span> <span class="o">_</span> <span class="o">-&gt;</span> n)
+<pre lang="fsharp" id="code_fs_1" class="withheader">
+// Utility function that creates 'constant function'
+let cns n = (fun _ -> n)
 
-<span class="c">// Display the number of clicks</span>
-<span class="k">let</span> eClicked = 
+// Display the number of clicks
+let eClicked = 
   picSmiley.MouseDown
-  <span class="o">|</span>&gt; Reactive.freeable 
-  <span class="o">|</span>&gt; Reactive.filter (<span class="k">fun</span> md <span class="o">-&gt;</span> md.Button = MouseButtons.Left)
-  <span class="o">|</span>&gt; Reactive.filter (<span class="k">fun</span> md <span class="o">-&gt;</span> 
+  |> Reactive.freeable 
+  |> Reactive.filter (fun md -> md.Button = MouseButtons.Left)
+  |> Reactive.filter (fun md -> 
         pown (float picSmiley.Width / 2. - float md.X) 2 +
         pown (float picSmiley.Height / 2. - float md.Y) 2 &lt; 2250.0 )
-  <span class="o">|</span>&gt; Reactive.sumBy (cns 1)
-  <span class="o">|</span>&gt; Reactive.pass (sprintf <span class="s">"Score: %d"</span> &gt;&gt; lblScore.set_Text)
-  <span class="o">|</span>&gt; Reactive.map (cns ())
+  |> Reactive.sumBy (cns 1)
+  |> Reactive.pass (sprintf "Score: %d" >> lblScore.set_Text)
+  |> Reactive.map (cns ())
 </pre>
 <p>There are a few things that deserve some explanation. First of all, we're using <code>Pass</code> 
   extension method in the C# version. This is very similar to <code>Listen</code> with the exception
@@ -184,39 +184,39 @@ eClicked.Listen(<span class="k">Function</span>(sum) _
   the event stream will be regenerated and the user will have another 600ms to click on the image:</p>
 
 <pre class="header"><a href="javascript:switchLang(2, 'cs');">Visual C#</a><a href="javascript:switchLang(2, 'fs');">Visual F#</a><a href="javascript:switchLang(2, 'vb');">Visual Basic</a>Moving the smiley</pre>
-<pre  id="code_vb_2" class="withheader">
-<span class="c">' Moves the smiley every time the user clicked on it or after specified time</span>
-<span class="k">Dim</span> rnd = <span class="k">New</span> Random()
-<span class="k">Dim</span> eMoveSmiley = _
-  From e <span class="k">In</span> Reactive.After(1000, 0) _
-  From s <span class="k">In</span> Reactive.Merge(eClicked, Reactive.After(600.0, 0)).UseSwitchRecursive() _
-  <span class="k">Select</span> <span class="k">New</span> Point _
-      (rnd.<span class="k">Next</span>(ClientSize.Width - PicSmiley.Width), _
-       20 + rnd.<span class="k">Next</span>(ClientSize.Height - PicSmiley.Height - 20))
-eMoveSmiley.Listen(<span class="k">AddressOf</span> MoveSmiley)
+<pre lang="basic" id="code_vb_2" class="withheader">
+' Moves the smiley every time the user clicked on it or after specified time
+Dim rnd = New Random()
+Dim eMoveSmiley = _
+  From e In Reactive.After(1000, 0) _
+  From s In Reactive.Merge(eClicked, Reactive.After(600.0, 0)).UseSwitchRecursive() _
+  Select New Point _
+      (rnd.Next(ClientSize.Width - PicSmiley.Width), _
+       20 + rnd.Next(ClientSize.Height - PicSmiley.Height - 20))
+eMoveSmiley.Listen(AddressOf MoveSmiley)
 </pre>
-<pre  id="code_cs_2" class="withheader">
-<span class="c">// Moves the smiley every time the user clicked on it or after specified time</span>
-<span class="k">var</span> rnd = <span class="k">new</span> Random();
-<span class="k">var</span> eMoveSmiley = 
- (<span class="k">from</span> e <span class="k">in</span> Reactive.After(1000, 0) 
-  <span class="k">from</span> s <span class="k">in</span> Reactive.Merge(eClicked, Reactive.After(600.0, 0)).UseSwitchRecursive() 
-  <span class="k">select</span> <span class="k">new</span> Point 
+<pre lang="csharp" id="code_cs_2" class="withheader">
+// Moves the smiley every time the user clicked on it or after specified time
+var rnd = new Random();
+var eMoveSmiley = 
+ (from e in Reactive.After(1000, 0) 
+  from s in Reactive.Merge(eClicked, Reactive.After(600.0, 0)).UseSwitchRecursive() 
+  select new Point 
       (rnd.Next(ClientSize.Width - picSmiley.Width), 
        20 + rnd.Next(ClientSize.Height - picSmiley.Height - 20)))
   .Pass(pos =&gt; picSmiley.Location = pos);
 </pre>
-<pre  id="code_fs_2" class="withheader">
-<span class="c">// Moves the smiley every time the user clicked on it or after specified time</span>
-<span class="k">let</span> rnd = <span class="k">new</span> Random()
-<span class="k">let</span> eMoveSmiley =
+<pre lang="fsharp" id="code_fs_2" class="withheader">
+// Moves the smiley every time the user clicked on it or after specified time
+let rnd = new Random()
+let eMoveSmiley =
   Reactive.After(1000.0, ())
-  <span class="o">|</span>&gt; Reactive.switchRecursive (<span class="k">fun</span> () <span class="o">-&gt;</span>
+  |> Reactive.switchRecursive (fun () ->
       Reactive.Merge(eClicked, Reactive.After(600.0, ())))
-  <span class="o">|</span>&gt; Reactive.map (<span class="k">fun</span> <span class="o">_</span> <span class="o">-&gt;</span> 
+  |> Reactive.map (fun _ -> 
       Point(rnd.Next(frm.ClientSize.Width - picSmiley.Width),        
             20 + rnd.Next(frm.ClientSize.Height - picSmiley.Height - 20)) )
-  <span class="o">|</span>&gt; Reactive.pass picSmiley.set_Location            
+  |> Reactive.pass picSmiley.set_Location            
 </pre>
 <p>In C# and VB, the <code>eClicked</code> event yields integer values. To make the types compatible,
   our calls to <code>Reactive.After</code> also generate an integer value (the second argument specifies
@@ -242,49 +242,49 @@ eMoveSmiley.Listen(<span class="k">AddressOf</span> MoveSmiley)
   tells us the current time, we can also handle the end of the game. When the time is less than 
   zero, we'll display a message with the result and stop all event processing. </p>
 <pre class="header"><a href="javascript:switchLang(3, 'cs');">Visual C#</a><a href="javascript:switchLang(3, 'fs');">Visual F#</a><a href="javascript:switchLang(3, 'vb');">Visual Basic</a>Counting the time and showing results</pre>
-<pre  id="code_vb_3" class="withheader">
-<span class="c">' Count-down timer, shows the time on a label</span>
-<span class="k">Dim</span> start = DateTime.Now
-<span class="k">Dim</span> eCountDown = _
-  From e <span class="k">In</span> Reactive.Repeatedly(1000) _
-  <span class="k">Let</span> sec = 20 - e.Subtract(start).TotalSeconds _
-  <span class="k">Select</span> <span class="k">New</span> <span class="k">With</span> _
+<pre lang="basic" id="code_vb_3" class="withheader">
+' Count-down timer, shows the time on a label
+Dim start = DateTime.Now
+Dim eCountDown = _
+  From e In Reactive.Repeatedly(1000) _
+  Let sec = 20 - e.Subtract(start).TotalSeconds _
+  Select New With _
     {.Time = sec, .Message = _
-     <span class="k">String</span>.Format(<span class="s">"Time: {0}"</span>, <span class="k">CType</span>(sec, <span class="k">Integer</span>))}
-eCountDown.Listen(<span class="k">Function</span>(s) SetText(LblTime, s.Message))
+     String.Format("Time: {0}", CType(sec, Integer))}
+eCountDown.Listen(Function(s) SetText(LblTime, s.Message))
 
-<span class="c">' Stop the game when time is less than zero</span>
+' Stop the game when time is less than zero
 eCountDown _
-  .Where(<span class="k">Function</span>(t) t.Time &lt;= 0) _
-  .Listen(<span class="k">Function</span>() StopGame(eClicked, eMoveSmiley, eCountDown))
+  .Where(Function(t) t.Time &lt;= 0) _
+  .Listen(Function() StopGame(eClicked, eMoveSmiley, eCountDown))
 </pre>
-<pre  id="code_cs_3" class="withheader">
-<span class="c">// Count-down timer, shows the time on a label</span>
-<span class="k">var</span> start = DateTime.Now;
-(<span class="k">from</span> e <span class="k">in</span> Reactive.Repeatedly(1000) 
- <span class="k">let</span> sec = 20 - e.Subtract(start).TotalSeconds 
- <span class="k">select</span> <span class="k">new</span> { Time = sec, Message = 
-     String.Format(<span class="s">"Time: {0}"</span>, (<span class="k">int</span>)sec) })
+<pre lang="csharp" id="code_cs_3" class="withheader">
+// Count-down timer, shows the time on a label
+var start = DateTime.Now;
+(from e in Reactive.Repeatedly(1000) 
+ let sec = 20 - e.Subtract(start).TotalSeconds 
+ select new { Time = sec, Message = 
+     String.Format("Time: {0}", (int)sec) })
  .Pass(s =&gt; lblTime.Text = s.Message)
  .Where(t =&gt; t.Time &lt;= 0).First()
  .Listen(_ =&gt; {
      eClicked.Stop();
      eMoveSmiley.Stop();
-     MessageBox.Show(<span class="s">"Game over!\n"</span> + lblScore.Text);
+     MessageBox.Show("Game over!\n" + lblScore.Text);
    });
 </pre>
-<pre  id="code_fs_3" class="withheader">
-<span class="c">// Count-down timer, shows the time on a label</span>
-<span class="k">let</span> start = DateTime.Now
+<pre lang="fsharp" id="code_fs_3" class="withheader">
+// Count-down timer, shows the time on a label
+let start = DateTime.Now
 Reactive.Repeatedly(1000.0)
-  <span class="o">|</span>&gt; Reactive.map (<span class="k">fun</span> e <span class="o">-&gt;</span> 20.0 - e.Subtract(start).TotalSeconds)
-  <span class="o">|</span>&gt; Reactive.pass (int &gt;&gt; sprintf <span class="s">"Time: %d"</span> &gt;&gt; lblTime.set_Text)
-  <span class="o">|</span>&gt; Reactive.filter ((&gt;) 0.0)
-  <span class="o">|</span>&gt; Reactive.first
-  <span class="o">|</span>&gt; Reactive.listen(<span class="k">fun</span> <span class="o">_</span> <span class="o">-&gt;</span> 
+  |> Reactive.map (fun e -> 20.0 - e.Subtract(start).TotalSeconds)
+  |> Reactive.pass (int >> sprintf "Time: %d" >> lblTime.set_Text)
+  |> Reactive.filter ((>) 0.0)
+  |> Reactive.first
+  |> Reactive.listen(fun _ -> 
         eClicked.Stop()
         eMoveSmiley.Stop()
-        MessageBox.Show(<span class="s">"Game over!\n"</span> + lblScore.Text) <span class="o">|</span>&gt; ignore )
+        MessageBox.Show("Game over!\n" + lblScore.Text) |> ignore )
 </pre>
 <p>The event processing stream starts with a call to <code>Reactive.Repeatedly</code>, which
   generates event that is raised every second. Then we calculate the number of seconds until
@@ -412,54 +412,66 @@ switchLang(0, 'vb');
 
     <h3>Welcome!</h3>
     <img src="http://tomasp.net/img/tomas.jpg" alt="Tomas Petricek" style="float:right;margin:10px 0px 10px 10px;" />
-    <p>I'm an F# enthusiast, book author and a PhD student at the University of Cambridge.
+    <p>I'm an F# open-source developer, book author and computer scientist. I submitted my PhD thesis recently.
       When offline, I enjoy traveling and taking pictures. You can find me at
       at <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a> or email 
       <a href="mailto:tomas@tomasp.net">tomas@tomasp.net</a>.
     </p>
 
+    <h4>Trainings and consulting</h4>
+    <a href="http://fsharpworks.com"><img src="http://tomasp.net/img/fsharpworks.png" alt="F# Works" style="float:right;margin:15px 0px 10px 10px; width:150px" /></a>
+    <p>I'm an experienced F# developer and trainer. <br /> I offer training and consulting
+      services through <a href="http://fsharpworks.com">F# Works</a>.
+    </p>
+    <ul>
+      <li>Check out my <a href="http://fsharpworks.com/workshops/fast-track.html">in-person Fast Track to F#</a> course</li>
+      <li>Check out my <a href="http://fsharpworks.com/workshops/finance.html">online F# in Finance</a> course</li>
+      <li><a href="mailto:tomas@tomasp.net">Email me</a> for info about private trainings</li>
+    </ul>
+    
     <script type="text/javascript" src="http://tomasp.net/news/news.js"></script>
     <h4>What's new? &#160; <small><script type="text/javascript">document.write(news.date)</script></small></h4>
     <script>
       document.write(news.info);
     </script>
 
-    <h4>Trainings and consulting</h4>
-    <img src="http://tomasp.net/img/skillsmatter.png" alt="Tomas Petricek" style="float:right;margin:15px 0px 10px 10px;" />
-    <p>I run F# and functional programming courses in <strong>London</strong>
-      and <strong>New York</strong> with SkillsMatter.
-    </p>
-    <ul>
-      <li>Check out our <a href="http://skillsmatter.com/course/scala/tomas-petricek-phil-trelford-fast-track-to-fsharp/ps-6679">Fast Track to F#</a> course</li>
-      <li><a href="mailto:tomas@tomasp.net">Email me</a> for info about private trainings</li>
-    </ul>
-    
-    <h4>F# Books and articles</h4>
+    <h4>Functional F# and C# books</h4>
     <div style="float:right;">
       <a href="http://www.amazon.com/gp/product/1933988924/ref=as_li_tf_il?ie=UTF8&amp;tag=httptomasnet-20&amp;linkCode=as2&amp;camp=217145&amp;creative=399369&amp;creativeASIN=1933988924">
-        <img src="http://tomasp.net/img/rwfp.jpg" alt="Real World Functional Programming" style="float:right;margin:10px 0px 10px 10px;border-style:none;" />
+        <img src="http://tomasp.net/img/deepdives.png" alt="F# Deep Dives" style="float:right;margin:15px 0px 15px 10px;border-style:none;" />
       </a>
     </div>
-    <p><a href="http://www.manning.com/petricek">Real World Functional Programming</a> explains functional
-      concepts using F# and C#. You can get it from <a href="http://www.amazon.com/dp/1933988924?tag=httptomasnet-20&amp;camp=213381&amp;creative=390973&amp;linkCode=as4&amp;creativeASIN=1933988924&amp;adid=0F1DP260JGG4KY0CDGP6">Amazon.com</a>, <a href="https://www.amazon.co.uk/dp/1933988924?tag=tomasnet-21&amp;camp=1406&amp;creative=6394&amp;linkCode=as1&amp;creativeASIN=1933988924&amp;adid=1CTY87YCCQEJW965GNDF">Amazon.co.uk</a> or your favorite book store.
-      Some chapters and new materials are also available on <a href="http://msdn.microsoft.com/en-us/library/hh314518.aspx">MSDN</a>.</p>
-    
-    <p>Currently, I'm putting together <a href="http://www.manning.com/petricek2/">F# Deep Dives</a> - a collection
-      of practical F# essays written by community leaders and commercial users of F#.</p>
-    <p>I also wrote a series of tutorials on <a href="http://www.tryfsharp.org/Learn/financial-computing">financial computing</a>
-      for Try F# - an interactive environment that let's you try F# in the browser.</p>
+    <p>
+      I wrote or contributed to two books on F# and functional programming:
+      <a href="http://functional-programming.net/rwfp">Real World Functional Programming</a> explains functional
+      concepts using F# and C# and <a href="http://functional-programming.net/deepdives">F# Deep Dives</a> is a 
+      collection of case studies written by industry experts.</p>
+    <ul>
+      <li><a href="http://functional-programming.net/rwfp"><strong>Real World Funcitonal Programming</strong></a> home page. See
+        <a href="http://manning.com/petricek">Manning</a>,
+        <a href="https://www.amazon.com/dp/1933988924?tag=httptomasnet-20&amp;camp=213381&amp;creative=390973&amp;linkCode=as4&amp;creativeASIN=1933988924&amp;adid=0F1DP260JGG4KY0CDGP6">Amazon.com</a> or
+        <a href="https://www.amazon.co.uk/dp/1933988924?tag=tomasnet-21&amp;camp=1406&amp;creative=6394&amp;linkCode=as1&amp;creativeASIN=1933988924&amp;adid=1CTY87YCCQEJW965GNDF">Amazon.co.uk</a>.
+      </li>
+      <li><a href="http://functional-programming.net/deepdives"><strong>F# Deep Dives</strong></a> home page. Get it from
+        <a href="http://www.manning.com/petricek2">Manning.com</a>,
+        <a href="http://www.amazon.com/gp/product/1617291323/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=1617291323&linkCode=as2&tag=httptomasnet-20&linkId=U4FPJJSKKCCKGNHD">Amazon.com</a> or
+        <a href="http://www.amazon.co.uk/gp/product/1617291323/ref=as_li_tl?ie=UTF8&camp=1634&creative=19450&creativeASIN=1617291323&linkCode=as2&tag=tomasnet-21&linkId=HTUYVHHGWB4Q7X6V">Amazon.co.uk</a>.
+      </li>
+    </ul>    
+    <p>I also wrote a series of tutorials on <a href="http://www.tryfsharp.org/Learn/financial-computing">financial computing for Try F#</a>.
+      This interactive environment let's you try F# in the browser.</p>
 
     <h4>Research and teaching</h4>
     <img src="http://tomasp.net/img/cam.png" alt="University of Cambride" style="float:right;margin:25px 0px 10px 10px;" />
-    <p>I'm finishing PhD in computer science at the <a href="http://www.cl.cam.ac.uk/">University of Cambridge</a>.
-      I'm working on making better types for programs that run in rich context (like F# type providers, distributed 
-      prog&shy;ramming or data-flow). See <a href="http://www.cl.cam.ac.uk/~tp322/">my academic page</a> for
+    <p>I submitted my PhD thesis at the <a href="http://www.cl.cam.ac.uk/">University of Cambridge</a>,
+      working on making better types for programs that run in rich context (like F# type providers, distributed 
+      prog&shy;ramming or data-flow). See <a href="http://tomasp.net/academic/">my academic page</a> for
       more.</p>
 
     <h4>Blog tags</h4>
     <p>
 
-      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(97),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(33),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(10),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(29),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/fsharp-data/">f# data</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/monads/">monads</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/art/">art</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fractals/">fractals</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/funscript/">funscript</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(1)    </p>
+      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(99),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(33),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(11),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(29),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/open-source/">open source</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/monads/">monads</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fslab/">fslab</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(1)    </p>
 
   </div>
 </div>
@@ -481,8 +493,9 @@ switchLang(0, 'vb');
     </div>
     <div class="large-7 columns">
     <h4>Blog archives <a href="http://tomasp.net/rss.xml"><img src="http://tomasp.net/img/rss.gif" /></a></h4>
-      <a href="http://tomasp.net/blog/archive/january-2015/index.html">
-        January 2015 (1)</a>,      <a href="http://tomasp.net/blog/archive/december-2014/index.html">
+      <a href="http://tomasp.net/blog/archive/february-2015/index.html">
+        February 2015 (1)</a>,      <a href="http://tomasp.net/blog/archive/january-2015/index.html">
+        January 2015 (2)</a>,      <a href="http://tomasp.net/blog/archive/december-2014/index.html">
         December 2014 (1)</a>,      <a href="http://tomasp.net/blog/archive/may-2014/index.html">
         May 2014 (3)</a>,      <a href="http://tomasp.net/blog/archive/april-2014/index.html">
         April 2014 (2)</a>,      <a href="http://tomasp.net/blog/archive/march-2014/index.html">

@@ -49,10 +49,10 @@
     <section class="top-bar-section">
       <ul class="right">
         <li><a href="http://tomasp.net/blog/index.html">Blog</a></li>
-        <li><a href="http://functional-programming.net">Trainings</a></li>
         <li><a href="http://functional-programming.net">Books</a></li>
-        <li><a href="http://lanyrd.com/profile/tomasp">Talks</a></li>
-        <li><a href="http://tomasp.net/academic">Research & Teaching</a></li>
+        <li><a href="http://fsharpworks.com/workshops.html">Trainings</a></li>
+        <li><a href="http://fsharpworks.com">Consulting</a></li>
+        <li><a href="http://tomasp.net/academic">Research</a></li>
       </ul>
     </section>
 
@@ -122,15 +122,15 @@ later to demonstrate how the generalized monad comprehension syntax works in a f
 <p>If we have a list <code>animals</code> containing "cat" and "dog" and a list <code>sounds</code> containing 
 animal sounds "meow" and "woof", we can write the following snippets:</p>
 
-<pre >
-<span class="prep">&gt;</span> [ a <span class="prep">+</span><span class="prep">+</span> <span class="s">" "</span> <span class="prep">+</span><span class="prep">+</span> s | a <span class="prep">&lt;</span><span class="prep">-</span> animals, s <span class="prep">&lt;</span><span class="prep">-</span> sounds ]
-[<span class="s">"cat meow"</span>,<span class="s">"cat woof"</span>,<span class="s">"dog meow"</span>,<span class="s">"dog woof"</span>]
+<pre lang="haskell">
+&gt; [ a ++ " " ++ s | a &lt;- animals, s &lt;- sounds ]
+["cat meow","cat woof","dog meow","dog woof"]
 
-<span class="prep">&gt;</span> [ a <span class="prep">+</span><span class="prep">+</span> <span class="s">" "</span> <span class="prep">+</span><span class="prep">+</span> s | a <span class="prep">&lt;</span><span class="prep">-</span> animals, s <span class="prep">&lt;</span><span class="prep">-</span> sounds, a !! 1 <span class="prep">=</span><span class="prep">=</span> s !! 1 ]
-[<span class="s">"dog woof"</span>]
+&gt; [ a ++ " " ++ s | a &lt;- animals, s &lt;- sounds, a !! 1 == s !! 1 ]
+["dog woof"]
 
-<span class="prep">&gt;</span> [ a <span class="prep">+</span><span class="prep">+</span> <span class="s">" "</span> <span class="prep">+</span><span class="prep">+</span> s | a <span class="prep">&lt;</span><span class="prep">-</span> animals | s <span class="prep">&lt;</span><span class="prep">-</span> sounds ]
-[<span class="s">"cat meow"</span>,<span class="s">"dog woof"</span>]
+&gt; [ a ++ " " ++ s | a &lt;- animals | s &lt;- sounds ]
+["cat meow","dog woof"]
 </pre>
 
 <p>The first example uses just the basic list comprehension syntax. It uses two <em>generators</em>
@@ -152,20 +152,20 @@ with further notions of computation. If we instantiate the appropriate type clas
 guards, parallel comprehensions and operations like ordering or grouping. 
 Here are some of the type classes and functions that are used by the desugaring:</p>
 
-<pre >
-<span class="k">class</span> Monad m <span class="k">where</span>
-  (<span class="prep">&gt;</span><span class="prep">&gt;</span><span class="prep">=</span>)  <span class="prep">::</span> m a <span class="prep">-</span><span class="prep">&gt;</span> (a <span class="prep">-</span><span class="prep">&gt;</span> m b) <span class="prep">-</span><span class="prep">&gt;</span> m b
-  return <span class="prep">::</span> a <span class="prep">-</span><span class="prep">&gt;</span> m a
+<pre lang="haskell">
+class Monad m where
+  (&gt;&gt;=)  :: m a -&gt; (a -&gt; m b) -&gt; m b
+  return :: a -&gt; m a
 
-<span class="k">class</span> (Monad m) <span class="prep">=</span><span class="prep">&gt;</span> MonadPlus m <span class="k">where</span>
-  mzero <span class="prep">::</span> m a
-  mplus <span class="prep">::</span> m a <span class="prep">-</span><span class="prep">&gt;</span> m a <span class="prep">-</span><span class="prep">&gt;</span> m a
+class (Monad m) =&gt; MonadPlus m where
+  mzero :: m a
+  mplus :: m a -&gt; m a -&gt; m a
 
-<span class="k">class</span> (Monad m) <span class="prep">=</span><span class="prep">&gt;</span> MonadZip m <span class="k">where</span>
-  mzip <span class="prep">::</span> m a <span class="prep">-</span><span class="prep">&gt;</span> m b <span class="prep">-</span><span class="prep">&gt;</span> m (a, b)
+class (Monad m) =&gt; MonadZip m where
+  mzip :: m a -&gt; m b -&gt; m (a, b)
 
-guard <span class="prep">::</span> MonadPlus m <span class="prep">=</span><span class="prep">&gt;</span> Bool <span class="prep">-</span><span class="prep">&gt;</span> m ()
-guard b <span class="prep">=</span> if b then return () else mzero
+guard :: MonadPlus m =&gt; Bool -&gt; m ()
+guard b = if b then return () else mzero
 </pre>
 
 <p>Aside from <code>Monad</code>, the desugaring also uses the <code>MonadPlus</code> and <code>MonadZip</code> 
@@ -180,17 +180,17 @@ and examine what the  translation looks like. The following declaration shows ho
 implement the <code>Monad</code>, <code>MondPlus</code>, and <code>MonadZip</code> type classes
 for lists:</p>
 
-<pre >
-<span class="k">instance</span> Monad [] <span class="k">where</span>
-  source <span class="prep">&gt;</span><span class="prep">&gt;</span><span class="prep">=</span> f <span class="prep">=</span> concat <span class="prep">$</span> map f source
-  return a <span class="prep">=</span> [a]
+<pre lang="haskell">
+instance Monad [] where
+  source &gt;&gt;= f = concat $ map f source
+  return a = [a]
 
-<span class="k">instance</span> MonadPlus [] <span class="k">where</span>
-  mzero <span class="prep">=</span> []
-  mplus <span class="prep">=</span> (<span class="prep">+</span><span class="prep">+</span>)
+instance MonadPlus [] where
+  mzero = []
+  mplus = (++)
 
-<span class="k">instance</span> MonadZip [] <span class="k">where</span>
-  mzip <span class="prep">=</span> zip
+instance MonadZip [] where
+  mzip = zip
 </pre>
 
 <p>The <code>&gt;&gt;=</code> operation, called bind, applies the provided function to each element of the input list 
@@ -203,19 +203,19 @@ the <code>mzip</code> function for lists is just <code>zip</code>.</p>
 example from the previous section used multiple generators and can be translated purely in terms
 of <code>Monad</code>:</p>
 
-<pre >
-animals <span class="prep">&gt;</span><span class="prep">&gt;</span><span class="prep">=</span> (\a <span class="prep">-</span><span class="prep">&gt;</span> sounds <span class="prep">&gt;</span><span class="prep">&gt;</span><span class="prep">=</span> (\s <span class="prep">-</span><span class="prep">&gt;</span> 
-  return <span class="prep">$</span> a <span class="prep">+</span><span class="prep">+</span> <span class="s">" "</span> <span class="prep">+</span><span class="prep">+</span> b))
+<pre lang="haskell">
+animals &gt;&gt;= (\a -&gt; sounds &gt;&gt;= (\s -&gt; 
+  return $ a ++ " " ++ b))
 </pre>
 
 <p>Every generator is translated to a binding using <code>&gt;&gt;=</code>. The operations are nested, and
 the innermost operation always returns the result of the output function. The next snippet shows
 what happens when we add a predicate to filter the results:</p>
 
-<pre >
-animals <span class="prep">&gt;</span><span class="prep">&gt;</span><span class="prep">=</span> (\a <span class="prep">-</span><span class="prep">&gt;</span> sounds <span class="prep">&gt;</span><span class="prep">&gt;</span><span class="prep">=</span> (\s <span class="prep">-</span><span class="prep">&gt;</span> 
-  guard (a !! 1 <span class="prep">=</span><span class="prep">=</span> s !! 1) <span class="prep">&gt;</span><span class="prep">&gt;</span><span class="prep">=</span> (\_ <span class="prep">-</span><span class="prep">&gt;</span> 
-    return <span class="prep">$</span> a <span class="prep">+</span><span class="prep">+</span> <span class="s">" "</span> <span class="prep">+</span><span class="prep">+</span> s) ))
+<pre lang="haskell">
+animals &gt;&gt;= (\a -&gt; sounds &gt;&gt;= (\s -&gt; 
+  guard (a !! 1 == s !! 1) &gt;&gt;= (\_ -&gt; 
+    return $ a ++ " " ++ s) ))
 </pre>
 
 <p>A predicate is translated into a call to the <code>guard</code> function in the innermost part of the 
@@ -223,9 +223,9 @@ desugared expression. When the function returns <code>mzero</code> value (an emp
 binding will also be <code>mzero</code>, so the element for which the predicate doesn't hold will be 
 filtered out. Finally, let's look at the translation of the last example:</p>
 
-<pre >
-(animals `mzip` sounds) <span class="prep">&gt;</span><span class="prep">&gt;</span><span class="prep">=</span> (\(a, s) <span class="prep">-</span><span class="prep">&gt;</span> 
-  return <span class="prep">$</span> a <span class="prep">+</span><span class="prep">+</span> <span class="s">" "</span> <span class="prep">+</span><span class="prep">+</span> s)
+<pre lang="haskell">
+(animals `mzip` sounds) &gt;&gt;= (\(a, s) -&gt; 
+  return $ a ++ " " ++ s)
 </pre>
 
 <p>When we use parallel comprehensions, the inputs of the generators are combined using the <code>mzip</code>
@@ -256,9 +256,9 @@ input string and returns a list of possible results. It may be empty (if the par
 contain several items (if there are multiple ways to parse the input). The implementation I use 
 in this article mostly follows the one by Hutton and Meijer [<a href="#cpfhr">5</a>].</p>
 
-<pre >
-<span class="k">newtype</span> Parser a
-  <span class="prep">=</span> Parser (String <span class="prep">-</span><span class="prep">&gt;</span> [(a, Int, String)])
+<pre lang="haskell">
+newtype Parser a
+  = Parser (String -&gt; [(a, Int, String)])
 </pre>
 
 <p>The result of parsing is a tuple containing a value of type <code>a</code> produced by the parser, the number
@@ -269,15 +269,15 @@ but we'll need it in the implementation of <code>mzip</code>.</p>
 <p>Now that we have a definition of parsers, we can create our first primitive parser and a 
 function that runs a parser on an input string and returns the results:</p>
 
-<pre >
-item <span class="prep">::</span> Parser Char
-item <span class="prep">=</span> Parser (\input <span class="prep">-</span><span class="prep">&gt;</span> <span class="k">case</span> input of
-  <span class="s">""</span>   <span class="prep">-</span><span class="prep">&gt;</span> []
-  c:cs <span class="prep">-</span><span class="prep">&gt;</span> [(c, 1, cs)])
+<pre lang="haskell">
+item :: Parser Char
+item = Parser (\input -&gt; case input of
+  ""   -&gt; []
+  c:cs -&gt; [(c, 1, cs)])
 
-run <span class="prep">::</span> Parser a <span class="prep">-</span><span class="prep">&gt;</span> [a]
-run (Parser p) input <span class="prep">=</span> 
-  [ result | (result, _, tail) <span class="prep">&lt;</span><span class="prep">-</span> p input, tail <span class="prep">=</span><span class="prep">=</span> [] ]
+run :: Parser a -&gt; [a]
+run (Parser p) input = 
+  [ result | (result, _, tail) &lt;- p input, tail == [] ]
 </pre>
 
 <p>The <code>item</code> parser returns the first character of the input string. When it succeeds, it consumes 
@@ -292,19 +292,19 @@ The next step is to make the parser monadic.</p>
 implement both the <code>Monad</code> and the <code>MonadPlus</code> type
 classes for our <code>Parser</code> type. The implementation looks as follows:</p>
 
-<pre >
-<span class="k">instance</span> Monad Parser <span class="k">where</span>
-  return a <span class="prep">=</span> Parser (\input <span class="prep">-</span><span class="prep">&gt;</span> [(a, 0, input)])
-  (Parser p1) <span class="prep">&gt;</span><span class="prep">&gt;</span><span class="prep">=</span> f <span class="prep">=</span> Parser (\input <span class="prep">-</span><span class="prep">&gt;</span>
-    [ (result, n1 <span class="prep">+</span> n2, tail) 
-        | (a, n1, input') <span class="prep">&lt;</span><span class="prep">-</span> p1 input
-        , <span class="k">let</span> (Parser p2) <span class="prep">=</span> f a
-        , (result, n2, tail) <span class="prep">&lt;</span><span class="prep">-</span> p2 input' ])
+<pre lang="haskell">
+instance Monad Parser where
+  return a = Parser (\input -&gt; [(a, 0, input)])
+  (Parser p1) &gt;&gt;= f = Parser (\input -&gt;
+    [ (result, n1 + n2, tail) 
+        | (a, n1, input') &lt;- p1 input
+        , let (Parser p2) = f a
+        , (result, n2, tail) &lt;- p2 input' ])
 
-<span class="k">instance</span> MonadPlus Parser <span class="k">where</span> 
-  mzero <span class="prep">=</span> Parser (\_ <span class="prep">-</span><span class="prep">&gt;</span> [])
-  mplus (Parser p1) (Parser p2) <span class="prep">=</span> Parser (\input <span class="prep">-</span><span class="prep">&gt;</span>
-    p1 input <span class="prep">+</span><span class="prep">+</span> p2 input)
+instance MonadPlus Parser where 
+  mzero = Parser (\_ -&gt; [])
+  mplus (Parser p1) (Parser p2) = Parser (\input -&gt;
+    p1 input ++ p2 input)
 </pre>
 
 <p>The <code>return</code> operation returns a single result containing the specified value that doesn't consume
@@ -317,16 +317,16 @@ choice between two parsers. </p>
 <p>The two type class instances allow us to use some of the monad comprehension syntax. We can now 
 use the <code>item</code> primitive to write a few simple parsers:</p>
 
-<pre >
-sat <span class="prep">::</span> (Char <span class="prep">-</span><span class="prep">&gt;</span> Bool) <span class="prep">-</span><span class="prep">&gt;</span> Parser Char
-sat pred   <span class="prep">=</span> [ ch | ch <span class="prep">&lt;</span><span class="prep">-</span> item, pred ch ]
+<pre lang="haskell">
+sat :: (Char -&gt; Bool) -&gt; Parser Char
+sat pred   = [ ch | ch &lt;- item, pred ch ]
 
-char, notChar <span class="prep">::</span> Char <span class="prep">-</span><span class="prep">&gt;</span> Parser Char
-char ch    <span class="prep">=</span> sat (ch <span class="prep">=</span><span class="prep">=</span>)
-notChar ch <span class="prep">=</span> sat (ch /<span class="prep">=</span>)
+char, notChar :: Char -&gt; Parser Char
+char ch    = sat (ch ==)
+notChar ch = sat (ch /=)
 
-some p <span class="prep">=</span> [ a:as | a <span class="prep">&lt;</span><span class="prep">-</span> p, as <span class="prep">&lt;</span><span class="prep">-</span> many p ]
-many p <span class="prep">=</span> some p `mplus` return []
+some p = [ a:as | a &lt;- p, as &lt;- many p ]
+many p = some p `mplus` return []
 </pre>
 
 <p>The <code>sat</code> function creates a parser that parses a character matching the specified predicate. 
@@ -335,9 +335,9 @@ into an application of the <code>&gt;&gt;=</code> operation. Because the <code>P
 of <code>MonadPlus</code>, we can use the predicate <code>pred ch</code> as a guard. The 
 desugared version of the function is:</p>
 
-<pre >
-sat pred <span class="prep">=</span> item <span class="prep">&gt;</span><span class="prep">&gt;</span><span class="prep">=</span> (\ch <span class="prep">-</span><span class="prep">&gt;</span>
-  guard (pred ch) <span class="prep">&gt;</span><span class="prep">&gt;</span><span class="prep">=</span> (\_ <span class="prep">-</span><span class="prep">&gt;</span> return ch))
+<pre lang="haskell">
+sat pred = item &gt;&gt;= (\ch -&gt;
+  guard (pred ch) &gt;&gt;= (\_ -&gt; return ch))
 </pre>
 
 <p>The <code>some</code> and <code>many</code> combinators are mutually recursive. The first creates a parser that 
@@ -352,15 +352,15 @@ and succinct alternative. </p>
 perhaps slightly less obvious than the <code>do</code> notation. To demonstrate this, let's look at a parser that
 parses the body of an expression enclosed in brackets:</p>
 
-<pre >
-brackets <span class="prep">::</span> Char <span class="prep">-</span><span class="prep">&gt;</span> Char <span class="prep">-</span><span class="prep">&gt;</span> Parser a <span class="prep">-</span><span class="prep">&gt;</span> Parser a
-brackets op cl body <span class="prep">=</span> 
+<pre lang="haskell">
+brackets :: Char -&gt; Char -&gt; Parser a -&gt; Parser a
+brackets op cl body = 
   [ inner 
-      | _ <span class="prep">&lt;</span><span class="prep">-</span> char op
-      , inner <span class="prep">&lt;</span><span class="prep">-</span> brackets op cl body `mplus` body
-      , _ <span class="prep">&lt;</span><span class="prep">-</span> char cl ]
+      | _ &lt;- char op
+      , inner &lt;- brackets op cl body `mplus` body
+      , _ &lt;- char cl ]
 
-skipBrackets <span class="prep">=</span> brackets '(' ')' (many item)
+skipBrackets = brackets '(' ')' (many item)
 </pre>
 
 <p>The <code>brackets</code> combinator takes characters representing opening and closing brackets and a parser for parsing 
@@ -378,15 +378,15 @@ shortly, this can be elegantly solved using parallel comprehensions.</p>
 <p>To support parallel monad comprehensions, we need to implement <code>MonadZip</code>. 
 As a reminder, the type class defines an operation <code>mzip</code> with the following type:</p>
 
-<pre >
-mzip <span class="prep">::</span> m a <span class="prep">-</span><span class="prep">&gt;</span> m b <span class="prep">-</span><span class="prep">&gt;</span> m (a, b)
+<pre lang="haskell">
+mzip :: m a -&gt; m b -&gt; m (a, b)
 </pre>
 
 <p>By looking just at the type signature, you can see that the operation can be implemented in terms
 of <code>&gt;&gt;=</code> and <code>return</code> like this:</p>
 
-<pre >
-mzip ma mb <span class="prep">=</span> ma <span class="prep">&gt;</span><span class="prep">&gt;</span><span class="prep">=</span> \a <span class="prep">-</span><span class="prep">&gt;</span> mb <span class="prep">&gt;</span><span class="prep">&gt;</span><span class="prep">=</span> \b <span class="prep">-</span><span class="prep">&gt;</span> return (a, b)
+<pre lang="haskell">
+mzip ma mb = ma &gt;&gt;= \a -&gt; mb &gt;&gt;= \b -&gt; return (a, b)
 </pre>
 
 <p>This is a reasonable definition for some monads, such as the <code>Reader</code> monad, but not for all of 
@@ -394,13 +394,13 @@ them. For example, <code>mzip</code> for lists should be <code>zip</code>, but t
 Cartesian product! A more interesting definition for parsers, which cannot be expressed using other 
 monad primitives, is parallel composition:</p>
 
-<pre >
-<span class="k">instance</span> MonadZip Parser <span class="k">where</span> 
-  mzip (Parser p1) (Parser p2) <span class="prep">=</span> Parser (\input <span class="prep">-</span><span class="prep">&gt;</span> 
+<pre lang="haskell">
+instance MonadZip Parser where 
+  mzip (Parser p1) (Parser p2) = Parser (\input -&gt; 
     [ ((a, b), n1, tail1) 
-        | (a, n1, tail1) <span class="prep">&lt;</span><span class="prep">-</span> p1 input
-        , (b, n2, tail2) <span class="prep">&lt;</span><span class="prep">-</span> p2 input
-        , n1 <span class="prep">=</span><span class="prep">=</span> n2 ])
+        | (a, n1, tail1) &lt;- p1 input
+        , (b, n2, tail2) &lt;- p2 input
+        , n1 == n2 ])
 </pre>
 
 <p>The parser created by <code>mzip</code> independently parses the input string using both of the parsers.
@@ -414,9 +414,9 @@ than comparing strings and it also enables working with infinite strings.</p>
 <p>Let's get back to the example with parsing brackets. The following snippet uses parallel 
 monad comprehensions to create a version that consumes all brackets:</p>
 
-<pre >
-skipAllBrackets <span class="prep">=</span> brackets '(' ')' body
-  <span class="k">where</span> body <span class="prep">=</span> many [ c | c <span class="prep">&lt;</span><span class="prep">-</span> notChar '(' | _ <span class="prep">&lt;</span><span class="prep">-</span> notChar ')' ]
+<pre lang="haskell">
+skipAllBrackets = brackets '(' ')' body
+  where body = many [ c | c &lt;- notChar '(' | _ &lt;- notChar ')' ]
 </pre>
 
 <p>The parser <code>body</code> takes zero or more of any characters that are not opening or closing brackets.
@@ -430,11 +430,11 @@ inputs. For example, a valid Cambridge
 phone number consists of 10 symbols, contains only digits, and starts with 1223. The new
 syntax allows us to directly encode these three rules:</p>
 
-<pre >
-cambridgePhone <span class="prep">=</span> 
-  [ n | n <span class="prep">&lt;</span><span class="prep">-</span> many (sat isDigit)
-      | _ <span class="prep">&lt;</span><span class="prep">-</span> replicateM 10 item
-      | _ <span class="prep">&lt;</span><span class="prep">-</span> startsWith (string <span class="s">"1223"</span>) ]
+<pre lang="haskell">
+cambridgePhone = 
+  [ n | n &lt;- many (sat isDigit)
+      | _ &lt;- replicateM 10 item
+      | _ &lt;- startsWith (string "1223") ]
 </pre>
 
 <p>The encoding is quite straightforward. We need some additional
@@ -460,10 +460,10 @@ used for writing parsers. The next snippet shows the
 Haskell type class <code>Applicative</code> that represents applicative
 functors.</p>
 
-<pre >
-<span class="k">class</span> (Functor f) <span class="prep">=</span><span class="prep">&gt;</span> Applicative f <span class="k">where</span>
-  pure  <span class="prep">::</span> a <span class="prep">-</span><span class="prep">&gt;</span> f a
-  (<span class="prep">&lt;</span>*<span class="prep">&gt;</span>) <span class="prep">::</span> f (a <span class="prep">-</span><span class="prep">&gt;</span> b) <span class="prep">-</span><span class="prep">&gt;</span> f a <span class="prep">-</span><span class="prep">&gt;</span> f b
+<pre lang="haskell">
+class (Functor f) =&gt; Applicative f where
+  pure  :: a -&gt; f a
+  (&lt;*&gt;) :: f (a -&gt; b) -&gt; f a -&gt; f b
 </pre>
 
 <p>If you're familiar with applicative functors, you may know that there is an alternative definition 
@@ -477,12 +477,12 @@ doesn't depend on the value parsed so far. In terms of formal language theory, t
 only <em>context-free</em> languages. This is still sufficient for many practical purposes. For 
 example, our earlier <code>brackets</code> parser can be written using the applicative combinators:</p>
 
-<pre >
-brackets op cl body <span class="prep">=</span> 
-  pure (\_ inner _ <span class="prep">-</span><span class="prep">&gt;</span> inner)
-    <span class="prep">&lt;</span>*<span class="prep">&gt;</span> char op
-    <span class="prep">&lt;</span>*<span class="prep">&gt;</span> brackets op cl body `mplus` body
-    <span class="prep">&lt;</span>*<span class="prep">&gt;</span> char cl
+<pre lang="haskell">
+brackets op cl body = 
+  pure (\_ inner _ -&gt; inner)
+    &lt;*&gt; char op
+    &lt;*&gt; brackets op cl body `mplus` body
+    &lt;*&gt; char cl
 </pre>
 
 <p>The example first creates a parser that always succeeds and returns a function using the <code>pure</code> 
@@ -511,10 +511,10 @@ encode it using parallel composition of parsers. We don't need the full power of
 to parse the first group and calculate its length. It could be implemented just in terms of
 <code>Applicative</code> and <code>mzip</code>, but we use the nicer monad comprehension syntax:</p>
 
-<pre >
-[ True | _ <span class="prep">&lt;</span><span class="prep">-</span> many <span class="prep">$</span> char 'a', _ <span class="prep">&lt;</span><span class="prep">-</span> brackets 'b' 'c' unit
-       | _ <span class="prep">&lt;</span><span class="prep">-</span> brackets 'a' 'b' unit, _ <span class="prep">&lt;</span><span class="prep">-</span> many <span class="prep">$</span> char 'c' ]
-  <span class="k">where</span> unit <span class="prep">=</span> return ()
+<pre lang="haskell">
+[ True | _ &lt;- many $ char 'a', _ &lt;- brackets 'b' 'c' unit
+       | _ &lt;- brackets 'a' 'b' unit, _ &lt;- many $ char 'c' ]
+  where unit = return ()
 </pre>
 
 <p>The example uses both parallel and sequential binding, but the sequential composition doesn't
@@ -528,16 +528,16 @@ As already mentioned, an alternative definition of applicative functors ([<a hre
 uses an operation with exactly the same type signature as <code>mzip</code>. You can find the alternative 
 definition in the following snippet:</p>
 
-<pre >
-<span class="k">class</span> Functor f <span class="prep">=</span><span class="prep">&gt;</span> Monoidal f <span class="k">where</span>
-  unit  <span class="prep">::</span> f ()
-  (&amp;#8902;)   <span class="prep">::</span> f a <span class="prep">-</span><span class="prep">&gt;</span> f b <span class="prep">-</span><span class="prep">&gt;</span> f (a, b)
+<pre lang="haskell">
+class Functor f =&gt; Monoidal f where
+  unit  :: f ()
+  (&#8902;)   :: f a -&gt; f b -&gt; f (a, b)
 
-pure <span class="prep">::</span> Monoidal f <span class="prep">=</span><span class="prep">&gt;</span> a <span class="prep">-</span><span class="prep">&gt;</span> f a
-pure a <span class="prep">=</span> fmap (const a) unit
+pure :: Monoidal f =&gt; a -&gt; f a
+pure a = fmap (const a) unit
 
-(<span class="prep">&lt;</span>*<span class="prep">&gt;</span>) <span class="prep">::</span> Monoidal f <span class="prep">=</span><span class="prep">&gt;</span> f (a <span class="prep">-</span><span class="prep">&gt;</span> b) <span class="prep">-</span><span class="prep">&gt;</span> f a <span class="prep">-</span><span class="prep">&gt;</span> f b
-f <span class="prep">&lt;</span>*<span class="prep">&gt;</span> a <span class="prep">=</span> fmap (uncurry (<span class="prep">$</span>)) (f &amp;#8902; a)
+(&lt;*&gt;) :: Monoidal f =&gt; f (a -&gt; b) -&gt; f a -&gt; f b
+f &lt;*&gt; a = fmap (uncurry ($)) (f &#8902; a)
 </pre>
 
 <p>Applicative functors are more general than monads, which means that every monad is also an applicative functor. 
@@ -586,9 +586,9 @@ slightly simpler than the original poor man's concurrency monad (which is based 
 A resumption is a computation that has either finished and produced some value or has not
 finished, in which case it can run one atomic step and produce a new resumption:</p>
 
-<pre >
-<span class="k">data</span> Monad m <span class="prep">=</span><span class="prep">&gt;</span> Resumption m r 
-  <span class="prep">=</span> Step (m (Resumption m r))
+<pre lang="haskell">
+data Monad m =&gt; Resumption m r 
+  = Step (m (Resumption m r))
   | Done r
 </pre>
 
@@ -601,13 +601,13 @@ about the <code>Resumption</code> type, you can find similar definitions in Harr
 <p>Now that we have a type, we can write a function to create a <code>Resumption</code> that runs a single
 atomic action and then completes, and a function that runs a <code>Resumption</code>:</p>
 
-<pre >
-run <span class="prep">::</span> Monad m <span class="prep">=</span><span class="prep">&gt;</span> Resumption m r <span class="prep">-</span><span class="prep">&gt;</span> m r
-run (Done r) <span class="prep">=</span> return r
-run (Step m) <span class="prep">=</span> m <span class="prep">&gt;</span><span class="prep">&gt;</span><span class="prep">=</span> run
+<pre lang="haskell">
+run :: Monad m =&gt; Resumption m r -&gt; m r
+run (Done r) = return r
+run (Step m) = m &gt;&gt;= run
 
-action <span class="prep">::</span> Monad m <span class="prep">=</span><span class="prep">&gt;</span> m r <span class="prep">-</span><span class="prep">&gt;</span> Resumption m r
-action a <span class="prep">=</span> Step [ Done r | r <span class="prep">&lt;</span><span class="prep">-</span> a ]
+action :: Monad m =&gt; m r -&gt; Resumption m r
+action a = Step [ Done r | r &lt;- a ]
 </pre>
 
 <p>The <code>run</code> function takes a resumption that may perform effects specified by the monad <code>m</code> and
@@ -635,16 +635,16 @@ is pure) and <code>Step</code>. When the left parameter is <code>Step</code>, we
 step and then uses <code>&gt;&gt;=</code> recursively to continue running steps from the left argument until it 
 finishes.</p>
 
-<pre >
-<span class="k">instance</span> Monad m <span class="prep">=</span><span class="prep">&gt;</span> Monad (Resumption m) <span class="k">where</span>
-  return a <span class="prep">=</span> Done a
-  (Done r) <span class="prep">&gt;</span><span class="prep">&gt;</span><span class="prep">=</span> f <span class="prep">=</span> Step <span class="prep">$</span> return (f r)
-  (Step s) <span class="prep">&gt;</span><span class="prep">&gt;</span><span class="prep">=</span> f <span class="prep">=</span> Step <span class="prep">$</span> <span class="k">do</span>
-    next <span class="prep">&lt;</span><span class="prep">-</span> s
-    return <span class="prep">$</span> next <span class="prep">&gt;</span><span class="prep">&gt;</span><span class="prep">=</span> f
+<pre lang="haskell">
+instance Monad m =&gt; Monad (Resumption m) where
+  return a = Done a
+  (Done r) &gt;&gt;= f = Step $ return (f r)
+  (Step s) &gt;&gt;= f = Step $ do
+    next &lt;- s
+    return $ next &gt;&gt;= f
 
-<span class="k">instance</span> MonadTrans Resumption <span class="k">where</span>
-  lift <span class="prep">=</span> action
+instance MonadTrans Resumption where
+  lift = action
 </pre>
 
 <p>The listing also defines an instance of <code>MonadTrans</code> to make <code>Resumption</code> a monad transformer.
@@ -655,14 +655,14 @@ The <code>lift</code> function takes a computation in the monad <code>m</code> a
 computations. The following function creates a computation that runs for the specified number of
 steps, prints some string in each step and then returns a specified value:</p>
 
-<pre >
-printLoop <span class="prep">::</span> String <span class="prep">-</span><span class="prep">&gt;</span> Int <span class="prep">-</span><span class="prep">&gt;</span> a <span class="prep">-</span><span class="prep">&gt;</span> Resumption IO a
-printLoop str count result <span class="prep">=</span> <span class="k">do</span>
-  lift <span class="prep">$</span> putStrLn str
-  if count <span class="prep">=</span><span class="prep">=</span> 1 then return result
-  else printLoop str (count <span class="prep">-</span> 1) result
+<pre lang="haskell">
+printLoop :: String -&gt; Int -&gt; a -&gt; Resumption IO a
+printLoop str count result = do
+  lift $ putStrLn str
+  if count == 1 then return result
+  else printLoop str (count - 1) result
 
-cats <span class="prep">=</span> run <span class="prep">$</span> printLoop <span class="s">"meow"</span> 3 <span class="s">"cat"</span>
+cats = run $ printLoop "meow" 3 "cat"
 </pre>
 
 <p>The function is written using the <code>do</code> notation. It first prints the specified string, using 
@@ -681,12 +681,12 @@ This is what the <code>mzip</code> operation does.</p>
 using a monad comprehension with two generators. To run them in parallel, we need to implement
 interleaving of the steps as shown in the next snippet: </p>
 
-<pre >
-<span class="k">instance</span> Monad m <span class="prep">=</span><span class="prep">&gt;</span> MonadZip (Resumption m) <span class="k">where</span>
-  mzip (Done a) (Done b) <span class="prep">=</span> Done (a, b)
-  mzip sa sb <span class="prep">=</span> Step [ mzip a b | a <span class="prep">&lt;</span><span class="prep">-</span> step sa, b <span class="prep">&lt;</span><span class="prep">-</span> step sb ]
-    <span class="k">where</span> step (Done r) <span class="prep">=</span> return <span class="prep">$</span> Done r 
-          step (Step sa) <span class="prep">=</span> sa
+<pre lang="haskell">
+instance Monad m =&gt; MonadZip (Resumption m) where
+  mzip (Done a) (Done b) = Done (a, b)
+  mzip sa sb = Step [ mzip a b | a &lt;- step sa, b &lt;- step sb ]
+    where step (Done r) = return $ Done r 
+          step (Step sa) = sa
 </pre>
 
 <p>The result of <code>mzip</code> is a resumption that consists of multiple steps. In each step, it performs
@@ -702,16 +702,16 @@ resumptions. The next snippet demonstrates two ways of composing resumptions. In
 compose a computation that prints "meow" two times and then returns "cat" with a computation 
 that prints "woof" three times and then returns "dog":</p>
 
-<pre >
-animalsSeq <span class="prep">=</span> 
-  [ c <span class="prep">+</span><span class="prep">+</span> <span class="s">" and "</span> <span class="prep">+</span><span class="prep">+</span> d
-     | c <span class="prep">&lt;</span><span class="prep">-</span> printLoop <span class="s">"meow"</span> 2 <span class="s">"cat"</span> 
-     , d <span class="prep">&lt;</span><span class="prep">-</span> printLoop <span class="s">"woof"</span> 3 <span class="s">"dog"</span> ]
+<pre lang="haskell">
+animalsSeq = 
+  [ c ++ " and " ++ d
+     | c &lt;- printLoop "meow" 2 "cat" 
+     , d &lt;- printLoop "woof" 3 "dog" ]
 
-animalsPar <span class="prep">=</span> 
-  [ c <span class="prep">+</span><span class="prep">+</span> <span class="s">" and "</span> <span class="prep">+</span><span class="prep">+</span> d
-     | c <span class="prep">&lt;</span><span class="prep">-</span> printLoop <span class="s">"meow"</span> 2 <span class="s">"cat"</span> 
-     | d <span class="prep">&lt;</span><span class="prep">-</span> printLoop <span class="s">"woof"</span> 3 <span class="s">"dog"</span> ]
+animalsPar = 
+  [ c ++ " and " ++ d
+     | c &lt;- printLoop "meow" 2 "cat" 
+     | d &lt;- printLoop "woof" 3 "dog" ]
 </pre>
 
 <p>The only difference between the two examples is that the first one composes the operations using 
@@ -749,11 +749,11 @@ evaluating the value in background and <code>rseq</code> evaluates the value eag
 <p>A typical pattern is to use the <code>do</code> notation to spawn one computation in parallel and then 
 run another computation sequentially. This way we can easily parallelize two function calls:</p>
 
-<pre >
-fib38 <span class="prep">=</span> runEval <span class="prep">$</span> <span class="k">do</span> 
-  a <span class="prep">&lt;</span><span class="prep">-</span> rpar <span class="prep">$</span> fib 36
-  b <span class="prep">&lt;</span><span class="prep">-</span> rseq <span class="prep">$</span> fib 37
-  return <span class="prep">$</span> a <span class="prep">+</span> b
+<pre lang="haskell">
+fib38 = runEval $ do 
+  a &lt;- rpar $ fib 36
+  b &lt;- rseq $ fib 37
+  return $ a + b
 </pre>
 
 <p>The example shows how to calculate the <em>38<sup>th</sup></em> Fibonacci number. It starts calculating 
@@ -772,15 +772,15 @@ well explained in the paper by Marlow et al. [<a href="#cpfhr">13</a>]. You can 
 <code>Eval</code> and its monad instance in the snippet below. We don't need to know how 
 <code>rpar</code> and <code>rseq</code> work, so we omit them from the listing. </p>
 
-<pre >
-<span class="k">data</span> Eval a <span class="prep">=</span> Done a
+<pre lang="haskell">
+data Eval a = Done a
 
-runEval <span class="prep">::</span> Eval a <span class="prep">-</span><span class="prep">&gt;</span> a
-runEval (Done x) <span class="prep">=</span> x
+runEval :: Eval a -&gt; a
+runEval (Done x) = x
 
-<span class="k">instance</span> Monad Eval <span class="k">where</span>
-  return x <span class="prep">=</span> Done x
-  Done x <span class="prep">&gt;</span><span class="prep">&gt;</span><span class="prep">=</span> k <span class="prep">=</span> k x
+instance Monad Eval where
+  return x = Done x
+  Done x &gt;&gt;= k = k x
 </pre>
 
 <p>The <code>Eval a</code> type is simple. It just wraps a value of type <code>a</code>. The <code>runEval</code> function unwraps 
@@ -798,11 +798,11 @@ computations in parallel. We've seen an example in the previous section - the fi
 computation is started using <code>rpar</code> and the second one is evaluated eagerly in parallel using <code>rseq</code>.
 You can find the implementation in the next snippet.</p>
 
-<pre >
-<span class="k">instance</span> MonadZip Eval <span class="k">where</span>
-  mzip ea eb <span class="prep">=</span> <span class="k">do</span>
-    a <span class="prep">&lt;</span><span class="prep">-</span> rpar <span class="prep">$</span> runEval ea
-    b <span class="prep">&lt;</span><span class="prep">-</span> rseq <span class="prep">$</span> runEval eb
+<pre lang="haskell">
+instance MonadZip Eval where
+  mzip ea eb = do
+    a &lt;- rpar $ runEval ea
+    b &lt;- rseq $ runEval eb
     return (a, b)
 </pre>
 
@@ -825,13 +825,13 @@ Let's look how we can write a sequential and parallel version of a
 snippet that calculates the
 <em>38<sup>th</sup></em> Fibonacci number:</p>
 
-<pre >
-fibTask n <span class="prep">=</span> return <span class="prep">$</span> fib n
+<pre lang="haskell">
+fibTask n = return $ fib n
 
-fib38seq <span class="prep">=</span> runEval [ a <span class="prep">+</span> b | a <span class="prep">&lt;</span><span class="prep">-</span> fibTask 36
-                           , b <span class="prep">&lt;</span><span class="prep">-</span> fibTask 37 ]
-fib38par <span class="prep">=</span> runEval [ a <span class="prep">+</span> b | a <span class="prep">&lt;</span><span class="prep">-</span> fibTask 36
-                           | b <span class="prep">&lt;</span><span class="prep">-</span> fibTask 37 ]
+fib38seq = runEval [ a + b | a &lt;- fibTask 36
+                           , b &lt;- fibTask 37 ]
+fib38par = runEval [ a + b | a &lt;- fibTask 36
+                           | b &lt;- fibTask 37 ]
 </pre>
 
 <p>The snippet first declares a helper function <code>fibTask</code> that creates a delayed value using 
@@ -854,11 +854,11 @@ calculations that do not take equally long. To generate a better potential for p
 we can implement a recursive <code>pfib</code> function that splits the computation into two parallel branches 
 recursively until it reaches some threshold:</p>
 
-<pre >
-pfib <span class="prep">::</span> Integer <span class="prep">-</span><span class="prep">&gt;</span> Eval Integer
-pfib n | n <span class="prep">&lt;</span><span class="prep">=</span> 35 <span class="prep">=</span> return <span class="prep">$</span> fib n
-pfib n <span class="prep">=</span> [ a <span class="prep">+</span> b | a <span class="prep">&lt;</span><span class="prep">-</span> pfib <span class="prep">$</span> n <span class="prep">-</span> 1 
-                 | b <span class="prep">&lt;</span><span class="prep">-</span> pfib <span class="prep">$</span> n <span class="prep">-</span> 2 ]
+<pre lang="haskell">
+pfib :: Integer -&gt; Eval Integer
+pfib n | n &lt;= 35 = return $ fib n
+pfib n = [ a + b | a &lt;- pfib $ n - 1 
+                 | b &lt;- pfib $ n - 2 ]
 </pre>
 
 <p>I hope you'll agree that the declaration looks quite neat. A nice consequence of using parallel 
@@ -867,12 +867,12 @@ syntactic noise. We just replace a comma with a bar to get a parallel version! T
 prevents us from trying to parallelize code that cannot run in parallel, because of data 
 dependencies. For example, let's look at the Ackermann function: </p>
 
-<pre >
-ack <span class="prep">::</span> Integer <span class="prep">-</span><span class="prep">&gt;</span> Integer <span class="prep">-</span><span class="prep">&gt;</span> Eval Integer
-ack 0 n <span class="prep">=</span> return <span class="prep">$</span> n <span class="prep">+</span> 1
-ack m 0 <span class="prep">=</span> ack (m <span class="prep">-</span> 1) 1
-ack m n <span class="prep">=</span> [ a | na <span class="prep">&lt;</span><span class="prep">-</span> ack m (n <span class="prep">-</span> 1)
-              , a <span class="prep">&lt;</span><span class="prep">-</span> ack (m <span class="prep">-</span> 1) na ]
+<pre lang="haskell">
+ack :: Integer -&gt; Integer -&gt; Eval Integer
+ack 0 n = return $ n + 1
+ack m 0 = ack (m - 1) 1
+ack m n = [ a | na &lt;- ack m (n - 1)
+              , a &lt;- ack (m - 1) na ]
 </pre>
 
 <p>The Ackermann function is a well-known function from computability theory. It is interesting 
@@ -883,17 +883,17 @@ recursion). For example, the value of <code>ack 4 2</code> is <em>2<sup>65536</s
 has. However, we can still try to parallelize the function by replacing the two sequential 
 generators with a parallel comprehension:</p>
 
-<pre >
-ack m n <span class="prep">=</span> [ a | na <span class="prep">&lt;</span><span class="prep">-</span> ack m (n <span class="prep">-</span> 1)
-              | a <span class="prep">&lt;</span><span class="prep">-</span> ack (m <span class="prep">-</span> 1) na ]
+<pre lang="haskell">
+ack m n = [ a | na &lt;- ack m (n - 1)
+              | a &lt;- ack (m - 1) na ]
 </pre>
 
 <p>If you try compiling this snippet, you get an error message saying <code>Not in scope: na</code>. We can 
 easily see what went wrong if we look at the desugared version:</p>
 
-<pre >
-((ack m (n <span class="prep">-</span> 1)) `mzip` 
-    (ack (m <span class="prep">-</span> 1) na)) <span class="prep">&gt;</span><span class="prep">&gt;</span><span class="prep">=</span> (\(na, a) <span class="prep">-</span><span class="prep">&gt;</span> a)
+<pre lang="haskell">
+((ack m (n - 1)) `mzip` 
+    (ack (m - 1) na)) &gt;&gt;= (\(na, a) -&gt; a)
 </pre>
 
 <p>The problem is that the second argument to <code>mzip</code> attempts to access the value <code>na</code> which is 
@@ -904,10 +904,10 @@ both of the two parallelized operations complete. </p>
 parallelize. If we were not using parallel monad comprehensions, we could mistakenly think 
 that we can parallelize the function and write the following:</p>
 
-<pre >
-ack m n <span class="prep">=</span> runEval <span class="prep">$</span> <span class="k">do</span> 
-  na <span class="prep">&lt;</span><span class="prep">-</span> rpar <span class="prep">$</span> ack m (n <span class="prep">-</span> 1)
-  a  <span class="prep">&lt;</span><span class="prep">-</span> rseq <span class="prep">$</span> ack (m <span class="prep">-</span> 1) na
+<pre lang="haskell">
+ack m n = runEval $ do 
+  na &lt;- rpar $ ack m (n - 1)
+  a  &lt;- rseq $ ack (m - 1) na
   return a
 </pre>
 
@@ -1183,54 +1183,66 @@ and suggesting numerous improvements.</p>
 
     <h3>Welcome!</h3>
     <img src="http://tomasp.net/img/tomas.jpg" alt="Tomas Petricek" style="float:right;margin:10px 0px 10px 10px;" />
-    <p>I'm an F# enthusiast, book author and a PhD student at the University of Cambridge.
+    <p>I'm an F# open-source developer, book author and computer scientist. I submitted my PhD thesis recently.
       When offline, I enjoy traveling and taking pictures. You can find me at
       at <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a> or email 
       <a href="mailto:tomas@tomasp.net">tomas@tomasp.net</a>.
     </p>
 
+    <h4>Trainings and consulting</h4>
+    <a href="http://fsharpworks.com"><img src="http://tomasp.net/img/fsharpworks.png" alt="F# Works" style="float:right;margin:15px 0px 10px 10px; width:150px" /></a>
+    <p>I'm an experienced F# developer and trainer. <br /> I offer training and consulting
+      services through <a href="http://fsharpworks.com">F# Works</a>.
+    </p>
+    <ul>
+      <li>Check out my <a href="http://fsharpworks.com/workshops/fast-track.html">in-person Fast Track to F#</a> course</li>
+      <li>Check out my <a href="http://fsharpworks.com/workshops/finance.html">online F# in Finance</a> course</li>
+      <li><a href="mailto:tomas@tomasp.net">Email me</a> for info about private trainings</li>
+    </ul>
+    
     <script type="text/javascript" src="http://tomasp.net/news/news.js"></script>
     <h4>What's new? &#160; <small><script type="text/javascript">document.write(news.date)</script></small></h4>
     <script>
       document.write(news.info);
     </script>
 
-    <h4>Trainings and consulting</h4>
-    <img src="http://tomasp.net/img/skillsmatter.png" alt="Tomas Petricek" style="float:right;margin:15px 0px 10px 10px;" />
-    <p>I run F# and functional programming courses in <strong>London</strong>
-      and <strong>New York</strong> with SkillsMatter.
-    </p>
-    <ul>
-      <li>Check out our <a href="http://skillsmatter.com/course/scala/tomas-petricek-phil-trelford-fast-track-to-fsharp/ps-6679">Fast Track to F#</a> course</li>
-      <li><a href="mailto:tomas@tomasp.net">Email me</a> for info about private trainings</li>
-    </ul>
-    
-    <h4>F# Books and articles</h4>
+    <h4>Functional F# and C# books</h4>
     <div style="float:right;">
       <a href="http://www.amazon.com/gp/product/1933988924/ref=as_li_tf_il?ie=UTF8&amp;tag=httptomasnet-20&amp;linkCode=as2&amp;camp=217145&amp;creative=399369&amp;creativeASIN=1933988924">
-        <img src="http://tomasp.net/img/rwfp.jpg" alt="Real World Functional Programming" style="float:right;margin:10px 0px 10px 10px;border-style:none;" />
+        <img src="http://tomasp.net/img/deepdives.png" alt="F# Deep Dives" style="float:right;margin:15px 0px 15px 10px;border-style:none;" />
       </a>
     </div>
-    <p><a href="http://www.manning.com/petricek">Real World Functional Programming</a> explains functional
-      concepts using F# and C#. You can get it from <a href="http://www.amazon.com/dp/1933988924?tag=httptomasnet-20&amp;camp=213381&amp;creative=390973&amp;linkCode=as4&amp;creativeASIN=1933988924&amp;adid=0F1DP260JGG4KY0CDGP6">Amazon.com</a>, <a href="https://www.amazon.co.uk/dp/1933988924?tag=tomasnet-21&amp;camp=1406&amp;creative=6394&amp;linkCode=as1&amp;creativeASIN=1933988924&amp;adid=1CTY87YCCQEJW965GNDF">Amazon.co.uk</a> or your favorite book store.
-      Some chapters and new materials are also available on <a href="http://msdn.microsoft.com/en-us/library/hh314518.aspx">MSDN</a>.</p>
-    
-    <p>Currently, I'm putting together <a href="http://www.manning.com/petricek2/">F# Deep Dives</a> - a collection
-      of practical F# essays written by community leaders and commercial users of F#.</p>
-    <p>I also wrote a series of tutorials on <a href="http://www.tryfsharp.org/Learn/financial-computing">financial computing</a>
-      for Try F# - an interactive environment that let's you try F# in the browser.</p>
+    <p>
+      I wrote or contributed to two books on F# and functional programming:
+      <a href="http://functional-programming.net/rwfp">Real World Functional Programming</a> explains functional
+      concepts using F# and C# and <a href="http://functional-programming.net/deepdives">F# Deep Dives</a> is a 
+      collection of case studies written by industry experts.</p>
+    <ul>
+      <li><a href="http://functional-programming.net/rwfp"><strong>Real World Funcitonal Programming</strong></a> home page. See
+        <a href="http://manning.com/petricek">Manning</a>,
+        <a href="https://www.amazon.com/dp/1933988924?tag=httptomasnet-20&amp;camp=213381&amp;creative=390973&amp;linkCode=as4&amp;creativeASIN=1933988924&amp;adid=0F1DP260JGG4KY0CDGP6">Amazon.com</a> or
+        <a href="https://www.amazon.co.uk/dp/1933988924?tag=tomasnet-21&amp;camp=1406&amp;creative=6394&amp;linkCode=as1&amp;creativeASIN=1933988924&amp;adid=1CTY87YCCQEJW965GNDF">Amazon.co.uk</a>.
+      </li>
+      <li><a href="http://functional-programming.net/deepdives"><strong>F# Deep Dives</strong></a> home page. Get it from
+        <a href="http://www.manning.com/petricek2">Manning.com</a>,
+        <a href="http://www.amazon.com/gp/product/1617291323/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=1617291323&linkCode=as2&tag=httptomasnet-20&linkId=U4FPJJSKKCCKGNHD">Amazon.com</a> or
+        <a href="http://www.amazon.co.uk/gp/product/1617291323/ref=as_li_tl?ie=UTF8&camp=1634&creative=19450&creativeASIN=1617291323&linkCode=as2&tag=tomasnet-21&linkId=HTUYVHHGWB4Q7X6V">Amazon.co.uk</a>.
+      </li>
+    </ul>    
+    <p>I also wrote a series of tutorials on <a href="http://www.tryfsharp.org/Learn/financial-computing">financial computing for Try F#</a>.
+      This interactive environment let's you try F# in the browser.</p>
 
     <h4>Research and teaching</h4>
     <img src="http://tomasp.net/img/cam.png" alt="University of Cambride" style="float:right;margin:25px 0px 10px 10px;" />
-    <p>I'm finishing PhD in computer science at the <a href="http://www.cl.cam.ac.uk/">University of Cambridge</a>.
-      I'm working on making better types for programs that run in rich context (like F# type providers, distributed 
-      prog&shy;ramming or data-flow). See <a href="http://www.cl.cam.ac.uk/~tp322/">my academic page</a> for
+    <p>I submitted my PhD thesis at the <a href="http://www.cl.cam.ac.uk/">University of Cambridge</a>,
+      working on making better types for programs that run in rich context (like F# type providers, distributed 
+      prog&shy;ramming or data-flow). See <a href="http://tomasp.net/academic/">my academic page</a> for
       more.</p>
 
     <h4>Blog tags</h4>
     <p>
 
-      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(97),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(33),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(10),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(29),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/fsharp-data/">f# data</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/monads/">monads</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/art/">art</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fractals/">fractals</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/funscript/">funscript</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(1)    </p>
+      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(99),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(33),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(11),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(29),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/open-source/">open source</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/monads/">monads</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fslab/">fslab</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(1)    </p>
 
   </div>
 </div>
@@ -1252,8 +1264,9 @@ and suggesting numerous improvements.</p>
     </div>
     <div class="large-7 columns">
     <h4>Blog archives <a href="http://tomasp.net/rss.xml"><img src="http://tomasp.net/img/rss.gif" /></a></h4>
-      <a href="http://tomasp.net/blog/archive/january-2015/index.html">
-        January 2015 (1)</a>,      <a href="http://tomasp.net/blog/archive/december-2014/index.html">
+      <a href="http://tomasp.net/blog/archive/february-2015/index.html">
+        February 2015 (1)</a>,      <a href="http://tomasp.net/blog/archive/january-2015/index.html">
+        January 2015 (2)</a>,      <a href="http://tomasp.net/blog/archive/december-2014/index.html">
         December 2014 (1)</a>,      <a href="http://tomasp.net/blog/archive/may-2014/index.html">
         May 2014 (3)</a>,      <a href="http://tomasp.net/blog/archive/april-2014/index.html">
         April 2014 (2)</a>,      <a href="http://tomasp.net/blog/archive/march-2014/index.html">

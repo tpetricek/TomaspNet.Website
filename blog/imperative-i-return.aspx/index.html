@@ -49,10 +49,10 @@
     <section class="top-bar-section">
       <ul class="right">
         <li><a href="http://tomasp.net/blog/index.html">Blog</a></li>
-        <li><a href="http://functional-programming.net">Trainings</a></li>
         <li><a href="http://functional-programming.net">Books</a></li>
-        <li><a href="http://lanyrd.com/profile/tomasp">Talks</a></li>
-        <li><a href="http://tomasp.net/academic">Research & Teaching</a></li>
+        <li><a href="http://fsharpworks.com/workshops.html">Trainings</a></li>
+        <li><a href="http://fsharpworks.com">Consulting</a></li>
+        <li><a href="http://tomasp.net/academic">Research</a></li>
       </ul>
     </section>
 
@@ -108,11 +108,11 @@
   into the details. Now, C# allows you to use <code>return</code> as a <em>statement</em>
   anywhere, but you cannot use it as an <em>expression</em>, which means that the 
   following isn't valid C# code:</p>
-<pre >
-<span class="k">return</span> 
+<pre lang="csharp">
+return 
   (input == 1)
     ? (20 + 22) 
-    : (4 * (<span class="k">return</span> <span class="k">false</span>));
+    : (4 * (return false));
 </pre>  
 <p>The purpose of this example was just to demonstrate that disallowing imperative 
   <code>return</code> in F# makes quite a good sense. The next point that I want to make
@@ -121,10 +121,10 @@
   For example, let's say that you want to return <code>true</code> when some input
   collection of integers contains a number larger than 10 and <code>false</code> otherwise.
   The usual way to write this in C# would be something like this:</p>
-<pre >
-<span class="k">foreach</span>(<span class="k">var</span> n <span class="k">in</span> input) 
-  <span class="k">if</span> (n &gt; 10) <span class="k">return</span> <span class="k">true</span>;
-<span class="k">return</span> <span class="k">false</span>;
+<pre lang="csharp">
+foreach(var n in input) 
+  if (n &gt; 10) return true;
+return false;
 </pre>
 <p>There are various ways to write the same thing in F# - if you wanted to write this
   for the <code>IEnumerable&lt;T&gt;</code> type directly in F#, you couldn't use 
@@ -133,8 +133,8 @@
   function to do the processing. That sounds like a lot of pain. However, the F#
   library contains many generally useful higher order functions that make problems
   like this trivial. The previous example can be implemented in F# like this: </p>
-<pre >
-Seq.exists (<span class="k">fun</span> n <span class="o">-&gt;</span> n &gt; 10) input
+<pre lang="fsharp">
+Seq.exists (fun n -&gt; n &gt; 10) input
 </pre>
 <p>As you can see, this is even easier than the original imperative solution. 
   In fact, when using C# 3.0 and LINQ you would probably use one of the extension
@@ -152,8 +152,8 @@ Seq.exists (<span class="k">fun</span> n <span class="o">-&gt;</span> n &gt; 10)
   of the builder in a second. Once we'll have it - we'll call it <code>ImperativeBuilder</code>,
   we can write the following code to create <code>imperative</code> value that's used when
   writing all the imperative computations.</p>
-<pre >
-<span class="k">let</span> imperative = <span class="k">new</span> ImperativeBuilder()  
+<pre lang="fsharp">
+let imperative = new ImperativeBuilder()  
 </pre>
 <p>This one line of code created the builder, which we can now use to write imperative
   style of code in F#. We'll start by looking at some trivial example to demonstrate
@@ -162,11 +162,11 @@ Seq.exists (<span class="k">fun</span> n <span class="o">-&gt;</span> n &gt; 10)
   The following listing shows a single imperative function that contains the <code>return</code>
   statement two times. The behavior should be the same as C# - we want the first value
   to be returned and we don't want the <code>printfn</code> function to be ever called.</p>    
-<pre >
-<span class="k">let</span> test() = imperative {
-  <span class="k">return</span> 0
-  printfn <span class="s">"after return!"</span>
-  <span class="k">return</span> 1 }
+<pre lang="fsharp">
+let test() = imperative {
+  return 0
+  printfn "after return!"
+  return 1 }
 </pre>
 <p>When the F# compiler sees this code, it translates it into a couple of calls to 
   primitives provided by the <code>imperative</code> builder. The most important primitives
@@ -175,12 +175,12 @@ Seq.exists (<span class="k">fun</span> n <span class="o">-&gt;</span> n &gt; 10)
   sub-expression, so when we use it multiple times, the compiler needs some way to combine
   these sub-expressions into one and that's exactly when it uses the <code>Combine</code>
   primitive.</p>
-<pre >
+<pre lang="fsharp">
 imperative.Run
  (imperative.Combine
    (imperative.Return(0),
-    imperative.Delay(<span class="k">fun</span> () <span class="o">-&gt;</span>
-      printfn <span class="s">"after return"</span>
+    imperative.Delay(fun () ->
+      printfn "after return"
       imperative.Return(1))))
 </pre>
 <p>There are a few other primitives that you can see in this example. We'll talk about them
@@ -213,8 +213,8 @@ imperative.Run
   represent a value that may be missing in F# is to use the <code>option&lt;'T&gt;</code>
   type, so we'll end up with a type that looks like this:</p>  
 
-<pre >
-<span class="k">type</span> Imperative&lt;'T&gt; = unit <span class="o">-&gt;</span> option&lt;'T&gt;
+<pre lang="fsharp">
+type Imperative&lt;'T&gt; = unit -&gt; option&lt;'T&gt;
 </pre>
 
 <p>This type can easily represent the two parts of the computation we've seen above.
@@ -234,37 +234,37 @@ imperative.Run
   of the article, we'll also add support for two looping constructs that can be 
   used inside computation expressions (<code>for</code> and <code>while</code> loops).</p>
 
-<pre >
-<span class="k">type</span> ImperativeBuilder() = 
-  <span class="c">// Creatae computation that returns the given value  </span>
-  <span class="k">member</span> x.Return(v) : Imperative&lt;<span class="o">_</span>&gt; = 
-    (<span class="k">fun</span> () <span class="o">-&gt;</span> Some(v))
-  <span class="c">// Create computation that doesn't return any value</span>
-  <span class="k">member</span> x.Zero() = (<span class="k">fun</span> () <span class="o">-&gt;</span> None)
+<pre lang="fsharp">
+type ImperativeBuilder() = 
+  // Creatae computation that returns the given value  
+  member x.Return(v) : Imperative&lt;_&gt; = 
+    (fun () -&gt; Some(v))
+  // Create computation that doesn't return any value
+  member x.Zero() = (fun () -&gt; None)
 
-  <span class="c">// Return a computation that will evaluate the provided function  </span>
-  <span class="c">// only when the computation is being evaluated</span>
-  <span class="k">member</span> x.Delay(f:unit <span class="o">-&gt;</span> Imperative&lt;<span class="o">_</span>&gt;) = 
-    (<span class="k">fun</span> () <span class="o">-&gt;</span> f()())
+  // Return a computation that will evaluate the provided function  
+  // only when the computation is being evaluated
+  member x.Delay(f:unit -&gt; Imperative&lt;_&gt;) = 
+    (fun () -&gt; f()())
   
-  <span class="c">// Combines two delayed computations (that may return </span>
-  <span class="c">// value imperatively using 'return') into one  </span>
-  <span class="k">member</span> x.Combine(a, b) = (<span class="k">fun</span> () <span class="o">-&gt;</span>
-    <span class="c">// run the first part of the computation</span>
-    <span class="k">match</span> a() <span class="k">with</span> 
-    <span class="c">// if it returned, we can return the result immediately</span>
-    <span class="o">|</span> Some(v) <span class="o">-&gt;</span> Some(v) 
-    <span class="c">// otherwise, we need to run the second part</span>
-    <span class="o">|</span> <span class="o">_</span> <span class="o">-&gt;</span> b() )
+  // Combines two delayed computations (that may return 
+  // value imperatively using 'return') into one  
+  member x.Combine(a, b) = (fun () -&gt;
+    // run the first part of the computation
+    match a() with 
+    // if it returned, we can return the result immediately
+    | Some(v) -&gt; Some(v) 
+    // otherwise, we need to run the second part
+    | _ -&gt; b() )
   
-  <span class="c">// Execute the imperative computation </span>
-  <span class="c">// expression given as an argument</span>
-  <span class="k">member</span> x.Run(imp) = 
-    <span class="c">// run the computation and return the result or </span>
-    <span class="c">// fail when the computation didn't return anything</span>
-    <span class="k">match</span> imp() <span class="k">with</span> 
-    <span class="o">|</span> Some(v) <span class="o">-&gt;</span> v 
-    <span class="o">|</span> None <span class="o">-&gt;</span> failwith <span class="s">"nothing returned!"</span>
+  // Execute the imperative computation 
+  // expression given as an argument
+  member x.Run(imp) = 
+    // run the computation and return the result or 
+    // fail when the computation didn't return anything
+    match imp() with 
+    | Some(v) -&gt; v 
+    | None -&gt; failwith "nothing returned!"
 </pre>
 <p>The first two members give us a way to construct primitive computations. The 
   computation created using <code>Return</code> is used when you write <code>return</code>
@@ -304,28 +304,28 @@ imperative.Run
   well-formed name. It uses various heuristics such as that the name should be
   at least two words, both reasonably long and both starting with an uppercase letter
   (By the way, sorry if your name doesn't pass the test - it's just a demo!)</p>
-<pre >
-&gt; <span class="k">let</span> validateName(arg:string) = imperative {
-    <span class="c">// Should be non-empty and should contain space</span>
-    <span class="k">if</span> (arg = <span class="k">null</span>) <span class="k">then</span> <span class="k">return</span> <span class="k">false</span>
-    <span class="k">let</span> idx = arg.IndexOf(<span class="s">" "</span>)
-    <span class="k">if</span> (idx = -1) <span class="k">then</span> <span class="k">return</span> <span class="k">false</span>
+<pre lang="fsharp">
+&gt; let validateName(arg:string) = imperative {
+    // Should be non-empty and should contain space
+    if (arg = null) then return false
+    let idx = arg.IndexOf(" ")
+    if (idx = -1) then return false
     
-    <span class="c">// Verify the name and the surname</span>
-    <span class="k">let</span> name = arg.Substring(0, idx)
-    <span class="k">let</span> surname = arg.Substring(idx + 1, arg.Length - idx - 1)
-    <span class="k">if</span> (surname.Length &lt; 1 <span class="o">|</span><span class="o">|</span> name.Length &lt; 1) <span class="k">then</span> <span class="k">return</span> <span class="k">false</span>
-    <span class="k">if</span> (Char.IsLower(surname.[0]) <span class="o">|</span><span class="o">|</span> Char.IsLower(name.[0])) <span class="k">then</span> <span class="k">return</span> <span class="k">false</span>
+    // Verify the name and the surname
+    let name = arg.Substring(0, idx)
+    let surname = arg.Substring(idx + 1, arg.Length - idx - 1)
+    if (surname.Length &lt; 1 || name.Length &lt; 1) then return false
+    if (Char.IsLower(surname.[0]) || Char.IsLower(name.[0])) then return false
 
-    <span class="c">// Looks like we've got a valid name!</span>
-    <span class="k">return</span> <span class="k">true</span> }
-<em>val validateName : string <span class="o">-&gt;</span> bool</em>
+    // Looks like we've got a valid name!
+    return true }
+<em>val validateName : string -&gt; bool</em>
 
-&gt; validateName(<span class="k">null</span>);;
+&gt; validateName(null);;
 <em>val it : bool = false</em>
-&gt; validateName(<span class="s">"Tomas"</span>);;
+&gt; validateName("Tomas");;
 <em>val it : bool = false</em>
-&gt; validateName(<span class="s">"Tomas Petricek"</span>);;
+&gt; validateName("Tomas Petricek");;
 <em>val it : bool = true</em>
 </pre>
 
@@ -355,26 +355,26 @@ imperative.Run
   However, in the next articles of this series, we'll need to change this implementation
   a bit, so it is good that the F# language allows us to implement this ourselves.</p>
 
-<pre >
-<span class="k">type</span> ImperativeBuilder <span class="k">with</span>
-  <span class="k">member</span> x.For(inp:seq&lt;<span class="o">_</span>&gt;, f) =
-    <span class="c">// Process next element from the sequence</span>
-    <span class="k">let</span> <span class="k">rec</span> loop(en:IEnumerator&lt;<span class="o">_</span>&gt;) = 
-      <span class="c">// If ther are no more elements, return empty computation</span>
-      <span class="k">if</span> not(en.MoveNext()) <span class="k">then</span> x.Zero() <span class="k">else</span>
-        <span class="c">// Otherwise call body and combine it with a </span>
-        <span class="c">// computation that continues looping</span>
-        x.Combine(f(en.Current), x.Delay(<span class="k">fun</span> () <span class="o">-&gt;</span> loop(en)))
-    <span class="c">// Start enumerating from the first element</span>
+<pre lang="fsharp">
+type ImperativeBuilder with
+  member x.For(inp:seq&lt;_&gt;, f) =
+    // Process next element from the sequence
+    let rec loop(en:IEnumerator&lt;_&gt;) = 
+      // If ther are no more elements, return empty computation
+      if not(en.MoveNext()) then x.Zero() else
+        // Otherwise call body and combine it with a 
+        // computation that continues looping
+        x.Combine(f(en.Current), x.Delay(fun () -&gt; loop(en)))
+    // Start enumerating from the first element
     loop(inp.GetEnumerator())
     
-  <span class="k">member</span> x.While(gd, body) = 
-    <span class="c">// Perform one step of the 'looping'</span>
-    <span class="k">let</span> <span class="k">rec</span> loop() =
-      <span class="c">// If the condition is false, return empty computation</span>
-      <span class="k">if</span> not(gd()) <span class="k">then</span> x.Zero() <span class="k">else</span>
-        <span class="c">// Otherwise, call body and then loop again</span>
-        x.Combine(body, x.Delay(<span class="k">fun</span> () <span class="o">-&gt;</span> loop()))
+  member x.While(gd, body) = 
+    // Perform one step of the 'looping'
+    let rec loop() =
+      // If the condition is false, return empty computation
+      if not(gd()) then x.Zero() else
+        // Otherwise, call body and then loop again
+        x.Combine(body, x.Delay(fun () -&gt; loop()))
     loop()
 </pre>
 <p>We use type augmentation to add the two members to the existing 
@@ -396,22 +396,22 @@ imperative.Run
   real world problems. We'll start with the <code>while</code> loop and we'll use it
   to create a loop that reads names from the console and returns the first one that's valid:</p>  
 
-<pre >
-&gt; <span class="k">let</span> readFirstName() = imperative {
-    <span class="c">// Loop until the user enters valid name</span>
-    <span class="k">while</span> <span class="k">true</span> <span class="k">do</span>
-      <span class="k">let</span> name = Console.ReadLine()
-      <span class="c">// If the name is valid, we return it, otherwise</span>
-      <span class="c">// we continue looping...</span>
-      <span class="k">if</span> (validateName(name)) <span class="k">then</span> <span class="k">return</span> name
-      printfn <span class="s">"That's not a valid name! Try again..."</span> }
-<em>val it : (unit <span class="o">-&gt;</span> string) = &lt;<span class="k">fun</span>:clo@0&gt;</em>
+<pre lang="fsharp">
+&gt; let readFirstName() = imperative {
+    // Loop until the user enters valid name
+    while true do
+      let name = Console.ReadLine()
+      // If the name is valid, we return it, otherwise
+      // we continue looping...
+      if (validateName(name)) then return name
+      printfn "That's not a valid name! Try again..." }
+<em>val it : (unit -> string) = &lt;fun:clo@0&gt;</em>
 
 &gt; readFirstName();;
 <em>Tomas
 That's not a valid name! Try again...
 Tomas Petricek
-<span class="k">val</span> it : string = <span class="s">"Tomas Petricek"</span></em>
+val it : string = "Tomas Petricek"</em>
 </pre>
 <p>The listing starts by implementing the <code>readFirstName</code> function. If we look at 
   its signature printed by the F# interactive, we can see that it returns <code>string</code>,
@@ -446,14 +446,14 @@ Tomas Petricek
   is very easy, because we can simply use <code>for</code> loop to enumerate over the source 
   sequence. When the predicate returns <code>true</code> for the first time, 
   we can immediately terminate the execution and return <code>true</code> as the overall result.</p>
-<pre >
-&gt; <span class="k">let</span> exists f inp = imperative {
-    <span class="k">for</span> v <span class="k">in</span> inp <span class="k">do</span> 
-      <span class="k">if</span> f(v) <span class="k">then</span> <span class="k">return</span> <span class="k">true</span>
-    <span class="k">return</span> <span class="k">false</span> }
-<em>val exists : ('a <span class="o">-&gt;</span> bool) <span class="o">-&gt;</span> seq&lt;'a&gt; <span class="o">-&gt;</span> bool</em>
+<pre lang="fsharp">
+&gt; let exists f inp = imperative {
+    for v in inp do 
+      if f(v) then return true
+    return false }
+<em>val exists : ('a -&gt; bool) -&gt; seq&lt;'a&gt; -> bool</em>
 
-&gt; <span class="o">[</span> 1 .. 10 <span class="o">]</span> <span class="o">|</span>&gt; exists (<span class="k">fun</span> v <span class="o">-&gt;</span> v % 3 = 0)
+&gt; [ 1 .. 10 ] |&gt; exists (fun v -&gt; v % 3 = 0)
 <em>val it : bool = true</em>
 </pre>
 <p>As you can see, the implementation of the function couldn't be easier. If the 
@@ -544,54 +544,66 @@ Tomas Petricek
 
     <h3>Welcome!</h3>
     <img src="http://tomasp.net/img/tomas.jpg" alt="Tomas Petricek" style="float:right;margin:10px 0px 10px 10px;" />
-    <p>I'm an F# enthusiast, book author and a PhD student at the University of Cambridge.
+    <p>I'm an F# open-source developer, book author and computer scientist. I submitted my PhD thesis recently.
       When offline, I enjoy traveling and taking pictures. You can find me at
       at <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a> or email 
       <a href="mailto:tomas@tomasp.net">tomas@tomasp.net</a>.
     </p>
 
+    <h4>Trainings and consulting</h4>
+    <a href="http://fsharpworks.com"><img src="http://tomasp.net/img/fsharpworks.png" alt="F# Works" style="float:right;margin:15px 0px 10px 10px; width:150px" /></a>
+    <p>I'm an experienced F# developer and trainer. <br /> I offer training and consulting
+      services through <a href="http://fsharpworks.com">F# Works</a>.
+    </p>
+    <ul>
+      <li>Check out my <a href="http://fsharpworks.com/workshops/fast-track.html">in-person Fast Track to F#</a> course</li>
+      <li>Check out my <a href="http://fsharpworks.com/workshops/finance.html">online F# in Finance</a> course</li>
+      <li><a href="mailto:tomas@tomasp.net">Email me</a> for info about private trainings</li>
+    </ul>
+    
     <script type="text/javascript" src="http://tomasp.net/news/news.js"></script>
     <h4>What's new? &#160; <small><script type="text/javascript">document.write(news.date)</script></small></h4>
     <script>
       document.write(news.info);
     </script>
 
-    <h4>Trainings and consulting</h4>
-    <img src="http://tomasp.net/img/skillsmatter.png" alt="Tomas Petricek" style="float:right;margin:15px 0px 10px 10px;" />
-    <p>I run F# and functional programming courses in <strong>London</strong>
-      and <strong>New York</strong> with SkillsMatter.
-    </p>
-    <ul>
-      <li>Check out our <a href="http://skillsmatter.com/course/scala/tomas-petricek-phil-trelford-fast-track-to-fsharp/ps-6679">Fast Track to F#</a> course</li>
-      <li><a href="mailto:tomas@tomasp.net">Email me</a> for info about private trainings</li>
-    </ul>
-    
-    <h4>F# Books and articles</h4>
+    <h4>Functional F# and C# books</h4>
     <div style="float:right;">
       <a href="http://www.amazon.com/gp/product/1933988924/ref=as_li_tf_il?ie=UTF8&amp;tag=httptomasnet-20&amp;linkCode=as2&amp;camp=217145&amp;creative=399369&amp;creativeASIN=1933988924">
-        <img src="http://tomasp.net/img/rwfp.jpg" alt="Real World Functional Programming" style="float:right;margin:10px 0px 10px 10px;border-style:none;" />
+        <img src="http://tomasp.net/img/deepdives.png" alt="F# Deep Dives" style="float:right;margin:15px 0px 15px 10px;border-style:none;" />
       </a>
     </div>
-    <p><a href="http://www.manning.com/petricek">Real World Functional Programming</a> explains functional
-      concepts using F# and C#. You can get it from <a href="http://www.amazon.com/dp/1933988924?tag=httptomasnet-20&amp;camp=213381&amp;creative=390973&amp;linkCode=as4&amp;creativeASIN=1933988924&amp;adid=0F1DP260JGG4KY0CDGP6">Amazon.com</a>, <a href="https://www.amazon.co.uk/dp/1933988924?tag=tomasnet-21&amp;camp=1406&amp;creative=6394&amp;linkCode=as1&amp;creativeASIN=1933988924&amp;adid=1CTY87YCCQEJW965GNDF">Amazon.co.uk</a> or your favorite book store.
-      Some chapters and new materials are also available on <a href="http://msdn.microsoft.com/en-us/library/hh314518.aspx">MSDN</a>.</p>
-    
-    <p>Currently, I'm putting together <a href="http://www.manning.com/petricek2/">F# Deep Dives</a> - a collection
-      of practical F# essays written by community leaders and commercial users of F#.</p>
-    <p>I also wrote a series of tutorials on <a href="http://www.tryfsharp.org/Learn/financial-computing">financial computing</a>
-      for Try F# - an interactive environment that let's you try F# in the browser.</p>
+    <p>
+      I wrote or contributed to two books on F# and functional programming:
+      <a href="http://functional-programming.net/rwfp">Real World Functional Programming</a> explains functional
+      concepts using F# and C# and <a href="http://functional-programming.net/deepdives">F# Deep Dives</a> is a 
+      collection of case studies written by industry experts.</p>
+    <ul>
+      <li><a href="http://functional-programming.net/rwfp"><strong>Real World Funcitonal Programming</strong></a> home page. See
+        <a href="http://manning.com/petricek">Manning</a>,
+        <a href="https://www.amazon.com/dp/1933988924?tag=httptomasnet-20&amp;camp=213381&amp;creative=390973&amp;linkCode=as4&amp;creativeASIN=1933988924&amp;adid=0F1DP260JGG4KY0CDGP6">Amazon.com</a> or
+        <a href="https://www.amazon.co.uk/dp/1933988924?tag=tomasnet-21&amp;camp=1406&amp;creative=6394&amp;linkCode=as1&amp;creativeASIN=1933988924&amp;adid=1CTY87YCCQEJW965GNDF">Amazon.co.uk</a>.
+      </li>
+      <li><a href="http://functional-programming.net/deepdives"><strong>F# Deep Dives</strong></a> home page. Get it from
+        <a href="http://www.manning.com/petricek2">Manning.com</a>,
+        <a href="http://www.amazon.com/gp/product/1617291323/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=1617291323&linkCode=as2&tag=httptomasnet-20&linkId=U4FPJJSKKCCKGNHD">Amazon.com</a> or
+        <a href="http://www.amazon.co.uk/gp/product/1617291323/ref=as_li_tl?ie=UTF8&camp=1634&creative=19450&creativeASIN=1617291323&linkCode=as2&tag=tomasnet-21&linkId=HTUYVHHGWB4Q7X6V">Amazon.co.uk</a>.
+      </li>
+    </ul>    
+    <p>I also wrote a series of tutorials on <a href="http://www.tryfsharp.org/Learn/financial-computing">financial computing for Try F#</a>.
+      This interactive environment let's you try F# in the browser.</p>
 
     <h4>Research and teaching</h4>
     <img src="http://tomasp.net/img/cam.png" alt="University of Cambride" style="float:right;margin:25px 0px 10px 10px;" />
-    <p>I'm finishing PhD in computer science at the <a href="http://www.cl.cam.ac.uk/">University of Cambridge</a>.
-      I'm working on making better types for programs that run in rich context (like F# type providers, distributed 
-      prog&shy;ramming or data-flow). See <a href="http://www.cl.cam.ac.uk/~tp322/">my academic page</a> for
+    <p>I submitted my PhD thesis at the <a href="http://www.cl.cam.ac.uk/">University of Cambridge</a>,
+      working on making better types for programs that run in rich context (like F# type providers, distributed 
+      prog&shy;ramming or data-flow). See <a href="http://tomasp.net/academic/">my academic page</a> for
       more.</p>
 
     <h4>Blog tags</h4>
     <p>
 
-      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(97),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(33),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(10),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(29),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/fsharp-data/">f# data</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/monads/">monads</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/art/">art</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fractals/">fractals</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/funscript/">funscript</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(1)    </p>
+      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(99),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(33),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(11),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(29),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/open-source/">open source</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/monads/">monads</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fslab/">fslab</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(1)    </p>
 
   </div>
 </div>
@@ -613,8 +625,9 @@ Tomas Petricek
     </div>
     <div class="large-7 columns">
     <h4>Blog archives <a href="http://tomasp.net/rss.xml"><img src="http://tomasp.net/img/rss.gif" /></a></h4>
-      <a href="http://tomasp.net/blog/archive/january-2015/index.html">
-        January 2015 (1)</a>,      <a href="http://tomasp.net/blog/archive/december-2014/index.html">
+      <a href="http://tomasp.net/blog/archive/february-2015/index.html">
+        February 2015 (1)</a>,      <a href="http://tomasp.net/blog/archive/january-2015/index.html">
+        January 2015 (2)</a>,      <a href="http://tomasp.net/blog/archive/december-2014/index.html">
         December 2014 (1)</a>,      <a href="http://tomasp.net/blog/archive/may-2014/index.html">
         May 2014 (3)</a>,      <a href="http://tomasp.net/blog/archive/april-2014/index.html">
         April 2014 (2)</a>,      <a href="http://tomasp.net/blog/archive/march-2014/index.html">

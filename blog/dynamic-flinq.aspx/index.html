@@ -49,10 +49,10 @@
     <section class="top-bar-section">
       <ul class="right">
         <li><a href="http://tomasp.net/blog/index.html">Blog</a></li>
-        <li><a href="http://functional-programming.net">Trainings</a></li>
         <li><a href="http://functional-programming.net">Books</a></li>
-        <li><a href="http://lanyrd.com/profile/tomasp">Talks</a></li>
-        <li><a href="http://tomasp.net/academic">Research & Teaching</a></li>
+        <li><a href="http://fsharpworks.com/workshops.html">Trainings</a></li>
+        <li><a href="http://fsharpworks.com">Consulting</a></li>
+        <li><a href="http://tomasp.net/academic">Research</a></li>
       </ul>
     </section>
 
@@ -78,14 +78,14 @@
   writing queries is written using <em>comprehensions</em> which is a very common language construct
   in functional languages. In F# you can use it for example for manipulating with list of numbers:
 </p>
-<pre >
-<span class="k">let</span> evenSquares = 
- <span class="o">[</span> <span class="k">for</span> n <span class="k">in</span> [0 .. 10] 
-   <span class="k">when</span> n%2 = 0
-   <span class="o">-&gt;</span> n*n <span class="o">]</span>
+<pre lang="fsharp">
+let evenSquares = 
+ [ for n in [0 .. 10] 
+   when n%2 = 0
+   -&gt; n*n ]
    
-<span class="c">// evenSquares : int list </span>
-<span class="c">//   [0; 4; 16; 25; 36; 64; 100]</span>
+// evenSquares : int list 
+//   [0; 4; 16; 25; 36; 64; 100]
 </pre>
 <p>Here, we use the comprehension to build a list of integers. When building the list, we first take
   all numbers between 0 and 10, filter only even integers (in the <code>when</code> clause, which
@@ -105,20 +105,20 @@
   of F# code, similar as the C# expression tree. The reason why F# doesn't use the same representation 
   as C# is that in F# you can quote more complicated code and not just a simple expression.
   The following code gives a few examples in both F# and C# (when possible):</p>  
-<pre >
-<span class="c">// 'add' as a function &amp; an expression in C#</span>
+<pre lang="fsharp">
+// 'add' as a function &amp; an expression in C#
 Func&lt;int,int,int&gt;             addF = (a,b) =&gt; a + b
 Expression&lt;Func&lt;int,int,int&gt;&gt; addE = (a,b) =&gt; a + b
 
-<span class="c">// 'add' as a function &amp; a quotation in F#</span>
-<span class="k">let</span> addF =   <span class="k">fun</span> a b <span class="o">-&gt;</span> a + b
-<span class="k">let</span> addE = « <span class="k">fun</span> a b <span class="o">-&gt;</span> a + b »
+// 'add' as a function &amp; a quotation in F#
+let addF =   fun a b -> a + b
+let addE = « fun a b -> a + b »
 
-<span class="c">// More complex quotation in F#</span>
-<span class="k">let</span> addAndPrint = 
-  « <span class="k">fun</span> a b <span class="o">-&gt;</span> 
-      <span class="k">let</span> sum = a + b
-      printf <span class="s">"Sum = %d"</span> sum »
+// More complex quotation in F#
+let addAndPrint = 
+  « fun a b -> 
+      let sum = a + b
+      printf "Sum = %d" sum »
 </pre>
 <p>Note that if you don't want to use Unicode symbols (<code>«</code>, <code>»</code>) in your code you can use <code>&lt;@</code> and <code>@&gt;</code>
   that serve exactly for the same purpose. I'll use the Unicode symbols, because I believe that it looks
@@ -139,26 +139,26 @@ Expression&lt;Func&lt;int,int,int&gt;&gt; addE = (a,b) =&gt; a + b
   F# 1.9.2.9 (currently the latest release) is compatible with VS 2008 beta 1, but I built a version compatible 
   with beta 2 as well, which you can get below. If you open the <code>dlinqsamples.fs</code> file, you can
   see a lot of F# samples for querying the Northwind database, so let me explain a few of them:</p>
-<pre >
-<span class="c">// Just select all customers</span>
-<span class="k">let</span> sample1() =
-  SQL « { <span class="k">for</span> c <span class="k">in</span> (§db.Customers) <span class="o">-&gt;</span> c } »
-  <span class="o">|</span>&gt; dump 
+<pre lang="fsharp">
+// Just select all customers
+let sample1() =
+  SQL « { for c in (§db.Customers) -&gt; c } »
+  |&gt; dump 
 
-<span class="c">// Select all customers from UK</span>
-<span class="k">let</span> sample2() =
-  SQL « { <span class="k">for</span> c <span class="k">in</span> (§db.Customers) 
-          <span class="k">when</span> c.Country = <span class="s">"UK"</span>
-          <span class="o">-&gt;</span> c } »
-  <span class="o">|</span>&gt; dump 
+// Select all customers from UK
+let sample2() =
+  SQL « { for c in (§db.Customers) 
+          when c.Country = "UK"
+          -&gt; c } »
+  |&gt; dump 
     
-<span class="c">// Join products &amp; categories using nested 'for'    </span>
-<span class="k">let</span> sample3() =
-  SQL « { <span class="k">for</span> p <span class="k">in</span> (§db.Products) 
-          <span class="k">for</span> c <span class="k">in</span> (§db.Categories)
-          <span class="k">when</span> c.CategoryID = p.CategoryID
-          <span class="o">-&gt;</span> (c.CategoryName, p.ProductName) } »     
-  <span class="o">|</span>&gt; dump
+// Join products &amp; categories using nested 'for'    
+let sample3() =
+  SQL « { for p in (§db.Products) 
+          for c in (§db.Categories)
+          when c.CategoryID = p.CategoryID
+          -&gt; (c.CategoryName, p.ProductName) } »     
+  |&gt; dump
 </pre>  
 <p>As we can see in all three examples, FLINQ wraps the whole comprehension (that specifies what we
   want to select from a database) in a quotation, so the F# code can be translated to SQL and executed.
@@ -192,33 +192,33 @@ Expression&lt;Func&lt;int,int,int&gt;&gt; addE = (a,b) =&gt; a + b
   constructed using the given values. First, we will write a utility function for printing a sequence of customers
   (which is what the <code>SQL</code> function returns) and create a Northwind data context (similarly as in 
   C# example):</p>  
-<pre >
-<span class="c">/// Utility function to dump a sequence (IEnumerable) of customers</span>
-<span class="k">let</span> dump (q:#seq&lt;Customer&gt;) = 
-  <span class="k">for</span> c <span class="k">in</span> q <span class="k">do</span>
+<pre lang="fsharp">
+/// Utility function to dump a sequence (IEnumerable) of customers
+let dump (q:#seq&lt;Customer&gt;) = 
+  for c in q do
     Console.WriteLine
-      (<span class="s">"{0,-25}{2,10}, {1,-8}{3,-30}"</span>, 
+      ("{0,-25}{2,10}, {1,-8}{3,-30}", 
        c.CompanyName, c.Country, c.City, c.ContactName)
   Console.ReadLine();
 
-<span class="c">/// Northwind data context and customers table</span>
-<span class="k">let</span> db = <span class="k">new</span> Northwind(<span class="s">"Server=.; Database=Northwind; Integrated Security=SSPI"</span>)
-<span class="k">let</span> custTable = « §db.Customers »
+/// Northwind data context and customers table
+let db = new Northwind("Server=.; Database=Northwind; Integrated Security=SSPI")
+let custTable = « §db.Customers »
 </pre>
 <p>At the last line of the sample, we created a value <code>custTable</code> which is an F# quotation containing
   just a value of the customers data table - we will need it later in the examples. Now, let's build a function
   for building the query. The function takes two arguments, the first arguments is a quotation of a function
   that selects a property of the <code>Customer</code> type and the second argument is a quotation of a value
   that we want to look for:</p>
-<pre >
-<span class="c">/// Function for building a query working with the customer table.</span>
-<span class="c">/// Selector is of type 'CustomerPropSelector'</span>
-<span class="k">let</span> queryTemplate selector (value:Expr&lt;string&gt;) = 
-  custTable <span class="o">|</span>&gt; 
-    « { <span class="k">for</span> c <span class="k">in</span> <span class="o">_</span> <span class="k">do</span>
-          <span class="k">let</span> s = (<span class="o">_</span> c) <span class="k">in</span>
-          <span class="k">when</span> (s:string).IndexOf(<span class="o">_</span>:string) &lt;&gt; -1
-          <span class="o">-&gt;</span> c } » value selector
+<pre lang="fsharp">
+/// Function for building a query working with the customer table.
+/// Selector is of type 'CustomerPropSelector'
+let queryTemplate selector (value:Expr&lt;string&gt;) = 
+  custTable |&gt; 
+    « { for c in _ do
+          let s = (_ c) in
+          when (s:string).IndexOf(_:string) &lt;&gt; -1
+          -&gt; c } » value selector
 </pre>
 <p>There is a one new interesting thing in this example, we used underscore at a few places in the quotation.
   The underscore in the quotation means that we want to build a <em>quotation template</em>, which is a quotation
@@ -229,9 +229,9 @@ Expression&lt;Func&lt;int,int,int&gt;&gt; addE = (a,b) =&gt; a + b
   few type-annotations in the query, so the compiler knows what the types of the <em>holes</em> are, for example that 
   the <code>selector</code> returns a <code>string</code> (which has the <code>IndexOf</code> method). The 
   <code>queryTemplate</code> function can be used rather easily:</p>
-<pre >
-<span class="k">let</span> q = SQL (queryTemplate « <span class="k">fun</span> c <span class="o">-&gt;</span> c.CompanyName » « <span class="s">"ab"</span> »)
-q <span class="o">|</span>&gt; dump
+<pre lang="fsharp">
+let q = SQL (queryTemplate « fun c -> c.CompanyName » « "ab" »)
+q |> dump
 </pre>
 <p>As mentioned, both parameters are quotations (so that they can be used as an arguments for the quotation
   template that we wrote earlier), which means that we have to give it two quoted blocks of F# code.
@@ -239,24 +239,24 @@ q <span class="o">|</span>&gt; dump
   of a customer and the second argument is a quoted string literal.</p>
 <p>In the next code snippet we finish the example and add the interactive part that allows
   selecting a property of the customer and entering the required value:</p>
-<pre >
-<span class="c">/// Dictionary for getting a 'selector' of a Customer property</span>
-<span class="c">/// with key of type string</span>
-<span class="k">let</span> (dict:Map&lt;string,CustomerPropSelector&gt;) = 
+<pre lang="fsharp">
+/// Dictionary for getting a 'selector' of a Customer property
+/// with key of type string
+let (dict:Map&lt;string,CustomerPropSelector&gt;) = 
   Map.of_list
-    <span class="o">[</span> <span class="s">"CompanyName"</span>, « <span class="k">fun</span> (c:Customer) <span class="o">-&gt;</span> c.CompanyName »;
-      <span class="s">"Country"</span>,     « <span class="k">fun</span> (c:Customer) <span class="o">-&gt;</span> c.Country »;
-      <span class="s">"ContactName"</span>, « <span class="k">fun</span> (c:Customer) <span class="o">-&gt;</span> c.ContactName »; <span class="o">]</span>
+    [ "CompanyName", « fun (c:Customer) -&gt; c.CompanyName »;
+      "Country",     « fun (c:Customer) -&gt; c.Country »;
+      "ContactName", « fun (c:Customer) -&gt; c.ContactName »; ]
       
-<span class="c">/// Demonstrates the use of 'queryTemplate' function</span>
-<span class="k">let</span> main() =
-  Console.Write(<span class="s">"Filter - field name (CompanyName, ContactName, Country):\n&gt; "</span>);
-  <span class="k">let</span> prop = Console.ReadLine();
-  Console.Write(<span class="s">"Filter - value:\n&gt; "</span>);
-  <span class="k">let</span> value = Console.ReadLine();
+/// Demonstrates the use of 'queryTemplate' function
+let main() =
+  Console.Write("Filter - field name (CompanyName, ContactName, Country):\n&gt; ");
+  let prop = Console.ReadLine();
+  Console.Write("Filter - value:\n&gt; ");
+  let value = Console.ReadLine();
   
-  <span class="k">let</span> q = queryTemplate dict.[prop] « §value »
-  SQL q <span class="o">|</span>&gt; dump
+  let q = queryTemplate dict.[prop] « §value »
+  SQL q |&gt; dump
 </pre>
 <p>Similarly as in the C# version, we use a key-value dictionary to build a dictionary that
   has a property name as a key and a quoted function for selecting a property of a customer as a value,
@@ -280,10 +280,10 @@ q <span class="o">|</span>&gt; dump
 <p>As we use the same data context (<code>db</code>) and same dictionary with property name as a key
   and quoted function for selecting a property of the customer (<code>dict</code>), I won't repeat them in 
   this example and let's look at our code for combining conditions:</p>
-<pre >
-<span class="c">// Elementary conditions</span>
-<span class="k">let</span> falseCond = « <span class="k">fun</span> (c:Customer) <span class="o">-&gt;</span> <span class="k">false</span> »
-<span class="k">let</span> trueCond  = « <span class="k">fun</span> (c:Customer) <span class="o">-&gt;</span> <span class="k">true</span>  »
+<pre lang="fsharp">
+// Elementary conditions
+let falseCond = « fun (c:Customer) -&gt; false »
+let trueCond  = « fun (c:Customer) -&gt; true  »
 </pre>
 <p>We first defined two elementary conditions, <code>falseCond</code> which returns <code>false</code> for
   every customer and <code>trueConde</code> which returns always <code>true</code>. The functions are quoted,
@@ -292,10 +292,10 @@ q <span class="o">|</span>&gt; dump
   <code>Expr&lt;Customer -&gt; bool&gt;</code>, which is indeed a type of quotation (<code>Expr</code>)
   of a function taking <code>Customer</code> and returning a value of <code>bool</code>. The next
   step is to define <em>combinators</em> for combining quoted functions:</p>  
-<pre >
-<span class="c">// Condition combinators, declared as infix operators</span>
-<span class="k">let</span> (<span class="o">|</span><span class="o">|</span>*) f g = « <span class="k">fun</span> (c:Customer) <span class="o">-&gt;</span> (<span class="o">_</span> c) <span class="o">|</span><span class="o">|</span> (<span class="o">_</span> c) » f g
-<span class="k">let</span> (&amp;&amp;*) f g = « <span class="k">fun</span> (c:Customer) <span class="o">-&gt;</span> (<span class="o">_</span> c) &amp;&amp; (<span class="o">_</span> c) » f g
+<pre lang="fsharp">
+// Condition combinators, declared as infix operators
+let (||*) f g = « fun (c:Customer) -&gt; (_ c) || (_ c) » f g
+let (&amp;&amp;*) f g = « fun (c:Customer) -&gt; (_ c) &amp;&amp; (_ c) » f g
 </pre>
 <p>Because F# allows us to declare our own infix binary operators, we declare combinators as operators -
   you'll see later that this makes the code more readable. Both operators take two quoted functions
@@ -305,16 +305,16 @@ q <span class="o">|</span>&gt; dump
   and returns a condition - <code>Expr&lt;Customer-&gt;bool&gt; -&gt; Expr&lt;Customer-&gt;bool&gt; -&gt; Expr&lt;Customer-&gt;bool&gt;</code>,
   but as usually in F#, we didn't have to write this type, because the compiler inferred it automatically.
   The following example demonstrates how we can use the combinators:</p>
-<pre >
-<span class="c">/// Demonstrates the use of combinators</span>
-<span class="k">let</span> simplecombine_demo() = 
-  <span class="k">let</span> isUk = « <span class="k">fun</span> (c:Customer) <span class="o">-&gt;</span> c.Country = <span class="s">"UK"</span> »
-  <span class="k">let</span> isSeattle = « <span class="k">fun</span> (c:Customer) <span class="o">-&gt;</span> c.City = <span class="s">"Seattle"</span> »
+<pre lang="fsharp">
+/// Demonstrates the use of combinators
+let simplecombine_demo() = 
+  let isUk = « fun (c:Customer) -&gt; c.Country = "UK" »
+  let isSeattle = « fun (c:Customer) -&gt; c.City = "Seattle" »
 
-  <span class="c">// Build an expression using 'or' combinator</span>
-  <span class="k">let</span> expr = isUk <span class="o">|</span><span class="o">|</span>* isSeattle
-  <span class="k">let</span> q = custTable <span class="o">|</span>&gt; « { <span class="k">for</span> c <span class="k">in</span> <span class="o">_</span> <span class="k">when</span> <span class="o">_</span> c <span class="o">-&gt;</span> c } » expr
-  SQL q <span class="o">|</span>&gt; dump
+  // Build an expression using 'or' combinator
+  let expr = isUk ||* isSeattle
+  let q = custTable |&gt; « { for c in _ when _ c -&gt; c } » expr
+  SQL q |&gt; dump
 </pre>
 <p>In this sample we build a query that returns customers who live in UK or in Seattle.
   To build the query we first write two basic quoted functions for testing the conditions and
@@ -327,36 +327,36 @@ q <span class="o">|</span>&gt; dump
   initial value and allows us to combine the initial value with every key-value pair in the dictionary.
   This means that we will for example start with <code>FALSE</code>, than combine it with a first condition
   and get something like <code>FALSE || (Country = "UK")</code> and so on.</p>
-<pre >
-<span class="c">/// An advanced demo using 'fold' to combine more than 2 conditions</span>
-<span class="k">let</span> combining_demo() = 
-  Console.Write(<span class="s">"Build || or &amp;&amp; query (enter 'or' or 'and'):\n&gt; "</span>);
-  <span class="k">let</span> generateOr = Console.ReadLine().ToLower() = <span class="s">"or"</span>  
+<pre lang="fsharp">
+/// An advanced demo using 'fold' to combine more than 2 conditions
+let combining_demo() = 
+  Console.Write("Build || or &amp;&amp; query (enter 'or' or 'and'):\n&gt; ");
+  let generateOr = Console.ReadLine().ToLower() = "or"  
 
-  <span class="c">// Declare infix combinator, depending on an operator we use</span>
-  <span class="k">let</span> (^^) = <span class="k">if</span> generateOr <span class="k">then</span> (<span class="o">|</span><span class="o">|</span>*) <span class="k">else</span> (&amp;&amp;*)
+  // Declare infix combinator, depending on an operator we use
+  let (^^) = if generateOr then (||*) else (&amp;&amp;*)
   
-  <span class="c">// Build the expression by 'folding' all items in dictionary</span>
-  <span class="k">let</span> expr = 
+  // Build the expression by 'folding' all items in dictionary
+  let expr = 
     dict.Fold
-      <span class="c">// Function to combine key, value &amp; state</span>
-      (<span class="k">fun</span> key propSelector e <span class="o">-&gt;</span>
-        <span class="c">// Read the value from the user</span>
-        Console.Write(<span class="s">"Enter value for '{0}':\n&gt; "</span>, key);
-        <span class="k">let</span> enteredVal = Console.ReadLine();
+      // Function to combine key, value &amp; state
+      (fun key propSelector e -&gt;
+        // Read the value from the user
+        Console.Write("Enter value for '{0}':\n&gt; ", key);
+        let enteredVal = Console.ReadLine();
         
-        <span class="c">// Build a condition testing whether entered value is a substring</span>
-        <span class="c">// using 'testTemplate' and combine it with current expression using '^^'</span>
-        <span class="k">let</span> currentExpr = 
-          « <span class="k">fun</span> (c:Customer) <span class="o">-&gt;</span> ((<span class="o">_</span> c):string).IndexOf(<span class="o">_</span>:string) &lt;&gt; -1 » 
+        // Build a condition testing whether entered value is a substring
+        // using 'testTemplate' and combine it with current expression using '^^'
+        let currentExpr = 
+          « fun (c:Customer) -&gt; ((_ c):string).IndexOf(_:string) &lt;&gt; -1 » 
             propSelector « §enteredVal »
         (currentExpr ^^ e)) 
-      <span class="c">// Initial state</span>
-      (<span class="k">if</span> generateOr <span class="k">then</span> falseCond <span class="k">else</span> trueCond)
+      // Initial state
+      (if generateOr then falseCond else trueCond)
   
-  <span class="c">// Dump the results..  </span>
-  <span class="k">let</span> q = custTable <span class="o">|</span>&gt; « { <span class="k">for</span> c <span class="k">in</span> <span class="o">_</span> <span class="k">when</span> <span class="o">_</span> c <span class="o">-&gt;</span> c } » expr
-  SQL q <span class="o">|</span>&gt; dump
+  // Dump the results..  
+  let q = custTable |&gt; « { for c in _ when _ c -&gt; c } » expr
+  SQL q |&gt; dump
 </pre>
 <p>In the example we first ask user to choose if he wants to combine conditions using 
   <code>||</code> or using <code>&amp;&amp;</code> and declare a new operator <code>^^</code> (available
@@ -451,54 +451,66 @@ q <span class="o">|</span>&gt; dump
 
     <h3>Welcome!</h3>
     <img src="http://tomasp.net/img/tomas.jpg" alt="Tomas Petricek" style="float:right;margin:10px 0px 10px 10px;" />
-    <p>I'm an F# enthusiast, book author and a PhD student at the University of Cambridge.
+    <p>I'm an F# open-source developer, book author and computer scientist. I submitted my PhD thesis recently.
       When offline, I enjoy traveling and taking pictures. You can find me at
       at <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a> or email 
       <a href="mailto:tomas@tomasp.net">tomas@tomasp.net</a>.
     </p>
 
+    <h4>Trainings and consulting</h4>
+    <a href="http://fsharpworks.com"><img src="http://tomasp.net/img/fsharpworks.png" alt="F# Works" style="float:right;margin:15px 0px 10px 10px; width:150px" /></a>
+    <p>I'm an experienced F# developer and trainer. <br /> I offer training and consulting
+      services through <a href="http://fsharpworks.com">F# Works</a>.
+    </p>
+    <ul>
+      <li>Check out my <a href="http://fsharpworks.com/workshops/fast-track.html">in-person Fast Track to F#</a> course</li>
+      <li>Check out my <a href="http://fsharpworks.com/workshops/finance.html">online F# in Finance</a> course</li>
+      <li><a href="mailto:tomas@tomasp.net">Email me</a> for info about private trainings</li>
+    </ul>
+    
     <script type="text/javascript" src="http://tomasp.net/news/news.js"></script>
     <h4>What's new? &#160; <small><script type="text/javascript">document.write(news.date)</script></small></h4>
     <script>
       document.write(news.info);
     </script>
 
-    <h4>Trainings and consulting</h4>
-    <img src="http://tomasp.net/img/skillsmatter.png" alt="Tomas Petricek" style="float:right;margin:15px 0px 10px 10px;" />
-    <p>I run F# and functional programming courses in <strong>London</strong>
-      and <strong>New York</strong> with SkillsMatter.
-    </p>
-    <ul>
-      <li>Check out our <a href="http://skillsmatter.com/course/scala/tomas-petricek-phil-trelford-fast-track-to-fsharp/ps-6679">Fast Track to F#</a> course</li>
-      <li><a href="mailto:tomas@tomasp.net">Email me</a> for info about private trainings</li>
-    </ul>
-    
-    <h4>F# Books and articles</h4>
+    <h4>Functional F# and C# books</h4>
     <div style="float:right;">
       <a href="http://www.amazon.com/gp/product/1933988924/ref=as_li_tf_il?ie=UTF8&amp;tag=httptomasnet-20&amp;linkCode=as2&amp;camp=217145&amp;creative=399369&amp;creativeASIN=1933988924">
-        <img src="http://tomasp.net/img/rwfp.jpg" alt="Real World Functional Programming" style="float:right;margin:10px 0px 10px 10px;border-style:none;" />
+        <img src="http://tomasp.net/img/deepdives.png" alt="F# Deep Dives" style="float:right;margin:15px 0px 15px 10px;border-style:none;" />
       </a>
     </div>
-    <p><a href="http://www.manning.com/petricek">Real World Functional Programming</a> explains functional
-      concepts using F# and C#. You can get it from <a href="http://www.amazon.com/dp/1933988924?tag=httptomasnet-20&amp;camp=213381&amp;creative=390973&amp;linkCode=as4&amp;creativeASIN=1933988924&amp;adid=0F1DP260JGG4KY0CDGP6">Amazon.com</a>, <a href="https://www.amazon.co.uk/dp/1933988924?tag=tomasnet-21&amp;camp=1406&amp;creative=6394&amp;linkCode=as1&amp;creativeASIN=1933988924&amp;adid=1CTY87YCCQEJW965GNDF">Amazon.co.uk</a> or your favorite book store.
-      Some chapters and new materials are also available on <a href="http://msdn.microsoft.com/en-us/library/hh314518.aspx">MSDN</a>.</p>
-    
-    <p>Currently, I'm putting together <a href="http://www.manning.com/petricek2/">F# Deep Dives</a> - a collection
-      of practical F# essays written by community leaders and commercial users of F#.</p>
-    <p>I also wrote a series of tutorials on <a href="http://www.tryfsharp.org/Learn/financial-computing">financial computing</a>
-      for Try F# - an interactive environment that let's you try F# in the browser.</p>
+    <p>
+      I wrote or contributed to two books on F# and functional programming:
+      <a href="http://functional-programming.net/rwfp">Real World Functional Programming</a> explains functional
+      concepts using F# and C# and <a href="http://functional-programming.net/deepdives">F# Deep Dives</a> is a 
+      collection of case studies written by industry experts.</p>
+    <ul>
+      <li><a href="http://functional-programming.net/rwfp"><strong>Real World Funcitonal Programming</strong></a> home page. See
+        <a href="http://manning.com/petricek">Manning</a>,
+        <a href="https://www.amazon.com/dp/1933988924?tag=httptomasnet-20&amp;camp=213381&amp;creative=390973&amp;linkCode=as4&amp;creativeASIN=1933988924&amp;adid=0F1DP260JGG4KY0CDGP6">Amazon.com</a> or
+        <a href="https://www.amazon.co.uk/dp/1933988924?tag=tomasnet-21&amp;camp=1406&amp;creative=6394&amp;linkCode=as1&amp;creativeASIN=1933988924&amp;adid=1CTY87YCCQEJW965GNDF">Amazon.co.uk</a>.
+      </li>
+      <li><a href="http://functional-programming.net/deepdives"><strong>F# Deep Dives</strong></a> home page. Get it from
+        <a href="http://www.manning.com/petricek2">Manning.com</a>,
+        <a href="http://www.amazon.com/gp/product/1617291323/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=1617291323&linkCode=as2&tag=httptomasnet-20&linkId=U4FPJJSKKCCKGNHD">Amazon.com</a> or
+        <a href="http://www.amazon.co.uk/gp/product/1617291323/ref=as_li_tl?ie=UTF8&camp=1634&creative=19450&creativeASIN=1617291323&linkCode=as2&tag=tomasnet-21&linkId=HTUYVHHGWB4Q7X6V">Amazon.co.uk</a>.
+      </li>
+    </ul>    
+    <p>I also wrote a series of tutorials on <a href="http://www.tryfsharp.org/Learn/financial-computing">financial computing for Try F#</a>.
+      This interactive environment let's you try F# in the browser.</p>
 
     <h4>Research and teaching</h4>
     <img src="http://tomasp.net/img/cam.png" alt="University of Cambride" style="float:right;margin:25px 0px 10px 10px;" />
-    <p>I'm finishing PhD in computer science at the <a href="http://www.cl.cam.ac.uk/">University of Cambridge</a>.
-      I'm working on making better types for programs that run in rich context (like F# type providers, distributed 
-      prog&shy;ramming or data-flow). See <a href="http://www.cl.cam.ac.uk/~tp322/">my academic page</a> for
+    <p>I submitted my PhD thesis at the <a href="http://www.cl.cam.ac.uk/">University of Cambridge</a>,
+      working on making better types for programs that run in rich context (like F# type providers, distributed 
+      prog&shy;ramming or data-flow). See <a href="http://tomasp.net/academic/">my academic page</a> for
       more.</p>
 
     <h4>Blog tags</h4>
     <p>
 
-      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(97),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(33),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(10),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(29),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/fsharp-data/">f# data</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/monads/">monads</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/art/">art</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fractals/">fractals</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/funscript/">funscript</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(1)    </p>
+      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(99),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(33),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(11),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(29),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/open-source/">open source</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/monads/">monads</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fslab/">fslab</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(1)    </p>
 
   </div>
 </div>
@@ -520,8 +532,9 @@ q <span class="o">|</span>&gt; dump
     </div>
     <div class="large-7 columns">
     <h4>Blog archives <a href="http://tomasp.net/rss.xml"><img src="http://tomasp.net/img/rss.gif" /></a></h4>
-      <a href="http://tomasp.net/blog/archive/january-2015/index.html">
-        January 2015 (1)</a>,      <a href="http://tomasp.net/blog/archive/december-2014/index.html">
+      <a href="http://tomasp.net/blog/archive/february-2015/index.html">
+        February 2015 (1)</a>,      <a href="http://tomasp.net/blog/archive/january-2015/index.html">
+        January 2015 (2)</a>,      <a href="http://tomasp.net/blog/archive/december-2014/index.html">
         December 2014 (1)</a>,      <a href="http://tomasp.net/blog/archive/may-2014/index.html">
         May 2014 (3)</a>,      <a href="http://tomasp.net/blog/archive/april-2014/index.html">
         April 2014 (2)</a>,      <a href="http://tomasp.net/blog/archive/march-2014/index.html">

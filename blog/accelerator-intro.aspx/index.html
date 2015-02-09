@@ -49,10 +49,10 @@
     <section class="top-bar-section">
       <ul class="right">
         <li><a href="http://tomasp.net/blog/index.html">Blog</a></li>
-        <li><a href="http://functional-programming.net">Trainings</a></li>
         <li><a href="http://functional-programming.net">Books</a></li>
-        <li><a href="http://lanyrd.com/profile/tomasp">Talks</a></li>
-        <li><a href="http://tomasp.net/academic">Research & Teaching</a></li>
+        <li><a href="http://fsharpworks.com/workshops.html">Trainings</a></li>
+        <li><a href="http://fsharpworks.com">Consulting</a></li>
+        <li><a href="http://tomasp.net/academic">Research</a></li>
       </ul>
     </section>
 
@@ -122,12 +122,12 @@
   F# code. Assume we have an array of <code>float</code> values named <code>nums</code>. 
   The following example builds a computation that calculates an average value of an element 
   and two its neighbors for each element in the array:</p>
-<pre >
-<span class="k">var</span> input = <span class="k">new</span> FloatParallelArray(nums);
-<span class="k">var</span> sum = 
+<pre lang="csharp">
+var input = new FloatParallelArray(nums);
+var sum = 
   ParallelArrays.Shift(input, 1) + input + 
   ParallelArrays.Shift(input, -1);
-<span class="k">var</span> output = sum / 3.0f;
+var output = sum / 3.0f;
 </pre>
 <p>We start by creating a new <code>FloatParallelArray</code> instance that stores the
   input data for the program (this represents a constant computation). Then we write a 
@@ -136,9 +136,9 @@
   array by 3. This is also a point-wise operation, so it actually divides each element
   of the array by 3. Now that we have a <code>FloatParallelArray</code> named <code>output</code>,
   which represents the computation, we can run it using GPU:</p>
-<pre >
-<span class="k">var</span> target = <span class="k">new</span> DX9Target();
-<span class="k">var</span> res = target.ToArray1D(output);
+<pre lang="csharp">
+var target = new DX9Target();
+var res = target.ToArray1D(output);
 </pre>
 <p>The code to run the computation is quite simple. We first initialize a <em>target</em>.
   We're using <code>DX9Target</code>, which executes computations using GPU. If we wanted
@@ -169,16 +169,16 @@
   (either x86 or x64 version) and copy it to <code>bin/Debug</code> in your project.
   Then we can start by writing a couple of helpers:
 </p>
-<pre >
-<span class="k">open</span> Microsoft.ParallelArrays
+<pre lang="fsharp">
+open Microsoft.ParallelArrays
 
-<span class="k">type</span> PA = Microsoft.ParallelArrays.ParallelArrays
-<span class="k">type</span> FPA = Microsoft.ParallelArrays.FloatParallelArray
+type PA = Microsoft.ParallelArrays.ParallelArrays
+type FPA = Microsoft.ParallelArrays.FloatParallelArray
 
-<span class="c">// Initialization of constant 2D arrays</span>
-<span class="k">let</span> gridSize = 4096
-<span class="k">let</span> shape = <span class="o">[|</span> gridSize; gridSize; <span class="o">|</span><span class="o">]</span>
-<span class="k">let</span> zero, one = <span class="k">new</span> FPA(0.0f, shape), <span class="k">new</span> FPA(1.0f, shape)
+// Initialization of constant 2D arrays
+let gridSize = 4096
+let shape = [| gridSize; gridSize; |]
+let zero, one = new FPA(0.0f, shape), new FPA(1.0f, shape)
 </pre>
 <p>We start by opening the namespace that contains all the Accelerator functionality.
   To make the code a little bit more succinct, we also define two type aliases. The
@@ -200,11 +200,11 @@
   three functions that wrap functionality that's available using static methods 
   in C# (we could of course use static methods directly, but using functions 
   will lead to a more idiomatic F# code):</p>  
-<pre >
-<span class="c">// Calculating with 2D float arrays </span>
-<span class="k">let</span> sqrt (a:FPA) = PA.Sqrt(a)
-<span class="k">let</span> sum (a:FPA) = PA.Sum(a)
-<span class="k">let</span> select (cond:FPA) (a:FPA) (b:FPA) = PA.Select(cond,a,b)
+<pre lang="fsharp">
+// Calculating with 2D float arrays 
+let sqrt (a:FPA) = PA.Sqrt(a)
+let sum (a:FPA) = PA.Sum(a)
+let select (cond:FPA) (a:FPA) (b:FPA) = PA.Select(cond,a,b)
 </pre>
 <p>The <code>sqrt</code> function is a point-wise operation that calculates
   square roots of all elements of the array. <code>sum</code> is a little bit more
@@ -233,12 +233,12 @@
   be done using <code>Array2D.init</code> function, which initializes an array 
   using the function that calculates an element value (in our example, the function
   is called <code>generator</code>):</p>  
-<pre >
-<span class="k">let</span> rnd = <span class="k">new</span> Random()
-<span class="k">let</span> generator x y = float32(rnd.NextDouble())
+<pre lang="fsharp">
+let rnd = new Random()
+let generator x y = float32(rnd.NextDouble())
 
-<span class="k">let</span> px = <span class="k">new</span> FPA(Array2D.init gridSize gridSize generator)
-<span class="k">let</span> py = <span class="k">new</span> FPA(Array2D.init gridSize gridSize generator)
+let px = new FPA(Array2D.init gridSize gridSize generator)
+let py = new FPA(Array2D.init gridSize gridSize generator)
 </pre>
 <p>Once we have .NET arrays with random values, we use them to create
   constant computations represented as the <code>FloatParallelArray</code> type
@@ -246,18 +246,18 @@
   (an object that knows how to evaluate <code>FloatParallelArray</code> computations)
   and calculates an approximate value of PI using our random points:</p>
 
-<pre >
-<span class="k">let</span> calculatePi (target:Target) =
-  <span class="c">// Calculate distances of points from the center</span>
-  <span class="k">let</span> pxc, pyc = (px - 0.5f) * 2.0f, (py - 0.5f) * 2.0f
-  <span class="k">let</span> distances = sqrt ((pxc * pxc) + (pyc * pyc))
+<pre lang="fsharp">
+let calculatePi (target:Target) =
+  // Calculate distances of points from the center
+  let pxc, pyc = (px - 0.5f) * 2.0f, (py - 0.5f) * 2.0f
+  let distances = sqrt ((pxc * pxc) + (pyc * pyc))
 
-  <span class="c">// Count points with distance less than one</span>
-  <span class="k">let</span> inCircle = select (one - distances) one zero
-  <span class="k">let</span> count = sum(inCircle)
+  // Count points with distance less than one
+  let inCircle = select (one - distances) one zero
+  let count = sum(inCircle)
 
-  <span class="c">// Evaluate the count and calculate PI</span>
-  <span class="k">let</span> result = target.ToArray1D(count)
+  // Evaluate the count and calculate PI
+  let result = target.ToArray1D(count)
   result.[0] / (float32(gridSize * gridSize) / 4.0f)
 </pre>
 
@@ -290,10 +290,10 @@
   value of PI! The last step is to actually run the computation using
   Accelerator:</p>
 
-<pre >
-<span class="k">let</span> dxTarget = <span class="k">new</span> DX9Target()
-<span class="k">let</span> pi = calculatePi(dxTarget)  
-printfn <span class="s">"Approximate PI value: %f"</span> pi
+<pre lang="fsharp">
+let dxTarget = new DX9Target()
+let pi = calculatePi(dxTarget)  
+printfn "Approximate PI value: %f" pi
 </pre>
 
 <p>As you can see, running the calculation is now pretty simple. We created an
@@ -383,54 +383,66 @@ printfn <span class="s">"Approximate PI value: %f"</span> pi
 
     <h3>Welcome!</h3>
     <img src="http://tomasp.net/img/tomas.jpg" alt="Tomas Petricek" style="float:right;margin:10px 0px 10px 10px;" />
-    <p>I'm an F# enthusiast, book author and a PhD student at the University of Cambridge.
+    <p>I'm an F# open-source developer, book author and computer scientist. I submitted my PhD thesis recently.
       When offline, I enjoy traveling and taking pictures. You can find me at
       at <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a> or email 
       <a href="mailto:tomas@tomasp.net">tomas@tomasp.net</a>.
     </p>
 
+    <h4>Trainings and consulting</h4>
+    <a href="http://fsharpworks.com"><img src="http://tomasp.net/img/fsharpworks.png" alt="F# Works" style="float:right;margin:15px 0px 10px 10px; width:150px" /></a>
+    <p>I'm an experienced F# developer and trainer. <br /> I offer training and consulting
+      services through <a href="http://fsharpworks.com">F# Works</a>.
+    </p>
+    <ul>
+      <li>Check out my <a href="http://fsharpworks.com/workshops/fast-track.html">in-person Fast Track to F#</a> course</li>
+      <li>Check out my <a href="http://fsharpworks.com/workshops/finance.html">online F# in Finance</a> course</li>
+      <li><a href="mailto:tomas@tomasp.net">Email me</a> for info about private trainings</li>
+    </ul>
+    
     <script type="text/javascript" src="http://tomasp.net/news/news.js"></script>
     <h4>What's new? &#160; <small><script type="text/javascript">document.write(news.date)</script></small></h4>
     <script>
       document.write(news.info);
     </script>
 
-    <h4>Trainings and consulting</h4>
-    <img src="http://tomasp.net/img/skillsmatter.png" alt="Tomas Petricek" style="float:right;margin:15px 0px 10px 10px;" />
-    <p>I run F# and functional programming courses in <strong>London</strong>
-      and <strong>New York</strong> with SkillsMatter.
-    </p>
-    <ul>
-      <li>Check out our <a href="http://skillsmatter.com/course/scala/tomas-petricek-phil-trelford-fast-track-to-fsharp/ps-6679">Fast Track to F#</a> course</li>
-      <li><a href="mailto:tomas@tomasp.net">Email me</a> for info about private trainings</li>
-    </ul>
-    
-    <h4>F# Books and articles</h4>
+    <h4>Functional F# and C# books</h4>
     <div style="float:right;">
       <a href="http://www.amazon.com/gp/product/1933988924/ref=as_li_tf_il?ie=UTF8&amp;tag=httptomasnet-20&amp;linkCode=as2&amp;camp=217145&amp;creative=399369&amp;creativeASIN=1933988924">
-        <img src="http://tomasp.net/img/rwfp.jpg" alt="Real World Functional Programming" style="float:right;margin:10px 0px 10px 10px;border-style:none;" />
+        <img src="http://tomasp.net/img/deepdives.png" alt="F# Deep Dives" style="float:right;margin:15px 0px 15px 10px;border-style:none;" />
       </a>
     </div>
-    <p><a href="http://www.manning.com/petricek">Real World Functional Programming</a> explains functional
-      concepts using F# and C#. You can get it from <a href="http://www.amazon.com/dp/1933988924?tag=httptomasnet-20&amp;camp=213381&amp;creative=390973&amp;linkCode=as4&amp;creativeASIN=1933988924&amp;adid=0F1DP260JGG4KY0CDGP6">Amazon.com</a>, <a href="https://www.amazon.co.uk/dp/1933988924?tag=tomasnet-21&amp;camp=1406&amp;creative=6394&amp;linkCode=as1&amp;creativeASIN=1933988924&amp;adid=1CTY87YCCQEJW965GNDF">Amazon.co.uk</a> or your favorite book store.
-      Some chapters and new materials are also available on <a href="http://msdn.microsoft.com/en-us/library/hh314518.aspx">MSDN</a>.</p>
-    
-    <p>Currently, I'm putting together <a href="http://www.manning.com/petricek2/">F# Deep Dives</a> - a collection
-      of practical F# essays written by community leaders and commercial users of F#.</p>
-    <p>I also wrote a series of tutorials on <a href="http://www.tryfsharp.org/Learn/financial-computing">financial computing</a>
-      for Try F# - an interactive environment that let's you try F# in the browser.</p>
+    <p>
+      I wrote or contributed to two books on F# and functional programming:
+      <a href="http://functional-programming.net/rwfp">Real World Functional Programming</a> explains functional
+      concepts using F# and C# and <a href="http://functional-programming.net/deepdives">F# Deep Dives</a> is a 
+      collection of case studies written by industry experts.</p>
+    <ul>
+      <li><a href="http://functional-programming.net/rwfp"><strong>Real World Funcitonal Programming</strong></a> home page. See
+        <a href="http://manning.com/petricek">Manning</a>,
+        <a href="https://www.amazon.com/dp/1933988924?tag=httptomasnet-20&amp;camp=213381&amp;creative=390973&amp;linkCode=as4&amp;creativeASIN=1933988924&amp;adid=0F1DP260JGG4KY0CDGP6">Amazon.com</a> or
+        <a href="https://www.amazon.co.uk/dp/1933988924?tag=tomasnet-21&amp;camp=1406&amp;creative=6394&amp;linkCode=as1&amp;creativeASIN=1933988924&amp;adid=1CTY87YCCQEJW965GNDF">Amazon.co.uk</a>.
+      </li>
+      <li><a href="http://functional-programming.net/deepdives"><strong>F# Deep Dives</strong></a> home page. Get it from
+        <a href="http://www.manning.com/petricek2">Manning.com</a>,
+        <a href="http://www.amazon.com/gp/product/1617291323/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=1617291323&linkCode=as2&tag=httptomasnet-20&linkId=U4FPJJSKKCCKGNHD">Amazon.com</a> or
+        <a href="http://www.amazon.co.uk/gp/product/1617291323/ref=as_li_tl?ie=UTF8&camp=1634&creative=19450&creativeASIN=1617291323&linkCode=as2&tag=tomasnet-21&linkId=HTUYVHHGWB4Q7X6V">Amazon.co.uk</a>.
+      </li>
+    </ul>    
+    <p>I also wrote a series of tutorials on <a href="http://www.tryfsharp.org/Learn/financial-computing">financial computing for Try F#</a>.
+      This interactive environment let's you try F# in the browser.</p>
 
     <h4>Research and teaching</h4>
     <img src="http://tomasp.net/img/cam.png" alt="University of Cambride" style="float:right;margin:25px 0px 10px 10px;" />
-    <p>I'm finishing PhD in computer science at the <a href="http://www.cl.cam.ac.uk/">University of Cambridge</a>.
-      I'm working on making better types for programs that run in rich context (like F# type providers, distributed 
-      prog&shy;ramming or data-flow). See <a href="http://www.cl.cam.ac.uk/~tp322/">my academic page</a> for
+    <p>I submitted my PhD thesis at the <a href="http://www.cl.cam.ac.uk/">University of Cambridge</a>,
+      working on making better types for programs that run in rich context (like F# type providers, distributed 
+      prog&shy;ramming or data-flow). See <a href="http://tomasp.net/academic/">my academic page</a> for
       more.</p>
 
     <h4>Blog tags</h4>
     <p>
 
-      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(97),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(33),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(10),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(29),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/fsharp-data/">f# data</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/monads/">monads</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/art/">art</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fractals/">fractals</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/funscript/">funscript</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(1)    </p>
+      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(99),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(33),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(11),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(29),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/open-source/">open source</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/monads/">monads</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fslab/">fslab</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(1)    </p>
 
   </div>
 </div>
@@ -452,8 +464,9 @@ printfn <span class="s">"Approximate PI value: %f"</span> pi
     </div>
     <div class="large-7 columns">
     <h4>Blog archives <a href="http://tomasp.net/rss.xml"><img src="http://tomasp.net/img/rss.gif" /></a></h4>
-      <a href="http://tomasp.net/blog/archive/january-2015/index.html">
-        January 2015 (1)</a>,      <a href="http://tomasp.net/blog/archive/december-2014/index.html">
+      <a href="http://tomasp.net/blog/archive/february-2015/index.html">
+        February 2015 (1)</a>,      <a href="http://tomasp.net/blog/archive/january-2015/index.html">
+        January 2015 (2)</a>,      <a href="http://tomasp.net/blog/archive/december-2014/index.html">
         December 2014 (1)</a>,      <a href="http://tomasp.net/blog/archive/may-2014/index.html">
         May 2014 (3)</a>,      <a href="http://tomasp.net/blog/archive/april-2014/index.html">
         April 2014 (2)</a>,      <a href="http://tomasp.net/blog/archive/march-2014/index.html">

@@ -49,10 +49,10 @@
     <section class="top-bar-section">
       <ul class="right">
         <li><a href="http://tomasp.net/blog/index.html">Blog</a></li>
-        <li><a href="http://functional-programming.net">Trainings</a></li>
         <li><a href="http://functional-programming.net">Books</a></li>
-        <li><a href="http://lanyrd.com/profile/tomasp">Talks</a></li>
-        <li><a href="http://tomasp.net/academic">Research & Teaching</a></li>
+        <li><a href="http://fsharpworks.com/workshops.html">Trainings</a></li>
+        <li><a href="http://fsharpworks.com">Consulting</a></li>
+        <li><a href="http://tomasp.net/academic">Research</a></li>
       </ul>
     </section>
 
@@ -107,19 +107,19 @@
   with a small green ellipse somewhere on the form. You can see the expected result in the attached screenshot.
   If you paste the source code to the F# interactive, a form should appear (Note, you can open the code in 
   Visual Studio, select it and hit <strong>Alt + Enter</strong> to run it in the F# interactive):</p>
-<pre >
-<span class="prep">#light</span>
-<span class="k">open</span> System.Drawing
-<span class="k">open</span> System.Windows.Forms
+<pre lang="fsharp">
+#light
+open System.Drawing
+open System.Windows.Forms
 
-<span class="c">// Generate random location for the ellipse</span>
-<span class="k">let</span> rnd = <span class="k">new</span> System.Random()
-<span class="k">let</span> x, y = rnd.Next(550), rnd.Next(350)
+// Generate random location for the ellipse
+let rnd = new System.Random()
+let x, y = rnd.Next(550), rnd.Next(350)
 
-<span class="c">// Create the main form</span>
-<span class="k">let</span> frm = <span class="k">new</span> Form(ClientSize=Size(600,400))
-<span class="c">// Add event handler to paint the ellipse</span>
-frm.Paint.Add(<span class="k">fun</span> e <span class="o">-&gt;</span>
+// Create the main form
+let frm = new Form(ClientSize=Size(600,400))
+// Add event handler to paint the ellipse
+frm.Paint.Add(fun e -&gt;
     e.Graphics.FillRectangle(Brushes.White, 0, 0, 600, 400)
     e.Graphics.FillEllipse(Brushes.DarkOliveGreen, x, y, 50, 50)  
   )
@@ -147,11 +147,11 @@ frm.Show()
   uses the given function to transform an element (for example a number <code>n</code>) into something
   else (for example a type that contains the original number and its square). Let's take a look at an example
   that demonstrates this:</p>
-<pre >
-&gt; [1 .. 10]
-    <span class="o">|</span>&gt; List.filter (<span class="k">fun</span> n <span class="o">-&gt;</span> n % 2 = 1)
-    <span class="o">|</span>&gt; List.map (<span class="k">fun</span> n <span class="o">-&gt;</span> (n, n*n));;
-<span class="k">val</span> it : (int * int) list = <span class="o">[</span>(1, 1); (3, 9); (5, 25); (7, 49); (9, 81)<span class="o">]</span>
+<pre lang="fsharp">
+> [1 .. 10]
+    |&gt; List.filter (fun n -&gt; n % 2 = 1)
+    |&gt; List.map (fun n -&gt; (n, n*n));;
+val it : (int * int) list = [(1, 1); (3, 9); (5, 25); (7, 49); (9, 81)]
 </pre>  
 <p>In this example, we took a list of numbers from 1 to 10. Then we filtered it using <code>List.filter</code>, so
   the result contained only odd numbers. Finally, we used the <code>List.map</code> function to transform the 
@@ -165,27 +165,27 @@ frm.Show()
   can use <code>map</code> to turn information about the click into something more interesting, such as
   a message that we'll show to the user. Let's finally implement the code that handles clicks on the ellipse 
   using these event processing functions:</p>
-<pre >
-&gt; <span class="c">// Utility function to calculate the distance </span>
-  <span class="k">open</span> System
-  <span class="k">let</span> dist (x1, y1) (x2, y2) =
+<pre lang="fsharp">
+&gt; // Utility function to calculate the distance 
+  open System
+  let dist (x1, y1) (x2, y2) =
     Math.Sqrt(Math.Pow(x1 - x2, 2.0) + Math.Pow(y1 - y2, 2.0))
   ;;
-<span class="k">val</span> dist : float * float <span class="o">-&gt;</span> float * float <span class="o">-&gt;</span> float
+val dist : float * float -> float * float -> float
 
-&gt; <span class="k">let</span> evtMessages =
+&gt; let evtMessages =
     frm.MouseDown
-      <span class="o">|</span>&gt; Event.filter (<span class="k">fun</span> mi <span class="o">-&gt;</span> 
-          <span class="c">// The distance between click location and </span>
-          <span class="c">// the center of the ellipse is less than 25</span>
+      |&gt; Event.filter (fun mi -&gt; 
+          // The distance between click location and 
+          // the center of the ellipse is less than 25
           dist (float mi.X, float mi.Y) (float(x + 25), float(y + 25)) &lt; 25.0 )
-      <span class="o">|</span>&gt; Event.map (<span class="k">fun</span> mi <span class="o">-&gt;</span>
-          <span class="c">// Return message that we'll show to the user</span>
-          <span class="k">if</span> (int (mi.Button &amp;&amp;&amp; MouseButtons.Left) &lt;&gt; 0) <span class="k">then</span> <span class="s">"Left button"</span>
-          elif (int (mi.Button &amp;&amp;&amp; MouseButtons.Right) &lt;&gt; 0) <span class="k">then</span> <span class="s">"Right button"</span>
-          <span class="k">else</span> <span class="s">"Some trick!"</span>)
+      |&gt; Event.map (fun mi -&gt;
+          // Return message that we'll show to the user
+          if (int (mi.Button &amp;&amp;&amp; MouseButtons.Left) &lt;&gt; 0) then "Left button"
+          elif (int (mi.Button &amp;&amp;&amp; MouseButtons.Right) &lt;&gt; 0) then "Right button"
+          else "Some trick!")
   ;;
-<span class="k">val</span> evtMessages : IEvent&lt;string&gt;
+val evtMessages : IEvent&lt;string&gt;
 </pre>  
 <p>We aren't yet done with the application, but we did two important steps. Let's take a look at them in detail.
   We first used the <code>Event.filter</code> processing function. The predicate that we gave it tests whether
@@ -217,10 +217,10 @@ frm.Show()
   function composition. These are in detail explained in my <a href="http://tomasp.net/blog/functional-net-update.aspx">F# book</a>,
   but you can get some idea from the F# overview [<a href="#react1links">5</a>] that I wrote some time ago. </p>  
   
-<pre >
+<pre lang="fsharp">
 evtMessages
-  <span class="o">|</span>&gt; Event.map (sprintf <span class="s">"Hey, you clicked on the ellipse.\nUsing: %s"</span>)
-  <span class="o">|</span>&gt; Event.listen (MessageBox.Show &gt;&gt; ignore)
+  |&gt; Event.map (sprintf "Hey, you clicked on the ellipse.\nUsing: %s")
+  |&gt; Event.listen (MessageBox.Show &gt;&gt; ignore)
 </pre>
 <p>This time we'll writing processing code for the <code>evtMessages</code> value, which is an event that
   we constructed in the previous example. In the first line, we use the <code>Event.map</code> function to 
@@ -329,54 +329,66 @@ evtMessages
 
     <h3>Welcome!</h3>
     <img src="http://tomasp.net/img/tomas.jpg" alt="Tomas Petricek" style="float:right;margin:10px 0px 10px 10px;" />
-    <p>I'm an F# enthusiast, book author and a PhD student at the University of Cambridge.
+    <p>I'm an F# open-source developer, book author and computer scientist. I submitted my PhD thesis recently.
       When offline, I enjoy traveling and taking pictures. You can find me at
       at <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a> or email 
       <a href="mailto:tomas@tomasp.net">tomas@tomasp.net</a>.
     </p>
 
+    <h4>Trainings and consulting</h4>
+    <a href="http://fsharpworks.com"><img src="http://tomasp.net/img/fsharpworks.png" alt="F# Works" style="float:right;margin:15px 0px 10px 10px; width:150px" /></a>
+    <p>I'm an experienced F# developer and trainer. <br /> I offer training and consulting
+      services through <a href="http://fsharpworks.com">F# Works</a>.
+    </p>
+    <ul>
+      <li>Check out my <a href="http://fsharpworks.com/workshops/fast-track.html">in-person Fast Track to F#</a> course</li>
+      <li>Check out my <a href="http://fsharpworks.com/workshops/finance.html">online F# in Finance</a> course</li>
+      <li><a href="mailto:tomas@tomasp.net">Email me</a> for info about private trainings</li>
+    </ul>
+    
     <script type="text/javascript" src="http://tomasp.net/news/news.js"></script>
     <h4>What's new? &#160; <small><script type="text/javascript">document.write(news.date)</script></small></h4>
     <script>
       document.write(news.info);
     </script>
 
-    <h4>Trainings and consulting</h4>
-    <img src="http://tomasp.net/img/skillsmatter.png" alt="Tomas Petricek" style="float:right;margin:15px 0px 10px 10px;" />
-    <p>I run F# and functional programming courses in <strong>London</strong>
-      and <strong>New York</strong> with SkillsMatter.
-    </p>
-    <ul>
-      <li>Check out our <a href="http://skillsmatter.com/course/scala/tomas-petricek-phil-trelford-fast-track-to-fsharp/ps-6679">Fast Track to F#</a> course</li>
-      <li><a href="mailto:tomas@tomasp.net">Email me</a> for info about private trainings</li>
-    </ul>
-    
-    <h4>F# Books and articles</h4>
+    <h4>Functional F# and C# books</h4>
     <div style="float:right;">
       <a href="http://www.amazon.com/gp/product/1933988924/ref=as_li_tf_il?ie=UTF8&amp;tag=httptomasnet-20&amp;linkCode=as2&amp;camp=217145&amp;creative=399369&amp;creativeASIN=1933988924">
-        <img src="http://tomasp.net/img/rwfp.jpg" alt="Real World Functional Programming" style="float:right;margin:10px 0px 10px 10px;border-style:none;" />
+        <img src="http://tomasp.net/img/deepdives.png" alt="F# Deep Dives" style="float:right;margin:15px 0px 15px 10px;border-style:none;" />
       </a>
     </div>
-    <p><a href="http://www.manning.com/petricek">Real World Functional Programming</a> explains functional
-      concepts using F# and C#. You can get it from <a href="http://www.amazon.com/dp/1933988924?tag=httptomasnet-20&amp;camp=213381&amp;creative=390973&amp;linkCode=as4&amp;creativeASIN=1933988924&amp;adid=0F1DP260JGG4KY0CDGP6">Amazon.com</a>, <a href="https://www.amazon.co.uk/dp/1933988924?tag=tomasnet-21&amp;camp=1406&amp;creative=6394&amp;linkCode=as1&amp;creativeASIN=1933988924&amp;adid=1CTY87YCCQEJW965GNDF">Amazon.co.uk</a> or your favorite book store.
-      Some chapters and new materials are also available on <a href="http://msdn.microsoft.com/en-us/library/hh314518.aspx">MSDN</a>.</p>
-    
-    <p>Currently, I'm putting together <a href="http://www.manning.com/petricek2/">F# Deep Dives</a> - a collection
-      of practical F# essays written by community leaders and commercial users of F#.</p>
-    <p>I also wrote a series of tutorials on <a href="http://www.tryfsharp.org/Learn/financial-computing">financial computing</a>
-      for Try F# - an interactive environment that let's you try F# in the browser.</p>
+    <p>
+      I wrote or contributed to two books on F# and functional programming:
+      <a href="http://functional-programming.net/rwfp">Real World Functional Programming</a> explains functional
+      concepts using F# and C# and <a href="http://functional-programming.net/deepdives">F# Deep Dives</a> is a 
+      collection of case studies written by industry experts.</p>
+    <ul>
+      <li><a href="http://functional-programming.net/rwfp"><strong>Real World Funcitonal Programming</strong></a> home page. See
+        <a href="http://manning.com/petricek">Manning</a>,
+        <a href="https://www.amazon.com/dp/1933988924?tag=httptomasnet-20&amp;camp=213381&amp;creative=390973&amp;linkCode=as4&amp;creativeASIN=1933988924&amp;adid=0F1DP260JGG4KY0CDGP6">Amazon.com</a> or
+        <a href="https://www.amazon.co.uk/dp/1933988924?tag=tomasnet-21&amp;camp=1406&amp;creative=6394&amp;linkCode=as1&amp;creativeASIN=1933988924&amp;adid=1CTY87YCCQEJW965GNDF">Amazon.co.uk</a>.
+      </li>
+      <li><a href="http://functional-programming.net/deepdives"><strong>F# Deep Dives</strong></a> home page. Get it from
+        <a href="http://www.manning.com/petricek2">Manning.com</a>,
+        <a href="http://www.amazon.com/gp/product/1617291323/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=1617291323&linkCode=as2&tag=httptomasnet-20&linkId=U4FPJJSKKCCKGNHD">Amazon.com</a> or
+        <a href="http://www.amazon.co.uk/gp/product/1617291323/ref=as_li_tl?ie=UTF8&camp=1634&creative=19450&creativeASIN=1617291323&linkCode=as2&tag=tomasnet-21&linkId=HTUYVHHGWB4Q7X6V">Amazon.co.uk</a>.
+      </li>
+    </ul>    
+    <p>I also wrote a series of tutorials on <a href="http://www.tryfsharp.org/Learn/financial-computing">financial computing for Try F#</a>.
+      This interactive environment let's you try F# in the browser.</p>
 
     <h4>Research and teaching</h4>
     <img src="http://tomasp.net/img/cam.png" alt="University of Cambride" style="float:right;margin:25px 0px 10px 10px;" />
-    <p>I'm finishing PhD in computer science at the <a href="http://www.cl.cam.ac.uk/">University of Cambridge</a>.
-      I'm working on making better types for programs that run in rich context (like F# type providers, distributed 
-      prog&shy;ramming or data-flow). See <a href="http://www.cl.cam.ac.uk/~tp322/">my academic page</a> for
+    <p>I submitted my PhD thesis at the <a href="http://www.cl.cam.ac.uk/">University of Cambridge</a>,
+      working on making better types for programs that run in rich context (like F# type providers, distributed 
+      prog&shy;ramming or data-flow). See <a href="http://tomasp.net/academic/">my academic page</a> for
       more.</p>
 
     <h4>Blog tags</h4>
     <p>
 
-      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(97),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(33),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(10),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(29),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/fsharp-data/">f# data</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/monads/">monads</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/art/">art</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fractals/">fractals</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/funscript/">funscript</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(1)    </p>
+      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(99),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(33),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(11),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(29),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/open-source/">open source</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/monads/">monads</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fslab/">fslab</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(1)    </p>
 
   </div>
 </div>
@@ -398,8 +410,9 @@ evtMessages
     </div>
     <div class="large-7 columns">
     <h4>Blog archives <a href="http://tomasp.net/rss.xml"><img src="http://tomasp.net/img/rss.gif" /></a></h4>
-      <a href="http://tomasp.net/blog/archive/january-2015/index.html">
-        January 2015 (1)</a>,      <a href="http://tomasp.net/blog/archive/december-2014/index.html">
+      <a href="http://tomasp.net/blog/archive/february-2015/index.html">
+        February 2015 (1)</a>,      <a href="http://tomasp.net/blog/archive/january-2015/index.html">
+        January 2015 (2)</a>,      <a href="http://tomasp.net/blog/archive/december-2014/index.html">
         December 2014 (1)</a>,      <a href="http://tomasp.net/blog/archive/may-2014/index.html">
         May 2014 (3)</a>,      <a href="http://tomasp.net/blog/archive/april-2014/index.html">
         April 2014 (2)</a>,      <a href="http://tomasp.net/blog/archive/march-2014/index.html">

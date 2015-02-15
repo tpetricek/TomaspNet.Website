@@ -7,10 +7,10 @@
     }<h1>Reactive Programming (IV.) - Developing a game in Reactive LINQ</h1>
 <p>In this part of the article series about <strong>Reactive LINQ</strong>we're going to 
   implement a slightly more complicated application using the library that I introduced
-  in the previous three articles. We're going to use basic event stream queries from the <a href="reactive-ii-csevents.aspx">second article</a> 
-  as well as advanced operators introduced in the <a href="reactive-iii-linqoperators.aspx">third part</a>.
+  in the previous three articles. We're going to use basic event stream queries from the <a href="/blog/reactive-ii-csevents.aspx">second article</a> 
+  as well as advanced operators introduced in the <a href="/blog/reactive-iii-linqoperators.aspx">third part</a>.
   This time, I'll also show the F# version of all the examples, so we're going to build on the ideas from
-  the <a href="reactive-i-fsevents.aspx">first part</a>.</p>
+  the <a href="/blog/reactive-i-fsevents.aspx">first part</a>.</p>
 
 <p>I originally wanted to write the demo only in Visual Basic, because I think that
   it is really amazig to show an idea that came from functional programming in a language
@@ -112,7 +112,7 @@ let eClicked =
 <p>As a next step, we'll implement moving of the smiley. The smiley moves when the user clicks on it,
   so we'll need to use the event <code>eClicked</code> from the previous listing. However, the smiley
   also moves after 600ms if the user hasn't clicked on it yet. This is quite similar to one of the examples
-  from the <a href="reactive-iii-linqoperators.aspx">previous article</a> - the one where we were displaying 
+  from the <a href="/blog/reactive-iii-linqoperators.aspx">previous article</a> - the one where we were displaying 
   "Click..." and "Timeout!" messages.</p>
 <p>We'll need to use one of the switching operators. We want to generate a new event stream every time 
   an event occurs, to make sure that the timer will start counting from zero. This can be done using
@@ -269,9 +269,9 @@ Reactive.Repeatedly(1000.0)
 
 <h3>Series links</h3>
 <ul>
-  <li><a href="reactive-i-fsevents.aspx">Reactive programming (I.) - First class events in F#</a></li>
-  <li><a href="reactive-ii-csevents.aspx">Reactive programming (II.) - Introducing Reactive LINQ</a></li>
-  <li><a href="reactive-iii-linqoperators.aspx">Reactive Programming (III.) - Useful Reactive LINQ Operators</a></li>
+  <li><a href="/blog/reactive-i-fsevents.aspx">Reactive programming (I.) - First class events in F#</a></li>
+  <li><a href="/blog/reactive-ii-csevents.aspx">Reactive programming (II.) - Introducing Reactive LINQ</a></li>
+  <li><a href="/blog/reactive-iii-linqoperators.aspx">Reactive Programming (III.) - Useful Reactive LINQ Operators</a></li>
   <li>Reactive Programming (IV.) - Developing reactive game in Reactive LINQ</li>
 </ul>
 

@@ -103,7 +103,7 @@ Here, we're calling `gp.Plot` with the pipeline operator and we only specified t
 However, the `gp.Plot` method has a number of other optional parameters that can be used
 to configure how the chart looks. You can, for example, specify the range:
 *)
-let series = (***[omit:(Same as above)***)
+let series = (***[omit:(Same as above)]***)
   [ Series.XY
       ( [for x in 0.0 .. 0.5 .. 10.0 -> x, sin x], 
         title="sin", lineColor=Color.BurlyWood, weight=2 )

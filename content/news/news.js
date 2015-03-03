@@ -1,23 +1,22 @@
 // Explicit 
-var news1 =
+var news =
 {
-  "date": "September 2013, NYC",
+  "date": "April 2015, Londong",
   "info": "\
- \
-  <p style='text-align:center'>\
-  <a href='http://skillsmatter.com/event/scala/progressive-f-tutorials-nyc'> \
-    <img src='/news/content/progfsharp-nyc-2013.jpg' style='border:none' /> \
-  </a> \
-  </p> \
   <p> \
-  Become F# master in <strong>four days</strong> in <strong>New York</strong>! <br />If you come to \
-  our two day training on September 16-17, you get a free ticket to Progressive F# \
-  tutorials on September 18-19. If you're interested <a href='mailto:tomas@tomasp.net'>email me</a>! \
+    Interested in two-day F# training followed by one more day of exciting \
+    F# conference? Join us for <strong>Fast Track to F#</strong> (15-16 April) and <strong>F# eXchange</strong> \
+    (17 April)! For our special offer, <a href='mailto:tomas@tomasp.net'>send me an email</a>! \
+  </p> \
+  <p style='text-align:center'>\
+  <a href='https://skillsmatter.com/conferences/6724-f-exchange'> \
+    <img src='http://theburningmonk.com/WordPress/wp-content/uploads/2015/02/image.png' style='border:none;width:180px' /> \
+  </a> \
   </p>"
 }
 
 // Lanyrd 
-var news =
+var news1 =
   {
     "date": "",
     "info": '\

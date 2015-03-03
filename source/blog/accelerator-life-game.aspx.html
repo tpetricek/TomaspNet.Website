@@ -6,7 +6,7 @@
       Description = "This article shows how to use Accelerator from F#, which I already discussed, to implement a massively parallel version of the famous Conway's Game of Life.";
     }<h1>Accelerator and F# (II.): The Game of Life on GPU</h1>
 <img src="/articles/accelerator-life-game/life.png" alt="Conway's Game of Life" style="float:right; margin:10px" />
-<p>In the <a href="accelerator-intro.aspx">previous article</a>, I introduced the
+<p>In the <a href="/blog/accelerator-intro.aspx">previous article</a>, I introduced the
   Microsoft Research Accelerator library. It allows us to write computations with arrays
   in C# and execute them in parallel on multi-core CPU or more interestingly, 
   using GPU shaders. In the previous artcile, we've seen how Accelerator works and 
@@ -23,7 +23,7 @@
   with Accelerator using F# quotations. The list of articles may change, but here is 
   a list of articles that I'm currently planning to write:</p>
 <ul>
-  <li><a href="accelerator-intro.aspx">Accelerator and F# (I.): Introduction and calculating PI</a></li>
+  <li><a href="/blog/accelerator-intro.aspx">Accelerator and F# (I.): Introduction and calculating PI</a></li>
   <li><strong>Accelerator and F# (II.): The Game of Life on GPU</strong></li>
   <li><a href="http://tomasp.net/blog/accelerator-dataparallel.aspx">Accelerator and F# (III.): Data-parallel programs using F# quotations</a></li>
   <li><a href="http://tomasp.net/blog/accelerator-quotations.aspx">Accelerator and F# (IV.): Composing computations with quotations</a></li></ul>  
@@ -63,7 +63,7 @@
   window is a multiple of the grid size. Once we know the size, we'll initialize
   a couple of <code>FloatParallelArray</code> instances representing arrays
   of the specified size that contain constant values. We're using the <code>FPA</code>
-  type alias from the <a href="accelerator-intro.aspx">previous article</a>.</p>
+  type alias from the <a href="/blog/accelerator-intro.aspx">previous article</a>.</p>
 
 <pre lang="fsharp">
 // Configuration of the game
@@ -105,7 +105,7 @@ let (==.) (a:FPA) (b:FPA) = PA.Cond(PA.CompareEqual(a, b), one, zero)
   dot to denote that they implement point-wise operations.</p>
 <p>The <code>rotate</code> function moves elements of the array by the specified 
   offset (it is a bit similar to <code>Shift</code> that we discussed in the 
-  <a href="accelerator-intro.aspx">previous article</a>). However, when elements
+  <a href="/blog/accelerator-intro.aspx">previous article</a>). However, when elements
   is shifted outside outside of the grid, values are copied back from 
   the other side. To demonstrate this, if we moved the contents of 1D array 
   <code>[1; 2; 3; 4; 5]</code> by +2, we'd get <code>[4; 5; 1; 2; 3]</code>.</p>

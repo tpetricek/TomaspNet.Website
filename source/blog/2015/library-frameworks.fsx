@@ -2,7 +2,7 @@
   Layout = "post";
   Title = "Library patterns: Why frameworks are evil";
   Tags = "f#, open source, functional programming";
-  Date = "2015-03-01T16:54:30.6183730+01:00";
+  Date = "2015-03-03T17:13:48.1147024+01:00";
   Description = "This article continues my mini-series on functional library " +
     "design. Previously, I discussed why your library should provide multiple levels " +
     "of abstraction. Today, we look at composability and avoiding callbacks. " +

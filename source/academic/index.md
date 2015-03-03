@@ -301,6 +301,18 @@ application.
 Start here if you want to know that I'm currently working on and what I recently 
 completed. Unpublished drafts are marked as such and I'm always looking for feedback!
 
+#### Draft: [F# Data: Making structured data first-class citizens](@Model.Root/academic/drafts/fsharp-data/)
+
+> Tomas Petricek, Gustavo Guerra, Don Syme. Submitted to ICFP 2015
+
+This paper presents the F# Data type providers for accessing XML, CSV and JSON data.
+The paper discusses the type inference algorithm used by the library and also the 
+relativized safety property, which provides guarantees of correctness when the library
+is used with representative sample documents.
+
+ - [abstract](@Model.Root/academic/drafts/fsharp-data/) 
+ | [draft](@Model.Root/academic/drafts/fsharp-data/fsharp-data.pdf)
+
 #### Draft: [In the Age of Web: Typed Functional-First Programming Revisited](@Model.Root/academic/drafts/age-of-web/)
 
 > Tomas Petricek, Don Syme. Submitted in ML 2014 post-proceedings

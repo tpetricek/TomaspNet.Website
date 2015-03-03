@@ -66,7 +66,7 @@
       
 <h1>Accelerator and F# (II.): The Game of Life on GPU</h1>
 <img src="/articles/accelerator-life-game/life.png" alt="Conway's Game of Life" style="float:right; margin:10px" />
-<p>In the <a href="accelerator-intro.aspx">previous article</a>, I introduced the
+<p>In the <a href="/blog/accelerator-intro.aspx">previous article</a>, I introduced the
   Microsoft Research Accelerator library. It allows us to write computations with arrays
   in C# and execute them in parallel on multi-core CPU or more interestingly, 
   using GPU shaders. In the previous artcile, we've seen how Accelerator works and 
@@ -83,7 +83,7 @@
   with Accelerator using F# quotations. The list of articles may change, but here is 
   a list of articles that I'm currently planning to write:</p>
 <ul>
-  <li><a href="accelerator-intro.aspx">Accelerator and F# (I.): Introduction and calculating PI</a></li>
+  <li><a href="/blog/accelerator-intro.aspx">Accelerator and F# (I.): Introduction and calculating PI</a></li>
   <li><strong>Accelerator and F# (II.): The Game of Life on GPU</strong></li>
   <li><a href="http://tomasp.net/blog/accelerator-dataparallel.aspx">Accelerator and F# (III.): Data-parallel programs using F# quotations</a></li>
   <li><a href="http://tomasp.net/blog/accelerator-quotations.aspx">Accelerator and F# (IV.): Composing computations with quotations</a></li></ul>  
@@ -123,7 +123,7 @@
   window is a multiple of the grid size. Once we know the size, we'll initialize
   a couple of <code>FloatParallelArray</code> instances representing arrays
   of the specified size that contain constant values. We're using the <code>FPA</code>
-  type alias from the <a href="accelerator-intro.aspx">previous article</a>.</p>
+  type alias from the <a href="/blog/accelerator-intro.aspx">previous article</a>.</p>
 
 <pre lang="fsharp">
 // Configuration of the game
@@ -165,7 +165,7 @@ let (==.) (a:FPA) (b:FPA) = PA.Cond(PA.CompareEqual(a, b), one, zero)
   dot to denote that they implement point-wise operations.</p>
 <p>The <code>rotate</code> function moves elements of the array by the specified 
   offset (it is a bit similar to <code>Shift</code> that we discussed in the 
-  <a href="accelerator-intro.aspx">previous article</a>). However, when elements
+  <a href="/blog/accelerator-intro.aspx">previous article</a>). However, when elements
   is shifted outside outside of the grid, values are copied back from 
   the other side. To demonstrate this, if we moved the contents of 1D array 
   <code>[1; 2; 3; 4; 5]</code> by +2, we'd get <code>[4; 5; 1; 2; 3]</code>.</p>
@@ -510,7 +510,7 @@ type DrawingForm&lt;'TState&gt;(initial, update, draw) as x =
     <h4>Blog tags</h4>
     <p>
 
-      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(99),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(33),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(11),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(29),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/open-source/">open source</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/monads/">monads</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fslab/">fslab</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(1)    </p>
+      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(100),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(33),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(12),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(29),       <a href="http://tomasp.net/blog/tag/open-source/">open source</a>&nbsp;(5),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/monads/">monads</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fslab/">fslab</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(1)    </p>
 
   </div>
 </div>
@@ -532,7 +532,8 @@ type DrawingForm&lt;'TState&gt;(initial, update, draw) as x =
     </div>
     <div class="large-7 columns">
     <h4>Blog archives <a href="http://tomasp.net/rss.xml"><img src="http://tomasp.net/img/rss.gif" /></a></h4>
-      <a href="http://tomasp.net/blog/archive/february-2015/index.html">
+      <a href="http://tomasp.net/blog/archive/march-2015/index.html">
+        March 2015 (1)</a>,      <a href="http://tomasp.net/blog/archive/february-2015/index.html">
         February 2015 (1)</a>,      <a href="http://tomasp.net/blog/archive/january-2015/index.html">
         January 2015 (2)</a>,      <a href="http://tomasp.net/blog/archive/december-2014/index.html">
         December 2014 (1)</a>,      <a href="http://tomasp.net/blog/archive/may-2014/index.html">

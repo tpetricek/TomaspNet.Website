@@ -118,7 +118,7 @@ library end-points - but it is usually possible.
 > $M_1 (M_2~\alpha) \rightarrow M_2 (M_1~\alpha)$, i.e. you can switch the order in which 
 > they are wrapped. Can something similar be defined for frameworks? 
 
-### Frrameworks are hard to explore
+### Frameworks are hard to explore
 
 Another big problem with frameworks is that they are difficult to test and explore. In F#,
 it is very useful to load a library into F# Interactive and try running it with various 

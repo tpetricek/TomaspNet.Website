@@ -181,7 +181,7 @@ on callbacks and `async` below).
 The next problem with frameworks is that they control the structure of your code. The typical example of 
 this is when you are using a framework that requires you to inherit from some abstract base class and
 implement specific methods. For example the [Game class in the XNA Framework](https://msdn.microsoft.com/en-us/library/microsoft.xna.framework.game_members.aspx)
-looks something like this (I know that XNA is dead, but the patter is used in other similar frameworks):
+looks something like this (I know that XNA is dead, but the pattern is used in other similar frameworks):
 
     [lang=csharp]
     class Game {

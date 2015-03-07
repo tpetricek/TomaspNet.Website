@@ -137,7 +137,7 @@ If you have monads <span class="math">\(M_1\)</span> and <span class="math">\(M_
 they are wrapped. Can something similar be defined for frameworks?</p>
 </blockquote>
 
-<h3>Frrameworks are hard to explore</h3>
+<h3>Frameworks are hard to explore</h3>
 
 <p>Another big problem with frameworks is that they are difficult to test and explore. In F#,
 it is very useful to load a library into F# Interactive and try running it with various 
@@ -216,7 +216,7 @@ on callbacks and <code>async</code> below).</p>
 <p>The next problem with frameworks is that they control the structure of your code. The typical example of 
 this is when you are using a framework that requires you to inherit from some abstract base class and
 implement specific methods. For example the <a href="https://msdn.microsoft.com/en-us/library/microsoft.xna.framework.game_members.aspx">Game class in the XNA Framework</a>
-looks something like this (I know that XNA is dead, but the patter is used in other similar frameworks):</p>
+looks something like this (I know that XNA is dead, but the pattern is used in other similar frameworks):</p>
 
 <pre lang="csharp"><span class="k">class</span> Game {
   <span class="k">abstract</span> <span class="k">void</span> Initialize();

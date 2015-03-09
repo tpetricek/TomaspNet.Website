@@ -108,7 +108,7 @@ you definitely need some mathematical background.
 
 ### Checking valid moves
 
-The next part of the preparation is to write a fucntion for checking whether
+The next part of the preparation is to write a function for checking whether
 a move is valid. There are two conditions:
 
  * A move is not valid if there is a part already at a given `Position`.
@@ -275,7 +275,7 @@ Building 3D visualization
 =========================
 
 Some time ago, I wrote a simple library for composing 3D objects and it turns out
-to be a perfect fit. The library provides a couple of primitve shapes like cube, 
+to be a perfect fit. The library provides a couple of primitive shapes like cube, 
 cone and cylinder and combinators for putting them together. Here is a simple example:
 *)
 // Reference OpenTK library & functional DSL
@@ -300,7 +300,7 @@ Fun.translate
 In just a two lines of code (if you do not try to format things nicely
 for a blog), you can easily put together a simple tower!
 
-By defualt, all objects are created in the middle of the world, so if
+By default, all objects are created in the middle of the world, so if
 we want to compose them, we have to use `Fun.translate` to move them 
 around. Then you can use the `$` operator to combine multiple shapes
 into a single one.

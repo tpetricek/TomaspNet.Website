@@ -6,7 +6,7 @@
   Description = "As Howard Mansell already announced we have officially released the '1.0' version of Deedle. " +
     "In this blog post, I'll have a quick look at a couple of new features in Deedle. Howard's " +
     "announcement has a more detailed list, but I just want to give a couple of examples and briefly " +
-    "comment on performance improvemens we did.";
+    "comment on performance improvements we did.";
   Image = "http://tomasp.net/blog/2014/deedle-v1/mpg-per-cyl.png";
 *)
 (*** hide ***)
@@ -260,7 +260,7 @@ Again, you can see a number of interesting things:
    the case when you access a column on a frame using `df.Columns` (which returns
    a series of `ObjectSeries<'K>` values). Because we do not know the type of 
    individual columns, we return them as series containing `obj` values. In the 
-   new version, this does not actually box the values and so convertin the series
+   new version, this does not actually box the values and so converting the series
    back to `Series<'K, float>` is essentially no-op.
 
  * We also did some work on improving grouping (and related) operations, so, for 
@@ -272,9 +272,9 @@ Again, you can see a number of interesting things:
    even more significant when you're merging multiple frames.
 
 The tests that I included here are by no means comprehensive. They simply represent
-a couple of test cases that I was working on. However, with the perfromance measurements
+a couple of test cases that I was working on. However, with the performance measurements
 in place, we should be able to use this more and more often! So, if you have an 
-interesting use case, submit a pull requst [adding a performance test](https://github.com/tpetricek/Deedle/blob/tpetricek.PerfTests/tests/Deedle.PerfTests/Performance.fs)!
+interesting use case, submit a pull request [adding a performance test](https://github.com/tpetricek/Deedle/blob/tpetricek.PerfTests/tests/Deedle.PerfTests/Performance.fs)!
 
 Summary
 -------

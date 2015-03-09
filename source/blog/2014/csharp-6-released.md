@@ -3,7 +3,7 @@
   Title = "BREAKING: Open-source C# 6.0 released";
   Tags = "c#, fun, functional programming";
   Date = "2014-04-01T14:24:30.0899752+01:00";
-  Description = "At last, the long wait is fianlly over! After 4 years of " +
+  Description = "At last, the long wait is finally over! After 4 years of " +
     "waiting, the fully managed implementation of the C# compiler codenamed " +
     "Roslyn has been finally released.";
   Image = "http://tomasp.net/blog/2014/csharp-6-released/csharp.jpg";
@@ -14,7 +14,7 @@ BREAKING: Open-source C# 6.0 released
 
 <img src="http://tomasp.net/blog/2014/csharp-6-released/csharp.jpg" style="width:170px;float:right;margin:15px" />
 
-At last, the long wait is fianlly over! After 4 years of waiting, the fully managed implementation
+At last, the long wait is finally over! After 4 years of waiting, the fully managed implementation
 of the C# compiler [codenamed "Roslyn"][roslyn] has been finally released. In the recent months, 
 "Roslyn" has been slowly turning into [vaporware][vaporware], but thanks to the recent breakthrough,
 the team made an enormous progress over the last two months and even implemented a number of new
@@ -24,7 +24,7 @@ The C# 6.0 compiler, together with [the full source code][source] has been relea
 
 > **UPDATE:** In case you are reading this article later than on the day when it was
 > published, let me just point out that this was released on 1 April 2014. Just to 
-> avoid any disappoinments. Have fun ;-).
+> avoid any disappointments. Have fun ;-).
 
 The new "Roslyn" implementation
 -------------------------------
@@ -86,7 +86,7 @@ that makes parameters `x` and `y` automatically visible to the body. Creating pr
 methods is also simplified using the `=>` syntax.  Yet, the code was still not completely 
 satisfactory. Anders Hejlsberg provides an explanation:
 
-> In C# 3.0, we introduced the `var` keyword and type-infernece. So, why do we have
+> In C# 3.0, we introduced the `var` keyword and type-inference. So, why do we have
 > to write `double` five times? Also, there is a lot of noise when you have to mark 
 > everything as `public` explicitly. We just want to make developer's life easier!
 

@@ -49,7 +49,7 @@ So, it is not surprising that there is not a large body of work done in philosop
 computing or, more specifically, programming languages.
 
 However, I believe that we can still learn a lot from philosophy of science in general.
-Much of the clasical work in the area uses physics as an example of successful science:
+Much of the classical work in the area uses physics as an example of successful science:
 
 > <img src="http://tomasp.net/blog/2014/philosophy-pl/chalmers.jpg" 
 >  style="width:120px;float:right;margin:20px 0px 10px 25px" />
@@ -284,7 +284,7 @@ research programmes). Paul Feyerabend makes the same point:
 > (Requiring exactness) deflects the investigation into the narrow channels of 
 > things already understood and the possibility of fundamental conceptual discovery (is) reduced.
 
-I think many interesting ideas in programming langauge research also start as 
+I think many interesting ideas in programming language research also start as 
 imperfect. I'm sure some people would disagree, but I find _important but imperfect_ research
 much more valuable than _perfect and unimportant_ work. Feyerabend finds many examples
 of important scientific contributions that started as imperfect.

@@ -148,7 +148,7 @@ next 4% of scenarios (and for the last 1%, you have to send a pull request!)
 
 As you'll see, this *design pattern* is heavily used in core functional libraries such as the F#
 library for working with lists. Following this pattern well also turns your libraries into 
-*domain specific langauges* and makes the code more readable.
+*domain specific languages* and makes the code more readable.
 
 Demo #1: Working with functional lists
 --------------------------------------
@@ -320,7 +320,7 @@ way as when we implemented `List.splitAt` in terms of recursion and pattern matc
 
 Now, there is still a lower level at which the actual 3D rendering happens. In this 
 library, the lower level is simply calling OpenGL primitives (using the OpenTK wrapper),
-and so this is not praticularly interesting, but it is not very complicated either:
+and so this is not particularly interesting, but it is not very complicated either:
 *)
 let cube = DF (fun ctx ->
   GL.Material
@@ -356,7 +356,7 @@ let cube = DF (fun ctx ->
 (**
 If we wanted to make it easier to create custom basic shapes, we could
 certainly add another layer between the 3D primitives and rendering, but 
-this wsa not the aim here. Even without that, you can see that having multiple 
+this was not the aim here. Even without that, you can see that having multiple 
 levels of abstraction has important benefits. The most obvious one is that you
 can easily move from a higher level to a lower level to explore how things are created
 (say, how `tower` is constructed from `cone` and `cylinder`) and use the lower-level 

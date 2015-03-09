@@ -343,13 +343,13 @@ But providing only the higher-level abstraction would be limiting.
 
 To summarize, passing functions as arguments is not necessarily wrong, but be careful.
 If a function takes more than one function as an argument, it might not be the best low-level
-abstraaction. If the functions passed as arguments need to share and pass around some state, 
+abstraction. If the functions passed as arguments need to share and pass around some state, 
 then you should definitely provide an alternative (in case the "default" state passing is
 not what the caller needs).
 
 ### Inverting callbacks with events and async
 
-When discussing how frameworks shape your code, I used a simple game enginge as an example.
+When discussing how frameworks shape your code, I used a simple game engine as an example.
 What could be done differently so that we do not need to use mutable fields and implement
 a specific class? In F#, we can use _asynchronous workflows_ and _event-based_ programming
 model instead.
@@ -436,7 +436,7 @@ let startGame draw update init =
           return! loop x }
   loop init
 (**
-The `startGame` abstraction takes two functions as arugments together with an initial state.
+The `startGame` abstraction takes two functions as arguments together with an initial state.
 The `update` function updates the state and the `draw` function draws the state using the
 specified `DrawingContext`. Using these, we can now write our Mario sample in just 4 lines:
 *)
@@ -450,7 +450,7 @@ Didn't I previously write that higher-order functions that take multiple functio
 when they share state) are evil frameworks? You're right, I said that! But let me clarify this:
 
 _It is fine to have easy-to-use operation that takes a couple of other functions as a
-high-level abstraction, but there sould be a simple and more explicit alternative!_
+high-level abstraction, but there should be a simple and more explicit alternative!_
 
 You can take the above 4 lines, look at the definition of `startGame` and turn them into the
 14 lines of code we've seen earlier (excluding comments). So, you should be able to _get the control_
@@ -489,7 +489,7 @@ module Frame =
 The solution here is quite simple, because both Deedle frame and Math.NET matrices can be converted
 to/from a 2D array and so we just need to go from one to the other through an array. This looks very
 simple, but I think that's the point - no matter what your library does, you should give the user all
-the power they need to combine your librar with others (or replace some parts of it, if they don't 
+the power they need to combine your library with others (or replace some parts of it, if they don't 
 like them!)
 
 Summary

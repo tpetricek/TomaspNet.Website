@@ -30,7 +30,7 @@ ready yet.
 
 Before Christmas, I got a [notification from GitHub](https://github.com/fsprojects/FnuPlot/pull/2)
 about a pull request for a simple gnuplot wrapper that I wrote a long time ago (and which used
-to be carfully hidden [on CodePlex](http://fsxplat.codeplex.com)).
+to be carefully hidden [on CodePlex](http://fsxplat.codeplex.com)).
 
 The library is incomplete and I don't expect to dedicate too much time to maintaining it,
 but it works quite nicely for basic charts and so I though I'd add the 
@@ -50,7 +50,7 @@ aspects that are designed based on how gnuplot works.
 
 Assuming you already have FnuPlot referenced from NuGet, you can start by 
 creating a new instance of `GnuPlot` (this is `IDisposable` and the `Dispose` method
-stops the underyling `gnuplot` process). The constructor takes a full path to 
+stops the underlying `gnuplot` process). The constructor takes a full path to 
 `gnuplot` as an argument, in case this is not available in your `PATH`:
 *)
 open FnuPlot

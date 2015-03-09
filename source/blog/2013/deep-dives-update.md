@@ -21,7 +21,7 @@ update. In summary, working on a book with more than 10 co-authors is more diffi
 would think (and 10 people cannot write a book in 1/10 of the time :-)), but now that the holidays
 are almost over, you can expect more frequent updates again!
 
-First of all, I shoud mention that you can buy [the Early Access preview](http://www.manning.com/petricek2/)
+First of all, I should mention that you can buy [the Early Access preview](http://www.manning.com/petricek2/)
 of the book from Manning and there is already one [in advance review of the book](http://blogs.tedneward.com/2013/01/05/Review+In+Advance+F+Deep+Dives.aspx)
 from Ted Neward (thanks!) who says:
 

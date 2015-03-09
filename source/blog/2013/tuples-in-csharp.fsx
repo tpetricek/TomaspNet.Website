@@ -259,9 +259,9 @@ a tuple.
 So, is it better to use languages that make a clear distinction between (curried) functions
 and functions taking a tuple? I think so - it makes it easier to write composable code
 (by writing functions that take and return simple "ad-hoc" types as tuples) and it gives
-you an easy way of grouping related types. There is no class repesenting _array range_ in
+you an easy way of grouping related types. There is no class representing _array range_ in
 .NET because adding an entire class for this would be over-kill. A simple type like tuple
 (supported by the language) makes this perfectly possible. On the other hand, you need to
-think more carefuly about library design to make sure that you use tuples correctly. 
+think more carefully about library design to make sure that you use tuples correctly. 
 
 *)

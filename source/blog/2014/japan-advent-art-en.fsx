@@ -31,7 +31,7 @@ For the last few years, the Japanese F# community has been running the F# Advent
 Each advent day, one person writes an article about something interesting in F#. I have 
 been following the advent calendar last year on Twitter and when the planning started for 
 this year, I offered to write an article too. You might have noticed that I posted a 
-[Japanse version of the article](http://tomasp.net/blog/2013/japan-advent-art/index.html)
+[Japanese version of the article](http://tomasp.net/blog/2013/japan-advent-art/index.html)
 in December as part of the [advent calendar 2013](http://connpass.com/event/3935/).
 
 A number of people helped to make this happen - [@@igeta](http://twitter.com/igeta) arranged everything and 
@@ -183,7 +183,7 @@ gives us a number of fractals that are similar to some of the Hokusai's painting
 
 In this article, I'll use the Julia set fractal.
 The fractal is quite easy to draw (especially using F#). To make it look similar to 
-The Great Wave off Kanagawa, we'll use a cerfuly choosen color palette to colorize the
+The Great Wave off Kanagawa, we'll use a carefully chosen color palette to colorize the
 fractal.
 
 ### Calculating Julia set
@@ -219,7 +219,7 @@ let countIterations max x y =
   |> Seq.takeWhile (fun v -> Complex.Abs(v) < 2.0)
   |> Seq.length
 (**
-First, we restrict the number of iterations to the sepecified number, then we keep taking values
+First, we restrict the number of iterations to the specified number, then we keep taking values
 with small absolute value and, finally, we get the length of the sequence (when the absolute
 value exceeds 2.0, the `takeWhile` function will end the sequence and `length` will be smaller
 than `max - 1`). We could write the code in an imperative way - and it would likely be faster - but
@@ -230,7 +230,7 @@ this way, it clearly expresses the definition of Julia set.
 To draw the fractal, we'll iterate over all pixels where we want to draw, call 
 `countInterations` with a specified `x` and `y` arguments and then pick a color from a palette
 based on the number of the iterations. To make the fractal that resembles Hokusai's paintings,
-we need to carefuly generate the palette - the idea is that we'll create a transition between
+we need to carefully generate the palette - the idea is that we'll create a transition between
 a number of colors that are used in The Great Wave off Kanagawa.
 
 For this, we'll use a combination of two custom F# operators that let us write `clr1 -- count --> clr2`.

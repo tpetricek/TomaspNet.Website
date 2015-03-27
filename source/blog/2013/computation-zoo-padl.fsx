@@ -55,7 +55,7 @@ Scala `for` comprehensions and Python generators to name just a few.
 
 Some time ago, I started working on an academic article to explain what makes computation
 expressions unique - and I think there is quite a few interesting aspects. Sadly, this is 
-often not very well explained and so the general preception is more like this:
+often not very well explained and so the general perception is more like this:
 
 <img src="tweets.png" style="margin:10px 0px 30px 40px;" alt="Proof by Tweet!" />
 
@@ -125,7 +125,7 @@ then [read the paper](http://tomasp.net/academic/papers/computation-zoo/). I wil
 repeat everything in this blog post.
 
 However, I want to show one example that demonstrates the key point of computation expressions
-very well. The exampl is encoding of _additive monads_ - that is, computation types that
+very well. The example is encoding of _additive monads_ - that is, computation types that
 are monads and have additional operations `mplus : 'a m -> 'a m -> 'a m` and `mzero : 'a m`.
 In Haskell, these are captured by the `MonadPlus` type class.
 
@@ -148,7 +148,7 @@ let duplicate input = seq {
 (**
 How does this work? The `for` keyword is mapped to the _bind_ operation of the underlying
 computation and the `yield` keyword is mapped to the _return_ operation of the monad.
-When the body contains multiple statements that return a value, the statemets are combined
+When the body contains multiple statements that return a value, the statements are combined
 using the additive operation (`mplus`).
 
 The syntax and semantics of the computation is determined by the `seq` identifier - this
@@ -157,7 +157,7 @@ the compiler that 1) it should enable `for`, `yield` and multiple statements in 
 and 2) what is the implementation of the three underlying operations.
 
 When defining the syntax in the `seq` value, we could have chosen another syntax - we could
-use `let!` and `return` instad of using `for` and `yield`, but the latter option gives a
+use `let!` and `return` instead of using `for` and `yield`, but the latter option gives a
 more convenient and intuitive syntax. 
 
 What do I mean by "more intuitive"? Let's look at the laws! The [_left distribution_ 

@@ -3,7 +3,7 @@
   Title = "Why you should learn F# in 2015 (and how)?";
   Tags = "c#, f#, functional programming, talks";
   Date = "2015-01-07T14:36:04.9887235+01:00";
-  Description = "I guess that it might be a bit too late for adding to your list of new year's resulution now." +
+  Description = "I guess that it might be a bit too late for adding to your list of new year's resolution now." +
     "But just if you still have an empty slot (or in case an originally taken slot has become " +
     "available), your new year's resolution should be to get involved with F#!";
   Image = "http://tomasp.net/blog/2015/why-fsharp-in-2015/gingerbread.jpg";
@@ -14,7 +14,7 @@ Why you should learn F# in 2015 (and how)?
 
 <img src="http://tomasp.net/blog/2015/why-fsharp-in-2015/gingerbread.jpg" style="width:200px;float:right;margin:15px" />
 
-I guess that it might be a bit too late for adding to your list of new year's resulution now.
+I guess that it might be a bit too late for adding to your list of new year's resolution now.
 But just if you still have an empty slot (or in case an originally taken slot has become 
 available), your new year's resolution should be to get involved with F#!
 
@@ -73,7 +73,7 @@ number (because of holidays etc.), but it feels that we might need *F# Daily* so
 ### Serious open source engineering
 
 One of the reasons why I'm really excited about the F# community is that it takes open source
-very seriously. I guess that this can be sumarized by the following tweet:
+very seriously. I guess that this can be summarized by the following tweet:
 
 <div style="margin-left:20px">
 <blockquote class="twitter-tweet" lang="en"><p>Wow. Already 114 pull requests for the official <a href="https://twitter.com/VisualFSharp">@@VisualFSharp</a> compiler. As comparison <a href="https://twitter.com/hashtag/roslyn?src=hash">#roslyn</a> has 18. <a href="https://twitter.com/hashtag/fsharp?src=hash">#fsharp</a> community rocks.</p>&mdash; Steffen Forkmann (@@sforkmann) <a href="https://twitter.com/sforkmann/status/508869959364386816">September 8, 2014</a></blockquote>
@@ -192,5 +192,5 @@ problems. It is a collection of real-world case studies, each written by expert 
 and many other. 
 
 You can read this book in a number of ways - pick the domain that you are interested in (games, finance,
-line-of-business applications, etc.), pick the technique (domain-specific langauges, type providers, etc.),
+line-of-business applications, etc.), pick the technique (domain-specific languages, type providers, etc.),
 or you can skim the first few pages of each chapter to see how F# is used to solve real-world problems.

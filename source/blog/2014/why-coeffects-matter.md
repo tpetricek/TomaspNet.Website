@@ -107,7 +107,7 @@ On Android, you can access API from higher level platform dynamically using tech
 [reflection and writing wrappers](http://android-developers.blogspot.cz/2009/04/backward-compatibility-for-android.html).
 Again, this sounds very error prone - to quote the linked article 
 _"Remember the mantra: if you haven't tried it, it doesn't work"._
-Testing is no doubt important. But at least in statically typed langauges, we
+Testing is no doubt important. But at least in statically typed languages, we
 should not need to worry about calling a method that does not exist when writing
 multi-platform applications!
 
@@ -438,7 +438,7 @@ marked as secure and additional environment providing database access, the expre
 As a side-note, it is well known that _effects_ correspond to _monads_ (and Haskell uses
 monads as a way of implementing limited effect checking). Quite interestingly, _coeffects_
 correspond to the dual concept called _comonads_ and, with a syntactic extension akin to 
-the `do` notation or _computation expressions_, you could capture contextual propreties by
+the `do` notation or _computation expressions_, you could capture contextual properties by
 adding comonads to a language.
 
 Summary

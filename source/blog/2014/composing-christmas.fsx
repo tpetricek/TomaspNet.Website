@@ -4,7 +4,7 @@
   Tags = "f#, fun, functional programming";
   Date = "2014-12-08T17:22:28.9828927+00:00";
   Description = "This blog post is a part of the F# Advent Calendar 2014, so it " +
-    "inevitably needs a Chrismassy theme. However, there is also going to be a " +
+    "inevitably needs a Christmassy theme. However, there is also going to be a " +
     "serious theme for the blog post, which is domain-specific languages. " +
     "I'm going to cover two key ideas of DSLs in F# - composability and multiple " +
     "layers of abstraction.";
@@ -210,7 +210,7 @@ of the view (using keyboard keys) got out of control, you can call `Fun.resetRot
 
 The beautiful thing about the Domain-Specific Languages approach that we are using here is not
 just the fact that we can build interesting things with just a few lines of code. The really nice
-thing is that we are rising the leven of abstraction. Rather than talking about primitive objects,
+thing is that we are rising the level of abstraction. Rather than talking about primitive objects,
 the code now talks about trunks, trees and stars. So, let's put the parts together...
 
 Decorating tree

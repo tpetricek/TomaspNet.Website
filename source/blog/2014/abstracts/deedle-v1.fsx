@@ -18,6 +18,6 @@ In this blog post, I'll have a quick look at a couple of new features in Deedle
 (and corresponding R type provider release). Howard's announcement has a 
 [more detailed list](http://techblog.bluemountaincapital.com/2014/05/21/deedle-v1-0-release/), 
 but I just want to give a couple of examples and briefly comment on performance
-improvemens we did.
+improvements we did.
 
 *)

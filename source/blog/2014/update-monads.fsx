@@ -72,7 +72,7 @@ type UpdateMonad<'TState, 'TUpdate, 'T> =
 
 (**
 To make the F# implementation a bit nicer, this is not defined as a type alias, but as a 
-new type labeled with `UM` (this makes sure that the infered types will always use the
+new type labeled with `UM` (this makes sure that the inferred types will always use the
 name `UpdateMonad` for the type, rather than its definition).
 
 To make this work, we also need some operations on the types representing states and updates.
@@ -408,7 +408,7 @@ type UpdateBuilder with
 
 (**
 You can find more details about these operations in the [F# Computation Zoo paper][zoopaper]
-or in the [F# langauge specification][fsspec]. In fact, the defitions mostly follow
+or in the [F# language specification][fsspec]. In fact, the definitions mostly follow
 the samples from the F# specification. It is worth noting that all the members are
 marked as `inline`, which allows us to use _static member constrains_ and to write
 code that will work for any update monad (as defined by a pair of _update_ and 
@@ -458,7 +458,7 @@ type StateUpdate<'T> =
     match p with SetNop -> s | Set s -> State s
 (**
 This definition is a bit more interesting than the previous two, because there is some
-interaction between the _states_ and _updates_. In perticular, when the update is `Set v`
+interaction between the _states_ and _updates_. In particular, when the update is `Set v`
 (we want to replace the current state with a new one), the `Apply` member returns a new
 state instead of the original. For the `Unit` member, we need an update `SetNop` which 
 simply means that we want to keep the original state (and so `Apply` just returns the
@@ -467,7 +467,7 @@ original value in this case).
 Another notable thing is the `Combine` operation - it takes two updates (which may be 
 either empty updates or set updates) and produces a single one. If you read a composition
 `a1 ++ a2 ++ .. ++ an` as a sequence of state updates (either `Set` or `SetNop`), then the 
-`Combine` operation returns the last `Set` update in the sequence (or `SetNop` if ther are
+`Combine` operation returns the last `Set` update in the sequence (or `SetNop` if there are
 no `Set` updates). In other words, it builds an update that sets the last state that was
 set during the whole sequence.
 

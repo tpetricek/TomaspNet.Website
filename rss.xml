@@ -104,7 +104,7 @@ ready yet.&lt;/p&gt;
 
 &lt;p&gt;Before Christmas, I got a &lt;a href="https://github.com/fsprojects/FnuPlot/pull/2"&gt;notification from GitHub&lt;/a&gt;
 about a pull request for a simple gnuplot wrapper that I wrote a long time ago (and which used
-to be carfully hidden &lt;a href="http://fsxplat.codeplex.com"&gt;on CodePlex&lt;/a&gt;).&lt;/p&gt;
+to be carefully hidden &lt;a href="http://fsxplat.codeplex.com"&gt;on CodePlex&lt;/a&gt;).&lt;/p&gt;
 
 &lt;p&gt;The library is incomplete and I don't expect to dedicate too much time to maintaining it,
 but it works quite nicely for basic charts and so I though I'd add the 
@@ -120,7 +120,7 @@ and make it available as a modern F# project.&lt;/p&gt;
       <pubDate>Wed, 07 Jan 2015 13:36:04 GMT</pubDate>
       <description>&lt;img src="http://tomasp.net/blog/2015/why-fsharp-in-2015/gingerbread.jpg" style="width:200px;float:right;margin:15px" /&gt;
 
-&lt;p&gt;I guess that it might be a bit too late for adding to your list of new year's resulution now.
+&lt;p&gt;I guess that it might be a bit too late for adding to your list of new year's resolution now.
 But just if you still have an empty slot (or in case an originally taken slot has become
 available), your new year's resolution should be to get involved with F#!&lt;/p&gt;
 
@@ -182,7 +182,7 @@ We've been also working on integrating all of these into a single package called
 (and corresponding R type provider release). Howard's announcement has a 
 &lt;a href="http://techblog.bluemountaincapital.com/2014/05/21/deedle-v1-0-release/"&gt;more detailed list&lt;/a&gt;, 
 but I just want to give a couple of examples and briefly comment on performance
-improvemens we did.&lt;/p&gt;
+improvements we did.&lt;/p&gt;
 
 </description>
     </item>
@@ -273,7 +273,7 @@ this short blog (and then perhaps go back to the paper)!&lt;/p&gt;
       <pubDate>Tue, 01 Apr 2014 13:24:30 GMT</pubDate>
       <description>&lt;img src="http://tomasp.net/blog/2014/csharp-6-released/csharp.jpg" style="width:170px;float:right;margin:15px" /&gt;
 
-&lt;p&gt;At last, the long wait is fianlly over! After 4 years of waiting, the fully managed implementation
+&lt;p&gt;At last, the long wait is finally over! After 4 years of waiting, the fully managed implementation
 of the C# compiler [codenamed "Roslyn"][roslyn] has been finally released. In the recent months, 
 "Roslyn" has been slowly turning into [vaporware][vaporware], but thanks to the recent breakthrough,
 the team made an enormous progress over the last two months and even implemented a number of new
@@ -284,7 +284,7 @@ C# 6.0 features.&lt;/p&gt;
 &lt;blockquote&gt;
   &lt;p&gt;&lt;strong&gt;UPDATE:&lt;/strong&gt; In case you are reading this article later than on the day when it was
 published, let me just point out that this was released on 1 April 2014. Just to 
-avoid any disappoinments. Have fun ;-).&lt;/p&gt;
+avoid any disappointments. Have fun ;-).&lt;/p&gt;
 &lt;/blockquote&gt;
 
 </description>
@@ -460,7 +460,7 @@ Scala &lt;code&gt;for&lt;/code&gt; comprehensions and Python generators to name 
 
 &lt;p&gt;Some time ago, I started working on an academic article to explain what makes computation
 expressions unique - and I think there is quite a few interesting aspects. Sadly, this is 
-often not very well explained and so the general preception is more like this...&lt;/p&gt;
+often not very well explained and so the general perception is more like this...&lt;/p&gt;
 
 </description>
     </item>
@@ -566,7 +566,7 @@ update. In summary, working on a book with more than 10 co-authors is more diffi
 would think (and 10 people cannot write a book in 1/10 of the time :-)), but now that the holidays
 are almost over, you can expect more frequent updates again!&lt;/p&gt;
 
-&lt;p&gt;First of all, I shoud mention that you can buy &lt;a href="http://www.manning.com/petricek2/"&gt;the Early Access preview&lt;/a&gt;
+&lt;p&gt;First of all, I should mention that you can buy &lt;a href="http://www.manning.com/petricek2/"&gt;the Early Access preview&lt;/a&gt;
 of the book from Manning and there is already one &lt;a href="http://blogs.tedneward.com/2013/01/05/Review+In+Advance+F+Deep+Dives.aspx"&gt;in advance review of the book&lt;/a&gt;
 from Ted Neward (thanks!) who says:&lt;/p&gt;
 

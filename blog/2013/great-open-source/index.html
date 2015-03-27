@@ -82,7 +82,7 @@ easy to run and useful tests and also up-to-date documentation and tutorials.</p
 <p>In this article, I want to talk about the <em>infrastructural side</em>, which is 
 easier of the two, but nevertheless, difficult to get right!</p>
 
-<p>On the techincal side, I think that every good open-source library needs to have:</p>
+<p>On the technical side, I think that every good open-source library needs to have:</p>
 
 <ul>
 <li><strong>Unit tests</strong> - at least for non-trivial parts of code and to prevent regressions</li>
@@ -120,7 +120,7 @@ and release notes (that will be used later to build NuGet package)</li>
 <li>Generates <code>AssemblyInfo.fs</code> with the right version and project information</li>
 <li>Builds the project and tests by calling MSBUILD (or xbuild) on <code>sln</code> files</li>
 <li>Runs the NUnit tests (and stops if there is a failure), but more about testing later...</li>
-<li>While runing tests, it also checks that your documentation does not contain errors -
+<li>While running tests, it also checks that your documentation does not contain errors -
 if you do not believe, continue reading :-)</li>
 <li>Builds a NuGet package and optionally pushes it to <a href="http://nuget.org">nuget.org</a></li>
 <li>Automatically builds documentation using F# Formatting tool that is discussed next</li>
@@ -163,7 +163,7 @@ mouse pointer to see tool tips):</p>
 </tr>
 </table>
 
-<p>For statically typed langauges with type inference, this is extremely useful. Just 
+<p>For statically typed languages with type inference, this is extremely useful. Just 
 remember when you were last looking at C# snippet using <code>var</code> and wondered what 
 the type of a variable is...</p>
 
@@ -216,7 +216,7 @@ is a nice DSL for writing tests in a more readable way. Second, the F# <code>``b
 notation lets you use full description as a test name. And third, you can setup your
 environment to make tests runnable really quickly from REPL.</p>
 
-<p>Let's look at a sample test for the XML type provder from <a href="https://github.com/fsharp/FSharp.Data">F# Data</a>:</p>
+<p>Let's look at a sample test for the XML type provider from <a href="https://github.com/fsharp/FSharp.Data">F# Data</a>:</p>
 
 <table class="pre"><tr><td class="lines"><pre class="fssnip">
 <span class="l"> 1: </span>
@@ -327,7 +327,7 @@ that the conversion there and back should return the original thing).</p>
 
 <h2>Summary</h2>
 
-<p>Building a great open-source library is a difficult thing and I certianly do not claim
+<p>Building a great open-source library is a difficult thing and I certainly do not claim
 that I have a recipe for that. But I'm contributing to <a href="https://github.com/tpetricek/FSharp.Formatting">a</a>
 <a href="https://github.com/fsharp/FSharp.Data">few</a> <a href="https://github.com/fsharp/FSharp.Charting">F#</a> 
 <a href="https://github.com/BlueMountainCapital/Deedle">libraries</a> and I think I have learned
@@ -519,9 +519,8 @@ that can even be integrated with unit tests to make sure your documentation is c
     </div>
     <div class="large-7 columns">
     <h4>Blog archives <a href="http://tomasp.net/rss.xml"><img src="http://tomasp.net/img/rss.gif" /></a></h4>
-      <a href="http://tomasp.net/blog/archive/april-2015/index.html">
-        April 2015 (1)</a>,      <a href="http://tomasp.net/blog/archive/march-2015/index.html">
-        March 2015 (1)</a>,      <a href="http://tomasp.net/blog/archive/february-2015/index.html">
+      <a href="http://tomasp.net/blog/archive/march-2015/index.html">
+        March 2015 (2)</a>,      <a href="http://tomasp.net/blog/archive/february-2015/index.html">
         February 2015 (1)</a>,      <a href="http://tomasp.net/blog/archive/january-2015/index.html">
         January 2015 (2)</a>,      <a href="http://tomasp.net/blog/archive/december-2014/index.html">
         December 2014 (1)</a>,      <a href="http://tomasp.net/blog/archive/may-2014/index.html">

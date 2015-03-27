@@ -145,7 +145,7 @@ that specify how to change the state:</p>
 </table>
 
 <p>To make the F# implementation a bit nicer, this is not defined as a type alias, but as a 
-new type labeled with <code>UM</code> (this makes sure that the infered types will always use the
+new type labeled with <code>UM</code> (this makes sure that the inferred types will always use the
 name <code>UpdateMonad</code> for the type, rather than its definition).</p>
 
 <p>To make this work, we also need some operations on the types representing states and updates.
@@ -652,7 +652,7 @@ that this only has to be written once!</p>
 </table>
 
 <p>You can find more details about these operations in the <a href="http://tomasp.net/academic/papers/computation-zoo/">F# Computation Zoo paper</a>
-or in the <a href="http://fsharp.org/about/index.html#specification">F# langauge specification</a>. In fact, the defitions mostly follow
+or in the <a href="http://fsharp.org/about/index.html#specification">F# language specification</a>. In fact, the definitions mostly follow
 the samples from the F# specification. It is worth noting that all the members are
 marked as <code>inline</code>, which allows us to use <em>static member constrains</em> and to write
 code that will work for any update monad (as defined by a pair of <em>update</em> and 
@@ -734,7 +734,7 @@ two kinds - we have an empty update (do nothing) and an update to set the state:
 </table>
 
 <p>This definition is a bit more interesting than the previous two, because there is some
-interaction between the <em>states</em> and <em>updates</em>. In perticular, when the update is <code>Set v</code>
+interaction between the <em>states</em> and <em>updates</em>. In particular, when the update is <code>Set v</code>
 (we want to replace the current state with a new one), the <code>Apply</code> member returns a new
 state instead of the original. For the <code>Unit</code> member, we need an update <code>SetNop</code> which 
 simply means that we want to keep the original state (and so <code>Apply</code> just returns the
@@ -743,7 +743,7 @@ original value in this case).</p>
 <p>Another notable thing is the <code>Combine</code> operation - it takes two updates (which may be 
 either empty updates or set updates) and produces a single one. If you read a composition
 <code>a1 ++ a2 ++ .. ++ an</code> as a sequence of state updates (either <code>Set</code> or <code>SetNop</code>), then the 
-<code>Combine</code> operation returns the last <code>Set</code> update in the sequence (or <code>SetNop</code> if ther are
+<code>Combine</code> operation returns the last <code>Set</code> update in the sequence (or <code>SetNop</code> if there are
 no <code>Set</code> updates). In other words, it builds an update that sets the last state that was
 set during the whole sequence.</p>
 
@@ -1104,9 +1104,8 @@ update monads are the way to go.</p>
     </div>
     <div class="large-7 columns">
     <h4>Blog archives <a href="http://tomasp.net/rss.xml"><img src="http://tomasp.net/img/rss.gif" /></a></h4>
-      <a href="http://tomasp.net/blog/archive/april-2015/index.html">
-        April 2015 (1)</a>,      <a href="http://tomasp.net/blog/archive/march-2015/index.html">
-        March 2015 (1)</a>,      <a href="http://tomasp.net/blog/archive/february-2015/index.html">
+      <a href="http://tomasp.net/blog/archive/march-2015/index.html">
+        March 2015 (2)</a>,      <a href="http://tomasp.net/blog/archive/february-2015/index.html">
         February 2015 (1)</a>,      <a href="http://tomasp.net/blog/archive/january-2015/index.html">
         January 2015 (2)</a>,      <a href="http://tomasp.net/blog/archive/december-2014/index.html">
         December 2014 (1)</a>,      <a href="http://tomasp.net/blog/archive/may-2014/index.html">

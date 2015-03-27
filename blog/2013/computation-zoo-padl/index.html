@@ -78,7 +78,7 @@ Scala <code>for</code> comprehensions and Python generators to name just a few.<
 
 <p>Some time ago, I started working on an academic article to explain what makes computation
 expressions unique - and I think there is quite a few interesting aspects. Sadly, this is 
-often not very well explained and so the general preception is more like this:</p>
+often not very well explained and so the general perception is more like this:</p>
 
 <img src="tweets.png" style="margin:10px 0px 30px 40px;" alt="Proof by Tweet!" />
 
@@ -148,7 +148,7 @@ then <a href="http://tomasp.net/academic/papers/computation-zoo/">read the paper
 repeat everything in this blog post.</p>
 
 <p>However, I want to show one example that demonstrates the key point of computation expressions
-very well. The exampl is encoding of <em>additive monads</em> - that is, computation types that
+very well. The example is encoding of <em>additive monads</em> - that is, computation types that
 are monads and have additional operations <code>mplus : 'a m -&gt; 'a m -&gt; 'a m</code> and <code>mzero : 'a m</code>.
 In Haskell, these are captured by the <code>MonadPlus</code> type class.</p>
 
@@ -182,7 +182,7 @@ and looks as follows:</p>
 
 <p>How does this work? The <code>for</code> keyword is mapped to the <em>bind</em> operation of the underlying
 computation and the <code>yield</code> keyword is mapped to the <em>return</em> operation of the monad.
-When the body contains multiple statements that return a value, the statemets are combined
+When the body contains multiple statements that return a value, the statements are combined
 using the additive operation (<code>mplus</code>).</p>
 
 <p>The syntax and semantics of the computation is determined by the <code>seq</code> identifier - this
@@ -191,7 +191,7 @@ the compiler that 1) it should enable <code>for</code>, <code>yield</code> and m
 and 2) what is the implementation of the three underlying operations.</p>
 
 <p>When defining the syntax in the <code>seq</code> value, we could have chosen another syntax - we could
-use <code>let!</code> and <code>return</code> instad of using <code>for</code> and <code>yield</code>, but the latter option gives a
+use <code>let!</code> and <code>return</code> instead of using <code>for</code> and <code>yield</code>, but the latter option gives a
 more convenient and intuitive syntax.</p>
 
 <p>What do I mean by "more intuitive"? Let's look at the laws! The <a href="http://www.haskell.org/haskellwiki/MonadPlus"><em>left distribution</em> 
@@ -509,9 +509,8 @@ you do not need to resort to explicit use of combinators as often.</p>
     </div>
     <div class="large-7 columns">
     <h4>Blog archives <a href="http://tomasp.net/rss.xml"><img src="http://tomasp.net/img/rss.gif" /></a></h4>
-      <a href="http://tomasp.net/blog/archive/april-2015/index.html">
-        April 2015 (1)</a>,      <a href="http://tomasp.net/blog/archive/march-2015/index.html">
-        March 2015 (1)</a>,      <a href="http://tomasp.net/blog/archive/february-2015/index.html">
+      <a href="http://tomasp.net/blog/archive/march-2015/index.html">
+        March 2015 (2)</a>,      <a href="http://tomasp.net/blog/archive/february-2015/index.html">
         February 2015 (1)</a>,      <a href="http://tomasp.net/blog/archive/january-2015/index.html">
         January 2015 (2)</a>,      <a href="http://tomasp.net/blog/archive/december-2014/index.html">
         December 2014 (1)</a>,      <a href="http://tomasp.net/blog/archive/may-2014/index.html">

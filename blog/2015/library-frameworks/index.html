@@ -481,13 +481,13 @@ But providing only the higher-level abstraction would be limiting.</p>
 
 <p>To summarize, passing functions as arguments is not necessarily wrong, but be careful.
 If a function takes more than one function as an argument, it might not be the best low-level
-abstraaction. If the functions passed as arguments need to share and pass around some state, 
+abstraction. If the functions passed as arguments need to share and pass around some state, 
 then you should definitely provide an alternative (in case the "default" state passing is
 not what the caller needs).</p>
 
 <h3>Inverting callbacks with events and async</h3>
 
-<p>When discussing how frameworks shape your code, I used a simple game enginge as an example.
+<p>When discussing how frameworks shape your code, I used a simple game engine as an example.
 What could be done differently so that we do not need to use mutable fields and implement
 a specific class? In F#, we can use <em>asynchronous workflows</em> and <em>event-based</em> programming
 model instead.</p>
@@ -628,7 +628,7 @@ several parts into arguments:</p>
 </tr>
 </table>
 
-<p>The <code>startGame</code> abstraction takes two functions as arugments together with an initial state.
+<p>The <code>startGame</code> abstraction takes two functions as arguments together with an initial state.
 The <code>update</code> function updates the state and the <code>draw</code> function draws the state using the
 specified <code>DrawingContext</code>. Using these, we can now write our Mario sample in just 4 lines:</p>
 
@@ -653,7 +653,7 @@ Didn't I previously write that higher-order functions that take multiple functio
 when they share state) are evil frameworks? You're right, I said that! But let me clarify this:</p>
 
 <p><em>It is fine to have easy-to-use operation that takes a couple of other functions as a
-high-level abstraction, but there sould be a simple and more explicit alternative!</em></p>
+high-level abstraction, but there should be a simple and more explicit alternative!</em></p>
 
 <p>You can take the above 4 lines, look at the definition of <code>startGame</code> and turn them into the
 14 lines of code we've seen earlier (excluding comments). So, you should be able to <em>get the control</em>
@@ -706,7 +706,7 @@ and the other way round (<code>Frame.toMatrix</code>):</p>
 <p>The solution here is quite simple, because both Deedle frame and Math.NET matrices can be converted
 to/from a 2D array and so we just need to go from one to the other through an array. This looks very
 simple, but I think that's the point - no matter what your library does, you should give the user all
-the power they need to combine your librar with others (or replace some parts of it, if they don't 
+the power they need to combine your library with others (or replace some parts of it, if they don't 
 like them!)</p>
 
 <h1>Summary</h1>
@@ -970,9 +970,8 @@ there is no excuse for building frameworks!</p>
     </div>
     <div class="large-7 columns">
     <h4>Blog archives <a href="http://tomasp.net/rss.xml"><img src="http://tomasp.net/img/rss.gif" /></a></h4>
-      <a href="http://tomasp.net/blog/archive/april-2015/index.html">
-        April 2015 (1)</a>,      <a href="http://tomasp.net/blog/archive/march-2015/index.html">
-        March 2015 (1)</a>,      <a href="http://tomasp.net/blog/archive/february-2015/index.html">
+      <a href="http://tomasp.net/blog/archive/march-2015/index.html">
+        March 2015 (2)</a>,      <a href="http://tomasp.net/blog/archive/february-2015/index.html">
         February 2015 (1)</a>,      <a href="http://tomasp.net/blog/archive/january-2015/index.html">
         January 2015 (2)</a>,      <a href="http://tomasp.net/blog/archive/december-2014/index.html">
         December 2014 (1)</a>,      <a href="http://tomasp.net/blog/archive/may-2014/index.html">

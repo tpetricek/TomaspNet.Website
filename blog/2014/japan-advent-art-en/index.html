@@ -85,7 +85,7 @@
 Each advent day, one person writes an article about something interesting in F#. I have 
 been following the advent calendar last year on Twitter and when the planning started for 
 this year, I offered to write an article too. You might have noticed that I posted a 
-<a href="http://tomasp.net/blog/2013/japan-advent-art/index.html">Japanse version of the article</a>
+<a href="http://tomasp.net/blog/2013/japan-advent-art/index.html">Japanese version of the article</a>
 in December as part of the <a href="http://connpass.com/event/3935/">advent calendar 2013</a>.</p>
 
 <p>A number of people helped to make this happen - <a href="http://twitter.com/igeta">@igeta</a> arranged everything and 
@@ -298,7 +298,7 @@ gives us a number of fractals that are similar to some of the Hokusai's painting
 
 <p>In this article, I'll use the Julia set fractal.
 The fractal is quite easy to draw (especially using F#). To make it look similar to 
-The Great Wave off Kanagawa, we'll use a cerfuly choosen color palette to colorize the
+The Great Wave off Kanagawa, we'll use a carefully chosen color palette to colorize the
 fractal.</p>
 
 <h3>Calculating Julia set</h3>
@@ -365,7 +365,7 @@ To do that, we can use functions from the <code>Seq</code> module:</p>
 </tr>
 </table>
 
-<p>First, we restrict the number of iterations to the sepecified number, then we keep taking values
+<p>First, we restrict the number of iterations to the specified number, then we keep taking values
 with small absolute value and, finally, we get the length of the sequence (when the absolute
 value exceeds 2.0, the <code>takeWhile</code> function will end the sequence and <code>length</code> will be smaller
 than <code>max - 1</code>). We could write the code in an imperative way - and it would likely be faster - but
@@ -376,7 +376,7 @@ this way, it clearly expresses the definition of Julia set.</p>
 <p>To draw the fractal, we'll iterate over all pixels where we want to draw, call 
 <code>countInterations</code> with a specified <code>x</code> and <code>y</code> arguments and then pick a color from a palette
 based on the number of the iterations. To make the fractal that resembles Hokusai's paintings,
-we need to carefuly generate the palette - the idea is that we'll create a transition between
+we need to carefully generate the palette - the idea is that we'll create a transition between
 a number of colors that are used in The Great Wave off Kanagawa.</p>
 
 <p>For this, we'll use a combination of two custom F# operators that let us write <code>clr1 -- count --&gt; clr2</code>.
@@ -915,9 +915,8 @@ workflows (as a bonus) so that we can see how the rendering of the fractal progr
     </div>
     <div class="large-7 columns">
     <h4>Blog archives <a href="http://tomasp.net/rss.xml"><img src="http://tomasp.net/img/rss.gif" /></a></h4>
-      <a href="http://tomasp.net/blog/archive/april-2015/index.html">
-        April 2015 (1)</a>,      <a href="http://tomasp.net/blog/archive/march-2015/index.html">
-        March 2015 (1)</a>,      <a href="http://tomasp.net/blog/archive/february-2015/index.html">
+      <a href="http://tomasp.net/blog/archive/march-2015/index.html">
+        March 2015 (2)</a>,      <a href="http://tomasp.net/blog/archive/february-2015/index.html">
         February 2015 (1)</a>,      <a href="http://tomasp.net/blog/archive/january-2015/index.html">
         January 2015 (2)</a>,      <a href="http://tomasp.net/blog/archive/december-2014/index.html">
         December 2014 (1)</a>,      <a href="http://tomasp.net/blog/archive/may-2014/index.html">

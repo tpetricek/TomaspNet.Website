@@ -4,6 +4,39 @@
     <link>http://tomasp.net</link>
     <description>Writing about software development in F# and .NET, sharing materials from my F# trainings and talks, writing about programming language research and theory.</description>
     <item>
+      <title>Upcoming F# book and event deals</title>
+      <guid>http://tomasp.net/blog/2015/books-trainings</guid>
+      <link>http://tomasp.net/blog/2015/books-trainings/index.html</link>
+      <pubDate>Tue, 07 Apr 2015 13:36:04 GMT</pubDate>
+      <description>&lt;a href="http://www.functional-programming.net"&gt;
+&lt;img src="http://tomasp.net/blog/2015/books-trainings/snip.png" style="width:150px;float:right;margin:0px 0px 15px 15px" /&gt;
+&lt;/a&gt;
+
+&lt;p&gt;Since I &lt;a href="https://twitter.com/tomaspetricek/status/544531884030840832"&gt;submitted my PhD thesis in December&lt;/a&gt;,
+I had a little bit of time to finish some of the things that I wanted to do for a really long time, but
+never quite found time to actually do them. This included &lt;a href="http://bluemountaincapital.github.io/FSharpRProvider/mac-and-linux.html"&gt;getting the R provider to work on 
+Mac&lt;/a&gt; and also creating a new 
+web site for my various functional programming trainings and books. I even have a nice domain name:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a href="http://www.functional-programming.net"&gt;www.functional-programming.net&lt;/a&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The page also discusses a couple of business reasons for looking into functional programming. So, if you're
+a business person wondering why you should send your developers on an F# course, the site has the answers
+for you too! (Or if you are developer and need a page for your boss.) The other place to check out is the
+official &lt;a href="http://www.fsharp.org"&gt;F# Software Foundation web page&lt;/a&gt; is another great resource and the
+&lt;a href="http://fsharp.org/testimonials/"&gt;testimonials hosted there&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;The page has some information about the &lt;a href="http://functional-programming.net/#trainings"&gt;various trainings we're offering at fsharpWorks&lt;/a&gt;
+and about the two F# books I co-authored (&lt;a href="http://functional-programming.net/rwfp/"&gt;Real-World Functional Programming&lt;/a&gt; and 
+brand new &lt;a href="http://functional-programming.net/deepdives/"&gt;F# Deep Dives&lt;/a&gt;). 
+I'm happy that we can offer some special deals on both the books and the F# FastTrack course in London, 
+so if you're considering getting into F#, now is a good time!&lt;/p&gt;
+
+</description>
+    </item>
+    <item>
       <title>Library patterns: Why frameworks are evil</title>
       <guid>http://tomasp.net/blog/2015/library-frameworks</guid>
       <link>http://tomasp.net/blog/2015/library-frameworks/index.html</link>
@@ -548,34 +581,6 @@ language parser, which is not an easy task (...).&lt;/p&gt;
 &lt;p&gt;As I mentioned, the book is unique in that it is not written just by me and Phil - each chapter 
 is written by a real-world F# expert and many of them use F# in production. The disadvantage is
 that they are all busy people, but we have close to half of the planned chapters available already...&lt;/p&gt;
-
-</description>
-    </item>
-    <item>
-      <title>Power of mathematics: Reasoning about functional types</title>
-      <guid>http://tomasp.net/blog/types-and-math.aspx</guid>
-      <link>http://tomasp.net/blog/types-and-math.aspx/index.html</link>
-      <pubDate>Tue, 14 May 2013 15:54:00 GMT</pubDate>
-      <description>&lt;img src="http://tomasp.net/articles/types-and-maths/distributivity.png" class="rdecor" /&gt;
-
-&lt;p&gt;One of the most amazing aspects of mathematics is that it applies to such a wide range 
-of areas. The same mathematical rules can be applied to completely different objects 
-(say, forces in physics or markets in economics) and they work exactly the same way.&lt;/p&gt;
-
-&lt;p&gt;In this article, we'll look at one such fascinating use of mathematics - we'll use 
-elementary school algebra to reason about functional data types.&lt;/p&gt;
-
-&lt;p&gt;In functional programming, the best way to start solving a problem is to think about
-the data types that are needed to represent the data that you will be working with.
-This gives you a simple starting point and a great tool to communicate and
-develop your ideas. I call this approach &lt;a href="http://tomasp.net/blog/type-first-development.aspx"&gt;Type-First Development and I wrote about
-it earlier&lt;/a&gt;, so I won't repeat
-that here.&lt;/p&gt;
-
-&lt;p&gt;The two most elementary types in functional languages are &lt;em&gt;tuples&lt;/em&gt; (also called pairs 
-or product types) and &lt;em&gt;discriminated unions&lt;/em&gt; (also called algebraic data types, case 
-classes or sum types). It turns out that these two types are closely related to 
-&lt;em&gt;multiplication&lt;/em&gt; and &lt;em&gt;addition&lt;/em&gt; in algebra...&lt;/p&gt;
 
 </description>
     </item>

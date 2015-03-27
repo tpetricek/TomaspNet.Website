@@ -11,6 +11,6 @@ Scala `for` comprehensions and Python generators to name just a few.
 
 Some time ago, I started working on an academic article to explain what makes computation
 expressions unique - and I think there is quite a few interesting aspects. Sadly, this is 
-often not very well explained and so the general preception is more like this...
+often not very well explained and so the general perception is more like this...
 
 *)

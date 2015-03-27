@@ -44,7 +44,7 @@ easy to run and useful tests and also up-to-date documentation and tutorials.
 In this article, I want to talk about the _infrastructural side_, which is 
 easier of the two, but nevertheless, difficult to get right!
 
-On the techincal side, I think that every good open-source library needs to have:
+On the technical side, I think that every good open-source library needs to have:
 
  - **Unit tests** - at least for non-trivial parts of code and to prevent regressions
  - **Random testing** - for tricky parts of code, it is useful and helps checking unexpected cases
@@ -80,7 +80,7 @@ from the [F# Data library](https://github.com/fsharp/FSharp.Data). It:
  * Generates `AssemblyInfo.fs` with the right version and project information
  * Builds the project and tests by calling MSBUILD (or xbuild) on `sln` files
  * Runs the NUnit tests (and stops if there is a failure), but more about testing later...
- * While runing tests, it also checks that your documentation does not contain errors -
+ * While running tests, it also checks that your documentation does not contain errors -
    if you do not believe, continue reading :-)
  * Builds a NuGet package and optionally pushes it to [nuget.org](http://nuget.org)
  * Automatically builds documentation using F# Formatting tool that is discussed next
@@ -111,7 +111,7 @@ let hello person =
 
 hello "Tomas"
 (**
-For statically typed langauges with type inference, this is extremely useful. Just 
+For statically typed languages with type inference, this is extremely useful. Just 
 remember when you were last looking at C# snippet using `var` and wondered what 
 the type of a variable is...
 
@@ -164,7 +164,7 @@ is a nice DSL for writing tests in a more readable way. Second, the F# ` ``backt
 notation lets you use full description as a test name. And third, you can setup your
 environment to make tests runnable really quickly from REPL. 
 
-Let's look at a sample test for the XML type provder from [F# Data](https://github.com/fsharp/FSharp.Data):
+Let's look at a sample test for the XML type provider from [F# Data](https://github.com/fsharp/FSharp.Data):
 
 *)
 #if INTERACTIVE
@@ -235,7 +235,7 @@ that the conversion there and back should return the original thing).
 
 ## Summary 
 
-Building a great open-source library is a difficult thing and I certianly do not claim
+Building a great open-source library is a difficult thing and I certainly do not claim
 that I have a recipe for that. But I'm contributing to [a](https://github.com/tpetricek/FSharp.Formatting)
 [few](https://github.com/fsharp/FSharp.Data) [F#](https://github.com/fsharp/FSharp.Charting) 
 [libraries](https://github.com/BlueMountainCapital/Deedle) and I think I have learned

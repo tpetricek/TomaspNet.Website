@@ -4,6 +4,33 @@
     <link>http://tomasp.net</link>
     <description>Writing about software development in F# and .NET, sharing materials from my F# trainings and talks, writing about programming language research and theory.</description>
     <item>
+      <title>Evaluating expressions using pattern matching in C# 6</title>
+      <guid>http://tomasp.net/blog/2015/csharp-pattern-matching</guid>
+      <link>http://tomasp.net/blog/2015/csharp-pattern-matching/index.html</link>
+      <pubDate>Wed, 01 Apr 2015 10:41:49 GMT</pubDate>
+      <description>&lt;img src="http://tomasp.net/blog/2015/csharp-pattern-matching/hat.png" style="float:right;margin:20px" /&gt;
+
+&lt;p&gt;On year ago, on this very day, &lt;a href="http://tomasp.net/blog/2014/csharp-6-released/index.html"&gt;I wrote about the open-sourcing of C# 
+6.0&lt;/a&gt;. Thanks to a very special
+information leak, I learned about this about a week before Microsoft officially announced
+it. However, my information were slightly incorrect - rather then releasing the &lt;a href="https://github.com/Microsoft/visualfsharp/"&gt;much 
+improved version of the language&lt;/a&gt;, Microsoft
+continued working on language version internally called "Small C#", which is now available
+as "C# 6" in the &lt;a href="https://www.visualstudio.com/en-us/news/vs2015-vs.aspx"&gt;Visual Studio 2015 preview&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;It is my understanding that, with this release, Microsoft is secretly testing the reaction of the 
+developer audience to some of the amazing features that F# developers loved and used for 
+the last 7 years and that are coming to C# &lt;em&gt;very soon&lt;/em&gt;. To avoid shock, these are however
+carefuly hidden!&lt;/p&gt;
+
+&lt;p&gt;In this blog post, I'm going to show you &lt;em&gt;pattern matching&lt;/em&gt; which is probably the most useful
+hidden C# feature and its improvements in C# 6. For reasons that elude me, pattern matching in 
+C# 6 is called &lt;em&gt;exception filters&lt;/em&gt; and has some unfortunate restrictions. But we can still 
+use it to write nice functional code!&lt;/p&gt;
+
+</description>
+    </item>
+    <item>
       <title>Upcoming F# book and event deals</title>
       <guid>http://tomasp.net/blog/2015/books-trainings</guid>
       <link>http://tomasp.net/blog/2015/books-trainings/index.html</link>
@@ -549,38 +576,6 @@ We already have some events planned - &lt;strong&gt;Progressive F# Tutorials&lt;
 scheduled for September 16.-19. so you can become an F# guru in 4 days :-). But I'm also happy
 to have a chat with anyone interested in F# and perhaps do a lunch time talk, if you need to
 convince your colleagues or boss that F# is a good choice.&lt;/p&gt;
-
-</description>
-    </item>
-    <item>
-      <title>Update on the F# Deep Dives book</title>
-      <guid>http://tomasp.net/blog/2013/deep-dives-update</guid>
-      <link>http://tomasp.net/blog/2013/deep-dives-update/index.html</link>
-      <pubDate>Tue, 27 Aug 2013 03:15:40 GMT</pubDate>
-      <description>&lt;img src="http://tomasp.net/articles/manning-deep-dives/cover.jpg" class="rdecor" title="F# Deep Dives" style="margin-left:20px;margin-bottom:15px"/&gt;
-
-&lt;p&gt;It has been some time since I &lt;a href="http://tomasp.net/blog/manning-deep-dives.aspx/"&gt;last wrote about F# Deep Dives&lt;/a&gt;
-- a new project that I'm working on together with &lt;a href="http://www.manning.com"&gt;Manning&lt;/a&gt;,
-&lt;a href="http://trelford.com/blog"&gt;Phil Trelford&lt;/a&gt; and a number of F# experts, so I'd like to write a quick
-update. In summary, working on a book with more than 10 co-authors is more difficult than one
-would think (and 10 people cannot write a book in 1/10 of the time :-)), but now that the holidays
-are almost over, you can expect more frequent updates again!&lt;/p&gt;
-
-&lt;p&gt;First of all, I should mention that you can buy &lt;a href="http://www.manning.com/petricek2/"&gt;the Early Access preview&lt;/a&gt;
-of the book from Manning and there is already one &lt;a href="http://blogs.tedneward.com/2013/01/05/Review+In+Advance+F+Deep+Dives.aspx"&gt;in advance review of the book&lt;/a&gt;
-from Ted Neward (thanks!) who says:&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;As of this writing, the early-access [...] version had only Chapters 3 and Chapter 11, 
-but the other topics [...] are juicy and meaty. [T]he prose from the MEAP edition is 
-pretty easy to read already, despite the fact that it's early-access material. In particular, 
-the Markdown parser they implement in chapter 3 is a great example of a non-trivial 
-language parser, which is not an easy task (...).&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;As I mentioned, the book is unique in that it is not written just by me and Phil - each chapter 
-is written by a real-world F# expert and many of them use F# in production. The disadvantage is
-that they are all busy people, but we have close to half of the planned chapters available already...&lt;/p&gt;
 
 </description>
     </item>

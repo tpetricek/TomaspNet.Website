@@ -66,29 +66,35 @@
       
 
   <div>
-  <h1><a href="http://tomasp.net/blog/2015/books-trainings/index.html">Upcoming F# book and event deals</a></h1>
-  <img src="http://tomasp.net/blog/2015/why-fsharp-in-2015/gingerbread.jpg" style="width:200px;float:right;margin:15px" />
+  <h1><a href="http://tomasp.net/blog/2015/csharp-pattern-matching/index.html">Evaluating expressions using pattern matching in C# 6</a></h1>
+  <img src="http://tomasp.net/blog/2015/csharp-pattern-matching/hat.png" style="float:right;margin:20px" />
 
-<p>I guess that it might be a bit too late for adding to your list of new year's resulution now.
-But just if you still have an empty slot (or in case an originally taken slot has become
-available), your new year's resolution should be to get involved with F#!</p>
+<p>On year ago, on this very day, <a href="http://tomasp.net/blog/2014/csharp-6-released/index.html">I wrote about the open-sourcing of C# 
+6.0</a>. Thanks to a very special
+information leak, I learned about this about a week before Microsoft officially announced
+it. However, my information were slightly incorrect - rather then releasing the <a href="https://github.com/Microsoft/visualfsharp/">much 
+improved version of the language</a>, Microsoft
+continued working on language version internally called "Small C#", which is now available
+as "C# 6" in the <a href="https://www.visualstudio.com/en-us/news/vs2015-vs.aspx">Visual Studio 2015 preview</a>.</p>
 
-<p>Obviously, the goal of this blog post is to sell you some of my F# trainings and other materials -
-including the online course on <a href="http://fsharpworks.com/workshops/finance.html">F# in Finance</a> and our
-<a href="http://fsharpworks.com/workshops/fast-track.html">FastTrack to F#</a> course in London and New York
-and also the <a href="http://manning.com/petricek2">F# Deep Dives</a> book. But to conceal this fact, I'm
-going to fill most of the blog post with useful information about F#, the F# Software Foundation
-and the F# community (but if you really just want to read about my courses, scroll down to the
-<a href="http://tomasp.net/blog/2015/why-fsharp-in-2015/index.html#courses">second section</a>).</p>
+<p>It is my understanding that, with this release, Microsoft is secretly testing the reaction of the 
+developer audience to some of the amazing features that F# developers loved and used for 
+the last 7 years and that are coming to C# <em>very soon</em>. To avoid shock, these are however
+carefuly hidden!</p>
+
+<p>In this blog post, I'm going to show you <em>pattern matching</em> which is probably the most useful
+hidden C# feature and its improvements in C# 6. For reasons that elude me, pattern matching in 
+C# 6 is called <em>exception filters</em> and has some unfortunate restrictions. But we can still 
+use it to write nice functional code!</p>
 
 
       
   <p class="meta">
-    <span><strong>Published</strong>: Tuesday, 7 April 2015, 3:36 PM</span>
+    <span><strong>Published</strong>: Wednesday, 1 April 2015, 12:41 PM</span>
       <br />      
-      <span class="tags"><strong>Tags</strong>: c#, f#, functional programming, talks </span> 
+      <span class="tags"><strong>Tags</strong>: c#, fun, functional programming </span> 
     <br />
-    <a href="http://tomasp.net/blog/2015/books-trainings/index.html">Read the complete article</a>
+    <a href="http://tomasp.net/blog/2015/csharp-pattern-matching/index.html">Read the complete article</a>
   </p>
   </div>
 
@@ -181,7 +187,7 @@ and the F# community (but if you really just want to read about my courses, scro
     <h4>Blog tags</h4>
     <p>
 
-      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(101),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(34),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(13),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(29),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(5),       <a href="http://tomasp.net/blog/tag/open-source/">open source</a>&nbsp;(5),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/monads/">monads</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fslab/">fslab</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(1)    </p>
+      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(101),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(35),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(14),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(29),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(5),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/open-source/">open source</a>&nbsp;(5),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/monads/">monads</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fslab/">fslab</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(1)    </p>
 
   </div>
 </div>
@@ -205,7 +211,7 @@ and the F# community (but if you really just want to read about my courses, scro
     <h4>Blog archives <a href="http://tomasp.net/rss.xml"><img src="http://tomasp.net/img/rss.gif" /></a></h4>
       <a href="http://tomasp.net/blog/archive/april-2015/index.html">
         April 2015 (1)</a>,      <a href="http://tomasp.net/blog/archive/march-2015/index.html">
-        March 2015 (1)</a>,      <a href="http://tomasp.net/blog/archive/february-2015/index.html">
+        March 2015 (2)</a>,      <a href="http://tomasp.net/blog/archive/february-2015/index.html">
         February 2015 (1)</a>,      <a href="http://tomasp.net/blog/archive/january-2015/index.html">
         January 2015 (2)</a>,      <a href="http://tomasp.net/blog/archive/december-2014/index.html">
         December 2014 (1)</a>,      <a href="http://tomasp.net/blog/archive/may-2014/index.html">

@@ -68,46 +68,45 @@
   <!-- Print more details about the first blog post -->
 
   <div>
-  <h1><a href="http://tomasp.net/blog/2015/books-trainings/index.html">Upcoming F# book and event deals</a></h1>
-  <a href="http://www.functional-programming.net">
-<img src="http://tomasp.net/blog/2015/books-trainings/snip.png" style="width:150px;float:right;margin:0px 0px 15px 15px" />
-</a>
+  <h1><a href="http://tomasp.net/blog/2015/csharp-pattern-matching/index.html">Evaluating expressions using pattern matching in C# 6</a></h1>
+  <img src="http://tomasp.net/blog/2015/csharp-pattern-matching/hat.png" style="float:right;margin:20px" />
 
-<p>Since I <a href="https://twitter.com/tomaspetricek/status/544531884030840832">submitted my PhD thesis in December</a>,
-I had a little bit of time to finish some of the things that I wanted to do for a really long time, but
-never quite found time to actually do them. This included <a href="http://bluemountaincapital.github.io/FSharpRProvider/mac-and-linux.html">getting the R provider to work on 
-Mac</a> and also creating a new 
-web site for my various functional programming trainings and books. I even have a nice domain name:</p>
+<p>On year ago, on this very day, <a href="http://tomasp.net/blog/2014/csharp-6-released/index.html">I wrote about the open-sourcing of C# 
+6.0</a>. Thanks to a very special
+information leak, I learned about this about a week before Microsoft officially announced
+it. However, my information were slightly incorrect - rather then releasing the <a href="https://github.com/Microsoft/visualfsharp/">much 
+improved version of the language</a>, Microsoft
+continued working on language version internally called "Small C#", which is now available
+as "C# 6" in the <a href="https://www.visualstudio.com/en-us/news/vs2015-vs.aspx">Visual Studio 2015 preview</a>.</p>
 
-<ul>
-<li><strong><a href="http://www.functional-programming.net">www.functional-programming.net</a></strong></li>
-</ul>
+<p>It is my understanding that, with this release, Microsoft is secretly testing the reaction of the 
+developer audience to some of the amazing features that F# developers loved and used for 
+the last 7 years and that are coming to C# <em>very soon</em>. To avoid shock, these are however
+carefuly hidden!</p>
 
-<p>The page also discusses a couple of business reasons for looking into functional programming. So, if you're
-a business person wondering why you should send your developers on an F# course, the site has the answers
-for you too! (Or if you are developer and need a page for your boss.) The other place to check out is the
-official <a href="http://www.fsharp.org">F# Software Foundation web page</a> is another great resource and the
-<a href="http://fsharp.org/testimonials/">testimonials hosted there</a>.</p>
-
-<p>The page has some information about the <a href="http://functional-programming.net/#trainings">various trainings we're offering at fsharpWorks</a>
-and about the two F# books I co-authored (<a href="http://functional-programming.net/rwfp/">Real-World Functional Programming</a> and 
-brand new <a href="http://functional-programming.net/deepdives/">F# Deep Dives</a>). 
-I'm happy that we can offer some special deals on both the books and the F# FastTrack course in London, 
-so if you're considering getting into F#, now is a good time!</p>
+<p>In this blog post, I'm going to show you <em>pattern matching</em> which is probably the most useful
+hidden C# feature and its improvements in C# 6. For reasons that elude me, pattern matching in 
+C# 6 is called <em>exception filters</em> and has some unfortunate restrictions. But we can still 
+use it to write nice functional code!</p>
 
 
       
   <p class="meta">
-    <span><strong>Published</strong>: Friday, 27 March 2015, 12:16 PM</span>
+    <span><strong>Published</strong>: Wednesday, 1 April 2015, 12:41 PM</span>
       <br />      
-      <span class="tags"><strong>Tags</strong>: c#, f#, functional programming, talks </span> 
+      <span class="tags"><strong>Tags</strong>: c#, fun, functional programming </span> 
     <br />
-    <a href="http://tomasp.net/blog/2015/books-trainings/index.html">Read the complete article</a>
+    <a href="http://tomasp.net/blog/2015/csharp-pattern-matching/index.html">Read the complete article</a>
   </p>
   </div>
 
   <!-- For remaining articles, just print short summary with abstract -->
   <h1><a href="http://tomasp.net/blog/index.html">Recent articles from my blog</a></h1>
+    <h2><a href="http://tomasp.net/blog/2015/books-trainings/index.html">Upcoming F# book and event deals</a></h2>
+    <p class="smdate">Friday, 27 March 2015, 12:16 PM</p>
+    <p class="description">
+        I'm happy that we can offer some special deals on the recently publishedF# Deep Dives book and also on our upcoming F# FastTrack training and the F# eXchangeconference in April in London!
+    </p>
     <h2><a href="http://tomasp.net/blog/2015/library-frameworks/index.html">Library patterns: Why frameworks are evil</a></h2>
     <p class="smdate">Tuesday, 3 March 2015, 5:13 PM</p>
     <p class="description">
@@ -122,11 +121,6 @@ so if you're considering getting into F#, now is a good time!</p>
     <p class="smdate">Thursday, 15 January 2015, 5:58 PM</p>
     <p class="description">
         There is a bunch of visualization and charting libraries for F#. Sadly, perhaps the most advanced ones do not work particularly well outside of Windows. This blog post introduces a new work-in-progress library called FnuPlot which is a lightweight and cross-platform wrapper for gnuplot.
-    </p>
-    <h2><a href="http://tomasp.net/blog/2015/why-fsharp-in-2015/index.html">Why you should learn F# in 2015 (and how)?</a></h2>
-    <p class="smdate">Wednesday, 7 January 2015, 2:36 PM</p>
-    <p class="description">
-        I guess that it might be a bit too late for adding to your list of new year's resolution now.But just if you still have an empty slot (or in case an originally taken slot has become available), your new year's resolution should be to get involved with F#!
     </p>
 
   <p class="meta">
@@ -242,7 +236,8 @@ so if you're considering getting into F#, now is a good time!</p>
     </div>
     <div class="large-7 columns">
     <h4>Blog archives <a href="http://tomasp.net/rss.xml"><img src="http://tomasp.net/img/rss.gif" /></a></h4>
-      <a href="http://tomasp.net/blog/archive/march-2015/index.html">
+      <a href="http://tomasp.net/blog/archive/april-2015/index.html">
+        April 2015 (1)</a>,      <a href="http://tomasp.net/blog/archive/march-2015/index.html">
         March 2015 (2)</a>,      <a href="http://tomasp.net/blog/archive/february-2015/index.html">
         February 2015 (1)</a>,      <a href="http://tomasp.net/blog/archive/january-2015/index.html">
         January 2015 (2)</a>,      <a href="http://tomasp.net/blog/archive/december-2014/index.html">

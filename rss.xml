@@ -4,7 +4,7 @@
     <link>http://tomasp.net</link>
     <description>Writing about software development in F# and .NET, sharing materials from my F# trainings and talks, writing about programming language research and theory.</description>
     <item>
-      <title>Evaluating expressions using pattern matching in C# 6</title>
+      <title>Pattern matching in action using C# 6</title>
       <guid>http://tomasp.net/blog/2015/csharp-pattern-matching</guid>
       <link>http://tomasp.net/blog/2015/csharp-pattern-matching/index.html</link>
       <pubDate>Wed, 01 Apr 2015 10:41:49 GMT</pubDate>

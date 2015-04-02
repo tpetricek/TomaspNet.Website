@@ -1,6 +1,6 @@
 ﻿<img src="http://tomasp.net/blog/2015/why-fsharp-in-2015/gingerbread.jpg" style="width:200px;float:right;margin:15px" />
 
-I guess that it might be a bit too late for adding to your list of new year's resolution now.
+I guess that it might be a bit too late for adding to your list of new year's resulution now.
 But just if you still have an empty slot (or in case an originally taken slot has become
 available), your new year's resolution should be to get involved with F#!
 

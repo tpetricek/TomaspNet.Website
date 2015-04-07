@@ -166,16 +166,16 @@ The FastTrack to F# course is a 2 day course that combines introduction to the l
 from working with data and type providers to testing and domain specific langauges in the
 second day.
 
-### On-site trainings from F# Works
+### On-site trainings from fsharpWorks
 
 <img src="http://tomasp.net/blog/2014/fsharpworks-events/logo-sm.png" style="float:right;width:100px" /> 
 
 Finally, if you are looking for an on-site training or F# consulting (or a combination of
-both) to get your team started with F#, then you should check out [F# Works](http://fsharpworks.com).
-I started F# Works together with three other F# experts: [Phil Trelford](http://trelford.com/blog/),
+both) to get your team started with F#, then you should check out [fsharpWorks](http://fsharpworks.com).
+I started fsharpWorks together with three other F# experts: [Phil Trelford](http://trelford.com/blog/),
 [Mathias Brandewinder](http://www.clear-lines.com/blog/) and [Scott Wlaschin](http://fsharpforfunandprofit.com/).
 
-F# Works covers pretty much all F# areas that you might be interested in - financial computing,
+fsharpWorks covers pretty much all F# areas that you might be interested in - financial computing,
 domain driven design, machine learning and much more, so if you're ready to take F# seriously in
 2015, drop me an
 email at [tomas@tomasp.net](mailto:tomas@tomasp.net)!

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{5C7045D5-4574-4BA7-A3BA-905C9C074F5B}"
 	ProjectSection(SolutionItems) = preProject
@@ -14,25 +14,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Content", "Content", "{9DF5
 		content\custom\style.css = content\custom\style.css
 		content\custom\tooltips.css = content\custom\tooltips.css
 		content\custom\tooltips.js = content\custom\tooltips.js
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Layouts", "Layouts", "{0706F2C2-636E-4740-A25F-DDB05C5AA555}"
-	ProjectSection(SolutionItems) = preProject
-		layouts\academic.cshtml = layouts\academic.cshtml
-		layouts\default.cshtml = layouts\default.cshtml
-		layouts\page.cshtml = layouts\page.cshtml
-		layouts\paper.cshtml = layouts\paper.cshtml
-		layouts\post.cshtml = layouts\post.cshtml
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Source", "Source", "{801A3857-01D3-4355-8D2E-22C1B7DBEA95}"
-	ProjectSection(SolutionItems) = preProject
-		source\index.cshtml = source\index.cshtml
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "blog", "blog", "{F6F70A4C-7C06-45E8-BAF3-C94FCC29F92F}"
-	ProjectSection(SolutionItems) = preProject
-		source\blog\index.cshtml = source\blog\index.cshtml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "News", "News", "{4D31843E-8781-4D84-8C86-149BF3A9E08D}"
@@ -74,8 +55,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{B83F5E3E-8CEC-4F4E-B251-D2C853816C62} = {5C7045D5-4574-4BA7-A3BA-905C9C074F5B}
 		{4D31843E-8781-4D84-8C86-149BF3A9E08D} = {9DF5F21E-92C6-4C46-AEB9-D32284D99438}
-		{F6F70A4C-7C06-45E8-BAF3-C94FCC29F92F} = {801A3857-01D3-4355-8D2E-22C1B7DBEA95}
+		{B83F5E3E-8CEC-4F4E-B251-D2C853816C62} = {5C7045D5-4574-4BA7-A3BA-905C9C074F5B}
 	EndGlobalSection
 EndGlobal

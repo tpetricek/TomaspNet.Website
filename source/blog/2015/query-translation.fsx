@@ -25,6 +25,9 @@ One of the attendees of my [virtual F# in Finance course](http://www.fsharpworks
 [Stuart](https://twitter.com/stuart_j_davies) recently asked me a pretty advanced question about writing custom queries with F#, because he was 
 interested in writing a nicer querying library for Amazon DynamoDB (his [project is here](https://github.com/stuartjdavies/FSharp.Cloud.AWS/blob/master/FSharp.Cloud.AWS/DynamoDB.fs)).
 
+> This article is also available in Japanese, thanks to [Yukitoshi Suzuki](https://github.com/yukitos)!  
+> [独自のF# LINQクエリビルダーを作成する](https://github.com/yukitos/notes/blob/master/FSharp.Blogs/Writing_custom_FSharp_LINQ_query_builder.md)
+
 I realized that I don't really know about any good resource about doing this, so I wrote a little sample
 that shows how you can do this. The idea is that we want to be able to write something like this:
 *)

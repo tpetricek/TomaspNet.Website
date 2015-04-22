@@ -66,6 +66,41 @@
       
 
   <div>
+  <h1><a href="http://tomasp.net/blog/2015/restricting-ranges/index.html">Comparing date range handling in C# and F#</a></h1>
+  <p>I was recently working on some code for handling date ranges in 
+<a href="http://github.com/blueMountainCapital/Deedle">Deedle</a>. Although Deedle is written in F#, 
+I also wrote some internal integration code in C#. After doing that, I realized that the 
+code I wrote is actually reusable and should be a part of Deedle itself and so I went through
+the process of rewriting a simple function from (fairly functional) C# to F#. This is a small
+(and by no means representative!) example, but I think it nicely shows some of the reasons why
+I like F#, so I thought I'd share it.</p>
+
+<p>One thing that we are adding to Deedle is a "BigDeedle" implementation of internal data 
+structures. The idea is that you can load very big frames and series without actually loading
+all data into memory.</p>
+
+<p>When you perform slicing on a large series and then merge some of the parts of the series
+(say, years 2010, 2012 and 2014), you end up with a series that combines a
+couple of chunks. If you then restrict the series (say, from June 2012 to June 2014), you
+need to restrict the ranges of the chunks:</p>
+
+<img src="http://tomasp.net/blog/2015/restricting-ranges/drawing.png" alt="Demonstration" style="margin:15px; width:370px" />
+
+<p>As the diagram shows, this is just a matter of iterating over the chunks, keeping those 
+in the range, dropping those outside of the range and restrictingthe boundaries of the other
+chunks. So, let's start with the C# version I wrote.</p>
+
+
+      
+  <p class="meta">
+    <span><strong>Published</strong>: Wednesday, 22 April 2015, 4:55 PM</span>
+      <br />      
+      <span class="tags"><strong>Tags</strong>: f#, c#, deedle, linq, functional programming </span> 
+    <br />
+    <a href="http://tomasp.net/blog/2015/restricting-ranges/index.html">Read the complete article</a>
+  </p>
+  </div>
+  <div>
   <h1><a href="http://tomasp.net/blog/2014/deedle-v1/index.html">New features and improvements in Deedle v1.0</a></h1>
   <p>As Howard Mansell already <a href="http://techblog.bluemountaincapital.com/2014/05/21/deedle-v1-0-release/">announced on the BlueMountain Tech blog</a>,
 we have officially released the "1.0" version of Deedle. In case you have not 
@@ -187,7 +222,7 @@ improvements we did.</p>
     <h4>Blog tags</h4>
     <p>
 
-      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(102),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(35),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(15),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(29),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(5),       <a href="http://tomasp.net/blog/tag/open-source/">open source</a>&nbsp;(5),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/linq/">linq</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/monads/">monads</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fslab/">fslab</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(1)    </p>
+      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(103),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(36),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(16),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(29),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(5),       <a href="http://tomasp.net/blog/tag/open-source/">open source</a>&nbsp;(5),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/linq/">linq</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/monads/">monads</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fslab/">fslab</a>&nbsp;(1)    </p>
 
   </div>
 </div>
@@ -210,7 +245,7 @@ improvements we did.</p>
     <div class="large-7 columns">
     <h4>Blog archives <a href="http://tomasp.net/rss.xml"><img src="http://tomasp.net/img/rss.gif" /></a></h4>
       <a href="http://tomasp.net/blog/archive/april-2015/index.html">
-        April 2015 (2)</a>,      <a href="http://tomasp.net/blog/archive/march-2015/index.html">
+        April 2015 (3)</a>,      <a href="http://tomasp.net/blog/archive/march-2015/index.html">
         March 2015 (2)</a>,      <a href="http://tomasp.net/blog/archive/february-2015/index.html">
         February 2015 (1)</a>,      <a href="http://tomasp.net/blog/archive/january-2015/index.html">
         January 2015 (2)</a>,      <a href="http://tomasp.net/blog/archive/december-2014/index.html">

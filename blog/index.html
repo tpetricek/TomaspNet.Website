@@ -66,6 +66,41 @@
       
 
   <div>
+  <h1><a href="http://tomasp.net/blog/2015/restricting-ranges/index.html">Comparing date range handling in C# and F#</a></h1>
+  <p>I was recently working on some code for handling date ranges in 
+<a href="http://github.com/blueMountainCapital/Deedle">Deedle</a>. Although Deedle is written in F#, 
+I also wrote some internal integration code in C#. After doing that, I realized that the 
+code I wrote is actually reusable and should be a part of Deedle itself and so I went through
+the process of rewriting a simple function from (fairly functional) C# to F#. This is a small
+(and by no means representative!) example, but I think it nicely shows some of the reasons why
+I like F#, so I thought I'd share it.</p>
+
+<p>One thing that we are adding to Deedle is a "BigDeedle" implementation of internal data 
+structures. The idea is that you can load very big frames and series without actually loading
+all data into memory.</p>
+
+<p>When you perform slicing on a large series and then merge some of the parts of the series
+(say, years 2010, 2012 and 2014), you end up with a series that combines a
+couple of chunks. If you then restrict the series (say, from June 2012 to June 2014), you
+need to restrict the ranges of the chunks:</p>
+
+<img src="http://tomasp.net/blog/2015/restricting-ranges/drawing.png" alt="Demonstration" style="margin:15px; width:370px" />
+
+<p>As the diagram shows, this is just a matter of iterating over the chunks, keeping those 
+in the range, dropping those outside of the range and restrictingthe boundaries of the other
+chunks. So, let's start with the C# version I wrote.</p>
+
+
+      
+  <p class="meta">
+    <span><strong>Published</strong>: Wednesday, 22 April 2015, 4:55 PM</span>
+      <br />      
+      <span class="tags"><strong>Tags</strong>: f#, c#, deedle, linq, functional programming </span> 
+    <br />
+    <a href="http://tomasp.net/blog/2015/restricting-ranges/index.html">Read the complete article</a>
+  </p>
+  </div>
+  <div>
   <h1><a href="http://tomasp.net/blog/2015/query-translation/index.html">Writing custom F# LINQ query builder</a></h1>
   <p>One of the attendees of my <a href="http://www.fsharpworks.com/workshops/finance.html">virtual F# in Finance course</a>,
 <a href="https://twitter.com/stuart_j_davies">Stuart</a> recently asked me a pretty advanced question about writing custom queries with F#, because he was 
@@ -523,58 +558,6 @@ and 8 PM and, voilà, here is what I got...</p>
     <a href="http://tomasp.net/blog/2014/puzzling-fsharp/index.html">Read the complete article</a>
   </p>
   </div>
-  <div>
-  <h1><a href="http://tomasp.net/blog/2014/japan-advent-art-en/index.html">Advent Art: Generating Hokusai paintings</a></h1>
-  <div id="myModal" class="reveal-modal xlarge" data-reveal>
-  <iframe src="http://tomasp.net/blog/2014/japan-advent-art-en/hokusai.html" style="width:100%; height:850px;border-style:none;"></iframe>
-  <a class="close-reveal-modal">&#215;</a>
-</div>
-
-<div class="rdecor" style="text-align:center">
-<a href="#" data-reveal-id="myModal" style="text-align:center">
-<img src="http://tomasp.net/blog/2014/japan-advent-art-en/hokusai_sm.jpg" style="margin-bottom:10px;border:4px solid black" title="The Great Wave off Kanagawa" /><br />
-<small style="font-size:90%">Click here to see the result live!</small>
-</a>
-</div>
-
-<p>For the last few years, the Japanese F# community has been running the F# Advent Calendar 
-(<a href="http://atnd.org/events/10685">2010</a>, <a href="http://partake.in/events/1c24993a-c475-4fc2-bca4-7a1cd2f81869">2011</a>, <a href="http://atnd.org/events/33927">2012</a>). 
-Each advent day, one person writes an article about something interesting in F#. I have 
-been following the advent calendar last year on Twitter and when the planning started for 
-this year, I offered to write an article too. You might have noticed that I posted a 
-<a href="http://tomasp.net/blog/2013/japan-advent-art/index.html">Japanse version of the article</a>
-in December as part of the <a href="http://connpass.com/event/3935/">advent calendar 2013</a>.</p>
-
-<p>A number of people helped to make this happen - <a href="http://twitter.com/igeta">@igeta</a> arranged everything and 
-helped with reviewing, <a href="http://twitter.com/yukitos">@yukitos</a> translated the article and 
-<a href="http://twitter.com/gab_km">@gab_km</a> reviewed the translation. Thanks!</p>
-
-<p>But what should I write about? It would be nice to look at some of the F# open-source libraries
-and projects that have been developing over the last year in the F# community. At the same time,
-can I relate the topic of the article to Japan? After some thinking, I came up with the following
-plan:</p>
-
-<ul>
-<li><p>First, we'll use the <a href="http://fsharp.github.io/FSharp.Data/">F# Data</a> library and the <a href="http://www.freebase.com">Freebase</a> to learn
-something about Japanese art. I should add that thanks to <a href="https://twitter.com/yukitos">@yukitos</a> the library now also has
-a <a href="http://fsharp.github.io/FSharp.Data/jp">documentation in Japanese</a>.</p></li>
-<li><p>Then we'll pick one art work and try to recreate it in F#. Given my artistic skills, this 
-part will definitely fail, but we can try :-).</p></li>
-<li><p>Finally, we'll use the <a href="http://funscript.info">FunScript project</a> to turn our F# code into
-JavaScript, so that we can run it as a pure HTML web application that also works on mobile
-phones and other devices.</p></li>
-</ul>
-
-
-      
-  <p class="meta">
-    <span><strong>Published</strong>: Tuesday, 21 January 2014, 6:49 PM</span>
-      <br />      
-      <span class="tags"><strong>Tags</strong>: f#, art, fractals, funscript, f# data </span> 
-    <br />
-    <a href="http://tomasp.net/blog/2014/japan-advent-art-en/index.html">Read the complete article</a>
-  </p>
-  </div>
 
     </content>
 
@@ -665,7 +648,7 @@ phones and other devices.</p></li>
     <h4>Blog tags</h4>
     <p>
 
-      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(102),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(35),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(15),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(29),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(5),       <a href="http://tomasp.net/blog/tag/open-source/">open source</a>&nbsp;(5),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/linq/">linq</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/monads/">monads</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fslab/">fslab</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(1)    </p>
+      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(103),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(36),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(16),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(29),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(5),       <a href="http://tomasp.net/blog/tag/open-source/">open source</a>&nbsp;(5),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/linq/">linq</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/monads/">monads</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fslab/">fslab</a>&nbsp;(1)    </p>
 
   </div>
 </div>
@@ -688,7 +671,7 @@ phones and other devices.</p></li>
     <div class="large-7 columns">
     <h4>Blog archives <a href="http://tomasp.net/rss.xml"><img src="http://tomasp.net/img/rss.gif" /></a></h4>
       <a href="http://tomasp.net/blog/archive/april-2015/index.html">
-        April 2015 (2)</a>,      <a href="http://tomasp.net/blog/archive/march-2015/index.html">
+        April 2015 (3)</a>,      <a href="http://tomasp.net/blog/archive/march-2015/index.html">
         March 2015 (2)</a>,      <a href="http://tomasp.net/blog/archive/february-2015/index.html">
         February 2015 (1)</a>,      <a href="http://tomasp.net/blog/archive/january-2015/index.html">
         January 2015 (2)</a>,      <a href="http://tomasp.net/blog/archive/december-2014/index.html">

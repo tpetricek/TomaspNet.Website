@@ -4,6 +4,36 @@
     <link>http://tomasp.net</link>
     <description>Writing about software development in F# and .NET, sharing materials from my F# trainings and talks, writing about programming language research and theory.</description>
     <item>
+      <title>Comparing date range handling in C# and F#</title>
+      <guid>http://tomasp.net/blog/2015/restricting-ranges</guid>
+      <link>http://tomasp.net/blog/2015/restricting-ranges/index.html</link>
+      <pubDate>Wed, 22 Apr 2015 15:55:20 GMT</pubDate>
+      <description>&lt;p&gt;I was recently working on some code for handling date ranges in 
+&lt;a href="http://github.com/blueMountainCapital/Deedle"&gt;Deedle&lt;/a&gt;. Although Deedle is written in F#, 
+I also wrote some internal integration code in C#. After doing that, I realized that the 
+code I wrote is actually reusable and should be a part of Deedle itself and so I went through
+the process of rewriting a simple function from (fairly functional) C# to F#. This is a small
+(and by no means representative!) example, but I think it nicely shows some of the reasons why
+I like F#, so I thought I'd share it.&lt;/p&gt;
+
+&lt;p&gt;One thing that we are adding to Deedle is a "BigDeedle" implementation of internal data 
+structures. The idea is that you can load very big frames and series without actually loading
+all data into memory.&lt;/p&gt;
+
+&lt;p&gt;When you perform slicing on a large series and then merge some of the parts of the series
+(say, years 2010, 2012 and 2014), you end up with a series that combines a
+couple of chunks. If you then restrict the series (say, from June 2012 to June 2014), you
+need to restrict the ranges of the chunks:&lt;/p&gt;
+
+&lt;img src="http://tomasp.net/blog/2015/restricting-ranges/drawing.png" alt="Demonstration" style="margin:15px; width:370px" /&gt;
+
+&lt;p&gt;As the diagram shows, this is just a matter of iterating over the chunks, keeping those 
+in the range, dropping those outside of the range and restrictingthe boundaries of the other
+chunks. So, let's start with the C# version I wrote.&lt;/p&gt;
+
+</description>
+    </item>
+    <item>
       <title>Writing custom F# LINQ query builder</title>
       <guid>http://tomasp.net/blog/2015/query-translation</guid>
       <link>http://tomasp.net/blog/2015/query-translation/index.html</link>
@@ -563,47 +593,6 @@ easier of the two, but nevertheless, difficult to get right!
 Fortunately, the F# community made an amazing progress in this direction, so let's
 have a look at some of the tools that make this possible...&lt;/p&gt;
 
-</description>
-    </item>
-    <item>
-      <title>How many tuple types are there in C#?</title>
-      <guid>http://tomasp.net/blog/2013/tuples-in-csharp</guid>
-      <link>http://tomasp.net/blog/2013/tuples-in-csharp/index.html</link>
-      <pubDate>Tue, 17 Sep 2013 13:11:57 GMT</pubDate>
-      <description>&lt;p&gt;In a &lt;a href="http://stackoverflow.com/questions/18718232/when-should-i-write-my-functions-in-curried-form/18721711"&gt;recent StackOverflow question&lt;/a&gt;
-the poster asked about the difference between &lt;em&gt;tupled&lt;/em&gt; and &lt;em&gt;curried&lt;/em&gt; form of a function in F#. 
-In F#, you can use pattern matching to easily define a function that takes a tuple as an argument.
-For example, the poster's function was a simple calculation that multiplies the number 
-of units sold &lt;em&gt;n&lt;/em&gt; by the price &lt;em&gt;p&lt;/em&gt;:&lt;/p&gt;
-&lt;pre class="fssnip"&gt;
-&lt;span class="l"&gt;1: &lt;/span&gt;&lt;span class="k"&gt;let&lt;/span&gt; &lt;span onmouseout="hideTip(event, 'abs159_1', 1)" onmouseover="showTip(event, 'abs159_1', 1)" class="i"&gt;salesTuple&lt;/span&gt; (&lt;span onmouseout="hideTip(event, 'abs159_2', 2)" onmouseover="showTip(event, 'abs159_2', 2)" class="i"&gt;price&lt;/span&gt;, &lt;span onmouseout="hideTip(event, 'abs159_3', 3)" onmouseover="showTip(event, 'abs159_3', 3)" class="i"&gt;count&lt;/span&gt;) &lt;span class="o"&gt;=&lt;/span&gt; &lt;span onmouseout="hideTip(event, 'abs159_2', 4)" onmouseover="showTip(event, 'abs159_2', 4)" class="i"&gt;price&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; (&lt;span onmouseout="hideTip(event, 'abs159_4', 5)" onmouseover="showTip(event, 'abs159_4', 5)" class="i"&gt;float&lt;/span&gt; &lt;span onmouseout="hideTip(event, 'abs159_3', 6)" onmouseover="showTip(event, 'abs159_3', 6)" class="i"&gt;count&lt;/span&gt;)&lt;/pre&gt;
-&lt;p&gt;The function takes a single argument of type &lt;code&gt;Tuple&amp;lt;float, int&amp;gt;&lt;/code&gt; (or, using the nicer F# notation
-&lt;code&gt;float * int&lt;/code&gt;) and immediately decomposes it into two variables, &lt;code&gt;price&lt;/code&gt; and &lt;code&gt;count&lt;/code&gt;. The other
-alternative is to write a function in the &lt;em&gt;curried&lt;/em&gt; form:&lt;/p&gt;
-&lt;pre class="fssnip"&gt;
-&lt;span class="l"&gt;1: &lt;/span&gt;&lt;span class="k"&gt;let&lt;/span&gt; &lt;span onmouseout="hideTip(event, 'abs159_5', 7)" onmouseover="showTip(event, 'abs159_5', 7)" class="i"&gt;salesCurried&lt;/span&gt; &lt;span onmouseout="hideTip(event, 'abs159_2', 8)" onmouseover="showTip(event, 'abs159_2', 8)" class="i"&gt;price&lt;/span&gt; &lt;span onmouseout="hideTip(event, 'abs159_3', 9)" onmouseover="showTip(event, 'abs159_3', 9)" class="i"&gt;count&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span onmouseout="hideTip(event, 'abs159_2', 10)" onmouseover="showTip(event, 'abs159_2', 10)" class="i"&gt;price&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; (&lt;span onmouseout="hideTip(event, 'abs159_4', 11)" onmouseover="showTip(event, 'abs159_4', 11)" class="i"&gt;float&lt;/span&gt; &lt;span onmouseout="hideTip(event, 'abs159_3', 12)" onmouseover="showTip(event, 'abs159_3', 12)" class="i"&gt;count&lt;/span&gt;)&lt;/pre&gt;
-&lt;p&gt;Here, we get a function of type &lt;code&gt;float -&amp;gt; int -&amp;gt; float&lt;/code&gt;. Usually, you can read this just as a 
-function that takes &lt;code&gt;float&lt;/code&gt; and &lt;code&gt;int&lt;/code&gt; and returns &lt;code&gt;float&lt;/code&gt;. However, you can also use &lt;em&gt;partial
-function application&lt;/em&gt; and call the function with just a single argument - if the price of
-an apple is $1.20, we can write &lt;code&gt;salesCurried 1.20&lt;/code&gt; to get a &lt;em&gt;new&lt;/em&gt; function that takes just
-&lt;code&gt;int&lt;/code&gt; and gives us the price of specified number of apples. The poster's question was:&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;So when I want to implement a function that would have taken &lt;em&gt;n &gt; 1&lt;/em&gt; arguments, 
-should I for example always use a curried function in F# (...)? Or should I take 
-the simple route and use regular function with an n-tuple and curry later on 
-if necessary?&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;You can see &lt;a href="http://stackoverflow.com/questions/18718232/when-should-i-write-my-functions-in-curried-form/18721711#18721711"&gt;my answer on StackOverflow&lt;/a&gt;.
-The point of this short introduction was that the question inspired me to think about how
-the world looks from the C# perspective...&lt;/p&gt;
-
-&lt;div class="tip" id="abs159_1"&gt;val salesTuple : price:float * count:int -&amp;gt; float&lt;br /&gt;&lt;br /&gt;Full name: Tuples-in-csharp_.salesTuple&lt;/div&gt;
-&lt;div class="tip" id="abs159_2"&gt;val price : float&lt;/div&gt;
-&lt;div class="tip" id="abs159_3"&gt;val count : int&lt;/div&gt;
-&lt;div class="tip" id="abs159_4"&gt;Multiple items&lt;br /&gt;val float : value:&amp;#39;T -&amp;gt; float (requires member op_Explicit)&lt;br /&gt;&lt;br /&gt;Full name: Microsoft.FSharp.Core.Operators.float&lt;br /&gt;&lt;br /&gt;--------------------&lt;br /&gt;type float = System.Double&lt;br /&gt;&lt;br /&gt;Full name: Microsoft.FSharp.Core.float&lt;br /&gt;&lt;br /&gt;--------------------&lt;br /&gt;type float&amp;lt;&amp;#39;Measure&amp;gt; = float&lt;br /&gt;&lt;br /&gt;Full name: Microsoft.FSharp.Core.float&amp;lt;_&amp;gt;&lt;/div&gt;
-&lt;div class="tip" id="abs159_5"&gt;val salesCurried : price:float -&amp;gt; count:int -&amp;gt; float&lt;br /&gt;&lt;br /&gt;Full name: Tuples-in-csharp_.salesCurried&lt;/div&gt;
 </description>
     </item>
   </channel>

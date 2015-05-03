@@ -270,7 +270,7 @@ it proposes future research projects.
 
 ## Theses and older projects
 
-#### [Reacitve programming with events](@Model.Root/academic/theses/events)
+#### [Reactive programming with events](@Model.Root/academic/theses/events)
 
 > Master thesis. Charles University in Prague, 2010
 

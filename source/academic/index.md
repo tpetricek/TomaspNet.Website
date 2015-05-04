@@ -301,6 +301,17 @@ application.
 Start here if you want to know that I'm currently working on and what I recently 
 completed. Unpublished drafts are marked as such and I'm always looking for feedback!
 
+#### Draft: [Against the definition of types](@Model.Root/academic/drafts/against-types/)
+
+> Tomas Petricek. Submitted to Onward! Essays 2015
+
+_What is the definition of type?_ Having a clear and precise answer to this question would 
+avoid many misunderstandings but it would hurt science, "hamper the growth of knowledge" and 
+"deflect the course of investigation into narrow channels of things already understood".
+
+ - [abstract](@Model.Root/academic/drafts/against-types/) 
+ | [draft](@Model.Root/academic/drafts/against-types/against-types.pdf)
+
 #### Draft: [F# Data: Making structured data first-class citizens](@Model.Root/academic/drafts/fsharp-data/)
 
 > Tomas Petricek, Gustavo Guerra, Don Syme. Submitted to ICFP 2015

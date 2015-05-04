@@ -1,36 +1,53 @@
 @import url(http://fonts.googleapis.com/css?family=Droid+Sans+Mono|PT+Sans:400);
 
-/* identifier */
-span.i { color:#eaeaea; }
-/* string */
-span.s, span.str { color:#d4943c; }
+/*-------------------------------------------------------------------------- 
+  Formatting for F# code snippets 
+/*--------------------------------------------------------------------------*/
+
+/* strings --- and stlyes for other string related formats */
+span.s, span.str { color:#E0E268; }
+/* printf formatters */
+span.pf { color:#E0C57F; }
+/* escaped chars */
+span.e { color:#EA8675; }
+
+/* identifiers --- and styles for more specific identifier types */
+span.i { color:#d1d1d1; }
+/* type or module */
+span.t { color:#43AEC6; }
+/* function */
+span.f { color:#e1e1e1; }
+/* DU case or active pattern */
+span.p { color:#4ec9b0; }
+
 /* keywords */
-span.k, span.kwrd { color:#67aded; }
+span.k, span.kwrd { color:#FAB11D; }
 /* comment */
-span.c, span.rem { color:#96C71D; }
+span.c, span.rem { color:#808080; }
 /* operators */
 span.o, span.op { color:#af75c1; }
-span.html { color:#af75c1; }
 /* numbers */
 span.n { color:#96C71D; }
 /* line number */
 span.l { color:#80b0b0; }
-
+/* mutable var or ref cell */
+span.v { color:#d1d1d1; font-weight: bold; }
 /* inactive code */
 span.inactive { color:#808080; }
 /* preprocessor */
 span.prep, span.preproc { color:#af75c1; }
-span.attr, span.asp { color:#af75c1; }
-/* fsi output */
-span.fsi { font-style:italic; color:#888888; }
 
 /* omitted */
 span.omitted { 
 	background:#3c4e52;
   border-radius:5px;
-	color:#8fa7ac;
+	color:#808080;
 	padding:0px 0px 1px 0px;
 }
+span.html { color:#af75c1; }
+span.attr, span.asp { color:#af75c1; }
+span.fsi { font-style:italic; color:#888888; }
+
 /* tool tip */
 div.tip {
 	background:#475b5f;

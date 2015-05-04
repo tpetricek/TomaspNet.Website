@@ -9,3 +9,4 @@ source/blog/2015/abstracts/cached/*
 packages/
 tools/FsBlogLib/bin
 tools/FsBlogLib/obj
+.paket/paket.exe

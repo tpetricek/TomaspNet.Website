@@ -1,15 +1,19 @@
-﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{5C7045D5-4574-4BA7-A3BA-905C9C074F5B}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".paket", ".paket", "{5F7E4A3D-2979-49B5-8BE6-B9E4768D133C}"
+	ProjectSection(SolutionItems) = preProject
+		paket.dependencies = paket.dependencies
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{5C7045D5-4574-4BA7-A3BA-905C9C074F5B}"
 	ProjectSection(SolutionItems) = preProject
 		build.fsx = build.fsx
 		tools\generate.fsx = tools\generate.fsx
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Content", "Content", "{9DF5F21E-92C6-4C46-AEB9-D32284D99438}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "content", "content", "{9DF5F21E-92C6-4C46-AEB9-D32284D99438}"
 	ProjectSection(SolutionItems) = preProject
 		content\custom\style.css = content\custom\style.css
 		content\custom\tooltips.css = content\custom\tooltips.css
@@ -19,13 +23,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "News", "News", "{4D31843E-8781-4D84-8C86-149BF3A9E08D}"
 	ProjectSection(SolutionItems) = preProject
 		content\news\news.js = content\news\news.js
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuGet", "NuGet", "{6B802CA3-E934-4CEE-83C7-1BD6D90A9894}"
-	ProjectSection(SolutionItems) = preProject
-		.nuget\NuGet.Config = .nuget\NuGet.Config
-		.nuget\NuGet.exe = .nuget\NuGet.exe
-		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FsBlogLib", "tools\FsBlogLib\FsBlogLib.fsproj", "{B83F5E3E-8CEC-4F4E-B251-D2C853816C62}"

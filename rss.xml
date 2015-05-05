@@ -4,6 +4,29 @@
     <link>http://tomasp.net</link>
     <description>Writing about software development in F# and .NET, sharing materials from my F# trainings and talks, writing about programming language research and theory.</description>
     <item>
+      <title>Announcing FsLab: Data science package for Mono and .NET</title>
+      <guid>http://tomasp.net/blog/2015/announcing-fslab</guid>
+      <link>http://tomasp.net/blog/2015/announcing-fslab/index.html</link>
+      <pubDate>Tue, 05 May 2015 14:55:01 GMT</pubDate>
+      <description>&lt;img src="http://fslab.org/img/logos/fslab.png" style="width:120px;float:right;margin:10px" /&gt;
+
+&lt;p&gt;After over a year of working on FsLab and talking about it at conferences, it is finally time 
+for an official announcement. So, today, I'm excited to announce &lt;a href="http://www.fslab.org"&gt;FsLab&lt;/a&gt; -
+a cross-platform package for doing data science with .NET and Mono.&lt;/p&gt;
+
+&lt;p&gt;It is probably not necessary to explain why data science is an important area. We live 
+surrounded by information, but extracting useful knowledge from the vast amounts of data is 
+not an easy task. You have to access data in different formats (JSON-based REST services, XML, 
+CSV files or even HTML tables), you need to deal with missing values, combine and align data 
+from multiple sources and then build visualizations (or reports) to tell the right story.&lt;/p&gt;
+
+&lt;p&gt;The goal of FsLab is to make this process easier. FsLab combines the power of F# type providers,
+the efficiency and robustness of Mono and .NET and the high quality engineering of the 
+open-source ecosystem around F# and C#.&lt;/p&gt;
+
+</description>
+    </item>
+    <item>
       <title>Comparing date range handling in C# and F#</title>
       <guid>http://tomasp.net/blog/2015/restricting-ranges</guid>
       <link>http://tomasp.net/blog/2015/restricting-ranges/index.html</link>
@@ -568,30 +591,6 @@ Scala &lt;code&gt;for&lt;/code&gt; comprehensions and Python generators to name 
 &lt;p&gt;Some time ago, I started working on an academic article to explain what makes computation
 expressions unique - and I think there is quite a few interesting aspects. Sadly, this is 
 often not very well explained and so the general perception is more like this...&lt;/p&gt;
-
-</description>
-    </item>
-    <item>
-      <title>Building great open-source libraries</title>
-      <guid>http://tomasp.net/blog/2013/great-open-source</guid>
-      <link>http://tomasp.net/blog/2013/great-open-source/index.html</link>
-      <pubDate>Thu, 31 Oct 2013 13:29:06 GMT</pubDate>
-      <description>&lt;a href="http://tpetricek.github.io/FSharp.Formatting/"&gt;
-&lt;img src="http://tpetricek.github.io/FSharp.Formatting/misc/logo.png" alt="F# documentation tools" class="rdecor" style="width:150px;height:150px" /&gt;
-&lt;/a&gt;
-
-&lt;p&gt;The hard part about successful open-source development is not putting the first 
-version of your source code on GitHub. The hard part is what comes next. First
-of all, there are &lt;em&gt;community aspects&lt;/em&gt; - making sure that the project fits well with
-other work in the area, engaging the community and contributors, planing future
-directions for the project and so on. Secondly, there is an &lt;em&gt;infrastructural side&lt;/em&gt; - 
-making sure that there is a package (on &lt;a href="http://www.nuget.org/packages?q=fsharp"&gt;NuGet in the F# world&lt;/a&gt;),
-easy to run and useful tests and also up-to-date documentation and tutorials.&lt;/p&gt;
-
-&lt;p&gt;In this article, I want to talk about the &lt;em&gt;infrastructural side&lt;/em&gt;, which is 
-easier of the two, but nevertheless, difficult to get right!
-Fortunately, the F# community made an amazing progress in this direction, so let's
-have a look at some of the tools that make this possible...&lt;/p&gt;
 
 </description>
     </item>

@@ -68,43 +68,41 @@
   <!-- Print more details about the first blog post -->
 
   <div>
-  <h1><a href="http://tomasp.net/blog/2015/restricting-ranges/index.html">Comparing date range handling in C# and F#</a></h1>
-  <p>I was recently working on some code for handling date ranges in 
-<a href="http://github.com/blueMountainCapital/Deedle">Deedle</a>. Although Deedle is written in F#, 
-I also wrote some internal integration code in C#. After doing that, I realized that the 
-code I wrote is actually reusable and should be a part of Deedle itself and so I went through
-the process of rewriting a simple function from (fairly functional) C# to F#. This is a small
-(and by no means representative!) example, but I think it nicely shows some of the reasons why
-I like F#, so I thought I'd share it.</p>
+  <h1><a href="http://tomasp.net/blog/2015/announcing-fslab/index.html">Announcing FsLab: Data science package for Mono and .NET</a></h1>
+  <img src="http://fslab.org/img/logos/fslab.png" style="width:120px;float:right;margin:10px" />
 
-<p>One thing that we are adding to Deedle is a "BigDeedle" implementation of internal data 
-structures. The idea is that you can load very big frames and series without actually loading
-all data into memory.</p>
+<p>After over a year of working on FsLab and talking about it at conferences, it is finally time 
+for an official announcement. So, today, I'm excited to announce <a href="http://www.fslab.org">FsLab</a> -
+a cross-platform package for doing data science with .NET and Mono.</p>
 
-<p>When you perform slicing on a large series and then merge some of the parts of the series
-(say, years 2010, 2012 and 2014), you end up with a series that combines a
-couple of chunks. If you then restrict the series (say, from June 2012 to June 2014), you
-need to restrict the ranges of the chunks:</p>
+<p>It is probably not necessary to explain why data science is an important area. We live 
+surrounded by information, but extracting useful knowledge from the vast amounts of data is 
+not an easy task. You have to access data in different formats (JSON-based REST services, XML, 
+CSV files or even HTML tables), you need to deal with missing values, combine and align data 
+from multiple sources and then build visualizations (or reports) to tell the right story.</p>
 
-<img src="http://tomasp.net/blog/2015/restricting-ranges/drawing.png" alt="Demonstration" style="margin:15px; width:370px" />
-
-<p>As the diagram shows, this is just a matter of iterating over the chunks, keeping those 
-in the range, dropping those outside of the range and restrictingthe boundaries of the other
-chunks. So, let's start with the C# version I wrote.</p>
+<p>The goal of FsLab is to make this process easier. FsLab combines the power of F# type providers,
+the efficiency and robustness of Mono and .NET and the high quality engineering of the 
+open-source ecosystem around F# and C#.</p>
 
 
       
   <p class="meta">
-    <span><strong>Published</strong>: Wednesday, 22 April 2015, 4:55 PM</span>
+    <span><strong>Published</strong>: Tuesday, 5 May 2015, 3:55 PM</span>
       <br />      
-      <span class="tags"><strong>Tags</strong>: f#, c#, deedle, linq, functional programming </span> 
+      <span class="tags"><strong>Tags</strong>: f#, fslab, data science </span> 
     <br />
-    <a href="http://tomasp.net/blog/2015/restricting-ranges/index.html">Read the complete article</a>
+    <a href="http://tomasp.net/blog/2015/announcing-fslab/index.html">Read the complete article</a>
   </p>
   </div>
 
   <!-- For remaining articles, just print short summary with abstract -->
   <h1><a href="http://tomasp.net/blog/index.html">Recent articles from my blog</a></h1>
+    <h2><a href="http://tomasp.net/blog/2015/restricting-ranges/index.html">Comparing date range handling in C# and F#</a></h2>
+    <p class="smdate">Wednesday, 22 April 2015, 4:55 PM</p>
+    <p class="description">
+        I was recently working on some code for handling data ranges and I wrote initial version in C#. Later, I realized that I needed an F# version, so I went through the process of rewriting a simple function from C# to F#. This blog post compares the two versions.
+    </p>
     <h2><a href="http://tomasp.net/blog/2015/query-translation/index.html">Writing custom F# LINQ query builder</a></h2>
     <p class="smdate">Tuesday, 7 April 2015, 1:41 PM</p>
     <p class="description">
@@ -119,11 +117,6 @@ chunks. So, let's start with the C# version I wrote.</p>
     <p class="smdate">Friday, 27 March 2015, 11:16 AM</p>
     <p class="description">
         I'm happy that we can offer some special deals on the recently publishedF# Deep Dives book and also on our upcoming F# FastTrack training and the F# eXchangeconference in April in London!
-    </p>
-    <h2><a href="http://tomasp.net/blog/2015/library-frameworks/index.html">Library patterns: Why frameworks are evil</a></h2>
-    <p class="smdate">Tuesday, 3 March 2015, 4:13 PM</p>
-    <p class="description">
-        This article continues my mini-series on functional library design. Previously, I discussed why your library should provide multiple levels of abstraction. Today, we look at composability and avoiding callbacks. These two often go together - frameworks are based on callbacks and are not composable, while good libraries avoid callbacks and compose well.
     </p>
 
   <p class="meta">
@@ -239,7 +232,8 @@ chunks. So, let's start with the C# version I wrote.</p>
     </div>
     <div class="large-7 columns">
     <h4>Blog archives <a href="http://tomasp.net/rss.xml"><img src="http://tomasp.net/img/rss.gif" /></a></h4>
-      <a href="http://tomasp.net/blog/archive/april-2015/index.html">
+      <a href="http://tomasp.net/blog/archive/may-2015/index.html">
+        May 2015 (1)</a>,      <a href="http://tomasp.net/blog/archive/april-2015/index.html">
         April 2015 (3)</a>,      <a href="http://tomasp.net/blog/archive/march-2015/index.html">
         March 2015 (2)</a>,      <a href="http://tomasp.net/blog/archive/february-2015/index.html">
         February 2015 (1)</a>,      <a href="http://tomasp.net/blog/archive/january-2015/index.html">

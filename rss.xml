@@ -4,6 +4,42 @@
     <link>http://tomasp.net</link>
     <description>Writing about software development in F# and .NET, sharing materials from my F# trainings and talks, writing about programming language research and theory.</description>
     <item>
+      <title>Against the definition of types</title>
+      <guid>http://tomasp.net/blog/2015/against-types</guid>
+      <link>http://tomasp.net/blog/2015/against-types/index.html</link>
+      <pubDate>Thu, 14 May 2015 14:46:36 GMT</pubDate>
+      <description>&lt;blockquote&gt;
+&lt;p style="margin-bottom:5px"&gt;Science is much more 'sloppy' and 'irrational' than its methodological image.&lt;/p&gt;
+&lt;p style="text-align:right"&gt;Paul Feyerabend, Against Method (1975)&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;a href="http://tomasp.net/academic/drafts/against-types/"&gt;
+&lt;img src="http://tomasp.net/blog/2015/against-types/paper.png" style="float:right;margin:0px 0px 5px 20px;width:160px" /&gt;
+&lt;/a&gt;
+
+&lt;p&gt;Programming languages are a fascinating area because they combine computer science (and logic) with
+many other disciplines including &lt;a href="http://lmeyerov.github.io/projects/socioplt/viz/index.html"&gt;sociology&lt;/a&gt;, &lt;a href="https://www.cl.cam.ac.uk/teaching/1415/P201/"&gt;human computer interaction&lt;/a&gt; and things
+that cannot be scientifically quantified like intuition, taste and (for better or worse) politics.&lt;/p&gt;
+
+&lt;p&gt;When we talk about programming languages, we often treat it mainly as scientific discussion seeking
+some objective truth. This is not surprising - science is surrounded by an aura of perfection and
+so it is easy to think that focusing on the core scientific essence (and leaving out everything)
+else is the right way of looking at programming languages.&lt;/p&gt;
+
+&lt;p&gt;However this leaves out many things that make programming languages interesting. I believe that one
+way to fill the missing gap is to look at philosophy of science, which can help us understand how
+programming language research is done and how it should be done. I wrote about the general idea
+&lt;a href="http://tomasp.net/blog/2014/philosophy-pl/"&gt;in a blog post (and essay) last year&lt;/a&gt;. Today, I want to talk about one specific topic: &lt;em&gt;What
+is the meaning of types?&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;This blog post is a shorter (less philosophical and more to the point) version of an essay that
+I submitted to &lt;a href="http://2015.splashcon.org/track/onward2015-essays"&gt;Onward! Essays 2015&lt;/a&gt;. If you want to get a quick peek at the ideas in the
+essay, then continue reading here! If you want to read the full essay (or save it for later),
+you can get &lt;a href="http://tomasp.net/academic/drafts/against-types/"&gt;the full version from here&lt;/a&gt;.&lt;/p&gt;
+
+</description>
+    </item>
+    <item>
       <title>Announcing FsLab: Data science package for Mono and .NET</title>
       <guid>http://tomasp.net/blog/2015/announcing-fslab</guid>
       <link>http://tomasp.net/blog/2015/announcing-fslab/index.html</link>
@@ -571,26 +607,6 @@ F#コードをJavaScriptに変換します。
 そうすると純粋なHTML Webアプリケーションとして実行できるようになり、
 携帯電話やその他のデバイスでも動作するようになります。&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
-
-</description>
-    </item>
-    <item>
-      <title>The F# Computation Expression Zoo (PADL'14)</title>
-      <guid>http://tomasp.net/blog/2013/computation-zoo-padl</guid>
-      <link>http://tomasp.net/blog/2013/computation-zoo-padl/index.html</link>
-      <pubDate>Fri, 08 Nov 2013 06:42:56 GMT</pubDate>
-      <description>&lt;p&gt;F# &lt;a href="http://msdn.microsoft.com/en-us/library/dd233182.aspx"&gt;computation expressions&lt;/a&gt; are the 
-syntactic language mechanism that is used by features like sequence expressions and asynchronous
-workflows. The aim of F# computation expressions is to provide a &lt;em&gt;single&lt;/em&gt; syntactic mechanism
-that provides convenient notation for writing a wide range of computations.&lt;/p&gt;
-
-&lt;p&gt;The syntactic mechanisms that are unified by computation expressions include Haskell &lt;code&gt;do&lt;/code&gt; 
-notation and list comprehensions, C# iterators, asynchronous methods and LINQ queries,
-Scala &lt;code&gt;for&lt;/code&gt; comprehensions and Python generators to name just a few.&lt;/p&gt;
-
-&lt;p&gt;Some time ago, I started working on an academic article to explain what makes computation
-expressions unique - and I think there is quite a few interesting aspects. Sadly, this is 
-often not very well explained and so the general perception is more like this...&lt;/p&gt;
 
 </description>
     </item>

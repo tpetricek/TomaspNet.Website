@@ -2,8 +2,10 @@
   Layout = "post";
   Title = "Announcing FsLab: Data science package for Mono and .NET";
   Tags = "f#, fslab, data science";
-  Date = "2015-05-03T18:10:47.5137832+01:00";
-  Description = "TBA";
+  Date = "2015-05-05T15:55:01.9000642+01:00";
+  Description = "After over a year of working on FsLab and talking about it at conferences, " +
+    "it is finally time for an official announcement. So, today, I'm excited to announce FsLab " +
+    "a cross-platform package for doing data science with .NET and Mono.";
   Image = "http://fslab.org/img/logos/fslab.png";
 *)
 (*** hide ***)

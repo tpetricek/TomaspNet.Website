@@ -10,8 +10,8 @@ var news =
   </div> \
   <p> \
     Interested in F# and finance? Learn how to implement mathematical models, \
-    create domain-specific languages and analyze time-series data in this 10 \
-    week online course! Interested in on-site training? \
+    create domain-specific languages and analyze time-series data in this <strong>10 \
+    week online course</strong>.</p><p>Prefer an on-site training? \
     <a href='mailto:tomas@tomasp.net'>Send me an email</a>! \
   </p>"
 }

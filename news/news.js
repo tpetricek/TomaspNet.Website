@@ -1,22 +1,23 @@
 // Explicit 
-var news0 =
+var news =
 {
-  "date": "April 2015, Londong",
+  "date": "October 2015, Online",
   "info": "\
-  <p> \
-    Interested in two-day F# training followed by one more day of exciting \
-    F# conference? Join us for <strong>Fast Track to F#</strong> (15-16 April) and <strong>F# eXchange</strong> \
-    (17 April)! For our special offer, <a href='mailto:tomas@tomasp.net'>send me an email</a>! \
-  </p> \
-  <p style='text-align:center'>\
-  <a href='https://skillsmatter.com/conferences/6724-f-exchange'> \
-    <img src='http://theburningmonk.com/WordPress/wp-content/uploads/2015/02/image.png' style='border:none;width:180px' /> \
+  <div style='float:right'>\
+  <a href='http://quantshub.com/content/f-and-functional-programming-finance'> \
+    <img src='http://tomasp.net/blog/2014/fsharpworks-events/qsh.jpg' style='border:none;width:120px' /> \
   </a> \
+  </div> \
+  <p> \
+    Interested in F# and finance? Learn how to implement mathematical models, \
+    create domain-specific languages and analyze time-series data in this 10 \
+    week online course! Interested in on-site training? \
+    <a href='mailto:tomas@tomasp.net'>Send me an email</a>! \
   </p>"
 }
 
 // Lanyrd 
-var news =
+var news1 =
   {
     "date": "",
     "info": '\

@@ -286,7 +286,7 @@ we use when operating within a narrow rigorous areas of an established research 
 
 One way of understanding the meaning of a term is to look how it is used. The philosopher
 who is most famous for the claim that "meaning is use" is Ludwig Wittgenstein. Wittgenstein
-says that we understand the meaning through _langauge games_, which are specific contexts in
+says that we understand the meaning through _language games_, which are specific contexts in
 which a word can use. For example, when you say "this is a computer", you are using the 
 _ostensive definition_ language game and the listener familiar with this way of talking can
 learn what a computer is.
@@ -294,7 +294,7 @@ learn what a computer is.
 What would be some interesting language games in the context of programming and types? One
 example I can think of is the [expression problem][exprp]. The expression problem is a puzzle that
 reveals some of the abstraction and error checking properties of a system. It gives a very
-specific perspective of a type system (just like individual Wittgenstein's langauge games),
+specific perspective of a type system (just like individual Wittgenstein's language games),
 but it can tell us interesting things about a system without requiring a precise definition.
 I believe that inventing other interesting puzzles of a similar kind is one thing we can
 do to better understand types in a broader sense.
@@ -341,7 +341,7 @@ as a programming language experiment (showing how some notion of types helped us
 certain kinds of systems). The [future programming workshop][fpw] which accepts submissions 
 in the form of screencasts is another intriguing option. Using Hacking's example from physics 
 - no matter what theory of electro-magnetism do you believe in, you can observe what 
-[Fraday's motor](http://en.wikipedia.org/wiki/Homopolar_motor) does.
+[Faraday's motor](http://en.wikipedia.org/wiki/Homopolar_motor) does.
 
 Summary
 -------

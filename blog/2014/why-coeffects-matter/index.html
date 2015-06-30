@@ -22,7 +22,7 @@
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/tooltips.css" />
   <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
-  <meta name="twitter:card" content="summary">
+    <meta name="twitter:card" content="summary">
   <meta name="twitter:creator" content="@tomaspetricek">
   <meta name="twitter:title" content="Coeffects: The next big programming challenge">
   <meta name="twitter:description" content="This blog post is a tabloid-style introduction to my PhD thesis. I look at how practical motivations influence language design. One such practical motivation, that is becoming increasingly important, is capturing how program uses the context (or environment) where it runs. Coeffects are a way to track this property...">
@@ -154,20 +154,21 @@ frameworks easily ends up looking as the following sample from <a href="https://
 <td class="snippet"><pre class="fssnip">
 <span class="k">for</span> <span onmouseout="hideTip(event, 'fs1', 1)" onmouseover="showTip(event, 'fs1', 1)" class="i">header</span>, <span onmouseout="hideTip(event, 'fs2', 2)" onmouseover="showTip(event, 'fs2', 2)" class="i">value</span> <span class="k">in</span> <span onmouseout="hideTip(event, 'fs3', 3)" onmouseover="showTip(event, 'fs3', 3)" class="i">headers</span> <span class="k">do</span>
   <span class="k">match</span> <span class="i">header</span> <span class="k">with</span>
-  | <span onmouseout="hideTip(event, 'fs4', 4)" onmouseover="showTip(event, 'fs4', 4)" class="i">StringEquals</span> <span class="s">&quot;</span><span class="s">accept</span><span class="s">&quot;</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs5', 5)" onmouseover="showTip(event, 'fs5', 5)" class="i">req</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs6', 6)" onmouseover="showTip(event, 'fs6', 6)" class="i">Accept</span> <span class="o">&lt;-</span> <span onmouseout="hideTip(event, 'fs2', 7)" onmouseover="showTip(event, 'fs2', 7)" class="i">value</span>
+  | <span onmouseout="hideTip(event, 'fs4', 4)" onmouseover="showTip(event, 'fs4', 4)" class="p">StringEquals</span> <span class="s">&quot;accept&quot;</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs5', 5)" onmouseover="showTip(event, 'fs5', 5)" class="i">req</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs6', 6)" onmouseover="showTip(event, 'fs6', 6)" class="i">Accept</span> <span class="o">&lt;-</span> <span onmouseout="hideTip(event, 'fs2', 7)" onmouseover="showTip(event, 'fs2', 7)" class="i">value</span>
 <span class="prep">#if</span> <span class="i">FX_NO_WEBREQUEST_USERAGENT</span>
 <span class="inactive">  </span><span class="inactive">|</span><span class="inactive"> </span><span class="inactive">StringEquals</span><span class="inactive"> </span><span class="inactive">&quot;user-agent&quot;</span><span class="inactive"> </span><span class="inactive">-&gt;</span><span class="inactive"> </span>
 <span class="inactive">      </span><span class="inactive">req.Headers.[HttpRequestHeader.UserAgent]</span><span class="inactive"> </span><span class="inactive">&lt;-</span><span class="inactive"> </span><span class="inactive">value</span>
 <span class="prep">#else</span>
-  | <span onmouseout="hideTip(event, 'fs4', 8)" onmouseover="showTip(event, 'fs4', 8)" class="i">StringEquals</span> <span class="s">&quot;</span><span class="s">user</span><span class="s">-</span><span class="s">agent</span><span class="s">&quot;</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs5', 9)" onmouseover="showTip(event, 'fs5', 9)" class="i">req</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs7', 10)" onmouseover="showTip(event, 'fs7', 10)" class="i">UserAgent</span> <span class="o">&lt;-</span> <span onmouseout="hideTip(event, 'fs2', 11)" onmouseover="showTip(event, 'fs2', 11)" class="i">value</span>
+  | <span onmouseout="hideTip(event, 'fs4', 8)" onmouseover="showTip(event, 'fs4', 8)" class="p">StringEquals</span> <span class="s">&quot;user-agent&quot;</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs5', 9)" onmouseover="showTip(event, 'fs5', 9)" class="i">req</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs7', 10)" onmouseover="showTip(event, 'fs7', 10)" class="i">UserAgent</span> <span class="o">&lt;-</span> <span onmouseout="hideTip(event, 'fs2', 11)" onmouseover="showTip(event, 'fs2', 11)" class="i">value</span>
 <span class="prep">#endif</span>
 <span class="prep">#if</span> <span class="i">FX_NO_WEBREQUEST_REFERER</span>
 <span class="inactive">  </span><span class="inactive">|</span><span class="inactive"> </span><span class="inactive">StringEquals</span><span class="inactive"> </span><span class="inactive">&quot;referer&quot;</span><span class="inactive"> </span><span class="inactive">-&gt;</span><span class="inactive"> </span>
 <span class="inactive">      </span><span class="inactive">req.Headers.[HttpRequestHeader.Referer]</span><span class="inactive"> </span><span class="inactive">&lt;-</span><span class="inactive"> </span><span class="inactive">value</span>
 <span class="prep">#else</span>
-  | <span onmouseout="hideTip(event, 'fs4', 12)" onmouseover="showTip(event, 'fs4', 12)" class="i">StringEquals</span> <span class="s">&quot;</span><span class="s">referer</span><span class="s">&quot;</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs5', 13)" onmouseover="showTip(event, 'fs5', 13)" class="i">req</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs8', 14)" onmouseover="showTip(event, 'fs8', 14)" class="i">Referer</span> <span class="o">&lt;-</span> <span onmouseout="hideTip(event, 'fs2', 15)" onmouseover="showTip(event, 'fs2', 15)" class="i">value</span>
+  | <span onmouseout="hideTip(event, 'fs4', 12)" onmouseover="showTip(event, 'fs4', 12)" class="p">StringEquals</span> <span class="s">&quot;referer&quot;</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs5', 13)" onmouseover="showTip(event, 'fs5', 13)" class="i">req</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs8', 14)" onmouseover="showTip(event, 'fs8', 14)" class="i">Referer</span> <span class="o">&lt;-</span> <span onmouseout="hideTip(event, 'fs2', 15)" onmouseover="showTip(event, 'fs2', 15)" class="i">value</span>
 <span class="prep">#endif</span>
-  | _ <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs5', 16)" onmouseover="showTip(event, 'fs5', 16)" class="i">req</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs9', 17)" onmouseover="showTip(event, 'fs9', 17)" class="i">Headers</span><span class="o">.</span>[<span onmouseout="hideTip(event, 'fs1', 18)" onmouseover="showTip(event, 'fs1', 18)" class="i">header</span>] <span class="o">&lt;-</span> <span onmouseout="hideTip(event, 'fs2', 19)" onmouseover="showTip(event, 'fs2', 19)" class="i">value</span></pre>
+  | _ <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs5', 16)" onmouseover="showTip(event, 'fs5', 16)" class="i">req</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs9', 17)" onmouseover="showTip(event, 'fs9', 17)" class="i">Headers</span><span class="o">.</span>[<span onmouseout="hideTip(event, 'fs1', 18)" onmouseover="showTip(event, 'fs1', 18)" class="i">header</span>] <span class="o">&lt;-</span> <span onmouseout="hideTip(event, 'fs2', 19)" onmouseover="showTip(event, 'fs2', 19)" class="i">value</span>
+</pre>
 </td>
 </tr>
 </table>
@@ -196,11 +197,18 @@ that use a particular programming language.</p>
 <p>For example, take a look at the following LINQ query that selects product names where the
 first upper case letter is "C":</p>
 
-<pre lang="csharp"><span class="k">var</span> db = <span class="k">new</span> NorthwindDataContext();
+<table class="pre"><tr><td class="lines"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+</td>
+<td class="snippet"><pre lang="csharp"><span class="k">var</span> db <span class="o">=</span> <span class="k">new</span> NorthwindDataContext();
 
 <span class="k">from</span> p <span class="k">in</span> db.Products
-<span class="k">where</span> p.ProductName.First(c =&gt; Char.IsUpper(c)) == <span class="s">"C"</span>
-<span class="k">select</span> p.ProductName;</pre>
+<span class="k">where</span> p.ProductName.First(c <span class="o">=</span><span class="o">&gt;</span> Char.IsUpper(c)) <span class="o">=</span><span class="o">=</span> <span class="s">"C"</span>
+<span class="k">select</span> p.ProductName;
+</pre></td></tr></table>
 
 <p>This looks like a perfectly fine piece of code and it compiles fine. But when you try running
 it, you get the following error:</p>
@@ -235,9 +243,10 @@ of systems that contain something similar):</p>
 </pre>
 </td>
 <td class="snippet"><pre class="fssnip">
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs10', 20)" onmouseover="showTip(event, 'fs10', 20)" class="i">query</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs11', 21)" onmouseover="showTip(event, 'fs11', 21)" class="i">sprintf</span> <span class="s">&quot;</span><span class="s">SELECT</span><span class="s"> </span><span class="s">*</span><span class="s"> </span><span class="s">FROM</span><span class="s"> </span><span class="s">Products</span><span class="s"> </span><span class="s">WHERE</span><span class="s"> </span><span class="s">ProductName</span><span class="s"> </span><span class="s">=</span><span class="s"> </span><span class="s">&#39;</span><span class="s">%</span><span class="s">s&#39;</span><span class="s">&quot;</span> <span onmouseout="hideTip(event, 'fs12', 22)" onmouseover="showTip(event, 'fs12', 22)" class="i">name</span>
-<span class="k">use</span> <span onmouseout="hideTip(event, 'fs13', 23)" onmouseover="showTip(event, 'fs13', 23)" class="i">cmd</span> <span class="o">=</span> <span class="k">new</span> <span onmouseout="hideTip(event, 'fs14', 24)" onmouseover="showTip(event, 'fs14', 24)" class="i">SqlCommand</span>(<span onmouseout="hideTip(event, 'fs10', 25)" onmouseover="showTip(event, 'fs10', 25)" class="i">query</span>)
-<span class="k">use</span> <span onmouseout="hideTip(event, 'fs15', 26)" onmouseover="showTip(event, 'fs15', 26)" class="i">reader</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs13', 27)" onmouseover="showTip(event, 'fs13', 27)" class="i">cmd</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs16', 28)" onmouseover="showTip(event, 'fs16', 28)" class="i">ExecuteReader</span>()</pre>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs10', 20)" onmouseover="showTip(event, 'fs10', 20)" class="i">query</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs11', 21)" onmouseover="showTip(event, 'fs11', 21)" class="f">sprintf</span> <span class="s">&quot;SELECT * FROM Products WHERE ProductName = &#39;</span><span class="pf">%s</span><span class="s">&#39;&quot;</span> <span onmouseout="hideTip(event, 'fs12', 22)" onmouseover="showTip(event, 'fs12', 22)" class="i">name</span>
+<span class="k">use</span> <span onmouseout="hideTip(event, 'fs13', 23)" onmouseover="showTip(event, 'fs13', 23)" class="i">cmd</span> <span class="o">=</span> <span class="k">new</span> <span onmouseout="hideTip(event, 'fs14', 24)" onmouseover="showTip(event, 'fs14', 24)" class="t">SqlCommand</span>(<span onmouseout="hideTip(event, 'fs10', 25)" onmouseover="showTip(event, 'fs10', 25)" class="i">query</span>)
+<span class="k">use</span> <span onmouseout="hideTip(event, 'fs15', 26)" onmouseover="showTip(event, 'fs15', 26)" class="i">reader</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs13', 27)" onmouseover="showTip(event, 'fs13', 27)" class="i">cmd</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs16', 28)" onmouseover="showTip(event, 'fs16', 28)" class="f">ExecuteReader</span>()
+</pre>
 </td>
 </tr>
 </table>
@@ -339,21 +348,22 @@ somewhere earlier (perhaps loaded from a server-side config file):</p>
 </pre>
 </td>
 <td class="snippet"><pre class="fssnip">
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs17', 29)" onmouseover="showTip(event, 'fs17', 29)" class="i">lookupNews</span>(<span onmouseout="hideTip(event, 'fs18', 30)" onmouseover="showTip(event, 'fs18', 30)" class="i">location</span>) <span class="o">=</span>
-  <span class="k">let</span> <span onmouseout="hideTip(event, 'fs19', 31)" onmouseover="showTip(event, 'fs19', 31)" class="i">db</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs20', 32)" onmouseover="showTip(event, 'fs20', 32)" class="i">query</span>(<span class="s">&quot;</span><span class="s">News</span><span class="s">&quot;</span>, <span onmouseout="hideTip(event, 'fs21', 33)" onmouseover="showTip(event, 'fs21', 33)" class="i">password</span>)
-  <span onmouseout="hideTip(event, 'fs22', 34)" onmouseover="showTip(event, 'fs22', 34)" class="i">selectNews</span>(<span onmouseout="hideTip(event, 'fs19', 35)" onmouseover="showTip(event, 'fs19', 35)" class="i">db</span>, <span onmouseout="hideTip(event, 'fs18', 36)" onmouseover="showTip(event, 'fs18', 36)" class="i">location</span>)  
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs17', 29)" onmouseover="showTip(event, 'fs17', 29)" class="f">lookupNews</span>(<span onmouseout="hideTip(event, 'fs18', 30)" onmouseover="showTip(event, 'fs18', 30)" class="i">location</span>) <span class="o">=</span>
+  <span class="k">let</span> <span onmouseout="hideTip(event, 'fs19', 31)" onmouseover="showTip(event, 'fs19', 31)" class="i">db</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs20', 32)" onmouseover="showTip(event, 'fs20', 32)" class="f">query</span>(<span class="s">&quot;News&quot;</span>, <span onmouseout="hideTip(event, 'fs21', 33)" onmouseover="showTip(event, 'fs21', 33)" class="i">password</span>)
+  <span onmouseout="hideTip(event, 'fs22', 34)" onmouseover="showTip(event, 'fs22', 34)" class="f">selectNews</span>(<span onmouseout="hideTip(event, 'fs19', 35)" onmouseover="showTip(event, 'fs19', 35)" class="i">db</span>, <span onmouseout="hideTip(event, 'fs18', 36)" onmouseover="showTip(event, 'fs18', 36)" class="i">location</span>)  
 
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs23', 37)" onmouseover="showTip(event, 'fs23', 37)" class="i">readNews</span>() <span class="o">=</span>
-  <span class="k">let</span> <span onmouseout="hideTip(event, 'fs24', 38)" onmouseover="showTip(event, 'fs24', 38)" class="i">loc</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs25', 39)" onmouseover="showTip(event, 'fs25', 39)" class="i">gpsLocation</span>()       
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs23', 37)" onmouseover="showTip(event, 'fs23', 37)" class="f">readNews</span>() <span class="o">=</span>
+  <span class="k">let</span> <span onmouseout="hideTip(event, 'fs24', 38)" onmouseover="showTip(event, 'fs24', 38)" class="i">loc</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs25', 39)" onmouseover="showTip(event, 'fs25', 39)" class="f">gpsLocation</span>()       
   <span onmouseout="hideTip(event, 'fs26', 40)" onmouseover="showTip(event, 'fs26', 40)" class="i">remote</span> { 
-    <span onmouseout="hideTip(event, 'fs17', 41)" onmouseover="showTip(event, 'fs17', 41)" class="i">lookupNews</span>(<span onmouseout="hideTip(event, 'fs24', 42)" onmouseover="showTip(event, 'fs24', 42)" class="i">loc</span>) 
+    <span onmouseout="hideTip(event, 'fs17', 41)" onmouseover="showTip(event, 'fs17', 41)" class="f">lookupNews</span>(<span onmouseout="hideTip(event, 'fs24', 42)" onmouseover="showTip(event, 'fs24', 42)" class="i">loc</span>) 
   } 
 
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs27', 43)" onmouseover="showTip(event, 'fs27', 43)" class="i">iPhoneMain</span>() <span class="o">=</span>
-  <span onmouseout="hideTip(event, 'fs28', 44)" onmouseover="showTip(event, 'fs28', 44)" class="i">createCocoaWidget</span>(<span onmouseout="hideTip(event, 'fs23', 45)" onmouseover="showTip(event, 'fs23', 45)" class="i">readNews</span>)
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs27', 43)" onmouseover="showTip(event, 'fs27', 43)" class="f">iPhoneMain</span>() <span class="o">=</span>
+  <span onmouseout="hideTip(event, 'fs28', 44)" onmouseover="showTip(event, 'fs28', 44)" class="f">createCocoaWidget</span>(<span onmouseout="hideTip(event, 'fs23', 45)" onmouseover="showTip(event, 'fs23', 45)" class="f">readNews</span>)
 
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs29', 46)" onmouseover="showTip(event, 'fs29', 46)" class="i">windowsMain</span>() <span class="o">=</span>    
-  <span onmouseout="hideTip(event, 'fs30', 47)" onmouseover="showTip(event, 'fs30', 47)" class="i">createMetroWidget</span>(<span onmouseout="hideTip(event, 'fs23', 48)" onmouseover="showTip(event, 'fs23', 48)" class="i">readNews</span>)</pre>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs29', 46)" onmouseover="showTip(event, 'fs29', 46)" class="f">windowsMain</span>() <span class="o">=</span>    
+  <span onmouseout="hideTip(event, 'fs30', 47)" onmouseover="showTip(event, 'fs30', 47)" class="f">createMetroWidget</span>(<span onmouseout="hideTip(event, 'fs23', 48)" onmouseover="showTip(event, 'fs23', 48)" class="f">readNews</span>)
+</pre>
 </td>
 </tr>
 </table>
@@ -571,9 +581,9 @@ such as security or variable usage</li>
 integrating comonads into Haskell:</p>
 
 <ul>
-<li><p><a href="http://www.cl.cam.ac.uk/~dao29/publ/codo-notation-orchard-ifl12.pdf">A Notation for Comonads (PDF)</a>
+<li><a href="http://www.cl.cam.ac.uk/~dao29/publ/codo-notation-orchard-ifl12.pdf">A Notation for Comonads (PDF)</a>
 (Dominic Orchard and Alan Mycroft) extends Haskell with a syntax (akin to <code>do</code>) for
-comonads and might be a nice way to embed coeffects in Haskell</p></li>
+comonads and might be a nice way to embed coeffects in Haskell</li>
 </ul>
 
 <div class="tip" id="fs1">val header : string</div>
@@ -726,7 +736,7 @@ comonads and might be a nice way to embed coeffects in Haskell</p></li>
     <h4>Blog tags</h4>
     <p>
 
-      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(102),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(35),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(15),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(29),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(5),       <a href="http://tomasp.net/blog/tag/open-source/">open source</a>&nbsp;(5),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/linq/">linq</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/monads/">monads</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fslab/">fslab</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(1)    </p>
+      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(105),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(36),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(16),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(30),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(5),       <a href="http://tomasp.net/blog/tag/open-source/">open source</a>&nbsp;(5),       <a href="http://tomasp.net/blog/tag/fslab/">fslab</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/linq/">linq</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(2)    </p>
 
   </div>
 </div>
@@ -748,8 +758,10 @@ comonads and might be a nice way to embed coeffects in Haskell</p></li>
     </div>
     <div class="large-7 columns">
     <h4>Blog archives <a href="http://tomasp.net/rss.xml"><img src="http://tomasp.net/img/rss.gif" /></a></h4>
-      <a href="http://tomasp.net/blog/archive/april-2015/index.html">
-        April 2015 (2)</a>,      <a href="http://tomasp.net/blog/archive/march-2015/index.html">
+      <a href="http://tomasp.net/blog/archive/june-2015/index.html">
+        June 2015 (1)</a>,      <a href="http://tomasp.net/blog/archive/may-2015/index.html">
+        May 2015 (2)</a>,      <a href="http://tomasp.net/blog/archive/april-2015/index.html">
+        April 2015 (3)</a>,      <a href="http://tomasp.net/blog/archive/march-2015/index.html">
         March 2015 (2)</a>,      <a href="http://tomasp.net/blog/archive/february-2015/index.html">
         February 2015 (1)</a>,      <a href="http://tomasp.net/blog/archive/january-2015/index.html">
         January 2015 (2)</a>,      <a href="http://tomasp.net/blog/archive/december-2014/index.html">

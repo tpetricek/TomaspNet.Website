@@ -97,3 +97,9 @@ pre code {
   padding:0px;
   color:#eaeaea;
 }
+table.pre td.lines {
+  font: 75% 'Droid Sans Mono',consolas,monospace;
+}
+table.pre td.lines pre.fssnip {
+  font-size:100%;
+}

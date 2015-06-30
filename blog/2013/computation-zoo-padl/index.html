@@ -22,7 +22,7 @@
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/tooltips.css" />
   <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
-  <meta name="twitter:card" content="summary">
+    <meta name="twitter:card" content="summary">
   <meta name="twitter:creator" content="@tomaspetricek">
   <meta name="twitter:title" content="The F# Computation Expression Zoo (PADL'14)">
   <meta name="twitter:description" content="A month or so back, I wrote a tweet saying that F# computation expressions are amazing and no other language has anything like that. I can finally provide all the evidence by linking to a PADL 2014 paper about them.">
@@ -172,10 +172,11 @@ and looks as follows:</p>
 </pre>
 </td>
 <td class="snippet"><pre class="fssnip">
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs1', 1)" onmouseover="showTip(event, 'fs1', 1)" class="i">duplicate</span> <span onmouseout="hideTip(event, 'fs2', 2)" onmouseover="showTip(event, 'fs2', 2)" class="i">input</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs3', 3)" onmouseover="showTip(event, 'fs3', 3)" class="i">seq</span> { 
-  <span class="k">for</span> <span onmouseout="hideTip(event, 'fs4', 4)" onmouseover="showTip(event, 'fs4', 4)" class="i">num</span> <span class="k">in</span> <span onmouseout="hideTip(event, 'fs2', 5)" onmouseover="showTip(event, 'fs2', 5)" class="i">input</span> <span class="k">do</span>
-    <span class="k">yield</span> <span onmouseout="hideTip(event, 'fs4', 6)" onmouseover="showTip(event, 'fs4', 6)" class="i">num</span> 
-    <span class="k">yield</span> <span onmouseout="hideTip(event, 'fs4', 7)" onmouseover="showTip(event, 'fs4', 7)" class="i">num</span> }</pre>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs44', 87)" onmouseover="showTip(event, 'fs44', 87)" class="f">duplicate</span> <span onmouseout="hideTip(event, 'fs45', 88)" onmouseover="showTip(event, 'fs45', 88)" class="i">input</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs26', 89)" onmouseover="showTip(event, 'fs26', 89)" class="i">seq</span> { 
+  <span class="k">for</span> <span onmouseout="hideTip(event, 'fs46', 90)" onmouseover="showTip(event, 'fs46', 90)" class="i">num</span> <span class="k">in</span> <span onmouseout="hideTip(event, 'fs45', 91)" onmouseover="showTip(event, 'fs45', 91)" class="i">input</span> <span class="k">do</span>
+    <span class="k">yield</span> <span onmouseout="hideTip(event, 'fs46', 92)" onmouseover="showTip(event, 'fs46', 92)" class="i">num</span> 
+    <span class="k">yield</span> <span onmouseout="hideTip(event, 'fs46', 93)" onmouseover="showTip(event, 'fs46', 93)" class="i">num</span> }
+</pre>
 </td>
 </tr>
 </table>
@@ -209,13 +210,14 @@ states that the following two computations should be equivalent:</p>
 </pre>
 </td>
 <td class="snippet"><pre class="fssnip">
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs5', 8)" onmouseover="showTip(event, 'fs5', 8)" class="i">left</span> <span onmouseout="hideTip(event, 'fs6', 9)" onmouseover="showTip(event, 'fs6', 9)" class="i">in1</span> <span onmouseout="hideTip(event, 'fs7', 10)" onmouseover="showTip(event, 'fs7', 10)" class="i">in2</span> <span onmouseout="hideTip(event, 'fs8', 11)" onmouseover="showTip(event, 'fs8', 11)" class="i">f</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs3', 12)" onmouseover="showTip(event, 'fs3', 12)" class="i">seq</span> { 
-  <span class="k">for</span> <span onmouseout="hideTip(event, 'fs9', 13)" onmouseover="showTip(event, 'fs9', 13)" class="i">x</span> <span class="k">in</span> <span onmouseout="hideTip(event, 'fs6', 14)" onmouseover="showTip(event, 'fs6', 14)" class="i">in1</span> <span class="k">do</span> <span class="k">yield!</span> <span onmouseout="hideTip(event, 'fs8', 15)" onmouseover="showTip(event, 'fs8', 15)" class="i">f</span> <span onmouseout="hideTip(event, 'fs9', 16)" onmouseover="showTip(event, 'fs9', 16)" class="i">x</span>
-  <span class="k">for</span> <span onmouseout="hideTip(event, 'fs9', 17)" onmouseover="showTip(event, 'fs9', 17)" class="i">x</span> <span class="k">in</span> <span onmouseout="hideTip(event, 'fs7', 18)" onmouseover="showTip(event, 'fs7', 18)" class="i">in2</span> <span class="k">do</span> <span class="k">yield!</span> <span onmouseout="hideTip(event, 'fs8', 19)" onmouseover="showTip(event, 'fs8', 19)" class="i">f</span> <span onmouseout="hideTip(event, 'fs9', 20)" onmouseover="showTip(event, 'fs9', 20)" class="i">x</span> }
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs47', 94)" onmouseover="showTip(event, 'fs47', 94)" class="f">left</span> <span onmouseout="hideTip(event, 'fs48', 95)" onmouseover="showTip(event, 'fs48', 95)" class="i">in1</span> <span onmouseout="hideTip(event, 'fs49', 96)" onmouseover="showTip(event, 'fs49', 96)" class="i">in2</span> <span onmouseout="hideTip(event, 'fs50', 97)" onmouseover="showTip(event, 'fs50', 97)" class="f">f</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs26', 98)" onmouseover="showTip(event, 'fs26', 98)" class="i">seq</span> { 
+  <span class="k">for</span> <span onmouseout="hideTip(event, 'fs51', 99)" onmouseover="showTip(event, 'fs51', 99)" class="i">x</span> <span class="k">in</span> <span onmouseout="hideTip(event, 'fs48', 100)" onmouseover="showTip(event, 'fs48', 100)" class="i">in1</span> <span class="k">do</span> <span class="k">yield!</span> <span onmouseout="hideTip(event, 'fs50', 101)" onmouseover="showTip(event, 'fs50', 101)" class="f">f</span> <span onmouseout="hideTip(event, 'fs51', 102)" onmouseover="showTip(event, 'fs51', 102)" class="i">x</span>
+  <span class="k">for</span> <span onmouseout="hideTip(event, 'fs51', 103)" onmouseover="showTip(event, 'fs51', 103)" class="i">x</span> <span class="k">in</span> <span onmouseout="hideTip(event, 'fs49', 104)" onmouseover="showTip(event, 'fs49', 104)" class="i">in2</span> <span class="k">do</span> <span class="k">yield!</span> <span onmouseout="hideTip(event, 'fs50', 105)" onmouseover="showTip(event, 'fs50', 105)" class="f">f</span> <span onmouseout="hideTip(event, 'fs51', 106)" onmouseover="showTip(event, 'fs51', 106)" class="i">x</span> }
 
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs10', 21)" onmouseover="showTip(event, 'fs10', 21)" class="i">right</span> <span onmouseout="hideTip(event, 'fs6', 22)" onmouseover="showTip(event, 'fs6', 22)" class="i">in1</span> <span onmouseout="hideTip(event, 'fs7', 23)" onmouseover="showTip(event, 'fs7', 23)" class="i">in2</span> <span onmouseout="hideTip(event, 'fs8', 24)" onmouseover="showTip(event, 'fs8', 24)" class="i">f</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs3', 25)" onmouseover="showTip(event, 'fs3', 25)" class="i">seq</span> { 
-  <span class="k">for</span> <span onmouseout="hideTip(event, 'fs9', 26)" onmouseover="showTip(event, 'fs9', 26)" class="i">x</span> <span class="k">in</span> <span onmouseout="hideTip(event, 'fs3', 27)" onmouseover="showTip(event, 'fs3', 27)" class="i">seq</span> { <span class="k">yield!</span> <span onmouseout="hideTip(event, 'fs6', 28)" onmouseover="showTip(event, 'fs6', 28)" class="i">in1</span>; <span class="k">yield!</span> <span onmouseout="hideTip(event, 'fs7', 29)" onmouseover="showTip(event, 'fs7', 29)" class="i">in2</span> } <span class="k">do</span>
-    <span class="k">yield!</span> <span onmouseout="hideTip(event, 'fs8', 30)" onmouseover="showTip(event, 'fs8', 30)" class="i">f</span> <span onmouseout="hideTip(event, 'fs9', 31)" onmouseover="showTip(event, 'fs9', 31)" class="i">x</span> }</pre>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs52', 107)" onmouseover="showTip(event, 'fs52', 107)" class="f">right</span> <span onmouseout="hideTip(event, 'fs48', 108)" onmouseover="showTip(event, 'fs48', 108)" class="i">in1</span> <span onmouseout="hideTip(event, 'fs49', 109)" onmouseover="showTip(event, 'fs49', 109)" class="i">in2</span> <span onmouseout="hideTip(event, 'fs50', 110)" onmouseover="showTip(event, 'fs50', 110)" class="f">f</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs26', 111)" onmouseover="showTip(event, 'fs26', 111)" class="i">seq</span> { 
+  <span class="k">for</span> <span onmouseout="hideTip(event, 'fs51', 112)" onmouseover="showTip(event, 'fs51', 112)" class="i">x</span> <span class="k">in</span> <span onmouseout="hideTip(event, 'fs26', 113)" onmouseover="showTip(event, 'fs26', 113)" class="i">seq</span> { <span class="k">yield!</span> <span onmouseout="hideTip(event, 'fs48', 114)" onmouseover="showTip(event, 'fs48', 114)" class="i">in1</span>; <span class="k">yield!</span> <span onmouseout="hideTip(event, 'fs49', 115)" onmouseover="showTip(event, 'fs49', 115)" class="i">in2</span> } <span class="k">do</span>
+    <span class="k">yield!</span> <span onmouseout="hideTip(event, 'fs50', 116)" onmouseover="showTip(event, 'fs50', 116)" class="f">f</span> <span onmouseout="hideTip(event, 'fs51', 117)" onmouseover="showTip(event, 'fs51', 117)" class="i">x</span> }
+</pre>
 </td>
 </tr>
 </table>
@@ -248,10 +250,11 @@ more complex behaviours:</p>
 </pre>
 </td>
 <td class="snippet"><pre class="fssnip">
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs11', 32)" onmouseover="showTip(event, 'fs11', 32)" class="i">blockMessage</span> (<span onmouseout="hideTip(event, 'fs12', 33)" onmouseover="showTip(event, 'fs12', 33)" class="i">msg</span><span class="o">:</span><span onmouseout="hideTip(event, 'fs13', 34)" onmouseover="showTip(event, 'fs13', 34)" class="i">string</span>) <span class="o">=</span> <span onmouseout="hideTip(event, 'fs14', 35)" onmouseover="showTip(event, 'fs14', 35)" class="i">imperative</span> {
-  <span class="k">for</span> <span onmouseout="hideTip(event, 'fs15', 36)" onmouseover="showTip(event, 'fs15', 36)" class="i">word</span> <span class="k">in</span> <span onmouseout="hideTip(event, 'fs16', 37)" onmouseover="showTip(event, 'fs16', 37)" class="i">blockedWords</span> <span class="k">do</span>
-    <span class="k">if</span> <span onmouseout="hideTip(event, 'fs12', 38)" onmouseover="showTip(event, 'fs12', 38)" class="i">msg</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs17', 39)" onmouseover="showTip(event, 'fs17', 39)" class="i">Contains</span>(<span onmouseout="hideTip(event, 'fs15', 40)" onmouseover="showTip(event, 'fs15', 40)" class="i">word</span>) <span class="k">then</span> <span class="k">return</span> <span class="k">true</span>
-  <span class="k">return</span> <span class="k">false</span> }</pre>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs53', 118)" onmouseover="showTip(event, 'fs53', 118)" class="f">blockMessage</span> (<span onmouseout="hideTip(event, 'fs54', 119)" onmouseover="showTip(event, 'fs54', 119)" class="i">msg</span><span class="o">:</span><span onmouseout="hideTip(event, 'fs55', 120)" onmouseover="showTip(event, 'fs55', 120)" class="t">string</span>) <span class="o">=</span> <span onmouseout="hideTip(event, 'fs42', 121)" onmouseover="showTip(event, 'fs42', 121)" class="i">imperative</span> {
+  <span class="k">for</span> <span onmouseout="hideTip(event, 'fs56', 122)" onmouseover="showTip(event, 'fs56', 122)" class="i">word</span> <span class="k">in</span> <span onmouseout="hideTip(event, 'fs43', 123)" onmouseover="showTip(event, 'fs43', 123)" class="i">blockedWords</span> <span class="k">do</span>
+    <span class="k">if</span> <span onmouseout="hideTip(event, 'fs54', 124)" onmouseover="showTip(event, 'fs54', 124)" class="i">msg</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs57', 125)" onmouseover="showTip(event, 'fs57', 125)" class="f">Contains</span>(<span onmouseout="hideTip(event, 'fs56', 126)" onmouseover="showTip(event, 'fs56', 126)" class="i">word</span>) <span class="k">then</span> <span class="k">return</span> <span class="k">true</span>
+  <span class="k">return</span> <span class="k">false</span> }
+</pre>
 </td>
 </tr>
 </table>
@@ -282,12 +285,13 @@ The law statest that the following two computations are equivalent:</p>
 </pre>
 </td>
 <td class="snippet"><pre class="fssnip">
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs18', 41)" onmouseover="showTip(event, 'fs18', 41)" class="i">left</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs14', 42)" onmouseover="showTip(event, 'fs14', 42)" class="i">imperative</span> {
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs58', 127)" onmouseover="showTip(event, 'fs58', 127)" class="i">left</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs42', 128)" onmouseover="showTip(event, 'fs42', 128)" class="i">imperative</span> {
   <span class="k">return</span> <span class="n">0</span>
-  <span onmouseout="hideTip(event, 'fs19', 43)" onmouseover="showTip(event, 'fs19', 43)" class="i">printfn</span> <span class="s">&quot;</span><span class="s">Unreachable</span><span class="s">!</span><span class="s">&quot;</span> }
+  <span onmouseout="hideTip(event, 'fs59', 129)" onmouseover="showTip(event, 'fs59', 129)" class="f">printfn</span> <span class="s">&quot;Unreachable!&quot;</span> }
 
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs20', 44)" onmouseover="showTip(event, 'fs20', 44)" class="i">right</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs14', 45)" onmouseover="showTip(event, 'fs14', 45)" class="i">imperative</span> {
-  <span class="k">return</span> <span class="n">0</span> }</pre>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs60', 130)" onmouseover="showTip(event, 'fs60', 130)" class="i">right</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs42', 131)" onmouseover="showTip(event, 'fs42', 131)" class="i">imperative</span> {
+  <span class="k">return</span> <span class="n">0</span> }
+</pre>
 </td>
 </tr>
 </table>
@@ -347,26 +351,66 @@ expressions even if you have <em>just</em> applicative functor. But if you have 
 or even additive monad - then the additional structure enables more syntactic options and so
 you do not need to resort to explicit use of combinators as often.</p>
 
-<div class="tip" id="fs1">val duplicate : input:seq&lt;&#39;a&gt; -&gt; seq&lt;&#39;a&gt;<br /><br />Full name: Computation-zoo-padl_.duplicate</div>
-<div class="tip" id="fs2">val input : seq&lt;&#39;a&gt;</div>
-<div class="tip" id="fs3">Multiple items<br />val seq : sequence:seq&lt;&#39;T&gt; -&gt; seq&lt;&#39;T&gt;<br /><br />Full name: Microsoft.FSharp.Core.Operators.seq<br /><br />--------------------<br />type seq&lt;&#39;T&gt; = IEnumerable&lt;&#39;T&gt;<br /><br />Full name: Microsoft.FSharp.Collections.seq&lt;_&gt;</div>
-<div class="tip" id="fs4">val num : &#39;a</div>
-<div class="tip" id="fs5">val left : in1:seq&lt;&#39;a&gt; -&gt; in2:seq&lt;&#39;a&gt; -&gt; f:(&#39;a -&gt; #seq&lt;&#39;c&gt;) -&gt; seq&lt;&#39;c&gt;<br /><br />Full name: Computation-zoo-padl_.left</div>
-<div class="tip" id="fs6">val in1 : seq&lt;&#39;a&gt;</div>
-<div class="tip" id="fs7">val in2 : seq&lt;&#39;a&gt;</div>
-<div class="tip" id="fs8">val f : (&#39;a -&gt; #seq&lt;&#39;c&gt;)</div>
-<div class="tip" id="fs9">val x : &#39;a</div>
-<div class="tip" id="fs10">val right : in1:seq&lt;&#39;a&gt; -&gt; in2:seq&lt;&#39;a&gt; -&gt; f:(&#39;a -&gt; #seq&lt;&#39;c&gt;) -&gt; seq&lt;&#39;c&gt;<br /><br />Full name: Computation-zoo-padl_.right</div>
-<div class="tip" id="fs11">val blockMessage : msg:string -&gt; bool<br /><br />Full name: Computation-zoo-padl_.blockMessage</div>
-<div class="tip" id="fs12">val msg : string</div>
-<div class="tip" id="fs13">Multiple items<br />val string : value:&#39;T -&gt; string<br /><br />Full name: Microsoft.FSharp.Core.Operators.string<br /><br />--------------------<br />type string = String<br /><br />Full name: Microsoft.FSharp.Core.string</div>
-<div class="tip" id="fs14">val imperative : ImperativeBuilder<br /><br />Full name: Computation-zoo-padl_.imperative</div>
-<div class="tip" id="fs15">val word : string</div>
-<div class="tip" id="fs16">val blockedWords : string list<br /><br />Full name: Computation-zoo-padl_.blockedWords</div>
-<div class="tip" id="fs17">String.Contains(value: string) : bool</div>
-<div class="tip" id="fs18">val left : int<br /><br />Full name: Computation-zoo-padl_.left</div>
-<div class="tip" id="fs19">val printfn : format:Printf.TextWriterFormat&lt;&#39;T&gt; -&gt; &#39;T<br /><br />Full name: Microsoft.FSharp.Core.ExtraTopLevelOperators.printfn</div>
-<div class="tip" id="fs20">val right : int<br /><br />Full name: Computation-zoo-padl_.right</div>
+<div class="tip" id="fs1">namespace System</div>
+<div class="tip" id="fs2">namespace System.Collections</div>
+<div class="tip" id="fs3">namespace System.Collections.Generic</div>
+<div class="tip" id="fs4">type Imperative&lt;&#39;T&gt; = unit -&gt; &#39;T option<br /><br />Full name: Computation-zoo-padl_.Imperative&lt;_&gt;</div>
+<div class="tip" id="fs5">type unit = Unit<br /><br />Full name: Microsoft.FSharp.Core.unit</div>
+<div class="tip" id="fs6">type &#39;T option = Option&lt;&#39;T&gt;<br /><br />Full name: Microsoft.FSharp.Core.option&lt;_&gt;</div>
+<div class="tip" id="fs7">Multiple items<br />type ImperativeBuilder =<br />&#160;&#160;new : unit -&gt; ImperativeBuilder<br />&#160;&#160;member Combine : a:(unit -&gt; &#39;h option) * b:(unit -&gt; &#39;h option) -&gt; (unit -&gt; &#39;h option)<br />&#160;&#160;member Delay : f:(unit -&gt; Imperative&lt;&#39;g&gt;) -&gt; Imperative&lt;&#39;g&gt;<br />&#160;&#160;member For : inp:seq&lt;&#39;b&gt; * f:(&#39;b -&gt; unit -&gt; &#39;c option) -&gt; (unit -&gt; &#39;c option)<br />&#160;&#160;member Return : v:&#39;f -&gt; Imperative&lt;&#39;f&gt;<br />&#160;&#160;member Run : imp:(unit -&gt; &#39;d option) -&gt; &#39;d<br />&#160;&#160;member While : gd:(unit -&gt; bool) * body:(unit -&gt; &#39;a option) -&gt; (unit -&gt; &#39;a option)<br />&#160;&#160;member Zero : unit -&gt; (unit -&gt; &#39;e option)<br /><br />Full name: Computation-zoo-padl_.ImperativeBuilder<br /><br />--------------------<br />new : unit -&gt; ImperativeBuilder</div>
+<div class="tip" id="fs8">val x : ImperativeBuilder</div>
+<div class="tip" id="fs9">member ImperativeBuilder.Combine : a:(unit -&gt; &#39;h option) * b:(unit -&gt; &#39;h option) -&gt; (unit -&gt; &#39;h option)<br /><br />Full name: Computation-zoo-padl_.ImperativeBuilder.Combine</div>
+<div class="tip" id="fs10">val a : (unit -&gt; &#39;h option)</div>
+<div class="tip" id="fs11">val b : (unit -&gt; &#39;h option)</div>
+<div class="tip" id="fs12">union case Option.Some: Value: &#39;T -&gt; Option&lt;&#39;T&gt;</div>
+<div class="tip" id="fs13">val v : &#39;h</div>
+<div class="tip" id="fs14">member ImperativeBuilder.Delay : f:(unit -&gt; Imperative&lt;&#39;g&gt;) -&gt; Imperative&lt;&#39;g&gt;<br /><br />Full name: Computation-zoo-padl_.ImperativeBuilder.Delay</div>
+<div class="tip" id="fs15">val f : (unit -&gt; Imperative&lt;&#39;g&gt;)</div>
+<div class="tip" id="fs16">member ImperativeBuilder.Return : v:&#39;f -&gt; Imperative&lt;&#39;f&gt;<br /><br />Full name: Computation-zoo-padl_.ImperativeBuilder.Return</div>
+<div class="tip" id="fs17">val v : &#39;f</div>
+<div class="tip" id="fs18">member ImperativeBuilder.Zero : unit -&gt; (unit -&gt; &#39;e option)<br /><br />Full name: Computation-zoo-padl_.ImperativeBuilder.Zero</div>
+<div class="tip" id="fs19">union case Option.None: Option&lt;&#39;T&gt;</div>
+<div class="tip" id="fs20">member ImperativeBuilder.Run : imp:(unit -&gt; &#39;d option) -&gt; &#39;d<br /><br />Full name: Computation-zoo-padl_.ImperativeBuilder.Run</div>
+<div class="tip" id="fs21">val imp : (unit -&gt; &#39;d option)</div>
+<div class="tip" id="fs22">val v : &#39;d</div>
+<div class="tip" id="fs23">val failwith : message:string -&gt; &#39;T<br /><br />Full name: Microsoft.FSharp.Core.Operators.failwith</div>
+<div class="tip" id="fs24">member ImperativeBuilder.For : inp:seq&lt;&#39;b&gt; * f:(&#39;b -&gt; unit -&gt; &#39;c option) -&gt; (unit -&gt; &#39;c option)<br /><br />Full name: Computation-zoo-padl_.ImperativeBuilder.For</div>
+<div class="tip" id="fs25">val inp : seq&lt;&#39;b&gt;</div>
+<div class="tip" id="fs26">Multiple items<br />val seq : sequence:seq&lt;&#39;T&gt; -&gt; seq&lt;&#39;T&gt;<br /><br />Full name: Microsoft.FSharp.Core.Operators.seq<br /><br />--------------------<br />type seq&lt;&#39;T&gt; = IEnumerable&lt;&#39;T&gt;<br /><br />Full name: Microsoft.FSharp.Collections.seq&lt;_&gt;</div>
+<div class="tip" id="fs27">val f : (&#39;b -&gt; unit -&gt; &#39;c option)</div>
+<div class="tip" id="fs28">val loop : (IEnumerator&lt;&#39;b&gt; -&gt; unit -&gt; &#39;c option)</div>
+<div class="tip" id="fs29">val en : IEnumerator&lt;&#39;b&gt;</div>
+<div class="tip" id="fs30">type IEnumerator&lt;&#39;T&gt; =<br />&#160;&#160;member Current : &#39;T<br /><br />Full name: System.Collections.Generic.IEnumerator&lt;_&gt;</div>
+<div class="tip" id="fs31">val not : value:bool -&gt; bool<br /><br />Full name: Microsoft.FSharp.Core.Operators.not</div>
+<div class="tip" id="fs32">Collections.IEnumerator.MoveNext() : bool</div>
+<div class="tip" id="fs33">member ImperativeBuilder.Zero : unit -&gt; (unit -&gt; &#39;e option)</div>
+<div class="tip" id="fs34">member ImperativeBuilder.Combine : a:(unit -&gt; &#39;h option) * b:(unit -&gt; &#39;h option) -&gt; (unit -&gt; &#39;h option)</div>
+<div class="tip" id="fs35">property IEnumerator.Current: &#39;b</div>
+<div class="tip" id="fs36">member ImperativeBuilder.Delay : f:(unit -&gt; Imperative&lt;&#39;g&gt;) -&gt; Imperative&lt;&#39;g&gt;</div>
+<div class="tip" id="fs37">IEnumerable.GetEnumerator() : IEnumerator&lt;&#39;b&gt;</div>
+<div class="tip" id="fs38">member ImperativeBuilder.While : gd:(unit -&gt; bool) * body:(unit -&gt; &#39;a option) -&gt; (unit -&gt; &#39;a option)<br /><br />Full name: Computation-zoo-padl_.ImperativeBuilder.While</div>
+<div class="tip" id="fs39">val gd : (unit -&gt; bool)</div>
+<div class="tip" id="fs40">val body : (unit -&gt; &#39;a option)</div>
+<div class="tip" id="fs41">val loop : (unit -&gt; unit -&gt; &#39;a option)</div>
+<div class="tip" id="fs42">val imperative : ImperativeBuilder<br /><br />Full name: Computation-zoo-padl_.imperative</div>
+<div class="tip" id="fs43">val blockedWords : string list<br /><br />Full name: Computation-zoo-padl_.blockedWords</div>
+<div class="tip" id="fs44">val duplicate : input:seq&lt;&#39;a&gt; -&gt; seq&lt;&#39;a&gt;<br /><br />Full name: Computation-zoo-padl_.duplicate</div>
+<div class="tip" id="fs45">val input : seq&lt;&#39;a&gt;</div>
+<div class="tip" id="fs46">val num : &#39;a</div>
+<div class="tip" id="fs47">val left : in1:seq&lt;&#39;a&gt; -&gt; in2:seq&lt;&#39;a&gt; -&gt; f:(&#39;a -&gt; #seq&lt;&#39;c&gt;) -&gt; seq&lt;&#39;c&gt;<br /><br />Full name: Computation-zoo-padl_.left</div>
+<div class="tip" id="fs48">val in1 : seq&lt;&#39;a&gt;</div>
+<div class="tip" id="fs49">val in2 : seq&lt;&#39;a&gt;</div>
+<div class="tip" id="fs50">val f : (&#39;a -&gt; #seq&lt;&#39;c&gt;)</div>
+<div class="tip" id="fs51">val x : &#39;a</div>
+<div class="tip" id="fs52">val right : in1:seq&lt;&#39;a&gt; -&gt; in2:seq&lt;&#39;a&gt; -&gt; f:(&#39;a -&gt; #seq&lt;&#39;c&gt;) -&gt; seq&lt;&#39;c&gt;<br /><br />Full name: Computation-zoo-padl_.right</div>
+<div class="tip" id="fs53">val blockMessage : msg:string -&gt; bool<br /><br />Full name: Computation-zoo-padl_.blockMessage</div>
+<div class="tip" id="fs54">val msg : string</div>
+<div class="tip" id="fs55">Multiple items<br />val string : value:&#39;T -&gt; string<br /><br />Full name: Microsoft.FSharp.Core.Operators.string<br /><br />--------------------<br />type string = String<br /><br />Full name: Microsoft.FSharp.Core.string</div>
+<div class="tip" id="fs56">val word : string</div>
+<div class="tip" id="fs57">String.Contains(value: string) : bool</div>
+<div class="tip" id="fs58">val left : int<br /><br />Full name: Computation-zoo-padl_.left</div>
+<div class="tip" id="fs59">val printfn : format:Printf.TextWriterFormat&lt;&#39;T&gt; -&gt; &#39;T<br /><br />Full name: Microsoft.FSharp.Core.ExtraTopLevelOperators.printfn</div>
+<div class="tip" id="fs60">val right : int<br /><br />Full name: Computation-zoo-padl_.right</div>
 
 
 <div class="row">
@@ -487,7 +531,7 @@ you do not need to resort to explicit use of combinators as often.</p>
     <h4>Blog tags</h4>
     <p>
 
-      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(102),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(35),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(15),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(29),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(5),       <a href="http://tomasp.net/blog/tag/open-source/">open source</a>&nbsp;(5),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/linq/">linq</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/monads/">monads</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fslab/">fslab</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(1)    </p>
+      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(105),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(36),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(16),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(30),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(5),       <a href="http://tomasp.net/blog/tag/open-source/">open source</a>&nbsp;(5),       <a href="http://tomasp.net/blog/tag/fslab/">fslab</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/linq/">linq</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(2)    </p>
 
   </div>
 </div>
@@ -509,8 +553,10 @@ you do not need to resort to explicit use of combinators as often.</p>
     </div>
     <div class="large-7 columns">
     <h4>Blog archives <a href="http://tomasp.net/rss.xml"><img src="http://tomasp.net/img/rss.gif" /></a></h4>
-      <a href="http://tomasp.net/blog/archive/april-2015/index.html">
-        April 2015 (2)</a>,      <a href="http://tomasp.net/blog/archive/march-2015/index.html">
+      <a href="http://tomasp.net/blog/archive/june-2015/index.html">
+        June 2015 (1)</a>,      <a href="http://tomasp.net/blog/archive/may-2015/index.html">
+        May 2015 (2)</a>,      <a href="http://tomasp.net/blog/archive/april-2015/index.html">
+        April 2015 (3)</a>,      <a href="http://tomasp.net/blog/archive/march-2015/index.html">
         March 2015 (2)</a>,      <a href="http://tomasp.net/blog/archive/february-2015/index.html">
         February 2015 (1)</a>,      <a href="http://tomasp.net/blog/archive/january-2015/index.html">
         January 2015 (2)</a>,      <a href="http://tomasp.net/blog/archive/december-2014/index.html">

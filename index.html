@@ -22,7 +22,7 @@
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/tooltips.css" />
   <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
-  <meta name="twitter:card" content="summary">
+    <meta name="twitter:card" content="summary">
   <meta name="twitter:creator" content="@tomaspetricek">
   <meta name="twitter:title" content="Tomas Petricek's virtual universe">
   <meta name="twitter:description" content="Writing about software development in F# and .NET, sharing materials from my F# trainings and talks, writing about programming language research and theory.">
@@ -68,68 +68,57 @@
   <!-- Print more details about the first blog post -->
 
   <div>
-  <h1><a href="http://tomasp.net/blog/2015/against-types/index.html">Against the definition of types</a></h1>
-  <blockquote>
-<p style="margin-bottom:5px">Science is much more 'sloppy' and 'irrational' than its methodological image.</p>
-<p style="text-align:right">Paul Feyerabend, Against Method (1975)</p>
-</blockquote>
+  <h1><a href="http://tomasp.net/blog/2015/fslab-world-visualization/index.html">Visualizing interesting world facts with FsLab</a></h1>
+  <p>In case you missed my recent <a href="http://tomasp.net/blog/2015/announcing-fslab/">official FsLab announcement</a>, 
+FsLab is a data-science package for .NET built around F# that makes it easy to get data using <em>type providers</em>, 
+analyze them interactively (with great R integration) and visualize the results. You can find more on
+on <a href="http://fslab.org">fslab.org</a>, which also has links to <a href="http://channel9.msdn.com/posts/Understanding-the-World-with-F">some</a>
+<a href="https://channel9.msdn.com/Events/dotnetConf/2015/The-F-Path-to-Data-Scripting-Nirvana">videos</a> and
+<a href="http://fslab.org/download/">download page with templates</a> and other instructions.</p>
 
-<a href="http://tomasp.net/academic/drafts/against-types/">
-<img src="http://tomasp.net/blog/2015/against-types/paper.png" style="float:right;margin:0px 0px 5px 20px;width:160px" />
-</a>
+<p>Last time, I mentioned that we are working on integrating FsLab with the <a href="http://tahahachana.github.io/XPlot/">XPlot charting 
+library</a>. XPlot is a wonderful F# library built by 
+<a href="https://twitter.com/TahaHachana">Taha Hachana</a> that wraps two powerful HTML5 visualization libraries - 
+<a href="https://developers.google.com/chart/">Google Charts</a> and <a href="https://plot.ly/">plot.ly</a>.</p>
 
-<p>Programming languages are a fascinating area because they combine computer science (and logic) with
-many other disciplines including <a href="http://lmeyerov.github.io/projects/socioplt/viz/index.html">sociology</a>, <a href="https://www.cl.cam.ac.uk/teaching/1415/P201/">human computer interaction</a> and things
-that cannot be scientifically quantified like intuition, taste and (for better or worse) politics.</p>
+<p>I thought I'd see what interesting visualizations I can built with XPlot, so I opened the <a href="http://fsharp.github.io/FSharp.Data/library/WorldBank.html">World Bank type
+provider</a> to get some data about the world
+and Euro area, to make the blog post relevant to what is happening in the world today.</p>
 
-<p>When we talk about programming languages, we often treat it mainly as scientific discussion seeking
-some objective truth. This is not surprising - science is surrounded by an aura of perfection and
-so it is easy to think that focusing on the core scientific essence (and leaving out everything)
-else is the right way of looking at programming languages.</p>
-
-<p>However this leaves out many things that make programming languages interesting. I believe that one
-way to fill the missing gap is to look at philosophy of science, which can help us understand how
-programming language research is done and how it should be done. I wrote about the general idea
-<a href="http://tomasp.net/blog/2014/philosophy-pl/">in a blog post (and essay) last year</a>. Today, I want to talk about one specific topic: <em>What
-is the meaning of types?</em></p>
-
-<p>This blog post is a shorter (less philosophical and more to the point) version of an essay that
-I submitted to <a href="http://2015.splashcon.org/track/onward2015-essays">Onward! Essays 2015</a>. If you want to get a quick peek at the ideas in the
-essay, then continue reading here! If you want to read the full essay (or save it for later),
-you can get <a href="http://tomasp.net/academic/drafts/against-types/">the full version from here</a>.</p>
+<img src="http://tomasp.net/blog/2015/fslab-world-visualization/world-sm.png" />
 
 
       
   <p class="meta">
-    <span><strong>Published</strong>: Thursday, 14 May 2015, 10:46 AM</span>
+    <span><strong>Published</strong>: Friday, 5 June 2015, 3:55 PM</span>
       <br />      
-      <span class="tags"><strong>Tags</strong>: philosophy, research </span> 
+      <span class="tags"><strong>Tags</strong>: f#, fslab, data science </span> 
     <br />
-    <a href="http://tomasp.net/blog/2015/against-types/index.html">Read the complete article</a>
+    <a href="http://tomasp.net/blog/2015/fslab-world-visualization/index.html">Read the complete article</a>
   </p>
   </div>
 
   <!-- For remaining articles, just print short summary with abstract -->
   <h1><a href="http://tomasp.net/blog/index.html">Recent articles from my blog</a></h1>
+    <h2><a href="http://tomasp.net/blog/2015/against-types/index.html">Against the definition of types</a></h2>
+    <p class="smdate">Thursday, 14 May 2015, 3:46 PM</p>
+    <p class="description">
+        What is the definition of type? Having a clear and precise answer to this question would avoid many misunderstandings but it would hurt science, 'hamper the growth of knowledge' and 'deflect the course of investigation into narrow channels of things already understood'.
+    </p>
     <h2><a href="http://tomasp.net/blog/2015/announcing-fslab/index.html">Announcing FsLab: Data science package for Mono and .NET</a></h2>
-    <p class="smdate">Tuesday, 5 May 2015, 10:55 AM</p>
+    <p class="smdate">Tuesday, 5 May 2015, 3:55 PM</p>
     <p class="description">
         After over a year of working on FsLab and talking about it at conferences, it is finally time for an official announcement. So, today, I'm excited to announce FsLab a cross-platform package for doing data science with .NET and Mono.
     </p>
     <h2><a href="http://tomasp.net/blog/2015/restricting-ranges/index.html">Comparing date range handling in C# and F#</a></h2>
-    <p class="smdate">Wednesday, 22 April 2015, 11:55 AM</p>
+    <p class="smdate">Wednesday, 22 April 2015, 4:55 PM</p>
     <p class="description">
         I was recently working on some code for handling data ranges and I wrote initial version in C#. Later, I realized that I needed an F# version, so I went through the process of rewriting a simple function from C# to F#. This blog post compares the two versions.
     </p>
     <h2><a href="http://tomasp.net/blog/2015/query-translation/index.html">Writing custom F# LINQ query builder</a></h2>
-    <p class="smdate">Tuesday, 7 April 2015, 8:41 AM</p>
+    <p class="smdate">Tuesday, 7 April 2015, 1:41 PM</p>
     <p class="description">
         F# 3.0 provides full support for writing LINQ-style queries and the syntax can be used with SQL databases and many other standard data sources. But you can also write your own querying computation. This blog post shows a minimal example that shows how to parse F# queries and translate them to other querying language (like SQL).
-    </p>
-    <h2><a href="http://tomasp.net/blog/2015/csharp-pattern-matching/index.html">Pattern matching in action using C# 6</a></h2>
-    <p class="smdate">Wednesday, 1 April 2015, 6:41 AM</p>
-    <p class="description">
-        The new release of the C# language migth seem as a minor version, but in fact, it contains a hidden gem. In fact, it contains awesome support for pattern matching - but for some reason, this is concealed under the name 'exception filters'.
     </p>
 
   <p class="meta">
@@ -245,7 +234,8 @@ you can get <a href="http://tomasp.net/academic/drafts/against-types/">the full 
     </div>
     <div class="large-7 columns">
     <h4>Blog archives <a href="http://tomasp.net/rss.xml"><img src="http://tomasp.net/img/rss.gif" /></a></h4>
-      <a href="http://tomasp.net/blog/archive/may-2015/index.html">
+      <a href="http://tomasp.net/blog/archive/june-2015/index.html">
+        June 2015 (1)</a>,      <a href="http://tomasp.net/blog/archive/may-2015/index.html">
         May 2015 (2)</a>,      <a href="http://tomasp.net/blog/archive/april-2015/index.html">
         April 2015 (3)</a>,      <a href="http://tomasp.net/blog/archive/march-2015/index.html">
         March 2015 (2)</a>,      <a href="http://tomasp.net/blog/archive/february-2015/index.html">

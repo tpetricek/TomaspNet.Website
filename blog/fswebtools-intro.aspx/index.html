@@ -22,7 +22,7 @@
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/tooltips.css" />
   <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
-  <meta name="twitter:card" content="summary">
+    <meta name="twitter:card" content="summary">
   <meta name="twitter:creator" content="@tomaspetricek">
   <meta name="twitter:title" content="F# Web Tools: "Ajax" applications made simple">
   <meta name="twitter:description" content="This article introduces the F# Web Toolkit, which is an "Ajax" web framework that solves three major problems that many people have to face when developing modern web applications.">
@@ -167,18 +167,19 @@
 <td class="snippet"><pre class="fssnip">
 <span class="c">// F# record type, which will be used for sending lookup </span>
 <span class="c">// results from the server-side to the client-side</span>
-<span class="k">type</span> <span onmouseout="hideTip(event, 'fs1', 1)" onmouseover="showTip(event, 'fs1', 1)" class="i">SearchResult</span> <span class="o">=</span> { <span onmouseout="hideTip(event, 'fs2', 2)" onmouseover="showTip(event, 'fs2', 2)" class="i">English</span><span class="o">:</span><span onmouseout="hideTip(event, 'fs3', 3)" onmouseover="showTip(event, 'fs3', 3)" class="i">string</span>; <span onmouseout="hideTip(event, 'fs4', 4)" onmouseover="showTip(event, 'fs4', 4)" class="i">Other</span><span class="o">:</span><span onmouseout="hideTip(event, 'fs3', 5)" onmouseover="showTip(event, 'fs3', 5)" class="i">string</span>; }
+<span class="k">type</span> <span onmouseout="hideTip(event, 'fs1', 1)" onmouseover="showTip(event, 'fs1', 1)" class="t">SearchResult</span> <span class="o">=</span> { <span onmouseout="hideTip(event, 'fs2', 2)" onmouseover="showTip(event, 'fs2', 2)" class="i">English</span><span class="o">:</span><span onmouseout="hideTip(event, 'fs3', 3)" onmouseover="showTip(event, 'fs3', 3)" class="t">string</span>; <span onmouseout="hideTip(event, 'fs4', 4)" onmouseover="showTip(event, 'fs4', 4)" class="i">Other</span><span class="o">:</span><span onmouseout="hideTip(event, 'fs3', 5)" onmouseover="showTip(event, 'fs3', 5)" class="t">string</span>; }
 
 <span class="c">// Code-behind type for the ASP.NET page</span>
 [&lt;<span class="i">MixedSide</span>&gt;]
-<span class="k">type</span> <span onmouseout="hideTip(event, 'fs5', 6)" onmouseover="showTip(event, 'fs5', 6)" class="i">Suggest</span> <span class="o">=</span> 
+<span class="k">type</span> <span onmouseout="hideTip(event, 'fs5', 6)" onmouseover="showTip(event, 'fs5', 6)" class="t">Suggest</span> <span class="o">=</span> 
   <span class="k">inherit</span> <span class="i">ClientPage</span> <span class="k">as</span> <span class="k">base</span>
 
   <span class="c">// Controls for entering text and displaying result</span>
-  <span class="k">val</span> <span class="k">mutable</span> <span onmouseout="hideTip(event, 'fs6', 7)" onmouseover="showTip(event, 'fs6', 7)" class="i">txtInput</span> <span class="o">:</span> <span class="i">TextBox</span>
-  <span class="k">val</span> <span class="k">mutable</span> <span onmouseout="hideTip(event, 'fs7', 8)" onmouseover="showTip(event, 'fs7', 8)" class="i">ctlOutput</span> <span class="o">:</span> <span class="i">Element</span>
+  <span class="k">val</span> <span class="k">mutable</span> <span onmouseout="hideTip(event, 'fs6', 7)" onmouseover="showTip(event, 'fs6', 7)" class="v">txtInput</span> <span class="o">:</span> <span class="i">TextBox</span>
+  <span class="k">val</span> <span class="k">mutable</span> <span onmouseout="hideTip(event, 'fs7', 8)" onmouseover="showTip(event, 'fs7', 8)" class="v">ctlOutput</span> <span class="o">:</span> <span class="i">Element</span>
 
-  <span class="c">(* .. interaction of components will go here .. *)</span></pre>
+  <span class="c">(* .. interaction of components will go here .. *)</span>
+</pre>
 </td>
 </tr>
 </table>
@@ -214,7 +215,8 @@
                  <span class="k">when</span> <span class="i">p</span><span class="o">.</span><span class="i">English</span><span class="o">.</span><span class="i">StartsWith</span>(
                  <span class="k">-&gt;</span> {<span class="i">English</span><span class="o">=</span><span class="i">p</span><span class="o">.</span><span class="i">English</span>; <span class="i">Other</span><span class="o">=</span><span class="i">p</span><span class="o">.</span><span class="i">Other</span>} }
                  <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs8', 9)" onmouseover="showTip(event, 'fs8', 9)" class="i">truncate</span> <span class="n">10</span> @&gt; 
-      <span class="k">return</span> (<span class="k">new</span> <span onmouseout="hideTip(event, 'fs9', 10)" onmouseover="showTip(event, 'fs9', 10)" class="i">ResizeArray</span><span class="o">&lt;</span>_<span class="o">&gt;</span>(<span class="i">res</span>)) }</pre>
+      <span class="k">return</span> (<span class="k">new</span> <span onmouseout="hideTip(event, 'fs9', 10)" onmouseover="showTip(event, 'fs9', 10)" class="i">ResizeArray</span><span class="o">&lt;</span>_<span class="o">&gt;</span>(<span class="i">res</span>)) }
+</pre>
 </td>
 </tr>
 </table>
@@ -243,7 +245,8 @@
 [&lt;<span onmouseout="hideTip(event, 'fs10', 11)" onmouseover="showTip(event, 'fs10', 11)" class="i">ReflectedDefinition</span>&gt;]
 <span class="k">member</span> <span class="i">this</span><span class="o">.</span><span class="i">Client_Load</span>(<span class="i">sender</span>, <span class="i">e</span>) <span class="o">=</span>
   <span class="i">client</span>
-    { <span class="k">do</span> <span class="i">this</span><span class="o">.</span><span class="i">txtInput</span><span class="o">.</span><span class="i">ClientKeyUp</span><span class="o">.</span><span class="i">AddClient</span>(<span class="i">this</span><span class="o">.</span><span class="i">UpdateSuggestions</span>) }</pre>
+    { <span class="k">do</span> <span class="i">this</span><span class="o">.</span><span class="i">txtInput</span><span class="o">.</span><span class="i">ClientKeyUp</span><span class="o">.</span><span class="i">AddClient</span>(<span class="i">this</span><span class="o">.</span><span class="i">UpdateSuggestions</span>) }
+</pre>
 </td>
 </tr>
 </table>
@@ -274,7 +277,8 @@
            (<span class="i">client_async</span> 
              { <span class="k">let</span>  <span class="i">sprefix</span> <span class="o">=</span> <span class="i">this</span><span class="o">.</span><span class="i">txtInput</span><span class="o">.</span><span class="i">Text</span>
                <span class="k">let!</span> <span class="i">sugs</span> <span class="o">=</span> <span class="i">serverExecute</span>(<span onmouseout="hideTip(event, 'fs5', 13)" onmouseover="showTip(event, 'fs5', 13)" class="i">Suggest</span><span class="o">.</span><span class="i">LoadSuggestions</span>(<span class="i">sprefix</span>))
-               <span class="k">do!</span>  <span class="i">this</span><span class="o">.</span><span class="i">DisplayResponse</span>(<span class="i">sugs</span>) }) }            </pre>
+               <span class="k">do!</span>  <span class="i">this</span><span class="o">.</span><span class="i">DisplayResponse</span>(<span class="i">sugs</span>) }) }            
+</pre>
 </td>
 </tr>
 </table>
@@ -314,9 +318,10 @@
     { <span class="k">let</span> <span class="i">sb</span> <span class="o">=</span> <span class="i">StringBuilder</span>()
       <span class="k">let</span> <span onmouseout="hideTip(event, 'fs11', 16)" onmouseover="showTip(event, 'fs11', 16)" class="i">array</span> <span class="o">=</span> <span class="i">sugs</span><span class="o">.</span><span class="i">ToArray</span>()
       <span class="k">do</span>  <span onmouseout="hideTip(event, 'fs12', 17)" onmouseover="showTip(event, 'fs12', 17)" class="i">Array</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs13', 18)" onmouseover="showTip(event, 'fs13', 18)" class="i">iter</span> (<span class="k">fun</span> (<span class="i">res</span>) <span class="k">-&gt;</span> 
-            <span class="i">sb</span><span class="o">.</span><span class="i">Append</span>(<span class="s">&quot;</span><span class="s">&lt;</span><span class="s">li</span><span class="s">&gt;</span><span class="s">&lt;</span><span class="s">strong</span><span class="s">&gt;</span><span class="s">&quot;</span> <span class="o">+</span> <span class="i">r</span><span class="o">.</span><span class="i">Source</span> <span class="o">+</span> 
-                      <span class="s">&quot;</span><span class="s">&lt;</span><span class="s">/</span><span class="s">strong</span><span class="s">&gt;</span><span class="s"> </span><span class="s">-</span><span class="s"> </span><span class="s">&quot;</span> <span class="o">+</span> <span class="i">r</span><span class="o">.</span><span class="i">Target</span> <span class="o">+</span> <span class="s">&quot;</span><span class="s">&lt;</span><span class="s">/</span><span class="s">li</span><span class="s">&gt;</span><span class="s">&quot;</span>) <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs14', 19)" onmouseover="showTip(event, 'fs14', 19)" class="i">ignore</span>)
-      <span class="k">do</span>   <span class="i">this</span><span class="o">.</span><span class="i">ctlOutput</span><span class="o">.</span><span class="i">InnerHtml</span> <span class="o">&lt;-</span> <span class="s">&quot;</span><span class="s">&lt;</span><span class="s">ul</span><span class="s">&gt;</span><span class="s">&quot;</span> <span class="o">+</span> (<span class="i">sb</span><span class="o">.</span><span class="i">ToString</span>()) <span class="o">+</span> <span class="s">&quot;</span><span class="s">&lt;</span><span class="s">ul</span><span class="s">&gt;</span><span class="s">&quot;</span> }</pre>
+            <span class="i">sb</span><span class="o">.</span><span class="i">Append</span>(<span class="s">&quot;&lt;li&gt;&lt;strong&gt;&quot;</span> <span class="o">+</span> <span class="i">r</span><span class="o">.</span><span class="i">Source</span> <span class="o">+</span> 
+                      <span class="s">&quot;&lt;/strong&gt; - &quot;</span> <span class="o">+</span> <span class="i">r</span><span class="o">.</span><span class="i">Target</span> <span class="o">+</span> <span class="s">&quot;&lt;/li&gt;&quot;</span>) <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs14', 19)" onmouseover="showTip(event, 'fs14', 19)" class="i">ignore</span>)
+      <span class="k">do</span>   <span class="i">this</span><span class="o">.</span><span class="i">ctlOutput</span><span class="o">.</span><span class="i">InnerHtml</span> <span class="o">&lt;-</span> <span class="s">&quot;&lt;ul&gt;&quot;</span> <span class="o">+</span> (<span class="i">sb</span><span class="o">.</span><span class="i">ToString</span>()) <span class="o">+</span> <span class="s">&quot;&lt;ul&gt;&quot;</span> }
+</pre>
 </td>
 </tr>
 </table>
@@ -490,7 +495,7 @@
     <h4>Blog tags</h4>
     <p>
 
-      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(102),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(35),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(15),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(29),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(5),       <a href="http://tomasp.net/blog/tag/open-source/">open source</a>&nbsp;(5),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/linq/">linq</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/monads/">monads</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/fslab/">fslab</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(1)    </p>
+      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(105),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(36),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(16),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(30),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(5),       <a href="http://tomasp.net/blog/tag/open-source/">open source</a>&nbsp;(5),       <a href="http://tomasp.net/blog/tag/fslab/">fslab</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/linq/">linq</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(2)    </p>
 
   </div>
 </div>
@@ -512,8 +517,10 @@
     </div>
     <div class="large-7 columns">
     <h4>Blog archives <a href="http://tomasp.net/rss.xml"><img src="http://tomasp.net/img/rss.gif" /></a></h4>
-      <a href="http://tomasp.net/blog/archive/april-2015/index.html">
-        April 2015 (2)</a>,      <a href="http://tomasp.net/blog/archive/march-2015/index.html">
+      <a href="http://tomasp.net/blog/archive/june-2015/index.html">
+        June 2015 (1)</a>,      <a href="http://tomasp.net/blog/archive/may-2015/index.html">
+        May 2015 (2)</a>,      <a href="http://tomasp.net/blog/archive/april-2015/index.html">
+        April 2015 (3)</a>,      <a href="http://tomasp.net/blog/archive/march-2015/index.html">
         March 2015 (2)</a>,      <a href="http://tomasp.net/blog/archive/february-2015/index.html">
         February 2015 (1)</a>,      <a href="http://tomasp.net/blog/archive/january-2015/index.html">
         January 2015 (2)</a>,      <a href="http://tomasp.net/blog/archive/december-2014/index.html">

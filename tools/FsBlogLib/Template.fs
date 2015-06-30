@@ -91,6 +91,9 @@ type TemplateBaseExtensions<'T>() =
     member x.Image
         with get() = defaultArg (x.tryGetViewBagValue<string> "Image") ""
         and set value = x.trySetViewBagValue<string> "Image" value
+    member x.HasLargeImage
+        with get() = defaultArg (x.tryGetViewBagValue<bool> "HasLargeImage") false
+        and set value = x.trySetViewBagValue<bool> "HasLargeImage" value
     member x.Description
         with get() = defaultArg (x.tryGetViewBagValue<string> "Description") ""
         and set value = x.trySetViewBagValue<string> "Description" value

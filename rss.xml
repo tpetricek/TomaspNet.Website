@@ -7,7 +7,7 @@
       <title>Visualizing interesting world facts with FsLab</title>
       <guid>http://tomasp.net/blog/2015/fslab-world-visualization</guid>
       <link>http://tomasp.net/blog/2015/fslab-world-visualization/index.html</link>
-      <pubDate>Fri, 05 Jun 2015 14:55:01 GMT</pubDate>
+      <pubDate>Tue, 30 Jun 2015 15:07:13 GMT</pubDate>
       <description>&lt;p&gt;In case you missed my recent &lt;a href="http://tomasp.net/blog/2015/announcing-fslab/"&gt;official FsLab announcement&lt;/a&gt;, 
 FsLab is a data-science package for .NET built around F# that makes it easy to get data using &lt;em&gt;type providers&lt;/em&gt;, 
 analyze them interactively (with great R integration) and visualize the results. You can find more on

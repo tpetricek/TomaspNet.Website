@@ -39,6 +39,9 @@ I submitted to [Onward! Essays 2015][onwess]. If you want to get a quick peek at
 essay, then continue reading here! If you want to read the full essay (or save it for later),
 you can get [the full version from here][full]. 
 
+> This article is also available in Japanese! Read it at the POSTD web site:
+> [「型」の定義に挑む ](http://postd.cc/against-the-definition-of-types/)
+
 Looking for the meaning of types
 --------------------------------
 

@@ -80,22 +80,18 @@ interested in writing a nicer querying library for Amazon DynamoDB (his <a href=
 <p>I realized that I don't really know about any good resource about doing this, so I wrote a little sample
 that shows how you can do this. The idea is that we want to be able to write something like this:</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l">1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
 <span class="l">4: </span>
 <span class="l">5: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span onmouseout="hideTip(event, 'fs16', 20)" onmouseover="showTip(event, 'fs16', 20)" class="i">query</span> { 
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs16', 20)" onmouseover="showTip(event, 'fs16', 20)" class="i">query</span> { 
   <span class="k">for</span> <span onmouseout="hideTip(event, 'fs17', 21)" onmouseover="showTip(event, 'fs17', 21)" class="i">p</span> <span class="k">in</span> <span onmouseout="hideTip(event, 'fs11', 22)" onmouseover="showTip(event, 'fs11', 22)" class="t">DynamoDB</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs18', 23)" onmouseover="showTip(event, 'fs18', 23)" class="i">People</span> <span class="k">do</span>
   <span onmouseout="hideTip(event, 'fs19', 24)" onmouseover="showTip(event, 'fs19', 24)" class="k">where</span> (<span onmouseout="hideTip(event, 'fs17', 25)" onmouseover="showTip(event, 'fs17', 25)" class="i">p</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs9', 26)" onmouseover="showTip(event, 'fs9', 26)" class="i">Age</span> <span class="o">&gt;</span> <span class="n">10</span>)
   <span onmouseout="hideTip(event, 'fs19', 27)" onmouseover="showTip(event, 'fs19', 27)" class="k">where</span> (<span onmouseout="hideTip(event, 'fs17', 28)" onmouseover="showTip(event, 'fs17', 28)" class="i">p</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs7', 29)" onmouseover="showTip(event, 'fs7', 29)" class="i">Name</span> <span class="o">=</span> <span class="s">&quot;Tomas&quot;</span>)
   <span onmouseout="hideTip(event, 'fs20', 30)" onmouseover="showTip(event, 'fs20', 30)" class="k">select</span> (<span onmouseout="hideTip(event, 'fs17', 31)" onmouseover="showTip(event, 'fs17', 31)" class="i">p</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs9', 32)" onmouseover="showTip(event, 'fs9', 32)" class="i">Age</span>, <span onmouseout="hideTip(event, 'fs17', 33)" onmouseover="showTip(event, 'fs17', 33)" class="i">p</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs7', 34)" onmouseover="showTip(event, 'fs7', 34)" class="i">Name</span>) }
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -120,8 +116,7 @@ translate that to a simple data structure that describes the query.</p>
 <p>So, we define <code>Query&lt;'T&gt;</code> which represents a query that returns values of type <code>'T</code> (but it never
 actually does anything). We define a sample type <code>Person</code> and a type  <code>DB</code> representing the database:</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l"> 1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
 <span class="l"> 4: </span>
@@ -134,10 +129,8 @@ actually does anything). We define a sample type <code>Person</code> and a type 
 <span class="l">11: </span>
 <span class="l">12: </span>
 <span class="l">13: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="k">open</span> <span onmouseout="hideTip(event, 'fs1', 35)" onmouseover="showTip(event, 'fs1', 35)" class="i">Microsoft</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs2', 36)" onmouseover="showTip(event, 'fs2', 36)" class="i">FSharp</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs3', 37)" onmouseover="showTip(event, 'fs3', 37)" class="i">Quotations</span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">open</span> <span onmouseout="hideTip(event, 'fs1', 35)" onmouseover="showTip(event, 'fs1', 35)" class="i">Microsoft</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs2', 36)" onmouseover="showTip(event, 'fs2', 36)" class="i">FSharp</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs3', 37)" onmouseover="showTip(event, 'fs3', 37)" class="i">Quotations</span>
 
 <span class="c">/// Represents a query (but it is never executed!)</span>
 <span class="k">type</span> <span onmouseout="hideTip(event, 'fs21', 38)" onmouseover="showTip(event, 'fs21', 38)" class="t">Query</span><span class="o">&lt;</span><span class="o">&#39;</span><span class="i">T</span><span class="o">&gt;</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs22', 39)" onmouseover="showTip(event, 'fs22', 39)" class="p">NA</span>
@@ -150,8 +143,7 @@ actually does anything). We define a sample type <code>Person</code> and a type 
 <span class="c">/// Models a database with one &#39;People&#39; table</span>
 <span class="k">type</span> <span onmouseout="hideTip(event, 'fs26', 45)" onmouseover="showTip(event, 'fs26', 45)" class="t">DB</span> <span class="o">=</span> 
   <span class="k">static</span> <span class="k">member</span> <span onmouseout="hideTip(event, 'fs27', 46)" onmouseover="showTip(event, 'fs27', 46)" class="i">People</span> <span class="o">:</span> <span onmouseout="hideTip(event, 'fs21', 47)" onmouseover="showTip(event, 'fs21', 47)" class="t">Query</span><span class="o">&lt;</span><span onmouseout="hideTip(event, 'fs23', 48)" onmouseover="showTip(event, 'fs23', 48)" class="t">Person</span><span class="o">&gt;</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs22', 49)" onmouseover="showTip(event, 'fs22', 49)" class="p">NA</span>
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -171,8 +163,7 @@ we do not have to write those explicitly using <code>&lt;@ .. @&gt;</code>, whic
 The remaining three operations (discussed below) define custom operations that can appear
 in the query:</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l"> 1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
 <span class="l"> 4: </span>
@@ -201,10 +192,8 @@ in the query:</p>
 <span class="l">27: </span>
 <span class="l">28: </span>
 <span class="l">29: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="c">/// Defines a query builder which lets us write queries containing</span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="c">/// Defines a query builder which lets us write queries containing</span>
 <span class="c">/// &#39;for&#39;, &#39;where&#39;, &#39;selectAttr&#39; and &#39;selectCount&#39; operations.</span>
 <span class="k">type</span> <span onmouseout="hideTip(event, 'fs28', 50)" onmouseover="showTip(event, 'fs28', 50)" class="t">SimpleQueryBuilder</span>() <span class="o">=</span> 
   <span class="c">/// &#39;For&#39; and &#39;Yield&#39; enables the &#39;for x in xs do ..&#39; syntax</span>
@@ -233,8 +222,7 @@ in the query:</p>
 
 <span class="c">/// Global instance of the computation builder</span>
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs48', 95)" onmouseover="showTip(event, 'fs48', 95)" class="i">simpleq</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs28', 96)" onmouseover="showTip(event, 'fs28', 96)" class="t">SimpleQueryBuilder</span>()
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -258,24 +246,20 @@ takes an integer and you'd write <code>take 10</code>).</p></li>
 of the query builder that is used when we write <code>simpleq { .. }</code>, so let's now
 look at a sample query we can write:</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l">1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
 <span class="l">4: </span>
 <span class="l">5: </span>
 <span class="l">6: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs49', 97)" onmouseover="showTip(event, 'fs49', 97)" class="i">q</span> <span class="o">=</span> 
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs49', 97)" onmouseover="showTip(event, 'fs49', 97)" class="i">q</span> <span class="o">=</span> 
   <span onmouseout="hideTip(event, 'fs48', 98)" onmouseover="showTip(event, 'fs48', 98)" class="i">simpleq</span> { 
     <span class="k">for</span> <span onmouseout="hideTip(event, 'fs50', 99)" onmouseover="showTip(event, 'fs50', 99)" class="i">p</span> <span class="k">in</span> <span onmouseout="hideTip(event, 'fs26', 100)" onmouseover="showTip(event, 'fs26', 100)" class="t">DB</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs51', 101)" onmouseover="showTip(event, 'fs51', 101)" class="i">People</span> <span class="k">do</span>
     <span onmouseout="hideTip(event, 'fs52', 102)" onmouseover="showTip(event, 'fs52', 102)" class="k">where</span> (<span onmouseout="hideTip(event, 'fs50', 103)" onmouseover="showTip(event, 'fs50', 103)" class="i">p</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs25', 104)" onmouseover="showTip(event, 'fs25', 104)" class="i">Age</span> <span class="o">&gt;</span> <span class="n">10</span>)
     <span onmouseout="hideTip(event, 'fs52', 105)" onmouseover="showTip(event, 'fs52', 105)" class="k">where</span> (<span onmouseout="hideTip(event, 'fs50', 106)" onmouseover="showTip(event, 'fs50', 106)" class="i">p</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs24', 107)" onmouseover="showTip(event, 'fs24', 107)" class="i">Name</span> <span class="o">=</span> <span class="s">&quot;Tomas&quot;</span>)
     <span onmouseout="hideTip(event, 'fs53', 108)" onmouseover="showTip(event, 'fs53', 108)" class="k">selectCount</span> }
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -290,8 +274,7 @@ that it is an expression. Now, in a real example, you'd also add <code>Run</code
 to extract from the sample query. We want to build a value of the following <code>Query</code> type
 which describes what kind of operations are performed:</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l"> 1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
 <span class="l"> 4: </span>
@@ -311,10 +294,8 @@ which describes what kind of operations are performed:</p>
 <span class="l">18: </span>
 <span class="l">19: </span>
 <span class="l">20: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="c">/// Defines a single condition of the form</span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="c">/// Defines a single condition of the form</span>
 <span class="c">/// p.&lt;Property&gt; &lt;op&gt; &lt;Constant&gt;</span>
 <span class="k">type</span> <span onmouseout="hideTip(event, 'fs54', 109)" onmouseover="showTip(event, 'fs54', 109)" class="t">QueryCondition</span> <span class="o">=</span> 
   { <span onmouseout="hideTip(event, 'fs55', 110)" onmouseover="showTip(event, 'fs55', 110)" class="i">Property</span> <span class="o">:</span> <span onmouseout="hideTip(event, 'fs8', 111)" onmouseover="showTip(event, 'fs8', 111)" class="t">string</span>
@@ -334,8 +315,7 @@ which describes what kind of operations are performed:</p>
   { <span onmouseout="hideTip(event, 'fs64', 122)" onmouseover="showTip(event, 'fs64', 122)" class="i">Source</span> <span class="o">:</span> <span onmouseout="hideTip(event, 'fs8', 123)" onmouseover="showTip(event, 'fs8', 123)" class="t">string</span>
     <span onmouseout="hideTip(event, 'fs65', 124)" onmouseover="showTip(event, 'fs65', 124)" class="i">Where</span> <span class="o">:</span> <span onmouseout="hideTip(event, 'fs54', 125)" onmouseover="showTip(event, 'fs54', 125)" class="t">QueryCondition</span> <span onmouseout="hideTip(event, 'fs61', 126)" onmouseover="showTip(event, 'fs61', 126)" class="t">list</span>
     <span onmouseout="hideTip(event, 'fs66', 127)" onmouseover="showTip(event, 'fs66', 127)" class="i">Select</span> <span class="o">:</span> <span onmouseout="hideTip(event, 'fs59', 128)" onmouseover="showTip(event, 'fs59', 128)" class="t">QueryProjection</span> <span onmouseout="hideTip(event, 'fs67', 129)" onmouseover="showTip(event, 'fs67', 129)" class="t">option</span> }
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -353,26 +333,22 @@ which models our query. If you're going through this in F# interactive, you can 
 <code>q</code> in the FSI and see what the query looks like. It takes some time to understand how
 to read this, but you might see something like:</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l">1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
 <span class="l">4: </span>
 <span class="l">5: </span>
 <span class="l">6: </span>
 <span class="l">7: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="i">Call</span> (<span onmouseout="hideTip(event, 'fs68', 130)" onmouseover="showTip(event, 'fs68', 130)" class="i">Some</span> (<span class="i">Value</span> (<span class="i">FSI_0080</span><span class="o">+</span><span class="i">QueryBuilder</span>)), <span class="i">SelectCount</span>,
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="i">Call</span> (<span onmouseout="hideTip(event, 'fs68', 130)" onmouseover="showTip(event, 'fs68', 130)" class="i">Some</span> (<span class="i">Value</span> (<span class="i">FSI_0080</span><span class="o">+</span><span class="i">QueryBuilder</span>)), <span class="i">SelectCount</span>,
   [<span class="i">Call</span> (<span onmouseout="hideTip(event, 'fs68', 131)" onmouseover="showTip(event, 'fs68', 131)" class="i">Some</span> (<span class="i">Value</span> (<span class="i">FSI_0080</span><span class="o">+</span><span class="i">QueryBuilder</span>)), <span class="i">Where</span>,
     [<span class="i">Call</span> (<span onmouseout="hideTip(event, 'fs68', 132)" onmouseover="showTip(event, 'fs68', 132)" class="i">Some</span> (<span class="i">Value</span> (<span class="i">FSI_0080</span><span class="o">+</span><span class="i">QueryBuilder</span>)), <span class="i">For</span>,
       [<span class="i">PropertyGet</span> (<span onmouseout="hideTip(event, 'fs69', 133)" onmouseover="showTip(event, 'fs69', 133)" class="i">None</span>, <span class="i">People</span>, []), (<span class="o">..</span><span class="o">.</span>) ]),
     <span class="i">Lambda</span> (<span class="i">p</span>,
       <span class="i">Call</span> (<span onmouseout="hideTip(event, 'fs69', 134)" onmouseover="showTip(event, 'fs69', 134)" class="i">None</span>, <span class="i">op_GreaterThan</span>,
         [<span class="i">PropertyGet</span> (<span onmouseout="hideTip(event, 'fs68', 135)" onmouseover="showTip(event, 'fs68', 135)" class="i">Some</span> (<span class="i">p</span>), <span class="i">Age</span>, []), <span class="i">Value</span> (<span class="n">10</span>)]))])])
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -393,8 +369,7 @@ walks over the query.</p>
 projection and filtering operations first call <code>translateQuery</code> recursively (on the 
 nested part of the expression) and then add more information to the <code>Query</code> record:</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l"> 1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
 <span class="l"> 4: </span>
@@ -432,10 +407,8 @@ nested part of the expression) and then add more information to the <code>Query<
 <span class="l">36: </span>
 <span class="l">37: </span>
 <span class="l">38: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="k">open</span> <span onmouseout="hideTip(event, 'fs1', 206)" onmouseover="showTip(event, 'fs1', 206)" class="i">Microsoft</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs2', 207)" onmouseover="showTip(event, 'fs2', 207)" class="i">FSharp</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs3', 208)" onmouseover="showTip(event, 'fs3', 208)" class="i">Quotations</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs4', 209)" onmouseover="showTip(event, 'fs4', 209)" class="i">Patterns</span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">open</span> <span onmouseout="hideTip(event, 'fs1', 206)" onmouseover="showTip(event, 'fs1', 206)" class="i">Microsoft</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs2', 207)" onmouseover="showTip(event, 'fs2', 207)" class="i">FSharp</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs3', 208)" onmouseover="showTip(event, 'fs3', 208)" class="i">Quotations</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs4', 209)" onmouseover="showTip(event, 'fs4', 209)" class="i">Patterns</span>
 <span class="k">open</span> <span onmouseout="hideTip(event, 'fs1', 210)" onmouseover="showTip(event, 'fs1', 210)" class="i">Microsoft</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs2', 211)" onmouseover="showTip(event, 'fs2', 211)" class="i">FSharp</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs3', 212)" onmouseover="showTip(event, 'fs3', 212)" class="i">Quotations</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs5', 213)" onmouseover="showTip(event, 'fs5', 213)" class="i">DerivedPatterns</span>
 
 <span class="k">let</span> <span class="k">rec</span> <span onmouseout="hideTip(event, 'fs99', 214)" onmouseover="showTip(event, 'fs99', 214)" class="f">translateQuery</span> <span onmouseout="hideTip(event, 'fs92', 215)" onmouseover="showTip(event, 'fs92', 215)" class="i">e</span> <span class="o">=</span> 
@@ -473,8 +446,7 @@ nested part of the expression) and then add more information to the <code>Query<
 
   <span class="c">// This should never happen</span>
   | <span onmouseout="hideTip(event, 'fs92', 286)" onmouseover="showTip(event, 'fs92', 286)" class="i">e</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs88', 287)" onmouseover="showTip(event, 'fs88', 287)" class="f">failwithf</span> <span class="s">&quot;Unsupported query operation: </span><span class="pf">%A</span><span class="s">&quot;</span> <span onmouseout="hideTip(event, 'fs92', 288)" onmouseover="showTip(event, 'fs92', 288)" class="i">e</span>
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -504,8 +476,7 @@ In quotations, we can use <code>Lambda</code> pattern to look for function and <
 operator. We check that this is call to an operator by making sure that the name of the method
 called starts with <code>op_</code>:</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l"> 1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
 <span class="l"> 4: </span>
@@ -524,10 +495,8 @@ called starts with <code>op_</code>:</p>
 <span class="l">17: </span>
 <span class="l">18: </span>
 <span class="l">19: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs70', 136)" onmouseover="showTip(event, 'fs70', 136)" class="f">translateWhere</span> <span class="o">=</span> <span class="k">function</span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs70', 136)" onmouseover="showTip(event, 'fs70', 136)" class="f">translateWhere</span> <span class="o">=</span> <span class="k">function</span>
   | <span onmouseout="hideTip(event, 'fs71', 137)" onmouseover="showTip(event, 'fs71', 137)" class="p">Lambda</span>(<span onmouseout="hideTip(event, 'fs72', 138)" onmouseover="showTip(event, 'fs72', 138)" class="i">var1</span>, <span onmouseout="hideTip(event, 'fs73', 139)" onmouseover="showTip(event, 'fs73', 139)" class="p">Call</span> (<span onmouseout="hideTip(event, 'fs69', 140)" onmouseover="showTip(event, 'fs69', 140)" class="p">None</span>, <span onmouseout="hideTip(event, 'fs74', 141)" onmouseover="showTip(event, 'fs74', 141)" class="i">op</span>, [<span onmouseout="hideTip(event, 'fs75', 142)" onmouseover="showTip(event, 'fs75', 142)" class="i">left</span>; <span onmouseout="hideTip(event, 'fs76', 143)" onmouseover="showTip(event, 'fs76', 143)" class="i">right</span>])) <span class="k">-&gt;</span>
     <span class="k">match</span> <span onmouseout="hideTip(event, 'fs75', 144)" onmouseover="showTip(event, 'fs75', 144)" class="i">left</span>, <span onmouseout="hideTip(event, 'fs76', 145)" onmouseover="showTip(event, 'fs76', 145)" class="i">right</span> <span class="k">with</span>
     | <span onmouseout="hideTip(event, 'fs77', 146)" onmouseover="showTip(event, 'fs77', 146)" class="p">PropertyGet</span>(<span onmouseout="hideTip(event, 'fs68', 147)" onmouseover="showTip(event, 'fs68', 147)" class="p">Some</span> (<span onmouseout="hideTip(event, 'fs78', 148)" onmouseover="showTip(event, 'fs78', 148)" class="p">Var</span> <span onmouseout="hideTip(event, 'fs79', 149)" onmouseover="showTip(event, 'fs79', 149)" class="i">var2</span>), <span onmouseout="hideTip(event, 'fs80', 150)" onmouseover="showTip(event, 'fs80', 150)" class="i">prop</span>, []), <span onmouseout="hideTip(event, 'fs81', 151)" onmouseover="showTip(event, 'fs81', 151)" class="p">Value</span>(<span onmouseout="hideTip(event, 'fs82', 152)" onmouseover="showTip(event, 'fs82', 152)" class="i">value</span>, _) <span class="k">when</span> 
@@ -546,8 +515,7 @@ called starts with <code>op_</code>:</p>
 
   <span class="c">// This should not happen - the parameter is always lambda!</span>
   | _ <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs47', 169)" onmouseover="showTip(event, 'fs47', 169)" class="f">failwith</span> <span class="s">&quot;Expected lambda expression&quot;</span>
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -566,8 +534,7 @@ is represented as a function containing property access as the body. We turn thi
 singleton list. When you write <code>select (p.Name, p.Age)</code>, we get a <em>tuple</em> and we turn this
 into a list of names corresponding to the elements returned by the tuple:</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l"> 1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
 <span class="l"> 4: </span>
@@ -590,10 +557,8 @@ into a list of names corresponding to the elements returned by the tuple:</p>
 <span class="l">21: </span>
 <span class="l">22: </span>
 <span class="l">23: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="c">/// Translate property access (may be in a tuple or not)</span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="c">/// Translate property access (may be in a tuple or not)</span>
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs89', 170)" onmouseover="showTip(event, 'fs89', 170)" class="f">translatePropGet</span> <span onmouseout="hideTip(event, 'fs90', 171)" onmouseover="showTip(event, 'fs90', 171)" class="i">varName</span> <span class="o">=</span> <span class="k">function</span>
   | <span onmouseout="hideTip(event, 'fs77', 172)" onmouseover="showTip(event, 'fs77', 172)" class="p">PropertyGet</span>(<span onmouseout="hideTip(event, 'fs68', 173)" onmouseover="showTip(event, 'fs68', 173)" class="p">Some</span>(<span onmouseout="hideTip(event, 'fs78', 174)" onmouseover="showTip(event, 'fs78', 174)" class="p">Var</span> <span onmouseout="hideTip(event, 'fs91', 175)" onmouseover="showTip(event, 'fs91', 175)" class="i">v</span>), <span onmouseout="hideTip(event, 'fs80', 176)" onmouseover="showTip(event, 'fs80', 176)" class="i">prop</span>, []) 
       <span class="c">// The body is simple projection</span>
@@ -616,46 +581,37 @@ into a list of names corresponding to the elements returned by the tuple:</p>
       <span class="c">// There is just one body expression</span>
       [<span onmouseout="hideTip(event, 'fs89', 201)" onmouseover="showTip(event, 'fs89', 201)" class="f">translatePropGet</span> <span onmouseout="hideTip(event, 'fs72', 202)" onmouseover="showTip(event, 'fs72', 202)" class="i">var1</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs83', 203)" onmouseover="showTip(event, 'fs83', 203)" class="i">Name</span> <span onmouseout="hideTip(event, 'fs98', 204)" onmouseover="showTip(event, 'fs98', 204)" class="i">arg</span>]
   | _ <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs47', 205)" onmouseover="showTip(event, 'fs47', 205)" class="f">failwith</span> <span class="s">&quot;Expected lambda expression&quot;</span>
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
 <p>So, now that we have all the definitions, you can see how this works. Try
 calling <code>translateQuery</code> function on the sample <code>q</code> query that we wrote earlier:</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l">1: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span onmouseout="hideTip(event, 'fs49', 289)" onmouseover="showTip(event, 'fs49', 289)" class="i">q</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs99', 290)" onmouseover="showTip(event, 'fs99', 290)" class="f">translateQuery</span>
-</pre>
-</td>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs49', 289)" onmouseover="showTip(event, 'fs49', 289)" class="i">q</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs99', 290)" onmouseover="showTip(event, 'fs99', 290)" class="f">translateQuery</span>
+</code></pre></td>
 </tr>
 </table>
 
 <p>If you do this, you should see a nice <code>Query</code> value that represents the information you 
 need about the query. For a query with just one <code>where</code> clause, I got the following:</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l">1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
 <span class="l">4: </span>
 <span class="l">5: </span>
 <span class="l">6: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-{ <span class="i">Source</span> <span class="o">=</span> <span class="s">&quot;People&quot;</span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp">{ <span class="i">Source</span> <span class="o">=</span> <span class="s">&quot;People&quot;</span>
   <span class="i">Where</span> <span class="o">=</span> 
     [ { <span class="i">Property</span> <span class="o">=</span> <span class="s">&quot;Age&quot;</span>
         <span class="i">Operator</span> <span class="o">=</span> <span class="s">&quot;GreaterThan&quot;</span>
         <span class="i">Constant</span> <span class="o">=</span> <span class="n">10</span> }]
   <span class="i">Select</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs68', 291)" onmouseover="showTip(event, 'fs68', 291)" class="p">Some</span> <span onmouseout="hideTip(event, 'fs62', 292)" onmouseover="showTip(event, 'fs62', 292)" class="p">SelectCount</span>}
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 

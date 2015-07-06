@@ -149,18 +149,14 @@ library for working with lists. Following this pattern well also turns your libr
 As a (somewhat) silly example, if we want to get a list of positive <code>sin</code> values of integers
 from 0 to 100, we can write:</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l">1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-[<span class="n">0</span> <span class="o">..</span> <span class="n">100</span>]
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp">[<span class="n">0</span> <span class="o">..</span> <span class="n">100</span>]
 <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs43', 96)" onmouseover="showTip(event, 'fs43', 96)" class="t">List</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs44', 97)" onmouseover="showTip(event, 'fs44', 97)" class="f">map</span> (<span onmouseout="hideTip(event, 'fs45', 98)" onmouseover="showTip(event, 'fs45', 98)" class="f">float</span> <span class="o">&gt;</span><span class="o">&gt;</span> <span onmouseout="hideTip(event, 'fs46', 99)" onmouseover="showTip(event, 'fs46', 99)" class="f">sin</span>)
 <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs43', 100)" onmouseover="showTip(event, 'fs43', 100)" class="t">List</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs47', 101)" onmouseover="showTip(event, 'fs47', 101)" class="f">filter</span> (<span class="k">fun</span> <span onmouseout="hideTip(event, 'fs48', 102)" onmouseover="showTip(event, 'fs48', 102)" class="i">n</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs48', 103)" onmouseover="showTip(event, 'fs48', 103)" class="i">n</span> <span class="o">&gt;</span> <span class="n">0.0</span>)
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -175,8 +171,7 @@ the values in the list changes. That is <code>splitAtSignChange [1; 4; -3; 2]</c
 <code>[1; 4]</code> and <code>[-3; 2]</code>. This is not easy to do using higher-order functions, but we can 
 use the lower-level API and write a recursive function that pattern matches on the list:</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l"> 1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
 <span class="l"> 4: </span>
@@ -191,10 +186,8 @@ use the lower-level API and write a recursive function that pattern matches on t
 <span class="l">13: </span>
 <span class="l">14: </span>
 <span class="l">15: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="c">/// Split a list at the point where the </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="c">/// Split a list at the point where the </span>
 <span class="c">/// sign of adjacent elements changes</span>
 <span class="k">let</span> <span class="k">inline</span> <span onmouseout="hideTip(event, 'fs49', 104)" onmouseover="showTip(event, 'fs49', 104)" class="f">splitAtSignChange</span> <span onmouseout="hideTip(event, 'fs50', 105)" onmouseover="showTip(event, 'fs50', 105)" class="i">list</span> <span class="o">=</span>
   <span class="c">// Keeps the last element and elements visited so</span>
@@ -209,8 +202,7 @@ use the lower-level API and write a recursive function that pattern matches on t
   <span class="k">match</span> <span onmouseout="hideTip(event, 'fs50', 127)" onmouseover="showTip(event, 'fs50', 127)" class="i">list</span> <span class="k">with</span>
   | [] <span class="k">-&gt;</span> [], []
   | <span onmouseout="hideTip(event, 'fs58', 128)" onmouseover="showTip(event, 'fs58', 128)" class="i">head</span><span class="o">::</span><span onmouseout="hideTip(event, 'fs56', 129)" onmouseover="showTip(event, 'fs56', 129)" class="i">tail</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs51', 130)" onmouseover="showTip(event, 'fs51', 130)" class="f">loop</span> <span class="i">head</span> [<span class="i">head</span>] <span onmouseout="hideTip(event, 'fs56', 131)" onmouseover="showTip(event, 'fs56', 131)" class="i">tail</span>
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -230,8 +222,7 @@ lower level to the higher level. The function <code>splitAtSignChange</code> can
 of a more general operation where we split a list based on a predicate applied to two adjacent
 elements.</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l"> 1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
 <span class="l"> 4: </span>
@@ -246,10 +237,8 @@ elements.</p>
 <span class="l">13: </span>
 <span class="l">14: </span>
 <span class="l">15: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="k">module</span> <span onmouseout="hideTip(event, 'fs43', 132)" onmouseover="showTip(event, 'fs43', 132)" class="t">List</span> <span class="o">=</span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">module</span> <span onmouseout="hideTip(event, 'fs43', 132)" onmouseover="showTip(event, 'fs43', 132)" class="t">List</span> <span class="o">=</span>
   <span class="c">/// Splits a list into two when the predicate &#39;f&#39;</span>
   <span class="c">/// returns &#39;true&#39; on two adjacent elements of the list</span>
   <span class="k">let</span> <span onmouseout="hideTip(event, 'fs59', 133)" onmouseover="showTip(event, 'fs59', 133)" class="f">splitAt</span> <span onmouseout="hideTip(event, 'fs60', 134)" onmouseover="showTip(event, 'fs60', 134)" class="f">f</span> <span onmouseout="hideTip(event, 'fs61', 135)" onmouseover="showTip(event, 'fs61', 135)" class="i">list</span> <span class="o">=</span>
@@ -264,8 +253,7 @@ elements.</p>
     <span class="k">match</span> <span onmouseout="hideTip(event, 'fs61', 156)" onmouseover="showTip(event, 'fs61', 156)" class="i">list</span> <span class="k">with</span>
     | [] <span class="k">-&gt;</span> [], []
     | <span onmouseout="hideTip(event, 'fs67', 157)" onmouseover="showTip(event, 'fs67', 157)" class="i">head</span><span class="o">::</span><span onmouseout="hideTip(event, 'fs66', 158)" onmouseover="showTip(event, 'fs66', 158)" class="i">tail</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs62', 159)" onmouseover="showTip(event, 'fs62', 159)" class="f">loop</span> <span class="i">head</span> [<span class="i">head</span>] <span onmouseout="hideTip(event, 'fs66', 160)" onmouseover="showTip(event, 'fs66', 160)" class="i">tail</span>
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -279,18 +267,14 @@ lower-level API, it gives us a way to get back to the higher-level!</p>
 style. Say, we wanted to take <code>sin</code> values of integers from 1 to 10 and split them into
 two lists, based on when the value crosses the X axis:</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l">1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-[<span class="n">1</span> <span class="o">..</span> <span class="n">10</span>]
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp">[<span class="n">1</span> <span class="o">..</span> <span class="n">10</span>]
 <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs68', 161)" onmouseover="showTip(event, 'fs68', 161)" class="t">List</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs44', 162)" onmouseover="showTip(event, 'fs44', 162)" class="f">map</span> (<span onmouseout="hideTip(event, 'fs45', 163)" onmouseover="showTip(event, 'fs45', 163)" class="f">float</span> <span class="o">&gt;</span><span class="o">&gt;</span> <span onmouseout="hideTip(event, 'fs46', 164)" onmouseover="showTip(event, 'fs46', 164)" class="f">sin</span>)
 <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs68', 165)" onmouseover="showTip(event, 'fs68', 165)" class="t">List</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs59', 166)" onmouseover="showTip(event, 'fs59', 166)" class="f">splitAt</span> (<span class="k">fun</span> <span onmouseout="hideTip(event, 'fs69', 167)" onmouseover="showTip(event, 'fs69', 167)" class="i">a</span> <span onmouseout="hideTip(event, 'fs70', 168)" onmouseover="showTip(event, 'fs70', 168)" class="i">b</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs57', 169)" onmouseover="showTip(event, 'fs57', 169)" class="f">sign</span> <span onmouseout="hideTip(event, 'fs69', 170)" onmouseover="showTip(event, 'fs69', 170)" class="i">a</span> <span class="o">&lt;&gt;</span> <span onmouseout="hideTip(event, 'fs57', 171)" onmouseover="showTip(event, 'fs57', 171)" class="f">sign</span> <span onmouseout="hideTip(event, 'fs70', 172)" onmouseover="showTip(event, 'fs70', 172)" class="i">b</span>)
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -330,20 +314,16 @@ provides multiple levels of abstraction - especially when you use it to model cu
 
 <p>For example, have a look at what you can achieve with the following snippet:</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l">1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
 <span class="l">4: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span onmouseout="hideTip(event, 'fs7', 173)" onmouseover="showTip(event, 'fs7', 173)" class="f">tower</span> <span class="o">-</span><span class="n">2.0</span> <span class="o">-</span><span class="n">2.0</span> <span class="o">$</span> <span onmouseout="hideTip(event, 'fs7', 174)" onmouseover="showTip(event, 'fs7', 174)" class="f">tower</span> <span class="n">2.0</span> <span class="o">-</span><span class="n">2.0</span> <span class="o">$</span> 
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs7', 173)" onmouseover="showTip(event, 'fs7', 173)" class="f">tower</span> <span class="o">-</span><span class="n">2.0</span> <span class="o">-</span><span class="n">2.0</span> <span class="o">$</span> <span onmouseout="hideTip(event, 'fs7', 174)" onmouseover="showTip(event, 'fs7', 174)" class="f">tower</span> <span class="n">2.0</span> <span class="o">-</span><span class="n">2.0</span> <span class="o">$</span> 
 <span onmouseout="hideTip(event, 'fs7', 175)" onmouseover="showTip(event, 'fs7', 175)" class="f">tower</span> <span class="o">-</span><span class="n">2.0</span> <span class="n">2.0</span> <span class="o">$</span> <span onmouseout="hideTip(event, 'fs7', 176)" onmouseover="showTip(event, 'fs7', 176)" class="f">tower</span> <span class="n">2.0</span> <span class="n">2.0</span> <span class="o">$</span>
 <span onmouseout="hideTip(event, 'fs29', 177)" onmouseover="showTip(event, 'fs29', 177)" class="f">wall</span> <span class="o">-</span><span class="n">2.0</span> <span class="k">true</span> <span class="o">$</span> <span onmouseout="hideTip(event, 'fs29', 178)" onmouseover="showTip(event, 'fs29', 178)" class="f">wall</span> <span class="n">2.0</span> <span class="k">true</span> <span class="o">$</span>
 <span onmouseout="hideTip(event, 'fs29', 179)" onmouseover="showTip(event, 'fs29', 179)" class="f">wall</span> <span class="o">-</span><span class="n">2.0</span> <span class="k">false</span> <span class="o">$</span> <span onmouseout="hideTip(event, 'fs29', 180)" onmouseover="showTip(event, 'fs29', 180)" class="f">wall</span> <span class="n">2.0</span> <span class="k">false</span>
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -370,8 +350,7 @@ need to look at any low-level 3D rendering code. The <code>tower</code> function
 in terms of another "language" or "level of abstraction". A tower is just a coloured
 cylinder, composed with a coloured cone that are appropriately rotated:</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l"> 1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
 <span class="l"> 4: </span>
@@ -382,10 +361,8 @@ cylinder, composed with a coloured cone that are appropriately rotated:</p>
 <span class="l"> 9: </span>
 <span class="l">10: </span>
 <span class="l">11: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs7', 181)" onmouseover="showTip(event, 'fs7', 181)" class="f">tower</span> <span onmouseout="hideTip(event, 'fs8', 182)" onmouseover="showTip(event, 'fs8', 182)" class="i">x</span> <span onmouseout="hideTip(event, 'fs9', 183)" onmouseover="showTip(event, 'fs9', 183)" class="i">z</span> <span class="o">=</span> 
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs7', 181)" onmouseover="showTip(event, 'fs7', 181)" class="f">tower</span> <span onmouseout="hideTip(event, 'fs8', 182)" onmouseover="showTip(event, 'fs8', 182)" class="i">x</span> <span onmouseout="hideTip(event, 'fs9', 183)" onmouseover="showTip(event, 'fs9', 183)" class="i">z</span> <span class="o">=</span> 
   (<span onmouseout="hideTip(event, 'fs10', 184)" onmouseover="showTip(event, 'fs10', 184)" class="t">Fun</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs11', 185)" onmouseover="showTip(event, 'fs11', 185)" class="i">cylinder</span>
      <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs10', 186)" onmouseover="showTip(event, 'fs10', 186)" class="t">Fun</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs12', 187)" onmouseover="showTip(event, 'fs12', 187)" class="f">scale</span> (<span class="n">1.0</span>, <span class="n">1.0</span>, <span class="n">3.0</span>) 
      <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs10', 188)" onmouseover="showTip(event, 'fs10', 188)" class="t">Fun</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs13', 189)" onmouseover="showTip(event, 'fs13', 189)" class="f">translate</span> (<span class="n">0.0</span>, <span class="n">0.0</span>, <span class="n">1.0</span>)
@@ -396,8 +373,7 @@ cylinder, composed with a coloured cone that are appropriately rotated:</p>
      <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs10', 200)" onmouseover="showTip(event, 'fs10', 200)" class="t">Fun</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs14', 201)" onmouseover="showTip(event, 'fs14', 201)" class="f">color</span> <span onmouseout="hideTip(event, 'fs15', 202)" onmouseover="showTip(event, 'fs15', 202)" class="t">Color</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs18', 203)" onmouseover="showTip(event, 'fs18', 203)" class="i">Red</span> )
   <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs10', 204)" onmouseover="showTip(event, 'fs10', 204)" class="t">Fun</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs19', 205)" onmouseover="showTip(event, 'fs19', 205)" class="f">rotate</span> (<span class="n">90.0</span>, <span class="n">0.0</span>, <span class="n">0.0</span>)
   <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs10', 206)" onmouseover="showTip(event, 'fs10', 206)" class="t">Fun</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs13', 207)" onmouseover="showTip(event, 'fs13', 207)" class="f">translate</span> (<span onmouseout="hideTip(event, 'fs8', 208)" onmouseover="showTip(event, 'fs8', 208)" class="i">x</span>, <span class="n">0.5</span>, <span onmouseout="hideTip(event, 'fs9', 209)" onmouseover="showTip(event, 'fs9', 209)" class="i">z</span>)
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -412,8 +388,7 @@ way as when we implemented <code>List.splitAt</code> in terms of recursion and p
 library, the lower level is simply calling OpenGL primitives (using the OpenTK wrapper),
 and so this is not particularly interesting, but it is not very complicated either:</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l"> 1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
 <span class="l"> 4: </span>
@@ -424,10 +399,8 @@ and so this is not particularly interesting, but it is not very complicated eith
 <span class="l"> 9: </span>
 <span class="l">10: </span>
 <span class="l">11: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs71', 210)" onmouseover="showTip(event, 'fs71', 210)" class="i">cube</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs72', 211)" onmouseover="showTip(event, 'fs72', 211)" class="p">DF</span> (<span class="k">fun</span> <span onmouseout="hideTip(event, 'fs73', 212)" onmouseover="showTip(event, 'fs73', 212)" class="i">ctx</span> <span class="k">-&gt;</span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs71', 210)" onmouseover="showTip(event, 'fs71', 210)" class="i">cube</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs72', 211)" onmouseover="showTip(event, 'fs72', 211)" class="p">DF</span> (<span class="k">fun</span> <span onmouseout="hideTip(event, 'fs73', 212)" onmouseover="showTip(event, 'fs73', 212)" class="i">ctx</span> <span class="k">-&gt;</span>
   <span onmouseout="hideTip(event, 'fs74', 213)" onmouseover="showTip(event, 'fs74', 213)" class="t">GL</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs75', 214)" onmouseover="showTip(event, 'fs75', 214)" class="f">Material</span>
     ( <span onmouseout="hideTip(event, 'fs76', 215)" onmouseover="showTip(event, 'fs76', 215)" class="t">MaterialFace</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs77', 216)" onmouseover="showTip(event, 'fs77', 216)" class="i">FrontAndBack</span>, 
       <span onmouseout="hideTip(event, 'fs78', 217)" onmouseover="showTip(event, 'fs78', 217)" class="t">MaterialParameter</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs79', 218)" onmouseover="showTip(event, 'fs79', 218)" class="i">Diffuse</span>, <span onmouseout="hideTip(event, 'fs73', 219)" onmouseover="showTip(event, 'fs73', 219)" class="i">ctx</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs80', 220)" onmouseover="showTip(event, 'fs80', 220)" class="i">Color</span>)
@@ -438,8 +411,7 @@ and so this is not particularly interesting, but it is not very complicated eith
       (<span class="o">-</span><span class="n">0.5f</span>,  <span class="n">0.5f</span>,  <span class="n">0.5f</span>);  (<span class="o">-</span><span class="n">0.5f</span>,  <span class="n">0.5f</span>, <span class="o">-</span><span class="n">0.5f</span>) ] 
   <span id="fst86" onmouseout="hideTip(event, 'fs86', 227)" onmouseover="showTip(event, 'fs86', 227, document.getElementById('fst86'))" class="omitted">(Remaining 5 faces omitted)</span>
   <span onmouseout="hideTip(event, 'fs74', 228)" onmouseover="showTip(event, 'fs74', 228)" class="t">GL</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs87', 229)" onmouseover="showTip(event, 'fs87', 229)" class="f">End</span>() )
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -475,20 +447,16 @@ HTML documentation. This is what the <a href="https://github.com/fsprojects/Proj
 <a href="https://github.com/fsharp/fsfoundation/tree/gh-pages/guides">F# Foundation guides</a>), we can
 generate HTML documentation just by calling <code>Literate.ProcessDirectory</code>:</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l">1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
 <span class="l">4: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span onmouseout="hideTip(event, 'fs88', 230)" onmouseover="showTip(event, 'fs88', 230)" class="t">Literate</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs89', 231)" onmouseover="showTip(event, 'fs89', 231)" class="f">ProcessDirectory</span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs88', 230)" onmouseover="showTip(event, 'fs88', 230)" class="t">Literate</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs89', 231)" onmouseover="showTip(event, 'fs89', 231)" class="f">ProcessDirectory</span>
   ( <span class="i">inputDirectory</span><span class="o">=</span><span onmouseout="hideTip(event, 'fs39', 232)" onmouseover="showTip(event, 'fs39', 232)" class="i">webHome</span>, 
     <span class="i">outputDirectory</span><span class="o">=</span><span onmouseout="hideTip(event, 'fs40', 233)" onmouseover="showTip(event, 'fs40', 233)" class="i">webOutput</span>, 
     <span class="i">processRecursive</span><span class="o">=</span><span class="k">true</span> )
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -509,8 +477,7 @@ of the F# Foundation page directly from GitHub. To do this, we'll use the GitHub
 (to get a list of folders and files in them). Using the <a href="http://fsharp.github.io/FSharp.Data/library/JsonProvider.html">JSON type provider</a>, 
 we start with a function that returns the result of GitHub contents query:</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l"> 1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
 <span class="l"> 4: </span>
@@ -521,10 +488,8 @@ we start with a function that returns the result of GitHub contents query:</p>
 <span class="l"> 9: </span>
 <span class="l">10: </span>
 <span class="l">11: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="k">open</span> <span onmouseout="hideTip(event, 'fs34', 234)" onmouseover="showTip(event, 'fs34', 234)" class="i">FSharp</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs90', 235)" onmouseover="showTip(event, 'fs90', 235)" class="i">Data</span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">open</span> <span onmouseout="hideTip(event, 'fs34', 234)" onmouseover="showTip(event, 'fs34', 234)" class="i">FSharp</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs90', 235)" onmouseover="showTip(event, 'fs90', 235)" class="i">Data</span>
 
 <span class="c">/// Type representing returned JSON, inferred from a sample</span>
 <span class="k">type</span> <span onmouseout="hideTip(event, 'fs91', 236)" onmouseover="showTip(event, 'fs91', 236)" class="t">GitHubDir</span> <span class="o">=</span> <span class="i">JsonProvider</span><span class="o">&lt;</span><span class="s">&quot;../data/repos.json&quot;</span><span class="o">&gt;</span>
@@ -535,8 +500,7 @@ we start with a function that returns the result of GitHub contents query:</p>
     ( <span onmouseout="hideTip(event, 'fs95', 240)" onmouseover="showTip(event, 'fs95', 240)" class="i">sprintf</span> <span class="s">&quot;%s/repos/%s/contents/%s?anon=1&quot;</span> <span onmouseout="hideTip(event, 'fs42', 241)" onmouseover="showTip(event, 'fs42', 241)" class="i">api</span> <span onmouseout="hideTip(event, 'fs93', 242)" onmouseover="showTip(event, 'fs93', 242)" class="i">repo</span> <span onmouseout="hideTip(event, 'fs94', 243)" onmouseover="showTip(event, 'fs94', 243)" class="i">dir</span>,
       <span class="i">headers</span> <span class="o">=</span> [<span class="i">HttpRequestHeaders</span><span class="o">.</span><span class="i">UserAgent</span> <span class="s">&quot;My App&quot;</span>] )
   <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs91', 244)" onmouseover="showTip(event, 'fs91', 244)" class="i">GitHubDir</span><span class="o">.</span><span class="i">Parse</span>
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -544,8 +508,7 @@ we start with a function that returns the result of GitHub contents query:</p>
 then get all the files under each guide. We can then process each file using the
 medium-level <code>Literate.ProcessMarkdown</code> function:</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l"> 1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
 <span class="l"> 4: </span>
@@ -559,10 +522,8 @@ medium-level <code>Literate.ProcessMarkdown</code> function:</p>
 <span class="l">12: </span>
 <span class="l">13: </span>
 <span class="l">14: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="c">// Iterate over all Markdown guides on fsharp.org</span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// Iterate over all Markdown guides on fsharp.org</span>
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs96', 245)" onmouseover="showTip(event, 'fs96', 245)" class="i">wc</span> <span class="o">=</span> <span class="k">new</span> <span onmouseout="hideTip(event, 'fs1', 246)" onmouseover="showTip(event, 'fs1', 246)" class="i">System</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs97', 247)" onmouseover="showTip(event, 'fs97', 247)" class="i">Net</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs98', 248)" onmouseover="showTip(event, 'fs98', 248)" class="t">WebClient</span>()
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs99', 249)" onmouseover="showTip(event, 'fs99', 249)" class="i">guides</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs92', 250)" onmouseover="showTip(event, 'fs92', 250)" class="f">queryDir</span> <span class="s">&quot;fsharp/fsfoundation&quot;</span> <span class="s">&quot;guides&quot;</span>
 <span class="k">for</span> <span onmouseout="hideTip(event, 'fs100', 251)" onmouseover="showTip(event, 'fs100', 251)" class="i">subdir</span> <span class="k">in</span> <span onmouseout="hideTip(event, 'fs99', 252)" onmouseover="showTip(event, 'fs99', 252)" class="i">guides</span> <span class="k">do</span>
@@ -576,8 +537,7 @@ medium-level <code>Literate.ProcessMarkdown</code> function:</p>
     <span class="c">// Process the guide using medium-level API</span>
     <span class="k">let</span> <span onmouseout="hideTip(event, 'fs112', 276)" onmouseover="showTip(event, 'fs112', 276)" class="i">out</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs104', 277)" onmouseover="showTip(event, 'fs104', 277)" class="t">Path</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs113', 278)" onmouseover="showTip(event, 'fs113', 278)" class="f">ChangeExtension</span>(<span onmouseout="hideTip(event, 'fs104', 279)" onmouseover="showTip(event, 'fs104', 279)" class="t">Path</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs108', 280)" onmouseover="showTip(event, 'fs108', 280)" class="f">Combine</span>(<span onmouseout="hideTip(event, 'fs107', 281)" onmouseover="showTip(event, 'fs107', 281)" class="i">dir</span>, <span onmouseout="hideTip(event, 'fs102', 282)" onmouseover="showTip(event, 'fs102', 282)" class="i">file</span><span class="o">.</span><span class="i">Name</span>), <span class="s">&quot;.html&quot;</span>)
     <span onmouseout="hideTip(event, 'fs88', 283)" onmouseover="showTip(event, 'fs88', 283)" class="t">Literate</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs114', 284)" onmouseover="showTip(event, 'fs114', 284)" class="f">ProcessMarkdown</span>(<span onmouseout="hideTip(event, 'fs103', 285)" onmouseover="showTip(event, 'fs103', 285)" class="i">tempFile</span>, <span class="i">output</span><span class="o">=</span><span onmouseout="hideTip(event, 'fs112', 286)" onmouseover="showTip(event, 'fs112', 286)" class="i">out</span>)
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -626,8 +586,7 @@ parsed Markdown and perform some transformation on the structure.</p>
 we can call <code>Literate.ParseMarkdownFile</code>, which gives us the result of parsing (first of the 
 two steps that processing does):</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l"> 1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
 <span class="l"> 4: </span>
@@ -639,10 +598,8 @@ two steps that processing does):</p>
 <span class="l">10: </span>
 <span class="l">11: </span>
 <span class="l">12: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="c">// Parse the Literate Markdown file</span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// Parse the Literate Markdown file</span>
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs115', 287)" onmouseover="showTip(event, 'fs115', 287)" class="i">doc</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs88', 288)" onmouseover="showTip(event, 'fs88', 288)" class="t">Literate</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs116', 289)" onmouseover="showTip(event, 'fs116', 289)" class="f">ParseMarkdownFile</span>(<span onmouseout="hideTip(event, 'fs38', 290)" onmouseover="showTip(event, 'fs38', 290)" class="i">guide</span>)
 
 <span class="c">/// Helper function that collects headers</span>
@@ -654,8 +611,7 @@ two steps that processing does):</p>
 
 <span class="c">// Returns a list of headings with their level</span>
 <span onmouseout="hideTip(event, 'fs115', 306)" onmouseover="showTip(event, 'fs115', 306)" class="i">doc</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs126', 307)" onmouseover="showTip(event, 'fs126', 307)" class="i">Paragraphs</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs68', 308)" onmouseover="showTip(event, 'fs68', 308)" class="t">List</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs125', 309)" onmouseover="showTip(event, 'fs125', 309)" class="f">collect</span> <span onmouseout="hideTip(event, 'fs117', 310)" onmouseover="showTip(event, 'fs117', 310)" class="f">collectHeaders</span>
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -669,8 +625,7 @@ one that represents nesting (you can find more about this pattern in Chapter 3 o
 the <code>&lt;ol&gt;</code> element with the table of contents and create a new document that includes
 the TOC as an additional part of the body:</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l"> 1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
 <span class="l"> 4: </span>
@@ -690,10 +645,8 @@ the TOC as an additional part of the body:</p>
 <span class="l">18: </span>
 <span class="l">19: </span>
 <span class="l">20: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="c">/// Generates Markdown nodes with the TOC</span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="c">/// Generates Markdown nodes with the TOC</span>
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs127', 311)" onmouseover="showTip(event, 'fs127', 311)" class="f">generateToc</span> <span onmouseout="hideTip(event, 'fs128', 312)" onmouseover="showTip(event, 'fs128', 312)" class="i">items</span> <span class="o">=</span> 
   <span class="c">/// Split the given list of &#39;items&#39; into the first node,</span>
   <span class="c">/// its children (following items with larger level) and </span>
@@ -713,8 +666,7 @@ the TOC as an additional part of the body:</p>
 <span class="c">// (for the TOC) and format it as HTML</span>
 <span onmouseout="hideTip(event, 'fs115', 326)" onmouseover="showTip(event, 'fs115', 326)" class="i">doc</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs134', 327)" onmouseover="showTip(event, 'fs134', 327)" class="f">With</span>(<span onmouseout="hideTip(event, 'fs68', 328)" onmouseover="showTip(event, 'fs68', 328)" class="t">List</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs135', 329)" onmouseover="showTip(event, 'fs135', 329)" class="f">append</span> <span onmouseout="hideTip(event, 'fs133', 330)" onmouseover="showTip(event, 'fs133', 330)" class="i">tocPars</span> <span onmouseout="hideTip(event, 'fs115', 331)" onmouseover="showTip(event, 'fs115', 331)" class="i">doc</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs126', 332)" onmouseover="showTip(event, 'fs126', 332)" class="i">Paragraphs</span>)
 <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs88', 333)" onmouseover="showTip(event, 'fs88', 333)" class="t">Literate</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs136', 334)" onmouseover="showTip(event, 'fs136', 334)" class="f">WriteHtml</span>
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 

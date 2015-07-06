@@ -100,7 +100,7 @@ that I was using in my experiments. This is not the key part, but it is worth sh
 date is essentially an integer - a number of days since the beginning of the universe (or 
 some other important milestone):</p>
 
-<table class="pre"><tr><td class="lines"><span class="l"> 1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
 <span class="l"> 4: </span>
@@ -116,8 +116,8 @@ some other important milestone):</p>
 <span class="l">14: </span>
 <span class="l">15: </span>
 <span class="l">16: </span>
-</td>
-<td class="snippet"><pre lang="csharp"><span class="c">/// &lt;summary&gt;</span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="csharp"><span class="c">/// &lt;summary&gt;</span>
 <span class="c">/// A date as a number of days since the beginning</span>
 <span class="c">/// &lt;/summary&gt;</span>
 <span class="k">class</span> Date {
@@ -133,7 +133,7 @@ some other important milestone):</p>
 <span class="k">class</span> Ranges {
   <span class="k">public</span> Tuple&lt;Date, Date&gt;[] Ranges { get; set; }
 }
-</pre></td></tr></table>
+</code></pre></td></tr></table>
 
 <p>The <code>Date</code> type defines a couple of custom operators so that we can compare dates (I only defined
 those that I needed). The <code>Ranges</code> type is the simplest possible wrapper over an array of <code>Date</code>
@@ -144,7 +144,7 @@ lower and upper bound of the restriction. It then iterates over the ranges using
 and returns the range unmodified (if it is within the restriction), skips it (if it is outside)
 or adjusts its lower and upper bounds:</p>
 
-<table class="pre"><tr><td class="lines"><span class="l"> 1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
 <span class="l"> 4: </span>
@@ -163,8 +163,8 @@ or adjusts its lower and upper bounds:</p>
 <span class="l">17: </span>
 <span class="l">18: </span>
 <span class="l">19: </span>
-</td>
-<td class="snippet"><pre lang="csharp"><span class="c">/// &lt;summary&gt;</span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="csharp"><span class="c">/// &lt;summary&gt;</span>
 <span class="c">/// Restrict the specified collection of ranges </span>
 <span class="c">/// according to the provided restriction range</span>
 <span class="c">/// &lt;/summary&gt;</span>
@@ -183,7 +183,7 @@ or adjusts its lower and upper bounds:</p>
   }).ToArray();
   <span class="k">return</span> <span class="k">new</span> Ranges { Ranges <span class="o">=</span> newRanges };
 }
-</pre></td></tr></table>
+</code></pre></td></tr></table>
 
 <p>This is fairly simple and readable piece of code. We might be able to make it a bit nicer if we
 used <em>iterators</em>, but that would require a separate method (because we are returning <code>Ranges</code>
@@ -196,20 +196,16 @@ wouldn't change the structure. Before discussing the code further, let's look at
 <p>As with the C# version, we need to start with type definitions. This is not really the important
 part, but I wanted to have a self-contained sample for the blog, so I'm including those too:</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l">1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
 <span class="l">4: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="c">/// A date as a number of days since the beginning</span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="c">/// A date as a number of days since the beginning</span>
 <span class="k">type</span> <span class="t">Date</span> <span class="o">=</span> { <span onmouseout="hideTip(event, 'fs1', 1)" onmouseover="showTip(event, 'fs1', 1)" class="i">Offset</span> <span class="o">:</span> <span onmouseout="hideTip(event, 'fs2', 2)" onmouseover="showTip(event, 'fs2', 2)" class="t">int</span> }
 <span class="c">/// An array of ranges represented as date pairs</span>
 <span class="k">type</span> <span onmouseout="hideTip(event, 'fs3', 3)" onmouseover="showTip(event, 'fs3', 3)" class="t">Ranges</span> <span class="o">=</span> { <span onmouseout="hideTip(event, 'fs4', 4)" onmouseover="showTip(event, 'fs4', 4)" class="i">Ranges</span> <span class="o">:</span> (<span onmouseout="hideTip(event, 'fs5', 5)" onmouseover="showTip(event, 'fs5', 5)" class="t">Date</span><span class="o">*</span><span onmouseout="hideTip(event, 'fs5', 6)" onmouseover="showTip(event, 'fs5', 6)" class="t">Date</span>)[] }
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -227,8 +223,7 @@ is nice that we can write simple record in the first step and F# gets all the de
 <p>The more interesting thing is the <code>restrictRanges</code> function. We follow <em>exactly</em> the same logic
 as before (even using <code>Array.collect</code> which is an equivalent of <code>SelectMany</code>):</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l">1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
 <span class="l">4: </span>
@@ -237,10 +232,8 @@ as before (even using <code>Array.collect</code> which is an equivalent of <code
 <span class="l">7: </span>
 <span class="l">8: </span>
 <span class="l">9: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="c">/// Restrict the specified collection of ranges </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="c">/// Restrict the specified collection of ranges </span>
 <span class="c">/// according to the provided restriction range</span>
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs6', 7)" onmouseover="showTip(event, 'fs6', 7)" class="f">restrictRanges</span> (<span onmouseout="hideTip(event, 'fs7', 8)" onmouseover="showTip(event, 'fs7', 8)" class="i">loRestr</span><span class="o">:</span><span onmouseout="hideTip(event, 'fs5', 9)" onmouseover="showTip(event, 'fs5', 9)" class="t">Date</span>, <span onmouseout="hideTip(event, 'fs8', 10)" onmouseover="showTip(event, 'fs8', 10)" class="i">hiRestr</span><span class="o">:</span><span onmouseout="hideTip(event, 'fs5', 11)" onmouseover="showTip(event, 'fs5', 11)" class="t">Date</span>) <span onmouseout="hideTip(event, 'fs9', 12)" onmouseover="showTip(event, 'fs9', 12)" class="i">ranges</span> <span class="o">=</span>
   <span class="k">let</span> <span onmouseout="hideTip(event, 'fs10', 13)" onmouseover="showTip(event, 'fs10', 13)" class="i">newRanges</span> <span class="o">=</span> 
@@ -249,16 +242,14 @@ as before (even using <code>Array.collect</code> which is an equivalent of <code
         <span class="k">elif</span> <span onmouseout="hideTip(event, 'fs15', 26)" onmouseover="showTip(event, 'fs15', 26)" class="i">hi</span> <span class="o">&lt;</span> <span onmouseout="hideTip(event, 'fs7', 27)" onmouseover="showTip(event, 'fs7', 27)" class="i">loRestr</span> <span class="o">||</span> <span onmouseout="hideTip(event, 'fs14', 28)" onmouseover="showTip(event, 'fs14', 28)" class="i">lo</span> <span class="o">&gt;</span> <span onmouseout="hideTip(event, 'fs8', 29)" onmouseover="showTip(event, 'fs8', 29)" class="i">hiRestr</span> <span class="k">then</span> [| |]
         <span class="k">else</span> [| <span onmouseout="hideTip(event, 'fs16', 30)" onmouseover="showTip(event, 'fs16', 30)" class="f">max</span> <span onmouseout="hideTip(event, 'fs14', 31)" onmouseover="showTip(event, 'fs14', 31)" class="i">lo</span> <span onmouseout="hideTip(event, 'fs7', 32)" onmouseover="showTip(event, 'fs7', 32)" class="i">loRestr</span>, <span onmouseout="hideTip(event, 'fs17', 33)" onmouseover="showTip(event, 'fs17', 33)" class="f">min</span> <span onmouseout="hideTip(event, 'fs15', 34)" onmouseover="showTip(event, 'fs15', 34)" class="i">hi</span> <span onmouseout="hideTip(event, 'fs8', 35)" onmouseover="showTip(event, 'fs8', 35)" class="i">hiRestr</span> |] )
   { <span onmouseout="hideTip(event, 'fs3', 36)" onmouseover="showTip(event, 'fs3', 36)" class="i">Ranges</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs10', 37)" onmouseover="showTip(event, 'fs10', 37)" class="i">newRanges</span> }
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
 <p>Alternatively, we could use sequence expressions (which I prefer in this case) and rewrite replace
 the <code>Array.collect</code> function with the <code>[| .. |]</code> block, which gives us:</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l">1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
 <span class="l">4: </span>
@@ -267,10 +258,8 @@ the <code>Array.collect</code> function with the <code>[| .. |]</code> block, wh
 <span class="l">7: </span>
 <span class="l">8: </span>
 <span class="l">9: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="c">/// Restrict the specified collection of ranges </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="c">/// Restrict the specified collection of ranges </span>
 <span class="c">/// according to the provided restriction range</span>
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs18', 38)" onmouseover="showTip(event, 'fs18', 38)" class="f">restrictRangesArrExpr</span> (<span onmouseout="hideTip(event, 'fs7', 39)" onmouseover="showTip(event, 'fs7', 39)" class="i">loRestr</span><span class="o">:</span><span onmouseout="hideTip(event, 'fs5', 40)" onmouseover="showTip(event, 'fs5', 40)" class="t">Date</span>, <span onmouseout="hideTip(event, 'fs8', 41)" onmouseover="showTip(event, 'fs8', 41)" class="i">hiRestr</span><span class="o">:</span><span onmouseout="hideTip(event, 'fs5', 42)" onmouseover="showTip(event, 'fs5', 42)" class="t">Date</span>) <span onmouseout="hideTip(event, 'fs9', 43)" onmouseover="showTip(event, 'fs9', 43)" class="i">ranges</span> <span class="o">=</span>
   <span class="k">let</span> <span onmouseout="hideTip(event, 'fs10', 44)" onmouseover="showTip(event, 'fs10', 44)" class="i">newRanges</span> <span class="o">=</span> 
@@ -279,8 +268,7 @@ the <code>Array.collect</code> function with the <code>[| .. |]</code> block, wh
         <span class="k">elif</span> <span onmouseout="hideTip(event, 'fs15', 53)" onmouseover="showTip(event, 'fs15', 53)" class="i">hi</span> <span class="o">&lt;</span> <span onmouseout="hideTip(event, 'fs7', 54)" onmouseover="showTip(event, 'fs7', 54)" class="i">loRestr</span> <span class="o">||</span> <span class="i">lo</span> <span class="o">&gt;</span> <span onmouseout="hideTip(event, 'fs8', 55)" onmouseover="showTip(event, 'fs8', 55)" class="i">hiRestr</span> <span class="k">then</span> ()
         <span class="k">else</span> <span class="k">yield</span> <span onmouseout="hideTip(event, 'fs16', 56)" onmouseover="showTip(event, 'fs16', 56)" class="f">max</span> <span class="i">lo</span> <span onmouseout="hideTip(event, 'fs7', 57)" onmouseover="showTip(event, 'fs7', 57)" class="i">loRestr</span>, <span onmouseout="hideTip(event, 'fs17', 58)" onmouseover="showTip(event, 'fs17', 58)" class="f">min</span> <span onmouseout="hideTip(event, 'fs15', 59)" onmouseover="showTip(event, 'fs15', 59)" class="i">hi</span> <span onmouseout="hideTip(event, 'fs8', 60)" onmouseover="showTip(event, 'fs8', 60)" class="i">hiRestr</span> |]
   { <span onmouseout="hideTip(event, 'fs3', 61)" onmouseover="showTip(event, 'fs3', 61)" class="i">Ranges</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs10', 62)" onmouseover="showTip(event, 'fs10', 62)" class="i">newRanges</span> }
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 

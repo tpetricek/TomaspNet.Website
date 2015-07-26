@@ -22,7 +22,7 @@
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/tooltips.css" />
   <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
-  <meta name="twitter:card" content="summary">
+    <meta name="twitter:card" content="summary">
   <meta name="twitter:creator" content="@tomaspetricek">
   <meta name="twitter:title" content="The theory behind covariance and contravariance in C# 4">
   <meta name="twitter:description" content="Covariance and contravariance are two useful features of generics in C# 4.0. Most of the time you don't see them. They just let you write code that you'd expect to work. Actually understanding how they work is more difficult. In this article, I explain that, together with some theory where the two concepts come from.">
@@ -97,8 +97,8 @@ two subclasses <code>Cat</code> and <code>Fish</code> and finally, there is also
 has a <code>Name</code>, we can write the following function that prints names of all
 animals in some collection:</p>
 
-<pre lang="csharp">void PrintAnimals(IEnumerable&lt;Animal&gt; animals) {
-  for(var animal in animals)
+<pre><span class="k">void</span> PrintAnimals(IEnumerable&lt;Animal&gt; animals) {
+  <span class="k">for</span>(<span class="k">var</span> animal <span class="k">in</span> animals)
     Console.WriteLine(animal.Name);
 }</pre>
 
@@ -107,7 +107,7 @@ values from the collection (using the <code>Current</code> property of <code>IEn
 is no way we could write <code>Animal</code> back to the collection - it is read-only. Now, if we
 create a collection of cats, can we use <code>PrintAnimals</code> to print their names?</p>
 
-<pre lang="csharp">IEnumerable&lt;Cat&gt; cats = new List&lt;Cat&gt; { new Cat(&quot;Troublemaker&quot;) };
+<pre>IEnumerable&lt;Cat&gt; cats <span class="o">=</span> <span class="k">new</span> List&lt;Cat&gt; { <span class="k">new</span> Cat(&quot;Troublemaker&quot;) };
 PrintAnimals(cats);</pre>
 
 <p>If you compile and run this sample, you'll see that the C# compiler accepts it and the
@@ -124,10 +124,10 @@ cats are animals.</p>
 creates some cats and compares them using a provided <code>IComparer&lt;Cat&gt;</code> object. In a more
 realistic example, the method might, for example, sort the cats:</p>
 
-<pre lang="csharp">void CompareCats(IComparer&lt;Cat&gt; comparer) {
-  var cat1 = new Cat(&quot;Otto&quot;);
-  var cat2 = new Cat(&quot;Troublemaker&quot;);
-  if (comparer.Compare(cat2, cat1) &gt; 0) 
+<pre><span class="k">void</span> CompareCats(IComparer&lt;Cat&gt; comparer) {
+  <span class="k">var</span> cat1 <span class="o">=</span> <span class="k">new</span> Cat(&quot;Otto&quot;);
+  <span class="k">var</span> cat2 <span class="o">=</span> <span class="k">new</span> Cat(&quot;Troublemaker&quot;);
+  <span class="k">if</span> (comparer.Compare(cat2, cat1) &gt; 0) 
     Console.WriteLine(&quot;Troublemaker wins!&quot;);
 }</pre>
 
@@ -136,7 +136,7 @@ You could say that it is a write-only in the way in which it uses the generic ty
 Now, thanks to <em>contravariance</em>, we can create a comparer that can compare animals and
 use it as an argument to <code>CompareCats</code>:</p>
 
-<pre lang="csharp">IComparator&lt;Animal&gt; compareAnimals = new AnimalSizeComparator();
+<pre>IComparator&lt;Animal&gt; compareAnimals <span class="o">=</span> <span class="k">new</span> AnimalSizeComparator();
 CompareCats(compareAnimals);</pre>
 
 <p>The compiler accepts this code because the <code>IComparer</code> interface is <em>contravariant</em> and its
@@ -356,8 +356,8 @@ Luckilly, the C# language designers understood the theory for us!
 However, even if you're not designing a language, knowing the theory might help you understand 
 complex C# code. For example, take a look at the following example:</p>
 
-<pre lang="csharp">static void CallWithPrinter(Action&lt;Action&lt;Animal&gt;&gt; animalGenerator) {
-  animalGenerator(animal =&gt; Console.WriteLine(animal.Name));
+<pre><span class="k">static</span> <span class="k">void</span> CallWithPrinter(Action&lt;Action&lt;Animal&gt;&gt; animalGenerator) {
+  animalGenerator(animal <span class="o">=</span>&gt; Console.WriteLine(animal.Name));
 }</pre>
 
 <p>The method takes an <code>Action</code> delegate (which is contravariant) that takes another <code>Action</code> delegate
@@ -365,7 +365,7 @@ as the input and does something. This nested delegate accepts any argument of ty
 The method invokes the delegate and gives it a lambda function that takes an animal and prints its name.
 Now, the question is, can we use <code>Action&lt;Action&lt;Cat&gt;&gt;</code> as an argument to <code>CallWithPrinter</code>?</p>
 
-<pre lang="csharp">Action&lt;Action&lt;Cat&gt;&gt; catGenerator = handler =&gt; handler(new Cat(&quot;Otto&quot;));
+<pre>Action&lt;Action&lt;Cat&gt;&gt; catGenerator <span class="o">=</span> handler <span class="o">=</span>&gt; handler(<span class="k">new</span> Cat(&quot;Otto&quot;));
 CallWithPrinter(catGenerator);</pre>
 
 <p>The sample creates a lambda function that takes a handler of type <code>Action&lt;Cat&gt;</code> and calls it with
@@ -468,7 +468,7 @@ that combine covariant and contravariant types in crazy ways!</p>
 
     <h4>Functional F# and C# books</h4>
     <div style="float:right;">
-      <a href="http://www.amazon.com/gp/product/1933988924/ref=as_li_tf_il?ie=UTF8&amp;tag=httptomasnet-20&amp;linkCode=as2&amp;camp=217145&amp;creative=399369&amp;creativeASIN=1933988924">
+      <a href="http://www.amazon.com/gp/product/1933988924/ref=as_li_tf_il?ie=UTF8&tag=httptomasnet-20&linkCode=as2&camp=217145&creative=399369&creativeASIN=1933988924">
         <img src="http://tomasp.net/img/deepdives.png" alt="F# Deep Dives" style="float:right;margin:15px 0px 15px 10px;border-style:none;" />
       </a>
     </div>
@@ -480,8 +480,8 @@ that combine covariant and contravariant types in crazy ways!</p>
     <ul>
       <li><a href="http://functional-programming.net/rwfp"><strong>Real World Functional Programming</strong></a> home page. See
         <a href="http://manning.com/petricek">Manning</a>,
-        <a href="https://www.amazon.com/dp/1933988924?tag=httptomasnet-20&amp;camp=213381&amp;creative=390973&amp;linkCode=as4&amp;creativeASIN=1933988924&amp;adid=0F1DP260JGG4KY0CDGP6">Amazon.com</a> or
-        <a href="https://www.amazon.co.uk/dp/1933988924?tag=tomasnet-21&amp;camp=1406&amp;creative=6394&amp;linkCode=as1&amp;creativeASIN=1933988924&amp;adid=1CTY87YCCQEJW965GNDF">Amazon.co.uk</a>.
+        <a href="https://www.amazon.com/dp/1933988924?tag=httptomasnet-20&camp=213381&creative=390973&linkCode=as4&creativeASIN=1933988924&adid=0F1DP260JGG4KY0CDGP6">Amazon.com</a> or
+        <a href="https://www.amazon.co.uk/dp/1933988924?tag=tomasnet-21&camp=1406&creative=6394&linkCode=as1&creativeASIN=1933988924&adid=1CTY87YCCQEJW965GNDF">Amazon.co.uk</a>.
       </li>
       <li><a href="http://functional-programming.net/deepdives"><strong>F# Deep Dives</strong></a> home page. Get it from
         <a href="http://www.manning.com/petricek2">Manning.com</a>,
@@ -511,11 +511,11 @@ that combine covariant and contravariant types in crazy ways!</p>
   <div class="row" id="footer">
   <footer>   
     <div class="large-3 columns">
-      <h4>Contact &amp; about</h4>
+      <h4>Contact & about</h4>
       <p>This site is hosted on GitHub and is generated using <a href="https://github.com/tpetricek/FSharp.Formatting">F# Formatting</a>.
         For more info, see the <a href="https://github.com/tpetricek/TomaspNet.Website">website source on GitHub</a>.
       </p>
-      <p>Please submit issues &amp; corrections on GitHub. Use pull requests for minor corrections only.</p>
+      <p>Please submit issues & corrections on GitHub. Use pull requests for minor corrections only.</p>
       <ul>
         <li>Email me: <a href="mailto:tomas@tomasp.net">tomas@tomasp.net</a></li>
         <li>Connect via Twitter: <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a></li>

@@ -22,7 +22,7 @@
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/tooltips.css" />
   <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
-  <meta name="twitter:card" content="summary">
+    <meta name="twitter:card" content="summary">
   <meta name="twitter:creator" content="@tomaspetricek">
   <meta name="twitter:title" content="TryJoinads (II.): Task-based parallelism">
   <meta name="twitter:description" content="Joinads is a research extension of the F# compiler that makes computation expressions more expressive. In this article, we look how to use the match! notation for working with tasks. The examples include simple parallel map, but also more powerful speculative parallelism.">
@@ -111,7 +111,7 @@ of using joinads:</p>
     <span class="k">match</span> <span onmouseout="hideTip(event, 'ft9', 13)" onmouseover="showTip(event, 'ft9', 13)" class="i">input</span> <span class="k">with</span> 
     | [] <span class="k">-&gt;</span> <span class="k">return</span> []
     | <span onmouseout="hideTip(event, 'ft12', 14)" onmouseover="showTip(event, 'ft12', 14)" class="i">x</span><span class="o">::</span><span onmouseout="hideTip(event, 'ft13', 15)" onmouseover="showTip(event, 'ft13', 15)" class="i">xs</span> <span class="k">-&gt;</span> 
-       <span class="c">// Process current element &amp; the rest of the list</span>
+       <span class="c">// Process current element & the rest of the list</span>
        <span class="k">match!</span> <span onmouseout="hideTip(event, 'ft11', 16)" onmouseover="showTip(event, 'ft11', 16)" class="i">future</span> { <span class="k">return</span> <span onmouseout="hideTip(event, 'ft8', 17)" onmouseover="showTip(event, 'ft8', 17)" class="i">f</span> <span onmouseout="hideTip(event, 'ft12', 18)" onmouseover="showTip(event, 'ft12', 18)" class="i">x</span> }, <span onmouseout="hideTip(event, 'ft10', 19)" onmouseover="showTip(event, 'ft10', 19)" class="i">loop</span> <span onmouseout="hideTip(event, 'ft13', 20)" onmouseover="showTip(event, 'ft13', 20)" class="i">xs</span> <span class="k">with</span>
        | <span onmouseout="hideTip(event, 'ft14', 21)" onmouseover="showTip(event, 'ft14', 21)" class="i">y</span>, <span onmouseout="hideTip(event, 'ft15', 22)" onmouseover="showTip(event, 'ft15', 22)" class="i">ys</span> <span class="k">-&gt;</span> <span class="k">return</span> <span onmouseout="hideTip(event, 'ft14', 23)" onmouseover="showTip(event, 'ft14', 23)" class="i">y</span><span class="o">::</span><span onmouseout="hideTip(event, 'ft15', 24)" onmouseover="showTip(event, 'ft15', 24)" class="i">ys</span> }
 
@@ -230,8 +230,8 @@ checking both sub-trees in parallel:</p>
     | <span onmouseout="hideTip(event, 'ft31', 122)" onmouseover="showTip(event, 'ft31', 122)" class="i">Node</span>(<span onmouseout="hideTip(event, 'ft56', 123)" onmouseover="showTip(event, 'ft56', 123)" class="i">left</span>, <span onmouseout="hideTip(event, 'ft57', 124)" onmouseover="showTip(event, 'ft57', 124)" class="i">right</span>) <span class="k">-&gt;</span>
         <span class="c">// Process left and right branch in parallel</span>
         <span class="k">match!</span> <span onmouseout="hideTip(event, 'ft55', 125)" onmouseover="showTip(event, 'ft55', 125)" class="i">loop</span> <span onmouseout="hideTip(event, 'ft56', 126)" onmouseover="showTip(event, 'ft56', 126)" class="i">left</span>, <span onmouseout="hideTip(event, 'ft55', 127)" onmouseover="showTip(event, 'ft55', 127)" class="i">loop</span> <span onmouseout="hideTip(event, 'ft57', 128)" onmouseover="showTip(event, 'ft57', 128)" class="i">right</span> <span class="k">with</span>
-        | <span onmouseout="hideTip(event, 'ft58', 129)" onmouseover="showTip(event, 'ft58', 129)" class="i">l</span>, <span onmouseout="hideTip(event, 'ft59', 130)" onmouseover="showTip(event, 'ft59', 130)" class="i">r</span> <span class="k">-&gt;</span> <span class="k">return</span> <span onmouseout="hideTip(event, 'ft58', 131)" onmouseover="showTip(event, 'ft58', 131)" class="i">l</span> <span class="o">&amp;&amp;</span> <span onmouseout="hideTip(event, 'ft59', 132)" onmouseover="showTip(event, 'ft59', 132)" class="i">r</span> }
-  <span class="c">// Start the recursive processing &amp; wait for the result</span>
+        | <span onmouseout="hideTip(event, 'ft58', 129)" onmouseover="showTip(event, 'ft58', 129)" class="i">l</span>, <span onmouseout="hideTip(event, 'ft59', 130)" onmouseover="showTip(event, 'ft59', 130)" class="i">r</span> <span class="k">-&gt;</span> <span class="k">return</span> <span onmouseout="hideTip(event, 'ft58', 131)" onmouseover="showTip(event, 'ft58', 131)" class="i">l</span> <span class="o">&&</span> <span onmouseout="hideTip(event, 'ft59', 132)" onmouseover="showTip(event, 'ft59', 132)" class="i">r</span> }
+  <span class="c">// Start the recursive processing & wait for the result</span>
   (<span onmouseout="hideTip(event, 'ft55', 133)" onmouseover="showTip(event, 'ft55', 133)" class="i">loop</span> <span onmouseout="hideTip(event, 'ft54', 134)" onmouseover="showTip(event, 'ft54', 134)" class="i">tree</span>)<span class="o">.</span><span class="i">Result</span>
 
 <span class="c">// Test processing on two sample trees</span>
@@ -274,9 +274,9 @@ if the processing has completed and we throw an exception if it has:</p>
         <span class="k">match!</span> <span onmouseout="hideTip(event, 'ft55', 163)" onmouseover="showTip(event, 'ft55', 163)" class="i">loop</span> <span onmouseout="hideTip(event, 'ft56', 164)" onmouseover="showTip(event, 'ft56', 164)" class="i">left</span>, <span onmouseout="hideTip(event, 'ft55', 165)" onmouseover="showTip(event, 'ft55', 165)" class="i">loop</span> <span onmouseout="hideTip(event, 'ft57', 166)" onmouseover="showTip(event, 'ft57', 166)" class="i">right</span> <span class="k">with</span>
         | <span class="k">false</span>, <span class="o">?</span> <span class="k">-&gt;</span> <span class="k">return</span> <span class="k">false</span>
         | <span class="o">?</span>, <span class="k">false</span> <span class="k">-&gt;</span> <span class="k">return</span> <span class="k">false</span>
-        | <span onmouseout="hideTip(event, 'ft58', 167)" onmouseover="showTip(event, 'ft58', 167)" class="i">l</span>, <span onmouseout="hideTip(event, 'ft59', 168)" onmouseover="showTip(event, 'ft59', 168)" class="i">r</span> <span class="k">-&gt;</span> <span class="k">return</span> <span onmouseout="hideTip(event, 'ft58', 169)" onmouseover="showTip(event, 'ft58', 169)" class="i">l</span> <span class="o">&amp;&amp;</span> <span onmouseout="hideTip(event, 'ft59', 170)" onmouseover="showTip(event, 'ft59', 170)" class="i">r</span> }
+        | <span onmouseout="hideTip(event, 'ft58', 167)" onmouseover="showTip(event, 'ft58', 167)" class="i">l</span>, <span onmouseout="hideTip(event, 'ft59', 168)" onmouseover="showTip(event, 'ft59', 168)" class="i">r</span> <span class="k">-&gt;</span> <span class="k">return</span> <span onmouseout="hideTip(event, 'ft58', 169)" onmouseover="showTip(event, 'ft58', 169)" class="i">l</span> <span class="o">&&</span> <span onmouseout="hideTip(event, 'ft59', 170)" onmouseover="showTip(event, 'ft59', 170)" class="i">r</span> }
 
-  <span class="c">// Wait for the result &amp; cancel all pending work</span>
+  <span class="c">// Wait for the result & cancel all pending work</span>
   <span class="k">let</span> <span onmouseout="hideTip(event, 'ft65', 171)" onmouseover="showTip(event, 'ft65', 171)" class="i">res</span> <span class="o">=</span> (<span onmouseout="hideTip(event, 'ft55', 172)" onmouseover="showTip(event, 'ft55', 172)" class="i">loop</span> <span onmouseout="hideTip(event, 'ft54', 173)" onmouseover="showTip(event, 'ft54', 173)" class="i">tree</span>)<span class="o">.</span><span class="i">Result</span>
   <span onmouseout="hideTip(event, 'ft61', 174)" onmouseover="showTip(event, 'ft61', 174)" class="i">cts</span><span class="o">.</span><span onmouseout="hideTip(event, 'ft66', 175)" onmouseover="showTip(event, 'ft66', 175)" class="i">Cancel</span>()
   <span onmouseout="hideTip(event, 'ft65', 176)" onmouseover="showTip(event, 'ft65', 176)" class="i">res</span>
@@ -472,7 +472,7 @@ was particularly interesting, because joinads make it very easy to implement
 
     <h4>Functional F# and C# books</h4>
     <div style="float:right;">
-      <a href="http://www.amazon.com/gp/product/1933988924/ref=as_li_tf_il?ie=UTF8&amp;tag=httptomasnet-20&amp;linkCode=as2&amp;camp=217145&amp;creative=399369&amp;creativeASIN=1933988924">
+      <a href="http://www.amazon.com/gp/product/1933988924/ref=as_li_tf_il?ie=UTF8&tag=httptomasnet-20&linkCode=as2&camp=217145&creative=399369&creativeASIN=1933988924">
         <img src="http://tomasp.net/img/deepdives.png" alt="F# Deep Dives" style="float:right;margin:15px 0px 15px 10px;border-style:none;" />
       </a>
     </div>
@@ -484,8 +484,8 @@ was particularly interesting, because joinads make it very easy to implement
     <ul>
       <li><a href="http://functional-programming.net/rwfp"><strong>Real World Functional Programming</strong></a> home page. See
         <a href="http://manning.com/petricek">Manning</a>,
-        <a href="https://www.amazon.com/dp/1933988924?tag=httptomasnet-20&amp;camp=213381&amp;creative=390973&amp;linkCode=as4&amp;creativeASIN=1933988924&amp;adid=0F1DP260JGG4KY0CDGP6">Amazon.com</a> or
-        <a href="https://www.amazon.co.uk/dp/1933988924?tag=tomasnet-21&amp;camp=1406&amp;creative=6394&amp;linkCode=as1&amp;creativeASIN=1933988924&amp;adid=1CTY87YCCQEJW965GNDF">Amazon.co.uk</a>.
+        <a href="https://www.amazon.com/dp/1933988924?tag=httptomasnet-20&camp=213381&creative=390973&linkCode=as4&creativeASIN=1933988924&adid=0F1DP260JGG4KY0CDGP6">Amazon.com</a> or
+        <a href="https://www.amazon.co.uk/dp/1933988924?tag=tomasnet-21&camp=1406&creative=6394&linkCode=as1&creativeASIN=1933988924&adid=1CTY87YCCQEJW965GNDF">Amazon.co.uk</a>.
       </li>
       <li><a href="http://functional-programming.net/deepdives"><strong>F# Deep Dives</strong></a> home page. Get it from
         <a href="http://www.manning.com/petricek2">Manning.com</a>,
@@ -515,11 +515,11 @@ was particularly interesting, because joinads make it very easy to implement
   <div class="row" id="footer">
   <footer>   
     <div class="large-3 columns">
-      <h4>Contact &amp; about</h4>
+      <h4>Contact & about</h4>
       <p>This site is hosted on GitHub and is generated using <a href="https://github.com/tpetricek/FSharp.Formatting">F# Formatting</a>.
         For more info, see the <a href="https://github.com/tpetricek/TomaspNet.Website">website source on GitHub</a>.
       </p>
-      <p>Please submit issues &amp; corrections on GitHub. Use pull requests for minor corrections only.</p>
+      <p>Please submit issues & corrections on GitHub. Use pull requests for minor corrections only.</p>
       <ul>
         <li>Email me: <a href="mailto:tomas@tomasp.net">tomas@tomasp.net</a></li>
         <li>Connect via Twitter: <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a></li>

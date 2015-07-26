@@ -22,7 +22,7 @@
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/tooltips.css" />
   <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
-  <meta name="twitter:card" content="summary">
+    <meta name="twitter:card" content="summary">
   <meta name="twitter:creator" content="@tomaspetricek">
   <meta name="twitter:title" content="Variations in F#: Research compiler with Joinads and more!">
   <meta name="twitter:description" content="Joinads are a research extension of the F# language. They simplify conrurrent programming with tasks, reactive programming with events, but can be also used for other types of computations. This article introduces the extension, which is now available, based on the open-source source-drop of F#.">
@@ -115,7 +115,7 @@
   <li><a href="#fsjol2">Translation of joinads</a></li>
   <li><a href="#fsjol3">Creating a simple idiom</a></li>
   <li><a href="#fsjol4">Translation of idioms</a></li>
-  <li><a href="#fsjol5">Summary &amp; downloads</a></li>
+  <li><a href="#fsjol5">Summary & downloads</a></li>
 </ul>
 
 <p><em>NOTE: This extension is just a research project. As far as I know, there are currently no plans to include it in 
@@ -162,7 +162,7 @@
 <span class="l">16: </span>    | <span onmouseout="hideTip(event, 'jofs14', 48)" onmouseover="showTip(event, 'jofs14', 48)" class="i">Some</span>(<span onmouseout="hideTip(event, 'jofs27', 49)" onmouseover="showTip(event, 'jofs27', 49)" class="i">v1</span>) <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'jofs14', 50)" onmouseover="showTip(event, 'jofs14', 50)" class="i">Some</span>(<span onmouseout="hideTip(event, 'jofs27', 51)" onmouseover="showTip(event, 'jofs27', 51)" class="i">v1</span>) 
 <span class="l">17: </span>    | _ <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'jofs26', 52)" onmouseover="showTip(event, 'jofs26', 52)" class="i">v2</span>
 <span class="l">18: </span>
-<span class="l">19: </span>  <span class="c">//</span><span class="c"> </span><span class="c">Creating</span><span class="c"> </span><span class="c">&amp;</span><span class="c"> </span><span class="c">executing</span><span class="c"> </span><span class="c">delayed</span><span class="c"> </span><span class="c">computations</span>
+<span class="l">19: </span>  <span class="c">//</span><span class="c"> </span><span class="c">Creating</span><span class="c"> </span><span class="c">&</span><span class="c"> </span><span class="c">executing</span><span class="c"> </span><span class="c">delayed</span><span class="c"> </span><span class="c">computations</span>
 <span class="l">20: </span>  <span class="k">member</span> <span onmouseout="hideTip(event, 'jofs6', 53)" onmouseover="showTip(event, 'jofs6', 53)" class="i">x</span><span class="o">.</span><span onmouseout="hideTip(event, 'jofs28', 54)" onmouseover="showTip(event, 'jofs28', 54)" class="i">Delay</span>(<span onmouseout="hideTip(event, 'jofs29', 55)" onmouseover="showTip(event, 'jofs29', 55)" class="i">f</span>) <span class="o">=</span> <span onmouseout="hideTip(event, 'jofs29', 56)" onmouseover="showTip(event, 'jofs29', 56)" class="i">f</span>
 <span class="l">21: </span>  <span class="k">member</span> <span onmouseout="hideTip(event, 'jofs6', 57)" onmouseover="showTip(event, 'jofs6', 57)" class="i">x</span><span class="o">.</span><span onmouseout="hideTip(event, 'jofs30', 58)" onmouseover="showTip(event, 'jofs30', 58)" class="i">Run</span>(<span onmouseout="hideTip(event, 'jofs31', 59)" onmouseover="showTip(event, 'jofs31', 59)" class="i">f</span>) <span class="o">=</span> <span onmouseout="hideTip(event, 'jofs31', 60)" onmouseover="showTip(event, 'jofs31', 60)" class="i">f</span>()
 <span class="l">22: </span>
@@ -443,7 +443,7 @@
   binding so that the correct variables are in scope.</p>
 
 
-<h2>Summary &amp; Downloads<a name="fsjol5">&#160;</a></h2>
+<h2>Summary & Downloads<a name="fsjol5">&#160;</a></h2>
 <p>This article presents two extensions to F# computation expressions. This is just a
   research extension and there are currently no plans to include any of this in some future version
   of F#, but you can download the modified F# compiler and F# interactive below and explore
@@ -454,7 +454,7 @@
   of computations. The first is <em>joinads</em>, which I presented some time ago in a
   <a type="external" href="http://tomasp.net/blog/match-bang-paper.aspx">workshop paper at PADL</a>.
   It adds a<code>match!</code> construct, which can be used for programming with futures, events
-  and other concurrent &amp; reactive abstractions.</p>
+  and other concurrent & reactive abstractions.</p>
 <p>The second extension adds support for <em>idioms</em>.  It is used when the computation 
   builder defines <code>Select</code>, <code>Merge</code> and <code>Return</code>. 
   These operations are not expressive enough to support general <code>let!</code> binding,
@@ -462,7 +462,7 @@
   requires specifying all inputs at once. The syntax should be useful for example for 
   writing code based on <em>formlets</em>.</p>
 
-<h3>Downloads &amp; Source code</h3>
+<h3>Downloads & Source code</h3>
 <ul>
   <li style="margin-bottom:10px"><a href="http://tomasp.net/articles/fsharp-joinads/fsharp-joinads.zip">Download the F# compiler and F# interactive binaries</a> (ZIP) - 
     To use modified <code>fsi.exe</code> in Visual Studio, go to "Options" - "Tools" and specify
@@ -471,7 +471,7 @@
   <li style="margin-bottom:10px">The <a href="https://github.com/tpetricek/Fsharp.Extensions">source code for the F# extension</a> can 
     be found on GitHub and should compile on Windows, Mac as well as Linux. It should be also possible
     to use it for MonoDevelop IntelliSense, but I haven't tried that yet.</li>
-  <li>The sample joinads and idioms defined in this article are available on my <a href="https://github.com/tpetricek/Documents/tree/master/Blog%202011/Joinads">Blog &amp; Documents GitHub</a>. The samples can be executed using the modified F# Interactive.</li>
+  <li>The sample joinads and idioms defined in this article are available on my <a href="https://github.com/tpetricek/Documents/tree/master/Blog%202011/Joinads">Blog & Documents GitHub</a>. The samples can be executed using the modified F# Interactive.</li>
 </ul>
 
 <h2>References</h2>
@@ -671,7 +671,7 @@
 
     <h4>Functional F# and C# books</h4>
     <div style="float:right;">
-      <a href="http://www.amazon.com/gp/product/1933988924/ref=as_li_tf_il?ie=UTF8&amp;tag=httptomasnet-20&amp;linkCode=as2&amp;camp=217145&amp;creative=399369&amp;creativeASIN=1933988924">
+      <a href="http://www.amazon.com/gp/product/1933988924/ref=as_li_tf_il?ie=UTF8&tag=httptomasnet-20&linkCode=as2&camp=217145&creative=399369&creativeASIN=1933988924">
         <img src="http://tomasp.net/img/deepdives.png" alt="F# Deep Dives" style="float:right;margin:15px 0px 15px 10px;border-style:none;" />
       </a>
     </div>
@@ -683,8 +683,8 @@
     <ul>
       <li><a href="http://functional-programming.net/rwfp"><strong>Real World Functional Programming</strong></a> home page. See
         <a href="http://manning.com/petricek">Manning</a>,
-        <a href="https://www.amazon.com/dp/1933988924?tag=httptomasnet-20&amp;camp=213381&amp;creative=390973&amp;linkCode=as4&amp;creativeASIN=1933988924&amp;adid=0F1DP260JGG4KY0CDGP6">Amazon.com</a> or
-        <a href="https://www.amazon.co.uk/dp/1933988924?tag=tomasnet-21&amp;camp=1406&amp;creative=6394&amp;linkCode=as1&amp;creativeASIN=1933988924&amp;adid=1CTY87YCCQEJW965GNDF">Amazon.co.uk</a>.
+        <a href="https://www.amazon.com/dp/1933988924?tag=httptomasnet-20&camp=213381&creative=390973&linkCode=as4&creativeASIN=1933988924&adid=0F1DP260JGG4KY0CDGP6">Amazon.com</a> or
+        <a href="https://www.amazon.co.uk/dp/1933988924?tag=tomasnet-21&camp=1406&creative=6394&linkCode=as1&creativeASIN=1933988924&adid=1CTY87YCCQEJW965GNDF">Amazon.co.uk</a>.
       </li>
       <li><a href="http://functional-programming.net/deepdives"><strong>F# Deep Dives</strong></a> home page. Get it from
         <a href="http://www.manning.com/petricek2">Manning.com</a>,
@@ -714,11 +714,11 @@
   <div class="row" id="footer">
   <footer>   
     <div class="large-3 columns">
-      <h4>Contact &amp; about</h4>
+      <h4>Contact & about</h4>
       <p>This site is hosted on GitHub and is generated using <a href="https://github.com/tpetricek/FSharp.Formatting">F# Formatting</a>.
         For more info, see the <a href="https://github.com/tpetricek/TomaspNet.Website">website source on GitHub</a>.
       </p>
-      <p>Please submit issues &amp; corrections on GitHub. Use pull requests for minor corrections only.</p>
+      <p>Please submit issues & corrections on GitHub. Use pull requests for minor corrections only.</p>
       <ul>
         <li>Email me: <a href="mailto:tomas@tomasp.net">tomas@tomasp.net</a></li>
         <li>Connect via Twitter: <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a></li>

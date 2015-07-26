@@ -22,7 +22,7 @@
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/tooltips.css" />
   <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
-  <meta name="twitter:card" content="summary">
+    <meta name="twitter:card" content="summary">
   <meta name="twitter:creator" content="@tomaspetricek">
   <meta name="twitter:title" content="Regions and navigation bar for F# in Visual Studio">
   <meta name="twitter:description" content="The beginning of a new year may be a good time for writing one lightweight blog post - this article shows two hidden features of F# IntelliSense in Visual Studio and also talks about writing plugins using the F# open-source release.">
@@ -97,11 +97,11 @@
   <code>C:\Program Files (x86)\Microsoft Visual Studio 10.0</code>. You need to add
   the following <code>appSettings</code> section to the root <code>configuration</code> element:</p>
 
-<pre lang="xml">
-&lt;appSettings&gt;
-    &lt;add key="fsharp-navigationbar-enabled" value="true" /&gt;
-    &lt;add key="fsharp-regions-enabled" value="true" /&gt;
-&lt;/appSettings&gt;
+<pre>
+<span class="o">&lt;</span>appSettings<span class="o">&gt;</span>
+    <span class="o">&lt;</span>add key="fsharp-navigationbar-enabled" value="true" /<span class="o">&gt;</span>
+    <span class="o">&lt;</span>add key="fsharp-regions-enabled" value="true" /<span class="o">&gt;</span>
+<span class="o">&lt;</span>/appSettings<span class="o">&gt;</span>
 </pre>
   
   <p>After adding these two keys, you should see navigation bar and buttons for collapsing
@@ -118,7 +118,7 @@
     will find the feedback useful too (you can always vote for features at 
     <a href="http://visualstudio.uservoice.com/forums/121579-visual-studio/category/30935-languages-f-">Visual Studio user voice page</a>.</p>
 
-<h2>Plugins &amp; implementation notes </h2>
+<h2>Plugins & implementation notes </h2>
 
 <p>With the <a href="http://blogs.msdn.com/b/dsyme/archive/2010/11/04/announcing-the-f-compiler-library-source-code-drop.aspx">open-source release of F#</a>,
   it has become a lot easier to implement a Visual Studio plugin that extends the F# editor.
@@ -165,27 +165,27 @@
   a look at the <a href="https://github.com/fsharp/fsharpbinding">F# binding for MonoDevelop</a>. 
   The simplest example is probably a command line tool <code>fsintellisense</code> that can be
   used to get IntelliSense information from via a command line (i.e. from Emacs or Vi editors).
-  The tool can be found <a href="http://fsxplat.codeplex.com/wikipage?title=fsharp%20intellisense%20tool&amp;referringTitle=Home">on CodePlex</a>.</p>
+  The tool can be found <a href="http://fsxplat.codeplex.com/wikipage?title=fsharp%20intellisense%20tool&referringTitle=Home">on CodePlex</a>.</p>
 
 <p>If you're writing plugin using <code>FSharp.Compiler.dll</code>, it is easy to get the 
   declarations using the <code>InteractiveChecker</code> type. Assuming we have an instance
   <code>checker</code> and a few other values that are required to run the parsing, we can write:</p>
 
-<pre lang="fsharp">
-// Run parsing of a file loaded in 'source'
-let untypedInfo = checker.UntypedParse(fileName, source, checkOptions) 
-// Get declaration items for the file
-let declarations = untypedInfo.GetNavigationItems().Declarations
+<pre>
+<span class="c">// Run parsing of a file loaded in 'source'</span>
+<span class="k">let</span> untypedInfo = checker.UntypedParse(fileName, source, checkOptions) 
+<span class="c">// Get declaration items for the file</span>
+<span class="k">let</span> declarations = untypedInfo.GetNavigationItems().Declarations
 
-// Iterate over all top-level declarations (modules, types)
-for topLevel in decls do
-  let (s1, e1), (s2, e2) = topLevel.Declaration.Range
-  printfn "[%d:%d-%d:%d] %s" s1 e1 s2 e2 topLevel.Declaration.Name
+<span class="c">// Iterate over all top-level declarations (modules, types)</span>
+<span class="k">for</span> topLevel <span class="k">in</span> decls <span class="k">do</span>
+  <span class="k">let</span> (s1, e1), (s2, e2) = topLevel.Declaration.Range
+  printfn <span class="s">"[%d:%d-%d:%d] %s"</span> s1 e1 s2 e2 topLevel.Declaration.Name
   
-  // Print all child declarations (members, functions, values)
-  for nested in topLevel.Nested do
-    let (s1, e1), (s2, e2) = nested.Range
-    printfn "  - [%d:%d-%d:%d] %s" s1 e1 s2 e2 nested.Name
+  <span class="c">// Print all child declarations (members, functions, values)</span>
+  <span class="k">for</span> nested <span class="k">in</span> topLevel.Nested <span class="k">do</span>
+    <span class="k">let</span> (s1, e1), (s2, e2) = nested.Range
+    printfn <span class="s">"  - [%d:%d-%d:%d] %s"</span> s1 e1 s2 e2 nested.Name
 </pre>
 
 <p>The function <code>GetNavigationItems</code> is used by the Visual Studio code that 
@@ -278,7 +278,7 @@ for topLevel in decls do
 
     <h4>Functional F# and C# books</h4>
     <div style="float:right;">
-      <a href="http://www.amazon.com/gp/product/1933988924/ref=as_li_tf_il?ie=UTF8&amp;tag=httptomasnet-20&amp;linkCode=as2&amp;camp=217145&amp;creative=399369&amp;creativeASIN=1933988924">
+      <a href="http://www.amazon.com/gp/product/1933988924/ref=as_li_tf_il?ie=UTF8&tag=httptomasnet-20&linkCode=as2&camp=217145&creative=399369&creativeASIN=1933988924">
         <img src="http://tomasp.net/img/deepdives.png" alt="F# Deep Dives" style="float:right;margin:15px 0px 15px 10px;border-style:none;" />
       </a>
     </div>
@@ -290,8 +290,8 @@ for topLevel in decls do
     <ul>
       <li><a href="http://functional-programming.net/rwfp"><strong>Real World Functional Programming</strong></a> home page. See
         <a href="http://manning.com/petricek">Manning</a>,
-        <a href="https://www.amazon.com/dp/1933988924?tag=httptomasnet-20&amp;camp=213381&amp;creative=390973&amp;linkCode=as4&amp;creativeASIN=1933988924&amp;adid=0F1DP260JGG4KY0CDGP6">Amazon.com</a> or
-        <a href="https://www.amazon.co.uk/dp/1933988924?tag=tomasnet-21&amp;camp=1406&amp;creative=6394&amp;linkCode=as1&amp;creativeASIN=1933988924&amp;adid=1CTY87YCCQEJW965GNDF">Amazon.co.uk</a>.
+        <a href="https://www.amazon.com/dp/1933988924?tag=httptomasnet-20&camp=213381&creative=390973&linkCode=as4&creativeASIN=1933988924&adid=0F1DP260JGG4KY0CDGP6">Amazon.com</a> or
+        <a href="https://www.amazon.co.uk/dp/1933988924?tag=tomasnet-21&camp=1406&creative=6394&linkCode=as1&creativeASIN=1933988924&adid=1CTY87YCCQEJW965GNDF">Amazon.co.uk</a>.
       </li>
       <li><a href="http://functional-programming.net/deepdives"><strong>F# Deep Dives</strong></a> home page. Get it from
         <a href="http://www.manning.com/petricek2">Manning.com</a>,
@@ -321,11 +321,11 @@ for topLevel in decls do
   <div class="row" id="footer">
   <footer>   
     <div class="large-3 columns">
-      <h4>Contact &amp; about</h4>
+      <h4>Contact & about</h4>
       <p>This site is hosted on GitHub and is generated using <a href="https://github.com/tpetricek/FSharp.Formatting">F# Formatting</a>.
         For more info, see the <a href="https://github.com/tpetricek/TomaspNet.Website">website source on GitHub</a>.
       </p>
-      <p>Please submit issues &amp; corrections on GitHub. Use pull requests for minor corrections only.</p>
+      <p>Please submit issues & corrections on GitHub. Use pull requests for minor corrections only.</p>
       <ul>
         <li>Email me: <a href="mailto:tomas@tomasp.net">tomas@tomasp.net</a></li>
         <li>Connect via Twitter: <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a></li>

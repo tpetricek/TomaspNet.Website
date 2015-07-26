@@ -22,7 +22,7 @@
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/tooltips.css" />
   <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
-  <meta name="twitter:card" content="summary">
+    <meta name="twitter:card" content="summary">
   <meta name="twitter:creator" content="@tomaspetricek">
   <meta name="twitter:title" content="ASP.NET and F# (I.) - Creating MVC web applications in F#">
   <meta name="twitter:description" content="This article shows how to use F# for developing ASP.NET web applications using the MVC framework. It also shows how to access data using LINQ in F# and how to simplify web programming using F# meta-programming, modules and records.">
@@ -133,31 +133,31 @@
   is implemented as an F# module, which means that it will appear as static class to .NET. Modules
   are quite useful for storing functionality that doesn't need to be encapsulated in a class, so
   this is a perfect fit:</p>
-<pre lang="fsharp">
-namespace WebApplication.Core
+<pre>
+<span class="k">namespace</span> WebApplication.Core
 
-open Microsoft.FSharp.Quotations
-open Microsoft.FSharp.Linq
-open Microsoft.FSharp.Linq.Query
+<span class="k">open</span> Microsoft.FSharp.Quotations
+<span class="k">open</span> Microsoft.FSharp.Linq
+<span class="k">open</span> Microsoft.FSharp.Linq.Query
 
-// Namespace with LINQ to SQL generated classes
-open WebApplication.Data
+<span class="c">// Namespace with LINQ to SQL generated classes</span>
+<span class="k">open</span> WebApplication.Data
 
-// Stores information about product (will be used later)
-type ProductInfo = {
+<span class="c">// Stores information about product (will be used later)</span>
+<span class="k">type</span> ProductInfo = {
   ID : int
   Name : string
   Category : string
   Price : System.Decimal }
 
-// Implementes the model for our MVC application
-module Model = 
-  // Returns the 'Product' entity with the given ID
-  let ProductDetail (id) =
-    let dx = new NorthwindDataContext()
-    &lt;@ seq { for p in dx.Products do
-               if (p.ProductID = id) then yield p }
-               |&gt; Seq.head @&gt; |&gt; query
+<span class="c">// Implementes the model for our MVC application</span>
+<span class="k">module</span> Model = 
+  <span class="c">// Returns the 'Product' entity with the given ID</span>
+  <span class="k">let</span> ProductDetail (id) =
+    <span class="k">let</span> dx = <span class="k">new</span> NorthwindDataContext()
+    &lt;@ seq { <span class="k">for</span> p <span class="k">in</span> dx.Products <span class="k">do</span>
+               <span class="k">if</span> (p.ProductID = id) <span class="k">then</span> <span class="k">yield</span> p }
+               <span class="o">|</span>&gt; Seq.head @&gt; <span class="o">|</span>&gt; query
 </pre>
 <p>The <code>ProductDetail</code> function first creates a new instance of the generated data context
   and then runs the query. A query in F# is written using quotations. This means that the data-processing
@@ -178,16 +178,16 @@ module Model =
   some its property (or even calculated value). For example, to sort products using the length
   of the product name, the key selector would be <code>&lt;@ fun p -> p.ProductName.Length @&gt;</code>.
   Let's first look at the code and I'll explain how the key selector is used after that:</p>
-<pre lang="fsharp">
-let ListProducts (keySelector:Expr&lt;Product -> 'T&gt;) =
-  let dx = new NorthwindDataContext()
-  &lt;@ seq { for p in dx.Products |&gt; Seq.sortBy %keySelector do
-              for c in dx.Categories do
-                if (p.CategoryID.Value = c.CategoryID) then
-                  yield { ID = p.ProductID
+<pre>
+<span class="k">let</span> ListProducts (keySelector:Expr&lt;Product <span class="o">-&gt;</span> 'T&gt;) =
+  <span class="k">let</span> dx = <span class="k">new</span> NorthwindDataContext()
+  &lt;@ seq { <span class="k">for</span> p <span class="k">in</span> dx.Products <span class="o">|</span>&gt; Seq.sortBy %keySelector <span class="k">do</span>
+              <span class="k">for</span> c <span class="k">in</span> dx.Categories <span class="k">do</span>
+                <span class="k">if</span> (p.CategoryID.Value = c.CategoryID) <span class="k">then</span>
+                  <span class="k">yield</span> { ID = p.ProductID
                           Name = p.ProductName 
                           Category = c.CategoryName 
-                          Price = p.UnitPrice.Value } } @&gt; |&gt; query
+                          Price = p.UnitPrice.Value } } @&gt; <span class="o">|</span>&gt; query
 </pre>
 <p>The <code>keySelector</code> parameter has a type <code>Expr&lt;Product -> 'T&gt;</code>, which
   means that it is an expression tree (or a quotation, in the F# terminology) of some 
@@ -217,22 +217,22 @@ let ListProducts (keySelector:Expr&lt;Product -> 'T&gt;) =
   <code>List</code> loads a list of products from the database. It has a parameter which may be
   <code>null</code> and specifies the ordering of products (simply as an integer). The second
   member returns details about the specified product and is named <code>Detail</code>:</p>  
-<pre lang="fsharp">
-let (|NonNull|_|) (a:Nullable&lt;_&gt;) =
-  if a.HasValue then Some(a.Value) else None
+<pre>
+<span class="k">let</span> (|NonNull|<span class="o">_</span>|) (a:Nullable&lt;<span class="o">_</span>&gt;) =
+  <span class="k">if</span> a.HasValue <span class="k">then</span> Some(a.Value) <span class="k">else</span> None
 
-type ProductsController() =
-  inherit Controller()
+<span class="k">type</span> ProductsController() =
+  <span class="k">inherit</span> Controller()
   
-  member x.List(id:Nullable&lt;int&gt;) =
+  <span class="k">member</span> x.List(id:Nullable&lt;int&gt;) =
     x.ViewData.Model &lt;- 
-      match id with
-      | NonNull(1) -&gt; Model.ListProducts &lt;@ fun p -&gt; p.UnitPrice.Value @&gt;
-      | NonNull(2) -&gt; Model.ListProducts &lt;@ fun p -&gt; p.CategoryID.Value @&gt;
-      | _ -&gt; Model.ListProducts &lt;@ fun p -&gt; p.ProductName @&gt;
+      <span class="k">match</span> id <span class="k">with</span>
+      <span class="o">|</span> NonNull(1) -&gt; Model.ListProducts &lt;@ <span class="k">fun</span> p -&gt; p.UnitPrice.Value @&gt;
+      <span class="o">|</span> NonNull(2) -&gt; Model.ListProducts &lt;@ <span class="k">fun</span> p -&gt; p.CategoryID.Value @&gt;
+      <span class="o">|</span> <span class="o">_</span> -&gt; Model.ListProducts &lt;@ <span class="k">fun</span> p -&gt; p.ProductName @&gt;
     x.View() 
 
-  member x.Detail(id:int) =
+  <span class="k">member</span> x.Detail(id:int) =
     x.ViewData.Model &lt;- Model.ProductDetail id
     x.View() 
 </pre>
@@ -373,7 +373,7 @@ type ProductsController() =
 
     <h4>Functional F# and C# books</h4>
     <div style="float:right;">
-      <a href="http://www.amazon.com/gp/product/1933988924/ref=as_li_tf_il?ie=UTF8&amp;tag=httptomasnet-20&amp;linkCode=as2&amp;camp=217145&amp;creative=399369&amp;creativeASIN=1933988924">
+      <a href="http://www.amazon.com/gp/product/1933988924/ref=as_li_tf_il?ie=UTF8&tag=httptomasnet-20&linkCode=as2&camp=217145&creative=399369&creativeASIN=1933988924">
         <img src="http://tomasp.net/img/deepdives.png" alt="F# Deep Dives" style="float:right;margin:15px 0px 15px 10px;border-style:none;" />
       </a>
     </div>
@@ -385,8 +385,8 @@ type ProductsController() =
     <ul>
       <li><a href="http://functional-programming.net/rwfp"><strong>Real World Functional Programming</strong></a> home page. See
         <a href="http://manning.com/petricek">Manning</a>,
-        <a href="https://www.amazon.com/dp/1933988924?tag=httptomasnet-20&amp;camp=213381&amp;creative=390973&amp;linkCode=as4&amp;creativeASIN=1933988924&amp;adid=0F1DP260JGG4KY0CDGP6">Amazon.com</a> or
-        <a href="https://www.amazon.co.uk/dp/1933988924?tag=tomasnet-21&amp;camp=1406&amp;creative=6394&amp;linkCode=as1&amp;creativeASIN=1933988924&amp;adid=1CTY87YCCQEJW965GNDF">Amazon.co.uk</a>.
+        <a href="https://www.amazon.com/dp/1933988924?tag=httptomasnet-20&camp=213381&creative=390973&linkCode=as4&creativeASIN=1933988924&adid=0F1DP260JGG4KY0CDGP6">Amazon.com</a> or
+        <a href="https://www.amazon.co.uk/dp/1933988924?tag=tomasnet-21&camp=1406&creative=6394&linkCode=as1&creativeASIN=1933988924&adid=1CTY87YCCQEJW965GNDF">Amazon.co.uk</a>.
       </li>
       <li><a href="http://functional-programming.net/deepdives"><strong>F# Deep Dives</strong></a> home page. Get it from
         <a href="http://www.manning.com/petricek2">Manning.com</a>,
@@ -416,11 +416,11 @@ type ProductsController() =
   <div class="row" id="footer">
   <footer>   
     <div class="large-3 columns">
-      <h4>Contact &amp; about</h4>
+      <h4>Contact & about</h4>
       <p>This site is hosted on GitHub and is generated using <a href="https://github.com/tpetricek/FSharp.Formatting">F# Formatting</a>.
         For more info, see the <a href="https://github.com/tpetricek/TomaspNet.Website">website source on GitHub</a>.
       </p>
-      <p>Please submit issues &amp; corrections on GitHub. Use pull requests for minor corrections only.</p>
+      <p>Please submit issues & corrections on GitHub. Use pull requests for minor corrections only.</p>
       <ul>
         <li>Email me: <a href="mailto:tomas@tomasp.net">tomas@tomasp.net</a></li>
         <li>Connect via Twitter: <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a></li>

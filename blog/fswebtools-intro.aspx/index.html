@@ -22,7 +22,7 @@
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/tooltips.css" />
   <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
-  <meta name="twitter:card" content="summary">
+    <meta name="twitter:card" content="summary">
   <meta name="twitter:creator" content="@tomaspetricek">
   <meta name="twitter:title" content="F# Web Tools: "Ajax" applications made simple">
   <meta name="twitter:description" content="This article introduces the F# Web Toolkit, which is an "Ajax" web framework that solves three major problems that many people have to face when developing modern web applications.">
@@ -147,8 +147,7 @@
   it contains just two controls - textbox for entering word that you're looking for (<code>txtInput</code>)
   and generic element for displaying results (<code>ctlOutput</code>), so let's look at the code-behind:</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l"> 1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
 <span class="l"> 4: </span>
@@ -162,10 +161,8 @@
 <span class="l">12: </span>
 <span class="l">13: </span>
 <span class="l">14: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="c">// F# record type, which will be used for sending lookup </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// F# record type, which will be used for sending lookup </span>
 <span class="c">// results from the server-side to the client-side</span>
 <span class="k">type</span> <span onmouseout="hideTip(event, 'fs1', 1)" onmouseover="showTip(event, 'fs1', 1)" class="t">SearchResult</span> <span class="o">=</span> { <span onmouseout="hideTip(event, 'fs2', 2)" onmouseover="showTip(event, 'fs2', 2)" class="i">English</span><span class="o">:</span><span onmouseout="hideTip(event, 'fs3', 3)" onmouseover="showTip(event, 'fs3', 3)" class="t">string</span>; <span onmouseout="hideTip(event, 'fs4', 4)" onmouseover="showTip(event, 'fs4', 4)" class="i">Other</span><span class="o">:</span><span onmouseout="hideTip(event, 'fs3', 5)" onmouseover="showTip(event, 'fs3', 5)" class="t">string</span>; }
 
@@ -179,8 +176,7 @@
   <span class="k">val</span> <span class="k">mutable</span> <span onmouseout="hideTip(event, 'fs7', 8)" onmouseover="showTip(event, 'fs7', 8)" class="v">ctlOutput</span> <span class="o">:</span> <span class="i">Element</span>
 
   <span class="c">(* .. interaction of components will go here .. *)</span>
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -192,8 +188,7 @@
   - it is a static method, so it can't modify anything else on the page (I will write about non-static methods 
   in one of the next articles):</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l"> 1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
 <span class="l"> 4: </span>
@@ -203,10 +198,8 @@
 <span class="l"> 8: </span>
 <span class="l"> 9: </span>
 <span class="l">10: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="c">// Searches the dictionary for specified prefix</span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// Searches the dictionary for specified prefix</span>
 <span class="k">static</span> <span class="k">member</span> <span class="i">LoadSuggestions</span>(<span class="i">prefix</span>) <span class="o">=</span> 
   <span class="i">server</span>
     { <span class="k">let</span> <span class="i">db</span> <span class="o">=</span> <span class="i">DictionaryDb</span>(<span class="i">connectionString</span>)
@@ -216,8 +209,7 @@
                  <span class="k">-&gt;</span> {<span class="i">English</span><span class="o">=</span><span class="i">p</span><span class="o">.</span><span class="i">English</span>; <span class="i">Other</span><span class="o">=</span><span class="i">p</span><span class="o">.</span><span class="i">Other</span>} }
                  <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs8', 9)" onmouseover="showTip(event, 'fs8', 9)" class="i">truncate</span> <span class="n">10</span> @&gt; 
       <span class="k">return</span> (<span class="k">new</span> <span onmouseout="hideTip(event, 'fs9', 10)" onmouseover="showTip(event, 'fs9', 10)" class="i">ResizeArray</span><span class="o">&lt;</span>_<span class="o">&gt;</span>(<span class="i">res</span>)) }
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -232,22 +224,18 @@
 <p>Now, let's look at the members that define client-side interaction. The entry point on the client-side is a method
   called <code>Client_Load</code>, which is executed when the page is loaded in the browser:</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l">1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
 <span class="l">4: </span>
 <span class="l">5: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="c">/// Initialization on the client side - attach event handlers    </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="c">/// Initialization on the client side - attach event handlers    </span>
 [&lt;<span onmouseout="hideTip(event, 'fs10', 11)" onmouseover="showTip(event, 'fs10', 11)" class="i">ReflectedDefinition</span>&gt;]
 <span class="k">member</span> <span class="i">this</span><span class="o">.</span><span class="i">Client_Load</span>(<span class="i">sender</span>, <span class="i">e</span>) <span class="o">=</span>
   <span class="i">client</span>
     { <span class="k">do</span> <span class="i">this</span><span class="o">.</span><span class="i">txtInput</span><span class="o">.</span><span class="i">ClientKeyUp</span><span class="o">.</span><span class="i">AddClient</span>(<span class="i">this</span><span class="o">.</span><span class="i">UpdateSuggestions</span>) }
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -256,8 +244,7 @@
   when writing it, it is easy to forget about this! You can see the method that is used as an event handler in the next 
   code sample (this whole method will be executed in JS as well):</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l">1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
 <span class="l">4: </span>
@@ -266,10 +253,8 @@
 <span class="l">7: </span>
 <span class="l">8: </span>
 <span class="l">9: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="c">/// When text changes, trigger server call to update suggestions</span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="c">/// When text changes, trigger server call to update suggestions</span>
 [&lt;<span onmouseout="hideTip(event, 'fs10', 12)" onmouseover="showTip(event, 'fs10', 12)" class="i">ReflectedDefinition</span>&gt;]
 <span class="k">member</span> <span class="i">this</span><span class="o">.</span><span class="i">UpdateSuggestions</span>(<span class="i">sender</span>, <span class="i">e</span>) <span class="o">=</span>
   <span class="i">client</span>
@@ -278,8 +263,7 @@
              { <span class="k">let</span>  <span class="i">sprefix</span> <span class="o">=</span> <span class="i">this</span><span class="o">.</span><span class="i">txtInput</span><span class="o">.</span><span class="i">Text</span>
                <span class="k">let!</span> <span class="i">sugs</span> <span class="o">=</span> <span class="i">serverExecute</span>(<span onmouseout="hideTip(event, 'fs5', 13)" onmouseover="showTip(event, 'fs5', 13)" class="i">Suggest</span><span class="o">.</span><span class="i">LoadSuggestions</span>(<span class="i">sprefix</span>))
                <span class="k">do!</span>  <span class="i">this</span><span class="o">.</span><span class="i">DisplayResponse</span>(<span class="i">sugs</span>) }) }            
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -297,8 +281,7 @@
   In general when you're calling any ordinary code, you can use the operators without the exclamation mark, but when 
   calling a code wrapped in a block you have to use <code>let!</code> or <code>do!</code>.</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l"> 1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
 <span class="l"> 4: </span>
@@ -308,10 +291,8 @@
 <span class="l"> 8: </span>
 <span class="l"> 9: </span>
 <span class="l">10: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="c">/// Display newly received array with results</span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="c">/// Display newly received array with results</span>
 [&lt;<span onmouseout="hideTip(event, 'fs10', 14)" onmouseover="showTip(event, 'fs10', 14)" class="i">ReflectedDefinition</span>&gt;]
 <span class="k">member</span> <span class="i">this</span><span class="o">.</span><span class="i">DisplayResponse</span> (<span class="i">sugs</span><span class="o">:</span><span onmouseout="hideTip(event, 'fs9', 15)" onmouseover="showTip(event, 'fs9', 15)" class="i">ResizeArray</span><span class="o">&lt;</span><span class="i">Result</span><span class="o">&gt;</span>) <span class="o">=</span>
   <span class="i">client</span>
@@ -321,8 +302,7 @@
             <span class="i">sb</span><span class="o">.</span><span class="i">Append</span>(<span class="s">&quot;&lt;li&gt;&lt;strong&gt;&quot;</span> <span class="o">+</span> <span class="i">r</span><span class="o">.</span><span class="i">Source</span> <span class="o">+</span> 
                       <span class="s">&quot;&lt;/strong&gt; - &quot;</span> <span class="o">+</span> <span class="i">r</span><span class="o">.</span><span class="i">Target</span> <span class="o">+</span> <span class="s">&quot;&lt;/li&gt;&quot;</span>) <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs14', 19)" onmouseover="showTip(event, 'fs14', 19)" class="i">ignore</span>)
       <span class="k">do</span>   <span class="i">this</span><span class="o">.</span><span class="i">ctlOutput</span><span class="o">.</span><span class="i">InnerHtml</span> <span class="o">&lt;-</span> <span class="s">&quot;&lt;ul&gt;&quot;</span> <span class="o">+</span> (<span class="i">sb</span><span class="o">.</span><span class="i">ToString</span>()) <span class="o">+</span> <span class="s">&quot;&lt;ul&gt;&quot;</span> }
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 

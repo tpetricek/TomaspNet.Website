@@ -22,7 +22,7 @@
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/tooltips.css" />
   <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
-  <meta name="twitter:card" content="summary">
+    <meta name="twitter:card" content="summary">
   <meta name="twitter:creator" content="@tomaspetricek">
   <meta name="twitter:title" content="Building LINQ Queries at Runtime in C#">
   <meta name="twitter:description" content="Common criticism of LINQ is that it doesn't support a scenario where queries are build dynamically at the runtime. In this article I show that this can be acutally done very well for most of the common scenarios.">
@@ -80,19 +80,19 @@
 <h2>Linq Utilities #1: Expandable Queries</h2>
 <p>First of all, we will need an extension that I wrote some time ago, which allows us to “call functions in LINQ queries” as 
   demonstrated in the following example:</p>
-<pre lang="csharp">
-// Lambda expression that calculates the price
-Expression&lt;Func&lt;Nwind.Product, decimal?&gt;&gt; calcPrice = 
-  (p) =&gt; p.UnitPrice * 1.19m;
+<pre>
+<span class="c">// Lambda expression that calculates the price</span>
+Expression&lt;Func&lt;Nwind.Product, <span class="k">decimal</span>?&gt;&gt; calcPrice <span class="o">=</span> 
+  (p) <span class="o">=</span>&gt; p.UnitPrice <span class="o">*</span> 1.19m;
 
-// Query that selects products 
-var q = 
-  from p in db.Products.ToExpandable()  
-  where calcPrice.Expand(p) &gt; 30.0m
-  select new { 
+<span class="c">// Query that selects products </span>
+<span class="k">var</span> q <span class="o">=</span> 
+  <span class="k">from</span> p <span class="k">in</span> db.Products.ToExpandable()  
+  <span class="k">where</span> calcPrice.Expand(p) &gt; 30.0m
+  <span class="k">select</span> <span class="k">new</span> { 
     p.ProductName, 
-    OriginalPrice = p.UnitPrice,
-    ShopPrice = calcPrice.Expand(p) };
+    OriginalPrice <span class="o">=</span> p.UnitPrice,
+    ShopPrice <span class="o">=</span> calcPrice.Expand(p) };
 </pre>
 
 <p>It works relatively simple – you can write a function you want to call in a query using anonymous 
@@ -111,47 +111,47 @@ var q =
   the decision whether anonymous function will be compiled as a Func delegate (that can be invoked) or as an Expression data 
   structure (that can be for example translated to SQL) depends on the variable type:</p>
 
-<pre lang="csharp">
-Func&lt;int,int,int&gt; func = (int a, int b) =&gt; a + b;
-Expression&lt;Func&lt;int,int,int&gt;&gt; expr = (int a, int b) =&gt; a + b;
+<pre>
+Func&lt;<span class="k">int</span>,<span class="k">int</span>,<span class="k">int</span>&gt; func <span class="o">=</span> (<span class="k">int</span> a, <span class="k">int</span> b) <span class="o">=</span>&gt; a <span class="o">+</span> b;
+Expression&lt;Func&lt;<span class="k">int</span>,<span class="k">int</span>,<span class="k">int</span>&gt;&gt; expr <span class="o">=</span> (<span class="k">int</span> a, <span class="k">int</span> b) <span class="o">=</span>&gt; a <span class="o">+</span> b;
 </pre>
 <p>Obviously the following code looks very confusing:</p>
-<pre lang="csharp">var func = (int a, int b) =&gt; a + b;</pre>
+<pre><span class="k">var</span> func <span class="o">=</span> (<span class="k">int</span> a, <span class="k">int</span> b) <span class="o">=</span>&gt; a <span class="o">+</span> b;</pre>
 <p>The problem is that the compiler doesn’t know if func should be of type Expression or Func and indeed, if you 
   try it you will get a compiler error message saying “Cannot assign lambda expression to an implicitly-typed local variable”. 
   Unfortunately this forces you to write the type, which can be really complicated sometimes and also this way of declaring 
   anonymous functions makes it impossible to write an anonymous function returning C# 3.0 anonymous type:</p>
   
-<pre lang="csharp">Func&lt;int,int,???&gt; func = (int a, int b) =&gt; new { Sum = a + b, Mul = a * b };</pre>
+<pre>Func&lt;<span class="k">int</span>,<span class="k">int</span>,<span class="o">?</span><span class="o">?</span><span class="o">?</span>&gt; func <span class="o">=</span> (<span class="k">int</span> a, <span class="k">int</span> b) <span class="o">=</span>&gt; <span class="k">new</span> { Sum <span class="o">=</span> a <span class="o">+</span> b, Mul <span class="o">=</span> a <span class="o">*</span> b };</pre>
 <p>When you want to return anonymous type you can no longer write name of the type (because it is anonymous!), so 
   writing expression like this looks like an impossible task. Luckily we can implement really simple workaround for this problem:</p>
-<pre lang="csharp">
-public static class Linq {
-  // Returns the given anonymous method as a lambda expression
-  public static Expression&lt;Func&lt;T, R&gt;&gt; 
+<pre>
+<span class="k">public</span> <span class="k">static</span> <span class="k">class</span> Linq {
+  <span class="c">// Returns the given anonymous method as a lambda expression</span>
+  <span class="k">public</span> <span class="k">static</span> Expression&lt;Func&lt;T, R&gt;&gt; 
       Expr&lt;T, R&gt;(Expression&lt;Func&lt;T, R&gt;&gt; f) {
-    return f;
+    <span class="k">return</span> f;
   }
 
-  // Returns the given anonymous function as a Func delegate
-  public static Func&lt;T, R&gt; 
+  <span class="c">// Returns the given anonymous function as a Func delegate</span>
+  <span class="k">public</span> <span class="k">static</span> Func&lt;T, R&gt; 
       Func&lt;T, R&gt;(Func&lt;T, R&gt; f) {
-    return f;
+    <span class="k">return</span> f;
   }
 }</pre>
 <p>You can see that we declared two simple static methods that just return the argument, however the type of the 
   argument (which is a Func delegate in case of the Func method and Expression data type in case of the Expr method) 
   tells the compiler if we want to build an expression or a delegate. Using this class we can rewrite the previous examples as following:</p>
-<pre lang="csharp">
-// Let’s start with the simple examples:
-var func = Linq.Func((int a, int b) =&gt; a + b);
-var expr = Linq.Expr((int a, int b) =&gt; a + b);
+<pre>
+<span class="c">// Let’s start with the simple examples:</span>
+<span class="k">var</span> func <span class="o">=</span> Linq.Func((<span class="k">int</span> a, <span class="k">int</span> b) <span class="o">=</span>&gt; a <span class="o">+</span> b);
+<span class="k">var</span> expr <span class="o">=</span> Linq.Expr((<span class="k">int</span> a, <span class="k">int</span> b) <span class="o">=</span>&gt; a <span class="o">+</span> b);
 
-// .. and using anonymous types is possible as well!
-var func = Linq.Func((int a, int b) =&gt; 
-  new { Sum = a + b, Mul = a * b });
-var expr = Linq.Expr ((int a, int b) =&gt; 
-  new { Sum = a + b, Mul = a * b });
+<span class="c">// .. and using anonymous types is possible as well!</span>
+<span class="k">var</span> func <span class="o">=</span> Linq.Func((<span class="k">int</span> a, <span class="k">int</span> b) <span class="o">=</span>&gt; 
+  <span class="k">new</span> { Sum <span class="o">=</span> a <span class="o">+</span> b, Mul <span class="o">=</span> a <span class="o">*</span> b });
+<span class="k">var</span> expr <span class="o">=</span> Linq.Expr ((<span class="k">int</span> a, <span class="k">int</span> b) <span class="o">=</span>&gt; 
+  <span class="k">new</span> { Sum <span class="o">=</span> a <span class="o">+</span> b, Mul <span class="o">=</span> a <span class="o">*</span> b });
 </pre>
 <p>Note that when using Linq.Func or Linq.Expr you have to explicitly specify the type of the arguments, because the 
   compiler can’t infer this from the type of the variable, however the code is usually shorter anyway and in addition you can use anonymous types!</p>
@@ -165,19 +165,19 @@ var expr = Linq.Expr ((int a, int b) =&gt;
   contains the entered value (as a substring). To implement this we first create a data context and then we write a function 
   that will build a LINQ query once it gets a value entered by the user and a lambda expression representing a function 
   that reads the selected property from of the customer. It may sound a bit confusing, but I’ll explain everything soon:</p>
-<pre lang="csharp">
-NorthwindDataContext db = new NorthwindDataContext();
+<pre>
+NorthwindDataContext db <span class="o">=</span> <span class="k">new</span> NorthwindDataContext();
 
-var queryBuilder = Linq.Func
-  ((Expression&lt;Func&lt;Customer, string&gt;&gt; selector, string val) =&gt;
-      from c in db.Customers.ToExpandable()
-      where selector.Expand(c).IndexOf(val) != -1
-      select c);
+<span class="k">var</span> queryBuilder <span class="o">=</span> Linq.Func
+  ((Expression&lt;Func&lt;Customer, <span class="k">string</span>&gt;&gt; selector, <span class="k">string</span> val) <span class="o">=</span>&gt;
+      <span class="k">from</span> c <span class="k">in</span> db.Customers.ToExpandable()
+      <span class="k">where</span> selector.Expand(c).IndexOf(val) <span class="o">!</span><span class="o">=</span> -1
+      <span class="k">select</span> c);
 </pre>
 <p>Before digging deeper, let’s look how the queryBuilder function can be used:</p>
-<pre lang="csharp">
-var q = queryBuilder(c =&gt; c.CompanyName, "ab");
-foreach (var cust in q)
+<pre>
+<span class="k">var</span> q <span class="o">=</span> queryBuilder(c <span class="o">=</span>&gt; c.CompanyName, <span class="s">"ab"</span>);
+<span class="k">foreach</span> (<span class="k">var</span> cust <span class="k">in</span> q)
   Console.WriteLine(cust);
 </pre>
 <p>So what exactly happens here? We built a function (or maybe parameterized query would be better name) called <code>queryBuilder</code> 
@@ -191,22 +191,22 @@ foreach (var cust in q)
   be present anywhere where we want to use <code>Expand</code> to call some lambda expression in a LINQ query.</p>
   
 <p>Let’s now finish the sample and write a code that actually allows user to choose how he wants to query the <code>Customers</code> data table:</p>
-<pre lang="csharp">
-var dict = new Dictionary&lt;string, Expression&lt;Func&lt;Customer, string&gt;&gt;&gt; 
-  { { "CompanyName", c =&gt; c.CompanyName },
-    { "Country",     c =&gt; c.Country },
-    { "ContactName", c =&gt; c.ContactName } };
+<pre>
+<span class="k">var</span> dict <span class="o">=</span> <span class="k">new</span> Dictionary&lt;<span class="k">string</span>, Expression&lt;Func&lt;Customer, <span class="k">string</span>&gt;&gt;&gt; 
+  { { <span class="s">"CompanyName"</span>, c <span class="o">=</span>&gt; c.CompanyName },
+    { <span class="s">"Country"</span>,     c <span class="o">=</span>&gt; c.Country },
+    { <span class="s">"ContactName"</span>, c <span class="o">=</span>&gt; c.ContactName } };
 
-// Get the input from the user
-Console.Write("Filter - field name (CompanyName, ContactName, Country):\n&gt; ");
-string field = Console.ReadLine();
+<span class="c">// Get the input from the user</span>
+Console.Write(<span class="s">"Filter - field name (CompanyName, ContactName, Country):\n&gt; "</span>);
+<span class="k">string</span> field <span class="o">=</span> Console.ReadLine();
 
-Console.Write("Filter - value:\n&gt; ");
-string value = Console.ReadLine();
+Console.Write(<span class="s">"Filter - value:\n&gt; "</span>);
+<span class="k">string</span> <span class="k">value</span> <span class="o">=</span> Console.ReadLine();
 
-// Build the query using query builder and run it
-var q = queryBuilder(dict[field], value);
-foreach (var cust in q)
+<span class="c">// Build the query using query builder and run it</span>
+<span class="k">var</span> q <span class="o">=</span> queryBuilder(dict[field], <span class="k">value</span>);
+<span class="k">foreach</span> (<span class="k">var</span> cust <span class="k">in</span> q)
   Console.WriteLine(cust);
 </pre>
 <p>The application (just a simple console program) creates a dictionary that contains string as a key and a lambda 
@@ -230,33 +230,33 @@ foreach (var cust in q)
   we will define an abbreviation for this rather complex type, which can be done thanks to the C# <code>using</code> construct
   (unfortunately there are a few limitations, so we have to use fully qualified namespace names):
   </p>
-<pre lang="csharp">
-using CustomerPropSelector = System.Linq.Expressions
-  .Expression&lt;System.Func&lt;EeekSoft.LinqDemos.Customer, string&gt;&gt;;
+<pre>
+<span class="k">using</span> CustomerPropSelector <span class="o">=</span> System.Linq.Expressions
+  .Expression&lt;System.Func&lt;EeekSoft.LinqDemos.Customer, <span class="k">string</span>&gt;&gt;;
 </pre>
 <p>Now we can use the <code>CustomerPropSelector</code> type as a value in a dictionary (it is actually the
   same dictionary as the one we used in the previous example):</p>
-<pre lang="csharp">
-NorthwindDataContext db = new NorthwindDataContext();
-var dict = new Dictionary&lt;string, CustomerPropSelector&gt; 
-   { { "CompanyName", c =&gt; c.CompanyName },
-     { "Country",     c =&gt; c.Country },
-     { "ContactName", c =&gt; c.ContactName } };
+<pre>
+NorthwindDataContext db <span class="o">=</span> <span class="k">new</span> NorthwindDataContext();
+<span class="k">var</span> dict <span class="o">=</span> <span class="k">new</span> Dictionary&lt;<span class="k">string</span>, CustomerPropSelector&gt; 
+   { { <span class="s">"CompanyName"</span>, c <span class="o">=</span>&gt; c.CompanyName },
+     { <span class="s">"Country"</span>,     c <span class="o">=</span>&gt; c.Country },
+     { <span class="s">"ContactName"</span>, c <span class="o">=</span>&gt; c.ContactName } };
 </pre>
 <p>The next type abbreviation that we will use in the code will represent a condition telling whether
   specified customer matches the specified criteria or not. The condition is a lambda expression
   taking a <code>Customer</code> object as an argument and returning a boolean value:</p>
-<pre lang="csharp">
-using CustomerCondition = System.Linq.Expressions
-  .Expression&lt;System.Func&lt;EeekSoft.LinqDemos.Customer, bool&gt;&gt;;
+<pre>
+<span class="k">using</span> CustomerCondition <span class="o">=</span> System.Linq.Expressions
+  .Expression&lt;System.Func&lt;EeekSoft.LinqDemos.Customer, <span class="k">bool</span>&gt;&gt;;
 </pre>
 <p>We can now define two primitive conditions that we will need later - to define a condition
   we use the C# anonymous function syntax, so you can easily write a condition that for example
   tests whether a customer is from UK or something like that. The two primitive conditions that we need
   are however really trivial - one of them returns <code>true</code> for every customer and the other <code>false</code>:  </p>
-<pre lang="csharp">
-CustomerCondition trueCond  = (c) =&gt; true;
-CustomerCondition falseCond = (c) =&gt; false;
+<pre>
+CustomerCondition trueCond  <span class="o">=</span> (c) <span class="o">=</span>&gt; <span class="k">true</span>;
+CustomerCondition falseCond <span class="o">=</span> (c) <span class="o">=</span>&gt; <span class="k">false</span>;
 </pre>
 <p>Now, we will need a way for combining two conditions, so we can write a <em>combinator</em> that can be used
   to produce a condition from two of them. We will use two such combinators later. One will be <code>OR</code> which 
@@ -268,11 +268,11 @@ CustomerCondition falseCond = (c) =&gt; false;
   replace <code>CustomerCondition</code> in the previous type and we'll get somewhat ugly type:
 </p>
 
-<pre lang="csharp">
-using CustomerConditionCombinator = 
-  System.Func&lt;System.Linq.Expressions.Expression&lt;System.Func&lt;EeekSoft.LinqDemos.Customer, bool&gt;&gt;, 
-              System.Linq.Expressions.Expression&lt;System.Func&lt;EeekSoft.LinqDemos.Customer, bool&gt;&gt;, 
-              System.Linq.Expressions.Expression&lt;System.Func&lt;EeekSoft.LinqDemos.Customer, bool&gt;&gt;&gt;;
+<pre>
+<span class="k">using</span> CustomerConditionCombinator <span class="o">=</span> 
+  System.Func&lt;System.Linq.Expressions.Expression&lt;System.Func&lt;EeekSoft.LinqDemos.Customer, <span class="k">bool</span>&gt;&gt;, 
+              System.Linq.Expressions.Expression&lt;System.Func&lt;EeekSoft.LinqDemos.Customer, <span class="k">bool</span>&gt;&gt;, 
+              System.Linq.Expressions.Expression&lt;System.Func&lt;EeekSoft.LinqDemos.Customer, <span class="k">bool</span>&gt;&gt;&gt;;
 </pre>
 <p>Despite the fact that C# forces us to write this in a really ugly way, it isn't that difficult to understand what it actually does - 
   it just takes two conditions (which are actually lambda expressions returning a boolean value when given 
@@ -282,28 +282,28 @@ using CustomerConditionCombinator =
   The combinator receives two conditions (<code>f</code> and <code>g</code>) as arguments, and returns a
   new lambda expression as the result. This lambda expression takes a <code>Customer</code> value as an argument,
   calls the two conditions using the <code>Expand</code> method and performs the logical operation on the result: </p>
-<pre lang="csharp">
-CustomerConditionCombinator combineOr = 
-  (f, g) =&gt; (c) =&gt; f.Expand(c) || g.Expand(c);
+<pre>
+CustomerConditionCombinator combineOr <span class="o">=</span> 
+  (f, g) <span class="o">=</span>&gt; (c) <span class="o">=</span>&gt; f.Expand(c) <span class="o">|</span><span class="o">|</span> g.Expand(c);
 
-CustomerConditionCombinator combineAnd = 
-  (f, g) =&gt; (c) =&gt; f.Expand(c) &amp;&amp; g.Expand(c);
+CustomerConditionCombinator combineAnd <span class="o">=</span> 
+  (f, g) <span class="o">=</span>&gt; (c) <span class="o">=</span>&gt; f.Expand(c) &amp;&amp; g.Expand(c);
 </pre>
 
 <p>Now we have everything we need to finally start building the query! Let me first demonstrate how we can
   build a query using the <code>combineOr</code> combinator from two simple conditions, one testing whether
   the customer is from UK and the other testing if it's from Seattle:</p>
-<pre lang="csharp">
-// Define two simple conditions first
-CustomerCondition isUk = (c) =&gt; c.Country == "UK";
-CustomerCondition isSeattle = (c) =&gt; c.City == "Seattle"
+<pre>
+<span class="c">// Define two simple conditions first</span>
+CustomerCondition isUk <span class="o">=</span> (c) <span class="o">=</span>&gt; c.Country <span class="o">=</span><span class="o">=</span> <span class="s">"UK"</span>;
+CustomerCondition isSeattle <span class="o">=</span> (c) <span class="o">=</span>&gt; c.City <span class="o">=</span><span class="o">=</span> <span class="s">"Seattle"</span>
 
-// Combine the conditions using OR
-CustomerCondition expr = combineOr(isUk, isSeattle);
+<span class="c">// Combine the conditions using OR</span>
+CustomerCondition expr <span class="o">=</span> combineOr(isUk, isSeattle);
 
-// Build a query (using 'Expand' and 'ToExpandable')
-var q = from c in db.Customers.ToExpandable()
-        where expr.Expand(c) select c;
+<span class="c">// Build a query (using 'Expand' and 'ToExpandable')</span>
+<span class="k">var</span> q <span class="o">=</span> <span class="k">from</span> c <span class="k">in</span> db.Customers.ToExpandable()
+        <span class="k">where</span> expr.Expand(c) <span class="k">select</span> c;
 </pre>
 <p>If you run this example, it will indeed return all customers that are either from UK or live in Seattle.
   Note that we still have to use the <code>Expand</code> to call the condition we built in the 
@@ -322,27 +322,27 @@ var q = from c in db.Customers.ToExpandable()
 <p>The code to build a condition in the way described in the previous paragraph can be written as a <code>foreach</code> loop
   (working with the <code>KeyValuePair</code> from the dictionary declared above) that modifies the variable
   holding the current expression (<code>expr</code>) in every iteration:</p>
-<pre lang="csharp">
-// Select the combinator and initial condition
-CustomerConditionCombinator combinator = 
-  generateOr ? combineOr : combineAnd;
-CustomerCondition expr = 
-  generateOr ? falseCond : trueCond;
+<pre>
+<span class="c">// Select the combinator and initial condition</span>
+CustomerConditionCombinator combinator <span class="o">=</span> 
+  generateOr <span class="o">?</span> combineOr <span class="o">:</span> combineAnd;
+CustomerCondition expr <span class="o">=</span> 
+  generateOr <span class="o">?</span> falseCond <span class="o">:</span> trueCond;
   
-// Loop over all properties in the dictionary  
-foreach (var item in dict)
+<span class="c">// Loop over all properties in the dictionary  </span>
+<span class="k">foreach</span> (<span class="k">var</span> item <span class="k">in</span> dict)
 {
-  // Read the value from the user
-  Console.Write("Enter value for '{0}':\n&gt; ", item.Key);
-  string enteredVal = Console.ReadLine();
-  CustomerPropSelector propSelector = item.Value;
+  <span class="c">// Read the value from the user</span>
+  Console.Write(<span class="s">"Enter value for '{0}':\n&gt; "</span>, item.Key);
+  <span class="k">string</span> enteredVal <span class="o">=</span> Console.ReadLine();
+  CustomerPropSelector propSelector <span class="o">=</span> item.Value;
   
-  // Build a condition testing whether entered value is a substring
-  CustomerCondition currentCond = (c) =&gt; 
-    propSelector.Expand(c).IndexOf(enteredVal) != -1;
+  <span class="c">// Build a condition testing whether entered value is a substring</span>
+  CustomerCondition currentCond <span class="o">=</span> (c) <span class="o">=</span>&gt; 
+    propSelector.Expand(c).IndexOf(enteredVal) <span class="o">!</span><span class="o">=</span> -1;
     
-  // Finally, combine expressions using the combinator
-  expr = combinator(expr, currentCond);
+  <span class="c">// Finally, combine expressions using the combinator</span>
+  expr <span class="o">=</span> combinator(expr, currentCond);
 }
 </pre>
 <p>Since C# 3.0 and LINQ in general use some of the concepts from functional programming, we can actually used
@@ -354,32 +354,32 @@ foreach (var item in dict)
   and the function to combine values is essentially the body of the <code>foreach</code> loop. This means that
   function will ask user for the value and return the value newly produced by the combinator:</p>
   
-<pre lang="csharp">
-CustomerConditionCombinator combinator = 
-  generateOr ? combineOr : combineAnd;
+<pre>
+CustomerConditionCombinator combinator <span class="o">=</span> 
+  generateOr <span class="o">?</span> combineOr <span class="o">:</span> combineAnd;
 
-// Build expression using the 'Fold' aggregate operator
-var expr = dict.Fold((e, item) =&gt; {
-    // Read the value from the user
-    Console.Write("Enter value for '{0}':\n&gt; ", item.Key);
-    string enteredVal = Console.ReadLine();
-    CustomerPropSelector propSelector = item.Value;    
+<span class="c">// Build expression using the 'Fold' aggregate operator</span>
+<span class="k">var</span> expr <span class="o">=</span> dict.Fold((e, item) <span class="o">=</span>&gt; {
+    <span class="c">// Read the value from the user</span>
+    Console.Write(<span class="s">"Enter value for '{0}':\n&gt; "</span>, item.Key);
+    <span class="k">string</span> enteredVal <span class="o">=</span> Console.ReadLine();
+    CustomerPropSelector propSelector <span class="o">=</span> item.Value;    
     
-    // Build a condition testing whether entered value is a substring
-    CustomerCondition currentCond = (c) =&gt; 
-      propSelector.Expand(c).IndexOf(enteredVal) != -1;
+    <span class="c">// Build a condition testing whether entered value is a substring</span>
+    CustomerCondition currentCond <span class="o">=</span> (c) <span class="o">=</span>&gt; 
+      propSelector.Expand(c).IndexOf(enteredVal) <span class="o">!</span><span class="o">=</span> -1;
       
-    // Finally, return the combined expression
-    return combinator(e, currentCond); 
-  }, generateOr ? falseCond : trueCond);
+    <span class="c">// Finally, return the combined expression</span>
+    <span class="k">return</span> combinator(e, currentCond); 
+  }, generateOr <span class="o">?</span> falseCond <span class="o">:</span> trueCond);
 </pre>
 
 <p>Finally, we can use a simple LINQ query to run the generated condition (<code>expr</code> variable) - as mentioned in 
   other places of this article, we can call it using <code>Expand</code> and we shouldn't forgot <code>ToExpandable</code>
   call which processes our combined expression before calling the “LINQ to SQL” translator:</p>
-<pre lang="csharp">
-var q = from c in db.Customers.ToExpandable()
-        where expr.Expand(c) select c;
+<pre>
+<span class="k">var</span> q <span class="o">=</span> <span class="k">from</span> c <span class="k">in</span> db.Customers.ToExpandable()
+        <span class="k">where</span> expr.Expand(c) <span class="k">select</span> c;
 </pre>
 <h2>Summary</h2>
 <p>I hope this article convinced you that there is quite reasonable way for building queries dynamically at runtime in LINQ,
@@ -398,8 +398,8 @@ var q = from c in db.Customers.ToExpandable()
 <li><a href="/articles/dynamic-linq-queries/sources.zip">Download the examples</a> (51 kB)</li>
 </ul>
 <ul>
-  <li>[1] <a href="http://209.85.135.104/search?hl=en&amp;q=cache%3Ahttp%3A%2F%2Fforums.microsoft.com%2FMSDN%2FShowPost.aspx%3FPostID%3D1752078%26SiteID%3D1">Dynamic SQL and LINQ, Post by Anders Hejlsberg</a>
-    [<a href="http://209.85.135.104/search?hl=en&amp;q=cache%3Ahttp%3A%2F%2Fforums.microsoft.com%2FMSDN%2FShowPost.aspx%3FPostID%3D1752078%26SiteID%3D1" target="_blank">^</a>] - MSDN Forums - LINQ</li>
+  <li>[1] <a href="http://209.85.135.104/search?hl=en&q=cache%3Ahttp%3A%2F%2Fforums.microsoft.com%2FMSDN%2FShowPost.aspx%3FPostID%3D1752078%26SiteID%3D1">Dynamic SQL and LINQ, Post by Anders Hejlsberg</a>
+    [<a href="http://209.85.135.104/search?hl=en&q=cache%3Ahttp%3A%2F%2Fforums.microsoft.com%2FMSDN%2FShowPost.aspx%3FPostID%3D1752078%26SiteID%3D1" target="_blank">^</a>] - MSDN Forums - LINQ</li>
   <li>[2] <a href="http://tomasp.net/blog/linq-expand.aspx">Calling functions in LINQ queries</a>
     [<a href="http://tomasp.net/blog/linq-expand.aspx">^</a>] - Blog | TomasP.Net</li>    
   <li>[3] <a href="http://www.codeplex.com/linqextensions">LINQ Extensions</a>
@@ -492,7 +492,7 @@ var q = from c in db.Customers.ToExpandable()
 
     <h4>Functional F# and C# books</h4>
     <div style="float:right;">
-      <a href="http://www.amazon.com/gp/product/1933988924/ref=as_li_tf_il?ie=UTF8&amp;tag=httptomasnet-20&amp;linkCode=as2&amp;camp=217145&amp;creative=399369&amp;creativeASIN=1933988924">
+      <a href="http://www.amazon.com/gp/product/1933988924/ref=as_li_tf_il?ie=UTF8&tag=httptomasnet-20&linkCode=as2&camp=217145&creative=399369&creativeASIN=1933988924">
         <img src="http://tomasp.net/img/deepdives.png" alt="F# Deep Dives" style="float:right;margin:15px 0px 15px 10px;border-style:none;" />
       </a>
     </div>
@@ -504,8 +504,8 @@ var q = from c in db.Customers.ToExpandable()
     <ul>
       <li><a href="http://functional-programming.net/rwfp"><strong>Real World Functional Programming</strong></a> home page. See
         <a href="http://manning.com/petricek">Manning</a>,
-        <a href="https://www.amazon.com/dp/1933988924?tag=httptomasnet-20&amp;camp=213381&amp;creative=390973&amp;linkCode=as4&amp;creativeASIN=1933988924&amp;adid=0F1DP260JGG4KY0CDGP6">Amazon.com</a> or
-        <a href="https://www.amazon.co.uk/dp/1933988924?tag=tomasnet-21&amp;camp=1406&amp;creative=6394&amp;linkCode=as1&amp;creativeASIN=1933988924&amp;adid=1CTY87YCCQEJW965GNDF">Amazon.co.uk</a>.
+        <a href="https://www.amazon.com/dp/1933988924?tag=httptomasnet-20&camp=213381&creative=390973&linkCode=as4&creativeASIN=1933988924&adid=0F1DP260JGG4KY0CDGP6">Amazon.com</a> or
+        <a href="https://www.amazon.co.uk/dp/1933988924?tag=tomasnet-21&camp=1406&creative=6394&linkCode=as1&creativeASIN=1933988924&adid=1CTY87YCCQEJW965GNDF">Amazon.co.uk</a>.
       </li>
       <li><a href="http://functional-programming.net/deepdives"><strong>F# Deep Dives</strong></a> home page. Get it from
         <a href="http://www.manning.com/petricek2">Manning.com</a>,
@@ -535,11 +535,11 @@ var q = from c in db.Customers.ToExpandable()
   <div class="row" id="footer">
   <footer>   
     <div class="large-3 columns">
-      <h4>Contact &amp; about</h4>
+      <h4>Contact & about</h4>
       <p>This site is hosted on GitHub and is generated using <a href="https://github.com/tpetricek/FSharp.Formatting">F# Formatting</a>.
         For more info, see the <a href="https://github.com/tpetricek/TomaspNet.Website">website source on GitHub</a>.
       </p>
-      <p>Please submit issues &amp; corrections on GitHub. Use pull requests for minor corrections only.</p>
+      <p>Please submit issues & corrections on GitHub. Use pull requests for minor corrections only.</p>
       <ul>
         <li>Email me: <a href="mailto:tomas@tomasp.net">tomas@tomasp.net</a></li>
         <li>Connect via Twitter: <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a></li>

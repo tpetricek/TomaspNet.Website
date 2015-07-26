@@ -22,7 +22,7 @@
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/tooltips.css" />
   <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
-  <meta name="twitter:card" content="summary">
+    <meta name="twitter:card" content="summary">
   <meta name="twitter:creator" content="@tomaspetricek">
   <meta name="twitter:title" content="F# Math (I.) - Numeric types in PowerPack">
   <meta name="twitter:description" content="This article discusses two numeric types that are available in F# PowerPack - BigRational represents arbitrary precision rational numbers and complex represents (floating-point) complex numbers. The types can be nicely used from F# as well as from C#.">
@@ -135,7 +135,7 @@
 <span class="l"> 9: </span><span class="fsi">val q1 : BigRational = 1/32N</span>
 <span class="l">10: </span><span class="fsi">val q2 : BigRational = 1/64N</span>
 <span class="l">11: </span>
-<span class="l">12: </span><span onmouseout="hideTip(event, 'ppifs12', 19)" onmouseover="showTip(event, 'ppifs12', 19)" class="i">q2</span> <span class="o">&lt;</span> <span onmouseout="hideTip(event, 'ppifs9', 20)" onmouseover="showTip(event, 'ppifs9', 20)" class="i">r2</span> <span class="o">&amp;&amp;</span> <span onmouseout="hideTip(event, 'ppifs11', 21)" onmouseover="showTip(event, 'ppifs11', 21)" class="i">q1</span> <span class="o">&gt;</span> <span onmouseout="hideTip(event, 'ppifs9', 22)" onmouseover="showTip(event, 'ppifs9', 22)" class="i">r2</span>;;
+<span class="l">12: </span><span onmouseout="hideTip(event, 'ppifs12', 19)" onmouseover="showTip(event, 'ppifs12', 19)" class="i">q2</span> <span class="o">&lt;</span> <span onmouseout="hideTip(event, 'ppifs9', 20)" onmouseover="showTip(event, 'ppifs9', 20)" class="i">r2</span> <span class="o">&&</span> <span onmouseout="hideTip(event, 'ppifs11', 21)" onmouseover="showTip(event, 'ppifs11', 21)" class="i">q1</span> <span class="o">&gt;</span> <span onmouseout="hideTip(event, 'ppifs9', 22)" onmouseover="showTip(event, 'ppifs9', 22)" class="i">r2</span>;;
 <span class="l">13: </span><span class="fsi">val it : bool = true</span></pre>
 
 <p>Literals such as <code>4N</code> can be only created from integers. However, the overloaded
@@ -208,14 +208,14 @@
   Gregory–Leibniz series. The implementation uses loop instead of recursion, because recursive
   iterators cannot be written efficiently in C#:</p>
 
-<pre lang="csharp">
-static IEnumerable&lt;BigRational&gt; Series() {
-  var n = BigRational.FromInt(1);
-  var q = BigRational.FromInt(1);
-  while (true) {
-    yield return q * BigRational.FromInt(4) / n;
-    n = n + BigRational.FromInt(2);
-    q = q * BigRational.FromInt(-1);
+<pre>
+<span class="k">static</span> IEnumerable&lt;BigRational&gt; Series() {
+  <span class="k">var</span> n <span class="o">=</span> BigRational.FromInt(1);
+  <span class="k">var</span> q <span class="o">=</span> BigRational.FromInt(1);
+  <span class="k">while</span> (<span class="k">true</span>) {
+    <span class="k">yield</span> <span class="k">return</span> q <span class="o">*</span> BigRational.FromInt(4) <span class="o">/</span> n;
+    n <span class="o">=</span> n <span class="o">+</span> BigRational.FromInt(2);
+    q <span class="o">=</span> q <span class="o">*</span> BigRational.FromInt(-1);
   }
 }
 </pre>
@@ -226,8 +226,8 @@ static IEnumerable&lt;BigRational&gt; Series() {
   <code>BigRational.PowN</code> (to calculate power). To get approximate value of π as
   a floating point number, we can write:</p>
 
-<pre lang="csharp">
-var pi = Series().Take(300).Aggregate((a, b) =&gt; a + b);
+<pre>
+<span class="k">var</span> pi <span class="o">=</span> Series().Take(300).Aggregate((a, b) <span class="o">=</span>&gt; a <span class="o">+</span> b);
 Console.WriteLine(BigRational.ToDouble(pi));
 </pre>
 
@@ -244,7 +244,7 @@ Console.WriteLine(BigRational.ToDouble(pi));
 </p>
 
 
-<h2>References &amp; Links<a name="ppnuml"></a></h2>
+<h2>References & Links<a name="ppnuml"></a></h2>
 <ul>
   <li>[1] <a href="http://fsharppowerpack.codeplex.com/">F# PowerPack</a> (source code and binary packages) - CodePlex</li>
   <li>[2] <a href="http://msdn.microsoft.com/en-us/library/hh273075.aspx">Numeric Computing</a> - Real World Functional Programming on MSDN</li>
@@ -373,7 +373,7 @@ Console.WriteLine(BigRational.ToDouble(pi));
 
     <h4>Functional F# and C# books</h4>
     <div style="float:right;">
-      <a href="http://www.amazon.com/gp/product/1933988924/ref=as_li_tf_il?ie=UTF8&amp;tag=httptomasnet-20&amp;linkCode=as2&amp;camp=217145&amp;creative=399369&amp;creativeASIN=1933988924">
+      <a href="http://www.amazon.com/gp/product/1933988924/ref=as_li_tf_il?ie=UTF8&tag=httptomasnet-20&linkCode=as2&camp=217145&creative=399369&creativeASIN=1933988924">
         <img src="http://tomasp.net/img/deepdives.png" alt="F# Deep Dives" style="float:right;margin:15px 0px 15px 10px;border-style:none;" />
       </a>
     </div>
@@ -385,8 +385,8 @@ Console.WriteLine(BigRational.ToDouble(pi));
     <ul>
       <li><a href="http://functional-programming.net/rwfp"><strong>Real World Functional Programming</strong></a> home page. See
         <a href="http://manning.com/petricek">Manning</a>,
-        <a href="https://www.amazon.com/dp/1933988924?tag=httptomasnet-20&amp;camp=213381&amp;creative=390973&amp;linkCode=as4&amp;creativeASIN=1933988924&amp;adid=0F1DP260JGG4KY0CDGP6">Amazon.com</a> or
-        <a href="https://www.amazon.co.uk/dp/1933988924?tag=tomasnet-21&amp;camp=1406&amp;creative=6394&amp;linkCode=as1&amp;creativeASIN=1933988924&amp;adid=1CTY87YCCQEJW965GNDF">Amazon.co.uk</a>.
+        <a href="https://www.amazon.com/dp/1933988924?tag=httptomasnet-20&camp=213381&creative=390973&linkCode=as4&creativeASIN=1933988924&adid=0F1DP260JGG4KY0CDGP6">Amazon.com</a> or
+        <a href="https://www.amazon.co.uk/dp/1933988924?tag=tomasnet-21&camp=1406&creative=6394&linkCode=as1&creativeASIN=1933988924&adid=1CTY87YCCQEJW965GNDF">Amazon.co.uk</a>.
       </li>
       <li><a href="http://functional-programming.net/deepdives"><strong>F# Deep Dives</strong></a> home page. Get it from
         <a href="http://www.manning.com/petricek2">Manning.com</a>,
@@ -416,11 +416,11 @@ Console.WriteLine(BigRational.ToDouble(pi));
   <div class="row" id="footer">
   <footer>   
     <div class="large-3 columns">
-      <h4>Contact &amp; about</h4>
+      <h4>Contact & about</h4>
       <p>This site is hosted on GitHub and is generated using <a href="https://github.com/tpetricek/FSharp.Formatting">F# Formatting</a>.
         For more info, see the <a href="https://github.com/tpetricek/TomaspNet.Website">website source on GitHub</a>.
       </p>
-      <p>Please submit issues &amp; corrections on GitHub. Use pull requests for minor corrections only.</p>
+      <p>Please submit issues & corrections on GitHub. Use pull requests for minor corrections only.</p>
       <ul>
         <li>Email me: <a href="mailto:tomas@tomasp.net">tomas@tomasp.net</a></li>
         <li>Connect via Twitter: <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a></li>

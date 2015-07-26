@@ -22,7 +22,7 @@
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/tooltips.css" />
   <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
-  <meta name="twitter:card" content="summary">
+    <meta name="twitter:card" content="summary">
   <meta name="twitter:creator" content="@tomaspetricek">
   <meta name="twitter:title" content="F# Parallel Extras (III.): Financial dashboard with cancellation">
   <meta name="twitter:description" content="In this article, we revisit an F# implementation of a financial dashboard example from Parallel Programming with .NET. The article explains and demonstrates how to use the built-in support for cancellation in F# asynchronous workflows.">
@@ -207,9 +207,9 @@
 <span class="l">10: </span>          <span onmouseout="hideTip(event, 'fstips63', 109)" onmouseover="showTip(event, 'fstips63', 109)" class="i">Async</span><span class="o">.</span><span onmouseout="hideTip(event, 'fstips64', 110)" onmouseover="showTip(event, 'fstips64', 110)" class="i">Start</span>(<span onmouseout="hideTip(event, 'fstips65', 111)" onmouseover="showTip(event, 'fstips65', 111)" class="i">compare</span>, <span class="i">cancellationToken</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fstips61', 112)" onmouseover="showTip(event, 'fstips61', 112)" class="i">cts</span><span class="o">.</span><span onmouseout="hideTip(event, 'fstips66', 113)" onmouseover="showTip(event, 'fstips66', 113)" class="i">Token</span>)
 <span class="l">11: </span>        <span class="k">member</span> <span onmouseout="hideTip(event, 'fstips26', 114)" onmouseover="showTip(event, 'fstips26', 114)" class="i">x</span><span class="o">.</span><span onmouseout="hideTip(event, 'fstips47', 115)" onmouseover="showTip(event, 'fstips47', 115)" class="i">TryCancel</span>() <span class="o">=</span> <span onmouseout="hideTip(event, 'fstips61', 116)" onmouseover="showTip(event, 'fstips61', 116)" class="i">cts</span><span class="o">.</span><span onmouseout="hideTip(event, 'fstips67', 117)" onmouseover="showTip(event, 'fstips67', 117)" class="i">Cancel</span>() }
 <span class="l">12: </span>
-<span class="l">13: </span>  <span class="c">//</span><span class="c"> </span><span class="c">Load</span><span class="c"> </span><span class="c">&amp;</span><span class="c"> </span><span class="c">process</span><span class="c"> </span><span class="c">NYSE</span><span class="c"> </span><span class="c">and</span><span class="c"> </span><span class="c">NASDAQ</span><span class="c"> </span><span class="c">data</span>
+<span class="l">13: </span>  <span class="c">//</span><span class="c"> </span><span class="c">Load</span><span class="c"> </span><span class="c">&</span><span class="c"> </span><span class="c">process</span><span class="c"> </span><span class="c">NYSE</span><span class="c"> </span><span class="c">and</span><span class="c"> </span><span class="c">NASDAQ</span><span class="c"> </span><span class="c">data</span>
 <span class="l">14: </span>  <span class="k">and</span> <span onmouseout="hideTip(event, 'fstips68', 118)" onmouseover="showTip(event, 'fstips68', 118)" class="i">marketModel</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fstips69', 119)" onmouseover="showTip(event, 'fstips69', 119)" class="omitted">(...)</span>
-<span class="l">15: </span>  <span class="c">//</span><span class="c"> </span><span class="c">Load</span><span class="c"> </span><span class="c">&amp;</span><span class="c"> </span><span class="c">process</span><span class="c"> </span><span class="c">FED</span><span class="c"> </span><span class="c">data</span>
+<span class="l">15: </span>  <span class="c">//</span><span class="c"> </span><span class="c">Load</span><span class="c"> </span><span class="c">&</span><span class="c"> </span><span class="c">process</span><span class="c"> </span><span class="c">FED</span><span class="c"> </span><span class="c">data</span>
 <span class="l">16: </span>  <span class="k">and</span> <span onmouseout="hideTip(event, 'fstips70', 120)" onmouseover="showTip(event, 'fstips70', 120)" class="i">historicalModel</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fstips71', 121)" onmouseover="showTip(event, 'fstips71', 121)" class="omitted">(...)</span>
 <span class="l">17: </span>
 <span class="l">18: </span>  <span class="c">//</span><span class="c"> </span><span class="c">Run</span><span class="c"> </span><span class="c">both</span><span class="c"> </span><span class="c">of</span><span class="c"> </span><span class="c">the</span><span class="c"> </span><span class="c">models</span><span class="c"> </span><span class="c">and</span><span class="c"> </span><span class="c">compare</span><span class="c"> </span><span class="c">them</span><span class="c"> </span><span class="c">to</span><span class="c"> </span><span class="c">get</span><span class="c"> </span><span class="c">recommendation</span>
@@ -243,7 +243,7 @@
 </p>
 
 <pre class="fssnip">
-<span class="l"> 1: </span><span class="c">//</span><span class="c"> </span><span class="c">Load</span><span class="c"> </span><span class="c">&amp;</span><span class="c"> </span><span class="c">process</span><span class="c"> </span><span class="c">NYSE</span><span class="c"> </span><span class="c">and</span><span class="c"> </span><span class="c">NASDAQ</span><span class="c"> </span><span class="c">data</span>
+<span class="l"> 1: </span><span class="c">//</span><span class="c"> </span><span class="c">Load</span><span class="c"> </span><span class="c">&</span><span class="c"> </span><span class="c">process</span><span class="c"> </span><span class="c">NYSE</span><span class="c"> </span><span class="c">and</span><span class="c"> </span><span class="c">NASDAQ</span><span class="c"> </span><span class="c">data</span>
 <span class="l"> 2: </span><span class="k">and</span> <span onmouseout="hideTip(event, 'fstips68', 125)" onmouseover="showTip(event, 'fstips68', 125)" class="i">marketModel</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fstips73', 126)" onmouseover="showTip(event, 'fstips73', 126)" class="i">async</span> {
 <span class="l"> 3: </span>    <span class="c">//</span><span class="c"> </span><span class="c">Start</span><span class="c"> </span><span class="c">loading</span><span class="c"> </span><span class="c">data</span><span class="c"> </span><span class="c">asynchronously</span><span class="c"> </span><span class="c">in</span><span class="c"> </span><span class="c">background</span>
 <span class="l"> 4: </span>    <span class="k">let!</span> <span onmouseout="hideTip(event, 'fstips74', 127)" onmouseover="showTip(event, 'fstips74', 127)" class="i">nyse</span> <span class="o">=</span> 
@@ -262,7 +262,7 @@
 <span class="l">17: </span>    <span onmouseout="hideTip(event, 'fstips41', 152)" onmouseover="showTip(event, 'fstips41', 152)" class="i">engine</span><span class="o">.</span><span onmouseout="hideTip(event, 'fstips52', 153)" onmouseover="showTip(event, 'fstips52', 153)" class="i">TriggerModelMarketData</span>(<span class="i">res</span>)
 <span class="l">18: </span>    <span class="k">return</span> <span class="i">res</span> }
 <span class="l">19: </span>
-<span class="l">20: </span><span class="c">//</span><span class="c"> </span><span class="c">Load</span><span class="c"> </span><span class="c">&amp;</span><span class="c"> </span><span class="c">process</span><span class="c"> </span><span class="c">FED</span><span class="c"> </span><span class="c">data</span>
+<span class="l">20: </span><span class="c">//</span><span class="c"> </span><span class="c">Load</span><span class="c"> </span><span class="c">&</span><span class="c"> </span><span class="c">process</span><span class="c"> </span><span class="c">FED</span><span class="c"> </span><span class="c">data</span>
 <span class="l">21: </span><span class="k">and</span> <span onmouseout="hideTip(event, 'fstips70', 154)" onmouseover="showTip(event, 'fstips70', 154)" class="i">historicalModel</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fstips73', 155)" onmouseover="showTip(event, 'fstips73', 155)" class="i">async</span> {
 <span class="l">22: </span>    <span onmouseout="hideTip(event, 'fstips89', 156)" onmouseover="showTip(event, 'fstips89', 156)" class="omitted">(loading and normalization omitted)</span>
 <span class="l">23: </span>    <span class="k">let!</span> <span onmouseout="hideTip(event, 'fstips83', 157)" onmouseover="showTip(event, 'fstips83', 157)" class="i">analyzed</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fstips84', 158)" onmouseover="showTip(event, 'fstips84', 158)" class="i">asyncAnalyzeData</span> <span onmouseout="hideTip(event, 'fstips85', 159)" onmouseover="showTip(event, 'fstips85', 159)" class="i">normalized</span>
@@ -541,7 +541,7 @@
 <div class="tip" id="fstips46">val analysis : (unit -&gt; unit)<br /></div>
 <div class="tip" id="fstips47">abstract member AnalysisProcess.TryCancel : unit -&gt; unit
 <br /><br /><em>Try to cancel the process (if it has been already started)</em><br /></div>
-<div class="tip" id="fstips48">// Load &amp; process NYSE and NASDAQ data<br />let nyseData = loadNyseData()<br />engine.TriggerLoadNyseData(nyseData)<br />let nasdaqData = loadNasdaqData()<br />engine.TriggerLoadNasdaqData(nasdaqData)<br /><br />let mergedMarketData = mergeMarketData [ nyseData; nasdaqData ]<br />engine.TriggerMergeMarketData(mergedMarketData)<br />let normalizedMarketData = normalizeData mergedMarketData<br />engine.TriggerNormalizeMarketData(normalizedMarketData)<br />let analyzedStockData = analyzeData normalizedMarketData<br />engine.TriggerAnalyzeMarketData(analyzedStockData)<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<br />// Load &amp; process FED data<br />let fedHistoricalData = loadFedHistoricalData()<br />engine.TriggerLoadFedHistoricalData(fedHistoricalData)<br />let normalizedHistoricalData = normalizeData fedHistoricalData<br />engine.TriggerNormalizeHistoricalData(normalizedHistoricalData)<br />let analyzedHistoricalData = analyzeData normalizedHistoricalData<br />engine.TriggerAnalyzeHistoricalData(analyzedHistoricalData)<br /></div>
+<div class="tip" id="fstips48">// Load & process NYSE and NASDAQ data<br />let nyseData = loadNyseData()<br />engine.TriggerLoadNyseData(nyseData)<br />let nasdaqData = loadNasdaqData()<br />engine.TriggerLoadNasdaqData(nasdaqData)<br /><br />let mergedMarketData = mergeMarketData [ nyseData; nasdaqData ]<br />engine.TriggerMergeMarketData(mergedMarketData)<br />let normalizedMarketData = normalizeData mergedMarketData<br />engine.TriggerNormalizeMarketData(normalizedMarketData)<br />let analyzedStockData = analyzeData normalizedMarketData<br />engine.TriggerAnalyzeMarketData(analyzedStockData)<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<br />// Load & process FED data<br />let fedHistoricalData = loadFedHistoricalData()<br />engine.TriggerLoadFedHistoricalData(fedHistoricalData)<br />let normalizedHistoricalData = normalizeData fedHistoricalData<br />engine.TriggerNormalizeHistoricalData(normalizedHistoricalData)<br />let analyzedHistoricalData = analyzeData normalizedHistoricalData<br />engine.TriggerAnalyzeHistoricalData(analyzedHistoricalData)<br /></div>
 <div class="tip" id="fstips49">val modeledMarketData : MarketModel<br /></div>
 <div class="tip" id="fstips50">val runModel : StockAnalysisCollection -&gt; MarketModel<br /><br />Full name: Microsoft.Practices.ParallelGuideSamples.ADash.AnalysisModule.runModel<br /></div>
 <div class="tip" id="fstips51">val analyzedStockData : StockAnalysisCollection<br /><br />&#160;&#160;type: StockAnalysisCollection<br />&#160;&#160;implements: IList&lt;StockAnalysis&gt;<br />&#160;&#160;implements: ICollection&lt;StockAnalysis&gt;<br />&#160;&#160;implements: seq&lt;StockAnalysis&gt;<br />&#160;&#160;implements: Collections.IList<br />&#160;&#160;implements: Collections.ICollection<br />&#160;&#160;implements: Collections.IEnumerable<br />&#160;&#160;inherits: Collections.ObjectModel.ReadOnlyCollection&lt;StockAnalysis&gt;<br /></div>
@@ -682,7 +682,7 @@
 
     <h4>Functional F# and C# books</h4>
     <div style="float:right;">
-      <a href="http://www.amazon.com/gp/product/1933988924/ref=as_li_tf_il?ie=UTF8&amp;tag=httptomasnet-20&amp;linkCode=as2&amp;camp=217145&amp;creative=399369&amp;creativeASIN=1933988924">
+      <a href="http://www.amazon.com/gp/product/1933988924/ref=as_li_tf_il?ie=UTF8&tag=httptomasnet-20&linkCode=as2&camp=217145&creative=399369&creativeASIN=1933988924">
         <img src="http://tomasp.net/img/deepdives.png" alt="F# Deep Dives" style="float:right;margin:15px 0px 15px 10px;border-style:none;" />
       </a>
     </div>
@@ -694,8 +694,8 @@
     <ul>
       <li><a href="http://functional-programming.net/rwfp"><strong>Real World Functional Programming</strong></a> home page. See
         <a href="http://manning.com/petricek">Manning</a>,
-        <a href="https://www.amazon.com/dp/1933988924?tag=httptomasnet-20&amp;camp=213381&amp;creative=390973&amp;linkCode=as4&amp;creativeASIN=1933988924&amp;adid=0F1DP260JGG4KY0CDGP6">Amazon.com</a> or
-        <a href="https://www.amazon.co.uk/dp/1933988924?tag=tomasnet-21&amp;camp=1406&amp;creative=6394&amp;linkCode=as1&amp;creativeASIN=1933988924&amp;adid=1CTY87YCCQEJW965GNDF">Amazon.co.uk</a>.
+        <a href="https://www.amazon.com/dp/1933988924?tag=httptomasnet-20&camp=213381&creative=390973&linkCode=as4&creativeASIN=1933988924&adid=0F1DP260JGG4KY0CDGP6">Amazon.com</a> or
+        <a href="https://www.amazon.co.uk/dp/1933988924?tag=tomasnet-21&camp=1406&creative=6394&linkCode=as1&creativeASIN=1933988924&adid=1CTY87YCCQEJW965GNDF">Amazon.co.uk</a>.
       </li>
       <li><a href="http://functional-programming.net/deepdives"><strong>F# Deep Dives</strong></a> home page. Get it from
         <a href="http://www.manning.com/petricek2">Manning.com</a>,
@@ -725,11 +725,11 @@
   <div class="row" id="footer">
   <footer>   
     <div class="large-3 columns">
-      <h4>Contact &amp; about</h4>
+      <h4>Contact & about</h4>
       <p>This site is hosted on GitHub and is generated using <a href="https://github.com/tpetricek/FSharp.Formatting">F# Formatting</a>.
         For more info, see the <a href="https://github.com/tpetricek/TomaspNet.Website">website source on GitHub</a>.
       </p>
-      <p>Please submit issues &amp; corrections on GitHub. Use pull requests for minor corrections only.</p>
+      <p>Please submit issues & corrections on GitHub. Use pull requests for minor corrections only.</p>
       <ul>
         <li>Email me: <a href="mailto:tomas@tomasp.net">tomas@tomasp.net</a></li>
         <li>Connect via Twitter: <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a></li>

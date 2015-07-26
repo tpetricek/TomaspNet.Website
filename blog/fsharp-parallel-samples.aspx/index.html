@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <title>Parallel Programming in F# (I.): Introducing the samples</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="In this article series, I'll introduce the F# version of samples for the Parallel Programming with Microsoft .NET book written by the patterns &amp; practices group at Microsoft.">
+  <meta name="description" content="In this article series, I'll introduce the F# version of samples for the Parallel Programming with Microsoft .NET book written by the patterns & practices group at Microsoft.">
   <meta name="author" content="Tomas Petricek">
 
   <!-- Reference Foundation -->
@@ -22,10 +22,10 @@
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/tooltips.css" />
   <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
-  <meta name="twitter:card" content="summary">
+    <meta name="twitter:card" content="summary">
   <meta name="twitter:creator" content="@tomaspetricek">
   <meta name="twitter:title" content="Parallel Programming in F# (I.): Introducing the samples">
-  <meta name="twitter:description" content="In this article series, I'll introduce the F# version of samples for the Parallel Programming with Microsoft .NET book written by the patterns &amp; practices group at Microsoft.">
+  <meta name="twitter:description" content="In this article series, I'll introduce the F# version of samples for the Parallel Programming with Microsoft .NET book written by the patterns & practices group at Microsoft.">
 </head>
 <body>
 
@@ -67,7 +67,7 @@
 <h1>Parallel Programming in F# (I.): Introducing the samples</h1>
 <img src="http://tomasp.net/articles/fsharp-parallel-samples/book.png" style="float:right;margin:20px;"/>
 <p><a href="http://parallelpatterns.codeplex.com/" type="external">Parallel Programming with Microsoft .NET</a> is a 
-  guide written by the patterns &amp; practices group at Microsoft. It introduces .NET programmers to
+  guide written by the patterns & practices group at Microsoft. It introduces .NET programmers to
   patterns for including parallelism in their applications (using support for parallel programming in
   .NET 4.0). It introduces techniques such as parallel loops, parallel tasks, data aggregation and so on.
   The book includes numerous samples in C# and Visual Basic that can be easily copied and adapted 
@@ -131,10 +131,10 @@
 <p>To demonstrate a typical script file that can be used to run samples in F# Interactive, 
   we'll look at "Script.fsx" from the "BasicParallelLoops" project in Chapter 2. Every script
   file first needs to load several references and then loads files that implement the examples:</p>
-<pre lang="fsharp">
-&gt; #r @"..\..\Utilities\bin\Release\Utilities.dll"
-  #load @"..\..\PSeq.fs"
-  #load "ParallelForExample.fs";;
+<pre>
+&gt; #r <span class="s">@"..\..\Utilities\bin\Release\Utilities.dll"</span>
+  #load <span class="s">@"..\..\PSeq.fs"</span>
+  #load <span class="s">"ParallelForExample.fs"</span>;;
 </pre>
 <p>The first <code>#r</code> directive loads the "Utilities" project, which contains various
   helper functions that are used by most of the samples (e.g. calculations, simulation of CPU and I/O
@@ -148,15 +148,15 @@
   (in this case, configuration is a simple record that is passed to the example). In F# Interactive we 
   can also use built-in support for time measurement, so we turn it on using <code>#time "on"</code>:</p>
 
-<pre lang="fsharp">
-&gt; open System
-  open Microsoft.Practices.ParallelGuideSamples.BasicParallelLoops.Examples;;
+<pre>
+&gt; <span class="k">open</span> System
+  <span class="k">open</span> Microsoft.Practices.ParallelGuideSamples.BasicParallelLoops.Examples;;
 
-&gt; let opts = { LoopBodyComplexity = 10000; NumberOfSteps = 10000 }
-      VerifyResult = false; SimulateInternalError = false };;
-val opts : ExampleOptions = { (...) }
+&gt; <span class="k">let</span> opts = { LoopBodyComplexity = 10000; NumberOfSteps = 10000 }
+      VerifyResult = <span class="k">false</span>; SimulateInternalError = <span class="k">false</span> };;
+<span class="k">val</span> opts : ExampleOptions = { (...) }
 
-&gt; #time "on";;
+&gt; #time <span class="s">"on"</span>;;
 --&gt; Timing now on
 </pre>
 
@@ -164,16 +164,16 @@ val opts : ExampleOptions = { (...) }
   it is quite easy to run the samples that you're interested in as well as to go back to the
   configuration, change some properties of the sample and re-run it. The following example compares sequential version of a sample with a parallel version using the <code>PSeq</code> module (which we'll discuss in part II. of the series).</p>
 
-<pre lang="fsharp">
-&gt; let results = Chapter2.Example01 opts;; // Sequential 'for'
+<pre>
+&gt; <span class="k">let</span> results = Chapter2.Example01 opts;; <span class="c">// Sequential 'for'</span>
 Real: 00:00:00.986, CPU: 00:00:00.998, GC gen0: 0, gen1: 0, gen2: 0
-val results : float [] =
-  [|0.0; 250025000.0; 500050000.0; (...) |]
+<span class="k">val</span> results : float <span class="o">[</span><span class="o">]</span> =
+  <span class="o">[</span>|0.0; 250025000.0; 500050000.0; (...) <span class="o">|</span><span class="o">]</span>
 
-&gt; let results = Chapter2.Example04 opts;; // Parallel using F# PSeq
+&gt; <span class="k">let</span> results = Chapter2.Example04 opts;; <span class="c">// Parallel using F# PSeq</span>
 Real: 00:00:00.543, CPU: 00:00:00.998, GC gen0: 0, gen1: 0, gen2: 0
-val results : float [] =
-  [|0.0; 250025000.0; 500050000.0; (...) |]
+<span class="k">val</span> results : float <span class="o">[</span><span class="o">]</span> =
+  <span class="o">[</span>|0.0; 250025000.0; 500050000.0; (...) <span class="o">|</span><span class="o">]</span>
 </pre>
 
 <h2>Additional Information</h2>
@@ -323,7 +323,7 @@ val results : float [] =
 
     <h4>Functional F# and C# books</h4>
     <div style="float:right;">
-      <a href="http://www.amazon.com/gp/product/1933988924/ref=as_li_tf_il?ie=UTF8&amp;tag=httptomasnet-20&amp;linkCode=as2&amp;camp=217145&amp;creative=399369&amp;creativeASIN=1933988924">
+      <a href="http://www.amazon.com/gp/product/1933988924/ref=as_li_tf_il?ie=UTF8&tag=httptomasnet-20&linkCode=as2&camp=217145&creative=399369&creativeASIN=1933988924">
         <img src="http://tomasp.net/img/deepdives.png" alt="F# Deep Dives" style="float:right;margin:15px 0px 15px 10px;border-style:none;" />
       </a>
     </div>
@@ -335,8 +335,8 @@ val results : float [] =
     <ul>
       <li><a href="http://functional-programming.net/rwfp"><strong>Real World Functional Programming</strong></a> home page. See
         <a href="http://manning.com/petricek">Manning</a>,
-        <a href="https://www.amazon.com/dp/1933988924?tag=httptomasnet-20&amp;camp=213381&amp;creative=390973&amp;linkCode=as4&amp;creativeASIN=1933988924&amp;adid=0F1DP260JGG4KY0CDGP6">Amazon.com</a> or
-        <a href="https://www.amazon.co.uk/dp/1933988924?tag=tomasnet-21&amp;camp=1406&amp;creative=6394&amp;linkCode=as1&amp;creativeASIN=1933988924&amp;adid=1CTY87YCCQEJW965GNDF">Amazon.co.uk</a>.
+        <a href="https://www.amazon.com/dp/1933988924?tag=httptomasnet-20&camp=213381&creative=390973&linkCode=as4&creativeASIN=1933988924&adid=0F1DP260JGG4KY0CDGP6">Amazon.com</a> or
+        <a href="https://www.amazon.co.uk/dp/1933988924?tag=tomasnet-21&camp=1406&creative=6394&linkCode=as1&creativeASIN=1933988924&adid=1CTY87YCCQEJW965GNDF">Amazon.co.uk</a>.
       </li>
       <li><a href="http://functional-programming.net/deepdives"><strong>F# Deep Dives</strong></a> home page. Get it from
         <a href="http://www.manning.com/petricek2">Manning.com</a>,
@@ -366,11 +366,11 @@ val results : float [] =
   <div class="row" id="footer">
   <footer>   
     <div class="large-3 columns">
-      <h4>Contact &amp; about</h4>
+      <h4>Contact & about</h4>
       <p>This site is hosted on GitHub and is generated using <a href="https://github.com/tpetricek/FSharp.Formatting">F# Formatting</a>.
         For more info, see the <a href="https://github.com/tpetricek/TomaspNet.Website">website source on GitHub</a>.
       </p>
-      <p>Please submit issues &amp; corrections on GitHub. Use pull requests for minor corrections only.</p>
+      <p>Please submit issues & corrections on GitHub. Use pull requests for minor corrections only.</p>
       <ul>
         <li>Email me: <a href="mailto:tomas@tomasp.net">tomas@tomasp.net</a></li>
         <li>Connect via Twitter: <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a></li>

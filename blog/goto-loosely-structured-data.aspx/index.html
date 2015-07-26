@@ -22,7 +22,7 @@
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/tooltips.css" />
   <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
-  <meta name="twitter:card" content="summary">
+    <meta name="twitter:card" content="summary">
   <meta name="twitter:creator" content="@tomaspetricek">
   <meta name="twitter:title" content="Accessing loosely structured data from F# and C# (GOTO 2011)">
   <meta name="twitter:description" content="This article is a summary of a talk about accessing loosely structured data from F# and C# that I gave at GOTO Copenhagen 2011. The article contains examples how to bridge the gap between external data sources and programming language at various scales.">
@@ -131,11 +131,11 @@
   The following snippet gets a list of regions (such as OECD countries, EU countries, Middle East
   etc.):</p>
 
-<pre lang="csharp">
-dynamic wb = new DynamicWorldBank();
-dynamic regions = wb.Region(new { PerPage = 100 });
-foreach (var reg in regions.Regions.Region) {
-  Console.WriteLine("{0} ({1})", reg.Name.Value, reg.Code.Value);
+<pre>
+<span class="k">dynamic</span> wb <span class="o">=</span> <span class="k">new</span> DynamicWorldBank();
+<span class="k">dynamic</span> regions <span class="o">=</span> wb.Region(<span class="k">new</span> { PerPage <span class="o">=</span> 100 });
+<span class="k">foreach</span> (<span class="k">var</span> reg <span class="k">in</span> regions.Regions.Region) {
+  Console.WriteLine(<span class="s">"{0} ({1})"</span>, reg.Name.Value, reg.Code.Value);
 }
 </pre>
 
@@ -352,33 +352,33 @@ foreach (var reg in regions.Regions.Region) {
   charting library</a> to generate a chart showing the central government debt for 
   several EU countries (screenshot above):</p>
 
-<pre lang="fsharp">
-#r @"WorldBank\Samples.WorldBank.TypeProvider.dll"
-#load @"FSharpChart\FSharpChart.fsx"
+<pre>
+#r <span class="s">@"WorldBank\Samples.WorldBank.TypeProvider.dll"</span>
+#load <span class="s">@"FSharpChart\FSharpChart.fsx"</span>
 
-open Samples.Charting
-open System.Drawing
-open System.Windows.Forms.DataVisualization.Charting
+<span class="k">open</span> Samples.Charting
+<span class="k">open</span> System.Drawing
+<span class="k">open</span> System.Windows.Forms.DataVisualization.Charting
 
-// Represents properties of a chart grid
-let dashGrid = Grid(LineColor = Color.Gainsboro, LineDashStyle = ChartDashStyle.Dash)
+<span class="c">// Represents properties of a chart grid</span>
+<span class="k">let</span> dashGrid = Grid(LineColor = Color.Gainsboro, LineDashStyle = ChartDashStyle.Dash)
 
-// Create a list of countries we're interested in
-let countries = 
-  [ WorldBank.Countries.Greece; WorldBank.Countries.Ireland; 
+<span class="c">// Create a list of countries we're interested in</span>
+<span class="k">let</span> countries = 
+  <span class="o">[</span> WorldBank.Countries.Greece; WorldBank.Countries.Ireland; 
     WorldBank.Countries.Denmark; WorldBank.Countries.``United Kingdom``;
-    WorldBank.Countries.``Czech Republic`` ]
+    WorldBank.Countries.``Czech Republic`` <span class="o">]</span>
 
 
-// Generate line chart with debt data series for every country 
-// then combine the lines into a single combined chart 
+<span class="c">// Generate line chart with debt data series for every country </span>
+<span class="c">// then combine the lines into a single combined chart </span>
 FSharpChart.Combine
-  [ for country in countries do
-      let data = country.``Central government debt, total (% of GDP)``|> Seq.sortBy fst 
-      yield upcast FSharpChart.Line(data, Name=unbox country) ]
-|> FSharpChart.WithLegend(Docking = Docking.Left)
-|> FSharpChart.WithArea.AxisY(MajorGrid = dashGrid) 
-|> FSharpChart.WithArea.AxisX(MajorGrid = dashGrid)
+  <span class="o">[</span> <span class="k">for</span> country <span class="k">in</span> countries <span class="k">do</span>
+      <span class="k">let</span> data = country.``Central government debt, total (% <span class="k">of</span> GDP)``<span class="o">|</span>&gt; Seq.sortBy fst 
+      <span class="k">yield</span> <span class="k">upcast</span> FSharpChart.Line(data, Name=unbox country) <span class="o">]</span>
+<span class="o">|</span>&gt; FSharpChart.WithLegend(Docking = Docking.Left)
+<span class="o">|</span>&gt; FSharpChart.WithArea.AxisY(MajorGrid = dashGrid) 
+<span class="o">|</span>&gt; FSharpChart.WithArea.AxisX(MajorGrid = dashGrid)
 </pre>
 
 <p>The type provider is a .NET assembly (<code>Samples.WorldBank.TypeProvider.dll</code>) that 
@@ -603,7 +603,7 @@ FSharpChart.Combine
 
     <h4>Functional F# and C# books</h4>
     <div style="float:right;">
-      <a href="http://www.amazon.com/gp/product/1933988924/ref=as_li_tf_il?ie=UTF8&amp;tag=httptomasnet-20&amp;linkCode=as2&amp;camp=217145&amp;creative=399369&amp;creativeASIN=1933988924">
+      <a href="http://www.amazon.com/gp/product/1933988924/ref=as_li_tf_il?ie=UTF8&tag=httptomasnet-20&linkCode=as2&camp=217145&creative=399369&creativeASIN=1933988924">
         <img src="http://tomasp.net/img/deepdives.png" alt="F# Deep Dives" style="float:right;margin:15px 0px 15px 10px;border-style:none;" />
       </a>
     </div>
@@ -615,8 +615,8 @@ FSharpChart.Combine
     <ul>
       <li><a href="http://functional-programming.net/rwfp"><strong>Real World Functional Programming</strong></a> home page. See
         <a href="http://manning.com/petricek">Manning</a>,
-        <a href="https://www.amazon.com/dp/1933988924?tag=httptomasnet-20&amp;camp=213381&amp;creative=390973&amp;linkCode=as4&amp;creativeASIN=1933988924&amp;adid=0F1DP260JGG4KY0CDGP6">Amazon.com</a> or
-        <a href="https://www.amazon.co.uk/dp/1933988924?tag=tomasnet-21&amp;camp=1406&amp;creative=6394&amp;linkCode=as1&amp;creativeASIN=1933988924&amp;adid=1CTY87YCCQEJW965GNDF">Amazon.co.uk</a>.
+        <a href="https://www.amazon.com/dp/1933988924?tag=httptomasnet-20&camp=213381&creative=390973&linkCode=as4&creativeASIN=1933988924&adid=0F1DP260JGG4KY0CDGP6">Amazon.com</a> or
+        <a href="https://www.amazon.co.uk/dp/1933988924?tag=tomasnet-21&camp=1406&creative=6394&linkCode=as1&creativeASIN=1933988924&adid=1CTY87YCCQEJW965GNDF">Amazon.co.uk</a>.
       </li>
       <li><a href="http://functional-programming.net/deepdives"><strong>F# Deep Dives</strong></a> home page. Get it from
         <a href="http://www.manning.com/petricek2">Manning.com</a>,
@@ -646,11 +646,11 @@ FSharpChart.Combine
   <div class="row" id="footer">
   <footer>   
     <div class="large-3 columns">
-      <h4>Contact &amp; about</h4>
+      <h4>Contact & about</h4>
       <p>This site is hosted on GitHub and is generated using <a href="https://github.com/tpetricek/FSharp.Formatting">F# Formatting</a>.
         For more info, see the <a href="https://github.com/tpetricek/TomaspNet.Website">website source on GitHub</a>.
       </p>
-      <p>Please submit issues &amp; corrections on GitHub. Use pull requests for minor corrections only.</p>
+      <p>Please submit issues & corrections on GitHub. Use pull requests for minor corrections only.</p>
       <ul>
         <li>Email me: <a href="mailto:tomas@tomasp.net">tomas@tomasp.net</a></li>
         <li>Connect via Twitter: <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a></li>

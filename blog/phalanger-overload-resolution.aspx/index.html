@@ -22,7 +22,7 @@
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/tooltips.css" />
   <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
-  <meta name="twitter:card" content="summary">
+    <meta name="twitter:card" content="summary">
   <meta name="twitter:creator" content="@tomaspetricek">
   <meta name="twitter:title" content="Overload resolution in Phalanger">
   <meta name="twitter:description" content="PHP doesn't support method overloading, so Phalanger has to solve an interesting problem when calling overloaded .NET method from PHP.">
@@ -81,28 +81,28 @@
 <h2>Stubs in Phalanger beta 3</h2>
 <p>Let's now look at the generated stubs in latest Phalanger releases. I was working on a demo to demonstrate Phalanger interoperability
   some time ago and I was a bit surprised with the result of the following code:</p>
-<pre lang="php">
-Console::WriteLine("Hello world!");
+<pre>
+Console::WriteLine(<span class="s">"Hello world!"</span>);
 </pre>  
 <p>I was expecting that <code>"Hello world!"</code> will appear in the console window, but it didn't! Instead it just printed <code>"true"</code>.
   The reason is that Phalanger used one of the implicit conversions described above and converted string to boolean. The generated stub first
   uses parameter count to determine what overloads might be compatible and than generates something like the following code (in pseudo-C#) 
   to choose the best overload (this is very simple situation, because method has only one parameter and no overload with <code>[Params]</code>
   attribute is involved, but it explains the problem well):</p>
-<pre lang="csharp">
-// Stub that chooses between foo(string), foo(int) and foo(bool)
-object p = PopParameter();
-bool bval;
-int ival;
-string sval;
+<pre>
+<span class="c">// Stub that chooses between foo(string), foo(int) and foo(bool)</span>
+<span class="k">object</span> p <span class="o">=</span> PopParameter();
+<span class="k">bool</span> bval;
+<span class="k">int</span> ival;
+<span class="k">string</span> sval;
 
-if (Convert.ConvertToBool(p, out bval))
-  return foo(bval);
-if (Convert.ConvertToInt32(p, out ival))
-  return foo(ival);
-if (Convert.ConvertToString(p, out sval))
-  return foo(sval);
-throw new ConversionFailedException();  
+<span class="k">if</span> (Convert.ConvertToBool(p, <span class="k">out</span> bval))
+  <span class="k">return</span> foo(bval);
+<span class="k">if</span> (Convert.ConvertToInt32(p, <span class="k">out</span> ival))
+  <span class="k">return</span> foo(ival);
+<span class="k">if</span> (Convert.ConvertToString(p, <span class="k">out</span> sval))
+  <span class="k">return</span> foo(sval);
+<span class="k">throw</span> <span class="k">new</span> ConversionFailedException();  
 </pre>  
 <p>The conversion functions are called in some non-specified order, so in this case Phalanger first tries to convert parameter to bool.
   The <code>ConvertToBool</code> function tries to perform all implicit conversions and when the parameter is string it converts it
@@ -112,55 +112,55 @@ throw new ConversionFailedException();
   using acceptable conversion, but it doesn't always call the method that you would expect. That's why we
   decided to implement a bit more complex algorithm, which would prefer overloads that don't require any implicit conversions.
   The stub generated using the new algorithm looks like this:</p>
-<pre lang="csharp">
-// Stub that chooses between foo(string), foo(int) and foo(bool)
-object p = PopParameter();
-// To store conversion result
-bool bval;
-int ival;
-string sval;
+<pre>
+<span class="c">// Stub that chooses between foo(string), foo(int) and foo(bool)</span>
+<span class="k">object</span> p <span class="o">=</span> PopParameter();
+<span class="c">// To store conversion result</span>
+<span class="k">bool</span> bval;
+<span class="k">int</span> ival;
+<span class="k">string</span> sval;
 
-// Temporary variables
-byte result;
-int bestIndex;
-byte bestResult = Byte.MaxValue;
+<span class="c">// Temporary variables</span>
+<span class="k">byte</span> result;
+<span class="k">int</span> bestIndex;
+<span class="k">byte</span> bestResult <span class="o">=</span> Byte.MaxValue;
 
-// Perform conversions to specific types
-result = Convert.ConvertToBool(p, out bval);
-// Set the best overload index 
-// (if result is better then result of previous conversions) 
-if (result &lt; bestResult) 
-  { bestResult = result; bestIndex = 0; }
-// If this is the best match (no implicit conversion) 
-// skip the rest of conversions and call the overload
-if (result == BestConversion) 
-  goto call;  
+<span class="c">// Perform conversions to specific types</span>
+result <span class="o">=</span> Convert.ConvertToBool(p, <span class="k">out</span> bval);
+<span class="c">// Set the best overload index </span>
+<span class="c">// (if result is better then result of previous conversions) </span>
+<span class="k">if</span> (result &lt; bestResult) 
+  { bestResult <span class="o">=</span> result; bestIndex <span class="o">=</span> 0; }
+<span class="c">// If this is the best match (no implicit conversion) </span>
+<span class="c">// skip the rest of conversions and call the overload</span>
+<span class="k">if</span> (result <span class="o">=</span><span class="o">=</span> BestConversion) 
+  <span class="k">goto</span> call;  
 
-// Same as previous..
-result = Convert.ConvertToInt32(p, out ival);
-if (result &lt; bestResult) 
-  { bestResult = result; bestIndex = 1; }
-if (result == BestConversion) 
-  goto call;
+<span class="c">// Same as previous..</span>
+result <span class="o">=</span> Convert.ConvertToInt32(p, <span class="k">out</span> ival);
+<span class="k">if</span> (result &lt; bestResult) 
+  { bestResult <span class="o">=</span> result; bestIndex <span class="o">=</span> 1; }
+<span class="k">if</span> (result <span class="o">=</span><span class="o">=</span> BestConversion) 
+  <span class="k">goto</span> call;
 
-// Same as previous..
-result = Convert.ConvertToString(p, out sval);
-if (result &lt; bestResult) 
-  { bestResult = result; bestIndex = 2; }
-if (result == BestConversion) 
-  goto call;
+<span class="c">// Same as previous..</span>
+result <span class="o">=</span> Convert.ConvertToString(p, <span class="k">out</span> sval);
+<span class="k">if</span> (result &lt; bestResult) 
+  { bestResult <span class="o">=</span> result; bestIndex <span class="o">=</span> 2; }
+<span class="k">if</span> (result <span class="o">=</span><span class="o">=</span> BestConversion) 
+  <span class="k">goto</span> call;
 
-// No overload is appropriate
-if (bestResult == FailedConversion) 
-  throw new ConversionFailedException();  
+<span class="c">// No overload is appropriate</span>
+<span class="k">if</span> (bestResult <span class="o">=</span><span class="o">=</span> FailedConversion) 
+  <span class="k">throw</span> <span class="k">new</span> ConversionFailedException();  
 
-// Call the best overload
+<span class="c">// Call the best overload</span>
 call:;
-switch(bestIndex)
+<span class="k">switch</span>(bestIndex)
 {
-  case 0: return foo(bval);
-  case 1: return foo(ival);
-  case 2: return foo(sval);
+  <span class="k">case</span> 0: <span class="k">return</span> foo(bval);
+  <span class="k">case</span> 1: <span class="k">return</span> foo(ival);
+  <span class="k">case</span> 2: <span class="k">return</span> foo(sval);
 }
 </pre>  
 <p>In this code we use slightly modified version of <code>ConvertToXxx</code> methods. Instead of returning boolean value (whether conversion
@@ -268,7 +268,7 @@ switch(bestIndex)
 
     <h4>Functional F# and C# books</h4>
     <div style="float:right;">
-      <a href="http://www.amazon.com/gp/product/1933988924/ref=as_li_tf_il?ie=UTF8&amp;tag=httptomasnet-20&amp;linkCode=as2&amp;camp=217145&amp;creative=399369&amp;creativeASIN=1933988924">
+      <a href="http://www.amazon.com/gp/product/1933988924/ref=as_li_tf_il?ie=UTF8&tag=httptomasnet-20&linkCode=as2&camp=217145&creative=399369&creativeASIN=1933988924">
         <img src="http://tomasp.net/img/deepdives.png" alt="F# Deep Dives" style="float:right;margin:15px 0px 15px 10px;border-style:none;" />
       </a>
     </div>
@@ -280,8 +280,8 @@ switch(bestIndex)
     <ul>
       <li><a href="http://functional-programming.net/rwfp"><strong>Real World Functional Programming</strong></a> home page. See
         <a href="http://manning.com/petricek">Manning</a>,
-        <a href="https://www.amazon.com/dp/1933988924?tag=httptomasnet-20&amp;camp=213381&amp;creative=390973&amp;linkCode=as4&amp;creativeASIN=1933988924&amp;adid=0F1DP260JGG4KY0CDGP6">Amazon.com</a> or
-        <a href="https://www.amazon.co.uk/dp/1933988924?tag=tomasnet-21&amp;camp=1406&amp;creative=6394&amp;linkCode=as1&amp;creativeASIN=1933988924&amp;adid=1CTY87YCCQEJW965GNDF">Amazon.co.uk</a>.
+        <a href="https://www.amazon.com/dp/1933988924?tag=httptomasnet-20&camp=213381&creative=390973&linkCode=as4&creativeASIN=1933988924&adid=0F1DP260JGG4KY0CDGP6">Amazon.com</a> or
+        <a href="https://www.amazon.co.uk/dp/1933988924?tag=tomasnet-21&camp=1406&creative=6394&linkCode=as1&creativeASIN=1933988924&adid=1CTY87YCCQEJW965GNDF">Amazon.co.uk</a>.
       </li>
       <li><a href="http://functional-programming.net/deepdives"><strong>F# Deep Dives</strong></a> home page. Get it from
         <a href="http://www.manning.com/petricek2">Manning.com</a>,
@@ -311,11 +311,11 @@ switch(bestIndex)
   <div class="row" id="footer">
   <footer>   
     <div class="large-3 columns">
-      <h4>Contact &amp; about</h4>
+      <h4>Contact & about</h4>
       <p>This site is hosted on GitHub and is generated using <a href="https://github.com/tpetricek/FSharp.Formatting">F# Formatting</a>.
         For more info, see the <a href="https://github.com/tpetricek/TomaspNet.Website">website source on GitHub</a>.
       </p>
-      <p>Please submit issues &amp; corrections on GitHub. Use pull requests for minor corrections only.</p>
+      <p>Please submit issues & corrections on GitHub. Use pull requests for minor corrections only.</p>
       <ul>
         <li>Email me: <a href="mailto:tomas@tomasp.net">tomas@tomasp.net</a></li>
         <li>Connect via Twitter: <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a></li>

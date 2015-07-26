@@ -22,7 +22,7 @@
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/tooltips.css" />
   <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
-  <meta name="twitter:card" content="summary">
+    <meta name="twitter:card" content="summary">
   <meta name="twitter:creator" content="@tomaspetricek">
   <meta name="twitter:title" content="Dynamic in F#: Reading data from SQL database">
   <meta name="twitter:description" content="In this article we look at working with SQL databases in F# using ADO.NET. We'll see how to use dynamic invoke operator to make the usual ADO.NET code remarkably elegant and simple...">
@@ -84,17 +84,17 @@
   The following example shows what we'll be able to write at the end 
   of this article:</p>
 
-<pre lang="fsharp">
-// Call 'GetProducts' procedure with 'CategoryID' set to 1
-use conn = new DynamicSqlConnection(connectionString)
-use cmd = conn?GetProducts
+<pre>
+<span class="c">// Call 'GetProducts' procedure with 'CategoryID' set to 1</span>
+<span class="k">use</span> conn = <span class="k">new</span> DynamicSqlConnection(connectionString)
+<span class="k">use</span> cmd = conn?GetProducts
 cmd?CategoryID &lt;- 1
 conn.Open()
 
-// Read all products and print their names
-use reader = cmd.ExecuteReader()
-while reader.Read() do
-  printfn "Product: %s" reader?ProductName
+<span class="c">// Read all products and print their names</span>
+<span class="k">use</span> reader = cmd.ExecuteReader()
+<span class="k">while</span> reader.Read() <span class="k">do</span>
+  printfn <span class="s">"Product: %s"</span> reader?ProductName
 </pre>
 
 <p>If you ever tried to call a SQL stored procedure directly using the 
@@ -109,9 +109,9 @@ while reader.Read() do
   a simple photo gallery that contains albums and each album contains some photos.
   When reading photos from the database, we can nicely store them in the following
   F# record type:</p>
-<pre lang="fsharp">
-// Record type that represents photo with caption
-type Photo = 
+<pre>
+<span class="c">// Record type that represents photo with caption</span>
+<span class="k">type</span> Photo = 
   { PhotoID:int 
     PhotoAlbumID:int
     PhotoCaption:string }
@@ -126,25 +126,25 @@ type Photo =
   stored procedure and reads the returned photos. The whole function body is
   wrapped in a sequence expression, so the return type will be <code>seq&lt;Photo&gt;</code>:</p>
 
-<pre lang="fsharp">
-// Function that obtains photos in a specified album from database
-let GetPhotos (albumID:int) = seq { 
-  // Create a command to call SQL stored procedure
-  use conn = new SqlConnection(connectionString)
-  use cmd = new SqlCommand("GetPhotos", conn)
+<pre>
+<span class="c">// Function that obtains photos in a specified album from database</span>
+<span class="k">let</span> GetPhotos (albumID:int) = seq { 
+  <span class="c">// Create a command to call SQL stored procedure</span>
+  <span class="k">use</span> conn = <span class="k">new</span> SqlConnection(connectionString)
+  <span class="k">use</span> cmd = <span class="k">new</span> SqlCommand(<span class="s">"GetPhotos"</span>, conn)
   cmd.CommandType &lt;- CommandType.StoredProcedure
 
-  // Add parameters to the stored procedure call
-  cmd.Parameters.Add(SqlParameter("@AlbumID", albumID)) |&gt; ignore
-  cmd.Parameters.Add(SqlParameter("@IsPublic", true)) |&gt; ignore
+  <span class="c">// Add parameters to the stored procedure call</span>
+  cmd.Parameters.Add(SqlParameter(<span class="s">"@AlbumID"</span>, albumID)) <span class="o">|</span>&gt; ignore
+  cmd.Parameters.Add(SqlParameter(<span class="s">"@IsPublic"</span>, <span class="k">true</span>)) <span class="o">|</span>&gt; ignore
   
-  // Run the command and read results into an F# record
+  <span class="c">// Run the command and read results into an F# record</span>
   conn.Open()
-  use reader = cmd.ExecuteReader()
-  while reader.Read() do
-    yield { PhotoID = unbox (reader.["PhotoID"])
-            PhotoAlbumID = unbox (reader.["AlbumID"])
-            PhotoCaption = unbox (reader.["Caption"])} } 
+  <span class="k">use</span> reader = cmd.ExecuteReader()
+  <span class="k">while</span> reader.Read() <span class="k">do</span>
+    <span class="k">yield</span> { PhotoID = unbox (reader.<span class="o">[</span><span class="s">"PhotoID"</span><span class="o">]</span>)
+            PhotoAlbumID = unbox (reader.<span class="o">[</span><span class="s">"AlbumID"</span><span class="o">]</span>)
+            PhotoCaption = unbox (reader.<span class="o">[</span><span class="s">"Caption"</span><span class="o">]</span>)} } 
 </pre>
 <p>As you can see, we first create an instance of the <code>SqlConnection</code>
   type, then create a new command and set its type to <code>StoredProcedure</code>.
@@ -180,19 +180,19 @@ let GetPhotos (albumID:int) = seq {
   how does it work soon). Once we do this change, we can use <code>?</code>
   to create commands representing SQL procedure calls, to specify parameters
   of the procedure and also to access columns when reading the result:</p>
-<pre lang="fsharp">
-// Function that obtains photos in a specified album from database
-let GetPhotos (albumID:int) = seq { 
-  use conn = new DynamicSqlConnection(connectionString)
-  use cmd = conn?GetPhotos
+<pre>
+<span class="c">// Function that obtains photos in a specified album from database</span>
+<span class="k">let</span> GetPhotos (albumID:int) = seq { 
+  <span class="k">use</span> conn = <span class="k">new</span> DynamicSqlConnection(connectionString)
+  <span class="k">use</span> cmd = conn?GetPhotos
   cmd?AlbumID &lt;- albumID
-  cmd?IsPublic &lt;- true
+  cmd?IsPublic &lt;- <span class="k">true</span>
 
-  // Run the command and read results into an F# record
+  <span class="c">// Run the command and read results into an F# record</span>
   conn.Open()
-  use reader = cmd.ExecuteReader()
-  while (reader.Read()) do
-    yield { PhotoID = reader?PhotoID 
+  <span class="k">use</span> reader = cmd.ExecuteReader()
+  <span class="k">while</span> (reader.Read()) <span class="k">do</span>
+    <span class="k">yield</span> { PhotoID = reader?PhotoID 
             PhotoAlbumID = reader?AlbumID
             PhotoCaption = reader?Caption } } 
 </pre>
@@ -239,14 +239,14 @@ let GetPhotos (albumID:int) = seq {
   results. (Note that the operator must be <code>static</code>, so we need to expose
   the wrapped reader using a <code>private</code> property):</p>
 
-<pre lang="fsharp">
-// SqlDataReader wrapper that provides access to columns 
-// of the result-set using dynamic access operator
-type DynamicSqlDataReader(reader:SqlDataReader) =
-  member private x.Reader = reader
-  member x.Read() = reader.Read
-  // Read the specified column and casts it to the specified type
-  static member (?) (dr:DynamicSqlDataReader, name:string) : 'R = 
+<pre>
+<span class="c">// SqlDataReader wrapper that provides access to columns </span>
+<span class="c">// of the result-set using dynamic access operator</span>
+<span class="k">type</span> DynamicSqlDataReader(reader:SqlDataReader) =
+  <span class="k">member</span> private x.Reader = reader
+  <span class="k">member</span> x.Read() = reader.Read
+  <span class="c">// Read the specified column and casts it to the specified type</span>
+  <span class="k">static</span> <span class="k">member</span> (?) (dr:DynamicSqlDataReader, name:string) : 'R = 
     unbox (dr.Reader.[name])
 </pre>
 
@@ -257,18 +257,18 @@ type DynamicSqlDataReader(reader:SqlDataReader) =
   result). The next wrapper wraps the <code>SqlCommand</code> type and adds a
   support for adding parameters using the <code>?&lt;-</code> operator:</p>
 
-<pre lang="fsharp">
-// SqlCommand wrapper that allows setting properties of a
-// stored procedure using dynamic setter operator
-type DynamicSqlCommand(cmd:SqlCommand) = 
-  member private x.Command = cmd
-  // Adds parameter with the specified name and value
-  static member (?&lt;-) (cmd:DynamicSqlCommand, name:string, value) = 
-    let p = SqlParameter("@" + name, box value)
-    cmd.Command.Parameters.Add(p) |&gt; ignore
-  // Execute command and wrap returned SqlDataReader
-  member x.ExecuteReader() = 
-    new DynamicSqlDataReader(cmd.ExecuteReader())
+<pre>
+<span class="c">// SqlCommand wrapper that allows setting properties of a</span>
+<span class="c">// stored procedure using dynamic setter operator</span>
+<span class="k">type</span> DynamicSqlCommand(cmd:SqlCommand) = 
+  <span class="k">member</span> private x.Command = cmd
+  <span class="c">// Adds parameter with the specified name and value</span>
+  <span class="k">static</span> <span class="k">member</span> (?&lt;-) (cmd:DynamicSqlCommand, name:string, value) = 
+    <span class="k">let</span> p = SqlParameter(<span class="s">"@"</span> + name, box value)
+    cmd.Command.Parameters.Add(p) <span class="o">|</span>&gt; ignore
+  <span class="c">// Execute command and wrap returned SqlDataReader</span>
+  <span class="k">member</span> x.ExecuteReader() = 
+    <span class="k">new</span> DynamicSqlDataReader(cmd.ExecuteReader())
 </pre>
 
 <p>The implementation is again pretty straightforward. Note that we need to 
@@ -283,18 +283,18 @@ type DynamicSqlCommand(cmd:SqlCommand) =
   operator that can be used for creating commands that call SQL stored procedure
   (the returned command is automatically wrapped using the previous type):</p>
 
-<pre lang="fsharp">
-// SqlConnection wrapper that allows creating stored 
-// procedure calls using the dynamic access operator
-type DynamicSqlConnection(connStr:string) =
-  let conn = new SqlConnection(connStr)
-  member private x.Connection = conn
-  member x.Open() = conn.Open()
-  // Creates command that calls the specified stored procedure
-  static member (?) (conn:DynamicSqlConnection, name) = 
-    let command = new SqlCommand(name, conn.Connection)
+<pre>
+<span class="c">// SqlConnection wrapper that allows creating stored </span>
+<span class="c">// procedure calls using the dynamic access operator</span>
+<span class="k">type</span> DynamicSqlConnection(connStr:string) =
+  <span class="k">let</span> conn = <span class="k">new</span> SqlConnection(connStr)
+  <span class="k">member</span> private x.Connection = conn
+  <span class="k">member</span> x.Open() = conn.Open()
+  <span class="c">// Creates command that calls the specified stored procedure</span>
+  <span class="k">static</span> <span class="k">member</span> (?) (conn:DynamicSqlConnection, name) = 
+    <span class="k">let</span> command = <span class="k">new</span> SqlCommand(name, conn.Connection)
     command.CommandType &lt;- CommandType.StoredProcedure
-    new DynamicSqlCommand(command)
+    <span class="k">new</span> DynamicSqlCommand(command)
 </pre>
 
 <p>The type exposes the <code>Open</code> method of the underlying connection and
@@ -303,7 +303,7 @@ type DynamicSqlConnection(connStr:string) =
   <code>DynamicSqlCommand</code> type (so that we can set parameters of the stored
   procedure call).</p>
 
-<h2>Summary &amp; downloads</h2>
+<h2>Summary & downloads</h2>
 <p>In this article, we've seen how to make accessing data using ADO.NET from F# nicer 
   using dynamic operators. This allows us to reduce the number of noise that has to 
   be written in tasks related to data-access such as creating SQL commands, specifying
@@ -409,7 +409,7 @@ type DynamicSqlConnection(connStr:string) =
 
     <h4>Functional F# and C# books</h4>
     <div style="float:right;">
-      <a href="http://www.amazon.com/gp/product/1933988924/ref=as_li_tf_il?ie=UTF8&amp;tag=httptomasnet-20&amp;linkCode=as2&amp;camp=217145&amp;creative=399369&amp;creativeASIN=1933988924">
+      <a href="http://www.amazon.com/gp/product/1933988924/ref=as_li_tf_il?ie=UTF8&tag=httptomasnet-20&linkCode=as2&camp=217145&creative=399369&creativeASIN=1933988924">
         <img src="http://tomasp.net/img/deepdives.png" alt="F# Deep Dives" style="float:right;margin:15px 0px 15px 10px;border-style:none;" />
       </a>
     </div>
@@ -421,8 +421,8 @@ type DynamicSqlConnection(connStr:string) =
     <ul>
       <li><a href="http://functional-programming.net/rwfp"><strong>Real World Functional Programming</strong></a> home page. See
         <a href="http://manning.com/petricek">Manning</a>,
-        <a href="https://www.amazon.com/dp/1933988924?tag=httptomasnet-20&amp;camp=213381&amp;creative=390973&amp;linkCode=as4&amp;creativeASIN=1933988924&amp;adid=0F1DP260JGG4KY0CDGP6">Amazon.com</a> or
-        <a href="https://www.amazon.co.uk/dp/1933988924?tag=tomasnet-21&amp;camp=1406&amp;creative=6394&amp;linkCode=as1&amp;creativeASIN=1933988924&amp;adid=1CTY87YCCQEJW965GNDF">Amazon.co.uk</a>.
+        <a href="https://www.amazon.com/dp/1933988924?tag=httptomasnet-20&camp=213381&creative=390973&linkCode=as4&creativeASIN=1933988924&adid=0F1DP260JGG4KY0CDGP6">Amazon.com</a> or
+        <a href="https://www.amazon.co.uk/dp/1933988924?tag=tomasnet-21&camp=1406&creative=6394&linkCode=as1&creativeASIN=1933988924&adid=1CTY87YCCQEJW965GNDF">Amazon.co.uk</a>.
       </li>
       <li><a href="http://functional-programming.net/deepdives"><strong>F# Deep Dives</strong></a> home page. Get it from
         <a href="http://www.manning.com/petricek2">Manning.com</a>,
@@ -452,11 +452,11 @@ type DynamicSqlConnection(connStr:string) =
   <div class="row" id="footer">
   <footer>   
     <div class="large-3 columns">
-      <h4>Contact &amp; about</h4>
+      <h4>Contact & about</h4>
       <p>This site is hosted on GitHub and is generated using <a href="https://github.com/tpetricek/FSharp.Formatting">F# Formatting</a>.
         For more info, see the <a href="https://github.com/tpetricek/TomaspNet.Website">website source on GitHub</a>.
       </p>
-      <p>Please submit issues &amp; corrections on GitHub. Use pull requests for minor corrections only.</p>
+      <p>Please submit issues & corrections on GitHub. Use pull requests for minor corrections only.</p>
       <ul>
         <li>Email me: <a href="mailto:tomas@tomasp.net">tomas@tomasp.net</a></li>
         <li>Connect via Twitter: <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a></li>

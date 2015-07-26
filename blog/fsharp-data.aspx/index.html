@@ -22,7 +22,7 @@
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/tooltips.css" />
   <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
-  <meta name="twitter:card" content="summary">
+    <meta name="twitter:card" content="summary">
   <meta name="twitter:creator" content="@tomaspetricek">
   <meta name="twitter:title" content="F# Data: New type provider library ">
   <meta name="twitter:description" content="F# Data is a new library that gives you all you need to access data in F# 3.0. It implements type providers for WorldBank, Freebase and structured document formats (CSV, JSON and XML) as well as other helpers. This article introduces the library and gives a quick overview of its features. ">
@@ -129,18 +129,14 @@ F# Data library using <code>#r</code> (in a project file, you would add referenc
 open two namespaces - <code>FSharp.Data</code> with the data-related API and <code>FSharp.Net</code> with a 
 helper type <code>Http</code> for making HTTP requests:</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l">1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="prep">#r</span> <span class="s">&quot;FSharp.Data.dll&quot;</span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="prep">#r</span> <span class="s">&quot;FSharp.Data.dll&quot;</span>
 <span class="k">open</span> <span onmouseout="hideTip(event, 'fs1', 1)" onmouseover="showTip(event, 'fs1', 1)" class="i">FSharp</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs2', 2)" onmouseover="showTip(event, 'fs2', 2)" class="i">Data</span>
 <span class="k">open</span> <span onmouseout="hideTip(event, 'fs1', 3)" onmouseover="showTip(event, 'fs1', 3)" class="i">FSharp</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs3', 4)" onmouseover="showTip(event, 'fs3', 4)" class="i">Net</span>
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -155,18 +151,14 @@ you'll get an instantaneous feedback about the error.</p>
 set. For example, we can look at "Czech Republic" and get the government debt for the
 most recent year (using <code>Seq.maxBy</code> to get value for the most recent year available):</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l">1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs4', 5)" onmouseover="showTip(event, 'fs4', 5)" class="i">wb</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs5', 6)" onmouseover="showTip(event, 'fs5', 6)" class="t">WorldBankData</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs6', 7)" onmouseover="showTip(event, 'fs6', 7)" class="f">GetDataContext</span>()
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs4', 5)" onmouseover="showTip(event, 'fs4', 5)" class="i">wb</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs5', 6)" onmouseover="showTip(event, 'fs5', 6)" class="t">WorldBankData</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs6', 7)" onmouseover="showTip(event, 'fs6', 7)" class="f">GetDataContext</span>()
 <span onmouseout="hideTip(event, 'fs4', 8)" onmouseover="showTip(event, 'fs4', 8)" class="i">wb</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs7', 9)" onmouseover="showTip(event, 'fs7', 9)" class="i">Countries</span><span class="o">.</span><span class="i">``Czech Republic``</span><span class="o">.</span><span class="i">Indicators</span><span class="o">.</span><span class="i">``Central government debt, total (% of GDP)``</span>
 <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs8', 10)" onmouseover="showTip(event, 'fs8', 10)" class="t">Seq</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs9', 11)" onmouseover="showTip(event, 'fs9', 11)" class="f">maxBy</span> <span onmouseout="hideTip(event, 'fs10', 12)" onmouseover="showTip(event, 'fs10', 12)" class="f">fst</span>
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -176,18 +168,14 @@ most recent year (using <code>Seq.maxBy</code> to get value for the most recent 
 type <code>.</code> and explore the data sources available - for example, to look at a list of 
 religions and print first 10:</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l">1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs11', 13)" onmouseover="showTip(event, 'fs11', 13)" class="i">fb</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs12', 14)" onmouseover="showTip(event, 'fs12', 14)" class="t">FreebaseData</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs13', 15)" onmouseover="showTip(event, 'fs13', 15)" class="f">GetDataContext</span>()
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs11', 13)" onmouseover="showTip(event, 'fs11', 13)" class="i">fb</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs12', 14)" onmouseover="showTip(event, 'fs12', 14)" class="t">FreebaseData</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs13', 15)" onmouseover="showTip(event, 'fs13', 15)" class="f">GetDataContext</span>()
 <span class="k">for</span> <span onmouseout="hideTip(event, 'fs14', 16)" onmouseover="showTip(event, 'fs14', 16)" class="i">rel</span> <span class="k">in</span> <span onmouseout="hideTip(event, 'fs11', 17)" onmouseover="showTip(event, 'fs11', 17)" class="i">fb</span><span class="o">.</span><span class="i">Society</span><span class="o">.</span><span class="i">Religion</span><span class="o">.</span><span class="i">Religions</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs8', 18)" onmouseover="showTip(event, 'fs8', 18)" class="t">Seq</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs15', 19)" onmouseover="showTip(event, 'fs15', 19)" class="f">take</span> <span class="n">10</span> <span class="k">do</span>
   <span onmouseout="hideTip(event, 'fs16', 20)" onmouseover="showTip(event, 'fs16', 20)" class="f">printfn</span> <span class="s">&quot;</span><span class="pf">%s</span><span class="s">&quot;</span> <span onmouseout="hideTip(event, 'fs14', 21)" onmouseover="showTip(event, 'fs14', 21)" class="i">rel</span><span class="o">.</span><span class="i">Name</span>
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -198,26 +186,22 @@ file or a string (marked as <code>Literal</code>) with the RSS data. Then you ca
 or file to the provider as a static parameter and you'll get nice types for working with 
 RSS feeds. Here, we get news from BBC using the <code>Http.Request</code> helper:</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l">1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
 <span class="l">4: </span>
 <span class="l">5: </span>
 <span class="l">6: </span>
 <span class="l">7: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="k">let</span> [&lt;<span onmouseout="hideTip(event, 'fs17', 22)" onmouseover="showTip(event, 'fs17', 22)" class="t">Literal</span>&gt;] <span onmouseout="hideTip(event, 'fs18', 23)" onmouseover="showTip(event, 'fs18', 23)" class="i">RssSample</span> <span class="o">=</span> <span id="fst19" onmouseout="hideTip(event, 'fs19', 24)" onmouseover="showTip(event, 'fs19', 24, document.getElementById('fst19'))" class="omitted">(Sample RSS feed omitted)</span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> [&lt;<span onmouseout="hideTip(event, 'fs17', 22)" onmouseover="showTip(event, 'fs17', 22)" class="t">Literal</span>&gt;] <span onmouseout="hideTip(event, 'fs18', 23)" onmouseover="showTip(event, 'fs18', 23)" class="i">RssSample</span> <span class="o">=</span> <span id="fst19" onmouseout="hideTip(event, 'fs19', 24)" onmouseover="showTip(event, 'fs19', 24, document.getElementById('fst19'))" class="omitted">(Sample RSS feed omitted)</span>
 <span class="k">type</span> <span onmouseout="hideTip(event, 'fs20', 25)" onmouseover="showTip(event, 'fs20', 25)" class="t">Rss</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs21', 26)" onmouseover="showTip(event, 'fs21', 26)" class="t">XmlProvider</span><span class="o">&lt;</span><span onmouseout="hideTip(event, 'fs18', 27)" onmouseover="showTip(event, 'fs18', 27)" class="i">RssSample</span><span class="o">&gt;</span>
 
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs22', 28)" onmouseover="showTip(event, 'fs22', 28)" class="i">feed</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs20', 29)" onmouseover="showTip(event, 'fs20', 29)" class="t">Rss</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs23', 30)" onmouseover="showTip(event, 'fs23', 30)" class="f">Parse</span>(<span onmouseout="hideTip(event, 'fs24', 31)" onmouseover="showTip(event, 'fs24', 31)" class="t">Http</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs25', 32)" onmouseover="showTip(event, 'fs25', 32)" class="f">Request</span>(<span class="s">&quot;http://feeds.bbci.co.uk/news/rss.xml&quot;</span>))
 <span onmouseout="hideTip(event, 'fs16', 33)" onmouseover="showTip(event, 'fs16', 33)" class="f">printfn</span>  <span class="s">&quot;</span><span class="pf">%s</span><span class="s">&quot;</span> <span onmouseout="hideTip(event, 'fs22', 34)" onmouseover="showTip(event, 'fs22', 34)" class="i">feed</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs26', 35)" onmouseover="showTip(event, 'fs26', 35)" class="i">Channel</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs27', 36)" onmouseover="showTip(event, 'fs27', 36)" class="i">Title</span>
 <span class="k">for</span> <span onmouseout="hideTip(event, 'fs28', 37)" onmouseover="showTip(event, 'fs28', 37)" class="i">item</span> <span class="k">in</span> <span onmouseout="hideTip(event, 'fs22', 38)" onmouseover="showTip(event, 'fs22', 38)" class="i">feed</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs26', 39)" onmouseover="showTip(event, 'fs26', 39)" class="i">Channel</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs29', 40)" onmouseover="showTip(event, 'fs29', 40)" class="f">GetItems</span>() <span class="k">do</span>
   <span onmouseout="hideTip(event, 'fs16', 41)" onmouseover="showTip(event, 'fs16', 41)" class="f">printfn</span> <span class="s">&quot; - </span><span class="pf">%s</span><span class="s">&quot;</span> <span onmouseout="hideTip(event, 'fs28', 42)" onmouseover="showTip(event, 'fs28', 42)" class="i">item</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs30', 43)" onmouseover="showTip(event, 'fs30', 43)" class="i">Title</span>
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -229,18 +213,14 @@ that we only want to use first 10 rows for the inference (for performance reason
 provider infers column names and types. Here is how you calculate the average MSFT stock 
 price over the entire history:</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l">1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="k">type</span> <span onmouseout="hideTip(event, 'fs31', 44)" onmouseover="showTip(event, 'fs31', 44)" class="t">Stocks</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs32', 45)" onmouseover="showTip(event, 'fs32', 45)" class="t">CsvProvider</span><span class="o">&lt;</span><span class="s">&quot;data/fsharp-data/MSFT.csv&quot;</span>, <span class="i">InferRows</span><span class="o">=</span><span class="n">10</span><span class="o">&gt;</span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">type</span> <span onmouseout="hideTip(event, 'fs31', 44)" onmouseover="showTip(event, 'fs31', 44)" class="t">Stocks</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs32', 45)" onmouseover="showTip(event, 'fs32', 45)" class="t">CsvProvider</span><span class="o">&lt;</span><span class="s">&quot;data/fsharp-data/MSFT.csv&quot;</span>, <span class="i">InferRows</span><span class="o">=</span><span class="n">10</span><span class="o">&gt;</span>
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs33', 46)" onmouseover="showTip(event, 'fs33', 46)" class="i">msft</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs31', 47)" onmouseover="showTip(event, 'fs31', 47)" class="t">Stocks</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs34', 48)" onmouseover="showTip(event, 'fs34', 48)" class="f">Load</span>(<span class="s">&quot;http://ichart.finance.yahoo.com/table.csv?s=MSFT&quot;</span>)
 <span onmouseout="hideTip(event, 'fs33', 49)" onmouseover="showTip(event, 'fs33', 49)" class="i">msft</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs35', 50)" onmouseover="showTip(event, 'fs35', 50)" class="i">Data</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs8', 51)" onmouseover="showTip(event, 'fs8', 51)" class="t">Seq</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs36', 52)" onmouseover="showTip(event, 'fs36', 52)" class="f">averageBy</span> (<span class="k">fun</span> <span onmouseout="hideTip(event, 'fs37', 53)" onmouseover="showTip(event, 'fs37', 53)" class="i">row</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs37', 54)" onmouseover="showTip(event, 'fs37', 54)" class="i">row</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs38', 55)" onmouseover="showTip(event, 'fs38', 55)" class="i">Open</span>)
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -252,8 +232,7 @@ defining a string <code>Literal</code> with sample JSON and passing it to <code>
 data, we use <code>Http.Request</code>, but this time we specify <code>Content-Type</code> header. Working
 with the results is, again, done in a nice typed way:</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l"> 1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
 <span class="l"> 4: </span>
@@ -264,10 +243,8 @@ with the results is, again, done in a nice typed way:</p>
 <span class="l"> 9: </span>
 <span class="l">10: </span>
 <span class="l">11: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="k">let</span> [&lt;<span onmouseout="hideTip(event, 'fs17', 56)" onmouseover="showTip(event, 'fs17', 56)" class="t">Literal</span>&gt;] <span onmouseout="hideTip(event, 'fs39', 57)" onmouseover="showTip(event, 'fs39', 57)" class="i">FsSnipNewsSample</span> <span class="o">=</span> <span id="fst40" onmouseout="hideTip(event, 'fs40', 58)" onmouseover="showTip(event, 'fs40', 58, document.getElementById('fst40'))" class="omitted">(Sample JSON with snippet data omitted)</span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> [&lt;<span onmouseout="hideTip(event, 'fs17', 56)" onmouseover="showTip(event, 'fs17', 56)" class="t">Literal</span>&gt;] <span onmouseout="hideTip(event, 'fs39', 57)" onmouseover="showTip(event, 'fs39', 57)" class="i">FsSnipNewsSample</span> <span class="o">=</span> <span id="fst40" onmouseout="hideTip(event, 'fs40', 58)" onmouseover="showTip(event, 'fs40', 58, document.getElementById('fst40'))" class="omitted">(Sample JSON with snippet data omitted)</span>
 <span class="k">type</span> <span onmouseout="hideTip(event, 'fs41', 59)" onmouseover="showTip(event, 'fs41', 59)" class="t">FsSnipNews</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs42', 60)" onmouseover="showTip(event, 'fs42', 60)" class="t">JsonProvider</span><span class="o">&lt;</span><span onmouseout="hideTip(event, 'fs39', 61)" onmouseover="showTip(event, 'fs39', 61)" class="i">FsSnipNewsSample</span><span class="o">&gt;</span>
 
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs43', 62)" onmouseover="showTip(event, 'fs43', 62)" class="i">data</span> <span class="o">=</span> 
@@ -278,8 +255,7 @@ with the results is, again, done in a nice typed way:</p>
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs44', 65)" onmouseover="showTip(event, 'fs44', 65)" class="i">res</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs41', 66)" onmouseover="showTip(event, 'fs41', 66)" class="t">FsSnipNews</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs45', 67)" onmouseover="showTip(event, 'fs45', 67)" class="f">Parse</span>(<span onmouseout="hideTip(event, 'fs43', 68)" onmouseover="showTip(event, 'fs43', 68)" class="i">data</span>)
 <span class="k">for</span> <span onmouseout="hideTip(event, 'fs46', 69)" onmouseover="showTip(event, 'fs46', 69)" class="i">snippet</span> <span class="k">in</span> <span onmouseout="hideTip(event, 'fs44', 70)" onmouseover="showTip(event, 'fs44', 70)" class="i">res</span> <span class="k">do</span>
   <span onmouseout="hideTip(event, 'fs16', 71)" onmouseover="showTip(event, 'fs16', 71)" class="f">printfn</span> <span class="s">&quot; - </span><span class="pf">%s</span><span class="s">&quot;</span> <span onmouseout="hideTip(event, 'fs46', 72)" onmouseover="showTip(event, 'fs46', 72)" class="i">snippet</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs47', 73)" onmouseover="showTip(event, 'fs47', 73)" class="i">Title</span>
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 

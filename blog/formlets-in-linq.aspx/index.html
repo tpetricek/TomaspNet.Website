@@ -22,7 +22,7 @@
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/tooltips.css" />
   <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
-  <meta name="twitter:card" content="summary">
+    <meta name="twitter:card" content="summary">
   <meta name="twitter:creator" content="@tomaspetricek">
   <meta name="twitter:title" content="Beyond the Monad fashion (II.): Creating web forms with LINQ">
   <meta name="twitter:description" content="Formlets are elegant functional abstraction for describing web forms encapsulating both rendering and functionality. In this article, we look how to write formlets in C#. Although formlets are not monads, we can still use elegant LINQ syntax. Interestingly, using the join clause...">
@@ -109,11 +109,11 @@
 <p>Let's look how to model the two aspects using a simple F# type and we'll look at actual C# implementation later.
   To get some intuition about formlets, you can take a look at the diagram on the right.
   The two aspects of formlets can be modeled as two separate functions. For simplicity, we group them in a record:</p>
-<pre lang="fsharp" style="margin-right:170px">
-type Formlet&lt;'T&gt; = 
-  { // Takes counter and generates XML together with new counter
+<pre style="margin-right:170px">
+<span class="k">type</span> Formlet&lt;'T&gt; = 
+  { <span class="c">// Takes counter and generates XML together with new counter</span>
     Render   : int -&gt; XElement * int
-    // Takes counter and form values and generates result with new counter
+    <span class="c">// Takes counter and form values and generates result with new counter</span>
     Evaluate : int * NameValueCollection -&gt; 'T * int }
 </pre>
 <p>The first function is used to render the formlet. When the page is loaded for the first time, we don't
@@ -132,11 +132,11 @@ type Formlet&lt;'T&gt; =
   <code>Formlet.Input(label)</code> that generates <code>&lt;input&gt;</code> with a specified label)
   and we want to compose them. When composing formlets, the second formlet must not depend on the value
   produced by the first formlet. Using nested <code>from</code> clauses in LINQ (or using monads), we could write:</p>
-<pre lang="csharp">
-Formlet&lt;DateTime&gt; dateFormlet = 
-  from day in Formlet.Input("Enter day:")
-  from month in Formlet.Input("Enter month (selected day is {0}):", day)
-  select new DateTime(day, month, 2011); 
+<pre>
+Formlet&lt;DateTime&gt; dateFormlet <span class="o">=</span> 
+  <span class="k">from</span> day <span class="k">in</span> Formlet.Input(<span class="s">"Enter day:"</span>)
+  <span class="k">from</span> month <span class="k">in</span> Formlet.Input(<span class="s">"Enter month (selected day is {0}):"</span>, day)
+  <span class="k">select</span> <span class="k">new</span> DateTime(day, month, 2011); 
 </pre>
 <p>The tricky thing in the snippet above is that we're using the variable <code>day</code> (representing
   value obtained from the first input) when creating the second input. If you think about it,
@@ -171,21 +171,21 @@ Formlet&lt;DateTime&gt; dateFormlet =
 
 <p>The following LINQ snippet creates the form shown on the screenshot at the beginning of the article:</p>
 
-<pre lang="csharp">
-Formlet&lt;DateTime&gt; dateSelector =
-  from day in Formlet.DropDownRange(1, 31)
-  join month in Formlet.DropDown(monthNames) on 1 equals 1
-  let monthNum = Int32.Parse(month)
-  join year in Formlet.DropDownRange(1960, 50) on 1 equals 1
-  select new DateTime(year, monthNum, day);
+<pre>
+Formlet&lt;DateTime&gt; dateSelector <span class="o">=</span>
+  <span class="k">from</span> day <span class="k">in</span> Formlet.DropDownRange(1, 31)
+  <span class="k">join</span> month <span class="k">in</span> Formlet.DropDown(monthNames) <span class="k">on</span> 1 <span class="k">equals</span> 1
+  <span class="k">let</span> monthNum <span class="o">=</span> Int32.Parse(month)
+  <span class="k">join</span> year <span class="k">in</span> Formlet.DropDownRange(1960, 50) <span class="k">on</span> 1 <span class="k">equals</span> 1
+  <span class="k">select</span> <span class="k">new</span> DateTime(year, monthNum, day);
 
-Formlet&lt;Booking&gt; formlet =
-  from name in Formlet.Input()
-  join o1 in Formlet.Tag("br") on 1 equals 1
-  join departureDate in dateSelector on 1 equals 1
-  join o2 in Formlet.Tag("br") on 1 equals 1
-  join returnDate in dateSelector on 1 equals 1
-  select new Booking { Name = name, Departure = departureDate, Return = returnDate };
+Formlet&lt;Booking&gt; formlet <span class="o">=</span>
+  <span class="k">from</span> name <span class="k">in</span> Formlet.Input()
+  <span class="k">join</span> o1 <span class="k">in</span> Formlet.Tag(<span class="s">"br"</span>) <span class="k">on</span> 1 <span class="k">equals</span> 1
+  <span class="k">join</span> departureDate <span class="k">in</span> dateSelector <span class="k">on</span> 1 <span class="k">equals</span> 1
+  <span class="k">join</span> o2 <span class="k">in</span> Formlet.Tag(<span class="s">"br"</span>) <span class="k">on</span> 1 <span class="k">equals</span> 1
+  <span class="k">join</span> returnDate <span class="k">in</span> dateSelector <span class="k">on</span> 1 <span class="k">equals</span> 1
+  <span class="k">select</span> <span class="k">new</span> Booking { Name <span class="o">=</span> name, Departure <span class="o">=</span> departureDate, Return <span class="o">=</span> returnDate };
 </pre>
 
 <p>The first expression creates a formlet that can be used for entering dates. It renders three drop-down
@@ -214,12 +214,12 @@ Formlet&lt;Booking&gt; formlet =
   into a single one that produces tuple containing values produced by both. <code>Select</code> gives
   us a way to apply some calculation to transform the carried value:</p>
 
-<pre lang="csharp">
-Formlet&lt;DateTime&gt; dateSelector =
+<pre>
+Formlet&lt;DateTime&gt; dateSelector <span class="o">=</span>
   Formlet.DropDownRange(1, 31).Merge
     (Formlet.DropDown(monthNames).Select(Int32.Parse)).Merge
-    (Formlet.DropDownRange(1960, 50)).Select(tup =>
-  new DateTime(tup.Item1.Item1, tup.Item1.Item2, tup.Item2));
+    (Formlet.DropDownRange(1960, 50)).Select(tup <span class="o">=</span><span class="o">&gt;</span>
+  <span class="k">new</span> DateTime(tup.Item1.Item1, tup.Item1.Item2, tup.Item2));
 </pre>
 
 <p>The snippet composes three formlets using <code>Merge</code>. The first and the third formlets are
@@ -236,14 +236,14 @@ Formlet&lt;DateTime&gt; dateSelector =
   formlet. To do this, we can simply assign the formlet to the <code>Model</code> property of the
   page. The ASP.NET markup for rendering the formlet looks like this:
 </p>
-<pre lang="aspx">
-&lt;%@ Page Language="C#" Inherits="ViewPage&lt;Formlet&lt;Booking&gt;&gt;" %&gt;
+<pre>
+<span class="o">&lt;</span>%@ Page Language="C#" Inherits="ViewPage<span class="o">&lt;</span>Formlet<span class="o">&lt;</span>Booking<span class="o">&gt;</span><span class="o">&gt;</span>" %<span class="o">&gt;</span>
 
-&lt;!-- Standard HTML markup --&gt;  
-&lt;% using (Html.BeginForm("Booking", "Home")) { %&gt;
-  &lt;%= Model.Render() %&gt;
-  &lt;input type="submit" value="Submit" /&gt;
-&lt;% } %&gt;
+<span class="o">&lt;</span>!-- Standard HTML markup --<span class="o">&gt;</span>  
+<span class="o">&lt;</span>% using (Html.BeginForm("Booking", "Home")) { %<span class="o">&gt;</span>
+  <span class="o">&lt;</span>%= Model.Render() %<span class="o">&gt;</span>
+  <span class="o">&lt;</span>input type="submit" value="Submit" /<span class="o">&gt;</span>
+<span class="o">&lt;</span>% } %<span class="o">&gt;</span>
 </pre>
 
 <p>In the <code>@ Page</code> directive, we specify that the model of the page is a formlet,
@@ -259,9 +259,9 @@ Formlet&lt;DateTime&gt; dateSelector =
   of generated HTML elements are stored in <code>Request.Form</code> (which is a 
   <code>NameValueCollection</code>). We can call <code>Evaluate</code> method of the formlet
   as follows:</p>
-<pre lang="csharp">
-Booking res = formlet.Evaluate(Request.Form);
-ViewData.Model = res;
+<pre>
+Booking res <span class="o">=</span> formlet.Evaluate(Request.Form);
+ViewData.Model <span class="o">=</span> res;
 </pre>
 
 <p>In the C# code of the page, we can use the <code>Evaluate</code> method. Just like in the
@@ -289,27 +289,27 @@ ViewData.Model = res;
   and produces <code>FormletResult&lt;T&gt;</code>. The result consists of a rendered XML
   and a function that can be used (when evaluating) to turn form inputs into a value
   (I'm using <code>Environment</code> as an alias for <code>NameValueCollection</code>):</p>
-<pre lang="csharp">
-class FormletResult&lt;T&gt; {
-  // Rendered form stored as a list of XML elements
-  public IEnumerable&lt;XNode&gt; Elements { get; set; }
-  // Function (created by formlet) for processing form inputs
-  public Func&lt;Environment, T&gt; Collector { get; set; }
-  // Counter value after processing the formlet
-  public int Counter { get; set; }
+<pre>
+<span class="k">class</span> FormletResult&lt;T&gt; {
+  <span class="c">// Rendered form stored as a list of XML elements</span>
+  <span class="k">public</span> IEnumerable&lt;XNode&gt; Elements { get; set; }
+  <span class="c">// Function (created by formlet) for processing form inputs</span>
+  <span class="k">public</span> Func&lt;Environment, T&gt; Collector { get; set; }
+  <span class="c">// Counter value after processing the formlet</span>
+  <span class="k">public</span> <span class="k">int</span> Counter { get; set; }
 }
 
-class Formlet&lt;T&gt; {
-  // Function that runs the formlet when given an 'int' value
-  public Func&lt;int, FormletResult&lt;T&gt;&gt; Func { get; set; }
+<span class="k">class</span> Formlet&lt;T&gt; {
+  <span class="c">// Function that runs the formlet when given an 'int' value</span>
+  <span class="k">public</span> Func&lt;<span class="k">int</span>, FormletResult&lt;T&gt;&gt; Func { get; set; }
   
-  // Phase 1: Use formlet to create HTML of a form  
-  public XDocument Render() {
-    return new XDocument(new XElement("div", Func(0).Elements));
+  <span class="c">// Phase 1: Use formlet to create HTML of a form  </span>
+  <span class="k">public</span> XDocument Render() {
+    <span class="k">return</span> <span class="k">new</span> XDocument(<span class="k">new</span> XElement(<span class="s">"div"</span>, Func(0).Elements));
   }
-  // Phase 2: Use formlet to process form inputs
-  public T Evaluate(Environment env) {
-    return Func(0).Collector(env);
+  <span class="c">// Phase 2: Use formlet to process form inputs</span>
+  <span class="k">public</span> T Evaluate(Environment env) {
+    <span class="k">return</span> Func(0).Collector(env);
   }
 }
 </pre>
@@ -339,14 +339,14 @@ class Formlet&lt;T&gt; {
   such as <code>Formlet.Input()</code> need to be created explicitly. This is also a good way to 
   understand how formlets work:</p>
 
-<pre lang="csharp">
-public static Formlet&lt;string&gt; Input() {
-  return Formlet.Create(counter =&gt; new FormletResult&lt;string&gt; {
-    Elements = new List&lt;XElement&gt; {
-      new XElement("input", new XAttribute("name", "frmel" + counter))
+<pre>
+<span class="k">public</span> <span class="k">static</span> Formlet&lt;<span class="k">string</span>&gt; Input() {
+  <span class="k">return</span> Formlet.Create(counter <span class="o">=</span>&gt; <span class="k">new</span> FormletResult&lt;<span class="k">string</span>&gt; {
+    Elements <span class="o">=</span> <span class="k">new</span> List&lt;XElement&gt; {
+      <span class="k">new</span> XElement(<span class="s">"input"</span>, <span class="k">new</span> XAttribute(<span class="s">"name"</span>, <span class="s">"frmel"</span> <span class="o">+</span> counter))
     },
-    Counter = counter + 1
-    Collector = env =&gt; env["frmel" + counter],
+    Counter <span class="o">=</span> counter <span class="o">+</span> 1
+    Collector <span class="o">=</span> env <span class="o">=</span>&gt; env[<span class="s">"frmel"</span> <span class="o">+</span> counter],
   });
 }
 </pre>
@@ -373,33 +373,33 @@ public static Formlet&lt;string&gt; Input() {
   Once we have the types, writing the actual implementation is quite easy (I omitted the
   <code>Return</code> operation, because it isn't particularly useful for formlets):</p>
 
-<pre lang="csharp">
-// Create formlet that composes two formlets. The formlets are rendered
-// in in sequence and their values are merged into a tuple.
-public static Formlet&lt;Tuple&lt;T1, T2&gt;&gt; Merge&lt;T1, T2&gt;
-    (this Formlet&lt;T1&gt; first, Formlet&lt;T2&gt; second) {
-  return Formlet.Create(i =&gt; {
-    var v1 = first.Func(i);
-    var v2 = second.Func(v1.Counter);
-    return new FormletResult&lt;Tuple&lt;T1, T2&gt;&gt; {
-      Elements = Enumerable.Concat(v1.Elements, v2.Elements),
-      Collector = env =&gt; 
+<pre>
+<span class="c">// Create formlet that composes two formlets. The formlets are rendered</span>
+<span class="c">// in in sequence and their values are merged into a tuple.</span>
+<span class="k">public</span> <span class="k">static</span> Formlet&lt;Tuple&lt;T1, T2&gt;&gt; Merge&lt;T1, T2&gt;
+    (<span class="k">this</span> Formlet&lt;T1&gt; first, Formlet&lt;T2&gt; second) {
+  <span class="k">return</span> Formlet.Create(i <span class="o">=</span>&gt; {
+    <span class="k">var</span> v1 <span class="o">=</span> first.Func(i);
+    <span class="k">var</span> v2 <span class="o">=</span> second.Func(v1.Counter);
+    <span class="k">return</span> <span class="k">new</span> FormletResult&lt;Tuple&lt;T1, T2&gt;&gt; {
+      Elements <span class="o">=</span> Enumerable.Concat(v1.Elements, v2.Elements),
+      Collector <span class="o">=</span> env <span class="o">=</span>&gt; 
         Tuple.Create(v1.Collector(env), v2.Collector(env)),
-      Counter = v2.Counter
+      Counter <span class="o">=</span> v2.Counter
     };
   });
 }
 
-// Create formlet that transforms value created by the original formlet;
-// rendering just returns elements of the original formlet.
-public static Formlet&lt;R&gt; Select&lt;T, R&gt;
-    (this Formlet&lt;T&gt; source, Func&lt;T, R&gt; func) {
-  return Formlet.Create(i =&gt; {
-    var value = source.Func(i);
-    return new FormletResult&lt;R&gt; {
-      Elements = value.Elements,
-      Collector = env =&gt; func(value.Collector(env)),
-      Counter = value.Counter
+<span class="c">// Create formlet that transforms value created by the original formlet;</span>
+<span class="c">// rendering just returns elements of the original formlet.</span>
+<span class="k">public</span> <span class="k">static</span> Formlet&lt;R&gt; Select&lt;T, R&gt;
+    (<span class="k">this</span> Formlet&lt;T&gt; source, Func&lt;T, R&gt; func) {
+  <span class="k">return</span> Formlet.Create(i <span class="o">=</span>&gt; {
+    <span class="k">var</span> <span class="k">value</span> <span class="o">=</span> source.Func(i);
+    <span class="k">return</span> <span class="k">new</span> FormletResult&lt;R&gt; {
+      Elements <span class="o">=</span> <span class="k">value</span>.Elements,
+      Collector <span class="o">=</span> env <span class="o">=</span>&gt; func(<span class="k">value</span>.Collector(env)),
+      Counter <span class="o">=</span> <span class="k">value</span>.Counter
     };
   });
 }
@@ -440,7 +440,7 @@ public static Formlet&lt;R&gt; Select&lt;T, R&gt;
   using different rules than nested <code>from</code> clauses (usually used for monads).</p>
 
 <a name="csformletsl"></a>
-<h2>References &amp; Downloads</h2>
+<h2>References & Downloads</h2>
 <ul>
   <li>Browse the <a href="https://github.com/tpetricek/Documents/tree/master/Blog%202011/Formlets%20using%20LINQ">source on GitHub</a> or download sample project as a <a href="https://github.com/tpetricek/Documents/raw/master/Blog%202011/Formlets%20using%20LINQ/formlets.zip">ZIP file</a>.</li>
 </ul>
@@ -535,7 +535,7 @@ public static Formlet&lt;R&gt; Select&lt;T, R&gt;
 
     <h4>Functional F# and C# books</h4>
     <div style="float:right;">
-      <a href="http://www.amazon.com/gp/product/1933988924/ref=as_li_tf_il?ie=UTF8&amp;tag=httptomasnet-20&amp;linkCode=as2&amp;camp=217145&amp;creative=399369&amp;creativeASIN=1933988924">
+      <a href="http://www.amazon.com/gp/product/1933988924/ref=as_li_tf_il?ie=UTF8&tag=httptomasnet-20&linkCode=as2&camp=217145&creative=399369&creativeASIN=1933988924">
         <img src="http://tomasp.net/img/deepdives.png" alt="F# Deep Dives" style="float:right;margin:15px 0px 15px 10px;border-style:none;" />
       </a>
     </div>
@@ -547,8 +547,8 @@ public static Formlet&lt;R&gt; Select&lt;T, R&gt;
     <ul>
       <li><a href="http://functional-programming.net/rwfp"><strong>Real World Functional Programming</strong></a> home page. See
         <a href="http://manning.com/petricek">Manning</a>,
-        <a href="https://www.amazon.com/dp/1933988924?tag=httptomasnet-20&amp;camp=213381&amp;creative=390973&amp;linkCode=as4&amp;creativeASIN=1933988924&amp;adid=0F1DP260JGG4KY0CDGP6">Amazon.com</a> or
-        <a href="https://www.amazon.co.uk/dp/1933988924?tag=tomasnet-21&amp;camp=1406&amp;creative=6394&amp;linkCode=as1&amp;creativeASIN=1933988924&amp;adid=1CTY87YCCQEJW965GNDF">Amazon.co.uk</a>.
+        <a href="https://www.amazon.com/dp/1933988924?tag=httptomasnet-20&camp=213381&creative=390973&linkCode=as4&creativeASIN=1933988924&adid=0F1DP260JGG4KY0CDGP6">Amazon.com</a> or
+        <a href="https://www.amazon.co.uk/dp/1933988924?tag=tomasnet-21&camp=1406&creative=6394&linkCode=as1&creativeASIN=1933988924&adid=1CTY87YCCQEJW965GNDF">Amazon.co.uk</a>.
       </li>
       <li><a href="http://functional-programming.net/deepdives"><strong>F# Deep Dives</strong></a> home page. Get it from
         <a href="http://www.manning.com/petricek2">Manning.com</a>,
@@ -578,11 +578,11 @@ public static Formlet&lt;R&gt; Select&lt;T, R&gt;
   <div class="row" id="footer">
   <footer>   
     <div class="large-3 columns">
-      <h4>Contact &amp; about</h4>
+      <h4>Contact & about</h4>
       <p>This site is hosted on GitHub and is generated using <a href="https://github.com/tpetricek/FSharp.Formatting">F# Formatting</a>.
         For more info, see the <a href="https://github.com/tpetricek/TomaspNet.Website">website source on GitHub</a>.
       </p>
-      <p>Please submit issues &amp; corrections on GitHub. Use pull requests for minor corrections only.</p>
+      <p>Please submit issues & corrections on GitHub. Use pull requests for minor corrections only.</p>
       <ul>
         <li>Email me: <a href="mailto:tomas@tomasp.net">tomas@tomasp.net</a></li>
         <li>Connect via Twitter: <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a></li>

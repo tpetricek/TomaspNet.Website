@@ -22,7 +22,7 @@
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/tooltips.css" />
   <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
-  <meta name="twitter:card" content="summary">
+    <meta name="twitter:card" content="summary">
   <meta name="twitter:creator" content="@tomaspetricek">
   <meta name="twitter:title" content="F# Overview (II.) - Functional Programming">
   <meta name="twitter:description" content="In the second part of the F# overview we will look at functional programming, which is probably the most important paradigm used with the F# language, because F# is built on the same grounds as many functional languages.">
@@ -77,7 +77,7 @@
 <p>The F# interactive can be either used from Visual Studio or by running the <code>fsi.exe</code> from the F# installation
   directory. In the whole article series we will also use the F# lightweight syntax, which makes the code white-space sensitive,
   but simplifies many of the syntactical rules. To enable the lightweight syntax enter the following command in the FSI:</p> 
-<pre lang="fsharp">&gt; #light;;</pre>  
+<pre>&gt; <span class="prep">#light</span>;;</pre>  
 <p>The double semicolon is used as the end of the FSI input and sends the entered text to the compiler. This allows us
   to enter multiple lines of code in a single command. With a few exceptions (mostly when showing a declaration of a complex
   type) all the code samples in this article are written as commands for FSI including the double semicolon and the result
@@ -87,13 +87,13 @@
 
 <h3>Tuples</h3>
 <p>The first example demonstrates constructing and deconstructing a tuple type. Tuple is a simple type that groups together two or more values of possibly different types. It is important to note that the length of the tuple is known at compile time, so we can for example create a tuple with two elements of types <code>int</code> and <code>string</code>:</p>
-<pre lang="fsharp">
-&gt; let tuple = (42, "Hello world!");;
-val tuple : int * string
+<pre>
+&gt; <span class="k">let</span> tuple = (42, <span class="s">"Hello world!"</span>);;
+<span class="k">val</span> tuple : int * string
 
-&gt; let (num, str) = tuple;;
-val num : int
-val str : string</pre>
+&gt; <span class="k">let</span> (num, str) = tuple;;
+<span class="k">val</span> num : int
+<span class="k">val</span> str : string</pre>
 
 <p>As you can see, the compiler deduced a type of the expression that is present on the right side of the
   equals sign and the F# interactive printed the type, so we can review it. In this example the type of 
@@ -122,35 +122,35 @@ val str : string</pre>
   a data type that store one of several possible options (where the options are well known when writing the code).
   One common example of data type that can be represented using discriminated unions is an <em>abstract syntax tree</em>
   (i.e. an expression in some programming language):</p>
-<pre lang="fsharp">
-&gt; // Declaration of the 'Expr' type
-  type Expr = 
-  | Binary   of string * Expr * Expr
-  | Variable of string 
-  | Constant of int;;
+<pre>
+&gt; <span class="c">// Declaration of the 'Expr' type</span>
+  <span class="k">type</span> Expr = 
+  <span class="o">|</span> Binary   <span class="k">of</span> string * Expr * Expr
+  <span class="o">|</span> Variable <span class="k">of</span> string 
+  <span class="o">|</span> Constant <span class="k">of</span> int;;
 (...)
 
-&gt; // Create a value 'v' representing 'x + 10'
-  let v = Binary("+", Variable "x", Constant 10);;
-val v : Expr</pre>
+&gt; <span class="c">// Create a value 'v' representing 'x + 10'</span>
+  <span class="k">let</span> v = Binary(<span class="s">"+"</span>, Variable <span class="s">"x"</span>, Constant 10);;
+<span class="k">val</span> v : Expr</pre>
 <p>To work with the values of a discriminated union type, we can again use pattern matching. In this case we use the <code>match</code> 
   language construct, which can be used for testing a value against several possible patterns – in case of the <code>Expr</code> type, 
   the possible options are determined by all identifiers used when declaring the type (these are called <em>constructors</em>), 
   namely <code>Binary</code>, <code>Variable</code> and <code>Constant</code>. The following example declares a function <code>eval</code>, 
   which evaluates the given expression (assuming that <code>getVariableValue</code> is a function that returns a value of variable):</p>
-<pre lang="fsharp">
-&gt; let rec eval x =
-    match x with
-    | Binary(op, l, r) -&gt;
-        let (lv, rv) = (eval l, eval r)
-        if   (op = "+") then lv + rv 
-        elif (op = "-") then lv - rv 
-        else failwith "Unknonw operator!"
-    | Variable(var) -&gt; 
+<pre>
+&gt; <span class="k">let</span> <span class="k">rec</span> eval x =
+    <span class="k">match</span> x <span class="k">with</span>
+    <span class="o">|</span> Binary(op, l, r) -&gt;
+        <span class="k">let</span> (lv, rv) = (eval l, eval r)
+        <span class="k">if</span>   (op = <span class="s">"+"</span>) <span class="k">then</span> lv + rv 
+        elif (op = <span class="s">"-"</span>) <span class="k">then</span> lv - rv 
+        <span class="k">else</span> failwith <span class="s">"Unknonw operator!"</span>
+    <span class="o">|</span> Variable(var) -&gt; 
         getVariableValue var
-    | Constant(n) -&gt;
+    <span class="o">|</span> Constant(n) -&gt;
         n;;
-val eval : Expr -&gt; int</pre>
+<span class="k">val</span> eval : Expr -&gt; int</pre>
 
 <p>When declaring a function we can use the <code>let</code> keyword that is used for binding a value to a name.
   I don’t use a term <em>variable</em> known from other programming languages for a reason that will be explained
@@ -170,23 +170,23 @@ val eval : Expr -&gt; int</pre>
   which can be accessed using a dot-notation and as mentioned earlier it is good to use this type when it would be
   difficult to understand what the members in a tuple represent. One more difference between a record type and 
   a tuple is that records have to be declared in advance using a <code>type</code> construct:</p>
-<pre lang="fsharp">
-&gt; // Declaration of a record type
-  type Product = 
+<pre>
+&gt; <span class="c">// Declaration of a record type</span>
+  <span class="k">type</span> Product = 
     { Name:string
       Price:int };;
 (...)
 
-&gt; // Constructing a value of the 'Product' type
-  let p = { Name="Test"; Price=42; };;
-val p : Product
+&gt; <span class="c">// Constructing a value of the 'Product' type</span>
+  <span class="k">let</span> p = { Name=<span class="s">"Test"</span>; Price=42; };;
+<span class="k">val</span> p : Product
 
 &gt; p.Name;;
-val it : string = "Test"
+<span class="k">val</span> it : string = <span class="s">"Test"</span>
 
-&gt; // Creating a copy with different 'Name'
-  let p2 = { p with Name="Test2" };;
-val p2 : Product</pre>
+&gt; <span class="c">// Creating a copy with different 'Name'</span>
+  <span class="k">let</span> p2 = { p <span class="k">with</span> Name=<span class="s">"Test2"</span> };;
+<span class="k">val</span> p2 : Product</pre>
 
 <p>The last command uses an interesting construct - the <code>with</code> keyword. The record types are by default immutable,
   meaning that the value of the member can’t be modified. Since the members are immutable you will often need to create a copy
@@ -210,15 +210,15 @@ val p2 : Product</pre>
   location and is therefore very efficient – being a mutable type, array is often used in imperative programming style, 
   which will be discussed later. The following example shows declaration of a list value and an implementation of a recursive 
   function that adds together all elements in the list:</p>
-<pre lang="fsharp">
-&gt; let nums = [1; 2; 3; 4; 5];;
-val nums : list&lt;int&gt;
+<pre>
+&gt; <span class="k">let</span> nums = [1; 2; 3; 4; 5];;
+<span class="k">val</span> nums : list&lt;int&gt;
 
-&gt; let rec sum list = 
-    match list with
-    | h::tail -&gt; (sum tail) + h
-    | [] -&gt; 0
-val sum : list&lt;int&gt; -&gt; int</pre>
+&gt; <span class="k">let</span> <span class="k">rec</span> sum list = 
+    <span class="k">match</span> list <span class="k">with</span>
+    <span class="o">|</span> h::tail -&gt; (sum tail) + h
+    <span class="o">|</span> <span class="o">[</span><span class="o">]</span> -&gt; 0
+<span class="k">val</span> sum : list&lt;int&gt; -&gt; int</pre>
 <p>Similarly as earlier we declared a recursive function using <code>let rec</code> and inside the body we used
   pattern matching to test whether the list is an empty list or a list cell. Note that list is a generic type, which
   means that it can store values of any F# type. The type in our example is <code>list&lt;int&gt;</code>, which means that the
@@ -233,16 +233,16 @@ val sum : list&lt;int&gt; -&gt; int</pre>
   drops the current stack frame, because it isn’t needed anymore - the value returned by the called function is a result
   of the caller. This minimizes a chance for getting a stack overflow exception. The <code>sum</code> function from the 
   previous example can be written using an auxiliary function that uses a tail recursion as following:</p>
-<pre lang="fsharp">
-&gt; // 'acc' is usually called an 'accumulator' variable
-  let rec sumAux acc list = 
-    match list with
-    | h::tail -&gt; sumAux (acc + h) tail
-    | [] -&gt; acc
-val sum : int -&gt; list&lt;int&gt; -&gt; int
+<pre>
+&gt; <span class="c">// 'acc' is usually called an 'accumulator' variable</span>
+  <span class="k">let</span> <span class="k">rec</span> sumAux acc list = 
+    <span class="k">match</span> list <span class="k">with</span>
+    <span class="o">|</span> h::tail -&gt; sumAux (acc + h) tail
+    <span class="o">|</span> <span class="o">[</span><span class="o">]</span> -&gt; acc
+<span class="k">val</span> sum : int -&gt; list&lt;int&gt; -&gt; int
 
-&gt; let sum list = sumAux 0 list
-val sum : list&lt;int&gt; -&gt; int</pre>
+&gt; <span class="k">let</span> sum list = sumAux 0 list
+<span class="k">val</span> sum : list&lt;int&gt; -&gt; int</pre>
 <h3>Functions</h3>
 <p>Finally, the type that gives name to the whole <em>functional programming</em> is a function. In F#, similarly to other
   functional languages, functions are first-class values, meaning that they can be used in a same way as any other types.
@@ -252,16 +252,16 @@ val sum : list&lt;int&gt; -&gt; int</pre>
   in functional languages is the ability to create closures – creating a function that captures some values available in the 
   current stack frame. The following example demonstrates a function that creates and returns a function for adding specified 
   number to an initial integer:</p>
-<pre lang="fsharp">
-&gt; let createAdder n =
-    (fun arg -&gt; n + arg);;
-val createAdder : int -&gt; int -&gt; int
+<pre>
+&gt; <span class="k">let</span> createAdder n =
+    (<span class="k">fun</span> arg -&gt; n + arg);;
+<span class="k">val</span> createAdder : int -&gt; int -&gt; int
 
-&gt; let add10 = createAdder 10;;
-val add10 : int -&gt; int
+&gt; <span class="k">let</span> add10 = createAdder 10;;
+<span class="k">val</span> add10 : int -&gt; int
 
 &gt; add10 32;;
-val it : int = 42</pre>
+<span class="k">val</span> it : int = 42</pre>
 <p>In the body of the <code>createAdder</code> function we use a <code>fun</code> keyword to create a new unnamed function
   (a function constructed in this way is called a <em>lambda function</em>). The type of <code>createAdder</code>
   (<code>int -&gt; int -&gt; int</code>) denotes that when the function is called with <code>int</code> as an argument, it produces 
@@ -269,12 +269,12 @@ val it : int = 42</pre>
   could be simplified, because any function taking more arguments is treated as a function that produces a function value when it is 
   given the first argument, which means that the following code snippet has the same behavior. 
   Also note that the types of the function <code>createAdder</code> declared earlier and the type of the function <code>add</code> are the same):</p>
-<pre lang="fsharp">
-&gt; let add a b = a + b;;
-val add : int -&gt; int -&gt; int
+<pre>
+&gt; <span class="k">let</span> add a b = a + b;;
+<span class="k">val</span> add : int -&gt; int -&gt; int
 
-&gt; let add10 = add 10;;
-val add10 : int -&gt; int</pre>
+&gt; <span class="k">let</span> add10 = add 10;;
+<span class="k">val</span> add10 : int -&gt; int</pre>
 <p>When declaring the function value <code>add10</code> in this example, we used a function that expects two arguments
   with just one argument. The result is a function with a fixed value of the first argument which now expects only
   one (the second) argument. This aspect of working with functions is known as <em>currying</em>.</p>
@@ -283,12 +283,12 @@ val add10 : int -&gt; int</pre>
   used when writing a <em>generic</em> code, that is a code that can work with generic types (like <code>list&lt;'a&gt;</code>,
   which we discussed earlier). For example standard set of functions for manipulating with list values is demonstrated in the 
   following example:</p>
-<pre lang="fsharp">
-&gt; let odds = List.filter (fun n -&gt; n%2 &lt;&gt; 0) [1; 2; 3; 4; 5];;
-val odds : list&lt;int&gt; = [1; 3; 5]
+<pre>
+&gt; <span class="k">let</span> odds = List.filter (<span class="k">fun</span> n -&gt; n%2 &lt;&gt; 0) [1; 2; 3; 4; 5];;
+<span class="k">val</span> odds : list&lt;int&gt; = [1; 3; 5]
 
-&gt; let squares = List.map (fun n -&gt; n * n) odds;;
-val squares : list&lt;int&gt; = [1; 9; 25]</pre>
+&gt; <span class="k">let</span> squares = List.map (<span class="k">fun</span> n -&gt; n * n) odds;;
+<span class="k">val</span> squares : list&lt;int&gt; = [1; 9; 25]</pre>
 <p>It is interesting to note that the functions that we used for manipulating with lists are generic (otherwise they
   wouldn’t be very useful!). The signature of the <code>filter</code> function is <code>('a -&gt; bool) -&gt; list&lt;'a&gt; -&gt; list&lt;'a&gt;</code>,
   which means that the function takes list of some type as a second argument and a function that returns a <code>true</code>
@@ -300,15 +300,15 @@ val squares : list&lt;int&gt; = [1; 9; 25]</pre>
   argument) and returns a list containing the results.</p>
 <p>In the last example we will look at the pipelining operator (<code>|&gt;</code>) and we will also look at one example that
   demonstrates how currying makes writing the code easier - we will use the <code>add</code> function declared earlier:</p>
-<pre lang="fsharp">
-&gt; let nums = [1; 2; 3; 4; 5];;
-val nums : list&lt;int&gt;
+<pre>
+&gt; <span class="k">let</span> nums = [1; 2; 3; 4; 5];;
+<span class="k">val</span> nums : list&lt;int&gt;
 
-&gt; let odds_plus_ten = 
+&gt; <span class="k">let</span> odds_plus_ten = 
        nums 
-    |&gt; List.filter (fun n-&gt; n%2 &lt;&gt; 0)
-    |&gt; List.map (add 10)
-val odds_plus_ten : list&lt;int&gt; = [11; 13; 15];;
+    <span class="o">|</span>&gt; List.filter (<span class="k">fun</span> n-&gt; n%2 &lt;&gt; 0)
+    <span class="o">|</span>&gt; List.map (add 10)
+<span class="k">val</span> odds_plus_ten : list&lt;int&gt; = [11; 13; 15];;
 </pre>
 <p>Sequences of <code>filter</code> and <code>map</code> function calls are very common and writing it as a single expression
   would be quite difficult and not very readable. Luckily, the sequencing operator allows us to write the code as a single expression in a 
@@ -327,15 +327,15 @@ val odds_plus_ten : list&lt;int&gt; = [11; 13; 15];;
   For example, you can compose a function <code>fst</code>, which takes a tuple (containing two elements) and returns 
   the first element in the tuple with a function <code>uppercase</code>, which takes a string and returns
   it in an uppercase:</p>
-<pre lang="fsharp">
-&gt; (fst &gt;&gt; String.uppercase) ("Hello world", 123);;
-val it : string = "HELLO WORLD"
+<pre>
+&gt; (fst &gt;&gt; String.uppercase) (<span class="s">"Hello world"</span>, 123);;
+<span class="k">val</span> it : string = <span class="s">"HELLO WORLD"</span>
 
-&gt; let data = [ ("Jim", 1); ("John", 2); ("Jane", 3) ];;
-val data : (string * int) list
+&gt; <span class="k">let</span> data = <span class="o">[</span> (<span class="s">"Jim"</span>, 1); (<span class="s">"John"</span>, 2); (<span class="s">"Jane"</span>, 3) <span class="o">]</span>;;
+<span class="k">val</span> data : (string * int) list
 
-&gt; data |&gt; List.map (fst &gt;&gt; String.uppercase);;
-val it : string list = ["JIM"; "JOHN"; "JANE"]
+&gt; data <span class="o">|</span>&gt; List.map (fst &gt;&gt; String.uppercase);;
+<span class="k">val</span> it : string list = <span class="o">[</span><span class="s">"JIM"</span>; <span class="s">"JOHN"</span>; <span class="s">"JANE"</span><span class="o">]</span>
 </pre>  
 <p>In the first command, we just compose the functions and call the returned function with a tuple as an argument,
   however the real advantage of this trick becomes more obvious in the third command, where we use the function 
@@ -353,34 +353,34 @@ val it : string list = ["JIM"; "JOHN"; "JANE"]
   The following example demonstrates how the <code>if</code> construct can be used as an expression in F# (though in the optional 
   F# lightweight syntax, which makes whitespace significant and which we used in the rest of this overview, the semicolon symbol 
   can be omitted):</p>
-<pre lang="fsharp">
-&gt; let n = 1
-  let res = 
-    if n = 1 then
-      printfn "..n is one..";
-      "one"
-    else
-      "something else";;
+<pre>
+&gt; <span class="k">let</span> n = 1
+  <span class="k">let</span> res = 
+    <span class="k">if</span> n = 1 <span class="k">then</span>
+      printfn <span class="s">"..n is one.."</span>;
+      <span class="s">"one"</span>
+    <span class="k">else</span>
+      <span class="s">"something else"</span>;;
 ..n is one..
-val res : string = "one"</pre>
+<span class="k">val</span> res : string = <span class="s">"one"</span></pre>
 <p>When this code executes it calls the true branch of the <code>if</code> expression, which first calls a side-effecting function, which
   prints a string and then returns a string (<code>"one"</code>) as the result. The result is then assigned to the <code>res</code> value.</p>
 <p>Unlike some languages that allow one variable name to appear only once in the entire function body (e.g. C#) or even treat all 
   variables declared inside the body of a function as a variable with scope of the whole function (e.g. Visual Basic or 
   JavaScript), the scope of F# values is determined by the <code>let</code> binding and it is allowed to hide a value by declaring 
   a value with the same name. The following (slightly esoteric) example demonstrates this:</p>
-<pre lang="fsharp">
-&gt; let n = 21
-  let f = 
-    if n &gt; 10 then
-      let n = n * 2
-      (fun () -&gt; printfn "%d" n)
-    else
-      let n = n / 2
-      (fun () -&gt; printfn "%d" n)
+<pre>
+&gt; <span class="k">let</span> n = 21
+  <span class="k">let</span> f = 
+    <span class="k">if</span> n &gt; 10 <span class="k">then</span>
+      <span class="k">let</span> n = n * 2
+      (<span class="k">fun</span> () -&gt; printfn <span class="s">"%d"</span> n)
+    <span class="k">else</span>
+      <span class="k">let</span> n = n / 2
+      (<span class="k">fun</span> () -&gt; printfn <span class="s">"%d"</span> n)
   f ();;
 42
-val it : unit </pre>
+<span class="k">val</span> it : unit </pre>
 <p>In this example, the value <code>n</code> declared inside a branch of the <code>if</code> expression is captured by a 
   function created using the <code>fun</code> keyword, which is returned from the <code>if</code> expression and bound to the 
   value named <code>f</code>. When the <code>f</code> is invoked it indeed uses the value from the scope where it was created,
@@ -482,7 +482,7 @@ val it : unit </pre>
 
     <h4>Functional F# and C# books</h4>
     <div style="float:right;">
-      <a href="http://www.amazon.com/gp/product/1933988924/ref=as_li_tf_il?ie=UTF8&amp;tag=httptomasnet-20&amp;linkCode=as2&amp;camp=217145&amp;creative=399369&amp;creativeASIN=1933988924">
+      <a href="http://www.amazon.com/gp/product/1933988924/ref=as_li_tf_il?ie=UTF8&tag=httptomasnet-20&linkCode=as2&camp=217145&creative=399369&creativeASIN=1933988924">
         <img src="http://tomasp.net/img/deepdives.png" alt="F# Deep Dives" style="float:right;margin:15px 0px 15px 10px;border-style:none;" />
       </a>
     </div>
@@ -494,8 +494,8 @@ val it : unit </pre>
     <ul>
       <li><a href="http://functional-programming.net/rwfp"><strong>Real World Functional Programming</strong></a> home page. See
         <a href="http://manning.com/petricek">Manning</a>,
-        <a href="https://www.amazon.com/dp/1933988924?tag=httptomasnet-20&amp;camp=213381&amp;creative=390973&amp;linkCode=as4&amp;creativeASIN=1933988924&amp;adid=0F1DP260JGG4KY0CDGP6">Amazon.com</a> or
-        <a href="https://www.amazon.co.uk/dp/1933988924?tag=tomasnet-21&amp;camp=1406&amp;creative=6394&amp;linkCode=as1&amp;creativeASIN=1933988924&amp;adid=1CTY87YCCQEJW965GNDF">Amazon.co.uk</a>.
+        <a href="https://www.amazon.com/dp/1933988924?tag=httptomasnet-20&camp=213381&creative=390973&linkCode=as4&creativeASIN=1933988924&adid=0F1DP260JGG4KY0CDGP6">Amazon.com</a> or
+        <a href="https://www.amazon.co.uk/dp/1933988924?tag=tomasnet-21&camp=1406&creative=6394&linkCode=as1&creativeASIN=1933988924&adid=1CTY87YCCQEJW965GNDF">Amazon.co.uk</a>.
       </li>
       <li><a href="http://functional-programming.net/deepdives"><strong>F# Deep Dives</strong></a> home page. Get it from
         <a href="http://www.manning.com/petricek2">Manning.com</a>,
@@ -525,11 +525,11 @@ val it : unit </pre>
   <div class="row" id="footer">
   <footer>   
     <div class="large-3 columns">
-      <h4>Contact &amp; about</h4>
+      <h4>Contact & about</h4>
       <p>This site is hosted on GitHub and is generated using <a href="https://github.com/tpetricek/FSharp.Formatting">F# Formatting</a>.
         For more info, see the <a href="https://github.com/tpetricek/TomaspNet.Website">website source on GitHub</a>.
       </p>
-      <p>Please submit issues &amp; corrections on GitHub. Use pull requests for minor corrections only.</p>
+      <p>Please submit issues & corrections on GitHub. Use pull requests for minor corrections only.</p>
       <ul>
         <li>Email me: <a href="mailto:tomas@tomasp.net">tomas@tomasp.net</a></li>
         <li>Connect via Twitter: <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a></li>

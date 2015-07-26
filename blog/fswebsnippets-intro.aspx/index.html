@@ -22,7 +22,7 @@
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/tooltips.css" />
   <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
-  <meta name="twitter:card" content="summary">
+    <meta name="twitter:card" content="summary">
   <meta name="twitter:creator" content="@tomaspetricek">
   <meta name="twitter:title" content="Formatting F# source code for the Web">
   <meta name="twitter:description" content="Reading F# source code in Visual Studio is much easier than in plain text, because the background type checker provides useful information about types, functions and members via tool tips. This article introduces a tool that makes it possible to bring the same user experience to your F# code snippets published on the Web.">
@@ -171,7 +171,7 @@
   of meta-comments. These comments control which parts of the source will be processed by <strong>F#
   Web Snippets</strong> and how.</p>
 <ul>
-  <li><strong>Snippet</strong> - The <code>[snippet:&lt;title&amp;]</code> tag is used to 
+  <li><strong>Snippet</strong> - The <code>[snippet:&lt;title&]</code> tag is used to 
     define which parts of the source code should be turned into a HTML code snippet. The rest of the
     code is ignored. The comment also includes a title of the section (which is used for headings
     in the generated HTML file). The comment should be always written as a single-line comment using <code>//</code>.</li>
@@ -410,7 +410,7 @@
   get tool tip information - hopefully, you can use this information to build some interesting
   F# tools yourself!</p>
 
-<h2>References &amp; source code</h2>
+<h2>References & source code</h2>
 
 <ul>
   <li><a href="http://fsharpsamples.codeplex.com/SourceControl/list/changesets" type="external">Download 
@@ -533,7 +533,7 @@
 <br />type string = String<br /><br />Full name: Microsoft.FSharp.Core.string<br /><br />&#160;&#160;type: string<br />&#160;&#160;implements: IComparable<br />&#160;&#160;implements: ICloneable<br />&#160;&#160;implements: IConvertible<br />&#160;&#160;implements: IComparable&lt;string&gt;<br />&#160;&#160;implements: seq&lt;char&gt;<br />&#160;&#160;implements: Collections.IEnumerable<br />&#160;&#160;implements: IEquatable&lt;string&gt;<br /></div>
 <div class="tip" id="fsis6">val options : string option<br /><br />&#160;&#160;type: string option<br />&#160;&#160;implements: Collections.IStructuralEquatable<br />&#160;&#160;implements: IComparable&lt;Option&lt;string&gt;&gt;<br />&#160;&#160;implements: IComparable<br />&#160;&#160;implements: Collections.IStructuralComparable<br /></div>
 <div class="tip" id="fsis7">val defines : string option<br /><br />&#160;&#160;type: string option<br />&#160;&#160;implements: Collections.IStructuralEquatable<br />&#160;&#160;implements: IComparable&lt;Option&lt;string&gt;&gt;<br />&#160;&#160;implements: IComparable<br />&#160;&#160;implements: Collections.IStructuralComparable<br /></div>
-<div class="tip" id="fsis8">&#160;&#160;<br />// Create an instance of an InteractiveChecker (which does background analysis<br />// in a typical IntelliSense editor integration for F#)<br />let checker = InteractiveChecker.Create(ignore)<br />// Get options for a standalone script file (this adds some <br />// default references and doesn't require full project information)<br />let opts = checker.GetCheckOptionsFromScriptRoot(file, source) <br /><br />// Print additional information for debugging<br />let trace = false<br />&#160;&#160;<br />// Parse command line options - split string by space, but if there is something<br />// enclosed in double quotes &quot;...&quot; then ignore spaces in the quoted text<br />let rec parseOptions (str:string) i opts current = <br />&#160;&#160;let opts = <br />&#160;&#160;&#160;&#160;if i &lt; str.Length &amp;&amp; str.[i] &lt;&gt; ' ' then opts<br />&#160;&#160;&#160;&#160;else (String(current |&gt; List.rev |&gt; Array.ofSeq))::opts<br />&#160;&#160;if i = str.Length then opts<br />&#160;&#160;elif str.[i] = ' ' then parseOptions str (i+1) opts []<br />&#160;&#160;elif str.[i] = '&quot;' then<br />&#160;&#160;&#160;&#160;let endp = str.IndexOf('&quot;', i+1)<br />&#160;&#160;&#160;&#160;let chars = str.Substring(i+1, endp - i - 1) |&gt; List.ofSeq |&gt; List.rev<br />&#160;&#160;&#160;&#160;parseOptions str (endp + 1) opts (chars @ current)<br />&#160;&#160;else parseOptions str (i + 1) opts (str.[i] :: current)<br />&#160;&#160;&#160;&#160;<br />// Override default options if the user specified something<br />let opts = <br />&#160;&#160;match options with <br />&#160;&#160;| Some(str:string) when not(String.IsNullOrEmpty(str)) -&gt; <br />&#160;&#160;&#160;&#160;&#160;&#160;opts.WithProjectOptions(parseOptions str 0 [] [] |&gt; Array.ofSeq)<br />&#160;&#160;| _ -&gt; opts<br /><br />// Creates an empty &quot;Identifier&quot; token (we need it when getting ToolTip)<br />let identToken = 176<br /></div>
+<div class="tip" id="fsis8">&#160;&#160;<br />// Create an instance of an InteractiveChecker (which does background analysis<br />// in a typical IntelliSense editor integration for F#)<br />let checker = InteractiveChecker.Create(ignore)<br />// Get options for a standalone script file (this adds some <br />// default references and doesn't require full project information)<br />let opts = checker.GetCheckOptionsFromScriptRoot(file, source) <br /><br />// Print additional information for debugging<br />let trace = false<br />&#160;&#160;<br />// Parse command line options - split string by space, but if there is something<br />// enclosed in double quotes &quot;...&quot; then ignore spaces in the quoted text<br />let rec parseOptions (str:string) i opts current = <br />&#160;&#160;let opts = <br />&#160;&#160;&#160;&#160;if i &lt; str.Length && str.[i] &lt;&gt; ' ' then opts<br />&#160;&#160;&#160;&#160;else (String(current |&gt; List.rev |&gt; Array.ofSeq))::opts<br />&#160;&#160;if i = str.Length then opts<br />&#160;&#160;elif str.[i] = ' ' then parseOptions str (i+1) opts []<br />&#160;&#160;elif str.[i] = '&quot;' then<br />&#160;&#160;&#160;&#160;let endp = str.IndexOf('&quot;', i+1)<br />&#160;&#160;&#160;&#160;let chars = str.Substring(i+1, endp - i - 1) |&gt; List.ofSeq |&gt; List.rev<br />&#160;&#160;&#160;&#160;parseOptions str (endp + 1) opts (chars @ current)<br />&#160;&#160;else parseOptions str (i + 1) opts (str.[i] :: current)<br />&#160;&#160;&#160;&#160;<br />// Override default options if the user specified something<br />let opts = <br />&#160;&#160;match options with <br />&#160;&#160;| Some(str:string) when not(String.IsNullOrEmpty(str)) -&gt; <br />&#160;&#160;&#160;&#160;&#160;&#160;opts.WithProjectOptions(parseOptions str 0 [] [] |&gt; Array.ofSeq)<br />&#160;&#160;| _ -&gt; opts<br /><br />// Creates an empty &quot;Identifier&quot; token (we need it when getting ToolTip)<br />let identToken = 176<br /></div>
 <div class="tip" id="fsis9">val untypedInfo : UntypedParseInfo<br /></div>
 <div class="tip" id="fsis10">val checker : InteractiveChecker<br /></div>
 <div class="tip" id="fsis11">member InteractiveChecker.UntypedParse : filename:string * source:string * options:CheckOptions -&gt; UntypedParseInfo
@@ -702,7 +702,7 @@
 
     <h4>Functional F# and C# books</h4>
     <div style="float:right;">
-      <a href="http://www.amazon.com/gp/product/1933988924/ref=as_li_tf_il?ie=UTF8&amp;tag=httptomasnet-20&amp;linkCode=as2&amp;camp=217145&amp;creative=399369&amp;creativeASIN=1933988924">
+      <a href="http://www.amazon.com/gp/product/1933988924/ref=as_li_tf_il?ie=UTF8&tag=httptomasnet-20&linkCode=as2&camp=217145&creative=399369&creativeASIN=1933988924">
         <img src="http://tomasp.net/img/deepdives.png" alt="F# Deep Dives" style="float:right;margin:15px 0px 15px 10px;border-style:none;" />
       </a>
     </div>
@@ -714,8 +714,8 @@
     <ul>
       <li><a href="http://functional-programming.net/rwfp"><strong>Real World Functional Programming</strong></a> home page. See
         <a href="http://manning.com/petricek">Manning</a>,
-        <a href="https://www.amazon.com/dp/1933988924?tag=httptomasnet-20&amp;camp=213381&amp;creative=390973&amp;linkCode=as4&amp;creativeASIN=1933988924&amp;adid=0F1DP260JGG4KY0CDGP6">Amazon.com</a> or
-        <a href="https://www.amazon.co.uk/dp/1933988924?tag=tomasnet-21&amp;camp=1406&amp;creative=6394&amp;linkCode=as1&amp;creativeASIN=1933988924&amp;adid=1CTY87YCCQEJW965GNDF">Amazon.co.uk</a>.
+        <a href="https://www.amazon.com/dp/1933988924?tag=httptomasnet-20&camp=213381&creative=390973&linkCode=as4&creativeASIN=1933988924&adid=0F1DP260JGG4KY0CDGP6">Amazon.com</a> or
+        <a href="https://www.amazon.co.uk/dp/1933988924?tag=tomasnet-21&camp=1406&creative=6394&linkCode=as1&creativeASIN=1933988924&adid=1CTY87YCCQEJW965GNDF">Amazon.co.uk</a>.
       </li>
       <li><a href="http://functional-programming.net/deepdives"><strong>F# Deep Dives</strong></a> home page. Get it from
         <a href="http://www.manning.com/petricek2">Manning.com</a>,
@@ -745,11 +745,11 @@
   <div class="row" id="footer">
   <footer>   
     <div class="large-3 columns">
-      <h4>Contact &amp; about</h4>
+      <h4>Contact & about</h4>
       <p>This site is hosted on GitHub and is generated using <a href="https://github.com/tpetricek/FSharp.Formatting">F# Formatting</a>.
         For more info, see the <a href="https://github.com/tpetricek/TomaspNet.Website">website source on GitHub</a>.
       </p>
-      <p>Please submit issues &amp; corrections on GitHub. Use pull requests for minor corrections only.</p>
+      <p>Please submit issues & corrections on GitHub. Use pull requests for minor corrections only.</p>
       <ul>
         <li>Email me: <a href="mailto:tomas@tomasp.net">tomas@tomasp.net</a></li>
         <li>Connect via Twitter: <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a></li>

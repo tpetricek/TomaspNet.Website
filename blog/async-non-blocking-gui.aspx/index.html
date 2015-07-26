@@ -22,7 +22,7 @@
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/tooltips.css" />
   <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
-  <meta name="twitter:card" content="summary">
+    <meta name="twitter:card" content="summary">
   <meta name="twitter:creator" content="@tomaspetricek">
   <meta name="twitter:title" content="Writing non-blocking user-interfaces in F#">
   <meta name="twitter:description" content="F# asynchronous workflows are mainly used for non-blocking I/O and concurrency, but they provide nice abstraction for writing user interface interactions. This article shows how to avoid blocking the user-interface when performing CPU-intensive processing.">
@@ -123,7 +123,7 @@
 <span class="l"> 7: </span>  <span onmouseout="hideTip(event, 'fstips10', 10)" onmouseover="showTip(event, 'fstips10', 10)" class="i">Thread</span><span class="o">.</span><span onmouseout="hideTip(event, 'fstips11', 11)" onmouseover="showTip(event, 'fstips11', 11)" class="i">Sleep</span>(<span class="n">5000</span>)
 <span class="l"> 8: </span>  <span class="k">return</span> <span onmouseout="hideTip(event, 'fstips8', 12)" onmouseover="showTip(event, 'fstips8', 12)" class="i">data</span> }
 <span class="l"> 9: </span>
-<span class="l">10: </span><span class="c">///</span><span class="c"> </span><span class="c">Create</span><span class="c"> </span><span class="c">&amp;</span><span class="c"> </span><span class="c">display</span><span class="c"> </span><span class="c">chart.</span><span class="c"> </span><span class="c">The</span><span class="c"> </span><span class="c">function</span><span class="c"> </span><span class="c">needs</span><span class="c"> </span><span class="c">to</span><span class="c"> </span>
+<span class="l">10: </span><span class="c">///</span><span class="c"> </span><span class="c">Create</span><span class="c"> </span><span class="c">&</span><span class="c"> </span><span class="c">display</span><span class="c"> </span><span class="c">chart.</span><span class="c"> </span><span class="c">The</span><span class="c"> </span><span class="c">function</span><span class="c"> </span><span class="c">needs</span><span class="c"> </span><span class="c">to</span><span class="c"> </span>
 <span class="l">11: </span><span class="c">///</span><span class="c"> </span><span class="c">access</span><span class="c"> </span><span class="c">user</span><span class="c"> </span><span class="c">interface</span><span class="c"> </span><span class="c">and</span><span class="c"> </span><span class="c">should</span><span class="c"> </span><span class="c">run</span><span class="c"> </span><span class="c">on</span><span class="c"> </span><span class="c">GUI</span><span class="c"> </span><span class="c">thread.</span>
 <span class="l">12: </span><span class="k">let</span> <span onmouseout="hideTip(event, 'fstips12', 13)" onmouseover="showTip(event, 'fstips12', 13)" class="i">displayChart</span> <span onmouseout="hideTip(event, 'fstips13', 14)" onmouseover="showTip(event, 'fstips13', 14)" class="i">color</span> <span onmouseout="hideTip(event, 'fstips14', 15)" onmouseover="showTip(event, 'fstips14', 15)" class="i">prices</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fstips5', 16)" onmouseover="showTip(event, 'fstips5', 16)" class="i">async</span> {
 <span class="l">13: </span>  <span class="k">let</span> <span onmouseout="hideTip(event, 'fstips15', 17)" onmouseover="showTip(event, 'fstips15', 17)" class="i">chart</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fstips16', 18)" onmouseover="showTip(event, 'fstips16', 18)" class="i">createChart</span> <span class="n">600.0</span> <span class="n">200.0</span> <span onmouseout="hideTip(event, 'fstips13', 19)" onmouseover="showTip(event, 'fstips13', 19)" class="i">color</span> <span onmouseout="hideTip(event, 'fstips14', 20)" onmouseover="showTip(event, 'fstips14', 20)" class="i">prices</span>
@@ -149,7 +149,7 @@
 
 <p>The application is implemented as an asynchronous workflow that contains a <code>while</code>
   loop that repeatedly waits for the user input (clicking on a button) and performs some reaction 
-  (download &amp; process data and display chart). The body of the loop waits for the mouse click
+  (download & process data and display chart). The body of the loop waits for the mouse click
   using <code>AwaitObservable</code>. After that, it downloads the data using <code>AsyncDownloadString</code>
   and then calls the two helper functions from the previous section. As mentioned earlier, this version 
   is wrong, because it runs the CPU-intensive function <code>extractStockPrices</code> on the GUI 
@@ -173,7 +173,7 @@
 <span class="l">14: </span>    <span class="k">let!</span> <span onmouseout="hideTip(event, 'fstips2', 61)" onmouseover="showTip(event, 'fstips2', 61)" class="i">data</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fstips42', 62)" onmouseover="showTip(event, 'fstips42', 62)" class="i">wc</span><span class="o">.</span><span onmouseout="hideTip(event, 'fstips44', 63)" onmouseover="showTip(event, 'fstips44', 63)" class="i">AsyncDownloadString</span>(<span onmouseout="hideTip(event, 'fstips45', 64)" onmouseover="showTip(event, 'fstips45', 64)" class="i">Uri</span>(<span onmouseout="hideTip(event, 'fstips46', 65)" onmouseover="showTip(event, 'fstips46', 65)" class="i">root</span> <span class="o">+</span> <span onmouseout="hideTip(event, 'fstips39', 66)" onmouseover="showTip(event, 'fstips39', 66)" class="i">stock</span>))    
 <span class="l">15: </span>    <span class="c">//</span><span class="c"> </span><span class="c">Process</span><span class="c"> </span><span class="c">data</span><span class="c"> </span><span class="c">(CPU-bound</span><span class="c"> </span><span class="c">operation)</span>
 <span class="l">16: </span>    <span class="k">let!</span> <span onmouseout="hideTip(event, 'fstips47', 67)" onmouseover="showTip(event, 'fstips47', 67)" class="i">prices</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fstips1', 68)" onmouseover="showTip(event, 'fstips1', 68)" class="i">extractStockPrices</span> <span onmouseout="hideTip(event, 'fstips2', 69)" onmouseover="showTip(event, 'fstips2', 69)" class="i">data</span> <span class="n">500</span>
-<span class="l">17: </span>    <span class="c">//</span><span class="c"> </span><span class="c">Create</span><span class="c"> </span><span class="c">&amp;</span><span class="c"> </span><span class="c">display</span><span class="c"> </span><span class="c">the</span><span class="c"> </span><span class="c">chart</span><span class="c"> </span><span class="c">(GUI</span><span class="c"> </span><span class="c">operation)</span>
+<span class="l">17: </span>    <span class="c">//</span><span class="c"> </span><span class="c">Create</span><span class="c"> </span><span class="c">&</span><span class="c"> </span><span class="c">display</span><span class="c"> </span><span class="c">the</span><span class="c"> </span><span class="c">chart</span><span class="c"> </span><span class="c">(GUI</span><span class="c"> </span><span class="c">operation)</span>
 <span class="l">18: </span>    <span class="k">do!</span> <span onmouseout="hideTip(event, 'fstips12', 70)" onmouseover="showTip(event, 'fstips12', 70)" class="i">displayChart</span> <span onmouseout="hideTip(event, 'fstips13', 71)" onmouseover="showTip(event, 'fstips13', 71)" class="i">color</span> <span onmouseout="hideTip(event, 'fstips47', 72)" onmouseover="showTip(event, 'fstips47', 72)" class="i">prices</span> }
 <span class="l">19: </span>
 <span class="l">20: </span><span class="c">//</span><span class="c"> </span><span class="c">Start</span><span class="c"> </span><span class="c">the</span><span class="c"> </span><span class="c">workflow</span><span class="c"> </span><span class="c">immediately</span><span class="c"> </span><span class="c">(on</span><span class="c"> </span><span class="c">GUI</span><span class="c"> </span><span class="c">thread)</span>
@@ -224,7 +224,7 @@
 <span class="l">13: </span>    <span class="k">let!</span> <span onmouseout="hideTip(event, 'fstips51', 92)" onmouseover="showTip(event, 'fstips51', 92)" class="i">token</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fstips40', 93)" onmouseover="showTip(event, 'fstips40', 93)" class="i">Async</span><span class="o">.</span><span onmouseout="hideTip(event, 'fstips52', 94)" onmouseover="showTip(event, 'fstips52', 94)" class="i">StartChild</span>(<span onmouseout="hideTip(event, 'fstips1', 95)" onmouseover="showTip(event, 'fstips1', 95)" class="i">extractStockPrices</span> <span onmouseout="hideTip(event, 'fstips2', 96)" onmouseover="showTip(event, 'fstips2', 96)" class="i">data</span> <span class="n">500</span>)
 <span class="l">14: </span>    <span class="k">let!</span> <span onmouseout="hideTip(event, 'fstips47', 97)" onmouseover="showTip(event, 'fstips47', 97)" class="i">prices</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fstips51', 98)" onmouseover="showTip(event, 'fstips51', 98)" class="i">token</span>
 <span class="l">15: </span>
-<span class="l">16: </span>    <span class="c">//</span><span class="c"> </span><span class="c">Create</span><span class="c"> </span><span class="c">&amp;</span><span class="c"> </span><span class="c">display</span><span class="c"> </span><span class="c">the</span><span class="c"> </span><span class="c">chart</span><span class="c"> </span><span class="c">(GUI</span><span class="c"> </span><span class="c">operation)</span>
+<span class="l">16: </span>    <span class="c">//</span><span class="c"> </span><span class="c">Create</span><span class="c"> </span><span class="c">&</span><span class="c"> </span><span class="c">display</span><span class="c"> </span><span class="c">the</span><span class="c"> </span><span class="c">chart</span><span class="c"> </span><span class="c">(GUI</span><span class="c"> </span><span class="c">operation)</span>
 <span class="l">17: </span>    <span class="k">do!</span> <span onmouseout="hideTip(event, 'fstips12', 99)" onmouseover="showTip(event, 'fstips12', 99)" class="i">displayChart</span> <span onmouseout="hideTip(event, 'fstips13', 100)" onmouseover="showTip(event, 'fstips13', 100)" class="i">color</span> <span onmouseout="hideTip(event, 'fstips47', 101)" onmouseover="showTip(event, 'fstips47', 101)" class="i">prices</span> }</pre>
 
 <p>The only change is on the lines 13 and 14. The first line starts the computation 
@@ -266,7 +266,7 @@
 <span class="l">15: </span>    <span class="k">let!</span> <span onmouseout="hideTip(event, 'fstips47', 123)" onmouseover="showTip(event, 'fstips47', 123)" class="i">prices</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fstips1', 124)" onmouseover="showTip(event, 'fstips1', 124)" class="i">extractStockPrices</span> <span onmouseout="hideTip(event, 'fstips2', 125)" onmouseover="showTip(event, 'fstips2', 125)" class="i">data</span> <span class="n">500</span>
 <span class="l">16: </span>    <span class="k">do!</span> <span onmouseout="hideTip(event, 'fstips40', 126)" onmouseover="showTip(event, 'fstips40', 126)" class="i">Async</span><span class="o">.</span><span onmouseout="hideTip(event, 'fstips58', 127)" onmouseover="showTip(event, 'fstips58', 127)" class="i">SwitchToContext</span>(<span onmouseout="hideTip(event, 'fstips54', 128)" onmouseover="showTip(event, 'fstips54', 128)" class="i">ctx</span>)
 <span class="l">17: </span>
-<span class="l">18: </span>    <span class="c">//</span><span class="c"> </span><span class="c">Create</span><span class="c"> </span><span class="c">&amp;</span><span class="c"> </span><span class="c">display</span><span class="c"> </span><span class="c">the</span><span class="c"> </span><span class="c">chart</span><span class="c"> </span><span class="c">(GUI</span><span class="c"> </span><span class="c">operation)</span>
+<span class="l">18: </span>    <span class="c">//</span><span class="c"> </span><span class="c">Create</span><span class="c"> </span><span class="c">&</span><span class="c"> </span><span class="c">display</span><span class="c"> </span><span class="c">the</span><span class="c"> </span><span class="c">chart</span><span class="c"> </span><span class="c">(GUI</span><span class="c"> </span><span class="c">operation)</span>
 <span class="l">19: </span>    <span class="k">do!</span> <span onmouseout="hideTip(event, 'fstips12', 129)" onmouseover="showTip(event, 'fstips12', 129)" class="i">displayChart</span> <span onmouseout="hideTip(event, 'fstips13', 130)" onmouseover="showTip(event, 'fstips13', 130)" class="i">color</span> <span onmouseout="hideTip(event, 'fstips47', 131)" onmouseover="showTip(event, 'fstips47', 131)" class="i">prices</span> }</pre>
 
 <p>The new behavior is implemented on lines 13 - 16. The workflow first needs to store the current synchronization context,
@@ -293,7 +293,7 @@
   function) from a thread-pool thread. The <code>Async&lt;'T&gt;</code> can be extended to catch this
   kind of errors at compile time and I'll cover that in the next article.</p>
 
-<h3>Downloads &amp; Source code</h3>
+<h3>Downloads & Source code</h3>
 <ul>
   <li>Browse <a href="http://github.com/tpetricek/Documents/tree/master/Blog%202011/AsyncNonBlocking">the source code on GitHub</a></li>
   <li>Download <a href="http://github.com/tpetricek/Documents/raw/master/Blog%202011/AsyncNonBlocking/stockdata.zip">the source code</a> (ZIP)</li>
@@ -323,7 +323,7 @@
 <br />Thread.Sleep(timeout: TimeSpan) : unit
 <br />Thread.Sleep(millisecondsTimeout: int) : unit<br /></div>
 <div class="tip" id="fstips12">val displayChart : Color -&gt; seq&lt;float&gt; -&gt; Async&lt;unit&gt;<br /><br />Full name: Demo.StandardAsync.displayChart
-<br /><br /><em>Create &amp; display chart. The function needs to <br />&#160;access user interface and should run on GUI thread.</em><br /></div>
+<br /><br /><em>Create & display chart. The function needs to <br />&#160;access user interface and should run on GUI thread.</em><br /></div>
 <div class="tip" id="fstips13">val color : Color<br /><br />&#160;&#160;type: Color<br />&#160;&#160;implements: IFormattable<br />&#160;&#160;inherits: ValueType<br /></div>
 <div class="tip" id="fstips14">val prices : seq&lt;float&gt;<br /><br />&#160;&#160;type: seq&lt;float&gt;<br />&#160;&#160;inherits: Collections.IEnumerable<br /></div>
 <div class="tip" id="fstips15">val chart : Canvas<br /><br />&#160;&#160;type: Canvas<br />&#160;&#160;implements: MS.Internal.IManagedPeer<br />&#160;&#160;implements: MS.Internal.IManagedPeerBase<br />&#160;&#160;implements: MS.Internal.INativeCoreTypeWrapper<br />&#160;&#160;implements: Automation.IAutomationElement<br />&#160;&#160;inherits: Panel<br />&#160;&#160;inherits: FrameworkElement<br />&#160;&#160;inherits: UIElement<br />&#160;&#160;inherits: DependencyObject<br /></div>
@@ -461,7 +461,7 @@
 
     <h4>Functional F# and C# books</h4>
     <div style="float:right;">
-      <a href="http://www.amazon.com/gp/product/1933988924/ref=as_li_tf_il?ie=UTF8&amp;tag=httptomasnet-20&amp;linkCode=as2&amp;camp=217145&amp;creative=399369&amp;creativeASIN=1933988924">
+      <a href="http://www.amazon.com/gp/product/1933988924/ref=as_li_tf_il?ie=UTF8&tag=httptomasnet-20&linkCode=as2&camp=217145&creative=399369&creativeASIN=1933988924">
         <img src="http://tomasp.net/img/deepdives.png" alt="F# Deep Dives" style="float:right;margin:15px 0px 15px 10px;border-style:none;" />
       </a>
     </div>
@@ -473,8 +473,8 @@
     <ul>
       <li><a href="http://functional-programming.net/rwfp"><strong>Real World Functional Programming</strong></a> home page. See
         <a href="http://manning.com/petricek">Manning</a>,
-        <a href="https://www.amazon.com/dp/1933988924?tag=httptomasnet-20&amp;camp=213381&amp;creative=390973&amp;linkCode=as4&amp;creativeASIN=1933988924&amp;adid=0F1DP260JGG4KY0CDGP6">Amazon.com</a> or
-        <a href="https://www.amazon.co.uk/dp/1933988924?tag=tomasnet-21&amp;camp=1406&amp;creative=6394&amp;linkCode=as1&amp;creativeASIN=1933988924&amp;adid=1CTY87YCCQEJW965GNDF">Amazon.co.uk</a>.
+        <a href="https://www.amazon.com/dp/1933988924?tag=httptomasnet-20&camp=213381&creative=390973&linkCode=as4&creativeASIN=1933988924&adid=0F1DP260JGG4KY0CDGP6">Amazon.com</a> or
+        <a href="https://www.amazon.co.uk/dp/1933988924?tag=tomasnet-21&camp=1406&creative=6394&linkCode=as1&creativeASIN=1933988924&adid=1CTY87YCCQEJW965GNDF">Amazon.co.uk</a>.
       </li>
       <li><a href="http://functional-programming.net/deepdives"><strong>F# Deep Dives</strong></a> home page. Get it from
         <a href="http://www.manning.com/petricek2">Manning.com</a>,
@@ -504,11 +504,11 @@
   <div class="row" id="footer">
   <footer>   
     <div class="large-3 columns">
-      <h4>Contact &amp; about</h4>
+      <h4>Contact & about</h4>
       <p>This site is hosted on GitHub and is generated using <a href="https://github.com/tpetricek/FSharp.Formatting">F# Formatting</a>.
         For more info, see the <a href="https://github.com/tpetricek/TomaspNet.Website">website source on GitHub</a>.
       </p>
-      <p>Please submit issues &amp; corrections on GitHub. Use pull requests for minor corrections only.</p>
+      <p>Please submit issues & corrections on GitHub. Use pull requests for minor corrections only.</p>
       <ul>
         <li>Email me: <a href="mailto:tomas@tomasp.net">tomas@tomasp.net</a></li>
         <li>Connect via Twitter: <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a></li>

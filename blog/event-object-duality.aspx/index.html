@@ -22,7 +22,7 @@
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/tooltips.css" />
   <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
-  <meta name="twitter:card" content="summary">
+    <meta name="twitter:card" content="summary">
   <meta name="twitter:creator" content="@tomaspetricek">
   <meta name="twitter:title" content="The Duality of Object and Event references">
   <meta name="twitter:description" content="This article describes an interesting example of mathematical duality in programming languages - the duality between references between objects and references between events. The idea is useful for understading what events are garbage and can be garbage collected.">
@@ -91,12 +91,12 @@
   <em>product type</em> (usually called tuple or record) is dual of <em>sum type</em>
   (called discriminated union in F#). Let me demonstrate this using a simple example.
   Here are two simple type declarations:</p>
-<pre lang="fsharp">
-// Color with R, G, B components   // Shape can be one of three types
-type Color =                       type Shape = 
-  { Red : int                        | Square of Point * int
-    Green : int                      | Circle of Point * int
-    Blue : int }                     | Triangle of Point * Point * Point
+<pre>
+<span class="c">// Color with R, G, B components   // Shape can be one of three types</span>
+<span class="k">type</span> Color =                       <span class="k">type</span> Shape = 
+  { Red : int                        <span class="o">|</span> Square <span class="k">of</span> Point * int
+    Green : int                      <span class="o">|</span> Circle <span class="k">of</span> Point * int
+    Blue : int }                     <span class="o">|</span> Triangle <span class="k">of</span> Point * Point * Point
 </pre>
 <p>What is <em>dual</em> about these two types? When you have a record type consisting of three
   values (such as <code>Color</code>), you get three functions for extracting individual 
@@ -175,18 +175,18 @@ type Color =                       type Shape =
   events and emit the value that they receive only when it matches some predicate or 
   for example emit a value that is calculated based on the original value. Let's 
   demonstrate the idea using a simple snippet that uses first-class events in F#:</p>
-<pre lang="fsharp">
-// Creates an event that emits a value whenever one of 
-// the two events (MouseDown of btnOne or btnTwo) emit 
-let anyButton = 
+<pre>
+<span class="c">// Creates an event that emits a value whenever one of </span>
+<span class="c">// the two events (MouseDown of btnOne or btnTwo) emit </span>
+<span class="k">let</span> anyButton = 
   Event.merge btnOne.MouseDown btnTwo.MouseDown
 
-// Creates an event that emits a string "click!"
-// whenever user clicks on any button with left-click
-let anyLeft = anyButton 
-  |&gt; Event.filter (fun e -&gt; 
+<span class="c">// Creates an event that emits a string "click!"</span>
+<span class="c">// whenever user clicks on any button with left-click</span>
+<span class="k">let</span> anyLeft = anyButton 
+  <span class="o">|</span>&gt; Event.filter (<span class="k">fun</span> e -&gt; 
     e.Button = MouseButtons.Left)
-  |&gt; Event.map (fun _ -&gt; "click!")
+  <span class="o">|</span>&gt; Event.map (<span class="k">fun</span> <span class="o">_</span> -&gt; <span class="s">"click!"</span>)
 </pre>
 <p>These two examples are pretty simple, but they should illustrate the point.
   You can write pretty complicated event processing code just by creating and 
@@ -381,7 +381,7 @@ let anyLeft = anyButton
 
     <h4>Functional F# and C# books</h4>
     <div style="float:right;">
-      <a href="http://www.amazon.com/gp/product/1933988924/ref=as_li_tf_il?ie=UTF8&amp;tag=httptomasnet-20&amp;linkCode=as2&amp;camp=217145&amp;creative=399369&amp;creativeASIN=1933988924">
+      <a href="http://www.amazon.com/gp/product/1933988924/ref=as_li_tf_il?ie=UTF8&tag=httptomasnet-20&linkCode=as2&camp=217145&creative=399369&creativeASIN=1933988924">
         <img src="http://tomasp.net/img/deepdives.png" alt="F# Deep Dives" style="float:right;margin:15px 0px 15px 10px;border-style:none;" />
       </a>
     </div>
@@ -393,8 +393,8 @@ let anyLeft = anyButton
     <ul>
       <li><a href="http://functional-programming.net/rwfp"><strong>Real World Functional Programming</strong></a> home page. See
         <a href="http://manning.com/petricek">Manning</a>,
-        <a href="https://www.amazon.com/dp/1933988924?tag=httptomasnet-20&amp;camp=213381&amp;creative=390973&amp;linkCode=as4&amp;creativeASIN=1933988924&amp;adid=0F1DP260JGG4KY0CDGP6">Amazon.com</a> or
-        <a href="https://www.amazon.co.uk/dp/1933988924?tag=tomasnet-21&amp;camp=1406&amp;creative=6394&amp;linkCode=as1&amp;creativeASIN=1933988924&amp;adid=1CTY87YCCQEJW965GNDF">Amazon.co.uk</a>.
+        <a href="https://www.amazon.com/dp/1933988924?tag=httptomasnet-20&camp=213381&creative=390973&linkCode=as4&creativeASIN=1933988924&adid=0F1DP260JGG4KY0CDGP6">Amazon.com</a> or
+        <a href="https://www.amazon.co.uk/dp/1933988924?tag=tomasnet-21&camp=1406&creative=6394&linkCode=as1&creativeASIN=1933988924&adid=1CTY87YCCQEJW965GNDF">Amazon.co.uk</a>.
       </li>
       <li><a href="http://functional-programming.net/deepdives"><strong>F# Deep Dives</strong></a> home page. Get it from
         <a href="http://www.manning.com/petricek2">Manning.com</a>,
@@ -424,11 +424,11 @@ let anyLeft = anyButton
   <div class="row" id="footer">
   <footer>   
     <div class="large-3 columns">
-      <h4>Contact &amp; about</h4>
+      <h4>Contact & about</h4>
       <p>This site is hosted on GitHub and is generated using <a href="https://github.com/tpetricek/FSharp.Formatting">F# Formatting</a>.
         For more info, see the <a href="https://github.com/tpetricek/TomaspNet.Website">website source on GitHub</a>.
       </p>
-      <p>Please submit issues &amp; corrections on GitHub. Use pull requests for minor corrections only.</p>
+      <p>Please submit issues & corrections on GitHub. Use pull requests for minor corrections only.</p>
       <ul>
         <li>Email me: <a href="mailto:tomas@tomasp.net">tomas@tomasp.net</a></li>
         <li>Connect via Twitter: <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a></li>

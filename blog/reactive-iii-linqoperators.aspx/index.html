@@ -22,7 +22,7 @@
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/tooltips.css" />
   <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
-  <meta name="twitter:card" content="summary">
+    <meta name="twitter:card" content="summary">
   <meta name="twitter:creator" content="@tomaspetricek">
   <meta name="twitter:title" content="Reactive Programming (III.) - Useful Reactive LINQ Operators">
   <meta name="twitter:description" content="In the previous article, I introduced Reactive LINQ. Today, we're going to look at other operators that canbe used for working with events. We'll see aggregation is useful and how to dynamically change (switch) behavior.">
@@ -109,10 +109,10 @@
 <h3>Counting clicks</h3>
 <p>I believe that an example will make everything clear. In the following snippet, we'll attach an event to a 
   button and we'll use <code>Sum</code> to count the number of clicks on the button:</p>
-<pre lang="csharp">
-btnClick.AttachEvent("Click")
-  .Select(ea =&gt; 1).Sum().Listen(n =&gt; 
-    lblOut.Text = String.Format("Current count is: {0}", n));
+<pre>
+btnClick.AttachEvent(<span class="s">"Click"</span>)
+  .Select(ea <span class="o">=</span>&gt; 1).Sum().Listen(n <span class="o">=</span>&gt; 
+    lblOut.Text <span class="o">=</span> String.Format(<span class="s">"Current count is: {0}"</span>, n));
 </pre>
 <p>The usual call to <code>AttachEvent</code> is followed by a call to <code>Select</code>. The result of this
   call will be an event stream that will contain a number 1 every time the button is clicked.
@@ -128,14 +128,14 @@ btnClick.AttachEvent("Click")
   get the well known factorial function (the sequence of factorials will be 1, 1*2, 1*2*3, 1*2*3*4, ...).
   Calculating total value was easy, because we had <code>Sum</code> operator, but multiplication isn't
   built-in, so we'll have to use the generic <code>Aggregate</code> operation:</p>  
-<pre lang="csharp">
-btnClick.AttachEvent("Click")
-  // Generates sequence of integers: 1, 2, 3, ...
-  .Select(ea =&gt; 1).Sum() 
-  // Generate sequence of factorials: 1, 1*2, 1*2*3, ...
-  .Aggregate(1, (fact, current) =&gt; fact * current)
-  .Listen(n =&gt; 
-    lblOut.Text = String.Format("Factorial is: {0}", n));
+<pre>
+btnClick.AttachEvent(<span class="s">"Click"</span>)
+  <span class="c">// Generates sequence of integers: 1, 2, 3, ...</span>
+  .Select(ea <span class="o">=</span>&gt; 1).Sum() 
+  <span class="c">// Generate sequence of factorials: 1, 1*2, 1*2*3, ...</span>
+  .Aggregate(1, (fact, current) <span class="o">=</span>&gt; fact <span class="o">*</span> current)
+  .Listen(n <span class="o">=</span>&gt; 
+    lblOut.Text <span class="o">=</span> String.Format(<span class="s">"Factorial is: {0}"</span>, n));
 </pre>
 <p>The part ended with the call to <code>Sum</code> is same as in the previous example and it gives
   us a sequence of integers. When aggregating using the <code>Aggregate</code> operator, we'll need
@@ -153,26 +153,26 @@ btnClick.AttachEvent("Click")
   using just a single query. First, we'll need a simple utility function for displaying the result,
   because Visual Basic has only limited support for lambda functions:
   </p>
-<pre lang="basic">
-' Utility function that allows us to set label text in the query easily
-Function SetText(ByVal lbl As Label, ByVal str As String) As Integer
+<pre>
+<span class="c">' Utility function that allows us to set label text in the query easily</span>
+<span class="k">Function</span> SetText(<span class="k">ByVal</span> lbl <span class="k">As</span> Label, <span class="k">ByVal</span> str <span class="k">As</span> <span class="k">String</span>) <span class="k">As</span> <span class="k">Integer</span>
   lbl.Text = str
-  Return 0
-End Function
+  <span class="k">Return</span> 0
+<span class="k">End</span> <span class="k">Function</span>
 </pre>
 <p>Now we can take a look at the query. This time we'll add reaction to the <code>MouseDown</code>
   event and we'll only count clicks that were made by the left button. In C#, we'd have to write
   this using a nested query, but in VB it can be written like this:</p>
-<pre lang="basic">
-' Count the number of clicks made by the left button
-Dim eCount = _
-  Aggregate ea In btnClick.AttachEvent(Of MouseEventArgs)("MouseDown") _
+<pre>
+<span class="c">' Count the number of clicks made by the left button</span>
+<span class="k">Dim</span> eCount = _
+  Aggregate ea <span class="k">In</span> btnClick.AttachEvent(Of MouseEventArgs)(<span class="s">"MouseDown"</span>) _
   Where ea.Button = MouseButtons.Left _
   Into Sum(1)
   
-' Display the number using utility function 'SetText'
-eCount.Listen(Function(n) SetText(lblOutput, _
-  String.Format("Count: {0}", n)))
+<span class="c">' Display the number using utility function 'SetText'</span>
+eCount.Listen(<span class="k">Function</span>(n) SetText(lblOutput, _
+  <span class="k">String</span>.Format(<span class="s">"Count: {0}"</span>, n)))
 </pre>
 <p>Visual Basic query that does aggregation starts with the <code>Aggregate</code> keyword and then 
   specifies what values will be aggregated. In our case, it is the value coming from the <code>MouseDown</code>
@@ -210,14 +210,14 @@ eCount.Listen(Function(n) SetText(lblOutput, _
   additional initial event that will be triggered shortly after the program starts using <code>Reactive.After</code>:
   </p>
 
-<pre lang="csharp">
-// Triggered after 1 second and then on every check-box click
-var eZigZag =
+<pre>
+<span class="c">// Triggered after 1 second and then on every check-box click</span>
+<span class="k">var</span> eZigZag <span class="o">=</span>
   Reactive.Merge
-    (checkDecrement.AttachEvent("Click"), 
+    (checkDecrement.AttachEvent(<span class="s">"Click"</span>), 
      Reactive.After(1000, EventArgs.Empty))
-  // Create an event stream containing: 1, -1, 1, -1, ...  
-  .Aggregate(-1, (current, _) =&gt; current * -1);
+  <span class="c">// Create an event stream containing: 1, -1, 1, -1, ...  </span>
+  .Aggregate(-1, (current, _) <span class="o">=</span>&gt; current <span class="o">*</span> -1);
 </pre>
 <p>The input for the <code>Aggregate</code> operator will be <code>EventArgs</code> values from the events.
   This isn't needed and in cases like that, I'll often just use underscore as a variable name (in F#, this means
@@ -234,14 +234,14 @@ var eZigZag =
   The overall event stream will then switch between the event streams generated by our function.
   Let's take a look at the example and I'll explain everything in a more detail shortly:</p>
 
-<pre lang="csharp">
-// Dynamically switch between 1, 1, 1... and -1, -1, -1...
-eZigZag.SwitchRepeatedly(n =&gt;
-     from ea in btnClick.AttachEvent("Click") select n)
+<pre>
+<span class="c">// Dynamically switch between 1, 1, 1... and -1, -1, -1...</span>
+eZigZag.SwitchRepeatedly(n <span class="o">=</span>&gt;
+     <span class="k">from</span> ea <span class="k">in</span> btnClick.AttachEvent(<span class="s">"Click"</span>) <span class="k">select</span> n)
      
-  // Sum all nubers coming from the 'switch'
-  .Sum().Listen(n =&gt; 
-     lblOut.Text = String.Format("Current count is: {0}", n));
+  <span class="c">// Sum all nubers coming from the 'switch'</span>
+  .Sum().Listen(n <span class="o">=</span>&gt; 
+     lblOut.Text <span class="o">=</span> String.Format(<span class="s">"Current count is: {0}"</span>, n));
 </pre>
 <p>The input for the <code>SwitchRepeatedly</code> operator is the event that will be triggered
   when the application starts (with 1 as the argument) and then every time the 'decrement' checkbox
@@ -276,13 +276,13 @@ eZigZag.SwitchRepeatedly(n =&gt;
   that the button was clicked for the first time. Any subsequent click will display
   a message showing the number of clicks:</p>  
 
-<pre lang="csharp">
-btnClick.AttachEvent("Click").Select(_ =&gt; "Clicked for the first time!")
-  .SwitchFirst(s =&gt;
-    // Return the new behavior: Sum clicks &amp; return message
-    btnClick.AttachEvent("Click").Select(_ =&gt; 1).Sum()
-      .Select(n =&gt; string.Format("Clicked {0} times!", n)))
-  .Listen(s =&gt; lblOut.Text = s);
+<pre>
+btnClick.AttachEvent(<span class="s">"Click"</span>).Select(_ <span class="o">=</span>&gt; <span class="s">"Clicked for the first time!"</span>)
+  .SwitchFirst(s <span class="o">=</span>&gt;
+    <span class="c">// Return the new behavior: Sum clicks &amp; return message</span>
+    btnClick.AttachEvent(<span class="s">"Click"</span>).Select(_ <span class="o">=</span>&gt; 1).Sum()
+      .Select(n <span class="o">=</span>&gt; <span class="k">string</span>.Format(<span class="s">"Clicked {0} times!"</span>, n)))
+  .Listen(s <span class="o">=</span>&gt; lblOut.Text <span class="o">=</span> s);
 </pre>
 <p>The event that we use as a source for <code>SwitchFirst</code> yields a message when 
   a button is clicked. The <code>SwitchFirst</code> operator waits for this event and
@@ -317,19 +317,19 @@ btnClick.AttachEvent("Click").Select(_ =&gt; "Clicked for the first time!")
   and then change the behavior to start from the beginning again. This change here is very 
   important, because it resets the timer, so the "Timeout!" message will not appear sooner
   than after next 5 seconds:</p>
-<pre lang="csharp">
-// 'eClickOrTimeout' is a function that returns an evnet
-Func&lt;IEvent&lt;string&gt;&gt; eClickOrTimeout = null;
-eClickOrTimeout = () =&gt; 
-  // Triggered when user clicks on the button or after 5 seconds
+<pre>
+<span class="c">// 'eClickOrTimeout' is a function that returns an evnet</span>
+Func&lt;IEvent&lt;<span class="k">string</span>&gt;&gt; eClickOrTimeout <span class="o">=</span> <span class="k">null</span>;
+eClickOrTimeout <span class="o">=</span> () <span class="o">=</span>&gt; 
+  <span class="c">// Triggered when user clicks on the button or after 5 seconds</span>
   Reactive.Merge
-    (btnClick.AttachEvent("Click").Select(_ =&gt; "Click..."),
-     Reactive.After(5000, "Timeout!"))
-  .SwitchFirst(e =&gt; eClickOrTimeout());
+    (btnClick.AttachEvent(<span class="s">"Click"</span>).Select(_ <span class="o">=</span>&gt; <span class="s">"Click..."</span>),
+     Reactive.After(5000, <span class="s">"Timeout!"</span>))
+  .SwitchFirst(e <span class="o">=</span>&gt; eClickOrTimeout());
 
-// Create an event stream and add listener
+<span class="c">// Create an event stream and add listener</span>
 eClickOrTimeout()
-  .Listen(s =&gt; lblOut.Text = s);
+  .Listen(s <span class="o">=</span>&gt; lblOut.Text <span class="o">=</span> s);
 </pre>
 <p>We first declare a value called <code>eClickOrTimeout</code>. This is not an event as in
   previous examples, but a function that creates an event when we call it. This is because
@@ -360,13 +360,13 @@ eClickOrTimeout()
   the first event that will trigger the whole processing. In the previous example, the
   first event was the same as all the subsequent events. In the new version, the program
   will first wait 1 second and then start the processing similarly as in the last example:</p>
-<pre lang="csharp">
-Reactive.After(1000, "")
-  .SwitchRecursive(s =&gt; 
+<pre>
+Reactive.After(1000, <span class="s">""</span>)
+  .SwitchRecursive(s <span class="o">=</span>&gt; 
       Reactive.Merge
-        (btnClick.AttachEvent("Click").Select(_ =&gt; "Click..."),
-         Reactive.After(5000, "Timeout!"))
-  .Listen(s =&gt; lblOut.Text = s);
+        (btnClick.AttachEvent(<span class="s">"Click"</span>).Select(_ <span class="o">=</span>&gt; <span class="s">"Click..."</span>),
+         Reactive.After(5000, <span class="s">"Timeout!"</span>))
+  .Listen(s <span class="o">=</span>&gt; lblOut.Text <span class="o">=</span> s);
 </pre>
 <p>The <code>SwitchRecursive</code> operator waits for the first event from the input stream and
   then calls the function to generate the new event. So far, it does the same thing as
@@ -396,17 +396,17 @@ Reactive.After(1000, "")
   <code>from</code> clauses that internally uses the <code>SwitchRepeatedly</code> operator.
   Let's take a look at the example and I'll explain how exactly the operator is used later:</p>
   
-<pre lang="csharp">
-// When application starts and then when 'decrement' checkbox is clicked
-var eDecrementClick = Reactive.Merge
+<pre>
+<span class="c">// When application starts and then when 'decrement' checkbox is clicked</span>
+<span class="k">var</span> eDecrementClick <span class="o">=</span> Reactive.Merge
  (Reactive.After(1000, EventArgs.Empty), 
-  checkDecrement.AttachEvent("Click"));
+  checkDecrement.AttachEvent(<span class="s">"Click"</span>));
 
-// Create stream with 1, -1, 1.. and combine it using 'SwitchRepeatedly'
-(from n in eDecrementClick.Aggregate(1, (current, _) =&gt; current * -1)
- from m in btnClick.AttachEvent("Click").UseSwitchRepeatedly()
- select -1 * n).Sum().Listen(n =&gt; 
-    lblOut.Text = String.Format("Current count is: {0}", n));
+<span class="c">// Create stream with 1, -1, 1.. and combine it using 'SwitchRepeatedly'</span>
+(<span class="k">from</span> n <span class="k">in</span> eDecrementClick.Aggregate(1, (current, _) <span class="o">=</span>&gt; current <span class="o">*</span> -1)
+ <span class="k">from</span> m <span class="k">in</span> btnClick.AttachEvent(<span class="s">"Click"</span>).UseSwitchRepeatedly()
+ <span class="k">select</span> -1 <span class="o">*</span> n).Sum().Listen(n <span class="o">=</span>&gt; 
+    lblOut.Text <span class="o">=</span> String.Format(<span class="s">"Current count is: {0}"</span>, n));
 </pre>
 <p>The first <code>from</code> clause specifies the input stream for the <code>SwitchRepeatedly</code>
   operator. The second one specifies how to obtain an event stream once we have a value for the
@@ -553,7 +553,7 @@ var eDecrementClick = Reactive.Merge
 
     <h4>Functional F# and C# books</h4>
     <div style="float:right;">
-      <a href="http://www.amazon.com/gp/product/1933988924/ref=as_li_tf_il?ie=UTF8&amp;tag=httptomasnet-20&amp;linkCode=as2&amp;camp=217145&amp;creative=399369&amp;creativeASIN=1933988924">
+      <a href="http://www.amazon.com/gp/product/1933988924/ref=as_li_tf_il?ie=UTF8&tag=httptomasnet-20&linkCode=as2&camp=217145&creative=399369&creativeASIN=1933988924">
         <img src="http://tomasp.net/img/deepdives.png" alt="F# Deep Dives" style="float:right;margin:15px 0px 15px 10px;border-style:none;" />
       </a>
     </div>
@@ -565,8 +565,8 @@ var eDecrementClick = Reactive.Merge
     <ul>
       <li><a href="http://functional-programming.net/rwfp"><strong>Real World Functional Programming</strong></a> home page. See
         <a href="http://manning.com/petricek">Manning</a>,
-        <a href="https://www.amazon.com/dp/1933988924?tag=httptomasnet-20&amp;camp=213381&amp;creative=390973&amp;linkCode=as4&amp;creativeASIN=1933988924&amp;adid=0F1DP260JGG4KY0CDGP6">Amazon.com</a> or
-        <a href="https://www.amazon.co.uk/dp/1933988924?tag=tomasnet-21&amp;camp=1406&amp;creative=6394&amp;linkCode=as1&amp;creativeASIN=1933988924&amp;adid=1CTY87YCCQEJW965GNDF">Amazon.co.uk</a>.
+        <a href="https://www.amazon.com/dp/1933988924?tag=httptomasnet-20&camp=213381&creative=390973&linkCode=as4&creativeASIN=1933988924&adid=0F1DP260JGG4KY0CDGP6">Amazon.com</a> or
+        <a href="https://www.amazon.co.uk/dp/1933988924?tag=tomasnet-21&camp=1406&creative=6394&linkCode=as1&creativeASIN=1933988924&adid=1CTY87YCCQEJW965GNDF">Amazon.co.uk</a>.
       </li>
       <li><a href="http://functional-programming.net/deepdives"><strong>F# Deep Dives</strong></a> home page. Get it from
         <a href="http://www.manning.com/petricek2">Manning.com</a>,
@@ -596,11 +596,11 @@ var eDecrementClick = Reactive.Merge
   <div class="row" id="footer">
   <footer>   
     <div class="large-3 columns">
-      <h4>Contact &amp; about</h4>
+      <h4>Contact & about</h4>
       <p>This site is hosted on GitHub and is generated using <a href="https://github.com/tpetricek/FSharp.Formatting">F# Formatting</a>.
         For more info, see the <a href="https://github.com/tpetricek/TomaspNet.Website">website source on GitHub</a>.
       </p>
-      <p>Please submit issues &amp; corrections on GitHub. Use pull requests for minor corrections only.</p>
+      <p>Please submit issues & corrections on GitHub. Use pull requests for minor corrections only.</p>
       <ul>
         <li>Email me: <a href="mailto:tomas@tomasp.net">tomas@tomasp.net</a></li>
         <li>Connect via Twitter: <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a></li>

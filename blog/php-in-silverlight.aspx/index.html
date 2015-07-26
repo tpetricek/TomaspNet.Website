@@ -22,7 +22,7 @@
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/tooltips.css" />
   <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
-  <meta name="twitter:card" content="summary">
+    <meta name="twitter:card" content="summary">
   <meta name="twitter:creator" content="@tomaspetricek">
   <meta name="twitter:title" content="Writing Silverlight applications in PHP">
   <meta name="twitter:description" content="In this article we will look how Phalanger can be used for developing Silverlight applications in the PHP language. We look at basic concepts like XAML as well as at a more complicated game.">
@@ -105,33 +105,33 @@
   XAML file is loaded and this is where the Silverlight application starts executing.
   Let's now look at the structure of <code>simplegui.xaml</code> file:</p>  
   
-<pre lang="xml">
-&lt;Canvas x:Name="parentCanvas"
+<pre>
+<span class="o">&lt;</span>Canvas x:Name="parentCanvas"
     xmlns="http://schemas.microsoft.com/client/2007" 
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
     xmlns:php="clr-namespace:PHP.Silverlight;assembly=ClientBin/PhpNetCore.dll"
-    Width="800" Height="600" Background="White" &gt;
-  &lt;!-- Specifies the PHP code that drives the application --&gt;
-  &lt;php:PhalangerLoader Source="Simplegui.phpx" /&gt;
+    Width="800" Height="600" Background="White" <span class="o">&gt;</span>
+  <span class="o">&lt;</span>!-- Specifies the PHP code that drives the application --<span class="o">&gt;</span>
+  <span class="o">&lt;</span>php:PhalangerLoader Source="Simplegui.phpx" /<span class="o">&gt;</span>
 
-  &lt;Canvas.Resources&gt;
-    &lt;!-- Animation that moves the car object --&gt;
-    &lt;Storyboard x:Name="moveCar"&gt;
-      &lt;DoubleAnimation From="0" To="810" Duration="0:0:2" 
+  <span class="o">&lt;</span>Canvas.Resources<span class="o">&gt;</span>
+    <span class="o">&lt;</span>!-- Animation that moves the car object --<span class="o">&gt;</span>
+    <span class="o">&lt;</span>Storyboard x:Name="moveCar"<span class="o">&gt;</span>
+      <span class="o">&lt;</span>DoubleAnimation From="0" To="810" Duration="0:0:2" 
                        Storyboard.TargetName="carCanvas" 
-                       Storyboard.TargetProperty="(Canvas.Left)"/&gt;
-    &lt;/Storyboard&gt;
-    &lt;!-- (...) more animations --&gt;
-  &lt;/Canvas.Resources&gt;
+                       Storyboard.TargetProperty="(Canvas.Left)"/<span class="o">&gt;</span>
+    <span class="o">&lt;</span>/Storyboard<span class="o">&gt;</span>
+    <span class="o">&lt;</span>!-- (...) more animations --<span class="o">&gt;</span>
+  <span class="o">&lt;</span>/Canvas.Resources<span class="o">&gt;</span>
 
-  &lt;!-- Car - composed from ellipses and rectangles --&gt;
-  &lt;Canvas x:Name="carCanvas"&gt;
-    &lt;!-- Back wheel --&gt;
-    &lt;Ellipse x:Name="wheel1" Width="47" Height="47" Stroke="#FF000000" 
-             Canvas.Left="5" Canvas.Top="228" /&gt;
-    &lt;!-- (...) other car parts --&gt;
-  &lt;/Canvas&gt;  
-&lt;/Canvas&gt;
+  <span class="o">&lt;</span>!-- Car - composed from ellipses and rectangles --<span class="o">&gt;</span>
+  <span class="o">&lt;</span>Canvas x:Name="carCanvas"<span class="o">&gt;</span>
+    <span class="o">&lt;</span>!-- Back wheel --<span class="o">&gt;</span>
+    <span class="o">&lt;</span>Ellipse x:Name="wheel1" Width="47" Height="47" Stroke="#FF000000" 
+             Canvas.Left="5" Canvas.Top="228" /<span class="o">&gt;</span>
+    <span class="o">&lt;</span>!-- (...) other car parts --<span class="o">&gt;</span>
+  <span class="o">&lt;</span>/Canvas<span class="o">&gt;</span>  
+<span class="o">&lt;</span>/Canvas<span class="o">&gt;</span>
 </pre>
 <p>There are a few important things to note. First, the whole content is contained in a <code>Canvas</code>
   element, which is a container for other elements. The root element contains several standard <code>xmlns</code>
@@ -165,30 +165,30 @@
 <p>Let's now look at the PHP code file that controls the demo with a car (available <a href="http://tomasp.net/articles/php-in-silverlight/simplegui.html" type="external">here</a>).
   The PHP file contains code that defines the interaction for our application, which is in this example very simple - when a user clicks on 
   the car we want to start the animation:</p>
-<pre lang="php">
+<pre>
 &lt;?
-import namespace System:::Windows:::Input;
-// Include common Silverlight utilities
-include("slutils.phpx");
+<span class="k">import</span> <span class="k">namespace</span> System:::Windows:::Input;
+<span class="c">// Include common Silverlight utilities</span>
+<span class="k">include</span>(<span class="s">"slutils.phpx"</span>);
 
-// Initialize canvas wrapper for working with the XAML elements
-global $CANVAS;
-global $cv;
-$cv = new CanvasWrapper($CANVAS);
+<span class="c">// Initialize canvas wrapper for working with the XAML elements</span>
+<span class="k">global</span> $CANVAS;
+<span class="k">global</span> $cv;
+$cv = <span class="k">new</span> CanvasWrapper($CANVAS);
 
-// Called when user clicks on the car
-function OnClick() {
-  global $cv;
-  // Start the animation declared in XAML
+<span class="c">// Called when user clicks on the car</span>
+<span class="k">function</span> OnClick() {
+  <span class="k">global</span> $cv;
+  <span class="c">// Start the animation declared in XAML</span>
   $cv-&gt;moveCar-&gt;Begin();
 }
 
-// Called when the Silverlight component loads in browser
-function OnLoad() {
-  global $cv;
-  // Attach the event handler for 'MouseLeftButtonDown' of the 'carCanvas'
+<span class="c">// Called when the Silverlight component loads in browser</span>
+<span class="k">function</span> OnLoad() {
+  <span class="k">global</span> $cv;
+  <span class="c">// Attach the event handler for 'MouseLeftButtonDown' of the 'carCanvas'</span>
   $cv-&gt;carCanvas-&gt;MouseLeftButtonDown-&gt;Add
-    (new MouseEventHandler("OnClick"));
+    (<span class="k">new</span> MouseEventHandler(<span class="s">"OnClick"</span>));
 }
 ?&gt;
 </pre>
@@ -207,14 +207,14 @@ function OnLoad() {
   If you look at the <code>OnClick</code> method (which will be called by the system when user clicks on the car element)
   you can see a code that starts the animation, by calling <code>Begin</code> method of the <code>Storyboard</code> element
   declared in XAML. The following example demonstrates how the <code>CanvasWrapper</code> simplifies the code:</p>  
-<pre lang="php">
-// Using CanvasWrapper we can just access 
-// 'moveCar' as a member using magical '__get'
+<pre>
+<span class="c">// Using CanvasWrapper we can just access </span>
+<span class="c">// 'moveCar' as a member using magical '__get'</span>
 $cv-&gt;moveCar-&gt;Begin();
 
-// Without CanvasWrapper the element has to 
-// be accessed using 'FindName' method
-$cv-&gt;FindName("moveCar")-&gt;Begin();
+<span class="c">// Without CanvasWrapper the element has to </span>
+<span class="c">// be accessed using 'FindName' method</span>
+$cv-&gt;FindName(<span class="s">"moveCar"</span>)-&gt;Begin();
 </pre>
 <p>There are of course some other tricks that the <code>slutils.phpx</code> implements, but this is the only one that 
   we needed in this example. The implementation of <code>OnClick</code> function is quite simple, so let's look at the
@@ -272,7 +272,7 @@ $cv-&gt;FindName("moveCar")-&gt;Begin();
   to any PHP programmer. I believe that this article gives you a good introduction to writing client-side Silverlight 
   applications in PHP!</p>
 
-<h2>Downloads &amp; References<a name="phpinslref"></a></h2>
+<h2>Downloads & References<a name="phpinslref"></a></h2>
 <ul>
   <li><a href="http://tomasp.net/articles/php-in-silverlight/demos.zip">Download the samples with Phalanger Silverlight runtime</a> (636 kB)</li>
 </ul>
@@ -368,7 +368,7 @@ $cv-&gt;FindName("moveCar")-&gt;Begin();
 
     <h4>Functional F# and C# books</h4>
     <div style="float:right;">
-      <a href="http://www.amazon.com/gp/product/1933988924/ref=as_li_tf_il?ie=UTF8&amp;tag=httptomasnet-20&amp;linkCode=as2&amp;camp=217145&amp;creative=399369&amp;creativeASIN=1933988924">
+      <a href="http://www.amazon.com/gp/product/1933988924/ref=as_li_tf_il?ie=UTF8&tag=httptomasnet-20&linkCode=as2&camp=217145&creative=399369&creativeASIN=1933988924">
         <img src="http://tomasp.net/img/deepdives.png" alt="F# Deep Dives" style="float:right;margin:15px 0px 15px 10px;border-style:none;" />
       </a>
     </div>
@@ -380,8 +380,8 @@ $cv-&gt;FindName("moveCar")-&gt;Begin();
     <ul>
       <li><a href="http://functional-programming.net/rwfp"><strong>Real World Functional Programming</strong></a> home page. See
         <a href="http://manning.com/petricek">Manning</a>,
-        <a href="https://www.amazon.com/dp/1933988924?tag=httptomasnet-20&amp;camp=213381&amp;creative=390973&amp;linkCode=as4&amp;creativeASIN=1933988924&amp;adid=0F1DP260JGG4KY0CDGP6">Amazon.com</a> or
-        <a href="https://www.amazon.co.uk/dp/1933988924?tag=tomasnet-21&amp;camp=1406&amp;creative=6394&amp;linkCode=as1&amp;creativeASIN=1933988924&amp;adid=1CTY87YCCQEJW965GNDF">Amazon.co.uk</a>.
+        <a href="https://www.amazon.com/dp/1933988924?tag=httptomasnet-20&camp=213381&creative=390973&linkCode=as4&creativeASIN=1933988924&adid=0F1DP260JGG4KY0CDGP6">Amazon.com</a> or
+        <a href="https://www.amazon.co.uk/dp/1933988924?tag=tomasnet-21&camp=1406&creative=6394&linkCode=as1&creativeASIN=1933988924&adid=1CTY87YCCQEJW965GNDF">Amazon.co.uk</a>.
       </li>
       <li><a href="http://functional-programming.net/deepdives"><strong>F# Deep Dives</strong></a> home page. Get it from
         <a href="http://www.manning.com/petricek2">Manning.com</a>,
@@ -411,11 +411,11 @@ $cv-&gt;FindName("moveCar")-&gt;Begin();
   <div class="row" id="footer">
   <footer>   
     <div class="large-3 columns">
-      <h4>Contact &amp; about</h4>
+      <h4>Contact & about</h4>
       <p>This site is hosted on GitHub and is generated using <a href="https://github.com/tpetricek/FSharp.Formatting">F# Formatting</a>.
         For more info, see the <a href="https://github.com/tpetricek/TomaspNet.Website">website source on GitHub</a>.
       </p>
-      <p>Please submit issues &amp; corrections on GitHub. Use pull requests for minor corrections only.</p>
+      <p>Please submit issues & corrections on GitHub. Use pull requests for minor corrections only.</p>
       <ul>
         <li>Email me: <a href="mailto:tomas@tomasp.net">tomas@tomasp.net</a></li>
         <li>Connect via Twitter: <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a></li>

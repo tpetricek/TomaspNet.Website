@@ -22,7 +22,7 @@
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/tooltips.css" />
   <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
-  <meta name="twitter:card" content="summary">
+    <meta name="twitter:card" content="summary">
   <meta name="twitter:creator" content="@tomaspetricek">
   <meta name="twitter:title" content="Fractal snow screensaver">
   <meta name="twitter:description" content="Describes how to draw snowflakes using fractals and contains a nice snow screensaver.">
@@ -124,41 +124,41 @@ private void DrawBranch(Graphics output,
   snowflake melting. <code>RandomSnowFlake</code> is class derived from
   <code>SnowFlake</code>. Only one difference is that, all properties of snowflake are
   generated from random numbers in constructor, so you don't have to set all properties
-  if you want to create snowflake.</p><pre lang="cs"><span class="c">// Draw snowflakes in Paint event handler</span>
-private void Form_Paint(object sender, PaintEventArgs pe)
+  if you want to create snowflake.</p><pre>&lt;span <span class="k">class</span>=<span class="s">"c"</span><span class="o">&gt;</span><span class="c">// Draw snowflakes in Paint event handler&lt;/span&gt;</span>
+<span class="k">private</span> <span class="k">void</span> Form_Paint(<span class="k">object</span> sender, PaintEventArgs pe)
 {
-  Random rndGen=new Random();
+  Random rndGen=<span class="k">new</span> Random();
   pe.Graphics.Clear(Color.Black);
-  SnowFlake flake=new SnowFlake(),
-    random=new RandomSnowFlake(rndGen.Next(Int32.MaxValue));
+  SnowFlake flake=<span class="k">new</span> SnowFlake(),
+    random=<span class="k">new</span> RandomSnowFlake(rndGen.Next(Int32.MaxValue));
           
-  <span class="c">// draw snowflake</span>
-  flake.Draw(pe.Graphics,new PointF(70.0f,70.0f));
+  &lt;span <span class="k">class</span>=<span class="s">"c"</span><span class="o">&gt;</span><span class="c">// draw snowflake&lt;/span&gt;</span>
+  flake.Draw(pe.Graphics,<span class="k">new</span> PointF(70.0f,70.0f));
 
-  <span class="c">// draw melting snowflake</span>
-  flake.Draw(pe.Graphics,new PointF(70.0f,140.0f,128));
+  &lt;span <span class="k">class</span>=<span class="s">"c"</span><span class="o">&gt;</span><span class="c">// draw melting snowflake&lt;/span&gt;</span>
+  flake.Draw(pe.Graphics,<span class="k">new</span> PointF(70.0f,140.0f,128));
 
-  <span class="c">// draw random snowflake</span>
-  random.Draw(pe.Graphics,new PointF(105.0f,105.0f));
+  &lt;span <span class="k">class</span>=<span class="s">"c"</span><span class="o">&gt;</span><span class="c">// draw random snowflake&lt;/span&gt;</span>
+  random.Draw(pe.Graphics,<span class="k">new</span> PointF(105.0f,105.0f));
 }
 </pre><h4>Using SnowControl</h4><p><code>SnowControl</code> is the control for creating falling snowflakes. This is
   exactly the same control as control filling the whole screen of screensaver. This
   control can be added to a <code>Form</code> using designer, or manually using code
   similar to following:</p><p>This control has a lot of properties, that are described in <i>Screen saver
-  settings</i> section.</p><pre lang="cs">
+  settings</i> section.</p><pre>
 SnowControl snowCtrl;
 
-public Form()
+<span class="k">public</span> Form()
 {
-  <span class="c">// Create control</span>
-  snowCtrl=new SnowControl();
+  &lt;span <span class="k">class</span>=<span class="s">"c"</span><span class="o">&gt;</span><span class="c">// Create control&lt;/span&gt;</span>
+  snowCtrl=<span class="k">new</span> SnowControl();
   Controls.Add(snowCtrl);
   snowCtrl.Dock=DockStyle.Fill;
 }
 
-private void Form_Load(object sender,EventArgs e)
+<span class="k">private</span> <span class="k">void</span> Form_Load(<span class="k">object</span> sender,EventArgs e)
 {
-  <span class="c">// Start animation</span>
+  &lt;span <span class="k">class</span>=<span class="s">"c"</span><span class="o">&gt;</span><span class="c">// Start animation&lt;/span&gt;</span>
   snowCtrl.Start();
 }
 </pre><p><img height="112" alt="Screen saver" src="fractalsnow/screensaver.gif" width="125" align="right" /></p><h2>SnowControl and Screensaver settings</h2><h4>Environment</h4><p>Property called <code>StopFalling</code> is length in pixels from bottom of the
@@ -268,7 +268,7 @@ private void Form_Load(object sender,EventArgs e)
 
     <h4>Functional F# and C# books</h4>
     <div style="float:right;">
-      <a href="http://www.amazon.com/gp/product/1933988924/ref=as_li_tf_il?ie=UTF8&amp;tag=httptomasnet-20&amp;linkCode=as2&amp;camp=217145&amp;creative=399369&amp;creativeASIN=1933988924">
+      <a href="http://www.amazon.com/gp/product/1933988924/ref=as_li_tf_il?ie=UTF8&tag=httptomasnet-20&linkCode=as2&camp=217145&creative=399369&creativeASIN=1933988924">
         <img src="http://tomasp.net/img/deepdives.png" alt="F# Deep Dives" style="float:right;margin:15px 0px 15px 10px;border-style:none;" />
       </a>
     </div>
@@ -280,8 +280,8 @@ private void Form_Load(object sender,EventArgs e)
     <ul>
       <li><a href="http://functional-programming.net/rwfp"><strong>Real World Functional Programming</strong></a> home page. See
         <a href="http://manning.com/petricek">Manning</a>,
-        <a href="https://www.amazon.com/dp/1933988924?tag=httptomasnet-20&amp;camp=213381&amp;creative=390973&amp;linkCode=as4&amp;creativeASIN=1933988924&amp;adid=0F1DP260JGG4KY0CDGP6">Amazon.com</a> or
-        <a href="https://www.amazon.co.uk/dp/1933988924?tag=tomasnet-21&amp;camp=1406&amp;creative=6394&amp;linkCode=as1&amp;creativeASIN=1933988924&amp;adid=1CTY87YCCQEJW965GNDF">Amazon.co.uk</a>.
+        <a href="https://www.amazon.com/dp/1933988924?tag=httptomasnet-20&camp=213381&creative=390973&linkCode=as4&creativeASIN=1933988924&adid=0F1DP260JGG4KY0CDGP6">Amazon.com</a> or
+        <a href="https://www.amazon.co.uk/dp/1933988924?tag=tomasnet-21&camp=1406&creative=6394&linkCode=as1&creativeASIN=1933988924&adid=1CTY87YCCQEJW965GNDF">Amazon.co.uk</a>.
       </li>
       <li><a href="http://functional-programming.net/deepdives"><strong>F# Deep Dives</strong></a> home page. Get it from
         <a href="http://www.manning.com/petricek2">Manning.com</a>,
@@ -311,11 +311,11 @@ private void Form_Load(object sender,EventArgs e)
   <div class="row" id="footer">
   <footer>   
     <div class="large-3 columns">
-      <h4>Contact &amp; about</h4>
+      <h4>Contact & about</h4>
       <p>This site is hosted on GitHub and is generated using <a href="https://github.com/tpetricek/FSharp.Formatting">F# Formatting</a>.
         For more info, see the <a href="https://github.com/tpetricek/TomaspNet.Website">website source on GitHub</a>.
       </p>
-      <p>Please submit issues &amp; corrections on GitHub. Use pull requests for minor corrections only.</p>
+      <p>Please submit issues & corrections on GitHub. Use pull requests for minor corrections only.</p>
       <ul>
         <li>Email me: <a href="mailto:tomas@tomasp.net">tomas@tomasp.net</a></li>
         <li>Connect via Twitter: <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a></li>

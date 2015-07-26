@@ -22,7 +22,7 @@
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/tooltips.css" />
   <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
-  <meta name="twitter:card" content="summary">
+    <meta name="twitter:card" content="summary">
   <meta name="twitter:creator" content="@tomaspetricek">
   <meta name="twitter:title" content="Processing trees with F# zipper computation">
   <meta name="twitter:description" content="One of the less frequently advertised new features in F# 3.0 is the query syntax. It allows adding custom operations to a computation expression block. This article shows how to define a custom computation for processing trees using zippers. We'll add navigation over a tree as custom operations to get a simple syntax. ">
@@ -73,18 +73,14 @@ computation expression. The standard <code>query { .. }</code> computation uses 
 operations such as sorting (<code>sortBy</code> and <code>sortByDescending</code>) or operations for taking
 and skipping elements (<code>take</code>, <code>takeWhile</code>, ...). For example, you can write:</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l">1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span onmouseout="hideTip(event, 'fs1', 1)" onmouseover="showTip(event, 'fs1', 1)" class="i">query</span> { <span class="k">for</span> <span onmouseout="hideTip(event, 'fs2', 2)" onmouseover="showTip(event, 'fs2', 2)" class="i">x</span> <span class="k">in</span> <span class="n">1</span> <span class="o">..</span> <span class="n">10</span> <span class="k">do</span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs1', 1)" onmouseover="showTip(event, 'fs1', 1)" class="i">query</span> { <span class="k">for</span> <span onmouseout="hideTip(event, 'fs2', 2)" onmouseover="showTip(event, 'fs2', 2)" class="i">x</span> <span class="k">in</span> <span class="n">1</span> <span class="o">..</span> <span class="n">10</span> <span class="k">do</span>
         <span onmouseout="hideTip(event, 'fs3', 3)" onmouseover="showTip(event, 'fs3', 3)" class="k">take</span> <span class="n">3</span>
         <span onmouseout="hideTip(event, 'fs4', 4)" onmouseover="showTip(event, 'fs4', 4)" class="k">sortByDescending</span> <span onmouseout="hideTip(event, 'fs2', 5)" onmouseover="showTip(event, 'fs2', 5)" class="i">x</span> }
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -94,26 +90,22 @@ and perform transformations on (parts) of the tree. For example, we'll be able t
 say "Go to the left sub-tree, multiply all values by 2. Then go back and to the
 right sub-tree and divide all values by 2" as follows:</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l">1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
 <span class="l">4: </span>
 <span class="l">5: </span>
 <span class="l">6: </span>
 <span class="l">7: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span onmouseout="hideTip(event, 'fs53', 229)" onmouseover="showTip(event, 'fs53', 229)" class="i">tree</span> { <span class="k">for</span> <span onmouseout="hideTip(event, 'fs2', 230)" onmouseover="showTip(event, 'fs2', 230)" class="i">x</span> <span class="k">in</span> <span onmouseout="hideTip(event, 'fs32', 231)" onmouseover="showTip(event, 'fs32', 231)" class="i">sample</span> <span class="k">do</span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs53', 229)" onmouseover="showTip(event, 'fs53', 229)" class="i">tree</span> { <span class="k">for</span> <span onmouseout="hideTip(event, 'fs2', 230)" onmouseover="showTip(event, 'fs2', 230)" class="i">x</span> <span class="k">in</span> <span onmouseout="hideTip(event, 'fs32', 231)" onmouseover="showTip(event, 'fs32', 231)" class="i">sample</span> <span class="k">do</span>
        <span onmouseout="hideTip(event, 'fs64', 232)" onmouseover="showTip(event, 'fs64', 232)" class="k">left</span> 
        <span onmouseout="hideTip(event, 'fs66', 233)" onmouseover="showTip(event, 'fs66', 233)" class="k">map</span> (<span onmouseout="hideTip(event, 'fs2', 234)" onmouseover="showTip(event, 'fs2', 234)" class="i">x</span> <span class="o">*</span> <span class="n">2</span>) 
        <span onmouseout="hideTip(event, 'fs67', 235)" onmouseover="showTip(event, 'fs67', 235)" class="k">up</span>
        <span onmouseout="hideTip(event, 'fs63', 236)" onmouseover="showTip(event, 'fs63', 236)" class="k">right</span>
        <span onmouseout="hideTip(event, 'fs66', 237)" onmouseover="showTip(event, 'fs66', 237)" class="k">map</span> (<span onmouseout="hideTip(event, 'fs2', 238)" onmouseover="showTip(event, 'fs2', 238)" class="i">x</span> <span class="o">/</span> <span class="n">2</span>) 
        <span onmouseout="hideTip(event, 'fs68', 239)" onmouseover="showTip(event, 'fs68', 239)" class="k">top</span> }
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -132,20 +124,16 @@ at how this works...</p>
 to be a standard binary tree with values in leafs (but you could do the similar
 thing for other kinds of trees or structures):</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l">1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
 <span class="l">4: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="k">type</span> <span onmouseout="hideTip(event, 'fs5', 6)" onmouseover="showTip(event, 'fs5', 6)" class="t">Tree</span><span class="o">&lt;</span><span class="o">&#39;</span><span class="i">T</span><span class="o">&gt;</span> <span class="o">=</span> 
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">type</span> <span onmouseout="hideTip(event, 'fs5', 6)" onmouseover="showTip(event, 'fs5', 6)" class="t">Tree</span><span class="o">&lt;</span><span class="o">&#39;</span><span class="i">T</span><span class="o">&gt;</span> <span class="o">=</span> 
   | <span onmouseout="hideTip(event, 'fs6', 7)" onmouseover="showTip(event, 'fs6', 7)" class="p">Node</span> <span class="k">of</span> <span onmouseout="hideTip(event, 'fs5', 8)" onmouseover="showTip(event, 'fs5', 8)" class="t">Tree</span><span class="o">&lt;</span><span class="o">&#39;</span><span class="i">T</span><span class="o">&gt;</span> <span class="o">*</span> <span onmouseout="hideTip(event, 'fs5', 9)" onmouseover="showTip(event, 'fs5', 9)" class="t">Tree</span><span class="o">&lt;</span><span class="o">&#39;</span><span class="i">T</span><span class="o">&gt;</span>
   | <span onmouseout="hideTip(event, 'fs7', 10)" onmouseover="showTip(event, 'fs7', 10)" class="p">Leaf</span> <span class="k">of</span> <span class="o">&#39;</span><span class="i">T</span>
   <span class="k">override</span> <span onmouseout="hideTip(event, 'fs8', 11)" onmouseover="showTip(event, 'fs8', 11)" class="i">x</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs9', 12)" onmouseover="showTip(event, 'fs9', 12)" class="f">ToString</span>() <span class="o">=</span> <span id="fst10" onmouseout="hideTip(event, 'fs10', 13)" onmouseover="showTip(event, 'fs10', 13, document.getElementById('fst10'))" class="omitted">(...)</span>
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -160,8 +148,7 @@ in more details. As a fun fact, you can also read about how zippers can be deriv
 <a href="http://strictlypositive.org/diff.pdf" title="C. McBride: The Derivative of a Regular Type is its Type of One-Hole Contexts">automatically using <em>differentiation</em></a>.
 In our case, the zipper data type for the tree is defined as follows:</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l">1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
 <span class="l">4: </span>
@@ -170,10 +157,8 @@ In our case, the zipper data type for the tree is defined as follows:</p>
 <span class="l">7: </span>
 <span class="l">8: </span>
 <span class="l">9: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="k">type</span> <span onmouseout="hideTip(event, 'fs11', 14)" onmouseover="showTip(event, 'fs11', 14)" class="t">Path</span><span class="o">&lt;</span><span class="o">&#39;</span><span class="i">T</span><span class="o">&gt;</span> <span class="o">=</span> 
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">type</span> <span onmouseout="hideTip(event, 'fs11', 14)" onmouseover="showTip(event, 'fs11', 14)" class="t">Path</span><span class="o">&lt;</span><span class="o">&#39;</span><span class="i">T</span><span class="o">&gt;</span> <span class="o">=</span> 
   | <span onmouseout="hideTip(event, 'fs12', 15)" onmouseover="showTip(event, 'fs12', 15)" class="p">Top</span> 
   | <span onmouseout="hideTip(event, 'fs13', 16)" onmouseover="showTip(event, 'fs13', 16)" class="p">Left</span> <span class="k">of</span> <span onmouseout="hideTip(event, 'fs11', 17)" onmouseover="showTip(event, 'fs11', 17)" class="t">Path</span><span class="o">&lt;</span><span class="o">&#39;</span><span class="i">T</span><span class="o">&gt;</span> <span class="o">*</span> <span onmouseout="hideTip(event, 'fs5', 18)" onmouseover="showTip(event, 'fs5', 18)" class="t">Tree</span><span class="o">&lt;</span><span class="o">&#39;</span><span class="i">T</span><span class="o">&gt;</span>
   | <span onmouseout="hideTip(event, 'fs14', 19)" onmouseover="showTip(event, 'fs14', 19)" class="p">Right</span> <span class="k">of</span> <span onmouseout="hideTip(event, 'fs11', 20)" onmouseover="showTip(event, 'fs11', 20)" class="t">Path</span><span class="o">&lt;</span><span class="o">&#39;</span><span class="i">T</span><span class="o">&gt;</span> <span class="o">*</span> <span onmouseout="hideTip(event, 'fs5', 21)" onmouseover="showTip(event, 'fs5', 21)" class="t">Tree</span><span class="o">&lt;</span><span class="o">&#39;</span><span class="i">T</span><span class="o">&gt;</span>
@@ -182,8 +167,7 @@ In our case, the zipper data type for the tree is defined as follows:</p>
 <span class="k">type</span> <span onmouseout="hideTip(event, 'fs18', 25)" onmouseover="showTip(event, 'fs18', 25)" class="t">TreeZipper</span><span class="o">&lt;</span><span class="o">&#39;</span><span class="i">T</span><span class="o">&gt;</span> <span class="o">=</span> 
   | <span onmouseout="hideTip(event, 'fs19', 26)" onmouseover="showTip(event, 'fs19', 26)" class="p">TZ</span> <span class="k">of</span> <span onmouseout="hideTip(event, 'fs5', 27)" onmouseover="showTip(event, 'fs5', 27)" class="t">Tree</span><span class="o">&lt;</span><span class="o">&#39;</span><span class="i">T</span><span class="o">&gt;</span> <span class="o">*</span> <span onmouseout="hideTip(event, 'fs11', 28)" onmouseover="showTip(event, 'fs11', 28)" class="t">Path</span><span class="o">&lt;</span><span class="o">&#39;</span><span class="i">T</span><span class="o">&gt;</span>
   <span class="k">override</span> <span onmouseout="hideTip(event, 'fs20', 29)" onmouseover="showTip(event, 'fs20', 29)" class="i">x</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs21', 30)" onmouseover="showTip(event, 'fs21', 30)" class="f">ToString</span>() <span class="o">=</span> <span id="fst22" onmouseout="hideTip(event, 'fs22', 31)" onmouseover="showTip(event, 'fs22', 31, document.getElementById('fst22'))" class="omitted">(...)</span>
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -198,8 +182,7 @@ right (that we just skipped over).</p>
 <p>Let's look at three simple functions that operate on the tree zipper and then 
 we'll navigate through a simple tree using them:</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l"> 1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
 <span class="l"> 4: </span>
@@ -213,10 +196,8 @@ we'll navigate through a simple tree using them:</p>
 <span class="l">12: </span>
 <span class="l">13: </span>
 <span class="l">14: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="c">/// Navigates to the left sub-tree</span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="c">/// Navigates to the left sub-tree</span>
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs23', 32)" onmouseover="showTip(event, 'fs23', 32)" class="f">left</span> <span class="o">=</span> <span class="k">function</span>
   | <span onmouseout="hideTip(event, 'fs19', 33)" onmouseover="showTip(event, 'fs19', 33)" class="p">TZ</span>(<span onmouseout="hideTip(event, 'fs7', 34)" onmouseover="showTip(event, 'fs7', 34)" class="p">Leaf</span> _, _) <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs24', 35)" onmouseover="showTip(event, 'fs24', 35)" class="f">failwith</span> <span class="s">&quot;cannot go left&quot;</span>
   | <span onmouseout="hideTip(event, 'fs19', 36)" onmouseover="showTip(event, 'fs19', 36)" class="p">TZ</span>(<span onmouseout="hideTip(event, 'fs6', 37)" onmouseover="showTip(event, 'fs6', 37)" class="p">Node</span>(<span onmouseout="hideTip(event, 'fs25', 38)" onmouseover="showTip(event, 'fs25', 38)" class="i">l</span>, <span onmouseout="hideTip(event, 'fs26', 39)" onmouseover="showTip(event, 'fs26', 39)" class="i">r</span>), <span onmouseout="hideTip(event, 'fs27', 40)" onmouseover="showTip(event, 'fs27', 40)" class="i">p</span>) <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs19', 41)" onmouseover="showTip(event, 'fs19', 41)" class="p">TZ</span>(<span onmouseout="hideTip(event, 'fs25', 42)" onmouseover="showTip(event, 'fs25', 42)" class="i">l</span>, <span onmouseout="hideTip(event, 'fs13', 43)" onmouseover="showTip(event, 'fs13', 43)" class="p">Left</span>(<span onmouseout="hideTip(event, 'fs27', 44)" onmouseover="showTip(event, 'fs27', 44)" class="i">p</span>, <span onmouseout="hideTip(event, 'fs26', 45)" onmouseover="showTip(event, 'fs26', 45)" class="i">r</span>))
@@ -230,8 +211,7 @@ we'll navigate through a simple tree using them:</p>
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs29', 60)" onmouseover="showTip(event, 'fs29', 60)" class="f">current</span> <span class="o">=</span> <span class="k">function</span>
   | <span onmouseout="hideTip(event, 'fs19', 61)" onmouseover="showTip(event, 'fs19', 61)" class="p">TZ</span>(<span onmouseout="hideTip(event, 'fs7', 62)" onmouseover="showTip(event, 'fs7', 62)" class="p">Leaf</span> <span onmouseout="hideTip(event, 'fs30', 63)" onmouseover="showTip(event, 'fs30', 63)" class="i">x</span>, _) <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs30', 64)" onmouseover="showTip(event, 'fs30', 64)" class="i">x</span>
   | _ <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs24', 65)" onmouseover="showTip(event, 'fs24', 65)" class="f">failwith</span> <span class="s">&quot;cannot get current&quot;</span>
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -247,8 +227,7 @@ a leaf node. In that case, it simply returns the value from the leaf.
 The following example defines a simple tree and then uses zipper operations to
 get to one of the leaves in the tree:</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l"> 1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
 <span class="l"> 4: </span>
@@ -259,10 +238,8 @@ get to one of the leaves in the tree:</p>
 <span class="l"> 9: </span>
 <span class="l">10: </span>
 <span class="l">11: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="c">// Create a sample tree</span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// Create a sample tree</span>
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs31', 66)" onmouseover="showTip(event, 'fs31', 66)" class="i">branches</span> <span class="o">=</span> 
   <span onmouseout="hideTip(event, 'fs6', 67)" onmouseover="showTip(event, 'fs6', 67)" class="p">Node</span>( <span onmouseout="hideTip(event, 'fs6', 68)" onmouseover="showTip(event, 'fs6', 68)" class="p">Node</span>(<span onmouseout="hideTip(event, 'fs7', 69)" onmouseover="showTip(event, 'fs7', 69)" class="p">Leaf</span> <span class="n">1</span>, <span onmouseout="hideTip(event, 'fs7', 70)" onmouseover="showTip(event, 'fs7', 70)" class="p">Leaf</span> <span class="n">3</span>), 
         <span onmouseout="hideTip(event, 'fs6', 71)" onmouseover="showTip(event, 'fs6', 71)" class="p">Node</span>(<span onmouseout="hideTip(event, 'fs7', 72)" onmouseover="showTip(event, 'fs7', 72)" class="p">Leaf</span> <span class="n">7</span>, <span onmouseout="hideTip(event, 'fs6', 73)" onmouseover="showTip(event, 'fs6', 73)" class="p">Node</span>(<span onmouseout="hideTip(event, 'fs7', 74)" onmouseover="showTip(event, 'fs7', 74)" class="p">Leaf</span> <span class="n">12</span>, <span onmouseout="hideTip(event, 'fs7', 75)" onmouseover="showTip(event, 'fs7', 75)" class="p">Leaf</span> <span class="n">20</span>)) )
@@ -273,16 +250,14 @@ get to one of the leaves in the tree:</p>
 
 <span class="c">// Get one of the tree leaves</span>
 <span onmouseout="hideTip(event, 'fs32', 82)" onmouseover="showTip(event, 'fs32', 82)" class="i">sample</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs28', 83)" onmouseover="showTip(event, 'fs28', 83)" class="f">right</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs28', 84)" onmouseover="showTip(event, 'fs28', 84)" class="f">right</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs23', 85)" onmouseover="showTip(event, 'fs23', 85)" class="f">left</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs29', 86)" onmouseover="showTip(event, 'fs29', 86)" class="f">current</span>
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
 <p>To make this example complete, we also need to add operation <code>up</code> that goes to the
 parent. We will also need an operation that (recursively) goes back to the top of the tree:</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l"> 1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
 <span class="l"> 4: </span>
@@ -292,10 +267,8 @@ parent. We will also need an operation that (recursively) goes back to the top o
 <span class="l"> 8: </span>
 <span class="l"> 9: </span>
 <span class="l">10: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="c">// Navigate to the parent node</span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// Navigate to the parent node</span>
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs34', 87)" onmouseover="showTip(event, 'fs34', 87)" class="f">up</span> <span class="o">=</span> <span class="k">function</span>
   | <span onmouseout="hideTip(event, 'fs19', 88)" onmouseover="showTip(event, 'fs19', 88)" class="p">TZ</span>(<span onmouseout="hideTip(event, 'fs25', 89)" onmouseover="showTip(event, 'fs25', 89)" class="i">l</span>, <span onmouseout="hideTip(event, 'fs13', 90)" onmouseover="showTip(event, 'fs13', 90)" class="p">Left</span>(<span onmouseout="hideTip(event, 'fs27', 91)" onmouseover="showTip(event, 'fs27', 91)" class="i">p</span>, <span onmouseout="hideTip(event, 'fs26', 92)" onmouseover="showTip(event, 'fs26', 92)" class="i">r</span>))
   | <span onmouseout="hideTip(event, 'fs19', 93)" onmouseover="showTip(event, 'fs19', 93)" class="p">TZ</span>(<span onmouseout="hideTip(event, 'fs26', 94)" onmouseover="showTip(event, 'fs26', 94)" class="i">r</span>, <span onmouseout="hideTip(event, 'fs14', 95)" onmouseover="showTip(event, 'fs14', 95)" class="p">Right</span>(<span onmouseout="hideTip(event, 'fs27', 96)" onmouseover="showTip(event, 'fs27', 96)" class="i">p</span>, <span onmouseout="hideTip(event, 'fs25', 97)" onmouseover="showTip(event, 'fs25', 97)" class="i">l</span>)) <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs19', 98)" onmouseover="showTip(event, 'fs19', 98)" class="p">TZ</span>(<span onmouseout="hideTip(event, 'fs6', 99)" onmouseover="showTip(event, 'fs6', 99)" class="p">Node</span>(<span onmouseout="hideTip(event, 'fs25', 100)" onmouseover="showTip(event, 'fs25', 100)" class="i">l</span>, <span onmouseout="hideTip(event, 'fs26', 101)" onmouseover="showTip(event, 'fs26', 101)" class="i">r</span>), <span onmouseout="hideTip(event, 'fs27', 102)" onmouseover="showTip(event, 'fs27', 102)" class="i">p</span>)
@@ -305,8 +278,7 @@ parent. We will also need an operation that (recursively) goes back to the top o
 <span class="k">let</span> <span class="k">rec</span> <span onmouseout="hideTip(event, 'fs35', 106)" onmouseover="showTip(event, 'fs35', 106)" class="f">top</span> <span class="o">=</span> <span class="k">function</span>
   | <span onmouseout="hideTip(event, 'fs19', 107)" onmouseover="showTip(event, 'fs19', 107)" class="p">TZ</span>(_, <span onmouseout="hideTip(event, 'fs12', 108)" onmouseover="showTip(event, 'fs12', 108)" class="p">Top</span>) <span class="k">as</span> <span onmouseout="hideTip(event, 'fs36', 109)" onmouseover="showTip(event, 'fs36', 109)" class="i">t</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs36', 110)" onmouseover="showTip(event, 'fs36', 110)" class="i">t</span>
   | <span onmouseout="hideTip(event, 'fs37', 111)" onmouseover="showTip(event, 'fs37', 111)" class="i">tz</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs35', 112)" onmouseover="showTip(event, 'fs35', 112)" class="f">top</span> (<span onmouseout="hideTip(event, 'fs34', 113)" onmouseover="showTip(event, 'fs34', 113)" class="f">up</span> <span onmouseout="hideTip(event, 'fs37', 114)" onmouseover="showTip(event, 'fs37', 114)" class="i">tz</span>)
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -326,8 +298,7 @@ able to implement the motivating example as nicely.</p>
 simply creates a tree containing just a leaf, and <code>bindSub</code> which transforms
 all leaves in the current sub-tree using a specified function:</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l"> 1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
 <span class="l"> 4: </span>
@@ -338,10 +309,8 @@ all leaves in the current sub-tree using a specified function:</p>
 <span class="l"> 9: </span>
 <span class="l">10: </span>
 <span class="l">11: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="c">/// Build tree zipper with singleton tree</span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="c">/// Build tree zipper with singleton tree</span>
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs38', 115)" onmouseover="showTip(event, 'fs38', 115)" class="f">unit</span> <span onmouseout="hideTip(event, 'fs39', 116)" onmouseover="showTip(event, 'fs39', 116)" class="i">v</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs19', 117)" onmouseover="showTip(event, 'fs19', 117)" class="p">TZ</span>(<span onmouseout="hideTip(event, 'fs7', 118)" onmouseover="showTip(event, 'fs7', 118)" class="p">Leaf</span> <span onmouseout="hideTip(event, 'fs39', 119)" onmouseover="showTip(event, 'fs39', 119)" class="i">v</span>, <span onmouseout="hideTip(event, 'fs12', 120)" onmouseover="showTip(event, 'fs12', 120)" class="p">Top</span>)
 
 <span class="c">/// Transform leaves in the current sub-tree of &#39;treeZip&#39;</span>
@@ -352,8 +321,7 @@ all leaves in the current sub-tree using a specified function:</p>
     | <span onmouseout="hideTip(event, 'fs6', 133)" onmouseover="showTip(event, 'fs6', 133)" class="p">Node</span>(<span onmouseout="hideTip(event, 'fs25', 134)" onmouseover="showTip(event, 'fs25', 134)" class="i">l</span>, <span onmouseout="hideTip(event, 'fs26', 135)" onmouseover="showTip(event, 'fs26', 135)" class="i">r</span>) <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs6', 136)" onmouseover="showTip(event, 'fs6', 136)" class="p">Node</span>(<span onmouseout="hideTip(event, 'fs43', 137)" onmouseover="showTip(event, 'fs43', 137)" class="f">bindT</span> <span onmouseout="hideTip(event, 'fs25', 138)" onmouseover="showTip(event, 'fs25', 138)" class="i">l</span>, <span onmouseout="hideTip(event, 'fs43', 139)" onmouseover="showTip(event, 'fs43', 139)" class="f">bindT</span> <span onmouseout="hideTip(event, 'fs26', 140)" onmouseover="showTip(event, 'fs26', 140)" class="i">r</span>)
   <span class="k">let</span> (<span onmouseout="hideTip(event, 'fs19', 141)" onmouseover="showTip(event, 'fs19', 141)" class="p">TZ</span>(<span onmouseout="hideTip(event, 'fs45', 142)" onmouseover="showTip(event, 'fs45', 142)" class="i">current</span>, <span onmouseout="hideTip(event, 'fs46', 143)" onmouseover="showTip(event, 'fs46', 143)" class="i">path</span>)) <span class="o">=</span> <span onmouseout="hideTip(event, 'fs42', 144)" onmouseover="showTip(event, 'fs42', 144)" class="i">treeZip</span>
   <span onmouseout="hideTip(event, 'fs19', 145)" onmouseover="showTip(event, 'fs19', 145)" class="p">TZ</span>(<span onmouseout="hideTip(event, 'fs43', 146)" onmouseover="showTip(event, 'fs43', 146)" class="f">bindT</span> <span onmouseout="hideTip(event, 'fs45', 147)" onmouseover="showTip(event, 'fs45', 147)" class="i">current</span>, <span onmouseout="hideTip(event, 'fs46', 148)" onmouseover="showTip(event, 'fs46', 148)" class="i">path</span>)
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -377,8 +345,7 @@ tree zippers. We start with a simple definition that allows just <code>for</code
 and then add all the (interesting) custom operators. Our <code>yield</code> is defined as <code>unit</code>
 and <code>for</code> corresponds to <code>bindSub</code>:</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l">1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
 <span class="l">4: </span>
@@ -386,10 +353,8 @@ and <code>for</code> corresponds to <code>bindSub</code>:</p>
 <span class="l">6: </span>
 <span class="l">7: </span>
 <span class="l">8: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="k">type</span> <span onmouseout="hideTip(event, 'fs47', 149)" onmouseover="showTip(event, 'fs47', 149)" class="t">TreeZipperBuilder</span>() <span class="o">=</span> 
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">type</span> <span onmouseout="hideTip(event, 'fs47', 149)" onmouseover="showTip(event, 'fs47', 149)" class="t">TreeZipperBuilder</span>() <span class="o">=</span> 
   <span class="c">/// Enables the &#39;for x in xs do ..&#39; syntax</span>
   <span class="k">member</span> <span onmouseout="hideTip(event, 'fs48', 150)" onmouseover="showTip(event, 'fs48', 150)" class="i">x</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs49', 151)" onmouseover="showTip(event, 'fs49', 151)" class="f">For</span>(<span onmouseout="hideTip(event, 'fs50', 152)" onmouseover="showTip(event, 'fs50', 152)" class="i">tz</span><span class="o">:</span><span onmouseout="hideTip(event, 'fs18', 153)" onmouseover="showTip(event, 'fs18', 153)" class="t">TreeZipper</span><span class="o">&lt;</span><span class="o">&#39;</span><span class="i">T</span><span class="o">&gt;</span>, <span onmouseout="hideTip(event, 'fs51', 154)" onmouseover="showTip(event, 'fs51', 154)" class="f">f</span>) <span class="o">:</span> <span onmouseout="hideTip(event, 'fs18', 155)" onmouseover="showTip(event, 'fs18', 155)" class="t">TreeZipper</span><span class="o">&lt;</span><span class="o">&#39;</span><span class="i">T</span><span class="o">&gt;</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs40', 156)" onmouseover="showTip(event, 'fs40', 156)" class="f">bindSub</span> <span onmouseout="hideTip(event, 'fs51', 157)" onmouseover="showTip(event, 'fs51', 157)" class="f">f</span> <span onmouseout="hideTip(event, 'fs50', 158)" onmouseover="showTip(event, 'fs50', 158)" class="i">tz</span>
   <span class="c">/// Enables the &#39;yield x&#39; syntax</span>
@@ -397,8 +362,7 @@ and <code>for</code> corresponds to <code>bindSub</code>:</p>
 
 <span class="c">/// Global instance of the computation builder</span>
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs53', 164)" onmouseover="showTip(event, 'fs53', 164)" class="i">tree</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs47', 165)" onmouseover="showTip(event, 'fs47', 165)" class="t">TreeZipperBuilder</span>()
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -407,16 +371,12 @@ entire tree. For example, to multiply all values of the tree by 2, we can write
 the following computation (you can pass the result to <code>printfn "%O"</code> to get a nicer
 output)</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l">1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span onmouseout="hideTip(event, 'fs53', 166)" onmouseover="showTip(event, 'fs53', 166)" class="i">tree</span> { <span class="k">for</span> <span onmouseout="hideTip(event, 'fs2', 167)" onmouseover="showTip(event, 'fs2', 167)" class="i">x</span> <span class="k">in</span> <span onmouseout="hideTip(event, 'fs32', 168)" onmouseover="showTip(event, 'fs32', 168)" class="i">sample</span> <span class="k">do</span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs53', 166)" onmouseover="showTip(event, 'fs53', 166)" class="i">tree</span> { <span class="k">for</span> <span onmouseout="hideTip(event, 'fs2', 167)" onmouseover="showTip(event, 'fs2', 167)" class="i">x</span> <span class="k">in</span> <span onmouseout="hideTip(event, 'fs32', 168)" onmouseover="showTip(event, 'fs32', 168)" class="i">sample</span> <span class="k">do</span>
        <span class="k">yield</span> <span onmouseout="hideTip(event, 'fs2', 169)" onmouseover="showTip(event, 'fs2', 169)" class="i">x</span> <span class="o">*</span> <span class="n">2</span> }
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -441,8 +401,7 @@ joinging - but we will not need these in this article.</p>
 <p>To add navigational operations, transformations and getter for the current element,
 we can write the following code:</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l"> 1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
 <span class="l"> 4: </span>
@@ -460,10 +419,8 @@ we can write the following code:</p>
 <span class="l">16: </span>
 <span class="l">17: </span>
 <span class="l">18: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="k">type</span> <span onmouseout="hideTip(event, 'fs47', 170)" onmouseover="showTip(event, 'fs47', 170)" class="t">TreeZipperBuilder</span> <span class="k">with</span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">type</span> <span onmouseout="hideTip(event, 'fs47', 170)" onmouseover="showTip(event, 'fs47', 170)" class="t">TreeZipperBuilder</span> <span class="k">with</span>
   <span class="c">// Operations for navigation through the tree</span>
   [&lt;<span onmouseout="hideTip(event, 'fs54', 171)" onmouseover="showTip(event, 'fs54', 171)" class="t">CustomOperation</span>(<span class="s">&quot;left&quot;</span>, <span class="i">MaintainsVariableSpace</span><span class="o">=</span><span class="k">true</span>)&gt;]
   <span class="k">member</span> <span onmouseout="hideTip(event, 'fs48', 172)" onmouseover="showTip(event, 'fs48', 172)" class="i">x</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs55', 173)" onmouseover="showTip(event, 'fs55', 173)" class="f">Left</span>(<span onmouseout="hideTip(event, 'fs37', 174)" onmouseover="showTip(event, 'fs37', 174)" class="i">tz</span>) <span class="o">=</span> <span onmouseout="hideTip(event, 'fs23', 175)" onmouseover="showTip(event, 'fs23', 175)" class="f">left</span> <span onmouseout="hideTip(event, 'fs37', 176)" onmouseover="showTip(event, 'fs37', 176)" class="i">tz</span>
@@ -481,8 +438,7 @@ we can write the following code:</p>
   <span class="c">/// Transform the current sub-tree using &#39;f&#39;</span>
   [&lt;<span onmouseout="hideTip(event, 'fs54', 201)" onmouseover="showTip(event, 'fs54', 201)" class="t">CustomOperation</span>(<span class="s">&quot;map&quot;</span>, <span class="i">MaintainsVariableSpace</span><span class="o">=</span><span class="k">true</span>)&gt;]
   <span class="k">member</span> <span onmouseout="hideTip(event, 'fs48', 202)" onmouseover="showTip(event, 'fs48', 202)" class="i">x</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs60', 203)" onmouseover="showTip(event, 'fs60', 203)" class="f">Select</span>(<span onmouseout="hideTip(event, 'fs37', 204)" onmouseover="showTip(event, 'fs37', 204)" class="i">tz</span>, [&lt;<span onmouseout="hideTip(event, 'fs61', 205)" onmouseover="showTip(event, 'fs61', 205)" class="t">ProjectionParameter</span>&gt;] <span onmouseout="hideTip(event, 'fs62', 206)" onmouseover="showTip(event, 'fs62', 206)" class="f">f</span>) <span class="o">=</span> <span onmouseout="hideTip(event, 'fs40', 207)" onmouseover="showTip(event, 'fs40', 207)" class="f">bindSub</span> (<span onmouseout="hideTip(event, 'fs62', 208)" onmouseover="showTip(event, 'fs62', 208)" class="f">f</span> <span class="o">&gt;</span><span class="o">&gt;</span> <span onmouseout="hideTip(event, 'fs38', 209)" onmouseover="showTip(event, 'fs38', 209)" class="f">unit</span>) <span onmouseout="hideTip(event, 'fs37', 210)" onmouseover="showTip(event, 'fs37', 210)" class="i">tz</span>
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -505,22 +461,18 @@ and returns the result. Something like <code>fun vars -&gt; vars.x * 2</code>.</
 earlier. The first one corresponds to our earlier computation (written using 
 pipelines) that picks a specific leaf:</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l">1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
 <span class="l">4: </span>
 <span class="l">5: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span onmouseout="hideTip(event, 'fs53', 211)" onmouseover="showTip(event, 'fs53', 211)" class="i">tree</span> { <span class="k">for</span> <span onmouseout="hideTip(event, 'fs2', 212)" onmouseover="showTip(event, 'fs2', 212)" class="i">x</span> <span class="k">in</span> <span onmouseout="hideTip(event, 'fs32', 213)" onmouseover="showTip(event, 'fs32', 213)" class="i">sample</span> <span class="k">do</span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs53', 211)" onmouseover="showTip(event, 'fs53', 211)" class="i">tree</span> { <span class="k">for</span> <span onmouseout="hideTip(event, 'fs2', 212)" onmouseover="showTip(event, 'fs2', 212)" class="i">x</span> <span class="k">in</span> <span onmouseout="hideTip(event, 'fs32', 213)" onmouseover="showTip(event, 'fs32', 213)" class="i">sample</span> <span class="k">do</span>
        <span onmouseout="hideTip(event, 'fs63', 214)" onmouseover="showTip(event, 'fs63', 214)" class="k">right</span>
        <span onmouseout="hideTip(event, 'fs63', 215)" onmouseover="showTip(event, 'fs63', 215)" class="k">right</span>
        <span onmouseout="hideTip(event, 'fs64', 216)" onmouseover="showTip(event, 'fs64', 216)" class="k">left</span>
        <span onmouseout="hideTip(event, 'fs65', 217)" onmouseover="showTip(event, 'fs65', 217)" class="k">current</span> }
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -535,26 +487,22 @@ right, right, left and then get the current value from the tree. Note that addin
 
 <p>We can now also write the sample from the introduction of the article:</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l">1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
 <span class="l">4: </span>
 <span class="l">5: </span>
 <span class="l">6: </span>
 <span class="l">7: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span onmouseout="hideTip(event, 'fs53', 218)" onmouseover="showTip(event, 'fs53', 218)" class="i">tree</span> { <span class="k">for</span> <span onmouseout="hideTip(event, 'fs2', 219)" onmouseover="showTip(event, 'fs2', 219)" class="i">x</span> <span class="k">in</span> <span onmouseout="hideTip(event, 'fs32', 220)" onmouseover="showTip(event, 'fs32', 220)" class="i">sample</span> <span class="k">do</span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs53', 218)" onmouseover="showTip(event, 'fs53', 218)" class="i">tree</span> { <span class="k">for</span> <span onmouseout="hideTip(event, 'fs2', 219)" onmouseover="showTip(event, 'fs2', 219)" class="i">x</span> <span class="k">in</span> <span onmouseout="hideTip(event, 'fs32', 220)" onmouseover="showTip(event, 'fs32', 220)" class="i">sample</span> <span class="k">do</span>
        <span onmouseout="hideTip(event, 'fs64', 221)" onmouseover="showTip(event, 'fs64', 221)" class="k">left</span>
        <span onmouseout="hideTip(event, 'fs66', 222)" onmouseover="showTip(event, 'fs66', 222)" class="k">map</span> (<span onmouseout="hideTip(event, 'fs2', 223)" onmouseover="showTip(event, 'fs2', 223)" class="i">x</span> <span class="o">*</span> <span class="n">2</span>)
        <span onmouseout="hideTip(event, 'fs67', 224)" onmouseover="showTip(event, 'fs67', 224)" class="k">up</span>
        <span onmouseout="hideTip(event, 'fs63', 225)" onmouseover="showTip(event, 'fs63', 225)" class="k">right</span>
        <span onmouseout="hideTip(event, 'fs66', 226)" onmouseover="showTip(event, 'fs66', 226)" class="k">map</span> (<span onmouseout="hideTip(event, 'fs2', 227)" onmouseover="showTip(event, 'fs2', 227)" class="i">x</span> <span class="o">/</span> <span class="n">2</span>) 
        <span onmouseout="hideTip(event, 'fs68', 228)" onmouseover="showTip(event, 'fs68', 228)" class="k">top</span> }
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 

@@ -22,7 +22,7 @@
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/tooltips.css" />
   <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
-  <meta name="twitter:card" content="summary">
+    <meta name="twitter:card" content="summary">
   <meta name="twitter:creator" content="@tomaspetricek">
   <meta name="twitter:title" content="Reactive Programming (IV.) - Developing a game in Reactive LINQ">
   <meta name="twitter:description" content="In this article, we'll implement a simple iteractve game using the Reactive LINQ project. The article shows that this way of handling events gives us amog other things a great degree of composability.">
@@ -118,42 +118,42 @@
 </p>
 
 <pre class="header"><a href="javascript:switchLang(1, 'cs');">Visual C#</a><a href="javascript:switchLang(1, 'fs');">Visual F#</a><a href="javascript:switchLang(1, 'vb');">Visual Basic</a>Counting the number of clicks</pre>
-<pre lang="basic" id="code_vb_1" class="withheader">
-' Display the number of clicks
-Dim eClicked = _
-  Aggregate md In PicSmiley.AttachEvent(Of MouseEventArgs)("MouseDown") _
+<pre id="code_vb_1" class="withheader">
+<span class="c">' Display the number of clicks</span>
+<span class="k">Dim</span> eClicked = _
+  Aggregate md <span class="k">In</span> PicSmiley.AttachEvent(Of MouseEventArgs)(<span class="s">"MouseDown"</span>) _
   Where md.Button = MouseButtons.Left _
   Where Math.Pow(PicSmiley.Width / 2 - md.X, 2) + _
         Math.Pow(PicSmiley.Height / 2 - md.Y, 2) &lt; 2250 _
   Into Sum(1)
-eClicked.Listen(Function(sum) _
-  SetText(LblScore, String.Format("Score: {0}", sum)))
+eClicked.Listen(<span class="k">Function</span>(sum) _
+  SetText(LblScore, <span class="k">String</span>.Format(<span class="s">"Score: {0}"</span>, sum)))
 </pre>
-<pre lang="csharp" id="code_cs_1" class="withheader">
-// Display the number of clicks
-var eClicked = 
-  (from md in picSmiley.AttachEvent&lt;MouseEventArgs&gt;("MouseDown") 
-   where md.Button == MouseButtons.Left 
-   where Math.Pow(picSmiley.Width / 2 - md.X, 2) + 
-          Math.Pow(picSmiley.Height / 2 - md.Y, 2) &lt; 2250
-   select 1).Sum().Pass(sum =&gt; 
-     lblScore.Text = String.Format("Score: {0}", sum));
+<pre id="code_cs_1" class="withheader">
+<span class="c">// Display the number of clicks</span>
+<span class="k">var</span> eClicked <span class="o">=</span> 
+  (<span class="k">from</span> md <span class="k">in</span> picSmiley.AttachEvent&lt;MouseEventArgs&gt;(<span class="s">"MouseDown"</span>) 
+   <span class="k">where</span> md.Button <span class="o">=</span><span class="o">=</span> MouseButtons.Left 
+   <span class="k">where</span> Math.Pow(picSmiley.Width <span class="o">/</span> 2 <span class="o">-</span> md.X, 2) <span class="o">+</span> 
+          Math.Pow(picSmiley.Height <span class="o">/</span> 2 <span class="o">-</span> md.Y, 2) &lt; 2250
+   <span class="k">select</span> 1).Sum().Pass(sum <span class="o">=</span>&gt; 
+     lblScore.Text <span class="o">=</span> String.Format(<span class="s">"Score: {0}"</span>, sum));
 </pre>
-<pre lang="fsharp" id="code_fs_1" class="withheader">
-// Utility function that creates 'constant function'
-let cns n = (fun _ -> n)
+<pre id="code_fs_1" class="withheader">
+<span class="c">// Utility function that creates 'constant function'</span>
+<span class="k">let</span> cns n = (<span class="k">fun</span> <span class="o">_</span> <span class="o">-&gt;</span> n)
 
-// Display the number of clicks
-let eClicked = 
+<span class="c">// Display the number of clicks</span>
+<span class="k">let</span> eClicked = 
   picSmiley.MouseDown
-  |> Reactive.freeable 
-  |> Reactive.filter (fun md -> md.Button = MouseButtons.Left)
-  |> Reactive.filter (fun md -> 
+  <span class="o">|</span>&gt; Reactive.freeable 
+  <span class="o">|</span>&gt; Reactive.filter (<span class="k">fun</span> md <span class="o">-&gt;</span> md.Button = MouseButtons.Left)
+  <span class="o">|</span>&gt; Reactive.filter (<span class="k">fun</span> md <span class="o">-&gt;</span> 
         pown (float picSmiley.Width / 2. - float md.X) 2 +
         pown (float picSmiley.Height / 2. - float md.Y) 2 &lt; 2250.0 )
-  |> Reactive.sumBy (cns 1)
-  |> Reactive.pass (sprintf "Score: %d" >> lblScore.set_Text)
-  |> Reactive.map (cns ())
+  <span class="o">|</span>&gt; Reactive.sumBy (cns 1)
+  <span class="o">|</span>&gt; Reactive.pass (sprintf <span class="s">"Score: %d"</span> &gt;&gt; lblScore.set_Text)
+  <span class="o">|</span>&gt; Reactive.map (cns ())
 </pre>
 <p>There are a few things that deserve some explanation. First of all, we're using <code>Pass</code> 
   extension method in the C# version. This is very similar to <code>Listen</code> with the exception
@@ -184,39 +184,39 @@ let eClicked =
   the event stream will be regenerated and the user will have another 600ms to click on the image:</p>
 
 <pre class="header"><a href="javascript:switchLang(2, 'cs');">Visual C#</a><a href="javascript:switchLang(2, 'fs');">Visual F#</a><a href="javascript:switchLang(2, 'vb');">Visual Basic</a>Moving the smiley</pre>
-<pre lang="basic" id="code_vb_2" class="withheader">
-' Moves the smiley every time the user clicked on it or after specified time
-Dim rnd = New Random()
-Dim eMoveSmiley = _
-  From e In Reactive.After(1000, 0) _
-  From s In Reactive.Merge(eClicked, Reactive.After(600.0, 0)).UseSwitchRecursive() _
-  Select New Point _
-      (rnd.Next(ClientSize.Width - PicSmiley.Width), _
-       20 + rnd.Next(ClientSize.Height - PicSmiley.Height - 20))
-eMoveSmiley.Listen(AddressOf MoveSmiley)
+<pre id="code_vb_2" class="withheader">
+<span class="c">' Moves the smiley every time the user clicked on it or after specified time</span>
+<span class="k">Dim</span> rnd = <span class="k">New</span> Random()
+<span class="k">Dim</span> eMoveSmiley = _
+  From e <span class="k">In</span> Reactive.After(1000, 0) _
+  From s <span class="k">In</span> Reactive.Merge(eClicked, Reactive.After(600.0, 0)).UseSwitchRecursive() _
+  <span class="k">Select</span> <span class="k">New</span> Point _
+      (rnd.<span class="k">Next</span>(ClientSize.Width - PicSmiley.Width), _
+       20 + rnd.<span class="k">Next</span>(ClientSize.Height - PicSmiley.Height - 20))
+eMoveSmiley.Listen(<span class="k">AddressOf</span> MoveSmiley)
 </pre>
-<pre lang="csharp" id="code_cs_2" class="withheader">
-// Moves the smiley every time the user clicked on it or after specified time
-var rnd = new Random();
-var eMoveSmiley = 
- (from e in Reactive.After(1000, 0) 
-  from s in Reactive.Merge(eClicked, Reactive.After(600.0, 0)).UseSwitchRecursive() 
-  select new Point 
-      (rnd.Next(ClientSize.Width - picSmiley.Width), 
-       20 + rnd.Next(ClientSize.Height - picSmiley.Height - 20)))
-  .Pass(pos =&gt; picSmiley.Location = pos);
+<pre id="code_cs_2" class="withheader">
+<span class="c">// Moves the smiley every time the user clicked on it or after specified time</span>
+<span class="k">var</span> rnd <span class="o">=</span> <span class="k">new</span> Random();
+<span class="k">var</span> eMoveSmiley <span class="o">=</span> 
+ (<span class="k">from</span> e <span class="k">in</span> Reactive.After(1000, 0) 
+  <span class="k">from</span> s <span class="k">in</span> Reactive.Merge(eClicked, Reactive.After(600.0, 0)).UseSwitchRecursive() 
+  <span class="k">select</span> <span class="k">new</span> Point 
+      (rnd.Next(ClientSize.Width <span class="o">-</span> picSmiley.Width), 
+       20 <span class="o">+</span> rnd.Next(ClientSize.Height <span class="o">-</span> picSmiley.Height <span class="o">-</span> 20)))
+  .Pass(pos <span class="o">=</span>&gt; picSmiley.Location <span class="o">=</span> pos);
 </pre>
-<pre lang="fsharp" id="code_fs_2" class="withheader">
-// Moves the smiley every time the user clicked on it or after specified time
-let rnd = new Random()
-let eMoveSmiley =
+<pre id="code_fs_2" class="withheader">
+<span class="c">// Moves the smiley every time the user clicked on it or after specified time</span>
+<span class="k">let</span> rnd = <span class="k">new</span> Random()
+<span class="k">let</span> eMoveSmiley =
   Reactive.After(1000.0, ())
-  |> Reactive.switchRecursive (fun () ->
+  <span class="o">|</span>&gt; Reactive.switchRecursive (<span class="k">fun</span> () <span class="o">-&gt;</span>
       Reactive.Merge(eClicked, Reactive.After(600.0, ())))
-  |> Reactive.map (fun _ -> 
+  <span class="o">|</span>&gt; Reactive.map (<span class="k">fun</span> <span class="o">_</span> <span class="o">-&gt;</span> 
       Point(rnd.Next(frm.ClientSize.Width - picSmiley.Width),        
             20 + rnd.Next(frm.ClientSize.Height - picSmiley.Height - 20)) )
-  |> Reactive.pass picSmiley.set_Location            
+  <span class="o">|</span>&gt; Reactive.pass picSmiley.set_Location            
 </pre>
 <p>In C# and VB, the <code>eClicked</code> event yields integer values. To make the types compatible,
   our calls to <code>Reactive.After</code> also generate an integer value (the second argument specifies
@@ -242,49 +242,49 @@ let eMoveSmiley =
   tells us the current time, we can also handle the end of the game. When the time is less than 
   zero, we'll display a message with the result and stop all event processing. </p>
 <pre class="header"><a href="javascript:switchLang(3, 'cs');">Visual C#</a><a href="javascript:switchLang(3, 'fs');">Visual F#</a><a href="javascript:switchLang(3, 'vb');">Visual Basic</a>Counting the time and showing results</pre>
-<pre lang="basic" id="code_vb_3" class="withheader">
-' Count-down timer, shows the time on a label
-Dim start = DateTime.Now
-Dim eCountDown = _
-  From e In Reactive.Repeatedly(1000) _
-  Let sec = 20 - e.Subtract(start).TotalSeconds _
-  Select New With _
+<pre id="code_vb_3" class="withheader">
+<span class="c">' Count-down timer, shows the time on a label</span>
+<span class="k">Dim</span> start = DateTime.Now
+<span class="k">Dim</span> eCountDown = _
+  From e <span class="k">In</span> Reactive.Repeatedly(1000) _
+  <span class="k">Let</span> sec = 20 - e.Subtract(start).TotalSeconds _
+  <span class="k">Select</span> <span class="k">New</span> <span class="k">With</span> _
     {.Time = sec, .Message = _
-     String.Format("Time: {0}", CType(sec, Integer))}
-eCountDown.Listen(Function(s) SetText(LblTime, s.Message))
+     <span class="k">String</span>.Format(<span class="s">"Time: {0}"</span>, <span class="k">CType</span>(sec, <span class="k">Integer</span>))}
+eCountDown.Listen(<span class="k">Function</span>(s) SetText(LblTime, s.Message))
 
-' Stop the game when time is less than zero
+<span class="c">' Stop the game when time is less than zero</span>
 eCountDown _
-  .Where(Function(t) t.Time &lt;= 0) _
-  .Listen(Function() StopGame(eClicked, eMoveSmiley, eCountDown))
+  .Where(<span class="k">Function</span>(t) t.Time &lt;= 0) _
+  .Listen(<span class="k">Function</span>() StopGame(eClicked, eMoveSmiley, eCountDown))
 </pre>
-<pre lang="csharp" id="code_cs_3" class="withheader">
-// Count-down timer, shows the time on a label
-var start = DateTime.Now;
-(from e in Reactive.Repeatedly(1000) 
- let sec = 20 - e.Subtract(start).TotalSeconds 
- select new { Time = sec, Message = 
-     String.Format("Time: {0}", (int)sec) })
- .Pass(s =&gt; lblTime.Text = s.Message)
- .Where(t =&gt; t.Time &lt;= 0).First()
- .Listen(_ =&gt; {
+<pre id="code_cs_3" class="withheader">
+<span class="c">// Count-down timer, shows the time on a label</span>
+<span class="k">var</span> start <span class="o">=</span> DateTime.Now;
+(<span class="k">from</span> e <span class="k">in</span> Reactive.Repeatedly(1000) 
+ <span class="k">let</span> sec <span class="o">=</span> 20 <span class="o">-</span> e.Subtract(start).TotalSeconds 
+ <span class="k">select</span> <span class="k">new</span> { Time <span class="o">=</span> sec, Message <span class="o">=</span> 
+     String.Format(<span class="s">"Time: {0}"</span>, (<span class="k">int</span>)sec) })
+ .Pass(s <span class="o">=</span>&gt; lblTime.Text <span class="o">=</span> s.Message)
+ .Where(t <span class="o">=</span>&gt; t.Time &lt;<span class="o">=</span> 0).First()
+ .Listen(_ <span class="o">=</span>&gt; {
      eClicked.Stop();
      eMoveSmiley.Stop();
-     MessageBox.Show("Game over!\n" + lblScore.Text);
+     MessageBox.Show(<span class="s">"Game over!\n"</span> <span class="o">+</span> lblScore.Text);
    });
 </pre>
-<pre lang="fsharp" id="code_fs_3" class="withheader">
-// Count-down timer, shows the time on a label
-let start = DateTime.Now
+<pre id="code_fs_3" class="withheader">
+<span class="c">// Count-down timer, shows the time on a label</span>
+<span class="k">let</span> start = DateTime.Now
 Reactive.Repeatedly(1000.0)
-  |> Reactive.map (fun e -> 20.0 - e.Subtract(start).TotalSeconds)
-  |> Reactive.pass (int >> sprintf "Time: %d" >> lblTime.set_Text)
-  |> Reactive.filter ((>) 0.0)
-  |> Reactive.first
-  |> Reactive.listen(fun _ -> 
+  <span class="o">|</span>&gt; Reactive.map (<span class="k">fun</span> e <span class="o">-&gt;</span> 20.0 - e.Subtract(start).TotalSeconds)
+  <span class="o">|</span>&gt; Reactive.pass (int &gt;&gt; sprintf <span class="s">"Time: %d"</span> &gt;&gt; lblTime.set_Text)
+  <span class="o">|</span>&gt; Reactive.filter ((&gt;) 0.0)
+  <span class="o">|</span>&gt; Reactive.first
+  <span class="o">|</span>&gt; Reactive.listen(<span class="k">fun</span> <span class="o">_</span> <span class="o">-&gt;</span> 
         eClicked.Stop()
         eMoveSmiley.Stop()
-        MessageBox.Show("Game over!\n" + lblScore.Text) |> ignore )
+        MessageBox.Show(<span class="s">"Game over!\n"</span> + lblScore.Text) <span class="o">|</span>&gt; ignore )
 </pre>
 <p>The event processing stream starts with a call to <code>Reactive.Repeatedly</code>, which
   generates event that is raised every second. Then we calculate the number of seconds until
@@ -437,7 +437,7 @@ switchLang(0, 'vb');
 
     <h4>Functional F# and C# books</h4>
     <div style="float:right;">
-      <a href="http://www.amazon.com/gp/product/1933988924/ref=as_li_tf_il?ie=UTF8&amp;tag=httptomasnet-20&amp;linkCode=as2&amp;camp=217145&amp;creative=399369&amp;creativeASIN=1933988924">
+      <a href="http://www.amazon.com/gp/product/1933988924/ref=as_li_tf_il?ie=UTF8&tag=httptomasnet-20&linkCode=as2&camp=217145&creative=399369&creativeASIN=1933988924">
         <img src="http://tomasp.net/img/deepdives.png" alt="F# Deep Dives" style="float:right;margin:15px 0px 15px 10px;border-style:none;" />
       </a>
     </div>
@@ -449,8 +449,8 @@ switchLang(0, 'vb');
     <ul>
       <li><a href="http://functional-programming.net/rwfp"><strong>Real World Functional Programming</strong></a> home page. See
         <a href="http://manning.com/petricek">Manning</a>,
-        <a href="https://www.amazon.com/dp/1933988924?tag=httptomasnet-20&amp;camp=213381&amp;creative=390973&amp;linkCode=as4&amp;creativeASIN=1933988924&amp;adid=0F1DP260JGG4KY0CDGP6">Amazon.com</a> or
-        <a href="https://www.amazon.co.uk/dp/1933988924?tag=tomasnet-21&amp;camp=1406&amp;creative=6394&amp;linkCode=as1&amp;creativeASIN=1933988924&amp;adid=1CTY87YCCQEJW965GNDF">Amazon.co.uk</a>.
+        <a href="https://www.amazon.com/dp/1933988924?tag=httptomasnet-20&camp=213381&creative=390973&linkCode=as4&creativeASIN=1933988924&adid=0F1DP260JGG4KY0CDGP6">Amazon.com</a> or
+        <a href="https://www.amazon.co.uk/dp/1933988924?tag=tomasnet-21&camp=1406&creative=6394&linkCode=as1&creativeASIN=1933988924&adid=1CTY87YCCQEJW965GNDF">Amazon.co.uk</a>.
       </li>
       <li><a href="http://functional-programming.net/deepdives"><strong>F# Deep Dives</strong></a> home page. Get it from
         <a href="http://www.manning.com/petricek2">Manning.com</a>,
@@ -480,11 +480,11 @@ switchLang(0, 'vb');
   <div class="row" id="footer">
   <footer>   
     <div class="large-3 columns">
-      <h4>Contact &amp; about</h4>
+      <h4>Contact & about</h4>
       <p>This site is hosted on GitHub and is generated using <a href="https://github.com/tpetricek/FSharp.Formatting">F# Formatting</a>.
         For more info, see the <a href="https://github.com/tpetricek/TomaspNet.Website">website source on GitHub</a>.
       </p>
-      <p>Please submit issues &amp; corrections on GitHub. Use pull requests for minor corrections only.</p>
+      <p>Please submit issues & corrections on GitHub. Use pull requests for minor corrections only.</p>
       <ul>
         <li>Email me: <a href="mailto:tomas@tomasp.net">tomas@tomasp.net</a></li>
         <li>Connect via Twitter: <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a></li>

@@ -66,6 +66,55 @@
       
 
   <div>
+  <h1><a href="http://tomasp.net/blog/2015/failures/index.html">Miscomputation: Learning to live with errors</a></h1>
+  <blockquote>
+<img src="http://tomasp.net/blog/2015/failures/babbage.png" style="float:right;width:110px;margin:5px 0px 10px 20px" />
+
+<p style="margin-bottom:5px">If trials of three or four simple cases have been made, and are found
+to agree with the results given by the engine, it is scarcely possible that there can be any error
+(...).</p>
+<p style="text-align:right">Charles Babbage, On the mathematical<br /> powers of the calculating engine (1837)</p>
+</blockquote>
+
+<p>Anybody who has something to do with modern computers will agree that the above statement made by
+Charles Babbage about the analytical engine is understatement, to say the least.</p>
+
+<p>Computer programs do not always work as expected. There is a complex taxonomy of errors or
+<a href="http://link.springer.com/article/10.1007/s13347-013-0112-0"><em>miscomputations</em></a>. The taxonomy of
+possible errors is itself interesting. Syntax errors like missing semicolons are quite obvious
+and are easy to catch. Logical errors are harder to find, but at least we know that something
+went wrong. For example, our algorithm does not correctly sort some lists. There are also issues that
+may or may not be actual errors. For example an algorithm in online store might suggest slightly
+suspicious products. Finally, we also have concurrency errors that happen very rarely in some
+very specific scenario.</p>
+
+<p>If Babbage was right, we would just try three or four simple cases and eradicate all errors from
+our programs, but eliminating errors is not so easy. In retrospect, it is quite interesting to
+see how long it took early computer engineers to realise that coding (i.e. translating
+mathematical algorithm to program code) errors are a problem:</p>
+
+<blockquote>
+<p style="margin-bottom:5px">Errors in coding were only gradually recognized to be a signiﬁcant
+problem: a typical early comment was that of Miller [circa 1949], who wrote that such errors,
+along with hardware faults, could be "expected, in time, to become infrequent".</p>
+<p style="text-align:right">Mark Priestley, Science of Operations (2011)</p>
+</blockquote>
+
+<p>We <em>mostly</em> got rid of hardware faults, but coding errors are still here. Programmers spent
+over 50 years finding different practical strategies for dealing with them. In this
+blog post, I want to look at four of the strategies. Quite curiously, there is a very wide range.</p>
+
+
+      
+  <p class="meta">
+    <span><strong>Published</strong>: Monday, 27 July 2015, 2:15 PM</span>
+      <br />      
+      <span class="tags"><strong>Tags</strong>: philosophy, research, programming languages </span> 
+    <br />
+    <a href="http://tomasp.net/blog/2015/failures/index.html">Read the complete article</a>
+  </p>
+  </div>
+  <div>
   <h1><a href="http://tomasp.net/blog/2015/against-types/index.html">Against the definition of types</a></h1>
   <blockquote>
 <p style="margin-bottom:5px">Science is much more 'sloppy' and 'irrational' than its methodological image.</p>
@@ -1202,7 +1251,7 @@ that LINQ syntax can be used for encoding <em>queries</em> (obviously), <em>mona
     <h4>Blog tags</h4>
     <p>
 
-      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(105),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(36),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(16),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(30),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(5),       <a href="http://tomasp.net/blog/tag/open-source/">open source</a>&nbsp;(5),       <a href="http://tomasp.net/blog/tag/fslab/">fslab</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/linq/">linq</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(2)    </p>
+      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(105),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(36),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(16),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(31),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(5),       <a href="http://tomasp.net/blog/tag/open-source/">open source</a>&nbsp;(5),       <a href="http://tomasp.net/blog/tag/fslab/">fslab</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/linq/">linq</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/programming-languages/">programming languages</a>&nbsp;(1)    </p>
 
   </div>
 </div>
@@ -1224,7 +1273,8 @@ that LINQ syntax can be used for encoding <em>queries</em> (obviously), <em>mona
     </div>
     <div class="large-7 columns">
     <h4>Blog archives <a href="http://tomasp.net/rss.xml"><img src="http://tomasp.net/img/rss.gif" /></a></h4>
-      <a href="http://tomasp.net/blog/archive/june-2015/index.html">
+      <a href="http://tomasp.net/blog/archive/july-2015/index.html">
+        July 2015 (1)</a>,      <a href="http://tomasp.net/blog/archive/june-2015/index.html">
         June 2015 (1)</a>,      <a href="http://tomasp.net/blog/archive/may-2015/index.html">
         May 2015 (2)</a>,      <a href="http://tomasp.net/blog/archive/april-2015/index.html">
         April 2015 (3)</a>,      <a href="http://tomasp.net/blog/archive/march-2015/index.html">

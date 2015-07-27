@@ -66,168 +66,52 @@
       
 
   <div>
-  <h1><a href="http://tomasp.net/blog/2015/library-frameworks/index.html">Library patterns: Why frameworks are evil</a></h1>
-  <img src="http://tomasp.net/blog/2015/library-frameworks/diagram-narrow.png" style="float:right;margin:25px 0px 25px 20px" />
+  <h1><a href="http://tomasp.net/blog/2015/failures/index.html">Miscomputation: Learning to live with errors</a></h1>
+  <blockquote>
+<img src="http://tomasp.net/blog/2015/failures/babbage.png" style="float:right;width:110px;margin:5px 0px 10px 20px" />
 
-<p>This article is a follow up to my previous blog post about <a href="http://tomasp.net/blog/2015/library-layers">functional library 
-design</a>, but you do not need to read the previous one,
-because I'll focus on a different topic.</p>
+<p style="margin-bottom:5px">If trials of three or four simple cases have been made, and are found
+to agree with the results given by the engine, it is scarcely possible that there can be any error
+(...).</p>
+<p style="text-align:right">Charles Babbage, On the mathematical<br /> powers of the calculating engine (1837)</p>
+</blockquote>
 
-<p>In the previous article, I wrote about a couple of principles that I find useful when 
-designing libraries in a functional style. This follows from my experience with building
-F# libraries, but the ideas are quite general and can be useful in any programming language.
-Previously, I wrote how <em>multiple layers of abstraction</em> let you build libraries that make
-80% of scenarios easy while still supporting the more interesting use cases.</p>
+<p>Anybody who has something to do with modern computers will agree that the above statement made by
+Charles Babbage about the analytical engine is understatement, to say the least.</p>
 
-<p>In this article, I'll focus on two other points from the list - how to design <em>composable</em>
-libraries and how (and why) to <em>avoid callbacks</em> in library design. As the title suggests, this
-boils down to one thing - build <strong>libraries</strong> rather than <strong>frameworks</strong>!</p>
+<p>Computer programs do not always work as expected. There is a complex taxonomy of errors or
+<a href="http://link.springer.com/article/10.1007/s13347-013-0112-0"><em>miscomputations</em></a>. The taxonomy of
+possible errors is itself interesting. Syntax errors like missing semicolons are quite obvious
+and are easy to catch. Logical errors are harder to find, but at least we know that something
+went wrong. For example, our algorithm does not correctly sort some lists. There are also issues that
+may or may not be actual errors. For example an algorithm in online store might suggest slightly
+suspicious products. Finally, we also have concurrency errors that happen very rarely in some
+very specific scenario.</p>
 
+<p>If Babbage was right, we would just try three or four simple cases and eradicate all errors from
+our programs, but eliminating errors is not so easy. In retrospect, it is quite interesting to
+see how long it took early computer engineers to realise that coding (i.e. translating
+mathematical algorithm to program code) errors are a problem:</p>
 
-      
-  <p class="meta">
-    <span><strong>Published</strong>: Tuesday, 3 March 2015, 4:13 PM</span>
-      <br />      
-      <span class="tags"><strong>Tags</strong>: f#, open source, functional programming </span> 
-    <br />
-    <a href="http://tomasp.net/blog/2015/library-frameworks/index.html">Read the complete article</a>
-  </p>
-  </div>
-  <div>
-  <h1><a href="http://tomasp.net/blog/2015/library-layers/index.html">Library patterns: Multiple levels of abstraction</a></h1>
-  <img src="http://tomasp.net/blog/2015/library-layers/layers.png" style="float:right;margin:15px 0px 15px 10px" />
+<blockquote>
+<p style="margin-bottom:5px">Errors in coding were only gradually recognized to be a signiﬁcant
+problem: a typical early comment was that of Miller [circa 1949], who wrote that such errors,
+along with hardware faults, could be "expected, in time, to become infrequent".</p>
+<p style="text-align:right">Mark Priestley, Science of Operations (2011)</p>
+</blockquote>
 
-<p>Over the last few years, I created or contributed to a number of libraries including 
-<a href="https://github.com/fsharp/FSharp.Data">F# Data</a> for data access,
-<a href="http://bluemountaincapital.github.io/Deedle/">Deedle</a> for exploratory data science with C# and F#,
-Markdown parser and code-formatter <a href="http://tpetricek.github.io/FSharp.Formatting/">F# Formatting</a>
-and other fun libraries such as one for composing 3D objects <a href="http://tomasp.net/blog/2014/composing-christmas/">used in my Christmas blog 
-post</a>.</p>
-
-<p>Building libraries is a fun and challenging task - even if we ignore all the additional things
-that you need to get right such as testing, documentation and building (see <a href="http://tomasp.net/blog/2013/great-open-source/">my earlier blog
-post</a>) and focus just on the API design.
-In this blog post (or perhaps a series), I'll share some of the things I learned when trying 
-to answer the question: What should a good library look like?</p>
-
-<p>I was recently watching Mark Seemann's course <a href="http://blog.ploeh.dk/2014/01/22/a-functional-architecture-with-f/">A Functional architecture with F#</a>,
-which is a great material on designing functional <em>applications</em>. But I also realised that not much
-has been written on designing functional <em>libraries</em>. For some aspect, you can use functional patterns
-like monads (see <a href="https://skillsmatter.com/skillscasts/6120-functional-programming-design-patterns-with-scott-wlaschin">Scott Wlaschin's presentation</a>),
-but this only answers a part of the question - it tells you how to design individual types, but
-not an entire library...</p>
+<p>We <em>mostly</em> got rid of hardware faults, but coding errors are still here. Programmers spent
+over 50 years finding different practical strategies for dealing with them. In this
+blog post, I want to look at four of the strategies. Quite curiously, there is a very wide range.</p>
 
 
       
   <p class="meta">
-    <span><strong>Published</strong>: Tuesday, 3 February 2015, 3:54 PM</span>
+    <span><strong>Published</strong>: Monday, 27 July 2015, 2:15 PM</span>
       <br />      
-      <span class="tags"><strong>Tags</strong>: f#, open source, functional programming </span> 
+      <span class="tags"><strong>Tags</strong>: philosophy, research, programming languages </span> 
     <br />
-    <a href="http://tomasp.net/blog/2015/library-layers/index.html">Read the complete article</a>
-  </p>
-  </div>
-  <div>
-  <h1><a href="http://tomasp.net/blog/2013/great-open-source/index.html">Building great open-source libraries</a></h1>
-  <a href="http://tpetricek.github.io/FSharp.Formatting/">
-<img src="http://tpetricek.github.io/FSharp.Formatting/misc/logo.png" alt="F# documentation tools" class="rdecor" style="width:150px;height:150px" />
-</a>
-
-<p>The hard part about successful open-source development is not putting the first 
-version of your source code on GitHub. The hard part is what comes next. First
-of all, there are <em>community aspects</em> - making sure that the project fits well with
-other work in the area, engaging the community and contributors, planing future
-directions for the project and so on. Secondly, there is an <em>infrastructural side</em> - 
-making sure that there is a package (on <a href="http://www.nuget.org/packages?q=fsharp">NuGet in the F# world</a>),
-easy to run and useful tests and also up-to-date documentation and tutorials.</p>
-
-<p>In this article, I want to talk about the <em>infrastructural side</em>, which is 
-easier of the two, but nevertheless, difficult to get right!
-Fortunately, the F# community made an amazing progress in this direction, so let's
-have a look at some of the tools that make this possible...</p>
-
-
-      
-  <p class="meta">
-    <span><strong>Published</strong>: Thursday, 31 October 2013, 1:29 PM</span>
-      <br />      
-      <span class="tags"><strong>Tags</strong>: open source, f#, fake, f# formatting </span> 
-    <br />
-    <a href="http://tomasp.net/blog/2013/great-open-source/index.html">Read the complete article</a>
-  </p>
-  </div>
-  <div>
-  <h1><a href="http://tomasp.net/blog/fsharp-data.aspx/index.html">F# Data: New type provider library</a></h1>
-  <img src="https://raw.github.com/fsharp/FSharp.Data/master/misc/logo.png" class="rdecor" style="width:120px;height:120px;" />
-
-<p>When F# 3.0 type providers were still in beta version, I wrote a couple of type 
-providers as examples for talks. These included the WorldBank type provider
-(now available <a href="http://www.tryfsharp.org">on Try F#</a>) and also type provider for
-XML that infered the structure from sample. <br />
-For some time, these were hosted as part of <a href="https://github.com/fsharp/fsharpx/">FSharpX</a> 
-and the authors of FSharpX also added a number of great features.</p>
-
-<p>When I found some more time earlier this year, I decided to start a new library
-that would be fully focused on data access in F# and on type providers and
-I started working on <strong>F# Data</strong>. The library has now reached a stable state
-and <a href="http://www.navision-blog.de/blog/2013/03/27/fsharpx-1-8-removes-support-for-document-type-provider/">Steffen also announced</a> 
-that the document type providers (JSON, XML and CSV) are not going to be available
-in FSharpX since the next version.</p>
-
-<p>This means that if you're interested in accessing data using F# type providers, 
-you should now go to F# Data. Here are the most important links:</p>
-
-<ul>
-<li><a href="https://github.com/fsharp/FSharp.Data">F# Data source code on GitHub</a></li>
-<li><a href="http://fsharp.github.com/FSharp.Data/">F# Data documentation & tutorials</a></li>
-<li><a href="http://nuget.org/packages/FSharp.Data">F# Data on NuGet</a></li>
-</ul>
-
-<p>Before looking at the details, I would like to thank to <a href="https://github.com/ovatsus">Gustavo Guerra</a>
-who made some amazing contributions to the library! (More contributors are always welcome,
-so continue reading if you're interested...)</p>
-
-
-      
-  <p class="meta">
-    <span><strong>Published</strong>: Thursday, 28 March 2013, 3:23 AM</span>
-      <br />      
-      <span class="tags"><strong>Tags</strong>: open source, f#, f# data, type providers </span> 
-    <br />
-    <a href="http://tomasp.net/blog/fsharp-data.aspx/index.html">Read the complete article</a>
-  </p>
-  </div>
-  <div>
-  <h1><a href="http://tomasp.net/blog/fsharp-literate-programming.aspx/index.html">Announcing: Literate programming tools for F#</a></h1>
-  <img src="https://raw.github.com/tpetricek/FSharp.Formatting/master/docs/misc/logo.png" class="rdecor" style="width:120px;height:120px;" />
-
-<p>For some time now, I've been writing my F# blog posts (and other F# articles 
-published elsewhere) by combining F# code snippets and Markdown formatting. In fact,
-I even wrote a Markdown parser in F# so that I can post-process documents (to 
-generate references etc). You can read about the Markdown parser in an upcoming
-<a href="http://manning.com/petricek2/">F# Deep Dives</a> book - currently, it is available 
-as a free chapter!</p>
-
-<p>During the Christmas break, I finally found enough time to clean-up the code I
-was using and package it properly into a documented library that is easy to install and use.
-Here are the most important links:</p>
-
-<ul>
-<li><a href="http://tpetricek.github.com/FSharp.Formatting">F# Formatting home page</a></li>
-<li><a href="https://github.com/tpetricek/FSharp.Formatting">F# Formatting source code</a> on GitHub</li>
-<li><a href="https://nuget.org/packages/FSharp.Formatting">F# Formatting package</a> on NuGet</li>
-</ul>
-
-<p>To learn more about this tool and how to use it, <a href="http://tomasp.net/blog/fsharp-literate-programming.aspx">continue reading</a>!</p>
-
-
-      
-  <p class="meta">
-    <span><strong>Published</strong>: Tuesday, 22 January 2013, 5:35 PM</span>
-      <br />      
-      <span class="tags"><strong>Tags</strong>: open source, f#, writing, literate </span> 
-    <br />
-    <a href="http://tomasp.net/blog/fsharp-literate-programming.aspx/index.html">Read the complete article</a>
+    <a href="http://tomasp.net/blog/2015/failures/index.html">Read the complete article</a>
   </p>
   </div>
 

@@ -55,15 +55,15 @@ Introducing the heroes
 
  - _"But how do you know it works?"_ comes a reply from our second doubtful hero. _"You need to
    write a specification, or tests!"_ And our second hero becomes even more extreme _"In fact,
-   I will only write new code to fix errors revealed by tests!"_]
+   I will only write new code to fix errors revealed by tests!"_
 
  - As our first two heroes start arguing, a third (a bit weird) hero comes in saying _"You both
    really believe you can eliminate all errors?"_ Our two heroes start looking puzzled and the
    newcomer adds _"When there is an error, just let it crash!"_ Our first two heroes burst into
-   laughter but start feeling uneasy as the third hero continues looking like she _knows something_.
+   laughter, but start feeling uneasy as the third hero continues looking like she _knows something_.
 
  - As if the situation was not bad enough already, a new hero appears (looking a bit like a rock
-   star): _"I like errors. Errors are fun!"_ Everyone else steps back a bit as our four hero
+   star): _"I like errors. Errors are fun!"_ Everyone else steps back a bit as our fourth hero
    continues _"How do you even tell what is an error? Just watch what's going on. Maybe it'll do
    something new and interesting!"_
 
@@ -75,7 +75,7 @@ Error as a curse: Avoiding errors at all costs
 Many software developers share some of the thoughts with our first hero. Wouldn't it be nice
 if we could _never_ make errors, avoid miscomputations altogether and all software we created
 was fully correct? As we saw in an earlier quote, people only realized that coding errors is
-a significant problem in 1950s. A bit later, in 1960s, the _Alogl research programme_ first
+a significant problem in 1950s. A bit later, in 1960s, the _Algol research programme_ first
 advocated using formal logic to avoid errors:
 
 > <p style="margin-bottom:5px">

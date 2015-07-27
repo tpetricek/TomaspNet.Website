@@ -128,10 +128,11 @@ let run() =
 // Commands
 // --------------------------------------------------------------------------------------
 
-run ()
-stop ()
+let commands () =
+  run ()
+  stop ()
 
-buildSite (true) // true - update tag archives
-buildSite (false)
+  buildSite (true) // true - update tag archives
+  buildSite (false)
 
-clean()
+  clean()

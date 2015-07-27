@@ -6,6 +6,7 @@ source/blog/2013/abstracts/cached/*
 source/blog/2014/abstracts/cached/*
 source/blog/2015/abstracts/cached/*
 *.suo
+*.bak
 packages/
 tools/FsBlogLib/bin
 tools/FsBlogLib/obj

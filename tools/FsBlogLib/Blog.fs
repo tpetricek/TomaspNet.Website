@@ -66,8 +66,13 @@ module Blog =
           File.WriteAllText(html.FileName, header + processed)
           EnsureDirectory(Path.GetDirectoryName(target))
           razor.ProcessFile(html.FileName)
+
       | ".html" | ".cshtml" ->
-          razor.ProcessFile(current)
+          let html =
+            razor.ProcessFile(current)
+            |> CSharpFormat.SyntaxHighlighter.FormatHtml
+          html.Replace("&amp;", "&")
+           
       | _ -> failwith "Not supported file!"
     File.WriteAllText(target, html)
 

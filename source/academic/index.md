@@ -53,8 +53,8 @@ For more see my: [GitHub](https://github.com/tpetricek) | [LinkedIn](http://www.
   style="float:right;margin:5px 0px 5px 5px" />
 </div>
 
-I believe that tracking what applications _require_ from the envirnoment in which they 
-run is perhaps more important than tracking how they _affect_ the envirnoment. 
+I believe that tracking what applications _require_ from the environment in which they 
+run is perhaps more important than tracking how they _affect_ the environment. 
 
 In a modern 
 application, the environment includes services called, resources, system capabilities, 

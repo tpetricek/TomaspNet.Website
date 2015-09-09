@@ -451,8 +451,8 @@ type StateUpdate<'T> =
   /// Combine updates - return the latest (rightmost) 'Set' update
   static member Combine(a, b) = 
     match a, b with 
-    | SetNop, v | v, SetNop -> v 
-    | Set a, Set b -> Set b
+    | v, SetNop -> v 
+    | _, Set b -> Set b
   /// Apply update to a state - the 'Set' update changes the state
   static member Apply(s, p) = 
     match p with SetNop -> s | Set s -> State s

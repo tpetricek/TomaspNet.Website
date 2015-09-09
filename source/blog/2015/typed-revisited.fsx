@@ -1,7 +1,7 @@
 (*@
   Layout = "post";
   Title = "In the age of the web: Typed functional-first programming revisited";
-  Tags = "f#, type providers, web, functional programming";
+  Tags = "f#, type providers, web, functional programming, research";
   Date = "2015-09-09T17:14:07.1022415+01:00";
   Description = "Most programming languages were designed before the age of web. "+
     "This matters because the web changes many assumptions that typed functional "+

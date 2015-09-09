@@ -34,7 +34,7 @@ scroll to [teaching & supervisions](#supervis).
 <div><img src="@Model.Root/academic/img/photo.jpg" alt="Tomas Petricek" /></div>
 
 Connect via twitter: [@@tomaspetricek](http://twitter.com/tomaspetricek)  
-Email me at: [tomas.petricek@cl.cam.ac.uk](mailto:tomas.petricek@cl.cam.ac.uk)  
+Email me at: [tomas@tomasp.net](mailto:tomas@tomasp.net)  
 For more see my: [GitHub](https://github.com/tpetricek) | [LinkedIn](http://www.linkedin.com/in/tomaspetricek) | [Lanyrd](http://lanyrd.com/profile/tomasp/)  
 
 </div>
@@ -44,7 +44,7 @@ For more see my: [GitHub](https://github.com/tpetricek) | [LinkedIn](http://www.
 <!-- ------------------------------------------------------------------------------------------ -->
 
 <div class="row academic">
-<div class="large-4 columns main-content">
+<div class="large-6 columns main-content">
 
 ### Theory of coeffects
 
@@ -62,10 +62,10 @@ and so on. Yet, most existing research focuses on the second problem. Coeffects 
 to provide the missing piece of the puzzle.
 
  * See [overview slides](@Model.Root/academic/talks/coeffects-highlevel.pdf) or [view online](http://reelapp.com/e38aae)
- * Read [ICALP'13 paper on coeffects](@Model.Root/academic/papers/coeffects/)
+ * Read [ICALP'13](@Model.Root/academic/papers/coeffects/) and [ICFP'14](@Model.Root/academic/papers/structural/) papers
 
 </div>
-<div class="large-4 columns main-content">
+<div class="large-6 columns main-content">
 
 ### Data science
 
@@ -84,7 +84,26 @@ work fits in the general "data science" theme.
    [Deedle](http://bluemountaincapital.github.io/Deedle)
 
 </div>
-<div class="large-4 columns main-content">
+</div>
+<div class="row academic">
+<div class="large-6 columns main-content">
+
+### Philosophy of science
+
+Programming is becoming increasingly important for understanding the world around us
+and we need to look at programming languages not just from a narrow technical 
+perspective.
+
+To fill the gap, I'm interested in applying ideas from philosophy of science
+to work in programming languages. This includes asking questions about their nature 
+and understanding how programming language research is done in scientific practice.
+
+ * Start with [What can Programming Language Research  Learn from the Philosophy 
+   of Science?](@Model.Root/academic/papers/philosophy-pl/)
+ * Read my [Against a Universal Definition of 'Type'](@Model.Root/academic/papers/against-types/)
+
+</div>
+<div class="large-6 columns main-content">
 
 ### F# theory & practice
 
@@ -109,7 +128,30 @@ I worked on _computation expressions_ in F#, both by developing the theory
 
 ## Recent publications
 
-#### **[June 2014]** [Coeffects: A calculus of context-dependent computation](@Model.Root/academic/papers/structural/)
+#### **[September 2015]** [Against a Universal Definition of 'Type'](@Model.Root/academic/papers/against-types/)
+ 
+ > Tomas Petricek. In Proceedings of Onward! Essays 2015
+ 
+ _What is the definition of type?_ Having a clear and precise answer to this question would 
+ avoid many misunderstandings but it would hurt science, "hamper the growth of knowledge" and 
+ "deflect the course of investigation into narrow channels of things already understood".
+ 
+  - [abstract](@Model.Root/academic/papers/against-types/) 
+  | [draft](@Model.Root/academic/papers/against-types/against-types.pdf)
+ 
+#### **[April 2015]** [In the Age of Web: Typed Functional-First Programming Revisited](@Model.Root/academic/papers/age-of-web/)
+
+> Tomas Petricek, Don Syme. In Post-proceedings of ML 2014
+
+Most programming languages were designed before the age of web. This matters because the web 
+changes many assumptions that typed functional language designers take for granted. 
+In this paper, we present how F# language and libraries face the challenges posed by the web.
+
+ - [abstract](@Model.Root/academic/papers/age-of-web/) | [talk](@Model.Root/academic/papers/age-of-web/ml-talk.pdf)
+ | [draft](@Model.Root/academic/papers/age-of-web/age-of-web.pdf)
+
+
+#### [Coeffects: A calculus of context-dependent computation](@Model.Root/academic/papers/structural/)
 
 > Tomas Petricek, Dominic Orchard and Alan Mycroft. In Proceedings of ICFP 2014
 
@@ -121,7 +163,7 @@ questions that were left unanswered in the ICALP 2013 paper below.
  - [abstract](@Model.Root/academic/papers/structural/) | [cite](@Model.Root/academic/papers/structural/#cite) | 
    [paper](@Model.Root/academic/papers/structural/coeffects-icfp.pdf)
 
-#### **[April 2014]** [What can Programming Language Research  Learn from the Philosophy of Science?](@Model.Root/academic/papers/philosophy-pl/)
+#### [What can Programming Language Research  Learn from the Philosophy of Science?](@Model.Root/academic/papers/philosophy-pl/)
 
 > Tomas Petricek. In Proceedings of AISB 2014
 
@@ -301,17 +343,6 @@ application.
 Start here if you want to know that I'm currently working on and what I recently 
 completed. Unpublished drafts are marked as such and I'm always looking for feedback!
 
-#### Draft: [Against the definition of types](@Model.Root/academic/drafts/against-types/)
-
-> Tomas Petricek. Submitted to Onward! Essays 2015
-
-_What is the definition of type?_ Having a clear and precise answer to this question would 
-avoid many misunderstandings but it would hurt science, "hamper the growth of knowledge" and 
-"deflect the course of investigation into narrow channels of things already understood".
-
- - [abstract](@Model.Root/academic/drafts/against-types/) 
- | [draft](@Model.Root/academic/drafts/against-types/against-types.pdf)
-
 #### Draft: [F# Data: Making structured data first-class citizens](@Model.Root/academic/drafts/fsharp-data/)
 
 > Tomas Petricek, Gustavo Guerra, Don Syme. Submitted to ICFP 2015
@@ -323,17 +354,6 @@ is used with representative sample documents.
 
  - [abstract](@Model.Root/academic/drafts/fsharp-data/) 
  | [draft](@Model.Root/academic/drafts/fsharp-data/fsharp-data.pdf)
-
-#### Draft: [In the Age of Web: Typed Functional-First Programming Revisited](@Model.Root/academic/drafts/age-of-web/)
-
-> Tomas Petricek, Don Syme. Submitted in ML 2014 post-proceedings
-
-Most programming languages were designed before the age of web. This matters because the web 
-changes many assumptions that typed functional language designers take for granted. 
-In this paper, we present how F# language and libraries face the challenges posed by the web.
-
- - [abstract](@Model.Root/academic/drafts/age-of-web/) | [talk](@Model.Root/academic/drafts/age-of-web/ml-talk.pdf)
- | [draft](@Model.Root/academic/drafts/age-of-web/age-of-web.pdf)
 
 #### Draft: [Context-aware programming languages (PhD thesis)](@Model.Root/academic/theses/coeffects/)
 

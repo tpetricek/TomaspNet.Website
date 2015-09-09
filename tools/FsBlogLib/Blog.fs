@@ -6,6 +6,51 @@ open BlogPosts
 open FileHelpers
 open System.Xml.Linq
 open FSharp.Literate
+open FSharp.Markdown
+open FSharp.Markdown.Html
+
+// --------------------------------------------------------------------------------------
+// Document transformations
+// --------------------------------------------------------------------------------------
+
+module Transforms = 
+  
+  let (|ColonSeparatedSpans|_|) spans =
+    let rec loop before spans = 
+      match spans with
+      | Literal(s)::rest when s.Contains(":") ->
+          let s1, s2 = s.Substring(0, s.IndexOf(':')).Trim(), s.Substring(s.IndexOf(':')+1).Trim()
+          let before = List.rev before
+          let before = if String.IsNullOrWhiteSpace(s1) then before else Literal(s1)::before
+          let rest = if String.IsNullOrWhiteSpace(s2) then rest else Literal(s2)::rest
+          Some(before, rest)
+      | [] -> None
+      | x::xs -> loop (x::before) xs
+    loop [] spans
+
+  let createFormattingContext writer = 
+    { Writer = writer
+      Links = dict []
+      Newline = "\n"
+      LineBreak = ignore
+      WrapCodeSnippets = false
+      GenerateHeaderAnchors = true
+      UniqueNameGenerator = new UniqueNameGenerator()
+      ParagraphIndent = ignore }
+
+  let formatSpans spans = 
+    let sb = Text.StringBuilder()
+    ( use wr = new StringWriter(sb)
+      let fc = createFormattingContext wr
+      Html.formatSpans fc spans )
+    sb.ToString()
+
+  let generateSubheadings = function
+    | Heading(1, ColonSeparatedSpans(before, after)) -> 
+          InlineBlock
+            (sprintf "<h1><span class=\"hm\">%s</span><span class=\"hs\">%s</span></h1>" 
+              (formatSpans before) (formatSpans after))
+    | p -> p
 
 // --------------------------------------------------------------------------------------
 // Blog - the main blog functionality
@@ -58,10 +103,13 @@ module Blog =
           use fsx = DisposableFile.Create(current.Replace(ext, "_" + ext))
           use html = DisposableFile.CreateTemp(".html")
           File.WriteAllText(fsx.FileName, content)
-          if ext = ".fsx" then
-            Literate.ProcessScriptFile(fsx.FileName, template, html.FileName, ?prefix=prefix)
-          else
-            Literate.ProcessMarkdown(fsx.FileName, template, html.FileName, ?prefix=prefix)
+          let parsed = 
+            if ext = ".fsx" then
+              Literate.ParseScriptFile(fsx.FileName)
+            else
+              Literate.ParseMarkdownFile(fsx.FileName)
+          let parsed = parsed.With(List.map Transforms.generateSubheadings parsed.Paragraphs)
+          Literate.ProcessDocument(parsed, html.FileName, template, OutputKind.Html, ?prefix=prefix)
           let processed = File.ReadAllText(html.FileName)
           File.WriteAllText(html.FileName, header + processed)
           EnsureDirectory(Path.GetDirectoryName(target))

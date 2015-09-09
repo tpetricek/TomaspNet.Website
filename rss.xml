@@ -4,6 +4,38 @@
     <link>http://tomasp.net</link>
     <description>Writing about software development in F# and .NET, sharing materials from my F# trainings and talks, writing about programming language research and theory.</description>
     <item>
+      <title>In the age of the web: Typed functional-first programming revisited</title>
+      <guid>http://tomasp.net/blog/2015/typed-revisited</guid>
+      <link>http://tomasp.net/blog/2015/typed-revisited/index.html</link>
+      <pubDate>Wed, 09 Sep 2015 16:14:07 GMT</pubDate>
+      <description>&lt;p&gt;Most programming languages were designed before the age of web.
+This matters because the web changes many assumptions that typed functional 
+language designers tak for granted. For example, programs do not run in a 
+&lt;em&gt;closed world&lt;/em&gt;, but must instead interact with (changing and likely unreliable) 
+services and data sources, communication is often asynchronous or event-driven, 
+and programs need to interoperate with untyped environments like JavaScript
+libraries.&lt;/p&gt;
+
+&lt;p&gt;How can statically-typed programming languages adapt to the modern world?
+In this article, I look at one possible answer that is inspired by the F# 
+language and various F# libraries. In F#, we use &lt;em&gt;type providers&lt;/em&gt; for 
+integration with external information sources and for integration with untyped
+programming environments. We use &lt;em&gt;lightweight meta-programming&lt;/em&gt; for targeting 
+JavaScript and &lt;em&gt;computation expressions&lt;/em&gt; for writing asynchronous code.&lt;/p&gt;
+
+&lt;p&gt;This blog post is a shorter version of a &lt;a href="http://tomasp.net/academic/papers/age-of-web/"&gt;ML workshop paper&lt;/a&gt;
+that I co-authored earlier this year and you should see this more as a position
+statement. I'm not sure if F# and the solutions shown here are the best ones,
+but I think they highlight very important questions in programming language 
+design that I very much see as unsolved.&lt;/p&gt;
+
+&lt;p&gt;The article has two sections. First, I'll go through a simple case study showing
+how F# can be used to build a client-side web widget. Then, I'll discuss some
+of the implications for programming language design based on the example.&lt;/p&gt;
+
+</description>
+    </item>
+    <item>
       <title>Miscomputation: Learning to live with errors</title>
       <guid>http://tomasp.net/blog/2015/failures</guid>
       <link>http://tomasp.net/blog/2015/failures/index.html</link>
@@ -546,53 +578,6 @@ and 8 PM and, voilà, here is what I got...&lt;/p&gt;
 &lt;/div&gt;
 
 &lt;p&gt;So, how do you solve a puzzle in about 1 hour on New Year's eve?&lt;/p&gt;
-
-</description>
-    </item>
-    <item>
-      <title>Advent Art: Generating Hokusai paintings</title>
-      <guid>http://tomasp.net/blog/2014/japan-advent-art-en</guid>
-      <link>http://tomasp.net/blog/2014/japan-advent-art-en/index.html</link>
-      <pubDate>Tue, 21 Jan 2014 18:49:00 GMT</pubDate>
-      <description>&lt;div id="myModal" class="reveal-modal xlarge" data-reveal&gt;
-  &lt;iframe src="http://tomasp.net/blog/2014/japan-advent-art-en/hokusai.html" style="width:100%; height:850px;border-style:none;"&gt;&lt;/iframe&gt;
-  &lt;a class="close-reveal-modal"&gt;&amp;#215;&lt;/a&gt;
-&lt;/div&gt;
-
-&lt;div class="rdecor" style="text-align:center"&gt;
-&lt;a href="#" data-reveal-id="myModal" style="text-align:center"&gt;
-&lt;img src="http://tomasp.net/blog/2014/japan-advent-art-en/hokusai_sm.jpg" style="margin-bottom:10px;border:4px solid black" title="The Great Wave off Kanagawa" /&gt;&lt;br /&gt;
-&lt;small style="font-size:90%"&gt;Click here to see the result live!&lt;/small&gt;
-&lt;/a&gt;
-&lt;/div&gt;
-
-&lt;p&gt;For the last few years, the Japanese F# community has been running the F# Advent Calendar 
-(&lt;a href="http://atnd.org/events/10685"&gt;2010&lt;/a&gt;, &lt;a href="http://partake.in/events/1c24993a-c475-4fc2-bca4-7a1cd2f81869"&gt;2011&lt;/a&gt;, &lt;a href="http://atnd.org/events/33927"&gt;2012&lt;/a&gt;). 
-Each advent day, one person writes an article about something interesting in F#. I have 
-been following the advent calendar last year on Twitter and when the planning started for 
-this year, I offered to write an article too. You might have noticed that I posted a 
-&lt;a href="http://tomasp.net/blog/2013/japan-advent-art/index.html"&gt;Japanse version of the article&lt;/a&gt;
-in December as part of the &lt;a href="http://connpass.com/event/3935/"&gt;advent calendar 2013&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;A number of people helped to make this happen - &lt;a href="http://twitter.com/igeta"&gt;@igeta&lt;/a&gt; arranged everything and 
-helped with reviewing, &lt;a href="http://twitter.com/yukitos"&gt;@yukitos&lt;/a&gt; translated the article and 
-&lt;a href="http://twitter.com/gab_km"&gt;@gab_km&lt;/a&gt; reviewed the translation. Thanks!&lt;/p&gt;
-
-&lt;p&gt;But what should I write about? It would be nice to look at some of the F# open-source libraries
-and projects that have been developing over the last year in the F# community. At the same time,
-can I relate the topic of the article to Japan? After some thinking, I came up with the following
-plan:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;First, we'll use the &lt;a href="http://fsharp.github.io/FSharp.Data/"&gt;F# Data&lt;/a&gt; library and the &lt;a href="http://www.freebase.com"&gt;Freebase&lt;/a&gt; to learn
-something about Japanese art. I should add that thanks to &lt;a href="https://twitter.com/yukitos"&gt;@yukitos&lt;/a&gt; the library now also has
-a &lt;a href="http://fsharp.github.io/FSharp.Data/jp"&gt;documentation in Japanese&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;Then we'll pick one art work and try to recreate it in F#. Given my artistic skills, this 
-part will definitely fail, but we can try :-).&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;Finally, we'll use the &lt;a href="http://funscript.info"&gt;FunScript project&lt;/a&gt; to turn our F# code into
-JavaScript, so that we can run it as a pure HTML web application that also works on mobile
-phones and other devices.&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
 
 </description>
     </item>

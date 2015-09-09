@@ -261,6 +261,16 @@ a.anchor {
   font:300 210% Kreon,'Times New Roman', Times, serif;
   line-height:100%;
 }
+.main-content h1 span.hm {
+  display:block;
+  font-weight:400;
+}
+.main-content h1 span.hs {
+  display:block;
+  font-size:90%;
+  margin-top:8px;
+  margin-bottom:20px;
+}
 .main-content h2 {
   font:300 170% Kreon,'Times New Roman', Times, serif;
   margin-top:25px;

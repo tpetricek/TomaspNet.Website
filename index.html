@@ -68,57 +68,50 @@
   <!-- Print more details about the first blog post -->
 
   <div>
-  <h1><a href="http://tomasp.net/blog/2015/failures/index.html">Miscomputation: Learning to live with errors</a></h1>
-  <blockquote>
-<img src="http://tomasp.net/blog/2015/failures/babbage.png" style="float:right;width:110px;margin:5px 0px 10px 20px" />
+  <h1><a href="http://tomasp.net/blog/2015/typed-revisited/index.html">In the age of the web: Typed functional-first programming revisited</a></h1>
+  <p>Most programming languages were designed before the age of web.
+This matters because the web changes many assumptions that typed functional 
+language designers tak for granted. For example, programs do not run in a 
+<em>closed world</em>, but must instead interact with (changing and likely unreliable) 
+services and data sources, communication is often asynchronous or event-driven, 
+and programs need to interoperate with untyped environments like JavaScript
+libraries.</p>
 
-<p style="margin-bottom:5px">If trials of three or four simple cases have been made, and are found
-to agree with the results given by the engine, it is scarcely possible that there can be any error
-(...).</p>
-<p style="text-align:right">Charles Babbage, On the mathematical<br /> powers of the calculating engine (1837)</p>
-</blockquote>
+<p>How can statically-typed programming languages adapt to the modern world?
+In this article, I look at one possible answer that is inspired by the F# 
+language and various F# libraries. In F#, we use <em>type providers</em> for 
+integration with external information sources and for integration with untyped
+programming environments. We use <em>lightweight meta-programming</em> for targeting 
+JavaScript and <em>computation expressions</em> for writing asynchronous code.</p>
 
-<p>Anybody who has something to do with modern computers will agree that the above statement made by
-Charles Babbage about the analytical engine is understatement, to say the least.</p>
+<p>This blog post is a shorter version of a <a href="http://tomasp.net/academic/papers/age-of-web/">ML workshop paper</a>
+that I co-authored earlier this year and you should see this more as a position
+statement. I'm not sure if F# and the solutions shown here are the best ones,
+but I think they highlight very important questions in programming language 
+design that I very much see as unsolved.</p>
 
-<p>Computer programs do not always work as expected. There is a complex taxonomy of errors or
-<a href="http://link.springer.com/article/10.1007/s13347-013-0112-0"><em>miscomputations</em></a>. The taxonomy of
-possible errors is itself interesting. Syntax errors like missing semicolons are quite obvious
-and are easy to catch. Logical errors are harder to find, but at least we know that something
-went wrong. For example, our algorithm does not correctly sort some lists. There are also issues that
-may or may not be actual errors. For example an algorithm in online store might suggest slightly
-suspicious products. Finally, we also have concurrency errors that happen very rarely in some
-very specific scenario.</p>
-
-<p>If Babbage was right, we would just try three or four simple cases and eradicate all errors from
-our programs, but eliminating errors is not so easy. In retrospect, it is quite interesting to
-see how long it took early computer engineers to realise that coding (i.e. translating
-mathematical algorithm to program code) errors are a problem:</p>
-
-<blockquote>
-<p style="margin-bottom:5px">Errors in coding were only gradually recognized to be a signiﬁcant
-problem: a typical early comment was that of Miller [circa 1949], who wrote that such errors,
-along with hardware faults, could be "expected, in time, to become infrequent".</p>
-<p style="text-align:right">Mark Priestley, Science of Operations (2011)</p>
-</blockquote>
-
-<p>We <em>mostly</em> got rid of hardware faults, but coding errors are still here. Programmers spent
-over 50 years finding different practical strategies for dealing with them. In this
-blog post, I want to look at four of the strategies. Quite curiously, there is a very wide range.</p>
+<p>The article has two sections. First, I'll go through a simple case study showing
+how F# can be used to build a client-side web widget. Then, I'll discuss some
+of the implications for programming language design based on the example.</p>
 
 
       
   <p class="meta">
-    <span><strong>Published</strong>: Monday, 27 July 2015, 2:15 PM</span>
+    <span><strong>Published</strong>: Wednesday, 9 September 2015, 5:14 PM</span>
       <br />      
-      <span class="tags"><strong>Tags</strong>: philosophy, research, programming languages </span> 
+      <span class="tags"><strong>Tags</strong>: f#, type providers, web, functional programming </span> 
     <br />
-    <a href="http://tomasp.net/blog/2015/failures/index.html">Read the complete article</a>
+    <a href="http://tomasp.net/blog/2015/typed-revisited/index.html">Read the complete article</a>
   </p>
   </div>
 
   <!-- For remaining articles, just print short summary with abstract -->
   <h1><a href="http://tomasp.net/blog/index.html">Recent articles from my blog</a></h1>
+    <h2><a href="http://tomasp.net/blog/2015/failures/index.html">Miscomputation: Learning to live with errors</a></h2>
+    <p class="smdate">Monday, 27 July 2015, 2:15 PM</p>
+    <p class="description">
+        Charles Babbage once said that 'if trials of three or four simple cases have been made, it is scarcely possible that there can be any error'. We now know that errors are more common and harder to eliminate. In this blog post, I look at different strategies that programmers use for dealing with errors. It turns out that there is a surprisingly wide range of options!
+    </p>
     <h2><a href="http://tomasp.net/blog/2015/fslab-world-visualization/index.html">Visualizing interesting world facts with FsLab</a></h2>
     <p class="smdate">Tuesday, 30 June 2015, 4:07 PM</p>
     <p class="description">
@@ -133,11 +126,6 @@ blog post, I want to look at four of the strategies. Quite curiously, there is a
     <p class="smdate">Tuesday, 5 May 2015, 3:55 PM</p>
     <p class="description">
         After over a year of working on FsLab and talking about it at conferences, it is finally time for an official announcement. So, today, I'm excited to announce FsLab a cross-platform package for doing data science with .NET and Mono.
-    </p>
-    <h2><a href="http://tomasp.net/blog/2015/restricting-ranges/index.html">Comparing date range handling in C# and F#</a></h2>
-    <p class="smdate">Wednesday, 22 April 2015, 4:55 PM</p>
-    <p class="description">
-        I was recently working on some code for handling data ranges and I wrote initial version in C#. Later, I realized that I needed an F# version, so I went through the process of rewriting a simple function from C# to F#. This blog post compares the two versions.
     </p>
 
   <p class="meta">
@@ -253,7 +241,8 @@ blog post, I want to look at four of the strategies. Quite curiously, there is a
     </div>
     <div class="large-7 columns">
     <h4>Blog archives <a href="http://tomasp.net/rss.xml"><img src="http://tomasp.net/img/rss.gif" /></a></h4>
-      <a href="http://tomasp.net/blog/archive/july-2015/index.html">
+      <a href="http://tomasp.net/blog/archive/september-2015/index.html">
+        September 2015 (1)</a>,      <a href="http://tomasp.net/blog/archive/july-2015/index.html">
         July 2015 (1)</a>,      <a href="http://tomasp.net/blog/archive/june-2015/index.html">
         June 2015 (1)</a>,      <a href="http://tomasp.net/blog/archive/may-2015/index.html">
         May 2015 (2)</a>,      <a href="http://tomasp.net/blog/archive/april-2015/index.html">

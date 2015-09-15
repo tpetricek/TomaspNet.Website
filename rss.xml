@@ -4,6 +4,40 @@
     <link>http://tomasp.net</link>
     <description>Writing about software development in F# and .NET, sharing materials from my F# trainings and talks, writing about programming language research and theory.</description>
     <item>
+      <title>Creating web sites with Suave: How to contribute to F# Snippets</title>
+      <guid>http://tomasp.net/blog/2015/fssnip-suave</guid>
+      <link>http://tomasp.net/blog/2015/fssnip-suave/index.html</link>
+      <pubDate>Tue, 15 Sep 2015 22:26:01 GMT</pubDate>
+      <description>&lt;img src="http://tomasp.net/blog/2015/fssnip-suave/logo.png" style="width:130px;float:right;margin-left:10px" /&gt;
+
+&lt;p&gt;The core of many web sites and web APIs is very simple. Given an HTTP request,
+produce a HTTP response. In F#, we can represent this as a function with type
+&lt;code&gt;Request -&amp;gt; Response&lt;/code&gt;. To make our server scalable, we should make the function
+&lt;em&gt;asynchronous&lt;/em&gt; to avoid unnecessary blocking of threads. In F#, this can be 
+captured as &lt;code&gt;Request -&amp;gt; Async&amp;lt;Response&amp;gt;&lt;/code&gt;. Sounds pretty simple, right? So why 
+are there so many &lt;a href="http://tomasp.net/blog/2015/library-frameworks/"&gt;evil frameworks&lt;/a&gt;
+that make simple web programming difficult?&lt;/p&gt;
+
+&lt;p&gt;Fortunately, there is a nice F# library called &lt;a href="http://suave.io"&gt;Suave.io&lt;/a&gt; that 
+is based exactly on the above idea:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Suave is a simple web development F# library providing a lightweight web server 
+and a set of combinators to manipulate route flow and task composition.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;I recently decided to start a new version of the &lt;a href="http://www.fssnip.net"&gt;F# Snippets&lt;/a&gt;
+web site and I wanted to keep the implementation functional, simple, 
+cross-platform and easy to contrbute to. I wrote a &lt;a href="https://github.com/tpetricek/FsSnip.Website/"&gt;first prototype of the 
+implementation&lt;/a&gt; using Suave and 
+already received a few contributions via pull requests! In this blog post, I'll
+share a few interesting aspects of the implementation and I'll give you some
+good pointers where you can learn more about Suave. &lt;em&gt;There is no excuse for not
+contributing to F# Snippets v2 after reading this blog post&lt;/em&gt;!&lt;/p&gt;
+
+</description>
+    </item>
+    <item>
       <title>In the age of the web: Typed functional-first programming revisited</title>
       <guid>http://tomasp.net/blog/2015/typed-revisited</guid>
       <link>http://tomasp.net/blog/2015/typed-revisited/index.html</link>
@@ -553,31 +587,6 @@ C# 6.0 features.&lt;/p&gt;
 published, let me just point out that this was released on 1 April 2014. Just to 
 avoid any disappointments. Have fun ;-).&lt;/p&gt;
 &lt;/blockquote&gt;
-
-</description>
-    </item>
-    <item>
-      <title>Solving fun puzzles with F#</title>
-      <guid>http://tomasp.net/blog/2014/puzzling-fsharp</guid>
-      <link>http://tomasp.net/blog/2014/puzzling-fsharp/index.html</link>
-      <pubDate>Tue, 25 Mar 2014 14:27:08 GMT</pubDate>
-      <description>&lt;p&gt;Do you need to convince your friends &amp;amp; family that programming can be fun? 
-For the last Christmas, I got a puzzle as a gift. It is a number of small
-cubes, joined together, that can be rotated and folded to form a bigger
-(4x4x4) cube.&lt;/p&gt;
-
-&lt;p&gt;We spent the last few days of the year with family and a couple of friends
-and I left the puzzle on the table. Every time I walked around, someone was
-playing with it without much success. In the end, I said that if noone solves
-it until 31 December, I'll write a program to do it. Which I did between 7 PM
-and 8 PM and, voilà, here is what I got...&lt;/p&gt;
-
-&lt;div style="text-align:center;margin:10px"&gt;
-&lt;a href="http://tomasp.net/blog/2014/puzzling-fsharp/puzzle.jpg" target="_blank"&gt;&lt;img src="http://tomasp.net/blog/2014/puzzling-fsharp/puzzle.jpg" style="height:200px;margin-right:20px;border-style:none" /&gt;&lt;/a&gt;
-&lt;a href="http://tomasp.net/blog/2014/puzzling-fsharp/cube.jpg" target="_blank"&gt;&lt;img src="http://tomasp.net/blog/2014/puzzling-fsharp/cube.jpg" style="height:200px;margin-left:20px;border-style:none" /&gt;&lt;/a&gt;
-&lt;/div&gt;
-
-&lt;p&gt;So, how do you solve a puzzle in about 1 hour on New Year's eve?&lt;/p&gt;
 
 </description>
     </item>

@@ -66,45 +66,6 @@
       
 
   <div>
-  <h1><a href="http://tomasp.net/blog/2015/fssnip-suave/index.html">Creating web sites with Suave: How to contribute to F# Snippets</a></h1>
-  <img src="http://tomasp.net/blog/2015/fssnip-suave/logo.png" style="width:130px;float:right;margin-left:10px" />
-
-<p>The core of many web sites and web APIs is very simple. Given an HTTP request,
-produce a HTTP response. In F#, we can represent this as a function with type
-<code>Request -&gt; Response</code>. To make our server scalable, we should make the function
-<em>asynchronous</em> to avoid unnecessary blocking of threads. In F#, this can be 
-captured as <code>Request -&gt; Async&lt;Response&gt;</code>. Sounds pretty simple, right? So why 
-are there so many <a href="http://tomasp.net/blog/2015/library-frameworks/">evil frameworks</a>
-that make simple web programming difficult?</p>
-
-<p>Fortunately, there is a nice F# library called <a href="http://suave.io">Suave.io</a> that 
-is based exactly on the above idea:</p>
-
-<blockquote>
-  <p>Suave is a simple web development F# library providing a lightweight web server 
-and a set of combinators to manipulate route flow and task composition.</p>
-</blockquote>
-
-<p>I recently decided to start a new version of the <a href="http://www.fssnip.net">F# Snippets</a>
-web site and I wanted to keep the implementation functional, simple, 
-cross-platform and easy to contrbute to. I wrote a <a href="https://github.com/tpetricek/FsSnip.Website/">first prototype of the 
-implementation</a> using Suave and 
-already received a few contributions via pull requests! In this blog post, I'll
-share a few interesting aspects of the implementation and I'll give you some
-good pointers where you can learn more about Suave. <em>There is no excuse for not
-contributing to F# Snippets v2 after reading this blog post</em>!</p>
-
-
-      
-  <p class="meta">
-    <span><strong>Published</strong>: Tuesday, 15 September 2015, 11:26 PM</span>
-      <br />      
-      <span class="tags"><strong>Tags</strong>: f#, web </span> 
-    <br />
-    <a href="http://tomasp.net/blog/2015/fssnip-suave/index.html">Read the complete article</a>
-  </p>
-  </div>
-  <div>
   <h1><a href="http://tomasp.net/blog/2015/typed-revisited/index.html">In the age of the web: Typed functional-first programming revisited</a></h1>
   <p>Most programming languages were designed before the age of web.
 This matters because the web changes many assumptions that typed functional 
@@ -139,6 +100,251 @@ of the implications for programming language design based on the example.</p>
       <span class="tags"><strong>Tags</strong>: f#, type providers, web, functional programming, research </span> 
     <br />
     <a href="http://tomasp.net/blog/2015/typed-revisited/index.html">Read the complete article</a>
+  </p>
+  </div>
+  <div>
+  <h1><a href="http://tomasp.net/blog/real-world-book-msdn.aspx/index.html">Real-World F# Articles on MSDN</a></h1>
+  <img src="http://tomasp.net/articles/real-world-book-msdn/msdn.jpg" style="float:right;margin:0px 15px 15px 15px;" />
+<p>More than a year ago, Mike Stephens from <a href="http://manning.com">Manning</a> (who
+ was also behind my <a href="http://manning.com/petricek">Real-World Functional Programming</a>
+ book) asked me if I'd be interested in collaborating on a project for MSDN. The idea 
+ was to collaborate with Microsoft on creating some additional content for the official
+ <a href="http://msdn.microsoft.com/library/dd233154(VS.100).aspx">F# Documentation</a>.</p>
+
+<p>A few days ago, the new content appeared on MSDN, so I finally have an excuse for the
+  recent lack of blogging! Although the content contains a large number of new articles
+  that are not based on my book, you can find it in the MSDN section named after my
+  book, right under <em>Visual F#</em>. If you can't wait to check it out, here are all the links:</p>
+
+<ul>
+  <li>The <a href="http://msdn.microsoft.com/en-us/library/hh314518.aspx">Real-World Functional Programming</a> section on MSDN.</li>
+  <li>The <a href="http://code.msdn.microsoft.com/site/search?query=tomas%20petricek&f%5B0%5D.Value=tomas%20petricek&f%5B0%5D.Type=SearchText&ac=8">source code for individual chapters</a> is available on MSDN Code Gallery.</li>
+  <li>I also published <a href="http://functional-programming.net/msdn/">annotated TOC with source code links</a> on my functional programming web site.</li>
+</ul>
+
+<p>While working on the articles, I also wrote about a few topics that we didn't use in the final version. You'll see them on my blog in the next few days, as soon as I edit them into a blog post form. <a href="http://tomasp.net/blog/real-world-book-msdn.aspx">Continue reading</a> for more information about individual chapters.</p>
+      
+  <p class="meta">
+    <span><strong>Published</strong>: Wednesday, 10 August 2011, 4:38 AM</span>
+      <br />      
+      <span class="tags"><strong>Tags</strong>: functional, web, asynchronous, parallel, links, f#, c# </span> 
+    <br />
+    <a href="http://tomasp.net/blog/real-world-book-msdn.aspx/index.html">Read the complete article</a>
+  </p>
+  </div>
+  <div>
+  <h1><a href="http://tomasp.net/blog/dynamic-sql.aspx/index.html">Dynamic in F#: Reading data from SQL database</a></h1>
+  <p>When reading data from a SQL database in F#, you have a couple of options.
+  You can use F# implementation of LINQ, which allows you to write queries directly
+  in the F# language or you can use standard ADO.NET classes such as <code>SqlCommand</code>.
+  The second option is often good enough - when you just need to call a simple 
+  query, you probably don't want to setup the whole LINQ infrastructure (generate
+  classes, reference F# PowerPack, etc.) Unfortunately, ADO.NET classes are a bit
+  ugly to use. When calling an SQL stored procedure, you need to specify the name
+  of the procedure as a string, you need to add parameters one-by-one by creating
+  instances of <code>SqlParameter</code>, you need to dynamically cast results from 
+  the <code>obj</code> type and so on...</p>
+
+<p>In this article, we'll look how to use the <em>dynamic operator</em> to make the
+  experience of using ADO.NET from F# dramatically better. Dynamic operator (there are
+  actually two of them) are a simple way of supporting dynamic invoke in F#. We can use
+  it to write code that looks almost like an ordinary method call or property access,
+  but is resolved dynamically at runtime (using the name of the method or property).
+  The following example shows what we'll be able to write at the end 
+  of this article:</p>
+
+<pre>
+<span class="c">// Call 'GetProducts' procedure with 'CategoryID' set to 1</span>
+<span class="k">use</span> conn = <span class="k">new</span> DynamicSqlConnection(connectionString)
+<span class="k">use</span> cmd = conn?GetProducts
+cmd?CategoryID &lt;- 1
+conn.Open()
+
+<span class="c">// Read all products and print their names</span>
+<span class="k">use</span> reader = cmd.ExecuteReader()
+<span class="k">while</span> reader.Read() <span class="k">do</span>
+  printfn <span class="s">"Product: %s"</span> reader?ProductName
+</pre>
+
+<p>If you ever tried to call a SQL stored procedure directly using the 
+  <code>SqlCommand</code>, then you can surely appreciate the elegance of this code
+  snippet. Let's now take a look at a larger example and some of the neat 
+  tricks that make this possible...</p>
+
+      
+  <p class="meta">
+    <span><strong>Published</strong>: Friday, 9 July 2010, 2:03 AM</span>
+      <br />      
+      <span class="tags"><strong>Tags</strong>: functional, web, f# </span> 
+    <br />
+    <a href="http://tomasp.net/blog/dynamic-sql.aspx/index.html">Read the complete article</a>
+  </p>
+  </div>
+  <div>
+  <h1><a href="http://tomasp.net/blog/fsharp-mvc-web.aspx/index.html">ASP.NET and F# (I.) - Creating MVC web applications in F#</a></h1>
+  <p>Some time ago, I wrote a couple of examples of <a href="http://tomasp.net/blog/aspnet-in-fsharp.aspx">
+  developing web applications in F# using ASP.NET</a>. Since then, the F# language and runtime has changed
+  a little bit and there are also new technologies available in ASP.NET, so I thought I'd write a more
+  up-to-date article on this topic. In this article, I'll present a simple "demo" F# web application that
+  you can use as a starting point when creating your own projects (you'll also find a convenient Visual
+  Studio 2010 template below). The article shows the following interesting things:</p>
+<ul>
+  <li><strong>ASP.NET MVC</strong> - We're going to use ASP.NET MVC Framework to create the web
+    application. As the article name suggests, most of the actual program code including models and
+    controllers will be implemented in F#.</li>
+  <li><strong>F# LINQ to SQL</strong> - The application uses a sample Northwind database and we'll
+    write queries for selecting data from the database using LINQ support that's available in the
+    <a href="http://fsharppowerpack.codeplex.com/" type="external">F# PowerPack</a>.</li>
+  <li><strong>F# features</strong> - The application also uses some nice F# features that are 
+    quite useful for developing web applications. We'll use modules and records to implement the
+    model and we'll also use advanced meta-programming features for constructing LINQ queries.</li>
+</ul>
+<p>If you want to use F# for creating an MVC application, you have a few options. It should be 
+  possible to create the web application solely as an F# project. However, we'll use a more convenient
+  approach. We'll create a standard C# MVC project and move all the actual implementation to 
+  an F# library. We'll look at the application structure shortly. The following screenshot shows
+  a page that lists products in the Northwind database:</p>
+
+<div style="text-align:center;">
+<img src="http://tomasp.net/articles/fsharp-mvc-web/web.png" />
+</div>
+
+      
+  <p class="meta">
+    <span><strong>Published</strong>: Sunday, 9 May 2010, 8:43 PM</span>
+      <br />      
+      <span class="tags"><strong>Tags</strong>: .net, functional, web, meta-programming, f# </span> 
+    <br />
+    <a href="http://tomasp.net/blog/fsharp-mvc-web.aspx/index.html">Read the complete article</a>
+  </p>
+  </div>
+  <div>
+  <h1><a href="http://tomasp.net/blog/functional-net-update.aspx/index.html">Functional Programming in .NET book - An update</a></h1>
+  <p>Recently, I announced on my blog that I’m working on a book for <a href="http://www.manning.com" type="external">Manning</a> 
+  called <em>Real world Functional Programming in .NET</em>. The goal of the book is to explain the most interesting and
+  useful ideas of functional programming to a real world C# developer. I'm writing this book, because I believe that functional programming is becoming
+  increasingly important. Here is a couple of reasons why you should have this book on your bookshelf:</p>
+<ul>
+  <li><strong>Ideas behind C# 3.0 and LINQ</strong> - these main-stream technologies are inspired by functional programming and the new 
+    C# 3.0 features give us definitely much more than just a new way to query databases. The book explains
+    the ideas behind these features and shows how to use them more efficiently.</li>
+    
+  <li><strong>Learning the F# language</strong> - <a href="http://blogs.msdn.com/somasegar/archive/2007/10/17/f-a-functional-programming-language.aspx" type="external">F# is becoming a first-class citizen</a>
+    in the Visual Studio family of languages, which alone would be a good reason for learning it! Even if you're not going
+    to use it for your next large .NET project, you'll find it useful for quick prototyping of ideas and testing how .NET libraries
+    work thanks to the great interactive tools.
+  </li>
+
+  <li><strong>Real world examples</strong> - the book includes a large set of real-world examples that show how to develop 
+    real applications in a functional way - both in F# and C#. Among other things, the examples show how to utilize multi-core 
+    CPUs, how to better obtain and process data and how to implement animations and GUI applications in a functional way.</li>
+</ul>  
+
+<p>The book is available via the MEAP (Manning Early Access Program) and if you want to get a better idea what is the book about, 
+  you can read the <a href="http://www.manning.com/petricek/" type="external">first chapter for free</a>. Anyway, it is more than a month since I  <a href="http://tomasp.net/blog/functional-programming-book.aspx">posted the announcement</a>, so I decided to write a brief update....</p>
+      
+  <p class="meta">
+    <span><strong>Published</strong>: Monday, 20 October 2008, 10:10 PM</span>
+      <br />      
+      <span class="tags"><strong>Tags</strong>: functional, c#, universe, web, writing </span> 
+    <br />
+    <a href="http://tomasp.net/blog/functional-net-update.aspx/index.html">Read the complete article</a>
+  </p>
+  </div>
+  <div>
+  <h1><a href="http://tomasp.net/blog/webtools-thesis.aspx/index.html">Thesis: Client-side Scripting using Meta-programming</a></h1>
+  <p>I realized that I haven’t yet posted a link to my Bachelor Thesis, which I partially worked on during my visit in Microsoft Research and which I successfully defended last year. The thesis is about a client/server web framework for F# called F# WebTools, which I already <a href="http://tomasp.net/blog/fswebtools-intro.aspx" type="external">mentioned here</a> and its abstract is following:</p>
+
+<p style="padding-left:40px;padding-right:40px;font-style:italic;">“Ajax” programming is becoming a de-facto standard for certain types of web applications, but unfortunately developing this kind of application is a difficult task. Developers have to deal with problems like a language impedance mismatch, limited execution runtime in web browser on the client-side and no integration between client and server-side parts that are developed as a two independent applications, but typically form a single and homogenous application. In this work we present the first project that deals with all three mentioned problems but which still integrates with existing web technologies such as ASP.NET on the server and JavaScript on the client. We use the F# language for writing both client and server-side part of the web application, which makes it possible to develop client-side code in a type-safe programming language using a subset of the F# library, and we provide a way to write both server-side and client-side code as a part of single homogeneous type defining the web page logic. The code is executed heterogeneously, part as JavaScript on the client, and part as native code on the server. Finally we use monadic syntax for the separation of client and server-side code, tracking this separation through the F# type system.</p>
+
+<p style="text-indent:0px">The full text is available here: <a href="/articles/webtools-thesis/fswebtools.pdf">Client side scripting using meta-programming</a> (PDF, 1.31MB)
+</p>
+      
+  <p class="meta">
+    <span><strong>Published</strong>: Monday, 17 March 2008, 10:07 AM</span>
+      <br />      
+      <span class="tags"><strong>Tags</strong>: random thoughts, universe, web, links </span> 
+    <br />
+    <a href="http://tomasp.net/blog/webtools-thesis.aspx/index.html">Read the complete article</a>
+  </p>
+  </div>
+  <div>
+  <h1><a href="http://tomasp.net/blog/aspnet-in-fsharp.aspx/index.html">F# Support for ASP.NET and Notes on Samples</a></h1>
+  <p>As I mentioned earlier, I spent three months as an intern in Microsoft Research in Cambridge last year 
+  and I was working with Don Syme and James Margetson from the F# team. Most of the time I was working
+  on the F# Web Toolkit, which I introduced on the blog some time ago [<a href="#myfsstuff">1</a>],
+  but I also worked on a few additions that are now part of the F# release. Probably the most useful addition is 
+  a new implementation of the CodeDOM provider for the F# language which makes it possible to use ASP.NET
+  smoothly from F# (but it can be used in some other scenarios as well) together with two ASP.NET sample
+  applications that you can explore and use as a basis for your web sites. This was actually a part of the
+  distribution for a few months now (I of course wanted to write this article much earlier...), so you may 
+  have already noticed, but anyway, I'd still like to write down a short description of these ASP.NET samples
+  and also a few tips for those who're interested in writing web applications in F#.
+  </p>
+
+      
+  <p class="meta">
+    <span><strong>Published</strong>: Saturday, 8 March 2008, 11:07 PM</span>
+      <br />      
+      <span class="tags"><strong>Tags</strong>: web, f# </span> 
+    <br />
+    <a href="http://tomasp.net/blog/aspnet-in-fsharp.aspx/index.html">Read the complete article</a>
+  </p>
+  </div>
+  <div>
+  <h1><a href="http://tomasp.net/blog/fswebtools-intro.aspx/index.html">F# Web Tools: \"Ajax\" applications made simple</a></h1>
+  <p>Traditional "Ajax" application consists of the server-side code and the client-side part written in JavaScript 
+  (the more dynamicity you want, the larger JS files you have to write), which exchanges some data with the server-side
+  code using XmlHttpRequest, typically in JSON format. I think this approach has 3 main problems, which we
+  tried to solve in F# Web Toolkit. There are a few projects that try to solve some of them already - the most interesting 
+  projects are Volta from Microsoft [<a href="#fswtintrolinks">1</a>], Links language [<a href="#fswtintrolinks">3</a>] 
+  from the University of Edinburgh and Google Web Toolkit [<a href="#fswtintrolinks">2</a>], but none of the projects solve 
+  all three problems at once. </p> 
+
+<ol>
+<li>Limited client-side environment</li>
+<li>Discontinuity between server and client side</li>
+<li>Components in web frameworks are only server-side</li>
+</ol>
+<p>The aim of the F# Web Toolkit is to solve all these three problems...</p>
+
+
+      
+  <p class="meta">
+    <span><strong>Published</strong>: Friday, 13 July 2007, 4:32 AM</span>
+      <br />      
+      <span class="tags"><strong>Tags</strong>: web, f# </span> 
+    <br />
+    <a href="http://tomasp.net/blog/fswebtools-intro.aspx/index.html">Read the complete article</a>
+  </p>
+  </div>
+  <div>
+  <h1><a href="http://tomasp.net/blog/aspnet-fsharp-intro.aspx/index.html">ASP.NET web applications in F#</a></h1>
+  
+
+  <p>CodeDOM (Code Document Object Model) is set of objects (located in <code>System.CodeDom</code> namespace) that can be used
+    for representing logical structure of .NET source code. These classes are used for generating Web service references
+    (using <code>wsdl.exe</code> tool), for generating typed datasets and in many other situations. The most interesting
+    use of CodeDOM classes is in ASP.NET where ASP.NET generates code from <code>aspx</code>/<code>ascx</code> files and 
+    compiles this code into web site assemblies (together with the code written in code behind files).</p>
+
+  <p>This means, that you can use any language for developing ASP.NET web sites, as long as you implement CodeDOM provider
+    that generates source code from CodeDOM structure and can compile these source files (this can be simply done by executing 
+    command line compiler). 
+I was recently working on CodeProvider for the F# language, and finally it supports everything
+    what is needed by ASP.NET (however it is complete and it doesn't work for example with <code>wsdl.exe</code>). Using this
+    CodeDOM provider you can write ENTIRE web site in F# (including in-line code enclosed in &lt;% ... source code ... %&gt;).
+    I also created project template for F# web site that can be imported to Visual Studio 2005, so you can easilly try 
+    writing web pages in F#...</p> 
+
+
+      
+  <p class="meta">
+    <span><strong>Published</strong>: Sunday, 13 August 2006, 9:06 PM</span>
+      <br />      
+      <span class="tags"><strong>Tags</strong>: web, f# </span> 
+    <br />
+    <a href="http://tomasp.net/blog/aspnet-fsharp-intro.aspx/index.html">Read the complete article</a>
   </p>
   </div>
 
@@ -231,7 +437,7 @@ of the implications for programming language design based on the example.</p>
     <h4>Blog tags</h4>
     <p>
 
-      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(107),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(17),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(36),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(32),       <a href="http://tomasp.net/blog/tag/web/">web</a>&nbsp;(10),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(5),       <a href="http://tomasp.net/blog/tag/open-source/">open source</a>&nbsp;(5),       <a href="http://tomasp.net/blog/tag/fslab/">fslab</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/linq/">linq</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/type-providers/">type providers</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/programming-languages/">programming languages</a>&nbsp;(1)    </p>
+      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(106),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(17),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(36),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(32),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(5),       <a href="http://tomasp.net/blog/tag/open-source/">open source</a>&nbsp;(5),       <a href="http://tomasp.net/blog/tag/web/">web</a>&nbsp;(9),       <a href="http://tomasp.net/blog/tag/fslab/">fslab</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/linq/">linq</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/type-providers/">type providers</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/programming-languages/">programming languages</a>&nbsp;(1)    </p>
 
   </div>
 </div>
@@ -254,7 +460,7 @@ of the implications for programming language design based on the example.</p>
     <div class="large-7 columns">
     <h4>Blog archives <a href="http://tomasp.net/rss.xml"><img src="http://tomasp.net/img/rss.gif" /></a></h4>
       <a href="http://tomasp.net/blog/archive/september-2015/index.html">
-        September 2015 (2)</a>,      <a href="http://tomasp.net/blog/archive/july-2015/index.html">
+        September 2015 (1)</a>,      <a href="http://tomasp.net/blog/archive/july-2015/index.html">
         July 2015 (1)</a>,      <a href="http://tomasp.net/blog/archive/june-2015/index.html">
         June 2015 (1)</a>,      <a href="http://tomasp.net/blog/archive/may-2015/index.html">
         May 2015 (2)</a>,      <a href="http://tomasp.net/blog/archive/april-2015/index.html">

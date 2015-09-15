@@ -68,45 +68,52 @@
   <!-- Print more details about the first blog post -->
 
   <div>
-  <h1><a href="http://tomasp.net/blog/2015/typed-revisited/index.html">In the age of the web: Typed functional-first programming revisited</a></h1>
-  <p>Most programming languages were designed before the age of web.
-This matters because the web changes many assumptions that typed functional 
-language designers tak for granted. For example, programs do not run in a 
-<em>closed world</em>, but must instead interact with (changing and likely unreliable) 
-services and data sources, communication is often asynchronous or event-driven, 
-and programs need to interoperate with untyped environments like JavaScript
-libraries.</p>
+  <h1><a href="http://tomasp.net/blog/2015/fssnip-suave/index.html">Creating web sites with Suave: How to contribute to F# Snippets</a></h1>
+  <img src="http://tomasp.net/blog/2015/fssnip-suave/logo.png" style="width:130px;float:right;margin-left:10px" />
 
-<p>How can statically-typed programming languages adapt to the modern world?
-In this article, I look at one possible answer that is inspired by the F# 
-language and various F# libraries. In F#, we use <em>type providers</em> for 
-integration with external information sources and for integration with untyped
-programming environments. We use <em>lightweight meta-programming</em> for targeting 
-JavaScript and <em>computation expressions</em> for writing asynchronous code.</p>
+<p>The core of many web sites and web APIs is very simple. Given an HTTP request,
+produce a HTTP response. In F#, we can represent this as a function with type
+<code>Request -&gt; Response</code>. To make our server scalable, we should make the function
+<em>asynchronous</em> to avoid unnecessary blocking of threads. In F#, this can be 
+captured as <code>Request -&gt; Async&lt;Response&gt;</code>. Sounds pretty simple, right? So why 
+are there so many <a href="http://tomasp.net/blog/2015/library-frameworks/">evil frameworks</a>
+that make simple web programming difficult?</p>
 
-<p>This blog post is a shorter version of a <a href="http://tomasp.net/academic/papers/age-of-web/">ML workshop paper</a>
-that I co-authored earlier this year and you should see this more as a position
-statement. I'm not sure if F# and the solutions shown here are the best ones,
-but I think they highlight very important questions in programming language 
-design that I very much see as unsolved.</p>
+<p>Fortunately, there is a nice F# library called <a href="http://suave.io">Suave.io</a> that 
+is based exactly on the above idea:</p>
 
-<p>The article has two sections. First, I'll go through a simple case study showing
-how F# can be used to build a client-side web widget. Then, I'll discuss some
-of the implications for programming language design based on the example.</p>
+<blockquote>
+  <p>Suave is a simple web development F# library providing a lightweight web server 
+and a set of combinators to manipulate route flow and task composition.</p>
+</blockquote>
+
+<p>I recently decided to start a new version of the <a href="http://www.fssnip.net">F# Snippets</a>
+web site and I wanted to keep the implementation functional, simple, 
+cross-platform and easy to contrbute to. I wrote a <a href="https://github.com/tpetricek/FsSnip.Website/">first prototype of the 
+implementation</a> using Suave and 
+already received a few contributions via pull requests! In this blog post, I'll
+share a few interesting aspects of the implementation and I'll give you some
+good pointers where you can learn more about Suave. <em>There is no excuse for not
+contributing to F# Snippets v2 after reading this blog post</em>!</p>
 
 
       
   <p class="meta">
-    <span><strong>Published</strong>: Wednesday, 9 September 2015, 5:14 PM</span>
+    <span><strong>Published</strong>: Tuesday, 15 September 2015, 11:26 PM</span>
       <br />      
-      <span class="tags"><strong>Tags</strong>: f#, type providers, web, functional programming, research </span> 
+      <span class="tags"><strong>Tags</strong>: f#, web </span> 
     <br />
-    <a href="http://tomasp.net/blog/2015/typed-revisited/index.html">Read the complete article</a>
+    <a href="http://tomasp.net/blog/2015/fssnip-suave/index.html">Read the complete article</a>
   </p>
   </div>
 
   <!-- For remaining articles, just print short summary with abstract -->
   <h1><a href="http://tomasp.net/blog/index.html">Recent articles from my blog</a></h1>
+    <h2><a href="http://tomasp.net/blog/2015/typed-revisited/index.html">In the age of the web: Typed functional-first programming revisited</a></h2>
+    <p class="smdate">Wednesday, 9 September 2015, 5:14 PM</p>
+    <p class="description">
+        Most programming languages were designed before the age of web. This matters because the web changes many assumptions that typed functional language designers tak for granted. In this blog post, I discuss how can statically-typed programming languages adapt for the new age.
+    </p>
     <h2><a href="http://tomasp.net/blog/2015/failures/index.html">Miscomputation: Learning to live with errors</a></h2>
     <p class="smdate">Monday, 27 July 2015, 2:15 PM</p>
     <p class="description">
@@ -121,11 +128,6 @@ of the implications for programming language design based on the example.</p>
     <p class="smdate">Thursday, 14 May 2015, 3:46 PM</p>
     <p class="description">
         What is the definition of type? Having a clear and precise answer to this question would avoid many misunderstandings but it would hurt science, 'hamper the growth of knowledge' and 'deflect the course of investigation into narrow channels of things already understood'.
-    </p>
-    <h2><a href="http://tomasp.net/blog/2015/announcing-fslab/index.html">Announcing FsLab: Data science package for Mono and .NET</a></h2>
-    <p class="smdate">Tuesday, 5 May 2015, 3:55 PM</p>
-    <p class="description">
-        After over a year of working on FsLab and talking about it at conferences, it is finally time for an official announcement. So, today, I'm excited to announce FsLab a cross-platform package for doing data science with .NET and Mono.
     </p>
 
   <p class="meta">
@@ -242,7 +244,7 @@ of the implications for programming language design based on the example.</p>
     <div class="large-7 columns">
     <h4>Blog archives <a href="http://tomasp.net/rss.xml"><img src="http://tomasp.net/img/rss.gif" /></a></h4>
       <a href="http://tomasp.net/blog/archive/september-2015/index.html">
-        September 2015 (1)</a>,      <a href="http://tomasp.net/blog/archive/july-2015/index.html">
+        September 2015 (2)</a>,      <a href="http://tomasp.net/blog/archive/july-2015/index.html">
         July 2015 (1)</a>,      <a href="http://tomasp.net/blog/archive/june-2015/index.html">
         June 2015 (1)</a>,      <a href="http://tomasp.net/blog/archive/may-2015/index.html">
         May 2015 (2)</a>,      <a href="http://tomasp.net/blog/archive/april-2015/index.html">

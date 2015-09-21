@@ -388,13 +388,13 @@ in other X-to-JavaScript compilers:
  - **Minimal mapping.** An interesting option that some X-to-JavaScript compilers
    use is to mostly ignore the target environment. Instead, they map many source
    X libraries into JavaScript and would rely only on core DOM (with a wrapper
-   written in X on top of it) rather than on JQuery which would not be idiomaitc
+   written in X on top of it) rather than on JQuery which would not be idiomatic
    X library.
 
 I believe that modern programming languages will increasingly need to be able to
 access external environments and so the F# approach with type providers is an 
-important direction. Afterall, we _need_ to access rich visualization libraries 
-build in the JavaScript environment or rich statistical functionality available
+important direction. After all, we _need_ to access rich visualization libraries 
+built in the JavaScript environment or rich statistical functionality available
 in R.
 
 ### Mixing stronger and weaker type systems
@@ -414,7 +414,7 @@ different strength or expressivity.
    a type provider may need to map more types to a general type like `obj` in 
    F#. This makes the provided operations harder to use because the target language
    allows more flexibility. In our example, TypeScript has a type `any` that can 
-   be used in any context - F# does not allow this and so we had to use explicit
+   be used in any context - F# does not allow this and so we had to explicitly use the 
    unsafe `unbox<bool>` to treat `obj` as `bool`.
    
  - **Stronger target type sytems.** If the imported language has stronger type
@@ -428,14 +428,14 @@ We either need to reconstruct some information (e.g. using `jquery.d.ts` annotat
 file), or through some other mechanism (R provider uses runtime reflection). 
 With F#, we have the `obj` type and unsafe features like `unbox`, so this gives 
 us at least some way of encoding unsafe operations, but arguably, having 
-something akin to C# `dynamic` would be somethimes useful.
+something akin to C# `dynamic` would sometimes be useful.
 
 ### Heterogeneous execution
 
 Finally, the last interesting aspect of the case study is that we were able to
 use a large number of standard F# language features and libraries even though
 the code was translated and executed as JavaScript and the JavaScript semantics
-differs in a number of ways. For example, we used ordinary F# `async` workflows
+differ in a number of ways. For example, we used ordinary F# `async` workflows
 and wrote:
 *)
 let render () = async { 
@@ -465,7 +465,7 @@ correct, we'd have to use `jsfloat`, `jsexception` and so on!
 
 The example in the case study follows the less correct path - it maps ordinary
 F# `async` workflows to the closest thing that can be done in JavaScript. It
-provides mapping for `Async.StartImmediate` (which has close alternative in the
+provides mapping for `Async.StartImmediate` (which has close equivalent in the
 browser) but not for `Async.Start` (which would require a background thread).
 
 F# numerical types are mapped to native JS numerical types with all the potential
@@ -478,7 +478,7 @@ Conclusions: Languages for the modern age
 -----------------------------------------
 
 This article uses the "age of the web" phrase, because it nicely illustrates many
-of the important problems that modern languages face. More then before, we need
+of the important problems that modern languages face. More than before, we need
 to access data and call services from the outside world (that cannot be fully
 trusted) and we need to interoperate with other execution environments (which 
 have different features and different levels of safety). 
@@ -508,12 +508,12 @@ mapping is not too cumbersome.
 The other aspect is that if the host language is strict in some way, it needs to
 provide some escaping mechanism. F# does this with the `obj` type and `unbox`.
 This works, but there is probably more that could be done here. (And there are
-also other situations where escaping mechanism would help.)
+also other situations where an escape mechanism would help.)
 
 ### Relativized safety and semantics
 
 Does the flexibility and the escaping hurt the nice safety properties of the host
-language? If you are strict theoretician, then the answer is of course yes. But 
+language? If you are a strict theoretician, then the answer is of course yes. But 
 I think there is a useful middle ground here. Using F# as we did in the case study
 here, we get a nice property:
 
@@ -524,8 +524,8 @@ here, we get a nice property:
 
 To an extent, you can already see this with F# when working with .NET. F# types
 do not allow the `null` value, but .NET types do. When you use functional style
-with F#, you do not need type annotations, but when you use objects, you need them.
-So for F#, even .NET is _outside environment_ that breaks some of the language
+with F#, you do not need type annotations, but when you use objects, you do.
+So for F#, even .NET is an _outside environment_ that breaks some of the language
 properties.
 
 ### Summary
@@ -533,7 +533,7 @@ properties.
 I think we need to give up on the idea that programming languages 
 should be designed for one controlled execution environment. There should be a 
 core with certain core properties (like the ML core of F#) with additional layers
-that are more flexible and adaptable to allow running in the diverse modern world.
+that are more flexible and adaptable to allow running in the heterogenous modern world.
 How exactly this should be done, that's an interesting open question, but I think
 F# with type providers shows one important component of the solution.
 

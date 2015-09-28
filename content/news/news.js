@@ -1,5 +1,5 @@
 // Explicit 
-var news =
+var news0 =
 {
   "date": "October 2015, Online",
   "info": "\
@@ -17,7 +17,7 @@ var news =
 }
 
 // Lanyrd 
-var news1 =
+var news =
   {
     "date": "",
     "info": '\

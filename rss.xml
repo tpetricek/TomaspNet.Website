@@ -4,6 +4,52 @@
     <link>http://tomasp.net</link>
     <description>Writing about software development in F# and .NET, sharing materials from my F# trainings and talks, writing about programming language research and theory.</description>
     <item>
+      <title>The Gamma: Simple code behind interactive articles</title>
+      <guid>http://tomasp.net/blog/2015/thegamma</guid>
+      <link>http://tomasp.net/blog/2015/thegamma/index.html</link>
+      <pubDate>Mon, 28 Sep 2015 16:07:08 GMT</pubDate>
+      <description>&lt;img src="http://tomasp.net/blog/2015/thegamma/dj.png" style="float:right;width:300px"
+  title="Illustration from 'The Data Journalism Handbook'" /&gt;
+
+&lt;p&gt;There are huge amounts of data around us that we could use to better understand the world.
+Every company collects large amounts of data about their sales or customers. Governments and
+international organizations increasingly release interesting data sets to the public through
+various &lt;em&gt;open government data&lt;/em&gt; initiatives (&lt;a href="http://data.gov"&gt;data.gov&lt;/a&gt; or 
+&lt;a href="http://data.gov.uk"&gt;data.gov.uk&lt;/a&gt;). But raw data does not tell you much.&lt;/p&gt;
+
+&lt;p&gt;An interesting recent development is &lt;em&gt;data journalism&lt;/em&gt;. Data journalists tell stories using
+data. A data driven article is based on an interesting observation from the data, it includes
+(interactive) visualizations that illustrate the point and it often allows the reader to get
+the raw data.&lt;/p&gt;
+
+&lt;p&gt;Adding a chart produced in, say, Excel to an article is easy, but building good interactive
+visualization is much harder. Ideally, the data driven article should not be just text with
+static pictures, but a &lt;em&gt;program&lt;/em&gt; that links the original data source to the visualization.
+This lets readers explore how the data is used, update the content when new data is available
+and change parameters of the visualization if they need to understand different aspect of the
+topic.&lt;/p&gt;
+
+&lt;p&gt;This is in short what I'm trying to build with &lt;a href="http://thegamma.net"&gt;The Gamma project&lt;/a&gt;. If
+you're interested in building better reports or data driven articles, continue reading!&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;img src="http://tomasp.net/blog/2015/thegamma/sl.png" style="float:right;width:150px" /&gt;
+
+  &lt;p&gt;I did a talk about The Gamma project at the fantastic &lt;a href="http://www.future-programming.org/programSL.html"&gt;Future Programming workshop&lt;/a&gt;
+at the &lt;a href="http://www.thestrangeloop.com/"&gt;StrangeLoop conference&lt;/a&gt; last week (thanks for inviting me!)
+and there is a &lt;a href="https://www.youtube.com/watch?v=cYoO2RvZn7Y&amp;amp;feature=youtu.be&amp;amp;a"&gt;recording of my 40 minute talk on YouTube&lt;/a&gt;,
+so if you prefer to watch videos, check it out!&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Are you a data journalist or data analyst? We're looking for early partners!
+I joined the &lt;a href="http://www.joinef.com" title="Nothing to do with Entity Framework, don't worry!"&gt;EF
+programme&lt;/a&gt; to work on this and if the project sounds like something you'd like to see happen,
+&lt;a href="mailto:tomas@tomasp.net"&gt;please get in touch&lt;/a&gt; or share your contact details
+on &lt;a href="http://thegamma.net"&gt;The Gamma page&lt;/a&gt;!&lt;/p&gt;
+
+</description>
+    </item>
+    <item>
       <title>Creating web sites with Suave: How to contribute to F# Snippets</title>
       <guid>http://tomasp.net/blog/2015/fssnip-suave</guid>
       <link>http://tomasp.net/blog/2015/fssnip-suave/index.html</link>
@@ -564,29 +610,6 @@ the paper uses a lot of philosophy of science terminology. This was partly the p
 the paper, but the feedback inspired me to write a more readable overview in a form of 
 blog post. So, if you want to get a quick peek at some of the ideas, you can also read
 this short blog (and then perhaps go back to the paper)!&lt;/p&gt;
-
-</description>
-    </item>
-    <item>
-      <title>BREAKING: Open-source C# 6.0 released</title>
-      <guid>http://tomasp.net/blog/2014/csharp-6-released</guid>
-      <link>http://tomasp.net/blog/2014/csharp-6-released/index.html</link>
-      <pubDate>Tue, 01 Apr 2014 13:24:30 GMT</pubDate>
-      <description>&lt;img src="http://tomasp.net/blog/2014/csharp-6-released/csharp.jpg" style="width:170px;float:right;margin:15px" /&gt;
-
-&lt;p&gt;At last, the long wait is finally over! After 4 years of waiting, the fully managed implementation
-of the C# compiler [codenamed "Roslyn"][roslyn] has been finally released. In the recent months, 
-"Roslyn" has been slowly turning into [vaporware][vaporware], but thanks to the recent breakthrough,
-the team made an enormous progress over the last two months and even implemented a number of new
-C# 6.0 features.&lt;/p&gt;
-
-&lt;p&gt;The C# 6.0 compiler, together with &lt;a href="http://fsharppowerpack.codeplex.com/SourceControl/latest#compiler/3.1/Nov2013/src/"&gt;the full source code&lt;/a&gt; has been released today!&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;UPDATE:&lt;/strong&gt; In case you are reading this article later than on the day when it was
-published, let me just point out that this was released on 1 April 2014. Just to 
-avoid any disappointments. Have fun ;-).&lt;/p&gt;
-&lt;/blockquote&gt;
 
 </description>
     </item>

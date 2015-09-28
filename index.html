@@ -68,66 +68,78 @@
   <!-- Print more details about the first blog post -->
 
   <div>
-  <h1><a href="http://tomasp.net/blog/2015/fssnip-suave/index.html">Creating web sites with Suave: How to contribute to F# Snippets</a></h1>
-  <img src="http://tomasp.net/blog/2015/fssnip-suave/logo.png" style="width:130px;float:right;margin-left:10px" />
+  <h1><a href="http://tomasp.net/blog/2015/thegamma/index.html">The Gamma: Simple code behind interactive articles</a></h1>
+  <img src="http://tomasp.net/blog/2015/thegamma/dj.png" style="float:right;width:300px"
+  title="Illustration from 'The Data Journalism Handbook'" />
 
-<p>The core of many web sites and web APIs is very simple. Given an HTTP request,
-produce a HTTP response. In F#, we can represent this as a function with type
-<code>Request -&gt; Response</code>. To make our server scalable, we should make the function
-<em>asynchronous</em> to avoid unnecessary blocking of threads. In F#, this can be 
-captured as <code>Request -&gt; Async&lt;Response&gt;</code>. Sounds pretty simple, right? So why 
-are there so many <a href="http://tomasp.net/blog/2015/library-frameworks/">evil frameworks</a>
-that make simple web programming difficult?</p>
+<p>There are huge amounts of data around us that we could use to better understand the world.
+Every company collects large amounts of data about their sales or customers. Governments and
+international organizations increasingly release interesting data sets to the public through
+various <em>open government data</em> initiatives (<a href="http://data.gov">data.gov</a> or 
+<a href="http://data.gov.uk">data.gov.uk</a>). But raw data does not tell you much.</p>
 
-<p>Fortunately, there is a nice F# library called <a href="http://suave.io">Suave.io</a> that 
-is based exactly on the above idea:</p>
+<p>An interesting recent development is <em>data journalism</em>. Data journalists tell stories using
+data. A data driven article is based on an interesting observation from the data, it includes
+(interactive) visualizations that illustrate the point and it often allows the reader to get
+the raw data.</p>
+
+<p>Adding a chart produced in, say, Excel to an article is easy, but building good interactive
+visualization is much harder. Ideally, the data driven article should not be just text with
+static pictures, but a <em>program</em> that links the original data source to the visualization.
+This lets readers explore how the data is used, update the content when new data is available
+and change parameters of the visualization if they need to understand different aspect of the
+topic.</p>
+
+<p>This is in short what I'm trying to build with <a href="http://thegamma.net">The Gamma project</a>. If
+you're interested in building better reports or data driven articles, continue reading!</p>
 
 <blockquote>
-  <p>Suave is a simple web development F# library providing a lightweight web server 
-and a set of combinators to manipulate route flow and task composition.</p>
+<img src="http://tomasp.net/blog/2015/thegamma/sl.png" style="float:right;width:150px" />
+
+  <p>I did a talk about The Gamma project at the fantastic <a href="http://www.future-programming.org/programSL.html">Future Programming workshop</a>
+at the <a href="http://www.thestrangeloop.com/">StrangeLoop conference</a> last week (thanks for inviting me!)
+and there is a <a href="https://www.youtube.com/watch?v=cYoO2RvZn7Y&feature=youtu.be&a">recording of my 40 minute talk on YouTube</a>,
+so if you prefer to watch videos, check it out!</p>
 </blockquote>
 
-<p>I recently decided to start a new version of the <a href="http://www.fssnip.net">F# Snippets</a>
-web site and I wanted to keep the implementation functional, simple, 
-cross-platform and easy to contrbute to. I wrote a <a href="https://github.com/tpetricek/FsSnip.Website/">first prototype of the 
-implementation</a> using Suave and 
-already received a few contributions via pull requests! In this blog post, I'll
-share a few interesting aspects of the implementation and I'll give you some
-good pointers where you can learn more about Suave. <em>There is no excuse for not
-contributing to F# Snippets v2 after reading this blog post</em>!</p>
+<p>Are you a data journalist or data analyst? We're looking for early partners!
+I joined the <a href="http://www.joinef.com" title="Nothing to do with Entity Framework, don't worry!">EF
+programme</a> to work on this and if the project sounds like something you'd like to see happen,
+<a href="mailto:tomas@tomasp.net">please get in touch</a> or share your contact details
+on <a href="http://thegamma.net">The Gamma page</a>!</p>
 
 
       
   <p class="meta">
-    <span><strong>Published</strong>: Tuesday, 15 September 2015, 11:26 PM</span>
+    <span><strong>Published</strong>: Monday, 28 September 2015, 11:07 AM</span>
       <br />      
-      <span class="tags"><strong>Tags</strong>: f#, web </span> 
+      <span class="tags"><strong>Tags</strong>: type providers, data journalism, programming languages </span> 
     <br />
-    <a href="http://tomasp.net/blog/2015/fssnip-suave/index.html">Read the complete article</a>
+    <a href="http://tomasp.net/blog/2015/thegamma/index.html">Read the complete article</a>
   </p>
   </div>
 
   <!-- For remaining articles, just print short summary with abstract -->
   <h1><a href="http://tomasp.net/blog/index.html">Recent articles from my blog</a></h1>
+    <h2><a href="http://tomasp.net/blog/2015/fssnip-suave/index.html">Creating web sites with Suave: How to contribute to F# Snippets</a></h2>
+    <p class="smdate">Tuesday, 15 September 2015, 5:26 PM</p>
+    <p class="description">
+        The core of many web sites and web APIs is very simple. Given an HTTP request, produce a HTTP response. Sounds pretty simple, so why are there so many evil frameworks that make simple web programming difficult? In this blog post, I'll write about Suave -a nice composable library for web programming with F#. The blog post also shows a few interesting samples from the new version of F# Snippets and you are welcome to contribute!
+    </p>
     <h2><a href="http://tomasp.net/blog/2015/typed-revisited/index.html">In the age of the web: Typed functional-first programming revisited</a></h2>
-    <p class="smdate">Wednesday, 9 September 2015, 5:14 PM</p>
+    <p class="smdate">Wednesday, 9 September 2015, 11:14 AM</p>
     <p class="description">
         Most programming languages were designed before the age of web. This matters because the web changes many assumptions that typed functional language designers tak for granted. In this blog post, I discuss how can statically-typed programming languages adapt for the new age.
     </p>
     <h2><a href="http://tomasp.net/blog/2015/failures/index.html">Miscomputation: Learning to live with errors</a></h2>
-    <p class="smdate">Monday, 27 July 2015, 2:15 PM</p>
+    <p class="smdate">Monday, 27 July 2015, 8:15 AM</p>
     <p class="description">
         Charles Babbage once said that 'if trials of three or four simple cases have been made, it is scarcely possible that there can be any error'. We now know that errors are more common and harder to eliminate. In this blog post, I look at different strategies that programmers use for dealing with errors. It turns out that there is a surprisingly wide range of options!
     </p>
     <h2><a href="http://tomasp.net/blog/2015/fslab-world-visualization/index.html">Visualizing interesting world facts with FsLab</a></h2>
-    <p class="smdate">Tuesday, 30 June 2015, 4:07 PM</p>
+    <p class="smdate">Tuesday, 30 June 2015, 10:07 AM</p>
     <p class="description">
         This blog post combines two interesting FsLab libraries. It uses the  World Bank type provider from F# Data to get a number of interesting indicators about different countries of the world and it visualizes them using the XPlot library which makes it easy to build rich HTML5 visualizations using Google Charts and Plotly.
-    </p>
-    <h2><a href="http://tomasp.net/blog/2015/against-types/index.html">Against the definition of types</a></h2>
-    <p class="smdate">Thursday, 14 May 2015, 3:46 PM</p>
-    <p class="description">
-        What is the definition of type? Having a clear and precise answer to this question would avoid many misunderstandings but it would hurt science, 'hamper the growth of knowledge' and 'deflect the course of investigation into narrow channels of things already understood'.
     </p>
 
   <p class="meta">
@@ -244,7 +256,7 @@ contributing to F# Snippets v2 after reading this blog post</em>!</p>
     <div class="large-7 columns">
     <h4>Blog archives <a href="http://tomasp.net/rss.xml"><img src="http://tomasp.net/img/rss.gif" /></a></h4>
       <a href="http://tomasp.net/blog/archive/september-2015/index.html">
-        September 2015 (2)</a>,      <a href="http://tomasp.net/blog/archive/july-2015/index.html">
+        September 2015 (3)</a>,      <a href="http://tomasp.net/blog/archive/july-2015/index.html">
         July 2015 (1)</a>,      <a href="http://tomasp.net/blog/archive/june-2015/index.html">
         June 2015 (1)</a>,      <a href="http://tomasp.net/blog/archive/may-2015/index.html">
         May 2015 (2)</a>,      <a href="http://tomasp.net/blog/archive/april-2015/index.html">

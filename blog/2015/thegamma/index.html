@@ -4,9 +4,9 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Tomas Petricek's blog</title>
+  <title>The Gamma: Simple code behind interactive articles</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Writing about software development in F# and .NET, sharing materials from my F# trainings and talks, writing about programming language research and theory.">
+  <meta name="description" content="Computer programming may not be the new literacy, but it is finding its way intomany areas of modern society. In particular, data journalism turns traditional news reports from a mix of text and images into something that is much closer to a computer program.By treating articles as programs, we can make data journalism more transparent, reproducible and interactive. This is what I've been working on recently, so check out the prototype!">
   <meta name="author" content="Tomas Petricek">
 
   <!-- Reference Foundation -->
@@ -22,10 +22,11 @@
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/tooltips.css" />
   <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
-    <meta name="twitter:card" content="summary">
+    <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:creator" content="@tomaspetricek">
-  <meta name="twitter:title" content="Tomas Petricek's blog">
-  <meta name="twitter:description" content="Writing about software development in F# and .NET, sharing materials from my F# trainings and talks, writing about programming language research and theory.">
+  <meta name="twitter:title" content="The Gamma: Simple code behind interactive articles">
+  <meta name="twitter:description" content="Computer programming may not be the new literacy, but it is finding its way intomany areas of modern society. In particular, data journalism turns traditional news reports from a mix of text and images into something that is much closer to a computer program.By treating articles as programs, we can make data journalism more transparent, reproducible and interactive. This is what I've been working on recently, so check out the prototype!">
+    <meta name="twitter:image" content="http://tomasp.net/blog/2015/thegamma/chart.png">
 </head>
 <body>
 
@@ -65,9 +66,9 @@
     <content>
       
 
-  <div>
-  <h1><a href="http://tomasp.net/blog/2015/thegamma/index.html">The Gamma: Simple code behind interactive articles</a></h1>
-  <img src="http://tomasp.net/blog/2015/thegamma/dj.png" style="float:right;width:300px"
+<h1><span class="hm">The Gamma</span><span class="hs">Simple code behind interactive articles</span></h1>
+
+<img src="http://tomasp.net/blog/2015/thegamma/dj.png" style="float:right;width:300px"
   title="Illustration from 'The Data Journalism Handbook'" />
 
 <p>There are huge amounts of data around us that we could use to better understand the world.
@@ -96,7 +97,7 @@ you're interested in building better reports or data driven articles, continue r
 
   <p>I did a talk about The Gamma project at the fantastic <a href="http://www.future-programming.org/programSL.html">Future Programming workshop</a>
 at the <a href="http://www.thestrangeloop.com/">StrangeLoop conference</a> last week (thanks for inviting me!)
-and there is a <a href="https://www.youtube.com/watch?v=cYoO2RvZn7Y&feature=youtu.be&a">recording of my 40 minute talk on YouTube</a>,
+and there is a <a href="https://www.youtube.com/watch?v=cYoO2RvZn7Y&amp;feature=youtu.be&amp;a">recording of my 40 minute talk on YouTube</a>,
 so if you prefer to watch videos, check it out!</p>
 </blockquote>
 
@@ -106,92 +107,217 @@ programme</a> to work on this and if the project sounds like something you'd lik
 <a href="mailto:tomas@tomasp.net">please get in touch</a> or share your contact details
 on <a href="http://thegamma.net">The Gamma page</a>!</p>
 
+<h2>Why reporting needs innovation</h2>
 
-      
-  <p class="meta">
-    <span><strong>Published</strong>: Monday, 28 September 2015, 11:07 AM</span>
-      <br />      
-      <span class="tags"><strong>Tags</strong>: type providers, data journalism, programming languages </span> 
-    <br />
-    <a href="http://tomasp.net/blog/2015/thegamma/index.html">Read the complete article</a>
-  </p>
-  </div>
-  <div>
-  <h1><a href="http://tomasp.net/blog/2015/fssnip-suave/index.html">Creating web sites with Suave: How to contribute to F# Snippets</a></h1>
-  <img src="http://tomasp.net/blog/2015/fssnip-suave/logo.png" style="width:130px;float:right;margin-left:10px" />
+<p>There is a number of reasons why data journalism and reporting in general need better tools. 
+When I see a report on a problem that I want to understand better, I want to be able to see how
+exactly is the report created and how are the inputs pre-processed. I want to be able to modify
+some of the parameters (for example, add another country to a comparison) or see what a different
+view of the data would say (look at <em>per capita</em> values rather than absolute numbers). Sadly, this
+is almost never possible. What I would like to see is an environment that offers these three 
+properties:</p>
 
-<p>The core of many web sites and web APIs is very simple. Given an HTTP request,
-produce a HTTP response. In F#, we can represent this as a function with type
-<code>Request -&gt; Response</code>. To make our server scalable, we should make the function
-<em>asynchronous</em> to avoid unnecessary blocking of threads. In F#, this can be 
-captured as <code>Request -&gt; Async&lt;Response&gt;</code>. Sounds pretty simple, right? So why 
-are there so many <a href="http://tomasp.net/blog/2015/library-frameworks/">evil frameworks</a>
-that make simple web programming difficult?</p>
+<ul>
+<li><p><strong>Reproducibility</strong> - The report should be fully reporoducible. Serious newspapers cite their
+data sources, but reproducing report using just a citation involves a lot of manual work.
+It should be possible to reproduce the results and <em>verify their correctness</em> just by rerunning
+the code behind the report.</p></li>
+<li><p><strong>Transparency</strong> - Reproducibility is a good start, but we should also be able to change the
+report easily. I want to be able to change parameters and see how that affects the result. Does
+it still support the story? I want to see that the report is <em>not misleading</em>,  intentionally
+(or unintentionally).</p></li>
+<li><p><strong>Interactivity</strong> - Finally, I think we should also enable novel user experience with reports.
+Newspaper are no longer (just) printed on paper where we need text and images. We should use
+the reproducibility and transparency behind reports to allow new user experiences. The reader
+should be able to explore the data and do some of the changes without being a programmer.</p></li>
+</ul>
 
-<p>Fortunately, there is a nice F# library called <a href="http://suave.io">Suave.io</a> that 
-is based exactly on the above idea:</p>
+<p>I think many would agree with these points. It's just hard to make this easy and accessible enough.
+ The <a href="http://datajournalismhandbook.org">Data Journalism Handbook</a> describes some of the tools
+that people use currently. Most non-programmers obtain data by hand and then use tools like 
+Google Sprehadsheets and Excel (making reproducibility and transparency hard). Pre-processing is
+done using ad hoc scripts (using Perl, R, Python etc.) that are not very general and would not work
+on different inputs. And finally, the few reports that are interactive are usually single-purpose
+applications (typically written in JavaScript).</p>
+
+<h2>How can we do better</h2>
+
+<p>Modern programming languages have a number of features that make working with data <em>much</em> easier
+than before. Features like LINQ in C# (inspired by functional style) make it easy to transform data
+and <em>type providers</em> in F# integrate external data sources directly into the programming language.
+If you have not seen type providers before, the following is a demo showing the <a href="http://fsharp.github.io/FSharp.Data/">World Bank type
+provider</a> running inside the <a href="http://ionide.io/">Ionide project</a>
+(inside the Atom editor):</p>
+
+<div style="text-align:center;">
+<img src="atom.png" style="max-width:500px;margin-left:auto;margin-right:auto;" />
+</div>
+
+<p>The type provider imports all data sources from <a href="http://data.worldbank.org">the World Bank</a> directly
+into the type system. You type "." and see all the countries, then you type "." again and you can
+choose one from the thousands of available indicators.</p>
+
+<p>F# type providers are fantastic if you are programmer, but I think they also illustrate the kind
+of experience that we could build for anyone who is working with data. Typing "." in the editor is
+not <em>that different</em> from clicking the "Search" button in Google and choosing an option in the
+Atom auto-complete is not <em>that different</em> from choosing an option in a drop-down on a web page.</p>
+
+<h2>Try The Gamma prototype</h2>
+
+<p>I would not be writing this blog post if I didn't have anything to show! I put together a prototype
+that shows some of the ideas. It is very basic, but it demonstrates the experience that I believe
+all visualizations on the web should have in the future. The example uses the <a href="http://data.worldbank.org">World Bank data</a>
+and compares countries in the world based on their CO2 emissions:</p>
 
 <blockquote>
-  <p>Suave is a simple web development F# library providing a lightweight web server 
-and a set of combinators to manipulate route flow and task composition.</p>
+  <p>This is very much work in progress. I focused on building a demo that illustrates the 
+idea, but there are certainly issues. You can <a href="https://github.com/tpetricek/The Gamma">report them on GitHub</a>
+and if the whole demo is down, ping me at <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a>!</p>
 </blockquote>
 
-<p>I recently decided to start a new version of the <a href="http://www.fssnip.net">F# Snippets</a>
-web site and I wanted to keep the implementation functional, simple, 
-cross-platform and easy to contrbute to. I wrote a <a href="https://github.com/tpetricek/FsSnip.Website/">first prototype of the 
-implementation</a> using Suave and 
-already received a few contributions via pull requests! In this blog post, I'll
-share a few interesting aspects of the implementation and I'll give you some
-good pointers where you can learn more about Suave. <em>There is no excuse for not
-contributing to F# Snippets v2 after reading this blog post</em>!</p>
+<div style="position:absolute;width:100%;z-index:-100">
+<div style="position:relative;left:100%;width:260px;margin-top:25px;display:none;padding:10px;border:1px solid #d0d0d0;background:#f0f0f0" id="carbon-side">
+</div>
+</div>
+<iframe src="http://thegamma.net/carbon-plain?iframe=true" style="overflow:hidden;height:300px;width:100%;border-style:none;margin:0px" seamless="seamless" id="carbon">
+</iframe>
+<style type="text/css">
+ #carbon-side h2 { margin-top:0px; font-size:15pt; }
+ #carbon-side p { font-size:9pt; }
+ #carbon-side h2, #carbon-side p { color:#404040; }
+</style>
+<script type="text/javascript">
+  var eventMethod = window.addEventListener ? "addEventListener" : "attachEvent";
+  var messageEvent = eventMethod == "attachEvent" ? "onmessage" : "message";
+  window[eventMethod](messageEvent, function(e) {
+    if (e.data.action == "showtip") 
+      document.getElementById('carbon-side').style.display = e.data.visible?'block':'none';
+    if (e.data.action == "tip") 
+      document.getElementById('carbon-side').innerHTML = e.data.html;
+    if (e.data.action == "resize") 
+      document.getElementById('carbon').style.height = (e.data.height + 0) + 'px';
+  }, false);
+</script>
+
+<p>It looks like China is the largest producer of CO2 emissions in the world followed by the US. But
+there are a few interesting questions you can ask about the data - and the interactive visualization
+lets you explore those:</p>
+
+<ul>
+<li><p>What was the situation like in 1990 or 1980? You can explore this by clicking "options" and 
+changing the year using the drop down. (When did China overtook US as the largest polluter?)</p></li>
+<li><p>What if we compare CO2 emissions <em>per capita</em> rather than absolute numbers? (It turns out that
+large developing countries like China and India are no longer the largest polluters...)</p></li>
+<li><p>How is this actually created? There is no pre-processing in this demo, but you can still see
+all the details (like the color scheme) if you click on the "source" button.</p></li>
+</ul>
+
+<p>As you can see, it is possible to embed visualization created using The Gamma into your own web page
+(ping me if you are interested). The exmple is part of a larger demo that I created, which shows
+other interesting aspects of the project. Check out the <a href="thegamma.net/carbon">full version of the CO2 emissions demo</a>
+on The Gamma web site.</p>
+
+<p>The third example on the page (pie chart) is a bit more interesting, because it implements a simple
+pre-processing. It takes top 6 countries and shows them together with all other countries. This is
+an aspect that cannot be changed in "options", but you can see it in the "source" view:</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
+<span class="l">7: </span>
+<span class="l">8: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs1', 1)" onmouseover="showTip(event, 'fs1', 1)" class="i">sumRest</span> <span class="o">=</span>
+  <span class="i">countries</span><span class="o">.</span><span class="i">skip</span>(<span class="n">6</span>)<span class="o">.</span><span class="i">sum</span>()
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs2', 2)" onmouseover="showTip(event, 'fs2', 2)" class="i">topAndRest</span> <span class="o">=</span>
+  <span class="i">countries</span><span class="o">.</span><span class="i">take</span>(<span class="n">6</span>)
+    <span class="o">.</span><span class="i">append</span>(<span class="s">&quot;Other countries&quot;</span>, <span onmouseout="hideTip(event, 'fs1', 3)" onmouseover="showTip(event, 'fs1', 3)" class="i">sumRest</span>)
+
+<span class="i">chart</span><span class="o">.</span><span class="i">pie</span>(<span onmouseout="hideTip(event, 'fs2', 4)" onmouseover="showTip(event, 'fs2', 4)" class="i">topAndRest</span>)<span class="o">.</span><span class="i">show</span>()
+</code></pre></td>
+</tr>
+</table>
+
+<p>I believe this kind of transformation is easy enough and with good tooling, we can make it 
+accessible not just for programmers, but even for technically skilled journalists or anyone
+who works on data analytics. Feel free to experiment with the prototype, though keep in mind that
+the library is very much incomplete.</p>
+
+<h2>Article is a literate program</h2>
+
+<p>The key idea that I think can change how data reporting is done is to treat <em>articles as programs</em>.
+In the prototype, the source code for the CO2 report is simply a <a href="https://github.com/tpetricek/The Gamma/blob/master/web/demos/carbon.md">Markdown document on 
+GitHub</a>.</p>
+
+<p>Everything else is generated from the source. When you open the report in a web browser, you 
+see a rendering that shows the text with the resulting charts (the code is executed). The more
+interesting thing is that when you click on "options", The Gamma looks for specific patterns in the
+source code and generates editors for them. The current implementation looks for two patterns.</p>
+
+<ol>
+<li>When there is a choice from one of several members, for example years in 
+<code>world.byYear.2010</code>, we generate drop-down with other members.</li>
+<li>When the code creates a list, for example <code>[ countries.USA; countries.UK ]</code> in the
+last example in the CO2 report, we generate a select element.</li>
+</ol>
+
+<p>This is just a very basic thing that can be done when we have the full source code and there are
+many other interesting features I'd like to add. If you see a number in text, say the GDP of USA
+is 16.77 trillion USD, this does not tell you much - but if we know the source of the number and
+how it is computed, we can automatically provide the context. What about other countries? And how 
+has it been changing?</p>
+
+<h2>Summary</h2>
+
+<p>Saying that programming is the new literacy would be a (perhaps quite silly) overstatement, but
+I do think that understanding information around us is becoming increasingly important. This 
+applies to public information (e.g. open government data) but also to business data inside 
+companies.</p>
+
+<p>Journalists and data analysts help us by finding interesting information in data and presenting
+them to us. But how can we make sure that the analysis is done correctly and does not show 
+misleading information? And how can we build on top of it to explore the information further
+and get better understanding?</p>
+
+<p>This is exactly what I'm trying to do with The Gamma project and I would like to hear from anyone
+interested! Get in touch at <a href="mailto:tomas@tomasp.net">tomas@tomasp.net</a> or <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a>.</p>
+
+<div class="tip" id="fs1">val sumRest : obj<br /><br />Full name: thegamma.sumRest</div>
+<div class="tip" id="fs2">val topAndRest : obj<br /><br />Full name: thegamma.topAndRest</div>
 
 
-      
-  <p class="meta">
-    <span><strong>Published</strong>: Tuesday, 15 September 2015, 5:26 PM</span>
-      <br />      
-      <span class="tags"><strong>Tags</strong>: f#, web </span> 
-    <br />
-    <a href="http://tomasp.net/blog/2015/fssnip-suave/index.html">Read the complete article</a>
-  </p>
+<div class="row">
+  <div class="small-6 columns"><p class="post-discuss">
+		Discuss <a href="http://twitter.com/tomaspetricek">on twitter</a>, <script type="text/javascript" src="http://www.reddit.com/buttonlite.js?i=0"></script>.<br />
+		Send corrections via <a href="https://github.com/tpetricek/TomaspNet.Website">GitHub pull requests</a>.
+	</p></div>
+  <div class="small-6 columns">
+
+<!-- AddThis Button BEGIN -->
+<div class="addthis_toolbox addthis_default_style addthis_16x16_style">
+<a class="addthis_button_twitter"></a>
+<a class="addthis_button_reddit"></a>
+<a class="addthis_button_google_plusone_share"></a>
+<a class="addthis_button_hackernews"></a>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_compact"></a><a class="addthis_counter addthis_bubble_style"></a>
+</div>
+<script type="text/javascript">var addthis_config = { "data_track_addressbar": false };</script>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-521c32162e6001a0"></script>
+<!-- AddThis Button END -->
+
+<p class="post-meta">
+  <span><strong>Published</strong> Monday, 28 September 2015, 11:07 AM</span><br />      
+  <span><strong>By</strong> <a href="https://plus.google.com/+TomasPetriceks?rel=author">Tomas Petricek</a></span><br />
+  <span class="tags"><strong>Tags</strong> type providers, data journalism, programming languages</span>
+</p>
+
   </div>
-  <div>
-  <h1><a href="http://tomasp.net/blog/2015/typed-revisited/index.html">In the age of the web: Typed functional-first programming revisited</a></h1>
-  <p>Most programming languages were designed before the age of web.
-This matters because the web changes many assumptions that typed functional 
-language designers tak for granted. For example, programs do not run in a 
-<em>closed world</em>, but must instead interact with (changing and likely unreliable) 
-services and data sources, communication is often asynchronous or event-driven, 
-and programs need to interoperate with untyped environments like JavaScript
-libraries.</p>
-
-<p>How can statically-typed programming languages adapt to the modern world?
-In this article, I look at one possible answer that is inspired by the F# 
-language and various F# libraries. In F#, we use <em>type providers</em> for 
-integration with external information sources and for integration with untyped
-programming environments. We use <em>lightweight meta-programming</em> for targeting 
-JavaScript and <em>computation expressions</em> for writing asynchronous code.</p>
-
-<p>This blog post is a shorter version of a <a href="http://tomasp.net/academic/papers/age-of-web/">ML workshop paper</a>
-that I co-authored earlier this year and you should see this more as a position
-statement. I'm not sure if F# and the solutions shown here are the best ones,
-but I think they highlight very important questions in programming language 
-design that I very much see as unsolved.</p>
-
-<p>The article has two sections. First, I'll go through a simple case study showing
-how F# can be used to build a client-side web widget. Then, I'll discuss some
-of the implications for programming language design based on the example.</p>
-
-
-      
-  <p class="meta">
-    <span><strong>Published</strong>: Wednesday, 9 September 2015, 11:14 AM</span>
-      <br />      
-      <span class="tags"><strong>Tags</strong>: f#, type providers, web, functional programming, research </span> 
-    <br />
-    <a href="http://tomasp.net/blog/2015/typed-revisited/index.html">Read the complete article</a>
-  </p>
-  </div>
+</div>
 
     </content>
 
@@ -248,7 +374,7 @@ of the implications for programming language design based on the example.</p>
 
     <h4>Functional F# and C# books</h4>
     <div style="float:right;">
-      <a href="http://www.amazon.com/gp/product/1933988924/ref=as_li_tf_il?ie=UTF8&tag=httptomasnet-20&linkCode=as2&camp=217145&creative=399369&creativeASIN=1933988924">
+      <a href="http://www.amazon.com/gp/product/1933988924/ref=as_li_tf_il?ie=UTF8&amp;tag=httptomasnet-20&amp;linkCode=as2&amp;camp=217145&amp;creative=399369&amp;creativeASIN=1933988924">
         <img src="http://tomasp.net/img/deepdives.png" alt="F# Deep Dives" style="float:right;margin:15px 0px 15px 10px;border-style:none;" />
       </a>
     </div>
@@ -260,8 +386,8 @@ of the implications for programming language design based on the example.</p>
     <ul>
       <li><a href="http://functional-programming.net/rwfp"><strong>Real World Functional Programming</strong></a> home page. See
         <a href="http://manning.com/petricek">Manning</a>,
-        <a href="https://www.amazon.com/dp/1933988924?tag=httptomasnet-20&camp=213381&creative=390973&linkCode=as4&creativeASIN=1933988924&adid=0F1DP260JGG4KY0CDGP6">Amazon.com</a> or
-        <a href="https://www.amazon.co.uk/dp/1933988924?tag=tomasnet-21&camp=1406&creative=6394&linkCode=as1&creativeASIN=1933988924&adid=1CTY87YCCQEJW965GNDF">Amazon.co.uk</a>.
+        <a href="https://www.amazon.com/dp/1933988924?tag=httptomasnet-20&amp;camp=213381&amp;creative=390973&amp;linkCode=as4&amp;creativeASIN=1933988924&amp;adid=0F1DP260JGG4KY0CDGP6">Amazon.com</a> or
+        <a href="https://www.amazon.co.uk/dp/1933988924?tag=tomasnet-21&amp;camp=1406&amp;creative=6394&amp;linkCode=as1&amp;creativeASIN=1933988924&amp;adid=1CTY87YCCQEJW965GNDF">Amazon.co.uk</a>.
       </li>
       <li><a href="http://functional-programming.net/deepdives"><strong>F# Deep Dives</strong></a> home page. Get it from
         <a href="http://www.manning.com/petricek2">Manning.com</a>,
@@ -291,11 +417,11 @@ of the implications for programming language design based on the example.</p>
   <div class="row" id="footer">
   <footer>   
     <div class="large-3 columns">
-      <h4>Contact & about</h4>
+      <h4>Contact &amp; about</h4>
       <p>This site is hosted on GitHub and is generated using <a href="https://github.com/tpetricek/FSharp.Formatting">F# Formatting</a>.
         For more info, see the <a href="https://github.com/tpetricek/TomaspNet.Website">website source on GitHub</a>.
       </p>
-      <p>Please submit issues & corrections on GitHub. Use pull requests for minor corrections only.</p>
+      <p>Please submit issues &amp; corrections on GitHub. Use pull requests for minor corrections only.</p>
       <ul>
         <li>Email me: <a href="mailto:tomas@tomasp.net">tomas@tomasp.net</a></li>
         <li>Connect via Twitter: <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a></li>

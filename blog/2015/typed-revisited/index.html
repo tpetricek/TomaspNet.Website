@@ -496,14 +496,14 @@ small snippets, but it hardly scales for anything as large as jQuery.</p></li>
 <li><p><strong>Minimal mapping.</strong> An interesting option that some X-to-JavaScript compilers
 use is to mostly ignore the target environment. Instead, they map many source
 X libraries into JavaScript and would rely only on core DOM (with a wrapper
-written in X on top of it) rather than on JQuery which would not be idiomaitc
+written in X on top of it) rather than on JQuery which would not be idiomatic
 X library.</p></li>
 </ul>
 
 <p>I believe that modern programming languages will increasingly need to be able to
 access external environments and so the F# approach with type providers is an 
-important direction. Afterall, we <em>need</em> to access rich visualization libraries 
-build in the JavaScript environment or rich statistical functionality available
+important direction. After all, we <em>need</em> to access rich visualization libraries 
+built in the JavaScript environment or rich statistical functionality available
 in R.</p>
 
 <h3>Mixing stronger and weaker type systems</h3>
@@ -524,7 +524,7 @@ different strength or expressivity.</p>
 a type provider may need to map more types to a general type like <code>obj</code> in
 F#. This makes the provided operations harder to use because the target language
 allows more flexibility. In our example, TypeScript has a type <code>any</code> that can
-be used in any context - F# does not allow this and so we had to use explicit
+be used in any context - F# does not allow this and so we had to explicitly use the
 unsafe <code>unbox&lt;bool&gt;</code> to treat <code>obj</code> as <code>bool</code>.</p></li>
 <li><p><strong>Stronger target type sytems.</strong> If the imported language has stronger type
 system than F#, the type provider will have to drop some information. This
@@ -538,14 +538,14 @@ We either need to reconstruct some information (e.g. using <code>jquery.d.ts</co
 file), or through some other mechanism (R provider uses runtime reflection). 
 With F#, we have the <code>obj</code> type and unsafe features like <code>unbox</code>, so this gives 
 us at least some way of encoding unsafe operations, but arguably, having 
-something akin to C# <code>dynamic</code> would be somethimes useful.</p>
+something akin to C# <code>dynamic</code> would sometimes be useful.</p>
 
 <h3>Heterogeneous execution</h3>
 
 <p>Finally, the last interesting aspect of the case study is that we were able to
 use a large number of standard F# language features and libraries even though
 the code was translated and executed as JavaScript and the JavaScript semantics
-differs in a number of ways. For example, we used ordinary F# <code>async</code> workflows
+differ in a number of ways. For example, we used ordinary F# <code>async</code> workflows
 and wrote:</p>
 
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
@@ -585,7 +585,7 @@ correct, we'd have to use <code>jsfloat</code>, <code>jsexception</code> and so 
 
 <p>The example in the case study follows the less correct path - it maps ordinary
 F# <code>async</code> workflows to the closest thing that can be done in JavaScript. It
-provides mapping for <code>Async.StartImmediate</code> (which has close alternative in the
+provides mapping for <code>Async.StartImmediate</code> (which has close equivalent in the
 browser) but not for <code>Async.Start</code> (which would require a background thread).</p>
 
 <p>F# numerical types are mapped to native JS numerical types with all the potential
@@ -597,7 +597,7 @@ done in pure F#).</p>
 <h2>Conclusions: Languages for the modern age</h2>
 
 <p>This article uses the "age of the web" phrase, because it nicely illustrates many
-of the important problems that modern languages face. More then before, we need
+of the important problems that modern languages face. More than before, we need
 to access data and call services from the outside world (that cannot be fully
 trusted) and we need to interoperate with other execution environments (which 
 have different features and different levels of safety).</p>
@@ -627,12 +627,12 @@ mapping is not too cumbersome.</p>
 <p>The other aspect is that if the host language is strict in some way, it needs to
 provide some escaping mechanism. F# does this with the <code>obj</code> type and <code>unbox</code>.
 This works, but there is probably more that could be done here. (And there are
-also other situations where escaping mechanism would help.)</p>
+also other situations where an escape mechanism would help.)</p>
 
 <h3>Relativized safety and semantics</h3>
 
 <p>Does the flexibility and the escaping hurt the nice safety properties of the host
-language? If you are strict theoretician, then the answer is of course yes. But 
+language? If you are a strict theoretician, then the answer is of course yes. But 
 I think there is a useful middle ground here. Using F# as we did in the case study
 here, we get a nice property:</p>
 
@@ -645,8 +645,8 @@ different properties.</p>
 
 <p>To an extent, you can already see this with F# when working with .NET. F# types
 do not allow the <code>null</code> value, but .NET types do. When you use functional style
-with F#, you do not need type annotations, but when you use objects, you need them.
-So for F#, even .NET is <em>outside environment</em> that breaks some of the language
+with F#, you do not need type annotations, but when you use objects, you do.
+So for F#, even .NET is an <em>outside environment</em> that breaks some of the language
 properties.</p>
 
 <h3>Summary</h3>
@@ -654,7 +654,7 @@ properties.</p>
 <p>I think we need to give up on the idea that programming languages 
 should be designed for one controlled execution environment. There should be a 
 core with certain core properties (like the ML core of F#) with additional layers
-that are more flexible and adaptable to allow running in the diverse modern world.
+that are more flexible and adaptable to allow running in the heterogenous modern world.
 How exactly this should be done, that's an interesting open question, but I think
 F# with type providers shows one important component of the solution.</p>
 
@@ -736,7 +736,7 @@ F# with type providers shows one important component of the solution.</p>
 <!-- AddThis Button END -->
 
 <p class="post-meta">
-  <span><strong>Published</strong> Wednesday, 9 September 2015, 5:14 PM</span><br />      
+  <span><strong>Published</strong> Wednesday, 9 September 2015, 11:14 AM</span><br />      
   <span><strong>By</strong> <a href="https://plus.google.com/+TomasPetriceks?rel=author">Tomas Petricek</a></span><br />
   <span class="tags"><strong>Tags</strong> f#, type providers, web, functional programming, research</span>
 </p>
@@ -833,7 +833,7 @@ F# with type providers shows one important component of the solution.</p>
     <h4>Blog tags</h4>
     <p>
 
-      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(106),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(17),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(36),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(32),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(5),       <a href="http://tomasp.net/blog/tag/open-source/">open source</a>&nbsp;(5),       <a href="http://tomasp.net/blog/tag/web/">web</a>&nbsp;(9),       <a href="http://tomasp.net/blog/tag/fslab/">fslab</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/linq/">linq</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/type-providers/">type providers</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/programming-languages/">programming languages</a>&nbsp;(1)    </p>
+      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(107),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(17),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(36),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(32),       <a href="http://tomasp.net/blog/tag/web/">web</a>&nbsp;(10),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(5),       <a href="http://tomasp.net/blog/tag/open-source/">open source</a>&nbsp;(5),       <a href="http://tomasp.net/blog/tag/fslab/">fslab</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/type-providers/">type providers</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/linq/">linq</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/programming-languages/">programming languages</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/data-journalism/">data journalism</a>&nbsp;(1)    </p>
 
   </div>
 </div>
@@ -856,7 +856,7 @@ F# with type providers shows one important component of the solution.</p>
     <div class="large-7 columns">
     <h4>Blog archives <a href="http://tomasp.net/rss.xml"><img src="http://tomasp.net/img/rss.gif" /></a></h4>
       <a href="http://tomasp.net/blog/archive/september-2015/index.html">
-        September 2015 (1)</a>,      <a href="http://tomasp.net/blog/archive/july-2015/index.html">
+        September 2015 (3)</a>,      <a href="http://tomasp.net/blog/archive/july-2015/index.html">
         July 2015 (1)</a>,      <a href="http://tomasp.net/blog/archive/june-2015/index.html">
         June 2015 (1)</a>,      <a href="http://tomasp.net/blog/archive/may-2015/index.html">
         May 2015 (2)</a>,      <a href="http://tomasp.net/blog/archive/april-2015/index.html">

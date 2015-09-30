@@ -160,7 +160,7 @@ lets you explore those:
 
 As you can see, it is possible to embed visualization created using The Gamma into your own web page
 (ping me if you are interested). The exmple is part of a larger demo that I created, which shows
-other interesting aspects of the project. Check out the [full version of the CO2 emissions demo](thegamma.net/carbon)
+other interesting aspects of the project. Check out the [full version of the CO2 emissions demo](http://thegamma.net/carbon)
 on The Gamma web site. 
 
 The third example on the page (pie chart) is a bit more interesting, because it implements a simple

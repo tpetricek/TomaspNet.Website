@@ -28,9 +28,11 @@
 
 /* Customize how the navigation bar looks */
 .top-bar-header ul, .top-bar-header li, .top-bar-header nav, .top-bar-header div {
-  background:white;
+  background: transparent;
 }
+
 .top-bar-header nav {
+  background: white;
   border-bottom:4px solid black;
   height:40px;
   overflow:hidden;

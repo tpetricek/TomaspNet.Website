@@ -118,7 +118,7 @@ all visualizations on the web should have in the future. The example uses the [W
 and compares countries in the world based on their CO2 emissions:
 
 > This is very much work in progress. I focused on building a demo that illustrates the 
-> idea, but there are certainly issues. You can [report them on GitHub](https://github.com/tpetricek/The Gamma)
+> idea, but there are certainly issues. You can [report them on GitHub](https://github.com/tpetricek/TheGamma)
 > and if the whole demo is down, ping me at [@@tomaspetricek](http://twitter.com/tomaspetricek)!
 
 <div style="position:absolute;width:100%;z-index:-100">
@@ -160,7 +160,7 @@ lets you explore those:
 
 As you can see, it is possible to embed visualization created using The Gamma into your own web page
 (ping me if you are interested). The exmple is part of a larger demo that I created, which shows
-other interesting aspects of the project. Check out the [full version of the CO2 emissions demo](thegamma.net/carbon)
+other interesting aspects of the project. Check out the [full version of the CO2 emissions demo](http://thegamma.net/carbon)
 on The Gamma web site. 
 
 The third example on the page (pie chart) is a bit more interesting, because it implements a simple
@@ -186,7 +186,7 @@ Article is a literate program
 
 The key idea that I think can change how data reporting is done is to treat _articles as programs_.
 In the prototype, the source code for the CO2 report is simply a [Markdown document on 
-GitHub](https://github.com/tpetricek/The Gamma/blob/master/web/demos/carbon.md).
+GitHub](https://github.com/tpetricek/TheGamma/blob/master/web/demos/carbon.md).
 
 Everything else is generated from the source. When you open the report in a web browser, you 
 see a rendering that shows the text with the resulting charts (the code is executed). The more

@@ -63,9 +63,9 @@ If you want to cite the paper, you can use the following BibTeX information, or
 get full details from the [paper page on ACM](#).
 
     [lang=tex]
-    @@inproceedings{coeffects-icalp13,
+    @@inproceedings{computation-zoo-padl14,
       author    = {Petricek, Tomas and Syme, Don},
-      title     = {The F# Computation Expression Zoo},
+      title     = {The F\# Computation Expression Zoo},
       booktitle = {Proceedings of Practical Aspects of Declarative Languages},
       series    = {PADL 2014},
       location  = {San Diego, CA, USA}

@@ -1,23 +1,21 @@
 // Explicit 
-var news0 =
+var news =
 {
-  "date": "October 2015, Online",
+  "date": "Published 2015, Pluralsight",
   "info": "\
-  <div style='float:right'>\
-  <a href='http://quantshub.com/content/f-and-functional-programming-finance'> \
-    <img src='http://tomasp.net/blog/2014/fsharpworks-events/qsh.jpg' style='border:none;width:120px' /> \
+  <p>Watch my course on using F# and type providers for data access in ASP.NET web apps!</p> \
+  <div style=\"text-align:center\"> \
+  <a href='http://www.pluralsight.com/courses/accessing-data-fsharp-type-providers'> \
+    <img src='http://tomasp.net/news/content/pluralsight.png' style='border:none;width:240px' /> \
   </a> \
   </div> \
-  <p> \
-    Interested in F# and finance? Learn how to implement mathematical models, \
-    create domain-specific languages and analyze time-series data in this <strong>10 \
-    week online course</strong>.</p><p>Prefer an on-site training? \
+  <p>Interested in an on-site training? \
     <a href='mailto:tomas@tomasp.net'>Send me an email</a>! \
   </p>"
 }
 
 // Lanyrd 
-var news =
+var news0 =
   {
     "date": "",
     "info": '\

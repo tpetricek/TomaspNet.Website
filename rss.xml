@@ -4,6 +4,29 @@
     <link>http://tomasp.net</link>
     <description>Writing about software development in F# and .NET, sharing materials from my F# trainings and talks, writing about programming language research and theory.</description>
     <item>
+      <title>F# + ML |&gt; MVP Summit Talks</title>
+      <guid>http://tomasp.net/blog/2015/fsharp-ml-mvp</guid>
+      <link>http://tomasp.net/blog/2015/fsharp-ml-mvp/index.html</link>
+      <pubDate>Wed, 18 Nov 2015 02:03:44 GMT</pubDate>
+      <description>&lt;a href="http://www.functional-programming.net"&gt;
+&lt;img src="http://tomasp.net/blog/2015/fsharp-ml-mvp/fsml.png" style="width:200px;float:right;margin:0px 0px 15px 15px" /&gt;
+&lt;/a&gt;
+
+&lt;p&gt;I was fortunate enough to make it to the Microsoft MVP summit this year. I didn't learn anything 
+secret (and even if I did, I wouldn't tell you!) but one thing I did learn is that there is a lot
+of interest in data science and machine learning both inside Microsoft and in the MVP community.
+What was less expected and more exciting was that there was also a lot of interest in F#, which 
+is a perfect fit for both of these topics!&lt;/p&gt;
+
+&lt;p&gt;When I visited Microsoft back in May to talk about &lt;a href="http://tpetricek.github.io/Talks/2015/scalable-ml-ds-fsharp/redmond/"&gt;Scalable Machine Learning and Data Science 
+with F#&lt;/a&gt; at an internal event, 
+I ended up chatting with the organizer about F# and we agreed that it would be nice to do more
+on F#, which is how we ended up organizing the &lt;a href="http://fsharpworks.com/mvp-summit/2015.html"&gt;F# + ML |&amp;gt; MVP Summit 2015&lt;/a&gt;
+mini-conference on the Friday after the summit.&lt;/p&gt;
+
+</description>
+    </item>
+    <item>
       <title>The Gamma: Simple code behind interactive articles</title>
       <guid>http://tomasp.net/blog/2015/thegamma</guid>
       <link>http://tomasp.net/blog/2015/thegamma/index.html</link>
@@ -575,41 +598,6 @@ and Tarmo Uustalu on &lt;a href="http://cs.ioc.ee/~tarmo/papers/types13.pdf"&gt;
 parameterized by &lt;em&gt;acts&lt;/em&gt; that capture the operations that can be done on the state.
 This means that we can define just a single computation expression &lt;code&gt;update { ... }&lt;/code&gt; 
 and use it for writing computations of all three aforementioned kinds.&lt;/p&gt;
-
-</description>
-    </item>
-    <item>
-      <title>What can programming language research learn from the philosophy of science?</title>
-      <guid>http://tomasp.net/blog/2014/philosophy-pl</guid>
-      <link>http://tomasp.net/blog/2014/philosophy-pl/index.html</link>
-      <pubDate>Thu, 10 Apr 2014 16:16:36 GMT</pubDate>
-      <description>&lt;p&gt;As someone doing programming language research, I find it really interesting to think
-about &lt;em&gt;how&lt;/em&gt; programming language research is done, how it has been done in the past
-and how it &lt;em&gt;should&lt;/em&gt; be done. This kind of questions are usually asked by philosophy
-of science, but only a few people have discussed this in the context of computing
-(or even programming languages).&lt;/p&gt;
-
-&lt;p&gt;So, my starting point was to look at the classic works in the general philosophy of science 
-and see which of these could tell us something about programming languages.&lt;/p&gt;
-
-&lt;p&gt;I wrote an article about some of these ideas and presented it last week at the
-second symposium on &lt;a href="http://www.computing-conference.ugent.be/hapop2"&gt;History and Philosophy of Programming&lt;/a&gt;.
-For me, it was amazing to talk with interesting people working on so many great 
-related ideas! Anyway, now that the paper has been published and I did a talk, I should 
-also share it on my blog:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href="http://tomasp.net/academic/papers/philosophy-pl/index.html"&gt;What can Programming Language Research Learn from the Philosophy of 
-Science?&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;Fairly minimalistic &lt;a href="http://tomasp.net/academic/papers/philosophy-pl/philosophy-pl-aisb.pdf"&gt;slides from my talk at the 
-symposium&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;One feedback that I got when I submitted the paper to Onward! Essays last year was that
-the paper uses a lot of philosophy of science terminology. This was partly the point of 
-the paper, but the feedback inspired me to write a more readable overview in a form of 
-blog post. So, if you want to get a quick peek at some of the ideas, you can also read
-this short blog (and then perhaps go back to the paper)!&lt;/p&gt;
 
 </description>
     </item>

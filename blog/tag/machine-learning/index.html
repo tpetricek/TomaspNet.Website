@@ -66,123 +66,31 @@
       
 
   <div>
-  <h1><a href="http://tomasp.net/blog/2015/csharp-pattern-matching/index.html">Pattern matching in action using C# 6</a></h1>
-  <img src="http://tomasp.net/blog/2015/csharp-pattern-matching/hat.png" style="float:right;margin:20px" />
+  <h1><a href="http://tomasp.net/blog/2015/fsharp-ml-mvp/index.html">F# + ML |> MVP Summit Talks</a></h1>
+  <a href="http://www.functional-programming.net">
+<img src="http://tomasp.net/blog/2015/fsharp-ml-mvp/fsml.png" style="width:200px;float:right;margin:0px 0px 15px 15px" />
+</a>
 
-<p>On year ago, on this very day, <a href="http://tomasp.net/blog/2014/csharp-6-released/index.html">I wrote about the open-sourcing of C# 
-6.0</a>. Thanks to a very special
-information leak, I learned about this about a week before Microsoft officially announced
-it. However, my information were slightly incorrect - rather then releasing the <a href="https://github.com/Microsoft/visualfsharp/">much 
-improved version of the language</a>, Microsoft
-continued working on language version internally called "Small C#", which is now available
-as "C# 6" in the <a href="https://www.visualstudio.com/en-us/news/vs2015-vs.aspx">Visual Studio 2015 preview</a>.</p>
+<p>I was fortunate enough to make it to the Microsoft MVP summit this year. I didn't learn anything 
+secret (and even if I did, I wouldn't tell you!) but one thing I did learn is that there is a lot
+of interest in data science and machine learning both inside Microsoft and in the MVP community.
+What was less expected and more exciting was that there was also a lot of interest in F#, which 
+is a perfect fit for both of these topics!</p>
 
-<p>It is my understanding that, with this release, Microsoft is secretly testing the reaction of the 
-developer audience to some of the amazing features that F# developers loved and used for 
-the last 7 years and that are coming to C# <em>very soon</em>. To avoid shock, these are however
-carefuly hidden!</p>
-
-<p>In this blog post, I'm going to show you <em>pattern matching</em> which is probably the most useful
-hidden C# feature and its improvements in C# 6. For reasons that elude me, pattern matching in 
-C# 6 is called <em>exception filters</em> and has some unfortunate restrictions. But we can still 
-use it to write nice functional code!</p>
+<p>When I visited Microsoft back in May to talk about <a href="http://tpetricek.github.io/Talks/2015/scalable-ml-ds-fsharp/redmond/">Scalable Machine Learning and Data Science 
+with F#</a> at an internal event, 
+I ended up chatting with the organizer about F# and we agreed that it would be nice to do more
+on F#, which is how we ended up organizing the <a href="http://fsharpworks.com/mvp-summit/2015.html">F# + ML |&gt; MVP Summit 2015</a>
+mini-conference on the Friday after the summit.</p>
 
 
       
   <p class="meta">
-    <span><strong>Published</strong>: Wednesday, 1 April 2015, 11:41 AM</span>
+    <span><strong>Published</strong>: Wednesday, 18 November 2015, 2:03 AM</span>
       <br />      
-      <span class="tags"><strong>Tags</strong>: c#, fun, functional programming </span> 
+      <span class="tags"><strong>Tags</strong>: f#, fslab, talks, machine learning, data science </span> 
     <br />
-    <a href="http://tomasp.net/blog/2015/csharp-pattern-matching/index.html">Read the complete article</a>
-  </p>
-  </div>
-  <div>
-  <h1><a href="http://tomasp.net/blog/2014/composing-christmas/index.html">Composing Christmas with F#</a></h1>
-  <img src="http://tomasp.net/blog/2014/composing-christmas/glowing.gif" style="float:right;margin:20px; width:200px" /> 
-
-<p>This blog post is a part of the awesome <a href="https://sergeytihon.wordpress.com/2014/11/24/f-advent-calendar-in-english-2014/">F# Advent Calendar</a>
-(see the previous entry about <a href="http://richardminerich.com/2014/12/developing-an-algorithm-in-f-fast-rotational-alignments-with-gospers-hack/">writing algorithms in F#</a>
-from Rick Minerich), so it inevitably needs a Christmassy theme. However, there is also 
-going to be a serious theme for the blog post, which is domain-specific languages.</p>
-
-<p>One of my favorite examples of Domain-Specific Languages is a simple OpenGL library
-that I wrote some time ago for composing 3D graphics in F#. You can see it in my 
-NDC 2014 talk <a href="http://vimeo.com/97315970">Domain Specific Languages, the functional way</a>
-and I also used it for <a href="http://tomasp.net/blog/2014/puzzling-fsharp/index.html">Solving Puzzles with F#</a>
-earlier on this blog.</p>
-
-<p>The nice thing about the library is that it is very simple, but is rich enough to demonstrate
-all the important concepts. In fact, the library is so easy to use that <a href="https://twitter.com/ptrelford/status/538098139430137856">even 8 years old can
-do a talk about it</a>. So, if you're
-spending Christmas with your family, perhaps you can go through this article with your children!</p>
-
-
-      
-  <p class="meta">
-    <span><strong>Published</strong>: Monday, 8 December 2014, 5:22 PM</span>
-      <br />      
-      <span class="tags"><strong>Tags</strong>: f#, fun, functional programming </span> 
-    <br />
-    <a href="http://tomasp.net/blog/2014/composing-christmas/index.html">Read the complete article</a>
-  </p>
-  </div>
-  <div>
-  <h1><a href="http://tomasp.net/blog/2014/csharp-6-released/index.html">BREAKING: Open-source C# 6.0 released</a></h1>
-  <img src="http://tomasp.net/blog/2014/csharp-6-released/csharp.jpg" style="width:170px;float:right;margin:15px" />
-
-<p>At last, the long wait is finally over! After 4 years of waiting, the fully managed implementation
-of the C# compiler [codenamed "Roslyn"][roslyn] has been finally released. In the recent months, 
-"Roslyn" has been slowly turning into [vaporware][vaporware], but thanks to the recent breakthrough,
-the team made an enormous progress over the last two months and even implemented a number of new
-C# 6.0 features.</p>
-
-<p>The C# 6.0 compiler, together with <a href="http://fsharppowerpack.codeplex.com/SourceControl/latest#compiler/3.1/Nov2013/src/">the full source code</a> has been released today!</p>
-
-<blockquote>
-  <p><strong>UPDATE:</strong> In case you are reading this article later than on the day when it was
-published, let me just point out that this was released on 1 April 2014. Just to 
-avoid any disappointments. Have fun ;-).</p>
-</blockquote>
-
-
-      
-  <p class="meta">
-    <span><strong>Published</strong>: Tuesday, 1 April 2014, 2:24 PM</span>
-      <br />      
-      <span class="tags"><strong>Tags</strong>: c#, fun, functional programming </span> 
-    <br />
-    <a href="http://tomasp.net/blog/2014/csharp-6-released/index.html">Read the complete article</a>
-  </p>
-  </div>
-  <div>
-  <h1><a href="http://tomasp.net/blog/2014/puzzling-fsharp/index.html">Solving fun puzzles with F#</a></h1>
-  <p>Do you need to convince your friends & family that programming can be fun? 
-For the last Christmas, I got a puzzle as a gift. It is a number of small
-cubes, joined together, that can be rotated and folded to form a bigger
-(4x4x4) cube.</p>
-
-<p>We spent the last few days of the year with family and a couple of friends
-and I left the puzzle on the table. Every time I walked around, someone was
-playing with it without much success. In the end, I said that if noone solves
-it until 31 December, I'll write a program to do it. Which I did between 7 PM
-and 8 PM and, voilà, here is what I got...</p>
-
-<div style="text-align:center;margin:10px">
-<a href="http://tomasp.net/blog/2014/puzzling-fsharp/puzzle.jpg" target="_blank"><img src="http://tomasp.net/blog/2014/puzzling-fsharp/puzzle.jpg" style="height:200px;margin-right:20px;border-style:none" /></a>
-<a href="http://tomasp.net/blog/2014/puzzling-fsharp/cube.jpg" target="_blank"><img src="http://tomasp.net/blog/2014/puzzling-fsharp/cube.jpg" style="height:200px;margin-left:20px;border-style:none" /></a>
-</div>
-
-<p>So, how do you solve a puzzle in about 1 hour on New Year's eve?</p>
-
-
-      
-  <p class="meta">
-    <span><strong>Published</strong>: Tuesday, 25 March 2014, 2:27 PM</span>
-      <br />      
-      <span class="tags"><strong>Tags</strong>: f#, fun, functional programming </span> 
-    <br />
-    <a href="http://tomasp.net/blog/2014/puzzling-fsharp/index.html">Read the complete article</a>
+    <a href="http://tomasp.net/blog/2015/fsharp-ml-mvp/index.html">Read the complete article</a>
   </p>
   </div>
 

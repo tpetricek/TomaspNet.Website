@@ -2,7 +2,7 @@
   Layout = "post";
   Title = "Philosophy of science books every computer scientist should read";
   Tags = "philosophy, research, talks";
-  Date = "2015-12-14T15:46:36.6659544+01:00";
+  Date = "2015-12-10T12:42:25.6129283+00:00";
   Description = "When I tell my fellow computer scientists or software developers that I'm " +
     "interested in philosophy of science, they first look a bit confused, then we have a really " +
     "interesting discussion about it and then they ask me for some interesting books they could " + 

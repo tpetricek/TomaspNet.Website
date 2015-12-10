@@ -66,103 +66,35 @@
       
 
   <div>
-  <h1><a href="http://tomasp.net/blog/2015/thegamma/index.html">The Gamma: Simple code behind interactive articles</a></h1>
-  <img src="http://tomasp.net/blog/2015/thegamma/dj.png" style="float:right;width:300px"
-  title="Illustration from 'The Data Journalism Handbook'" />
+  <h1><a href="http://tomasp.net/blog/2015/reading-list/index.html">Philosophy of science books every computer scientist should read</a></h1>
+  <p>When I tell my fellow computer scientists or software developers that I'm interested in 
+<em>philosophy of science</em>, they first look a bit confused, then we have a really interesting 
+discussion about it and then they ask me for some interesting books they could read about it.
+Given that Christmas is just around the corner and some of the readers might still be looking
+for a good present to get, I thought that now is the perfect time to turn my answer into a
+blog post!</p>
 
-<p>There are huge amounts of data around us that we could use to better understand the world.
-Every company collects large amounts of data about their sales or customers. Governments and
-international organizations increasingly release interesting data sets to the public through
-various <em>open government data</em> initiatives (<a href="http://data.gov">data.gov</a> or 
-<a href="http://data.gov.uk">data.gov.uk</a>). But raw data does not tell you much.</p>
+<p>So, what is philosophy of science about? In summary, it is about trying to better understand 
+science. I'll keep using the word <em>science</em> here, but I think <em>engineering</em> would work equally
+well. As someone who recently spent a couple of years doing a PhD on programming language theory,
+I find this extremely important for computer science (and programming). How can we make better
+programming languages if we do not know what <em>better</em> means? And what do we mean when we talk
+about very basic concepts like <em>types</em> or programming <em>errors</em>?</p>
 
-<p>An interesting recent development is <em>data journalism</em>. Data journalists tell stories using
-data. A data driven article is based on an interesting observation from the data, it includes
-(interactive) visualizations that illustrate the point and it often allows the reader to get
-the raw data.</p>
-
-<p>Adding a chart produced in, say, Excel to an article is easy, but building good interactive
-visualization is much harder. Ideally, the data driven article should not be just text with
-static pictures, but a <em>program</em> that links the original data source to the visualization.
-This lets readers explore how the data is used, update the content when new data is available
-and change parameters of the visualization if they need to understand different aspect of the
-topic.</p>
-
-<p>This is in short what I'm trying to build with <a href="http://thegamma.net">The Gamma project</a>. If
-you're interested in building better reports or data driven articles, continue reading!</p>
-
-<blockquote>
-<img src="http://tomasp.net/blog/2015/thegamma/sl.png" style="float:right;width:150px" />
-
-  <p>I did a talk about The Gamma project at the fantastic <a href="http://www.future-programming.org/programSL.html">Future Programming workshop</a>
-at the <a href="http://www.thestrangeloop.com/">StrangeLoop conference</a> last week (thanks for inviting me!)
-and there is a <a href="https://www.youtube.com/watch?v=cYoO2RvZn7Y&feature=youtu.be&a">recording of my 40 minute talk on YouTube</a>,
-so if you prefer to watch videos, check it out!</p>
-</blockquote>
-
-<p>Are you a data journalist or data analyst? We're looking for early partners!
-I joined the <a href="http://www.joinef.com" title="Nothing to do with Entity Framework, don't worry!">EF
-programme</a> to work on this and if the project sounds like something you'd like to see happen,
-<a href="mailto:tomas@tomasp.net">please get in touch</a> or share your contact details
-on <a href="http://thegamma.net">The Gamma page</a>!</p>
+<p>Reading about philosophy of science inspired me to write a couple of essays on some of the 
+topics above including <a href="/blog/2014/philosophy-pl/">What can programming language research learn from the philosophy of science?</a> and two essays that discuss the <a href="/blog/2015/against-types/">nature of types in programming languages</a> and also
+the nature of <a href="/blog/2015/failures/">errors and miscomputations</a>. This blog post lists some of
+the interesting books that I've read and that influenced my thinking (not just) when writing the
+aforementioned essays.</p>
 
 
       
   <p class="meta">
-    <span><strong>Published</strong>: Monday, 28 September 2015, 5:07 PM</span>
+    <span><strong>Published</strong>: Thursday, 10 December 2015, 12:42 PM</span>
       <br />      
-      <span class="tags"><strong>Tags</strong>: type providers, data journalism, programming languages </span> 
+      <span class="tags"><strong>Tags</strong>: philosophy, research, talks </span> 
     <br />
-    <a href="http://tomasp.net/blog/2015/thegamma/index.html">Read the complete article</a>
-  </p>
-  </div>
-  <div>
-  <h1><a href="http://tomasp.net/blog/2015/failures/index.html">Miscomputation: Learning to live with errors</a></h1>
-  <blockquote>
-<img src="http://tomasp.net/blog/2015/failures/babbage.png" style="float:right;width:110px;margin:5px 0px 10px 20px" />
-
-<p style="margin-bottom:5px">If trials of three or four simple cases have been made, and are found
-to agree with the results given by the engine, it is scarcely possible that there can be any error
-(...).</p>
-<p style="text-align:right">Charles Babbage, On the mathematical<br /> powers of the calculating engine (1837)</p>
-</blockquote>
-
-<p>Anybody who has something to do with modern computers will agree that the above statement made by
-Charles Babbage about the analytical engine is understatement, to say the least.</p>
-
-<p>Computer programs do not always work as expected. There is a complex taxonomy of errors or
-<a href="http://link.springer.com/article/10.1007/s13347-013-0112-0"><em>miscomputations</em></a>. The taxonomy of
-possible errors is itself interesting. Syntax errors like missing semicolons are quite obvious
-and are easy to catch. Logical errors are harder to find, but at least we know that something
-went wrong. For example, our algorithm does not correctly sort some lists. There are also issues that
-may or may not be actual errors. For example an algorithm in online store might suggest slightly
-suspicious products. Finally, we also have concurrency errors that happen very rarely in some
-very specific scenario.</p>
-
-<p>If Babbage was right, we would just try three or four simple cases and eradicate all errors from
-our programs, but eliminating errors is not so easy. In retrospect, it is quite interesting to
-see how long it took early computer engineers to realise that coding (i.e. translating
-mathematical algorithm to program code) errors are a problem:</p>
-
-<blockquote>
-<p style="margin-bottom:5px">Errors in coding were only gradually recognized to be a signiﬁcant
-problem: a typical early comment was that of Miller [circa 1949], who wrote that such errors,
-along with hardware faults, could be "expected, in time, to become infrequent".</p>
-<p style="text-align:right">Mark Priestley, Science of Operations (2011)</p>
-</blockquote>
-
-<p>We <em>mostly</em> got rid of hardware faults, but coding errors are still here. Programmers spent
-over 50 years finding different practical strategies for dealing with them. In this
-blog post, I want to look at four of the strategies. Quite curiously, there is a very wide range.</p>
-
-
-      
-  <p class="meta">
-    <span><strong>Published</strong>: Monday, 27 July 2015, 2:15 PM</span>
-      <br />      
-      <span class="tags"><strong>Tags</strong>: philosophy, research, programming languages </span> 
-    <br />
-    <a href="http://tomasp.net/blog/2015/failures/index.html">Read the complete article</a>
+    <a href="http://tomasp.net/blog/2015/reading-list/index.html">Read the complete article</a>
   </p>
   </div>
 

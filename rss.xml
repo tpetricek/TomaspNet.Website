@@ -4,6 +4,33 @@
     <link>http://tomasp.net</link>
     <description>Writing about software development in F# and .NET, sharing materials from my F# trainings and talks, writing about programming language research and theory.</description>
     <item>
+      <title>Philosophy of science books every computer scientist should read</title>
+      <guid>http://tomasp.net/blog/2015/reading-list</guid>
+      <link>http://tomasp.net/blog/2015/reading-list/index.html</link>
+      <pubDate>Thu, 10 Dec 2015 12:42:25 GMT</pubDate>
+      <description>&lt;p&gt;When I tell my fellow computer scientists or software developers that I'm interested in 
+&lt;em&gt;philosophy of science&lt;/em&gt;, they first look a bit confused, then we have a really interesting 
+discussion about it and then they ask me for some interesting books they could read about it.
+Given that Christmas is just around the corner and some of the readers might still be looking
+for a good present to get, I thought that now is the perfect time to turn my answer into a
+blog post!&lt;/p&gt;
+
+&lt;p&gt;So, what is philosophy of science about? In summary, it is about trying to better understand 
+science. I'll keep using the word &lt;em&gt;science&lt;/em&gt; here, but I think &lt;em&gt;engineering&lt;/em&gt; would work equally
+well. As someone who recently spent a couple of years doing a PhD on programming language theory,
+I find this extremely important for computer science (and programming). How can we make better
+programming languages if we do not know what &lt;em&gt;better&lt;/em&gt; means? And what do we mean when we talk
+about very basic concepts like &lt;em&gt;types&lt;/em&gt; or programming &lt;em&gt;errors&lt;/em&gt;?&lt;/p&gt;
+
+&lt;p&gt;Reading about philosophy of science inspired me to write a couple of essays on some of the 
+topics above including &lt;a href="/blog/2014/philosophy-pl/"&gt;What can programming language research learn from the philosophy of science?&lt;/a&gt; and two essays that discuss the &lt;a href="/blog/2015/against-types/"&gt;nature of types in programming languages&lt;/a&gt; and also
+the nature of &lt;a href="/blog/2015/failures/"&gt;errors and miscomputations&lt;/a&gt;. This blog post lists some of
+the interesting books that I've read and that influenced my thinking (not just) when writing the
+aforementioned essays.&lt;/p&gt;
+
+</description>
+    </item>
+    <item>
       <title>F# + ML |&gt; MVP Summit Talks</title>
       <guid>http://tomasp.net/blog/2015/fsharp-ml-mvp</guid>
       <link>http://tomasp.net/blog/2015/fsharp-ml-mvp/index.html</link>
@@ -567,37 +594,6 @@ improvements we did.&lt;/p&gt;
 you might have already come across a link to &lt;a href="http://fsharpworks.com/"&gt;fsharpWorks&lt;/a&gt; or one of the
 upcoming F# events organized by fsharpWorks. So, what is fsharpWorks and what are we planning
 for you?&lt;/p&gt;
-
-</description>
-    </item>
-    <item>
-      <title>Stateful computations in F# with update monads</title>
-      <guid>http://tomasp.net/blog/2014/update-monads</guid>
-      <link>http://tomasp.net/blog/2014/update-monads/index.html</link>
-      <pubDate>Tue, 13 May 2014 14:41:01 GMT</pubDate>
-      <description>&lt;img src="http://tomasp.net/blog/2014/update-monads/code.png" style="float:right;margin:20px;width:200px" /&gt;
-
-&lt;p&gt;Most discussions about monads, even in F#, start by looking at the well-known standard 
-monads for handling state from Haskell. The &lt;em&gt;reader&lt;/em&gt; monad gives us a way to propagate 
-some read-only state, the &lt;em&gt;writer&lt;/em&gt; monad makes it possible to (imperatively) produce 
-values such as logs and the &lt;em&gt;state&lt;/em&gt; monad encapsulates state that can be read and changed.&lt;/p&gt;
-
-&lt;p&gt;These are no doubt useful in Haskell, but I never found them as important for F#.
-The first reason is that F# supports state and mutation and often it is just easier
-to use a mutable state. The second reason is that you have to implement three 
-different computation builders for them. This does not fit very well with the F# style
-where you need to name the computation explicitly, e.g. by writing &lt;code&gt;async { ... }&lt;/code&gt;
-(See also my &lt;a href="http://tomasp.net/blog/2013/computation-zoo-padl"&gt;recent blog about the F# Computation Zoo paper&lt;/a&gt;).&lt;/p&gt;
-
-&lt;p&gt;When visiting the Tallinn university in December (thanks to James Chapman, Juhan Ernits 
-&amp;amp; Tarmo Uustalu for hosting me!), I discovered the work on &lt;em&gt;update monads&lt;/em&gt; by Danel Ahman 
-and Tarmo Uustalu on &lt;a href="http://cs.ioc.ee/~tarmo/papers/types13.pdf"&gt;update monads&lt;/a&gt;, which elegantly unifies &lt;em&gt;reader&lt;/em&gt;, &lt;em&gt;writer&lt;/em&gt; and 
-&lt;em&gt;state&lt;/em&gt; monads using a single abstraction.&lt;/p&gt;
-
-&lt;p&gt;In this article, I implement the idea of &lt;em&gt;update monads&lt;/em&gt; in F#. Update monads are 
-parameterized by &lt;em&gt;acts&lt;/em&gt; that capture the operations that can be done on the state.
-This means that we can define just a single computation expression &lt;code&gt;update { ... }&lt;/code&gt; 
-and use it for writing computations of all three aforementioned kinds.&lt;/p&gt;
 
 </description>
     </item>

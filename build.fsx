@@ -9,6 +9,11 @@ open System.IO
 open Fake
 open Fake.Git
 
+let setUsCulture() =
+  System.Threading.Thread.CurrentThread.CurrentCulture <- System.Globalization.CultureInfo.GetCultureInfo("en-US")
+  System.Threading.Thread.CurrentThread.CurrentUICulture <- System.Globalization.CultureInfo.GetCultureInfo("en-US")
+setUsCulture()
+
 let gitLocation = "https://github.com/tpetricek/TomaspNet.Website.git"
 
 Target "Run" (fun _ ->
@@ -18,10 +23,13 @@ Target "Run" (fun _ ->
       Excludes = [] }
   use watcher = sources |> WatchChanges (fun _ ->
     printfn "Updating site..."
-    Generate.buildSite(false)
+    setUsCulture()
+    try Generate.buildSite(false)
+    with e -> printfn "Failed: %A" e
+    printfn "Done"
   )
   Generate.run()
-  System.Threading.Thread.Sleep(System.Threading.Timeout.Infinite)
+  Console.ReadLine() |> ignore
 )
 
 Target "Generate" (fun _ ->

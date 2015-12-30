@@ -4,6 +4,28 @@
     <link>http://tomasp.net</link>
     <description>Writing about software development in F# and .NET, sharing materials from my F# trainings and talks, writing about programming language research and theory.</description>
     <item>
+      <title>Happy New Year 2016 around the World</title>
+      <guid>http://tomasp.net/blog/2015/happy-new-year-tweets</guid>
+      <link>http://tomasp.net/blog/2015/happy-new-year-tweets/index.html</link>
+      <pubDate>Wed, 30 Dec 2015 18:09:34 GMT</pubDate>
+      <description>&lt;p&gt;Just like &lt;a href="http://tomasp.net/blog/2014/composing-christmas/"&gt;last year&lt;/a&gt; and the 
+&lt;a href="http://tomasp.net/blog/2013/japan-advent-art/index.html"&gt;year&lt;/a&gt; 
+&lt;a href="http://tomasp.net/blog/2014/japan-advent-art-en/"&gt;before&lt;/a&gt;, I wanted to participate in the
+&lt;a href="https://sergeytihon.wordpress.com/2015/10/25/f-advent-calendar-in-english-2015/"&gt;#FsAdvent&lt;/a&gt;
+event, where someone writes a blog post about something they did with F# during December. 
+Thanks to &lt;a href="https://sergeytihon.wordpress.com/"&gt;Sergey Tihon&lt;/a&gt; for the organization of the English
+version and the &lt;a href="http://connpass.com/event/22056/"&gt;Japanese F# community&lt;/a&gt; for coming up with the 
+idea a few years ago!&lt;/p&gt;
+
+&lt;p&gt;As my blog post ended up on 31 December, I wanted to do something that would fit well with the
+theme of ending of 2015 and starting of the new year 2016 and so I decided to write a little 
+interactive web site that tracks the "Happy New Year" tweets live across the globe. This is
+partly inspired by &lt;a href="http://twitter.github.io/interactive/newyear2014/"&gt;Happy New Year Tweets&lt;/a&gt;
+from Twitter in 2014, but rather than analyzing data in retrospect, you can watch 2016 come live!&lt;/p&gt;
+
+</description>
+    </item>
+    <item>
       <title>Philosophy of science books every computer scientist should read</title>
       <guid>http://tomasp.net/blog/2015/reading-list</guid>
       <link>http://tomasp.net/blog/2015/reading-list/index.html</link>
@@ -580,20 +602,6 @@ We've been also working on integrating all of these into a single package called
 &lt;a href="http://techblog.bluemountaincapital.com/2014/05/21/deedle-v1-0-release/"&gt;more detailed list&lt;/a&gt;, 
 but I just want to give a couple of examples and briefly comment on performance
 improvements we did.&lt;/p&gt;
-
-</description>
-    </item>
-    <item>
-      <title>Welcome fsharpWorks &amp; F# events</title>
-      <guid>http://tomasp.net/blog/2014/fsharpworks-events</guid>
-      <link>http://tomasp.net/blog/2014/fsharpworks-events/index.html</link>
-      <pubDate>Tue, 20 May 2014 12:47:06 GMT</pubDate>
-      <description>&lt;img src="http://tomasp.net/blog/2014/fsharpworks-events/logo-sm.png" style="width:150px;float:right;margin-left:5px" /&gt;
-
-&lt;p&gt;If you are following me or the &lt;a href="https://twitter.com/hashtag/fsharp"&gt;#fsharp&lt;/a&gt; hashtag on Twitter,
-you might have already come across a link to &lt;a href="http://fsharpworks.com/"&gt;fsharpWorks&lt;/a&gt; or one of the
-upcoming F# events organized by fsharpWorks. So, what is fsharpWorks and what are we planning
-for you?&lt;/p&gt;
 
 </description>
     </item>

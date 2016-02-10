@@ -151,9 +151,9 @@ staring at a dead pieces of wood (although we <a href="#papers">have those too</
       <p>Programming languages evolve to reflect the changes in the computing ecosystem.
 The next big challenge for programming language designers is building languages that
 understand the <em>context in which programs run</em>.</p>
-<p>This challenge is not easy to see. We are so used to work with context using the current
+<p>This challenge is not easy to see. We are so used to working with context using the current
 cumbersome methods that we do not even <em>see that there is an issue</em>. We also do not
-realize that many programming features related to <em>context</em> can be caputred by the
+realize that many programming features related to <em>context</em> can be captured by
 a simple <em>unified abstraction</em>. This is what coeffects do!</p>
 <div class="ia-choice ia-ui-bar-left ia-ui-morelink" data-ia-undoable="true" data-ia-key="intro-examples" data-ia-ui-kind="light" data-ia-ui-prop="border-color" data-ia-show="intro-motivation" data-ia-hide="">
 <p>What are some examples of context-aware computations?</p>
@@ -216,9 +216,9 @@ and it would automatically check on which platforms can your code run.</p>
     <div class="col-sm-6">
       
       <h3>Stencil computations</h3>
-<p>In stencil computations, we calcualte value for each element of a grid or mesh based on its
+<p>In stencil computations, we calculate value for each element of a grid or mesh based on its
 neighborhood. This is useful in simulations in fluid dynamics or weather modelling.</p>
-<p>A simple example is Conway's Game of Life or other cellural automata. The following example
+<p>A simple example is Conway's Game of Life or other cellular automata. The following example
 implements the <a href="https://en.wikipedia.org/wiki/Rule_110">rule 110</a> (<code>arr.[x]</code> accesses x<sup>th</sup>
 element of the array and <code>cursor</code> is the current position):</p>
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 's41', 1)" onmouseover="showTip(event, 's41', 1)" class="i">sum</span> <span class="o">=</span> <span onmouseout="hideTip(event, 's42', 2)" onmouseover="showTip(event, 's42', 2)" class="i">input</span><span class="o">.</span>[<span onmouseout="hideTip(event, 's43', 3)" onmouseover="showTip(event, 's43', 3)" class="i">cursor</span><span class="o">-</span><span class="n">1</span>] <span class="o">+</span> 
@@ -1176,7 +1176,7 @@ dyn ?other</textarea>
     <p>The meaning of coeffectful computations can be captured by a structure called <em>comonad</em>.
 In programming terms, comonad is a data structure (like a monad) with two operations called
 <em>counit</em> and <em>cobind</em>. Coeffects use an <abbr title="Also called graded">indexed</abbr> version
-of comonads, which means that the data type also has an annotatioon and so we write it as
+of comonads, which means that the data type also has an annotation and so we write it as
 <span class="math">\(C^{\color{coeff}r} {\color{typ} \tau}\)</span> rather than just <span class="math">\(C {\color{typ} \tau}\)</span>. We'll
 get back to the annotations later, let's first look at the operations.</p>
 <p><span class="math">\[\begin{array}{rcl}
@@ -1497,7 +1497,7 @@ introduction and good explanation of the background.</p>
 <p>Rather than including a list of references to
 previous programming language research related to coeffects (it is in the papers), I would like to
 list some inspirations for turning coeffects into an interactive essay.</p>
-<p>The obvious inspiration s Bret Victor's work on <a href="http://worrydream.com/#!/ExplorableExplanations">Explorable Explanations</a> and his
+<p>The obvious inspiration is Bret Victor's work on <a href="http://worrydream.com/#!/ExplorableExplanations">Explorable Explanations</a> and his
 <a href="http://worrydream.com/#!/ScientificCommunicationAsSequentialArt">Scientific Communication</a> demo.
 But I actually learned about these only later when I started working on this!</p>
 <p>What made me think about different ways of presenting academic research earlier was Robert Pirsig's
@@ -1540,6 +1540,13 @@ fun projects like this one? Drop me a note!</p>
   
   </div>  
 </div>  
+
+<div id="feedback-alert">
+  <span><a href="javascript:$('#feedback-alert').css('bottom','-100px')">Close</a></span>
+  <strong>What do you think?</strong> Fill our brief <a href="https://docs.google.com/forms/d/17iptGK2LBtAkYLIi-g7bGesdFa9-ZVhFoFpzJhn1Bk8/viewform" target="_blank"
+    onclick="javascript:$('#feedback-alert').css('bottom','-100px')">research survey</a>!
+</div>
+
 <script>$(function() { logStarted = true; logEvent("page", "loaded", window.navigator.userAgent); });</script>
 <script type="text/javascript">
 

@@ -30,8 +30,8 @@ type expr =
   | AppExpr    of expr * expr
   | HoleExpr   of dtype 
 </pre>  
-<p>You can see that there are only a few types of quotations, but when you are writing application 
-  that works with quotations, you can use set of object that provide simpler view on quotations structure.
+<p>You can see that there are only a few types of quotations, but when you are writing an application 
+  that works with quotations, you can use a set of objects that provide a simpler view on the quotations structure.
   These objects (name starts with letters <code>ef</code>) can be found in the <code>Raw</code> namespace (see <a href="http://research.microsoft.com/projects/ilx/fsharp-manual/fslib/Microsoft.FSharp.Quotations.Raw.html">F# manual</a>
   [<a href="http://research.microsoft.com/projects/ilx/fsharp-manual/fslib/Microsoft.FSharp.Quotations.Raw.html" target="_blank">^</a>]). 
   All these objects have <code>Query</code> method that expects parameter of type <code>expr</code> and that either

@@ -195,7 +195,7 @@ The type of `bindSub` is `('T -> TreeZipper<'T>) -> TreeZipper<'T> -> TreeZipper
 which is almost like monadic _bind_ with the exception that the transformation function
 needs to transform elements of type `'T` into trees containing leaves of _the same_ type.
 
-This requiremenet follows from the fact that we run the transformation only on the
+This requirement follows from the fact that we run the transformation only on the
 current tree (`bindT current`) while the `path` is left unchanged (and since path contains
 other trees of the same type, the type needs to stay the same). You could implement
 `bind` that applies `f` to trees in the path, but that would not be as interesting
@@ -249,7 +249,7 @@ and can specify additional parameters.
 The fact that makes custom operations interesting is that they can have types such 
 as `TreeZipper<'T> -> TreeZipper<'T>` which is exactly the type of our navigational
 operations. The syntax allows other operations - such as zipping, grouping and
-joinging - but we will not need these in this article.
+joining - but we will not need these in this article.
 
 To add navigational operations, transformations and getter for the current element,
 we can write the following code:
@@ -341,7 +341,7 @@ _computation expressions_ with _custom operations_ which is a new (and pretty po
 feature in F# 3.0. In the example discussed in this article, I used the _tree zipper_.
 
 The custom operations make it possible to navigate through the tree using 
-a conventient syntax and perform transformations on current sub-tree just by
+a convenient syntax and perform transformations on current sub-tree just by
 writing commands like `left` and `right`. When writing the transformations using
 `map (x / 2)` we also do not need to write explicit lambda functions.
 

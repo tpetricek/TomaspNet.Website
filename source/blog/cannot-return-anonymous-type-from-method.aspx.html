@@ -15,13 +15,13 @@ var q = from c in db.Customers
         where c.Country = "Czech Republic"
         select new { FullName=c.Name+" "+c.Surname, Address=c.Address };
 </pre>  
-<p>Ok, it's probabbly not the best example, but it demonstrates the point - you want to return some information from query
+<p>Ok, it's probably not the best example, but it demonstrates the point - you want to return some information from query
   and you don't need to declare type that contains <code>FullName</code> and <code>Address</code> properties before, because
   you need it only for this single query (and you want to return only these two fields, so you don't transfer additional 
   data that you don't need from database).</p>
 <p>Now let's get to the second point - because anonymous types are really <em>anonymous</em>, you can't use them as
   return types from methods. This is intentional limitation of C# 3 - if you want to return it from method it should have some
-  name to make the code more readable. In some sitations you can return anonymous type as an <code>object</code> and access
+  name to make the code more readable. In some situations you can return anonymous type as an <code>object</code> and access
   it's properties using reflection, but this will be slow (so it's usually better to refactor the code and create named type).</p>  
 <h2>How is this implemented?</h2>  
 <p>Internally, the runtime still needs to know the type - because everything stays <strong>strongly typed</strong>. Therefore
@@ -60,7 +60,7 @@ public sealed class &lt;Projection&gt;f__0
   to return instance of anonymous type from method and cast it back to the original type (so you can directly access to
   properties of the object instead of using reflection). For the casting we need to know the type, but because the type is 
   <em>anonymous</em> it's not that simple, however thanks to the type inference that is used when calling methods you can 
-  get the type without writing the actuall type name - you'll just need another variable (or expression) of the same type:</p>  
+  get the type without writing the actual type name - you'll just need another variable (or expression) of the same type:</p>  
 <pre lang="csharp">
 // Method that returns anonymous type as object
 object ReturnAnonymous()

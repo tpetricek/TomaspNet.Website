@@ -66,7 +66,7 @@ side-by-side:
 <img src="http://tomasp.net/articles/fsharp-literate-programming/sidebyside-md.png"
   style="border:none" /></a></div>
 
-Which option is better depends on whether you prefer to write code in F# editro in 
+Which option is better depends on whether you prefer to write code in F# editor in 
 Visual Studio (with all text in comments) or in some Markdown editor (without 
 syntax highlighting for F# snippets). 
 
@@ -222,7 +222,7 @@ Literate.ProcessMarkdown(doc, template)
 This sample uses `*.md` extension for Markdown documents, but this is not required when
 using `ProcessMarkdown`. You can use any extension you wish. By default, the methods
 will generate file with the same name (but with the `.html` extension). You can change
-this by addint a third parameter with the output file name. There is a number of 
+this by adding a third parameter with the output file name. There is a number of 
 additional parameters you can specify - these are discussed below.
 
 ### Processing entire directories
@@ -269,7 +269,7 @@ version of the F# compiler:
  - `references` - if `true` then the script automatically adds "References" 
    section with all indirect links that are defined & used in the document.
  - `replacements` - a list of key-value pairs containing additional parameters
-   that should be replaced in the tempalte HTML file.
+   that should be replaced in the template HTML file.
  - `includeSource` - when `true`, parameter `{source}` will be replaced with a 
    `<pre>` tag containing the original source code of the F# Script or Markdown document.
 
@@ -283,7 +283,7 @@ to provide an easy to use literate programming tools.
 
 If you want to see the literate programming tools, check out the documentation for 
 the [F# Data library](http://tpetricek.github.com/FSharp.Data) (I will write about it
-soon in a separate blog post). The documenation is generated from `*.fsx` files in 
+soon in a separate blog post). The documentation is generated from `*.fsx` files in 
 the `samples` directory [on GitHub](https://github.com/tpetricek/FSharp.Data/tree/master/samples).
 Other examples using the library include this blog and the documentation for [F# 
 Formatting](http://tpetricek.github.com/FSharp.Formatting/) itself.

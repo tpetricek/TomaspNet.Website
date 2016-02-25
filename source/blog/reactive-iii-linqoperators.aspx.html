@@ -3,7 +3,7 @@
       Title = "Reactive Programming (III.) - Useful Reactive LINQ Operators";
       Tags = "Functional Programming in .NET,C# language";
       Date = "11/21/2008 7:59:02 PM";
-      Description = "In the previous article, I introduced Reactive LINQ. Today, we're going to look at other operators that canbe used for working with events. We'll see aggregation is useful and how to dynamically change (switch) behavior.";
+      Description = "In the previous article, I introduced Reactive LINQ. Today, we're going to look at other operators that can be used for working with events. We'll see aggregation is useful and how to dynamically change (switch) behavior.";
     }<h1>Reactive Programming (III.) - Useful Reactive LINQ Operators</h1>
 <p>In the <a href="/blog/reactive-ii-csevents.aspx">previous article</a>, I introduced <strong>Reactive LINQ</strong>.
   I explained the different point of view that we can use when working with .NET events. The idea is that
@@ -179,7 +179,7 @@ var eZigZag =
 eZigZag.SwitchRepeatedly(n =&gt;
      from ea in btnClick.AttachEvent("Click") select n)
      
-  // Sum all nubers coming from the 'switch'
+  // Sum all numbers coming from the 'switch'
   .Sum().Listen(n =&gt; 
      lblOut.Text = String.Format("Current count is: {0}", n));
 </pre>
@@ -258,7 +258,7 @@ btnClick.AttachEvent("Click").Select(_ =&gt; "Clicked for the first time!")
   important, because it resets the timer, so the "Timeout!" message will not appear sooner
   than after next 5 seconds:</p>
 <pre lang="csharp">
-// 'eClickOrTimeout' is a function that returns an evnet
+// 'eClickOrTimeout' is a function that returns an event
 Func&lt;IEvent&lt;string&gt;&gt; eClickOrTimeout = null;
 eClickOrTimeout = () =&gt; 
   // Triggered when user clicks on the button or after 5 seconds

@@ -216,7 +216,7 @@ punamb p1 p2 = do
 <p>The two computations started using <code>forkWith</code> are quite simple. Each of them evaluates
   one of the <code>punamb</code>'s arguments, then attempts to cancel the other computation and
   stores the result to the <code>res</code> variable. In a typical case, one of the computations 
-  completes first and canceles the other (which is still running). However, if both complete at the
+  completes first and cancels the other (which is still running). However, if both complete at the
   same time, then one wins the race and writes value to <code>res</code>. The other attempts to write
   the result, but gets blocked. The race doesn't affect determinism, as long as the two computations
   given as arguments to <code>punamb</code> are <em>compatible</em>.</p>
@@ -252,10 +252,10 @@ main = do
   the <code>Par</code> monad. Most importantly, this includes the monadic binding (as well as
   other special calls like forking). The <code>pfib</code> function (demonstrated above) 
   contains many such points. It can be cancelled when it tries to spawn a recursive call (in
-  background), when it recursively calls itsef as well as when it tries to read the result
+  background), when it recursively calls itself as well as when it tries to read the result
   of the background computation. </p>
 
-<p>You can exlpore the source code of my modification on GitHub. The commit that adds the cancellation support 
+<p>You can explore the source code of my modification on GitHub. The commit that adds the cancellation support 
   (<a href="https://github.com/tpetricek/Haskell.ParMonad/commit/c35f7311e7b846aaf087f7604d1d84f247b20d4a">see here</a>)
   shows the difference compared with the original version. Implementing an un-cooperative 
   cancellation (as, for example, in <code>unamb</code>) would be also possible, but more

@@ -422,7 +422,7 @@
   the required initial state (a <em>pre-condition</em>) and a resulting state (a <em>post-condition</em>).
   This idea is quite common when reasoning about programming languages and it can be
   traced back to Hoare logic [<a href="#sgusa">1</a>]. In Hoare logic, the pre- and post-conditions
-  are not written as part of the progam - they are just a way of reasoning about existing 
+  are not written as part of the program - they are just a way of reasoning about existing 
   programs. More recent work on "Hoare type theory" tries to embed this reasoning in the
   types of programs.</p>
 
@@ -430,7 +430,7 @@
   is also called <em>parameterized monad</em> and has been studied from the theoretical 
   perspective [<a href="#sgusa">2</a>], but there is also a more readable introduction
   [<a href="#sgusa">3</a>]. It can be used for a variety of other things (besides threads in 
-  asynchronous workflows), such as tracking of acative file handles [<a href="#sgusa">4</a>].</p>
+  asynchronous workflows), such as tracking of active file handles [<a href="#sgusa">4</a>].</p>
 
 <h2>Summary</h2>
 <p>In this article, I demonstrated an extension of F# asynchronous workflows that makes
@@ -445,7 +445,7 @@
   automatically tracked in the asynchronous workflow syntax. Calling a workflow that should
   run on a particular thread from a wrong thread is a compile-time error. This adds very useful
   additional checking. The examples in this article relied on some help from the programmer.
-  We had to explicitly mark <code>extractStockPrices</code> as background-thread computaiton and
+  We had to explicitly mark <code>extractStockPrices</code> as background-thread computation and
   <code>displayChart</code> as GUI-thread computation. In a perfect world, the compiler would
   know that certain operations should be executed only on certain threads and it would infer the
   type for us...
@@ -461,7 +461,7 @@
 <h3>References<a name="sgusa">&#160;</a></h3>
 <ul>
   <li>[1] <a href="http://en.wikipedia.org/wiki/Hoare_logic">Hoare logic</a> - Wikipedia</li>
-  <li>[2] <a href="http://personal.cis.strath.ac.uk/~raa/paramnotions-jfp.pdf" type="external">Parameterised Notions of Computations</a> - Robert Atkey</li>
+  <li>[2] <a href="http://personal.cis.strath.ac.uk/~raa/paramnotions-jfp.pdf" type="external">Parameterized Notions of Computations</a> - Robert Atkey</li>
   <li>[3] <a href="http://blog.sigfpe.com/2009/02/beyond-monads.html" type="external">Beyond Monads</a> - A Neighborhood of Infinity</li>
   <li>[4] <a href="http://okmij.org/ftp/Computation/resource-aware-prog/region-io.pdf" type="external">Lightweight monadic regions</a> - Oleg Kiselyov, Chung-chieh Shan</li>
 </ul>

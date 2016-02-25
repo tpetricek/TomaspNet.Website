@@ -98,7 +98,7 @@ The other workflow, which obtains the current state from the server and updates 
 rectangles shows a few interesting aspects of writing client-side code in F# using Pit:</p>
 
 <pre class="fssnip">
-<span class="c">/// Asynchronously download retangles from the server</span>
+<span class="c">/// Asynchronously download rectangles from the server</span>
 <span class="c">/// and decode the JSON format to F# Rectangle record</span>
 <span class="k">let</span> [&lt;<span onmouseout="hideTip(event, 'ft16', 46)" onmouseover="showTip(event, 'ft16', 46)" class="i">Js</span>&gt;] <span onmouseout="hideTip(event, 'ft25', 47)" onmouseover="showTip(event, 'ft25', 47)" class="i">getRectangles</span> () <span class="o">:</span> <span onmouseout="hideTip(event, 'ft26', 48)" onmouseover="showTip(event, 'ft26', 48)" class="i">Async</span><span class="o">&lt;</span><span onmouseout="hideTip(event, 'ft8', 49)" onmouseover="showTip(event, 'ft8', 49)" class="i">Rectangle</span>[]<span class="o">&gt;</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'ft27', 50)" onmouseover="showTip(event, 'ft27', 50)" class="i">async</span> {
   <span class="k">let</span> <span onmouseout="hideTip(event, 'ft28', 51)" onmouseover="showTip(event, 'ft28', 51)" class="i">req</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'ft29', 52)" onmouseover="showTip(event, 'ft29', 52)" class="i">XMLHttpRequest</span>()
@@ -180,7 +180,7 @@ as JavaScript or look at the slides from the talk, here are some useful links:</
 <div class="tip" id="ft22">property DomElement.Style: DomStyle</div>
 <div class="tip" id="ft23">property DomStyle.BackgroundColor: string</div>
 <div class="tip" id="ft24">val moveElement : DomElement -&gt; int * int -&gt; int * int -&gt; unit<br /><br />Full name: SocialDrawing.Dom.moveElement</div>
-<div class="tip" id="ft25">val getRectangles : unit -&gt; Async&lt;Rectangle []&gt;<br /><br />Full name: Blog.getRectangles<br /><em><br /><br />&#160;Asynchronously download retangles from the server<br />&#160;and decode the JSON format to F# Rectangle record</em></div>
+<div class="tip" id="ft25">val getRectangles : unit -&gt; Async&lt;Rectangle []&gt;<br /><br />Full name: Blog.getRectangles<br /><em><br /><br />&#160;Asynchronously download rectangles from the server<br />&#160;and decode the JSON format to F# Rectangle record</em></div>
 <div class="tip" id="ft26">Multiple items<br />namespace Pit.Async<br /><br />--------------------<br />type Async&lt;&#39;T&gt; = | Cont of ((&#39;T -&gt; unit) -&gt; unit)<br /><br />Full name: Pit.Async.Async&lt;_&gt;<br /><br />--------------------<br />type Async =<br />&#160;&#160;class<br />&#160;&#160;&#160;&#160;static member AwaitEvent : event:IEvent&lt;&#39;T&gt; -&gt; Async&lt;&#39;T&gt;<br />&#160;&#160;&#160;&#160;static member AwaitEvent : event1:IEvent&lt;&#39;T1&gt; * event2:IEvent&lt;&#39;T2&gt; -&gt; Async&lt;Choice&lt;&#39;T1,&#39;T2&gt;&gt;<br />&#160;&#160;&#160;&#160;static member Sleep : milliseconds:int -&gt; Async&lt;unit&gt;<br />&#160;&#160;&#160;&#160;static member StartImmediate : workflow:Async&lt;unit&gt; -&gt; unit<br />&#160;&#160;end<br /><br />Full name: Pit.Async.AsyncTopLevel.Async</div>
 <div class="tip" id="ft27">val async : AsyncBuilder<br /><br />Full name: Pit.Async.AsyncTopLevel.async</div>
 <div class="tip" id="ft28">val req : XMLHttpRequest</div>

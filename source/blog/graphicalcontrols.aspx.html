@@ -13,10 +13,10 @@
 		mark some data as hidden, so I used checkbox control with lock and stricken lock icons).</p><p>These two controls are very simple to use, because all functionality is same as functionality of standard controls, so if you 
 		 want to replace standard controls with these graphical controls, you can do it with Search/Replace tool. These controls use 
 		 JavaScript, but it was tested with latest version of IE, Opera and Mozilla (FireFox), so it should display correctly to 
-		 majority of Internet users.</p><p>Another usefull feature of check box control is, that it support three state. This can be very usefull, because the standard 
-		 HTML chcekbox doesn't support third state, so there is no way how to create three state chcekbox in Asp.Net. 
+		 majority of Internet users.</p><p>Another useful feature of check box control is, that it support three state. This can be very useful, because the standard 
+		 HTML checkbox doesn't support third state, so there is no way how to create three state checkbox in Asp.Net. 
 		 If you want to allow third state set <code>ThreeState</code> property to true. You will also need one or two (if you want 
-		 to have different image for active state) images. To get state of three state chcek box you can use <code>CheckState</code> 
+		 to have different image for active state) images. To get state of three state check box you can use <code>CheckState</code> 
 		 property, which returns <code>Chceked</code>, <code>Unchecked</code> or <code>Indeterminate</code>.</p><div style="text-align:center"><img alt="Graphical controls screenshot" style="margin-top:15px;" src="graphicalcontrols/controls.gif" /></div><h2>Background</h2><p>Graphical checkbox control generates <code>img</code> tag, that is followed by <code>span</code> and hidden <code>input</code> control.
 		 State of control is saved in hidden input control. When user clicks on image (or on text associated to checkbox), control changes its 
 		 state (value of hidden control) and changes <code>src</code> attribute of image element. (You can also set image that is displayed 
@@ -57,8 +57,8 @@ private void btnPostback_Click(object sender, System.EventArgs e)
     lblInfo.Text="Second checkbox is checked!";
   else 
     lblInfo.Text="No checkbox is checked!";
-}</pre><h3>ThreeState chcekbox</h3><p>As I described above, checkbox supports third state, so you can use it when you want to allow user to choose from three 
-		 (third state usually indicates that value can't be distinctly determinated). Following code shows, how to create three state 
+}</pre><h3>ThreeState checkbox</h3><p>As I described above, checkbox supports third state, so you can use it when you want to allow user to choose from three 
+		 (third state usually indicates that value can't be distinctly determined). Following code shows, how to create three state 
 		 check box and how to get its state from code:</p><pre><span class="c">&lt;!-- Demo2.aspx --&gt;</span>
 &lt;%@@ Register TagPrefix="cc1" Namespace="EeekSoft.Web.Controls"
   Assembly="EeekSoft.Web.Controls" %&gt;
@@ -102,7 +102,7 @@ using EeekSoft.Web.Controls;
 GraphicalControlsSettings grs=new GraphicalControlsSettings();
 string skin="green/";
 
-<span class="c">// Set images for chcekbox buttons</span>
+<span class="c">// Set images for checkbox buttons</span>
 grs.CheckboxCheckedImg=skin+"check-checked.gif";
 grs.CheckboxUncheckedImg=skin+"check.gif";
 grs.CheckboxCheckedOverImg=skin+"check-checked-over.gif";

@@ -100,19 +100,19 @@ the result of every entered command, together with the time it took to calculate
 it. On the author's machine, the time needed to run the sequential version is
 about 8 seconds and the time of the parallel version is about 4.5 seconds.</p>
 
-<h2>Building a ballanced tree</h2>
+<h2>Building a balanced tree</h2>
 
 <p>Before we can look at tree processing, we need to define a list type and
 we need to write a function for constructing lists. The following snippet shows
 a standard binary tree declaration together with a function <code>ballancedOfList</code> that
-creates ballanced tree from a non-empty list:</p>
+creates balanced tree from a non-empty list:</p>
 
 <pre class="fssnip">
 <span class="k">type</span> <span onmouseout="hideTip(event, 'ft29', 49)" onmouseover="showTip(event, 'ft29', 49)" class="i">Tree</span><span class="o">&lt;</span><span class="o">&#39;</span><span class="i">T</span><span class="o">&gt;</span> <span class="o">=</span> 
   | <span onmouseout="hideTip(event, 'ft30', 50)" onmouseover="showTip(event, 'ft30', 50)" class="i">Leaf</span> <span class="k">of</span> <span class="o">&#39;</span><span class="i">T</span> 
   | <span onmouseout="hideTip(event, 'ft31', 51)" onmouseover="showTip(event, 'ft31', 51)" class="i">Node</span> <span class="k">of</span> <span onmouseout="hideTip(event, 'ft29', 52)" onmouseover="showTip(event, 'ft29', 52)" class="i">Tree</span><span class="o">&lt;</span><span class="o">&#39;</span><span class="i">T</span><span class="o">&gt;</span> <span class="o">*</span> <span onmouseout="hideTip(event, 'ft29', 53)" onmouseover="showTip(event, 'ft29', 53)" class="i">Tree</span><span class="o">&lt;</span><span class="o">&#39;</span><span class="i">T</span><span class="o">&gt;</span>
 
-<span class="c">/// Creates a ballanced tree from a non-empty list</span>
+<span class="c">/// Creates a balanced tree from a non-empty list</span>
 <span class="c">/// (odd elements are added to the left and even to the right)</span>
 <span class="k">let</span> <span class="k">rec</span> <span onmouseout="hideTip(event, 'ft32', 54)" onmouseover="showTip(event, 'ft32', 54)" class="i">ballancedOfList</span> <span onmouseout="hideTip(event, 'ft33', 55)" onmouseover="showTip(event, 'ft33', 55)" class="i">list</span> <span class="o">=</span>
   <span class="k">match</span> <span onmouseout="hideTip(event, 'ft33', 56)" onmouseover="showTip(event, 'ft33', 56)" class="i">list</span> <span class="k">with</span> 
@@ -123,7 +123,7 @@ creates ballanced tree from a non-empty list:</p>
       <span class="k">let</span> <span onmouseout="hideTip(event, 'ft36', 61)" onmouseover="showTip(event, 'ft36', 61)" class="i">left</span>, <span onmouseout="hideTip(event, 'ft37', 62)" onmouseover="showTip(event, 'ft37', 62)" class="i">right</span> <span class="o">=</span>
         <span onmouseout="hideTip(event, 'ft33', 63)" onmouseover="showTip(event, 'ft33', 63)" class="i">list</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'ft27', 64)" onmouseover="showTip(event, 'ft27', 64)" class="i">List</span><span class="o">.</span><span onmouseout="hideTip(event, 'ft38', 65)" onmouseover="showTip(event, 'ft38', 65)" class="i">mapi</span> (<span class="k">fun</span> <span onmouseout="hideTip(event, 'ft39', 66)" onmouseover="showTip(event, 'ft39', 66)" class="i">i</span> <span onmouseout="hideTip(event, 'ft40', 67)" onmouseover="showTip(event, 'ft40', 67)" class="i">v</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'ft39', 68)" onmouseover="showTip(event, 'ft39', 68)" class="i">i</span>, <span onmouseout="hideTip(event, 'ft40', 69)" onmouseover="showTip(event, 'ft40', 69)" class="i">v</span>)
              <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'ft27', 70)" onmouseover="showTip(event, 'ft27', 70)" class="i">List</span><span class="o">.</span><span onmouseout="hideTip(event, 'ft41', 71)" onmouseover="showTip(event, 'ft41', 71)" class="i">partition</span> (<span class="k">fun</span> (<span onmouseout="hideTip(event, 'ft39', 72)" onmouseover="showTip(event, 'ft39', 72)" class="i">i</span>, <span onmouseout="hideTip(event, 'ft40', 73)" onmouseover="showTip(event, 'ft40', 73)" class="i">v</span>) <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'ft39', 74)" onmouseover="showTip(event, 'ft39', 74)" class="i">i</span><span class="o">%</span><span class="n">2</span> <span class="o">=</span> <span class="n">0</span>)
-      <span class="c">// Create ballanced trees for both parts</span>
+      <span class="c">// Create balanced trees for both parts</span>
       <span class="k">let</span> <span onmouseout="hideTip(event, 'ft42', 75)" onmouseover="showTip(event, 'ft42', 75)" class="i">left</span>, <span onmouseout="hideTip(event, 'ft43', 76)" onmouseover="showTip(event, 'ft43', 76)" class="i">right</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'ft27', 77)" onmouseover="showTip(event, 'ft27', 77)" class="i">List</span><span class="o">.</span><span onmouseout="hideTip(event, 'ft28', 78)" onmouseover="showTip(event, 'ft28', 78)" class="i">map</span> <span onmouseout="hideTip(event, 'ft44', 79)" onmouseover="showTip(event, 'ft44', 79)" class="i">snd</span> <span onmouseout="hideTip(event, 'ft36', 80)" onmouseover="showTip(event, 'ft36', 80)" class="i">left</span>, <span onmouseout="hideTip(event, 'ft27', 81)" onmouseover="showTip(event, 'ft27', 81)" class="i">List</span><span class="o">.</span><span onmouseout="hideTip(event, 'ft28', 82)" onmouseover="showTip(event, 'ft28', 82)" class="i">map</span> <span onmouseout="hideTip(event, 'ft44', 83)" onmouseover="showTip(event, 'ft44', 83)" class="i">snd</span> <span onmouseout="hideTip(event, 'ft43', 84)" onmouseover="showTip(event, 'ft43', 84)" class="i">right</span>
       <span onmouseout="hideTip(event, 'ft31', 85)" onmouseover="showTip(event, 'ft31', 85)" class="i">Node</span>(<span onmouseout="hideTip(event, 'ft32', 86)" onmouseover="showTip(event, 'ft32', 86)" class="i">ballancedOfList</span> <span onmouseout="hideTip(event, 'ft42', 87)" onmouseover="showTip(event, 'ft42', 87)" class="i">left</span>, <span onmouseout="hideTip(event, 'ft32', 88)" onmouseover="showTip(event, 'ft32', 88)" class="i">ballancedOfList</span> <span onmouseout="hideTip(event, 'ft43', 89)" onmouseover="showTip(event, 'ft43', 89)" class="i">right</span>)</pre>
 
@@ -141,7 +141,7 @@ the other contains several additional non-prime numbers:</p>
 <span class="c">// Create a list with some additional non-primes</span>
 <span class="k">let</span> <span onmouseout="hideTip(event, 'ft49', 103)" onmouseover="showTip(event, 'ft49', 103)" class="i">mixed</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'ft45', 104)" onmouseover="showTip(event, 'ft45', 104)" class="i">primes</span> <span class="o">@@</span> [ <span class="n">2L</span> <span class="o">..</span> <span class="n">20L</span> ]
 
-<span class="c">// Created ballanced trees from both lists</span>
+<span class="c">// Created balanced trees from both lists</span>
 <span class="k">let</span> <span onmouseout="hideTip(event, 'ft50', 105)" onmouseover="showTip(event, 'ft50', 105)" class="i">primeTree</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'ft32', 106)" onmouseover="showTip(event, 'ft32', 106)" class="i">ballancedOfList</span> <span onmouseout="hideTip(event, 'ft45', 107)" onmouseover="showTip(event, 'ft45', 107)" class="i">primes</span>
 <span class="k">let</span> <span onmouseout="hideTip(event, 'ft51', 108)" onmouseover="showTip(event, 'ft51', 108)" class="i">mixedTree</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'ft32', 109)" onmouseover="showTip(event, 'ft32', 109)" class="i">ballancedOfList</span> <span onmouseout="hideTip(event, 'ft49', 110)" onmouseover="showTip(event, 'ft49', 110)" class="i">mixed</span></pre>
 
@@ -221,7 +221,7 @@ if the processing has completed and we throw an exception if it has:</p>
   <span onmouseout="hideTip(event, 'ft61', 174)" onmouseover="showTip(event, 'ft61', 174)" class="i">cts</span><span class="o">.</span><span onmouseout="hideTip(event, 'ft66', 175)" onmouseover="showTip(event, 'ft66', 175)" class="i">Cancel</span>()
   <span onmouseout="hideTip(event, 'ft65', 176)" onmouseover="showTip(event, 'ft65', 176)" class="i">res</span>
 
-<span class="c">// Processing &#39;mixedTree&#39; is significanlty faster,</span>
+<span class="c">// Processing &#39;mixedTree&#39; is significantly faster,</span>
 <span class="c">// because it returns after first non-prime is found!</span>
 <span onmouseout="hideTip(event, 'ft60', 177)" onmouseover="showTip(event, 'ft60', 177)" class="i">forall</span> <span onmouseout="hideTip(event, 'ft18', 178)" onmouseover="showTip(event, 'ft18', 178)" class="i">isPrime</span> <span onmouseout="hideTip(event, 'ft51', 179)" onmouseover="showTip(event, 'ft51', 179)" class="i">mixedTree</span>
 <span onmouseout="hideTip(event, 'ft60', 180)" onmouseover="showTip(event, 'ft60', 180)" class="i">forall</span> <span onmouseout="hideTip(event, 'ft18', 181)" onmouseover="showTip(event, 'ft18', 181)" class="i">isPrime</span> <span onmouseout="hideTip(event, 'ft50', 182)" onmouseover="showTip(event, 'ft50', 182)" class="i">primeTree</span></pre>
@@ -289,7 +289,7 @@ was particularly interesting, because joinads make it very easy to implement
 <div class="tip" id="ft29">type Tree&lt;&#39;T&gt; =<br />&#160;&#160;| Leaf of &#39;T<br />&#160;&#160;| Node of Tree&lt;&#39;T&gt; * Tree&lt;&#39;T&gt;<br /><br />Full name: TryJoinads.Tree&lt;_&gt;<br />&#160;&#160;type: Tree&lt;&#39;T&gt;<br /></div>
 <div class="tip" id="ft30">union case Tree.Leaf: &#39;T -&gt; Tree&lt;&#39;T&gt;</div>
 <div class="tip" id="ft31">union case Tree.Node: Tree&lt;&#39;T&gt; * Tree&lt;&#39;T&gt; -&gt; Tree&lt;&#39;T&gt;</div>
-<div class="tip" id="ft32">val ballancedOfList : &#39;a list -&gt; Tree&lt;&#39;a&gt;<br /><br />Full name: TryJoinads.ballancedOfList<br /><em><br /><br />&#160;Creates a ballanced tree from a non-empty list<br />&#160;(odd elements are added to the left and even to the right)</em></div>
+<div class="tip" id="ft32">val ballancedOfList : &#39;a list -&gt; Tree&lt;&#39;a&gt;<br /><br />Full name: TryJoinads.ballancedOfList<br /><em><br /><br />&#160;Creates a balanced tree from a non-empty list<br />&#160;(odd elements are added to the left and even to the right)</em></div>
 <div class="tip" id="ft33">Multiple items<br />val list : &#39;a list<br />&#160;&#160;type: &#39;a list<br /><br /><br />--------------------<br />type &#39;T list = List&lt;&#39;T&gt;<br /><br />Full name: Microsoft.FSharp.Collections.list&lt;_&gt;<br />&#160;&#160;type: &#39;T list<br /></div>
 <div class="tip" id="ft34">val failwith : string -&gt; &#39;T<br /><br />Full name: Microsoft.FSharp.Core.Operators.failwith</div>
 <div class="tip" id="ft35">val n : &#39;a</div>

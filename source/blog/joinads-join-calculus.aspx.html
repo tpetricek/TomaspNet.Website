@@ -119,7 +119,7 @@ similar, but it matches on <code>getString</code> and <code>putInt</code>.</p>
     <span onmouseout="hideTip(event, 'ft26', 59)" onmouseover="showTip(event, 'ft26', 59)" class="i">printfn</span> <span class="s">&quot;</span><span class="s">got</span><span class="s">:</span><span class="s"> </span><span class="s">%</span><span class="s">s</span><span class="s">&quot;</span> <span class="i">repl</span> } <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'ft14', 60)" onmouseover="showTip(event, 'ft14', 60)" class="i">Async</span><span class="o">.</span><span onmouseout="hideTip(event, 'ft24', 61)" onmouseover="showTip(event, 'ft24', 61)" class="i">Start</span></pre>
 
 
-<p>The code creates and starts tw oasynchronous workflows - one that puts 5 values to 
+<p>The code creates and starts two asynchronous workflows - one that puts 5 values to 
 each of the put channels and another that keeps reading values from the <code>getString</code> 
 channel. When you run the code, you should see that the two join patterns are 
 triggered in an interleaving order, as the values are added to the put channels.</p>

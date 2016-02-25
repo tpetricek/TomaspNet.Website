@@ -124,8 +124,8 @@ let rec parse x =
       // so we need to extract name of applied function from it</span>
       let opname = (
         match Raw.efAnyTopDefn.Query op with  
-          <span class="c">// operators are top-level definitons so we extract name
-          // from 'a' that contains info about the definiton</span>
+          <span class="c">// operators are top-level definitions so we extract name
+          // from 'a' that contains info about the definition</span>
           | Some (a,_) -&gt; let t1,t2 = a.topDefPath in t2
           | _ -&gt; failwith ("Function is not a top level definition.");
         ) in

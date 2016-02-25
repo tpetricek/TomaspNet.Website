@@ -22,7 +22,7 @@ previous article <em>"Fun with Parallel Monad Comprehensions"</em>, which can be
 web page. If you read the article there, you can run the examples interactively
 and experiment with them: <a href="http://tryjoinads.org/index.html?implement/parsers.html">view the article on TryJoinads</a>.</em></p>
 
-<h2>Implmenting simple parsers</h2>
+<h2>Implementing simple parsers</h2>
 
 <p>In the F# implementation, we define parser as a single-case discriminated union that
 contains a parsing function. When given a list of characters, the function returns
@@ -57,7 +57,7 @@ be returned.</p>
 
 <h2>Providing the monad structure</h2>
 
-<p>Parsers are <em>monads</em> and so we can implement an F# computaion expression builder for
+<p>Parsers are <em>monads</em> and so we can implement an F# computation expression builder for
 constructing them. In additional, parsers can also be combined and have a <em>zero</em> value 
 (parser that fails). In F#, this means we can also define <code>Zero</code> and <code>Combine</code> methods:</p>
 
@@ -72,7 +72,7 @@ constructing them. In additional, parsers can also be combined and have a <em>ze
           <span class="k">for</span> (<span onmouseout="hideTip(event, 'ft28', 53)" onmouseover="showTip(event, 'ft28', 53)" class="i">result</span>, <span onmouseout="hideTip(event, 'ft29', 54)" onmouseover="showTip(event, 'ft29', 54)" class="i">n2</span>, <span onmouseout="hideTip(event, 'ft15', 55)" onmouseover="showTip(event, 'ft15', 55)" class="i">tail</span>) <span class="k">in</span> <span onmouseout="hideTip(event, 'ft27', 56)" onmouseover="showTip(event, 'ft27', 56)" class="i">p2</span> <span onmouseout="hideTip(event, 'ft26', 57)" onmouseover="showTip(event, 'ft26', 57)" class="i">input&#39;</span> <span class="k">do</span>
             <span class="k">yield</span> <span onmouseout="hideTip(event, 'ft28', 58)" onmouseover="showTip(event, 'ft28', 58)" class="i">result</span>, <span onmouseout="hideTip(event, 'ft25', 59)" onmouseover="showTip(event, 'ft25', 59)" class="i">n1</span> <span class="o">+</span> <span onmouseout="hideTip(event, 'ft29', 60)" onmouseover="showTip(event, 'ft29', 60)" class="i">n2</span>, <span onmouseout="hideTip(event, 'ft15', 61)" onmouseover="showTip(event, 'ft15', 61)" class="i">tail</span> })
 
-<span class="c">/// Parser that alwyas fails without consuming any input</span>
+<span class="c">/// Parser that always fails without consuming any input</span>
 <span class="k">let</span> <span onmouseout="hideTip(event, 'ft30', 62)" onmouseover="showTip(event, 'ft30', 62)" class="i">zero</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'ft1', 63)" onmouseover="showTip(event, 'ft1', 63)" class="i">Parser</span> (<span class="k">fun</span> _ <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'ft8', 64)" onmouseover="showTip(event, 'ft8', 64)" class="i">seq</span> [])
 
 <span class="c">/// Combine the results of two parsers</span>
@@ -86,7 +86,7 @@ constructing them. In additional, parsers can also be combined and have a <em>ze
 
 <p>The <code>unit</code> operation returns a single result containing the specified value that doesn't 
 consume any input. The implementation of <code>bind</code> uses sequence comprehensions to run the 
-parsers in sequence. It returs the result of the second parser and consumes the sum of 
+parsers in sequence. It returns the result of the second parser and consumes the sum of 
 characters consumed by the first and the second parser. The <code>zero</code> operation creates a 
 parser that always fails, and <code>plus</code> represents a nondeterministic choice between two parsers.</p>
 
@@ -228,8 +228,8 @@ represent any character which is not opening or closing bracket:</p>
 
 <p>When you run the last line of the sample, you can see that only "hello" is returned as the
 result. The parser <code>body</code> is constructed using the <code>match!</code> notation. It takes two <code>notChar</code>
-parsers as the arguments and runs them both on the same input. They boty read a single character
-and succeed when the character is not the specified symbol. This means that <code>body</code> succeds 
+parsers as the arguments and runs them both on the same input. They both read a single character
+and succeed when the character is not the specified symbol. This means that <code>body</code> succeeds 
 only if the character is not '(' and ')'. Both parsers return the same character, so we return 
 the first one as the result and ignore the second (the <code>_</code> pattern means that the parser 
 must succeed, but we then ignore the value).</p>
@@ -259,10 +259,10 @@ encode these three rules using <code>match!</code>:</p>
 
 <p>Each condition on the number is encoded as a single parser. The first one ensures
 that all characters of the input are digits. The second parser checks that the input
-consits of 10 symbols and the last parser ensures that the input starts with the prefix
+consists of 10 symbols and the last parser ensures that the input starts with the prefix
 "1223". The single clause of the <code>match!</code> construct is translated to applications of
 the <code>Merge</code> operation, which runs all three parsers on the same input and returns
-the parsed values only when all three succeed - meaning that the input satisifies 
+the parsed values only when all three succeed - meaning that the input satisfies 
 all three conditions.</p>
 
 <p>If you run the parser on the two sample inputs, the first line should succeed 
@@ -304,7 +304,7 @@ Finally, the last line ignores both of the <code>startsWith</code> parsers.</p>
 executed. Joinad definitions that obey the laws also have this property. For parsers,
 the <code>choose</code> operation gives the required behaviour - when a number is identified
 as Cambridge or Oxford number, the parser does not return Other as a possible result,
-even though the parser would also succed. This is because <code>choose</code> returns only results
+even though the parser would also succeed. This is because <code>choose</code> returns only results
 of a single parser (unlike <code>plus</code> which combines all successful results).</p>
 
 <h2>Summary</h2>
@@ -349,7 +349,7 @@ way to write <em>intersection</em> of languages recognized by two parsers.</p>
 <div class="tip" id="ft27">val p2 : (char list -&gt; seq&lt;&#39;b * int * char list&gt;)</div>
 <div class="tip" id="ft28">val result : &#39;b</div>
 <div class="tip" id="ft29">val n2 : int<br />&#160;&#160;type: int<br />&#160;&#160;inherits: ValueType<br /></div>
-<div class="tip" id="ft30">val zero : Parser&lt;&#39;a&gt;<br /><br />Full name: Blog.zero<br /><em><br /><br />&#160;Parser that alwyas fails without consuming any input</em></div>
+<div class="tip" id="ft30">val zero : Parser&lt;&#39;a&gt;<br /><br />Full name: Blog.zero<br /><em><br /><br />&#160;Parser that always fails without consuming any input</em></div>
 <div class="tip" id="ft31">val plus : Parser&lt;&#39;a&gt; -&gt; Parser&lt;&#39;a&gt; -&gt; Parser&lt;&#39;a&gt;<br /><br />Full name: Blog.plus<br /><em><br /><br />&#160;Combine the results of two parsers</em></div>
 <div class="tip" id="ft32">val p2 : (char list -&gt; seq&lt;&#39;a * int * char list&gt;)</div>
 <div class="tip" id="ft33">module Seq<br /><br />from Microsoft.FSharp.Collections</div>

@@ -3,7 +3,7 @@
       Title = "Variations in F#: Research compiler with Joinads and more!";
       Tags = "Research,F# language,Joinads";
       Date = "3/25/2011 12:04:08 AM";
-      Description = "Joinads are a research extension of the F# language. They simplify conrurrent programming with tasks, reactive programming with events, but can be also used for other types of computations. This article introduces the extension, which is now available, based on the open-source source-drop of F#.";
+      Description = "Joinads are a research extension of the F# language. They simplify concurrent programming with tasks, reactive programming with events, but can be also used for other types of computations. This article introduces the extension, which is now available, based on the open-source source-drop of F#.";
     }<h1>Variations in F#: Research compiler with Joinads and more!</h1>
 <p>In this article, I'll write about an experimental extension for F# that I call 
   <em>joinads</em>. If you're following my blog, you may have seen an 
@@ -112,7 +112,7 @@
 <p>The computation builder implements most of the operations in the usual way. The 
   <code>Delay</code> operation can be implemented in two ways. For computations that can wrap a function
   <code>unit -> 'T</code> into the computation value <code>M&lt;'T&gt;</code> (without running it), we 
-  coudl wrap the function in <code>Delay</code> and don't include <code>Run</code>. I'm using another
+  could wrap the function in <code>Delay</code> and don't include <code>Run</code>. I'm using another
   approach which is to return the function passed to <code>Delay</code> as it is (as a function) and
   add <code>Run</code> member that runs the function.</p>
 
@@ -221,7 +221,7 @@
     value doesn't match).</li>
   <li>After translating the clauses, the compiler constructs an expression that 
     selects the first clause that contains or produces body (the terminology is intentionally
-    vaugue, because the meaning depends on the type of computation). This is done by combining
+    vague, because the meaning depends on the type of computation). This is done by combining
     all clauses in the top-to-bottom order using <code>Choose</code>. The result is a computation
     <code>M&lt;M&lt;'T&gt;&gt;</code> (or <code>M&lt;unit -&gt; M&lt;'T&gt;&gt;</code> for 
     delayed functions), so we need to unwrap the body. This is done by passing the overall result

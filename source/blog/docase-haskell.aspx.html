@@ -8,7 +8,7 @@
 <p>Some time ago, I wrote a <a href="http://tomasp.net/blog/match-bang-paper.aspx">paper about <em>joinads</em></a> and the <code>match!</code> extension
   of the F# language. The paper was quite practically oriented and didn't go into much details about 
   the theory behind <em>joinads</em>. Many of the examples from the F# version relied on some
-  imperative features of F#. I believe that this is useful for parctical programming, but I 
+  imperative features of F#. I believe that this is useful for practical programming, but I 
   also wanted to show that the same idea can work in the <em>purely functional</em> context.</p>
 
 <p>To show that joinads work in the pure setting, I created a Haskell version of the idea.
@@ -55,7 +55,7 @@ can be compiled using the <code>Makefile</code> provided and then executed using
 the command: <code>joinadsp.exe Sample.jhs &gt; Sample.hs</code></p></li>
 <li><p><strong>Samples</strong> includes numerous examples that use joinads. It includes <code>Joinad</code> instance
 for the <code>Maybe</code> type and types mentioned in the paper (parsers that can be used for
-input validation, parallelsim monad used above and simple cooperative parallelism 
+input validation, parallelism monad used above and simple cooperative parallelism 
 monad using resumptions).</p></li>
 <li><p><strong>ParMonad</strong> includes core parts of the <code>Par</code> monad that is used in the parallel programming
 samples. The implementation is extended to support speculative parallelism (see a separate

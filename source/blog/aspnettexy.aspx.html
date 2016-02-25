@@ -5,7 +5,7 @@
       Date = "2/12/2007 12:45:45 AM";
       Description = "This article describes how to compile Texy! with Phalanger and how to use the produced assembly in ASP.NET application written in C#.";
     }<h1>Compiling Texy! with Phalanger</h1>
-<p>Texy! [<a href="#texyphallinks">1</a>] is a convertor from text format (similar to formats used in some wiki applications) 
+<p>Texy! [<a href="#texyphallinks">1</a>] is a converter from text format (similar to formats used in some wiki applications) 
   to valid XHTML code written in PHP. The syntax is described at Texy! web page [<a href="#texyphallinks">2</a>]. Unfortunately, it is only in 
   Czech language, but the syntax is very straightforward, so you can understand it without learning Czech :-).
   In this article, I'll show how to compile Texy! using Phalanger and how to use it in another .NET application written in C#.</p>
@@ -14,7 +14,7 @@
   some additional restrictions, but provides much better result in terms of .NET interoperability. You can find more details
   in the article <em>Phalanger for .NET developers</em> at our website [<a href="#texyphallinks">3</a>]. For compiling Texy! I
   choose the <strong>pure mode</strong>, because this will produce assembly that is easy to use from C#. Texy! is also written in 
-  elegant object oriented manner, so it won't be difficult to modify it to fulfil additional code restrictions.
+  elegant object oriented manner, so it won't be difficult to modify it to fulfill additional code restrictions.
   First, what we have to do to make Texy! compatible with the Phalanger pure mode? The restrictions are following:</p> 
 <ul>
   <li>No global code is allowed (all code has to be placed in function or class member function)</li>
@@ -33,7 +33,7 @@
 <h2>Modifying Texy!</h2>
 <p>If you try to compile it without any modifications, you'll get a few compiler errors consisting of the two kinds of errors.
   First error says <em>"inclusions are not allowed in the pure unit"</em> and the second says <em>"global code is not allowed in the pure unit"</em>.
-  These two errors are caused by pure mode limitations descibed earlier, so we'll need to modify the source code a bit to meet
+  These two errors are caused by pure mode limitations described earlier, so we'll need to modify the source code a bit to meet
   this two rules. Fortunately, Texy! contains only a few lines of global code, so it won't be very difficult. Moreover most of the global code lines are
   the following code:</p>
 <pre>if (!<span class="k">defined</span>(<span class="s">'TEXY'</span>)) <span class="k">die</span>();</pre>  
@@ -60,8 +60,8 @@
   <span class="c">/* ... more constants ... */</span>
 }
 </pre>  
-<p>Now we have a function that performs the initialization and the source code can be successfuly compiled, but we'll do two little 
-  tweaks to make it easilly usable from C#. First, we'll mark the <code>Texy</code> class (which is used by library users) with the
+<p>Now we have a function that performs the initialization and the source code can be successfully compiled, but we'll do two little 
+  tweaks to make it easily usable from C#. First, we'll mark the <code>Texy</code> class (which is used by library users) with the
   <code>Export</code> attribute which instructs the compiler to generate class that can be used from languages other than PHP
   (this is part of the PHP/CLR extensions available in Phalanger):</p>
 <pre>
@@ -116,7 +116,7 @@
 <ul>
   <li>Try it now - <a href="http://php-compiler.net/demos/texy/default.aspx">Live ASP.NET + Texy! demo</a>
     [<a href="http://php-compiler.net/demos/texy/default.aspx" target="_blank">^</a>]</li>
-  <li>Downlaod sources - <a href="/articles/aspnettexy/demos.zip">ASP.NET demo and modified Texy!</a> (139 kB)
+  <li>Download sources - <a href="/articles/aspnettexy/demos.zip">ASP.NET demo and modified Texy!</a> (139 kB)
     </li>
 </ul>  
 

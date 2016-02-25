@@ -15,7 +15,7 @@
 
 <p>Aggregation of data in parallel is an interesting problem. As we've seen in the previous article, 
   PLINQ and tasks make it easy to parallelize independent blocks of code that don't share any state.
-  Unfortunatelly, not all programs are like that. In particular, we often need to aggregate all
+  Unfortunately, not all programs are like that. In particular, we often need to aggregate all
   elements of a sequence - when writing sequential code in F#, you would use the <code>Seq.fold</code>
   function. In this article, we'll look at functions that implement fold parallel.</p>  
 

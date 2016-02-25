@@ -176,7 +176,7 @@ type Imperative&lt;'T&gt; = unit -&gt; option&lt;'T&gt;
 
 <pre lang="fsharp">
 type ImperativeBuilder() = 
-  // Creatae computation that returns the given value  
+  // Create computation that returns the given value  
   member x.Return(v) : Imperative&lt;_&gt; = 
     (fun () -&gt; Some(v))
   // Create computation that doesn't return any value
@@ -300,7 +300,7 @@ type ImperativeBuilder with
   member x.For(inp:seq&lt;_&gt;, f) =
     // Process next element from the sequence
     let rec loop(en:IEnumerator&lt;_&gt;) = 
-      // If ther are no more elements, return empty computation
+      // If there are no more elements, return empty computation
       if not(en.MoveNext()) then x.Zero() else
         // Otherwise call body and combine it with a 
         // computation that continues looping

@@ -10,7 +10,7 @@
   However, thanks to the use of a <em>type inference</em>, the types are explicitly specified in the code very rarely as we will see in the 
   following examples. The type inference means that the compiler deduces the type from the code, so for example
   when calling a function that takes <code>int</code> as an argument and returns <code>string</code> as a result,
-  the compiler can infer the type of the variable where the result is asigned (it has to be <code>string</code>) 
+  the compiler can infer the type of the variable where the result is assigned (it has to be <code>string</code>) 
   as well as the type of the variable that is given as an argument (it has to be <code>int</code>). Basic data types (aside from a standard set of primitive numeric and textual types that are present in any 
   .NET language) available in F# are tuple, discriminated union, record, array, list, function and object. In the following 
   quick overview, we will use the F# interactive, which is a tool that compiles and executes the entered text on the fly.</p>
@@ -85,7 +85,7 @@ val v : Expr</pre>
         let (lv, rv) = (eval l, eval r)
         if   (op = "+") then lv + rv 
         elif (op = "-") then lv - rv 
-        else failwith "Unknonw operator!"
+        else failwith "Unknown operator!"
     | Variable(var) -&gt; 
         getVariableValue var
     | Constant(n) -&gt;

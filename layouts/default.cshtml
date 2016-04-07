@@ -15,7 +15,7 @@
 
   <link rel="alternate" type="application/rss+xml" href="@Model.Root/rss.xml" title="RSS feed for Tomas Petricek's blog">
   <link rel="icon" type="image/png" href="@Model.Root/img/favicon.png" />
-    
+
   <!-- Reference custom CSS and tooltips -->
   <link type="text/css" rel="stylesheet" href="@Model.Root/custom/style.css" />
   <script type="text/javascript" src="@Model.Root/custom/tooltips.js"></script>
@@ -65,11 +65,11 @@
 
     </nav></div>
   </header>
-  
+
   @RenderBody()
 
   <div class="row" id="footer">
-  <footer>   
+  <footer>
     <div class="large-3 columns">
       <h4>Contact &amp; about</h4>
       <p>This site is hosted on GitHub and is generated using <a href="https://github.com/tpetricek/FSharp.Formatting">F# Formatting</a>.
@@ -92,20 +92,20 @@
     </div>
     <div class="large-2 columns">
       <h4>License</h4>
-      <p>Unless explicitly mentioned, all articles on this site are licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution Share Alike</a>. 
+      <p>Unless explicitly mentioned, all articles on this site are licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution Share Alike</a>.
         All source code samples are licensed under Apache 2.0.
       </p>
       <img src="http://tomasp.net/img/cc-sa.png" alt="CC License logo" />
     </div>
   </footer>
   </div>
-  
+
   <script>
   document.write('<script src=' +
   ('__proto__' in {} ? '@Model.Root/js/vendor/zepto' : '@Model.Root/js/vendor/jquery') +
   '.js><\/script>')
   </script>
-  
+
   <script src="@Model.Root/js/foundation.min.js"></script>
   <script>
     $(document).foundation();

@@ -1,4 +1,4 @@
-﻿@{ 
+﻿@{
   Layout = "default";
   Title = "Tomas Petricek's virtual universe";
   Description = "Writing about software development in F# and .NET, sharing materials from " +
@@ -15,13 +15,13 @@
   <div>
   <h1><a href="@Model.Root/blog/@first.Url/index.html">@first.Title</a></h1>
   @first.Abstract
-      
+
   <p class="meta">
     <span><strong>Published</strong>: @first.Date.ToString("dddd, d MMMM yyyy, h:mm tt", System.Globalization.CultureInfo.GetCultureInfo("en-GB"))</span>
     @if (first.Tags.Count() > 0)
-    { 
-      <br />      
-      <span class="tags"><strong>Tags</strong>: @String.Join(", ", first.Tags).ToLower() </span> 
+    {
+      <br />
+      <span class="tags"><strong>Tags</strong>: @String.Join(", ", first.Tags).ToLower() </span>
     }
     <br />
     <a href="@Model.Root/blog/@first.Url/index.html">Read the complete article</a>
@@ -49,8 +49,8 @@
       <div class="small-6 columns">
         <h2 class="first">Welcome!</h2>
         <p>I'm an open-source developer and computer scientist who enjoys combining theory and practice.
-          On the practical side, I write about F#, run trainings and provide consulting via 
-          <a href="http://fsharpworks.com">fsharpWorks</a>. On the theory side, I work on 
+          On the practical side, I write about F#, run trainings and provide consulting via
+          <a href="http://fsharpworks.com">fsharpWorks</a>. On the theory side, I work on
           various <a href="http://tomasp.net/academic">programming language topics</a>.
         </p>
       </div>
@@ -60,26 +60,26 @@
     </div>
 
     <h2>Trainings and consulting</h2>
-    <p>I'm a frequent speaker at F# and .NET events, founding member of the 
-      <a href="http://fsharp.org">F# Foundation</a> author of C# and F# book and a 
-      <a href="http://stackoverflow.com/users/33518/tomas-petricek">StackOverflow fanatic</a>. I&nbsp;have 
+    <p>I'm a frequent speaker at F# and .NET events, founding member of the
+      <a href="http://fsharp.org">F# Foundation</a> author of C# and F# book and a
+      <a href="http://stackoverflow.com/users/33518/tomas-petricek">StackOverflow fanatic</a>. I&nbsp;have
       been Microsoft C# MVP since 2004 and used F# since early Microsoft Research versions.
     </p>
     <a href="http://fsharpworks.com"><img src="@Model.Root/img/fsharpworks.png" style="float:right;width:150px;margin:0px 0px 10px 15px" /></a>
-    <p>Have you seen the <a href="http://fsharp.org/testimonials/">F# testimonials</a> and are you 
-      thinking how your company can also benefit from the safety, correctness, efficiency and 
+    <p>Have you seen the <a href="http://fsharp.org/testimonials/">F# testimonials</a> and are you
+      thinking how your company can also benefit from the safety, correctness, efficiency and
       faster time-to-market provided by F#?</p>
 
     <ul class="spaces">
-      <li><strong>Consulting and trainings.</strong> 
+      <li><strong>Consulting and trainings.</strong>
         At <a href="http://fsharpworks.com">fsharpWorks</a>, we love F#, but we also understand
-        its challenges and we're always happy to have an informal chat. Drop 
+        its challenges and we're always happy to have an informal chat. Drop
         <a href="mailto:tomas@tomasp.net">me an email</a> if you're interested.
 
       <li><strong>F# books and articles.</strong> I wrote <a href="http://functional-programming.net/rwfp/">Real World Functional Prog&shy;ramming</a>,
          which explains functional concepts using C# and F# and editted a collection of F# case studies called <a href="http://www.functional-programming.net/deepdives/">F# Deep Dives</a>.
       </li>
-      <li><strong>Public online and in-person courses.</strong> 
+      <li><strong>Public online and in-person courses.</strong>
         I created an online course <a href="http://fsharpworks.com/workshops/finance.html">F# in Finance</a>
         and we regularly run an in-person course <a href="http://fsharpworks.com/workshops/fast-track.html">Fast Track to F#</a>
         with our partners in London and New York. We offer <a href="http://fsharpworks.com/workshops">both of these and more</a>
@@ -94,19 +94,19 @@
     <p>I like working on topics inspired by practical problems. I created a <a href="http://tomasp.net/academic/theses/webtools/">web framework for F#</a>
       that inspired commercial projects like <a href="http://websharper.com/">WebSharper</a> and my
       experimental F# extensions can be tested live on <a href="http://tryjoinads.org/">tryjoinads.org</a>.
-      
+
     </p>
 
     <ul class="spaces">
-      <li><a href="http://tomasp.net/academic/theses/coeffects/"><strong>Context-aware programming languages</strong></a> 
+      <li><a href="http://tomasp.net/academic/theses/coeffects/"><strong>Context-aware programming languages</strong></a>
         is my (recently submitted) PhD thesis that discusses the theory of context-dependent computations.
         I also wrote a <a href="http://tomasp.net/blog/2014/why-coeffects-matter/index.html">more readable introduction</a> to coeffects.
       </li>
-      <li><a href="http://www.cl.cam.ac.uk/~tp322/"><strong>Academic web page</strong></a> has links to other published papers, work-in-progress drafts, 
+      <li><a href="http://www.cl.cam.ac.uk/~tp322/"><strong>Academic web page</strong></a> has links to other published papers, work-in-progress drafts,
         research talks and also information about projects and courses that I supervised.
       </li>
     </ul>
-    
+
     <div id="hp-calendar">
       <script type="text/javascript">
         var monthNames =
@@ -120,14 +120,15 @@
         document.writeln("<a href=\"@Model.Root/calendar/" + y + "/" + ml + ".html\">" +
           "<img src=\"@Model.Root/calendar/" + y + "/" + ml + "-preview.jpg\" style=\"border-style:none;\" />" +
           "</a>");
-      </script> 
-      <p>When the time permits, I enjoy traveling. The calendar shows a new picture each month. See 
-        <a href="@Model.Root/calendar/2005">2005</a>, <a href="@Model.Root/calendar/2006">2006</a>, 
-        <a href="@Model.Root/calendar/2007">2007</a>, <a href="@Model.Root/calendar/2008">2008</a>, 
-        <a href="@Model.Root/calendar/2009">2009</a>, <a href="@Model.Root/calendar/2010">2010</a>, 
-        <a href="@Model.Root/calendar/2011">2011</a>, <a href="@Model.Root/calendar/2012">2012</a>, 
-        <a href="@Model.Root/calendar/2013">2013</a>, <a href="@Model.Root/calendar/2014">2014</a>
-        and the first photos of <a href="@Model.Root/calendar/2015">2015</a>.
+      </script>
+      <p>When the time permits, I enjoy traveling. The calendar shows a new picture each month. See
+        <a href="@Model.Root/calendar/2005">2005</a>, <a href="@Model.Root/calendar/2006">2006</a>,
+        <a href="@Model.Root/calendar/2007">2007</a>, <a href="@Model.Root/calendar/2008">2008</a>,
+        <a href="@Model.Root/calendar/2009">2009</a>, <a href="@Model.Root/calendar/2010">2010</a>,
+        <a href="@Model.Root/calendar/2011">2011</a>, <a href="@Model.Root/calendar/2012">2012</a>,
+        <a href="@Model.Root/calendar/2013">2013</a>, <a href="@Model.Root/calendar/2014">2014</a>,
+        <a href="@Model.Root/calendar/2015">2015</a>
+        and the first photos of <a href="@Model.Root/calendar/2016">2016</a>.
       </p>
     </div>
 

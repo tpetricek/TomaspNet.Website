@@ -2,7 +2,7 @@
   Layout = "post";
   Title = "Coeffects playground: Interactive essay based on my PhD thesis";
   Tags = "coeffects, research, functional programming, programming languages";
-  Date = "2016-04-06T12:41:49.5611652+02:00";
+  Date = "2016-04-12T13:02:52.3133917+01:00";
   Description = "In my PhD thesis, I worked on integrating contextual information" +
     " into a type system of functional programming languages. Most of the work is" +
     " on theory, but I wanted to make it more accessible. To do this, I built an" +

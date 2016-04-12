@@ -4,6 +4,39 @@
     <link>http://tomasp.net</link>
     <description>Writing about software development in F# and .NET, sharing materials from my F# trainings and talks, writing about programming language research and theory.</description>
     <item>
+      <title>Coeffects playground: Interactive essay based on my PhD thesis</title>
+      <guid>http://tomasp.net/blog/2016/coeffects-playground</guid>
+      <link>http://tomasp.net/blog/2016/coeffects-playground/index.html</link>
+      <pubDate>Tue, 12 Apr 2016 14:33:52 GMT</pubDate>
+      <description>&lt;p&gt;In my &lt;a href="http://tomasp.net/academic/theses/coeffects/"&gt;PhD thesis&lt;/a&gt;, I worked on integrating
+&lt;em&gt;contextual information&lt;/em&gt; into a type system of functional programming languages. For example,
+say your mobile application accesses something from the environment such as GPS sensor or your
+Facebook friends. With &lt;em&gt;coeffects&lt;/em&gt;, this could be a part of the type. Rather than having type
+&lt;code&gt;string -&amp;gt; Person&lt;/code&gt;, the type of a function would also include resources and would be
+&lt;code&gt;string -{ gps, fb }-&amp;gt; Person&lt;/code&gt;. I wrote &lt;a href="http://tomasp.net/blog/2014/why-coeffects-matter/"&gt;longer introduction to coeffects&lt;/a&gt; on this
+blog before.&lt;/p&gt;
+
+&lt;p&gt;As one might expect, the PhD thesis is more theoretical and it looks at other kinds of contextual
+information (e.g. past values in stream-based data-flow programming) and it identifies abstract
+&lt;em&gt;coeffect algebra&lt;/em&gt; that captures the essence of contextual information that can be nicely tracked
+in a functional language.&lt;/p&gt;
+
+&lt;p&gt;I always thought that the most interesting thing about the thesis is that it gives people a nice way
+to think about &lt;em&gt;context&lt;/em&gt; in a unified way. Sadly, the very theoretical presentation in the thesis
+makes this quite hard for those who are not doing programming language theory.&lt;/p&gt;
+
+&lt;p&gt;To make it a bit easier to explore the ideas behind coeffects, I wrote a coeffect playground
+that runs in a web browser and lets you learn about coeffects, play with two example context-aware languages,
+run a couple of demos and learn more about how the theory works. Go &lt;a href="http://tomasp.net/coeffects/"&gt;check it out now&lt;/a&gt;
+or continue below to learn more about some interesting internals!&lt;/p&gt;
+
+&lt;a href="http://tomasp.net/coeffects/"&gt;
+&lt;img src="http://tomasp.net/blog/2016/coeffects-playground/screenshot.png" style="width:90%; margin:0px 5% 10px 5%" /&gt;
+&lt;/a&gt;
+
+</description>
+    </item>
+    <item>
       <title>Happy New Year 2016 around the World</title>
       <guid>http://tomasp.net/blog/2015/happy-new-year-tweets</guid>
       <link>http://tomasp.net/blog/2015/happy-new-year-tweets/index.html</link>
@@ -575,33 +608,6 @@ earlier on this blog.&lt;/p&gt;
 all the important concepts. In fact, the library is so easy to use that &lt;a href="https://twitter.com/ptrelford/status/538098139430137856"&gt;even 8 years old can
 do a talk about it&lt;/a&gt;. So, if you're
 spending Christmas with your family, perhaps you can go through this article with your children!&lt;/p&gt;
-
-</description>
-    </item>
-    <item>
-      <title>New features and improvements in Deedle v1.0</title>
-      <guid>http://tomasp.net/blog/2014/deedle-v1</guid>
-      <link>http://tomasp.net/blog/2014/deedle-v1/index.html</link>
-      <pubDate>Tue, 27 May 2014 14:41:01 GMT</pubDate>
-      <description>&lt;p&gt;As Howard Mansell already &lt;a href="http://techblog.bluemountaincapital.com/2014/05/21/deedle-v1-0-release/"&gt;announced on the BlueMountain Tech blog&lt;/a&gt;,
-we have officially released the "1.0" version of Deedle. In case you have not 
-heard of Deedle yet, it is a .NET library for interactive data analysis and 
-exploration. Deedle works great with both C# and F#. It provides two main data
-structures: &lt;em&gt;series&lt;/em&gt; for working with data and time series and &lt;em&gt;frame&lt;/em&gt; for working
-with collections of series (think CSV files, data tables etc.)&lt;/p&gt;
-
-&lt;p&gt;The great thing about Deedle is that it has been becoming a foundational library
-that makes it possible to integrate a wide range of diverse data-science components.
-For example, the &lt;a href="http://bluemountaincapital.github.io/FSharpRProvider/"&gt;R type provider&lt;/a&gt;
-works well with Deedle and so does &lt;a href="http://fsharp.github.io/FSharp.Charting/"&gt;F# Charting&lt;/a&gt;.
-We've been also working on integrating all of these into a single package called 
-&lt;a href="https://github.com/tpetricek/FsLab"&gt;FsLab&lt;/a&gt;, but more about that next time!&lt;/p&gt;
-
-&lt;p&gt;In this blog post, I'll have a quick look at a couple of new features in Deedle 
-(and corresponding R type provider release). Howard's announcement has a 
-&lt;a href="http://techblog.bluemountaincapital.com/2014/05/21/deedle-v1-0-release/"&gt;more detailed list&lt;/a&gt;, 
-but I just want to give a couple of examples and briefly comment on performance
-improvements we did.&lt;/p&gt;
 
 </description>
     </item>

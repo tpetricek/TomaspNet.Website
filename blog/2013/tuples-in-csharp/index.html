@@ -15,14 +15,14 @@
 
   <link rel="alternate" type="application/rss+xml" href="http://tomasp.net/rss.xml" title="RSS feed for Tomas Petricek's blog">
   <link rel="icon" type="image/png" href="http://tomasp.net/img/favicon.png" />
-    
+
   <!-- Reference custom CSS and tooltips -->
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/style.css" />
   <script type="text/javascript" src="http://tomasp.net/custom/tooltips.js"></script>
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/tooltips.css" />
   <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
-  <meta name="twitter:card" content="summary">
+    <meta name="twitter:card" content="summary">
   <meta name="twitter:creator" content="@tomaspetricek">
   <meta name="twitter:title" content="How many tuple types are there in C#?">
   <meta name="twitter:description" content="In a recent StackOverflow question, the poster asked about the choice between a function that takes a tuple and a function that uses the curried form. In this article I look at the problem from the C# perspective.">
@@ -58,7 +58,7 @@
 
     </nav></div>
   </header>
-  
+
   
 <div class="row">
 	<div class="large-8 columns main-content">
@@ -73,14 +73,10 @@ In F#, you can use pattern matching to easily define a function that takes a tup
 For example, the poster's function was a simple calculation that multiplies the number 
 of units sold <em>n</em> by the price <em>p</em>:</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l">1: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs2', 2)" onmouseover="showTip(event, 'fs2', 2)" class="f">salesTuple</span> (<span onmouseout="hideTip(event, 'fs3', 3)" onmouseover="showTip(event, 'fs3', 3)" class="i">price</span>, <span onmouseout="hideTip(event, 'fs4', 4)" onmouseover="showTip(event, 'fs4', 4)" class="i">count</span>) <span class="o">=</span> <span onmouseout="hideTip(event, 'fs3', 5)" onmouseover="showTip(event, 'fs3', 5)" class="i">price</span> <span class="o">*</span> (<span onmouseout="hideTip(event, 'fs5', 6)" onmouseover="showTip(event, 'fs5', 6)" class="f">float</span> <span onmouseout="hideTip(event, 'fs4', 7)" onmouseover="showTip(event, 'fs4', 7)" class="i">count</span>)
-</pre>
-</td>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs2', 2)" onmouseover="showTip(event, 'fs2', 2)" class="f">salesTuple</span> (<span onmouseout="hideTip(event, 'fs3', 3)" onmouseover="showTip(event, 'fs3', 3)" class="i">price</span>, <span onmouseout="hideTip(event, 'fs4', 4)" onmouseover="showTip(event, 'fs4', 4)" class="i">count</span>) <span class="o">=</span> <span onmouseout="hideTip(event, 'fs3', 5)" onmouseover="showTip(event, 'fs3', 5)" class="i">price</span> <span class="o">*</span> (<span onmouseout="hideTip(event, 'fs5', 6)" onmouseover="showTip(event, 'fs5', 6)" class="f">float</span> <span onmouseout="hideTip(event, 'fs4', 7)" onmouseover="showTip(event, 'fs4', 7)" class="i">count</span>)
+</code></pre></td>
 </tr>
 </table>
 
@@ -88,14 +84,10 @@ of units sold <em>n</em> by the price <em>p</em>:</p>
 <code>float * int</code>) and immediately decomposes it into two variables, <code>price</code> and <code>count</code>. The other
 alternative is to write a function in the <em>curried</em> form:</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l">1: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs6', 8)" onmouseover="showTip(event, 'fs6', 8)" class="f">salesCurried</span> <span onmouseout="hideTip(event, 'fs3', 9)" onmouseover="showTip(event, 'fs3', 9)" class="i">price</span> <span onmouseout="hideTip(event, 'fs4', 10)" onmouseover="showTip(event, 'fs4', 10)" class="i">count</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs3', 11)" onmouseover="showTip(event, 'fs3', 11)" class="i">price</span> <span class="o">*</span> (<span onmouseout="hideTip(event, 'fs5', 12)" onmouseover="showTip(event, 'fs5', 12)" class="f">float</span> <span onmouseout="hideTip(event, 'fs4', 13)" onmouseover="showTip(event, 'fs4', 13)" class="i">count</span>)
-</pre>
-</td>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs6', 8)" onmouseover="showTip(event, 'fs6', 8)" class="f">salesCurried</span> <span onmouseout="hideTip(event, 'fs3', 9)" onmouseover="showTip(event, 'fs3', 9)" class="i">price</span> <span onmouseout="hideTip(event, 'fs4', 10)" onmouseover="showTip(event, 'fs4', 10)" class="i">count</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs3', 11)" onmouseover="showTip(event, 'fs3', 11)" class="i">price</span> <span class="o">*</span> (<span onmouseout="hideTip(event, 'fs5', 12)" onmouseover="showTip(event, 'fs5', 12)" class="f">float</span> <span onmouseout="hideTip(event, 'fs4', 13)" onmouseover="showTip(event, 'fs4', 13)" class="i">count</span>)
+</code></pre></td>
 </tr>
 </table>
 
@@ -125,37 +117,29 @@ takes a range or 2D coordinates, it makes sense to use <code>float * float</code
 <p>This makes sense because you can then nicely compose multiple functions that work with 
 ranges. For example, let's say we have a function <code>normalizeRange</code> and <code>expandRange</code>:</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l">1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
 <span class="l">4: </span>
 <span class="l">5: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs7', 14)" onmouseover="showTip(event, 'fs7', 14)" class="f">normalizeRange</span> (<span onmouseout="hideTip(event, 'fs8', 15)" onmouseover="showTip(event, 'fs8', 15)" class="i">lo</span>, <span onmouseout="hideTip(event, 'fs9', 16)" onmouseover="showTip(event, 'fs9', 16)" class="i">hi</span>) <span class="o">=</span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs7', 14)" onmouseover="showTip(event, 'fs7', 14)" class="f">normalizeRange</span> (<span onmouseout="hideTip(event, 'fs8', 15)" onmouseover="showTip(event, 'fs8', 15)" class="i">lo</span>, <span onmouseout="hideTip(event, 'fs9', 16)" onmouseover="showTip(event, 'fs9', 16)" class="i">hi</span>) <span class="o">=</span>
   <span class="k">if</span> <span onmouseout="hideTip(event, 'fs8', 17)" onmouseover="showTip(event, 'fs8', 17)" class="i">lo</span> <span class="o">&gt;</span> <span onmouseout="hideTip(event, 'fs9', 18)" onmouseover="showTip(event, 'fs9', 18)" class="i">hi</span> <span class="k">then</span> (<span onmouseout="hideTip(event, 'fs9', 19)" onmouseover="showTip(event, 'fs9', 19)" class="i">hi</span>, <span onmouseout="hideTip(event, 'fs8', 20)" onmouseover="showTip(event, 'fs8', 20)" class="i">lo</span>) <span class="k">else</span> (<span onmouseout="hideTip(event, 'fs8', 21)" onmouseover="showTip(event, 'fs8', 21)" class="i">lo</span>, <span onmouseout="hideTip(event, 'fs9', 22)" onmouseover="showTip(event, 'fs9', 22)" class="i">hi</span>)
 
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs10', 23)" onmouseover="showTip(event, 'fs10', 23)" class="f">expandRange</span> <span onmouseout="hideTip(event, 'fs11', 24)" onmouseover="showTip(event, 'fs11', 24)" class="i">offset</span> (<span onmouseout="hideTip(event, 'fs12', 25)" onmouseover="showTip(event, 'fs12', 25)" class="i">lo</span>, <span onmouseout="hideTip(event, 'fs13', 26)" onmouseover="showTip(event, 'fs13', 26)" class="i">hi</span>) <span class="o">=</span>
   (<span onmouseout="hideTip(event, 'fs12', 27)" onmouseover="showTip(event, 'fs12', 27)" class="i">lo</span> <span class="o">-</span> <span onmouseout="hideTip(event, 'fs11', 28)" onmouseover="showTip(event, 'fs11', 28)" class="i">offset</span>, <span onmouseout="hideTip(event, 'fs13', 29)" onmouseover="showTip(event, 'fs13', 29)" class="i">hi</span> <span class="o">+</span> <span onmouseout="hideTip(event, 'fs11', 30)" onmouseover="showTip(event, 'fs11', 30)" class="i">offset</span>)
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
 <p>Now we can easily write code that takes some range, normalizes it and expands it by 10:</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l">1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span onmouseout="hideTip(event, 'fs10', 31)" onmouseover="showTip(event, 'fs10', 31)" class="f">expandRange</span> <span class="n">10</span> (<span onmouseout="hideTip(event, 'fs7', 32)" onmouseover="showTip(event, 'fs7', 32)" class="f">normalizeRange</span>(<span class="n">50</span>, <span class="n">30</span>))
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs10', 31)" onmouseover="showTip(event, 'fs10', 31)" class="f">expandRange</span> <span class="n">10</span> (<span onmouseout="hideTip(event, 'fs7', 32)" onmouseover="showTip(event, 'fs7', 32)" class="f">normalizeRange</span>(<span class="n">50</span>, <span class="n">30</span>))
 <span class="fsi">val it : int * int = (20, 60)</span>
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -176,14 +160,10 @@ to treat all .NET methods as functions that take a single tuple as the input and
 some other type as the result. This is how .NET methods look when you call them from 
 F#:</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l">1: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span onmouseout="hideTip(event, 'fs14', 33)" onmouseover="showTip(event, 'fs14', 33)" class="t">Math</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs15', 34)" onmouseover="showTip(event, 'fs15', 34)" class="f">Round</span>(<span class="n">4.5</span>, <span onmouseout="hideTip(event, 'fs16', 35)" onmouseover="showTip(event, 'fs16', 35)" class="t">MidpointRounding</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs17', 36)" onmouseover="showTip(event, 'fs17', 36)" class="i">ToEven</span>) 
-</pre>
-</td>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs14', 33)" onmouseover="showTip(event, 'fs14', 33)" class="t">Math</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs15', 34)" onmouseover="showTip(event, 'fs15', 34)" class="f">Round</span>(<span class="n">4.5</span>, <span onmouseout="hideTip(event, 'fs16', 35)" onmouseover="showTip(event, 'fs16', 35)" class="t">MidpointRounding</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs17', 36)" onmouseover="showTip(event, 'fs17', 36)" class="i">ToEven</span>) 
+</code></pre></td>
 </tr>
 </table>
 
@@ -208,8 +188,7 @@ data structure.</p>
 in the current <code>AppDomain</code> (this uses assemblies that are loaded by default in F# - so 
 nothing fancy). We also only look at "mscorlib" and "System" assemblies:</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l"> 1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
 <span class="l"> 4: </span>
@@ -220,10 +199,8 @@ nothing fancy). We also only look at "mscorlib" and "System" assemblies:</p>
 <span class="l"> 9: </span>
 <span class="l">10: </span>
 <span class="l">11: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="k">open</span> <span onmouseout="hideTip(event, 'fs1', 37)" onmouseover="showTip(event, 'fs1', 37)" class="i">System</span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">open</span> <span onmouseout="hideTip(event, 'fs1', 37)" onmouseover="showTip(event, 'fs1', 37)" class="i">System</span>
 <span class="k">open</span> <span onmouseout="hideTip(event, 'fs1', 38)" onmouseover="showTip(event, 'fs1', 38)" class="i">System</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs18', 39)" onmouseover="showTip(event, 'fs18', 39)" class="i">Reflection</span>
 
 <span class="c">// Get all types in currently loaded assemblies</span>
@@ -234,8 +211,7 @@ nothing fancy). We also only look at "mscorlib" and "System" assemblies:</p>
       <span class="k">yield!</span> <span onmouseout="hideTip(event, 'fs21', 52)" onmouseover="showTip(event, 'fs21', 52)" class="i">asm</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs27', 53)" onmouseover="showTip(event, 'fs27', 53)" class="f">GetTypes</span>() }
 
 <span onmouseout="hideTip(event, 'fs19', 54)" onmouseover="showTip(event, 'fs19', 54)" class="i">types</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs28', 55)" onmouseover="showTip(event, 'fs28', 55)" class="t">Seq</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs29', 56)" onmouseover="showTip(event, 'fs29', 56)" class="f">length</span>
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -244,8 +220,7 @@ yields all types. On my machine, this gives us some 17000 types. Now, let's get 
 list with all tuples - we'll iterate over all methods in each type and generate a 
 list with the names of parameter types. We skip all methods with less than 2 parameters:</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l"> 1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
 <span class="l"> 4: </span>
@@ -258,10 +233,8 @@ list with the names of parameter types. We skip all methods with less than 2 par
 <span class="l">11: </span>
 <span class="l">12: </span>
 <span class="l">13: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs30', 57)" onmouseover="showTip(event, 'fs30', 57)" class="i">tuples</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs20', 58)" onmouseover="showTip(event, 'fs20', 58)" class="i">seq</span> { 
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs30', 57)" onmouseover="showTip(event, 'fs30', 57)" class="i">tuples</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs20', 58)" onmouseover="showTip(event, 'fs20', 58)" class="i">seq</span> { 
   <span class="k">for</span> <span onmouseout="hideTip(event, 'fs31', 59)" onmouseover="showTip(event, 'fs31', 59)" class="i">typ</span> <span class="k">in</span> <span onmouseout="hideTip(event, 'fs19', 60)" onmouseover="showTip(event, 'fs19', 60)" class="i">types</span> <span class="k">do</span>
     <span class="c">// Get declared, public, both instance and static methods</span>
     <span class="k">let</span> <span onmouseout="hideTip(event, 'fs32', 61)" onmouseover="showTip(event, 'fs32', 61)" class="i">flags</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs33', 62)" onmouseover="showTip(event, 'fs33', 62)" class="t">BindingFlags</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs34', 63)" onmouseover="showTip(event, 'fs34', 63)" class="i">DeclaredOnly</span> <span class="o">|||</span> <span onmouseout="hideTip(event, 'fs33', 64)" onmouseover="showTip(event, 'fs33', 64)" class="t">BindingFlags</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs35', 65)" onmouseover="showTip(event, 'fs35', 65)" class="i">Public</span> <span class="o">|||</span>
@@ -274,8 +247,7 @@ list with the names of parameter types. We skip all methods with less than 2 par
         <span class="k">yield</span> [ <span class="k">for</span> <span onmouseout="hideTip(event, 'fs44', 81)" onmouseover="showTip(event, 'fs44', 81)" class="i">p</span> <span class="k">in</span> <span onmouseout="hideTip(event, 'fs40', 82)" onmouseover="showTip(event, 'fs40', 82)" class="i">meth</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs42', 83)" onmouseover="showTip(event, 'fs42', 83)" class="f">GetParameters</span>() <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs44', 84)" onmouseover="showTip(event, 'fs44', 84)" class="i">p</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs45', 85)" onmouseover="showTip(event, 'fs45', 85)" class="i">ParameterType</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs46', 86)" onmouseover="showTip(event, 'fs46', 86)" class="i">FullName</span> ] }
 
 <span onmouseout="hideTip(event, 'fs30', 87)" onmouseover="showTip(event, 'fs30', 87)" class="i">tuples</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs28', 88)" onmouseover="showTip(event, 'fs28', 88)" class="t">Seq</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs29', 89)" onmouseover="showTip(event, 'fs29', 89)" class="f">length</span>
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -284,26 +256,22 @@ Now, the question is, how many of them are used repeatedly? We can easily group 
 tuples by the list of strings (F# implements structural comparison, so this is easy to do),
 calculate the counts for each group and sort the results:</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l">1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
 <span class="l">4: </span>
 <span class="l">5: </span>
 <span class="l">6: </span>
 <span class="l">7: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs47', 90)" onmouseover="showTip(event, 'fs47', 90)" class="i">counts</span> <span class="o">=</span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs47', 90)" onmouseover="showTip(event, 'fs47', 90)" class="i">counts</span> <span class="o">=</span>
   <span onmouseout="hideTip(event, 'fs30', 91)" onmouseover="showTip(event, 'fs30', 91)" class="i">tuples</span> 
   <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs28', 92)" onmouseover="showTip(event, 'fs28', 92)" class="t">Seq</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs48', 93)" onmouseover="showTip(event, 'fs48', 93)" class="f">groupBy</span> <span onmouseout="hideTip(event, 'fs49', 94)" onmouseover="showTip(event, 'fs49', 94)" class="f">id</span>
   <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs50', 95)" onmouseover="showTip(event, 'fs50', 95)" class="t">Array</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs51', 96)" onmouseover="showTip(event, 'fs51', 96)" class="f">ofSeq</span>
   <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs50', 97)" onmouseover="showTip(event, 'fs50', 97)" class="t">Array</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs52', 98)" onmouseover="showTip(event, 'fs52', 98)" class="f">map</span> (<span class="k">fun</span> (<span onmouseout="hideTip(event, 'fs53', 99)" onmouseover="showTip(event, 'fs53', 99)" class="i">k</span>, <span onmouseout="hideTip(event, 'fs54', 100)" onmouseover="showTip(event, 'fs54', 100)" class="i">vs</span>) <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs53', 101)" onmouseover="showTip(event, 'fs53', 101)" class="i">k</span>, <span onmouseout="hideTip(event, 'fs28', 102)" onmouseover="showTip(event, 'fs28', 102)" class="t">Seq</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs29', 103)" onmouseover="showTip(event, 'fs29', 103)" class="f">length</span> <span onmouseout="hideTip(event, 'fs54', 104)" onmouseover="showTip(event, 'fs54', 104)" class="i">vs</span>)
   <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs50', 105)" onmouseover="showTip(event, 'fs50', 105)" class="t">Array</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs55', 106)" onmouseover="showTip(event, 'fs55', 106)" class="f">sortBy</span> <span onmouseout="hideTip(event, 'fs56', 107)" onmouseover="showTip(event, 'fs56', 107)" class="f">snd</span>
   <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs50', 108)" onmouseover="showTip(event, 'fs50', 108)" class="t">Array</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs57', 109)" onmouseover="showTip(event, 'fs57', 109)" class="f">rev</span>
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -335,20 +303,16 @@ is the distribution? Let's use <a href="http://fsharp.github.io/FSharp.Charting/
 library to draw a quick chart that draws a column chart plotting the counts for every single
 of the 5000 tuple types:</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l">1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
 <span class="l">4: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="prep">#load</span> <span class="s">&quot;..\packages\FSharp.Charting.0.84\FSharp.Charting.fsx&quot;</span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="prep">#load</span> <span class="s">&quot;..\packages\FSharp.Charting.0.84\FSharp.Charting.fsx&quot;</span>
 <span class="k">open</span> <span onmouseout="hideTip(event, 'fs58', 110)" onmouseover="showTip(event, 'fs58', 110)" class="i">FSharp</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs59', 111)" onmouseover="showTip(event, 'fs59', 111)" class="i">Charting</span>
 
 <span onmouseout="hideTip(event, 'fs60', 112)" onmouseover="showTip(event, 'fs60', 112)" class="t">Chart</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs61', 113)" onmouseover="showTip(event, 'fs61', 113)" class="f">Column</span>(<span onmouseout="hideTip(event, 'fs28', 114)" onmouseover="showTip(event, 'fs28', 114)" class="t">Seq</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs62', 115)" onmouseover="showTip(event, 'fs62', 115)" class="f">map</span> <span onmouseout="hideTip(event, 'fs56', 116)" onmouseover="showTip(event, 'fs56', 116)" class="f">snd</span> <span onmouseout="hideTip(event, 'fs47', 117)" onmouseover="showTip(event, 'fs47', 117)" class="i">counts</span>)<span class="o">.</span><span class="f">WithYAxis</span>(<span class="i">Log</span><span class="o">=</span><span class="k">true</span>)
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -367,24 +331,20 @@ is definitely not precise, but let's say that tuples which are used more than 10
 are useful and those that are used more than 3 times are possibly useful. We can then
 easily draw a chart showing the proportions:</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l">1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
 <span class="l">4: </span>
 <span class="l">5: </span>
 <span class="l">6: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span onmouseout="hideTip(event, 'fs47', 118)" onmouseover="showTip(event, 'fs47', 118)" class="i">counts</span> 
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs47', 118)" onmouseover="showTip(event, 'fs47', 118)" class="i">counts</span> 
 <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs28', 119)" onmouseover="showTip(event, 'fs28', 119)" class="t">Seq</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs63', 120)" onmouseover="showTip(event, 'fs63', 120)" class="f">countBy</span> (<span class="k">fun</span> (<span onmouseout="hideTip(event, 'fs53', 121)" onmouseover="showTip(event, 'fs53', 121)" class="i">k</span>, <span onmouseout="hideTip(event, 'fs64', 122)" onmouseover="showTip(event, 'fs64', 122)" class="i">v</span>) <span class="k">-&gt;</span> 
     <span class="k">if</span> <span onmouseout="hideTip(event, 'fs64', 123)" onmouseover="showTip(event, 'fs64', 123)" class="i">v</span> <span class="o">&lt;=</span> <span class="n">2</span> <span class="k">then</span> <span class="s">&quot;Useless&quot;</span>
     <span class="k">elif</span> <span onmouseout="hideTip(event, 'fs64', 124)" onmouseover="showTip(event, 'fs64', 124)" class="i">v</span> <span class="o">&lt;=</span> <span class="n">10</span> <span class="k">then</span> <span class="s">&quot;Maybe useful&quot;</span>
     <span class="k">else</span> <span class="s">&quot;Useful&quot;</span>)
 <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs60', 125)" onmouseover="showTip(event, 'fs60', 125)" class="t">Chart</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs65', 126)" onmouseover="showTip(event, 'fs65', 126)" class="f">Doughnut</span>
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -535,16 +495,18 @@ think more carefully about library design to make sure that you use tuples corre
   document.writeln("<a href=\"http://tomasp.net/calendar/" + y + "/" + ml + ".html\">" +
     "<img src=\"http://tomasp.net/calendar/" + y + "/" + ml + "-preview.jpg\" style=\"border-style:none;\" />" +
     "</a>");
-</script> 
+</script>
 <p>The calendar shows a new picture each month. See photos for
-  <a href="http://tomasp.net/calendar/2005">2005</a>, <a href="http://tomasp.net/calendar/2006">2006</a>, 
-  <a href="http://tomasp.net/calendar/2007">2007</a>, <a href="http://tomasp.net/calendar/2008">2008</a>, 
-  <a href="http://tomasp.net/calendar/2009">2009</a>, <a href="http://tomasp.net/calendar/2010">2010</a>, 
+  <a href="http://tomasp.net/calendar/2005">2005</a>, <a href="http://tomasp.net/calendar/2006">2006</a>,
+  <a href="http://tomasp.net/calendar/2007">2007</a>, <a href="http://tomasp.net/calendar/2008">2008</a>,
+  <a href="http://tomasp.net/calendar/2009">2009</a>, <a href="http://tomasp.net/calendar/2010">2010</a>,
   <a href="http://tomasp.net/calendar/2011">2011</a>, <a href="http://tomasp.net/calendar/2012">2012</a>,
-  <a href="http://tomasp.net/calendar/2013">2013</a>, <a href="http://tomasp.net/calendar/2014">2014</a>
-  and the first photos of <a href="http://tomasp.net/calendar/2015">2015</a>.
+  <a href="http://tomasp.net/calendar/2013">2013</a>, <a href="http://tomasp.net/calendar/2014">2014</a>,
+  <a href="http://tomasp.net/calendar/2015">2015</a>
+  and the first photos of <a href="http://tomasp.net/calendar/2016">2016</a>.
 </p>
 </div>
+
 
     <h3>Welcome!</h3>
     <img src="http://tomasp.net/img/tomas.jpg" alt="Tomas Petricek" style="float:right;margin:10px 0px 10px 10px;" />
@@ -607,14 +569,14 @@ think more carefully about library design to make sure that you use tuples corre
     <h4>Blog tags</h4>
     <p>
 
-      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(105),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(36),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(16),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(30),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(5),       <a href="http://tomasp.net/blog/tag/open-source/">open source</a>&nbsp;(5),       <a href="http://tomasp.net/blog/tag/fslab/">fslab</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/linq/">linq</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(2)    </p>
+      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(109),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(34),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(18),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(36),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(6),       <a href="http://tomasp.net/blog/tag/web/">web</a>&nbsp;(10),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(7),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/fslab/">fslab</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/programming-languages/">programming languages</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/type-providers/">type providers</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/data-journalism/">data journalism</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/linq/">linq</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/coeffects/">coeffects</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/visualization/">visualization</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/machine-learning/">machine learning</a>&nbsp;(1)    </p>
 
   </div>
 </div>
 
 
   <div class="row" id="footer">
-  <footer>   
+  <footer>
     <div class="large-3 columns">
       <h4>Contact &amp; about</h4>
       <p>This site is hosted on GitHub and is generated using <a href="https://github.com/tpetricek/FSharp.Formatting">F# Formatting</a>.
@@ -629,7 +591,12 @@ think more carefully about library design to make sure that you use tuples corre
     </div>
     <div class="large-7 columns">
     <h4>Blog archives <a href="http://tomasp.net/rss.xml"><img src="http://tomasp.net/img/rss.gif" /></a></h4>
-      <a href="http://tomasp.net/blog/archive/june-2015/index.html">
+      <a href="http://tomasp.net/blog/archive/april-2016/index.html">
+        April 2016 (1)</a>,      <a href="http://tomasp.net/blog/archive/december-2015/index.html">
+        December 2015 (2)</a>,      <a href="http://tomasp.net/blog/archive/november-2015/index.html">
+        November 2015 (1)</a>,      <a href="http://tomasp.net/blog/archive/september-2015/index.html">
+        September 2015 (3)</a>,      <a href="http://tomasp.net/blog/archive/july-2015/index.html">
+        July 2015 (1)</a>,      <a href="http://tomasp.net/blog/archive/june-2015/index.html">
         June 2015 (1)</a>,      <a href="http://tomasp.net/blog/archive/may-2015/index.html">
         May 2015 (2)</a>,      <a href="http://tomasp.net/blog/archive/april-2015/index.html">
         April 2015 (3)</a>,      <a href="http://tomasp.net/blog/archive/march-2015/index.html">
@@ -716,20 +683,20 @@ think more carefully about library design to make sure that you use tuples corre
         November 2004 (2)</a>,    </div>
     <div class="large-2 columns">
       <h4>License</h4>
-      <p>Unless explicitly mentioned, all articles on this site are licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution Share Alike</a>. 
+      <p>Unless explicitly mentioned, all articles on this site are licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution Share Alike</a>.
         All source code samples are licensed under Apache 2.0.
       </p>
       <img src="http://tomasp.net/img/cc-sa.png" alt="CC License logo" />
     </div>
   </footer>
   </div>
-  
+
   <script>
   document.write('<script src=' +
   ('__proto__' in {} ? 'http://tomasp.net/js/vendor/zepto' : 'http://tomasp.net/js/vendor/jquery') +
   '.js><\/script>')
   </script>
-  
+
   <script src="http://tomasp.net/js/foundation.min.js"></script>
   <script>
     $(document).foundation();

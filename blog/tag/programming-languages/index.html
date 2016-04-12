@@ -15,7 +15,7 @@
 
   <link rel="alternate" type="application/rss+xml" href="http://tomasp.net/rss.xml" title="RSS feed for Tomas Petricek's blog">
   <link rel="icon" type="image/png" href="http://tomasp.net/img/favicon.png" />
-    
+
   <!-- Reference custom CSS and tooltips -->
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/style.css" />
   <script type="text/javascript" src="http://tomasp.net/custom/tooltips.js"></script>
@@ -58,13 +58,51 @@
 
     </nav></div>
   </header>
-  
+
   
 <div class="row">
 	<div class="large-8 columns main-content">
     <content>
       
 
+  <div>
+  <h1><a href="http://tomasp.net/blog/2016/coeffects-playground/index.html">Coeffects playground: Interactive essay based on my PhD thesis</a></h1>
+  <p>In my <a href="http://tomasp.net/academic/theses/coeffects/">PhD thesis</a>, I worked on integrating
+<em>contextual information</em> into a type system of functional programming languages. For example,
+say your mobile application accesses something from the environment such as GPS sensor or your
+Facebook friends. With <em>coeffects</em>, this could be a part of the type. Rather than having type
+<code>string -&gt; Person</code>, the type of a function would also include resources and would be
+<code>string -{ gps, fb }-&gt; Person</code>. I wrote <a href="http://tomasp.net/blog/2014/why-coeffects-matter/">longer introduction to coeffects</a> on this
+blog before.</p>
+
+<p>As one might expect, the PhD thesis is more theoretical and it looks at other kinds of contextual
+information (e.g. past values in stream-based data-flow programming) and it identifies abstract
+<em>coeffect algebra</em> that captures the essence of contextual information that can be nicely tracked
+in a functional language.</p>
+
+<p>I always thought that the most interesting thing about the thesis is that it gives people a nice way
+to think about <em>context</em> in a unified way. Sadly, the very theoretical presentation in the thesis
+makes this quite hard for those who are not doing programming language theory.</p>
+
+<p>To make it a bit easier to explore the ideas behind coeffects, I wrote a coeffect playground
+that runs in a web browser and lets you learn about coeffects, play with two example context-aware languages,
+run a couple of demos and learn more about how the theory works. Go <a href="http://tomasp.net/coeffects/">check it out now</a>
+or continue below to learn more about some interesting internals!</p>
+
+<a href="http://tomasp.net/coeffects/">
+<img src="http://tomasp.net/blog/2016/coeffects-playground/screenshot.png" style="width:90%; margin:0px 5% 10px 5%" />
+</a>
+
+
+      
+  <p class="meta">
+    <span><strong>Published</strong>: Tuesday, 12 April 2016, 3:33 PM</span>
+      <br />      
+      <span class="tags"><strong>Tags</strong>: coeffects, research, functional programming, programming languages </span> 
+    <br />
+    <a href="http://tomasp.net/blog/2016/coeffects-playground/index.html">Read the complete article</a>
+  </p>
+  </div>
   <div>
   <h1><a href="http://tomasp.net/blog/2015/thegamma/index.html">The Gamma: Simple code behind interactive articles</a></h1>
   <img src="http://tomasp.net/blog/2015/thegamma/dj.png" style="float:right;width:300px"
@@ -183,16 +221,18 @@ blog post, I want to look at four of the strategies. Quite curiously, there is a
   document.writeln("<a href=\"http://tomasp.net/calendar/" + y + "/" + ml + ".html\">" +
     "<img src=\"http://tomasp.net/calendar/" + y + "/" + ml + "-preview.jpg\" style=\"border-style:none;\" />" +
     "</a>");
-</script> 
+</script>
 <p>The calendar shows a new picture each month. See photos for
-  <a href="http://tomasp.net/calendar/2005">2005</a>, <a href="http://tomasp.net/calendar/2006">2006</a>, 
-  <a href="http://tomasp.net/calendar/2007">2007</a>, <a href="http://tomasp.net/calendar/2008">2008</a>, 
-  <a href="http://tomasp.net/calendar/2009">2009</a>, <a href="http://tomasp.net/calendar/2010">2010</a>, 
+  <a href="http://tomasp.net/calendar/2005">2005</a>, <a href="http://tomasp.net/calendar/2006">2006</a>,
+  <a href="http://tomasp.net/calendar/2007">2007</a>, <a href="http://tomasp.net/calendar/2008">2008</a>,
+  <a href="http://tomasp.net/calendar/2009">2009</a>, <a href="http://tomasp.net/calendar/2010">2010</a>,
   <a href="http://tomasp.net/calendar/2011">2011</a>, <a href="http://tomasp.net/calendar/2012">2012</a>,
-  <a href="http://tomasp.net/calendar/2013">2013</a>, <a href="http://tomasp.net/calendar/2014">2014</a>
-  and the first photos of <a href="http://tomasp.net/calendar/2015">2015</a>.
+  <a href="http://tomasp.net/calendar/2013">2013</a>, <a href="http://tomasp.net/calendar/2014">2014</a>,
+  <a href="http://tomasp.net/calendar/2015">2015</a>
+  and the first photos of <a href="http://tomasp.net/calendar/2016">2016</a>.
 </p>
 </div>
+
 
     <h3>Welcome!</h3>
     <img src="http://tomasp.net/img/tomas.jpg" alt="Tomas Petricek" style="float:right;margin:10px 0px 10px 10px;" />
@@ -255,14 +295,14 @@ blog post, I want to look at four of the strategies. Quite curiously, there is a
     <h4>Blog tags</h4>
     <p>
 
-      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(109),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(33),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(17),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(36),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(6),       <a href="http://tomasp.net/blog/tag/web/">web</a>&nbsp;(10),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(7),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/fslab/">fslab</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/type-providers/">type providers</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/linq/">linq</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/data-journalism/">data journalism</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/programming-languages/">programming languages</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/visualization/">visualization</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/machine-learning/">machine learning</a>&nbsp;(1)    </p>
+      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(109),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(34),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(18),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(36),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(6),       <a href="http://tomasp.net/blog/tag/web/">web</a>&nbsp;(10),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(7),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/fslab/">fslab</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/programming-languages/">programming languages</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/type-providers/">type providers</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/data-journalism/">data journalism</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/linq/">linq</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/coeffects/">coeffects</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/visualization/">visualization</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/machine-learning/">machine learning</a>&nbsp;(1)    </p>
 
   </div>
 </div>
 
 
   <div class="row" id="footer">
-  <footer>   
+  <footer>
     <div class="large-3 columns">
       <h4>Contact & about</h4>
       <p>This site is hosted on GitHub and is generated using <a href="https://github.com/tpetricek/FSharp.Formatting">F# Formatting</a>.
@@ -277,7 +317,8 @@ blog post, I want to look at four of the strategies. Quite curiously, there is a
     </div>
     <div class="large-7 columns">
     <h4>Blog archives <a href="http://tomasp.net/rss.xml"><img src="http://tomasp.net/img/rss.gif" /></a></h4>
-      <a href="http://tomasp.net/blog/archive/december-2015/index.html">
+      <a href="http://tomasp.net/blog/archive/april-2016/index.html">
+        April 2016 (1)</a>,      <a href="http://tomasp.net/blog/archive/december-2015/index.html">
         December 2015 (2)</a>,      <a href="http://tomasp.net/blog/archive/november-2015/index.html">
         November 2015 (1)</a>,      <a href="http://tomasp.net/blog/archive/september-2015/index.html">
         September 2015 (3)</a>,      <a href="http://tomasp.net/blog/archive/july-2015/index.html">
@@ -368,20 +409,20 @@ blog post, I want to look at four of the strategies. Quite curiously, there is a
         November 2004 (2)</a>,    </div>
     <div class="large-2 columns">
       <h4>License</h4>
-      <p>Unless explicitly mentioned, all articles on this site are licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution Share Alike</a>. 
+      <p>Unless explicitly mentioned, all articles on this site are licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution Share Alike</a>.
         All source code samples are licensed under Apache 2.0.
       </p>
       <img src="http://tomasp.net/img/cc-sa.png" alt="CC License logo" />
     </div>
   </footer>
   </div>
-  
+
   <script>
   document.write('<script src=' +
   ('__proto__' in {} ? 'http://tomasp.net/js/vendor/zepto' : 'http://tomasp.net/js/vendor/jquery') +
   '.js><\/script>')
   </script>
-  
+
   <script src="http://tomasp.net/js/foundation.min.js"></script>
   <script>
     $(document).foundation();

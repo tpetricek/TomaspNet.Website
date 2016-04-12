@@ -15,14 +15,14 @@
 
   <link rel="alternate" type="application/rss+xml" href="http://tomasp.net/rss.xml" title="RSS feed for Tomas Petricek's blog">
   <link rel="icon" type="image/png" href="http://tomasp.net/img/favicon.png" />
-    
+
   <!-- Reference custom CSS and tooltips -->
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/style.css" />
   <script type="text/javascript" src="http://tomasp.net/custom/tooltips.js"></script>
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/tooltips.css" />
   <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
-  <meta name="twitter:card" content="summary">
+    <meta name="twitter:card" content="summary">
   <meta name="twitter:creator" content="@tomaspetricek">
   <meta name="twitter:title" content="Stateful computations in F# with update monads">
   <meta name="twitter:description" content="Most discussions about monads, even in F#, start by looking at the well-known monads for handling state (reader, writer and state). In a recent paper, Danel Ahman and Tarmo Uustalu revisit these and build a nicer abstraction called <em>update monads</em>. I implemented the idea in F# and I find that update monads are an excellent fit for F# computation expressions!">
@@ -59,7 +59,7 @@
 
     </nav></div>
   </header>
-  
+
   
 <div class="row">
 	<div class="large-8 columns main-content">
@@ -99,24 +99,20 @@ monads that we want to unify. The <a href="http://cs.ioc.ee/~tarmo/papers/types1
 can also find other tutorials that implement these in F# - here, we'll only look at the
 type definitions:</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l">1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
 <span class="l">4: </span>
 <span class="l">5: </span>
 <span class="l">6: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="c">/// Given a readonly state, produces a value</span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="c">/// Given a readonly state, produces a value</span>
 <span class="k">type</span> <span onmouseout="hideTip(event, 'fs1', 1)" onmouseover="showTip(event, 'fs1', 1)" class="i">Reader</span><span class="o">&lt;</span><span class="o">&#39;</span><span class="i">TState</span>, <span class="o">&#39;</span><span class="i">T</span><span class="o">&gt;</span> <span class="o">=</span> <span class="o">&#39;</span><span class="i">TState</span> <span class="k">-&gt;</span> <span class="o">&#39;</span><span class="i">T</span>
 <span class="c">/// Produces a value together with additional state</span>
 <span class="k">type</span> <span onmouseout="hideTip(event, 'fs2', 2)" onmouseover="showTip(event, 'fs2', 2)" class="t">Writer</span><span class="o">&lt;</span><span class="o">&#39;</span><span class="i">TState</span>, <span class="o">&#39;</span><span class="i">T</span><span class="o">&gt;</span> <span class="o">=</span> <span class="o">&#39;</span><span class="i">TState</span> <span class="o">*</span> <span class="o">&#39;</span><span class="i">T</span>
 <span class="c">/// Given state, produces new state &amp; a value</span>
 <span class="k">type</span> <span onmouseout="hideTip(event, 'fs3', 3)" onmouseover="showTip(event, 'fs3', 3)" class="i">State</span><span class="o">&lt;</span><span class="o">&#39;</span><span class="i">TState</span>, <span class="o">&#39;</span><span class="i">T</span><span class="o">&gt;</span>  <span class="o">=</span> <span class="o">&#39;</span><span class="i">TState</span> <span class="k">-&gt;</span> <span class="o">&#39;</span><span class="i">TState</span> <span class="o">*</span> <span class="o">&#39;</span><span class="i">T</span>
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -129,20 +125,16 @@ out? The idea of <em>update monads</em> is quite simple. The trick is that we'll
 types - one representing the <em>state</em> we can read and another representing the <em>updates</em>
 that specify how to change the state:</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l">1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
 <span class="l">4: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="c">/// Represents an update monad - given a state, produce </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="c">/// Represents an update monad - given a state, produce </span>
 <span class="c">/// value and an update that can be applied to the state</span>
 <span class="k">type</span> <span onmouseout="hideTip(event, 'fs4', 4)" onmouseover="showTip(event, 'fs4', 4)" class="t">UpdateMonad</span><span class="o">&lt;</span><span class="o">&#39;</span><span class="i">TState</span>, <span class="o">&#39;</span><span class="i">TUpdate</span>, <span class="o">&#39;</span><span class="i">T</span><span class="o">&gt;</span> <span class="o">=</span> 
   <span onmouseout="hideTip(event, 'fs5', 5)" onmouseover="showTip(event, 'fs5', 5)" class="p">UM</span> <span class="k">of</span> (<span class="o">&#39;</span><span class="i">TState</span> <span class="k">-&gt;</span> <span class="o">&#39;</span><span class="i">TUpdate</span> <span class="o">*</span> <span class="o">&#39;</span><span class="i">T</span>)
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -202,8 +194,7 @@ corresponding operation on the type (specified either explicitly or via type inf
 <p>If you're not familiar with F#, you can freely skip over this definition, just remember
 that we now have functions <code>unit</code> and <code>apply</code> and an operator <code>++</code>:</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l"> 1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
 <span class="l"> 4: </span>
@@ -217,10 +208,8 @@ that we now have functions <code>unit</code> and <code>apply</code> and an opera
 <span class="l">12: </span>
 <span class="l">13: </span>
 <span class="l">14: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="c">/// Returns the value of &#39;Unit&#39; property on the ^S type</span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="c">/// Returns the value of &#39;Unit&#39; property on the ^S type</span>
 <span class="k">let</span> <span class="k">inline</span> <span onmouseout="hideTip(event, 'fs6', 6)" onmouseover="showTip(event, 'fs6', 6)" class="f">unit</span><span class="o">&lt;</span> <span class="o">^</span><span class="i">S</span> <span class="k">when</span> <span class="o">^</span><span class="i">S</span> <span class="o">:</span> 
     (<span class="k">static</span> <span class="k">member</span> <span class="i">Unit</span> <span class="o">:</span> <span class="o">^</span><span class="i">S</span>)<span class="o">&gt;</span> () <span class="o">:</span> <span class="o">^</span><span class="i">S</span> <span class="o">=</span>
   (<span class="o">^</span><span class="i">S</span> <span class="o">:</span> (<span class="k">static</span> <span class="k">member</span> <span class="i">Unit</span> <span class="o">:</span> <span class="o">^</span><span class="i">S</span>) ()) 
@@ -234,8 +223,7 @@ that we now have functions <code>unit</code> and <code>apply</code> and an opera
 <span class="k">let</span> <span class="k">inline</span> <span onmouseout="hideTip(event, 'fs9', 11)" onmouseover="showTip(event, 'fs9', 11)" class="f">apply</span><span class="o">&lt;</span> <span class="o">^</span><span class="i">S</span>, <span class="o">^</span><span class="i">U</span> <span class="k">when</span> <span class="o">^</span><span class="i">U</span> <span class="o">:</span> 
     (<span class="k">static</span> <span class="k">member</span> <span class="i">Apply</span> <span class="o">:</span> <span class="o">^</span><span class="i">S</span> <span class="o">*</span> <span class="o">^</span><span class="i">U</span> <span class="k">-&gt;</span> <span class="o">^</span><span class="i">S</span> )<span class="o">&gt;</span> <span onmouseout="hideTip(event, 'fs10', 12)" onmouseover="showTip(event, 'fs10', 12)" class="i">s</span> <span onmouseout="hideTip(event, 'fs11', 13)" onmouseover="showTip(event, 'fs11', 13)" class="i">a</span> <span class="o">:</span> <span class="o">^</span><span class="i">S</span> <span class="o">=</span>
   (<span class="o">^</span><span class="i">U</span> <span class="o">:</span> (<span class="k">static</span> <span class="k">member</span> <span class="i">Apply</span> <span class="o">:</span> <span class="o">^</span><span class="i">S</span> <span class="o">*</span> <span class="o">^</span><span class="i">U</span> <span class="k">-&gt;</span> <span class="o">^</span><span class="i">S</span>) (<span onmouseout="hideTip(event, 'fs10', 14)" onmouseover="showTip(event, 'fs10', 14)" class="i">s</span>, <span onmouseout="hideTip(event, 'fs11', 15)" onmouseover="showTip(event, 'fs11', 15)" class="i">a</span>)) 
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -250,8 +238,7 @@ and <code>update.Bind</code>.</p>
 static member constraints and inline functions, we need to mark the members
 as <code>inline</code> too:</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l"> 1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
 <span class="l"> 4: </span>
@@ -272,10 +259,8 @@ as <code>inline</code> too:</p>
 <span class="l">19: </span>
 <span class="l">20: </span>
 <span class="l">21: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="k">type</span> <span onmouseout="hideTip(event, 'fs12', 16)" onmouseover="showTip(event, 'fs12', 16)" class="t">UpdateBuilder</span>() <span class="o">=</span> 
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">type</span> <span onmouseout="hideTip(event, 'fs12', 16)" onmouseover="showTip(event, 'fs12', 16)" class="t">UpdateBuilder</span>() <span class="o">=</span> 
   <span class="c">/// Returns the specified value, together</span>
   <span class="c">/// with empty update obtained using &#39;unit&#39;</span>
   <span class="k">member</span> <span class="k">inline</span> <span onmouseout="hideTip(event, 'fs13', 17)" onmouseover="showTip(event, 'fs13', 17)" class="i">x</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs14', 18)" onmouseover="showTip(event, 'fs14', 18)" class="f">Return</span>(<span onmouseout="hideTip(event, 'fs15', 19)" onmouseover="showTip(event, 'fs15', 19)" class="i">v</span>) <span class="o">:</span> <span onmouseout="hideTip(event, 'fs4', 20)" onmouseover="showTip(event, 'fs4', 20)" class="t">UpdateMonad</span><span class="o">&lt;</span><span class="o">&#39;</span><span class="i">S</span>, <span class="o">&#39;</span><span class="i">U</span>, <span class="o">&#39;</span><span class="i">T</span><span class="o">&gt;</span> <span class="o">=</span> 
@@ -296,8 +281,7 @@ as <code>inline</code> too:</p>
 <span class="c">/// Instance of the computation builder</span>
 <span class="c">/// that defines the update { .. } block</span>
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs24', 50)" onmouseover="showTip(event, 'fs24', 50)" class="i">update</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs12', 51)" onmouseover="showTip(event, 'fs12', 51)" class="t">UpdateBuilder</span>()
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -331,8 +315,7 @@ can use an equivalent type <code>'TState -&gt; unit * 'T</code>.</p>
 required static members. We use a single-case discriminated union with just one value
 <code>NoUpdate</code>:</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l">1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
 <span class="l">4: </span>
@@ -340,10 +323,8 @@ required static members. We use a single-case discriminated union with just one 
 <span class="l">6: </span>
 <span class="l">7: </span>
 <span class="l">8: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="c">/// The state of the reader is &#39;int&#39;</span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="c">/// The state of the reader is &#39;int&#39;</span>
 <span class="k">type</span> <span onmouseout="hideTip(event, 'fs25', 52)" onmouseover="showTip(event, 'fs25', 52)" class="t">ReaderState</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs26', 53)" onmouseover="showTip(event, 'fs26', 53)" class="t">int</span>
 <span class="c">/// Trivial monoid of updates </span>
 <span class="k">type</span> <span onmouseout="hideTip(event, 'fs27', 54)" onmouseover="showTip(event, 'fs27', 54)" class="t">ReaderUpdate</span> <span class="o">=</span> 
@@ -351,8 +332,7 @@ required static members. We use a single-case discriminated union with just one 
   <span class="k">static</span> <span class="k">member</span> <span onmouseout="hideTip(event, 'fs29', 56)" onmouseover="showTip(event, 'fs29', 56)" class="i">Unit</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs28', 57)" onmouseover="showTip(event, 'fs28', 57)" class="p">NoUpdate</span>
   <span class="k">static</span> <span class="k">member</span> <span onmouseout="hideTip(event, 'fs30', 58)" onmouseover="showTip(event, 'fs30', 58)" class="f">Combine</span>(<span onmouseout="hideTip(event, 'fs28', 59)" onmouseover="showTip(event, 'fs28', 59)" class="p">NoUpdate</span>, <span onmouseout="hideTip(event, 'fs28', 60)" onmouseover="showTip(event, 'fs28', 60)" class="p">NoUpdate</span>) <span class="o">=</span> <span onmouseout="hideTip(event, 'fs28', 61)" onmouseover="showTip(event, 'fs28', 61)" class="p">NoUpdate</span>
   <span class="k">static</span> <span class="k">member</span> <span onmouseout="hideTip(event, 'fs31', 62)" onmouseover="showTip(event, 'fs31', 62)" class="f">Apply</span>(<span onmouseout="hideTip(event, 'fs32', 63)" onmouseover="showTip(event, 'fs32', 63)" class="i">s</span>, <span onmouseout="hideTip(event, 'fs28', 64)" onmouseover="showTip(event, 'fs28', 64)" class="p">NoUpdate</span>) <span class="o">=</span> <span onmouseout="hideTip(event, 'fs32', 65)" onmouseover="showTip(event, 'fs32', 65)" class="i">s</span>
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -366,22 +346,18 @@ operation returns the state without a change.</p>
 that executes a computation implemented using the reader monad (given the
 value of the read-only state). The operations look as follows:</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l">1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
 <span class="l">4: </span>
 <span class="l">5: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="c">/// Read the current state (int) and return it as &#39;int&#39;</span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="c">/// Read the current state (int) and return it as &#39;int&#39;</span>
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs33', 66)" onmouseover="showTip(event, 'fs33', 66)" class="i">read</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs5', 67)" onmouseover="showTip(event, 'fs5', 67)" class="p">UM</span> (<span class="k">fun</span> (<span onmouseout="hideTip(event, 'fs34', 68)" onmouseover="showTip(event, 'fs34', 68)" class="i">s</span><span class="o">:</span><span onmouseout="hideTip(event, 'fs25', 69)" onmouseover="showTip(event, 'fs25', 69)" class="t">ReaderState</span>) <span class="k">-&gt;</span> 
   (<span onmouseout="hideTip(event, 'fs28', 70)" onmouseover="showTip(event, 'fs28', 70)" class="p">NoUpdate</span>, <span onmouseout="hideTip(event, 'fs34', 71)" onmouseover="showTip(event, 'fs34', 71)" class="i">s</span>))
 <span class="c">/// Run computation and return the result </span>
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs35', 72)" onmouseover="showTip(event, 'fs35', 72)" class="f">readRun</span> (<span onmouseout="hideTip(event, 'fs34', 73)" onmouseover="showTip(event, 'fs34', 73)" class="i">s</span><span class="o">:</span><span onmouseout="hideTip(event, 'fs25', 74)" onmouseover="showTip(event, 'fs25', 74)" class="t">ReaderState</span>) (<span onmouseout="hideTip(event, 'fs5', 75)" onmouseover="showTip(event, 'fs5', 75)" class="p">UM</span> <span onmouseout="hideTip(event, 'fs36', 76)" onmouseover="showTip(event, 'fs36', 76)" class="f">f</span>) <span class="o">=</span> <span onmouseout="hideTip(event, 'fs36', 77)" onmouseover="showTip(event, 'fs36', 77)" class="f">f</span> <span onmouseout="hideTip(event, 'fs34', 78)" onmouseover="showTip(event, 'fs34', 78)" class="i">s</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs37', 79)" onmouseover="showTip(event, 'fs37', 79)" class="f">snd</span>
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -399,8 +375,7 @@ to write computations that can read an immutable state. The following
 basic example reads the state and adds one (in <code>demo1</code>), and then adds 
 1 again in <code>demo2</code>:</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l"> 1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
 <span class="l"> 4: </span>
@@ -411,10 +386,8 @@ basic example reads the state and adds one (in <code>demo1</code>), and then add
 <span class="l"> 9: </span>
 <span class="l">10: </span>
 <span class="l">11: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="c">/// Returns state + 1</span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="c">/// Returns state + 1</span>
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs38', 80)" onmouseover="showTip(event, 'fs38', 80)" class="i">demo1</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs24', 81)" onmouseover="showTip(event, 'fs24', 81)" class="i">update</span> { 
   <span class="k">let!</span> <span onmouseout="hideTip(event, 'fs39', 82)" onmouseover="showTip(event, 'fs39', 82)" class="i">v</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs33', 83)" onmouseover="showTip(event, 'fs33', 83)" class="i">read</span>
   <span class="k">return</span> <span onmouseout="hideTip(event, 'fs39', 84)" onmouseover="showTip(event, 'fs39', 84)" class="i">v</span> <span class="o">+</span> <span class="n">1</span> }
@@ -425,8 +398,7 @@ basic example reads the state and adds one (in <code>demo1</code>), and then add
 
 <span class="c">// Run it with state 40 </span>
 <span onmouseout="hideTip(event, 'fs40', 90)" onmouseover="showTip(event, 'fs40', 90)" class="i">demo2</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs35', 91)" onmouseover="showTip(event, 'fs35', 91)" class="f">readRun</span> <span class="n">40</span>
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -452,8 +424,7 @@ concrete example. We define a (writer) monad that keeps a list of <code>'TLog</c
 and returns that as the result (more generally, we could use an arbitrary monoid
 instead of a list):</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l"> 1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
 <span class="l"> 4: </span>
@@ -465,10 +436,8 @@ instead of a list):</p>
 <span class="l">10: </span>
 <span class="l">11: </span>
 <span class="l">12: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="c">/// Writer monad has no readable state</span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="c">/// Writer monad has no readable state</span>
 <span class="k">type</span> <span onmouseout="hideTip(event, 'fs41', 92)" onmouseover="showTip(event, 'fs41', 92)" class="t">WriterState</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs42', 93)" onmouseover="showTip(event, 'fs42', 93)" class="p">NoState</span>
 
 <span class="c">/// Updates of writer monad form a list</span>
@@ -480,8 +449,7 @@ instead of a list):</p>
   <span class="k">static</span> <span class="k">member</span> <span onmouseout="hideTip(event, 'fs47', 99)" onmouseover="showTip(event, 'fs47', 99)" class="f">Combine</span>(<span onmouseout="hideTip(event, 'fs44', 100)" onmouseover="showTip(event, 'fs44', 100)" class="p">Log</span> <span onmouseout="hideTip(event, 'fs48', 101)" onmouseover="showTip(event, 'fs48', 101)" class="i">a</span>, <span onmouseout="hideTip(event, 'fs44', 102)" onmouseover="showTip(event, 'fs44', 102)" class="p">Log</span> <span onmouseout="hideTip(event, 'fs49', 103)" onmouseover="showTip(event, 'fs49', 103)" class="i">b</span>) <span class="o">=</span> <span onmouseout="hideTip(event, 'fs44', 104)" onmouseover="showTip(event, 'fs44', 104)" class="p">Log</span>(<span onmouseout="hideTip(event, 'fs50', 105)" onmouseover="showTip(event, 'fs50', 105)" class="t">List</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs51', 106)" onmouseover="showTip(event, 'fs51', 106)" class="f">append</span> <span onmouseout="hideTip(event, 'fs48', 107)" onmouseover="showTip(event, 'fs48', 107)" class="i">a</span> <span onmouseout="hideTip(event, 'fs49', 108)" onmouseover="showTip(event, 'fs49', 108)" class="i">b</span>)
   <span class="c">/// Applying updates to state does not affect the state</span>
   <span class="k">static</span> <span class="k">member</span> <span onmouseout="hideTip(event, 'fs52', 109)" onmouseover="showTip(event, 'fs52', 109)" class="f">Apply</span>(<span onmouseout="hideTip(event, 'fs42', 110)" onmouseover="showTip(event, 'fs42', 110)" class="p">NoState</span>, _) <span class="o">=</span> <span onmouseout="hideTip(event, 'fs42', 111)" onmouseover="showTip(event, 'fs42', 111)" class="p">NoState</span>
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -498,22 +466,18 @@ change the definition to implement other monoids (e.g. to keep the last produced
 to the log (<code>write</code> of the writer monad) and one to run a computation and extract the
 result and the log:</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l">1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
 <span class="l">4: </span>
 <span class="l">5: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="c">/// Writes the specified value to the log </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="c">/// Writes the specified value to the log </span>
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs53', 112)" onmouseover="showTip(event, 'fs53', 112)" class="f">write</span> <span onmouseout="hideTip(event, 'fs54', 113)" onmouseover="showTip(event, 'fs54', 113)" class="i">v</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs5', 114)" onmouseover="showTip(event, 'fs5', 114)" class="p">UM</span> (<span class="k">fun</span> <span onmouseout="hideTip(event, 'fs55', 115)" onmouseover="showTip(event, 'fs55', 115)" class="i">s</span> <span class="k">-&gt;</span> (<span onmouseout="hideTip(event, 'fs44', 116)" onmouseover="showTip(event, 'fs44', 116)" class="p">Log</span> [<span onmouseout="hideTip(event, 'fs54', 117)" onmouseover="showTip(event, 'fs54', 117)" class="i">v</span>], ()))
 <span class="c">/// Runs a &quot;writer monad computation&quot; and returns </span>
 <span class="c">/// the log, together with the final result</span>
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs56', 118)" onmouseover="showTip(event, 'fs56', 118)" class="f">writeRun</span> (<span onmouseout="hideTip(event, 'fs5', 119)" onmouseover="showTip(event, 'fs5', 119)" class="p">UM</span> <span onmouseout="hideTip(event, 'fs57', 120)" onmouseover="showTip(event, 'fs57', 120)" class="f">f</span>) <span class="o">=</span> <span class="k">let</span> (<span onmouseout="hideTip(event, 'fs44', 121)" onmouseover="showTip(event, 'fs44', 121)" class="p">Log</span> <span onmouseout="hideTip(event, 'fs58', 122)" onmouseover="showTip(event, 'fs58', 122)" class="i">l</span>, <span onmouseout="hideTip(event, 'fs59', 123)" onmouseover="showTip(event, 'fs59', 123)" class="i">v</span>) <span class="o">=</span> <span onmouseout="hideTip(event, 'fs57', 124)" onmouseover="showTip(event, 'fs57', 124)" class="f">f</span> <span onmouseout="hideTip(event, 'fs42', 125)" onmouseover="showTip(event, 'fs42', 125)" class="p">NoState</span> <span class="k">in</span> <span onmouseout="hideTip(event, 'fs58', 126)" onmouseover="showTip(event, 'fs58', 126)" class="i">l</span>, <span onmouseout="hideTip(event, 'fs59', 127)" onmouseover="showTip(event, 'fs59', 127)" class="i">v</span>
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -530,8 +494,7 @@ in the <code>update { .. }</code> block just like in the previous example. But t
 the <code>write</code> primitive to write 20 and then 10 to the log and the F# compiler correctly
 infers that we are using <code>WriterState</code> and <code>WriterUpdate</code> types:</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l"> 1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
 <span class="l"> 4: </span>
@@ -543,10 +506,8 @@ infers that we are using <code>WriterState</code> and <code>WriterUpdate</code> 
 <span class="l">10: </span>
 <span class="l">11: </span>
 <span class="l">12: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="c">/// Writes &#39;20&#39; to the log and returns &quot;world&quot;</span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="c">/// Writes &#39;20&#39; to the log and returns &quot;world&quot;</span>
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs60', 128)" onmouseover="showTip(event, 'fs60', 128)" class="i">demo3</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs24', 129)" onmouseover="showTip(event, 'fs24', 129)" class="i">update</span> {
   <span class="k">do!</span> <span onmouseout="hideTip(event, 'fs53', 130)" onmouseover="showTip(event, 'fs53', 130)" class="f">write</span> <span class="n">20</span>
   <span class="k">return</span> <span class="s">&quot;world&quot;</span> }
@@ -558,8 +519,7 @@ infers that we are using <code>WriterState</code> and <code>WriterUpdate</code> 
 
 <span class="c">/// Returns &quot;Hello world&quot; with 20 and 10 in the log</span>
 <span onmouseout="hideTip(event, 'fs61', 137)" onmouseover="showTip(event, 'fs61', 137)" class="i">demo4</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs56', 138)" onmouseover="showTip(event, 'fs56', 138)" class="f">writeRun</span>
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -585,8 +545,7 @@ enable richer syntax.</p>
 not interested in the details, feel free to skip to the next section. The key idea is
 that this only has to be written once!</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l"> 1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
 <span class="l"> 4: </span>
@@ -620,10 +579,8 @@ that this only has to be written once!</p>
 <span class="l">32: </span>
 <span class="l">33: </span>
 <span class="l">34: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="c">/// Extends UpdateBuilder to support additional syntax</span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="c">/// Extends UpdateBuilder to support additional syntax</span>
 <span class="k">type</span> <span onmouseout="hideTip(event, 'fs12', 139)" onmouseover="showTip(event, 'fs12', 139)" class="t">UpdateBuilder</span> <span class="k">with</span>
   <span class="c">/// Represents monadic computation that returns unit</span>
   <span class="c">/// (e.g. we can now omit &#39;else&#39; branch in &#39;if&#39; computation)</span>
@@ -657,8 +614,7 @@ that this only has to be written once!</p>
       <span class="k">if</span> <span onmouseout="hideTip(event, 'fs94', 216)" onmouseover="showTip(event, 'fs94', 216)" class="f">t</span>() <span class="k">then</span> <span onmouseout="hideTip(event, 'fs13', 217)" onmouseover="showTip(event, 'fs13', 217)" class="i">x</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs67', 218)" onmouseover="showTip(event, 'fs67', 218)" class="f">Bind</span>(<span onmouseout="hideTip(event, 'fs95', 219)" onmouseover="showTip(event, 'fs95', 219)" class="f">f</span>(), <span onmouseout="hideTip(event, 'fs96', 220)" onmouseover="showTip(event, 'fs96', 220)" class="f">loop</span>)
       <span class="k">else</span> <span onmouseout="hideTip(event, 'fs13', 221)" onmouseover="showTip(event, 'fs13', 221)" class="i">x</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs68', 222)" onmouseover="showTip(event, 'fs68', 222)" class="f">Zero</span>()
     <span onmouseout="hideTip(event, 'fs96', 223)" onmouseover="showTip(event, 'fs96', 223)" class="f">loop</span>()
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -671,20 +627,16 @@ code that will work for any update monad (as defined by a pair of <em>update</em
 
 <p>Let's look at a trivial example using the writer computation:</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l">1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
 <span class="l">4: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="c">/// Logs numbers from 1 to 10</span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="c">/// Logs numbers from 1 to 10</span>
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs97', 224)" onmouseover="showTip(event, 'fs97', 224)" class="i">logNumbers</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs24', 225)" onmouseover="showTip(event, 'fs24', 225)" class="i">update</span> {
   <span class="k">for</span> <span onmouseout="hideTip(event, 'fs98', 226)" onmouseover="showTip(event, 'fs98', 226)" class="i">i</span> <span class="k">in</span> <span class="n">1</span> <span class="o">..</span> <span class="n">10</span> <span class="k">do</span> 
     <span class="k">do!</span> <span onmouseout="hideTip(event, 'fs53', 227)" onmouseover="showTip(event, 'fs53', 227)" class="f">write</span> <span onmouseout="hideTip(event, 'fs98', 228)" onmouseover="showTip(event, 'fs98', 228)" class="i">i</span> }
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -705,8 +657,7 @@ that we can read and write.</p>
 carry. State is simply a wrapper containing the value (current state). Update can be of
 two kinds - we have an empty update (do nothing) and an update to set the state:</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l"> 1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
 <span class="l"> 4: </span>
@@ -722,10 +673,8 @@ two kinds - we have an empty update (do nothing) and an update to set the state:
 <span class="l">14: </span>
 <span class="l">15: </span>
 <span class="l">16: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="c">/// Wraps a state of type &#39;T</span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="c">/// Wraps a state of type &#39;T</span>
 <span class="k">type</span> <span onmouseout="hideTip(event, 'fs99', 229)" onmouseover="showTip(event, 'fs99', 229)" class="t">StateState</span><span class="o">&lt;</span><span class="o">&#39;</span><span class="i">T</span><span class="o">&gt;</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs100', 230)" onmouseover="showTip(event, 'fs100', 230)" class="p">State</span> <span class="k">of</span> <span class="o">&#39;</span><span class="i">T</span>
 
 <span class="c">/// Represents updates on state of type &#39;T</span>
@@ -741,8 +690,7 @@ two kinds - we have an empty update (do nothing) and an update to set the state:
   <span class="c">/// Apply update to a state - the &#39;Set&#39; update changes the state</span>
   <span class="k">static</span> <span class="k">member</span> <span onmouseout="hideTip(event, 'fs111', 252)" onmouseover="showTip(event, 'fs111', 252)" class="f">Apply</span>(<span onmouseout="hideTip(event, 'fs112', 253)" onmouseover="showTip(event, 'fs112', 253)" class="i">s</span>, <span onmouseout="hideTip(event, 'fs113', 254)" onmouseover="showTip(event, 'fs113', 254)" class="i">p</span>) <span class="o">=</span> 
     <span class="k">match</span> <span onmouseout="hideTip(event, 'fs113', 255)" onmouseover="showTip(event, 'fs113', 255)" class="i">p</span> <span class="k">with</span> <span onmouseout="hideTip(event, 'fs103', 256)" onmouseover="showTip(event, 'fs103', 256)" class="p">SetNop</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs112', 257)" onmouseover="showTip(event, 'fs112', 257)" class="i">s</span> | <span onmouseout="hideTip(event, 'fs102', 258)" onmouseover="showTip(event, 'fs102', 258)" class="p">Set</span> <span onmouseout="hideTip(event, 'fs32', 259)" onmouseover="showTip(event, 'fs32', 259)" class="i">s</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs100', 260)" onmouseover="showTip(event, 'fs100', 260)" class="p">State</span> <span onmouseout="hideTip(event, 'fs32', 261)" onmouseover="showTip(event, 'fs32', 261)" class="i">s</span>
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -764,24 +712,20 @@ set during the whole sequence.</p>
 
 <p>Now that we have the type definitions, it is quite easy to add the usual primitives:</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l">1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
 <span class="l">4: </span>
 <span class="l">5: </span>
 <span class="l">6: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="c">/// Set the state to the specified value</span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="c">/// Set the state to the specified value</span>
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs114', 262)" onmouseover="showTip(event, 'fs114', 262)" class="f">set</span> <span onmouseout="hideTip(event, 'fs32', 263)" onmouseover="showTip(event, 'fs32', 263)" class="i">s</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs5', 264)" onmouseover="showTip(event, 'fs5', 264)" class="p">UM</span> (<span class="k">fun</span> _ <span class="k">-&gt;</span> (<span onmouseout="hideTip(event, 'fs102', 265)" onmouseover="showTip(event, 'fs102', 265)" class="p">Set</span> <span onmouseout="hideTip(event, 'fs32', 266)" onmouseover="showTip(event, 'fs32', 266)" class="i">s</span>,()))
 <span class="c">/// Get the current state </span>
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs115', 267)" onmouseover="showTip(event, 'fs115', 267)" class="i">get</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs5', 268)" onmouseover="showTip(event, 'fs5', 268)" class="p">UM</span> (<span class="k">fun</span> (<span onmouseout="hideTip(event, 'fs100', 269)" onmouseover="showTip(event, 'fs100', 269)" class="p">State</span> <span onmouseout="hideTip(event, 'fs32', 270)" onmouseover="showTip(event, 'fs32', 270)" class="i">s</span>) <span class="k">-&gt;</span> (<span onmouseout="hideTip(event, 'fs103', 271)" onmouseover="showTip(event, 'fs103', 271)" class="p">SetNop</span>, <span onmouseout="hideTip(event, 'fs32', 272)" onmouseover="showTip(event, 'fs32', 272)" class="i">s</span>))
 <span class="c">/// Run a computation using a specified initial state</span>
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs116', 273)" onmouseover="showTip(event, 'fs116', 273)" class="f">setRun</span> <span onmouseout="hideTip(event, 'fs32', 274)" onmouseover="showTip(event, 'fs32', 274)" class="i">s</span> (<span onmouseout="hideTip(event, 'fs5', 275)" onmouseover="showTip(event, 'fs5', 275)" class="p">UM</span> <span onmouseout="hideTip(event, 'fs117', 276)" onmouseover="showTip(event, 'fs117', 276)" class="f">f</span>) <span class="o">=</span> <span onmouseout="hideTip(event, 'fs117', 277)" onmouseover="showTip(event, 'fs117', 277)" class="f">f</span> (<span onmouseout="hideTip(event, 'fs100', 278)" onmouseover="showTip(event, 'fs100', 278)" class="p">State</span> <span onmouseout="hideTip(event, 'fs32', 279)" onmouseover="showTip(event, 'fs32', 279)" class="i">s</span>) <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs37', 280)" onmouseover="showTip(event, 'fs37', 280)" class="f">snd</span>
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -796,8 +740,7 @@ it returns <code>SetNop</code> as the update.</p>
 We'll again use the <code>update { .. }</code> computation. This time, we define a computation
 <code>demo5</code> that increments the state and call it from a loop in <code>demo6</code>:</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l"> 1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
 <span class="l"> 4: </span>
@@ -809,10 +752,8 @@ We'll again use the <code>update { .. }</code> computation. This time, we define
 <span class="l">10: </span>
 <span class="l">11: </span>
 <span class="l">12: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="c">/// Increments the state by one</span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="c">/// Increments the state by one</span>
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs118', 281)" onmouseover="showTip(event, 'fs118', 281)" class="i">demo5</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs24', 282)" onmouseover="showTip(event, 'fs24', 282)" class="i">update</span> { 
   <span class="k">let!</span> <span onmouseout="hideTip(event, 'fs119', 283)" onmouseover="showTip(event, 'fs119', 283)" class="i">v</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs115', 284)" onmouseover="showTip(event, 'fs115', 284)" class="i">get</span>
   <span class="k">do!</span> <span onmouseout="hideTip(event, 'fs114', 285)" onmouseover="showTip(event, 'fs114', 285)" class="f">set</span> (<span onmouseout="hideTip(event, 'fs119', 286)" onmouseover="showTip(event, 'fs119', 286)" class="i">v</span> <span class="o">+</span> <span class="n">1</span>) }
@@ -824,8 +765,7 @@ We'll again use the <code>update { .. }</code> computation. This time, we define
   <span class="k">return!</span> <span onmouseout="hideTip(event, 'fs115', 291)" onmouseover="showTip(event, 'fs115', 291)" class="i">get</span> }
 <span class="c">// Run the sample with initial state 0</span>
 <span onmouseout="hideTip(event, 'fs120', 292)" onmouseover="showTip(event, 'fs120', 292)" class="i">demo6</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs116', 293)" onmouseover="showTip(event, 'fs116', 293)" class="f">setRun</span> <span class="n">0</span>
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -1025,16 +965,18 @@ update monads are the way to go.</p>
   document.writeln("<a href=\"http://tomasp.net/calendar/" + y + "/" + ml + ".html\">" +
     "<img src=\"http://tomasp.net/calendar/" + y + "/" + ml + "-preview.jpg\" style=\"border-style:none;\" />" +
     "</a>");
-</script> 
+</script>
 <p>The calendar shows a new picture each month. See photos for
-  <a href="http://tomasp.net/calendar/2005">2005</a>, <a href="http://tomasp.net/calendar/2006">2006</a>, 
-  <a href="http://tomasp.net/calendar/2007">2007</a>, <a href="http://tomasp.net/calendar/2008">2008</a>, 
-  <a href="http://tomasp.net/calendar/2009">2009</a>, <a href="http://tomasp.net/calendar/2010">2010</a>, 
+  <a href="http://tomasp.net/calendar/2005">2005</a>, <a href="http://tomasp.net/calendar/2006">2006</a>,
+  <a href="http://tomasp.net/calendar/2007">2007</a>, <a href="http://tomasp.net/calendar/2008">2008</a>,
+  <a href="http://tomasp.net/calendar/2009">2009</a>, <a href="http://tomasp.net/calendar/2010">2010</a>,
   <a href="http://tomasp.net/calendar/2011">2011</a>, <a href="http://tomasp.net/calendar/2012">2012</a>,
-  <a href="http://tomasp.net/calendar/2013">2013</a>, <a href="http://tomasp.net/calendar/2014">2014</a>
-  and the first photos of <a href="http://tomasp.net/calendar/2015">2015</a>.
+  <a href="http://tomasp.net/calendar/2013">2013</a>, <a href="http://tomasp.net/calendar/2014">2014</a>,
+  <a href="http://tomasp.net/calendar/2015">2015</a>
+  and the first photos of <a href="http://tomasp.net/calendar/2016">2016</a>.
 </p>
 </div>
+
 
     <h3>Welcome!</h3>
     <img src="http://tomasp.net/img/tomas.jpg" alt="Tomas Petricek" style="float:right;margin:10px 0px 10px 10px;" />
@@ -1097,14 +1039,14 @@ update monads are the way to go.</p>
     <h4>Blog tags</h4>
     <p>
 
-      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(105),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(36),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(16),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(30),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(5),       <a href="http://tomasp.net/blog/tag/open-source/">open source</a>&nbsp;(5),       <a href="http://tomasp.net/blog/tag/fslab/">fslab</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/linq/">linq</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(2)    </p>
+      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(109),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(34),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(18),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(36),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(6),       <a href="http://tomasp.net/blog/tag/web/">web</a>&nbsp;(10),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(7),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/fslab/">fslab</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/programming-languages/">programming languages</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/type-providers/">type providers</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/data-journalism/">data journalism</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/linq/">linq</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/coeffects/">coeffects</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/visualization/">visualization</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/machine-learning/">machine learning</a>&nbsp;(1)    </p>
 
   </div>
 </div>
 
 
   <div class="row" id="footer">
-  <footer>   
+  <footer>
     <div class="large-3 columns">
       <h4>Contact &amp; about</h4>
       <p>This site is hosted on GitHub and is generated using <a href="https://github.com/tpetricek/FSharp.Formatting">F# Formatting</a>.
@@ -1119,7 +1061,12 @@ update monads are the way to go.</p>
     </div>
     <div class="large-7 columns">
     <h4>Blog archives <a href="http://tomasp.net/rss.xml"><img src="http://tomasp.net/img/rss.gif" /></a></h4>
-      <a href="http://tomasp.net/blog/archive/june-2015/index.html">
+      <a href="http://tomasp.net/blog/archive/april-2016/index.html">
+        April 2016 (1)</a>,      <a href="http://tomasp.net/blog/archive/december-2015/index.html">
+        December 2015 (2)</a>,      <a href="http://tomasp.net/blog/archive/november-2015/index.html">
+        November 2015 (1)</a>,      <a href="http://tomasp.net/blog/archive/september-2015/index.html">
+        September 2015 (3)</a>,      <a href="http://tomasp.net/blog/archive/july-2015/index.html">
+        July 2015 (1)</a>,      <a href="http://tomasp.net/blog/archive/june-2015/index.html">
         June 2015 (1)</a>,      <a href="http://tomasp.net/blog/archive/may-2015/index.html">
         May 2015 (2)</a>,      <a href="http://tomasp.net/blog/archive/april-2015/index.html">
         April 2015 (3)</a>,      <a href="http://tomasp.net/blog/archive/march-2015/index.html">
@@ -1206,20 +1153,20 @@ update monads are the way to go.</p>
         November 2004 (2)</a>,    </div>
     <div class="large-2 columns">
       <h4>License</h4>
-      <p>Unless explicitly mentioned, all articles on this site are licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution Share Alike</a>. 
+      <p>Unless explicitly mentioned, all articles on this site are licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution Share Alike</a>.
         All source code samples are licensed under Apache 2.0.
       </p>
       <img src="http://tomasp.net/img/cc-sa.png" alt="CC License logo" />
     </div>
   </footer>
   </div>
-  
+
   <script>
   document.write('<script src=' +
   ('__proto__' in {} ? 'http://tomasp.net/js/vendor/zepto' : 'http://tomasp.net/js/vendor/jquery') +
   '.js><\/script>')
   </script>
-  
+
   <script src="http://tomasp.net/js/foundation.min.js"></script>
   <script>
     $(document).foundation();

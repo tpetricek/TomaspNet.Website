@@ -15,14 +15,14 @@
 
   <link rel="alternate" type="application/rss+xml" href="http://tomasp.net/rss.xml" title="RSS feed for Tomas Petricek's blog">
   <link rel="icon" type="image/png" href="http://tomasp.net/img/favicon.png" />
-    
+
   <!-- Reference custom CSS and tooltips -->
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/style.css" />
   <script type="text/javascript" src="http://tomasp.net/custom/tooltips.js"></script>
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/tooltips.css" />
   <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
-  <meta name="twitter:card" content="summary">
+    <meta name="twitter:card" content="summary">
   <meta name="twitter:creator" content="@tomaspetricek">
   <meta name="twitter:title" content="The F# Computation Expression Zoo (PADL'14)">
   <meta name="twitter:description" content="A month or so back, I wrote a tweet saying that F# computation expressions are amazing and no other language has anything like that. I can finally provide all the evidence by linking to a PADL 2014 paper about them.">
@@ -58,7 +58,7 @@
 
     </nav></div>
   </header>
-  
+
   
 <div class="row">
 	<div class="large-8 columns main-content">
@@ -164,20 +164,16 @@ duplicates each element in the list returning <code>[1; 1; 2; 2; 3; 3]</code>. T
 this is very close to the one of <a href="http://freepythontips.wordpress.com/2013/09/29/the-python-yield-keyword-explained/">Python generators</a>
 and looks as follows:</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l">1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
 <span class="l">4: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs44', 87)" onmouseover="showTip(event, 'fs44', 87)" class="f">duplicate</span> <span onmouseout="hideTip(event, 'fs45', 88)" onmouseover="showTip(event, 'fs45', 88)" class="i">input</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs26', 89)" onmouseover="showTip(event, 'fs26', 89)" class="i">seq</span> { 
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs44', 87)" onmouseover="showTip(event, 'fs44', 87)" class="f">duplicate</span> <span onmouseout="hideTip(event, 'fs45', 88)" onmouseover="showTip(event, 'fs45', 88)" class="i">input</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs26', 89)" onmouseover="showTip(event, 'fs26', 89)" class="i">seq</span> { 
   <span class="k">for</span> <span onmouseout="hideTip(event, 'fs46', 90)" onmouseover="showTip(event, 'fs46', 90)" class="i">num</span> <span class="k">in</span> <span onmouseout="hideTip(event, 'fs45', 91)" onmouseover="showTip(event, 'fs45', 91)" class="i">input</span> <span class="k">do</span>
     <span class="k">yield</span> <span onmouseout="hideTip(event, 'fs46', 92)" onmouseover="showTip(event, 'fs46', 92)" class="i">num</span> 
     <span class="k">yield</span> <span onmouseout="hideTip(event, 'fs46', 93)" onmouseover="showTip(event, 'fs46', 93)" class="i">num</span> }
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -199,26 +195,22 @@ more convenient and intuitive syntax.</p>
 law</a> about <code>MonadPlus</code> (which holds for lists) 
 states that the following two computations should be equivalent:</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l">1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
 <span class="l">4: </span>
 <span class="l">5: </span>
 <span class="l">6: </span>
 <span class="l">7: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs47', 94)" onmouseover="showTip(event, 'fs47', 94)" class="f">left</span> <span onmouseout="hideTip(event, 'fs48', 95)" onmouseover="showTip(event, 'fs48', 95)" class="i">in1</span> <span onmouseout="hideTip(event, 'fs49', 96)" onmouseover="showTip(event, 'fs49', 96)" class="i">in2</span> <span onmouseout="hideTip(event, 'fs50', 97)" onmouseover="showTip(event, 'fs50', 97)" class="f">f</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs26', 98)" onmouseover="showTip(event, 'fs26', 98)" class="i">seq</span> { 
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs47', 94)" onmouseover="showTip(event, 'fs47', 94)" class="f">left</span> <span onmouseout="hideTip(event, 'fs48', 95)" onmouseover="showTip(event, 'fs48', 95)" class="i">in1</span> <span onmouseout="hideTip(event, 'fs49', 96)" onmouseover="showTip(event, 'fs49', 96)" class="i">in2</span> <span onmouseout="hideTip(event, 'fs50', 97)" onmouseover="showTip(event, 'fs50', 97)" class="f">f</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs26', 98)" onmouseover="showTip(event, 'fs26', 98)" class="i">seq</span> { 
   <span class="k">for</span> <span onmouseout="hideTip(event, 'fs51', 99)" onmouseover="showTip(event, 'fs51', 99)" class="i">x</span> <span class="k">in</span> <span onmouseout="hideTip(event, 'fs48', 100)" onmouseover="showTip(event, 'fs48', 100)" class="i">in1</span> <span class="k">do</span> <span class="k">yield!</span> <span onmouseout="hideTip(event, 'fs50', 101)" onmouseover="showTip(event, 'fs50', 101)" class="f">f</span> <span onmouseout="hideTip(event, 'fs51', 102)" onmouseover="showTip(event, 'fs51', 102)" class="i">x</span>
   <span class="k">for</span> <span onmouseout="hideTip(event, 'fs51', 103)" onmouseover="showTip(event, 'fs51', 103)" class="i">x</span> <span class="k">in</span> <span onmouseout="hideTip(event, 'fs49', 104)" onmouseover="showTip(event, 'fs49', 104)" class="i">in2</span> <span class="k">do</span> <span class="k">yield!</span> <span onmouseout="hideTip(event, 'fs50', 105)" onmouseover="showTip(event, 'fs50', 105)" class="f">f</span> <span onmouseout="hideTip(event, 'fs51', 106)" onmouseover="showTip(event, 'fs51', 106)" class="i">x</span> }
 
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs52', 107)" onmouseover="showTip(event, 'fs52', 107)" class="f">right</span> <span onmouseout="hideTip(event, 'fs48', 108)" onmouseover="showTip(event, 'fs48', 108)" class="i">in1</span> <span onmouseout="hideTip(event, 'fs49', 109)" onmouseover="showTip(event, 'fs49', 109)" class="i">in2</span> <span onmouseout="hideTip(event, 'fs50', 110)" onmouseover="showTip(event, 'fs50', 110)" class="f">f</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs26', 111)" onmouseover="showTip(event, 'fs26', 111)" class="i">seq</span> { 
   <span class="k">for</span> <span onmouseout="hideTip(event, 'fs51', 112)" onmouseover="showTip(event, 'fs51', 112)" class="i">x</span> <span class="k">in</span> <span onmouseout="hideTip(event, 'fs26', 113)" onmouseover="showTip(event, 'fs26', 113)" class="i">seq</span> { <span class="k">yield!</span> <span onmouseout="hideTip(event, 'fs48', 114)" onmouseover="showTip(event, 'fs48', 114)" class="i">in1</span>; <span class="k">yield!</span> <span onmouseout="hideTip(event, 'fs49', 115)" onmouseover="showTip(event, 'fs49', 115)" class="i">in2</span> } <span class="k">do</span>
     <span class="k">yield!</span> <span onmouseout="hideTip(event, 'fs50', 116)" onmouseover="showTip(event, 'fs50', 116)" class="f">f</span> <span onmouseout="hideTip(event, 'fs51', 117)" onmouseover="showTip(event, 'fs51', 117)" class="i">x</span> }
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -242,20 +234,16 @@ not the point - the point is that we can define computation expression that clos
 the C-like syntax and could be used to define more complex computations and implement
 more complex behaviours:</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l">1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
 <span class="l">4: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs53', 118)" onmouseover="showTip(event, 'fs53', 118)" class="f">blockMessage</span> (<span onmouseout="hideTip(event, 'fs54', 119)" onmouseover="showTip(event, 'fs54', 119)" class="i">msg</span><span class="o">:</span><span onmouseout="hideTip(event, 'fs55', 120)" onmouseover="showTip(event, 'fs55', 120)" class="t">string</span>) <span class="o">=</span> <span onmouseout="hideTip(event, 'fs42', 121)" onmouseover="showTip(event, 'fs42', 121)" class="i">imperative</span> {
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs53', 118)" onmouseover="showTip(event, 'fs53', 118)" class="f">blockMessage</span> (<span onmouseout="hideTip(event, 'fs54', 119)" onmouseover="showTip(event, 'fs54', 119)" class="i">msg</span><span class="o">:</span><span onmouseout="hideTip(event, 'fs55', 120)" onmouseover="showTip(event, 'fs55', 120)" class="t">string</span>) <span class="o">=</span> <span onmouseout="hideTip(event, 'fs42', 121)" onmouseover="showTip(event, 'fs42', 121)" class="i">imperative</span> {
   <span class="k">for</span> <span onmouseout="hideTip(event, 'fs56', 122)" onmouseover="showTip(event, 'fs56', 122)" class="i">word</span> <span class="k">in</span> <span onmouseout="hideTip(event, 'fs43', 123)" onmouseover="showTip(event, 'fs43', 123)" class="i">blockedWords</span> <span class="k">do</span>
     <span class="k">if</span> <span onmouseout="hideTip(event, 'fs54', 124)" onmouseover="showTip(event, 'fs54', 124)" class="i">msg</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs57', 125)" onmouseover="showTip(event, 'fs57', 125)" class="f">Contains</span>(<span onmouseout="hideTip(event, 'fs56', 126)" onmouseover="showTip(event, 'fs56', 126)" class="i">word</span>) <span class="k">then</span> <span class="k">return</span> <span class="k">true</span>
   <span class="k">return</span> <span class="k">false</span> }
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -275,24 +263,20 @@ C-like imperative computations).</p>
 for sequences, but instead, they obey the <a href="http://www.haskell.org/haskellwiki/MonadPlus"><em>left catch</em> law</a>.
 The law statest that the following two computations are equivalent:</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l">1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
 <span class="l">4: </span>
 <span class="l">5: </span>
 <span class="l">6: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs58', 127)" onmouseover="showTip(event, 'fs58', 127)" class="i">left</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs42', 128)" onmouseover="showTip(event, 'fs42', 128)" class="i">imperative</span> {
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs58', 127)" onmouseover="showTip(event, 'fs58', 127)" class="i">left</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs42', 128)" onmouseover="showTip(event, 'fs42', 128)" class="i">imperative</span> {
   <span class="k">return</span> <span class="n">0</span>
   <span onmouseout="hideTip(event, 'fs59', 129)" onmouseover="showTip(event, 'fs59', 129)" class="f">printfn</span> <span class="s">&quot;Unreachable!&quot;</span> }
 
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs60', 130)" onmouseover="showTip(event, 'fs60', 130)" class="i">right</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs42', 131)" onmouseover="showTip(event, 'fs42', 131)" class="i">imperative</span> {
   <span class="k">return</span> <span class="n">0</span> }
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -459,16 +443,18 @@ you do not need to resort to explicit use of combinators as often.</p>
   document.writeln("<a href=\"http://tomasp.net/calendar/" + y + "/" + ml + ".html\">" +
     "<img src=\"http://tomasp.net/calendar/" + y + "/" + ml + "-preview.jpg\" style=\"border-style:none;\" />" +
     "</a>");
-</script> 
+</script>
 <p>The calendar shows a new picture each month. See photos for
-  <a href="http://tomasp.net/calendar/2005">2005</a>, <a href="http://tomasp.net/calendar/2006">2006</a>, 
-  <a href="http://tomasp.net/calendar/2007">2007</a>, <a href="http://tomasp.net/calendar/2008">2008</a>, 
-  <a href="http://tomasp.net/calendar/2009">2009</a>, <a href="http://tomasp.net/calendar/2010">2010</a>, 
+  <a href="http://tomasp.net/calendar/2005">2005</a>, <a href="http://tomasp.net/calendar/2006">2006</a>,
+  <a href="http://tomasp.net/calendar/2007">2007</a>, <a href="http://tomasp.net/calendar/2008">2008</a>,
+  <a href="http://tomasp.net/calendar/2009">2009</a>, <a href="http://tomasp.net/calendar/2010">2010</a>,
   <a href="http://tomasp.net/calendar/2011">2011</a>, <a href="http://tomasp.net/calendar/2012">2012</a>,
-  <a href="http://tomasp.net/calendar/2013">2013</a>, <a href="http://tomasp.net/calendar/2014">2014</a>
-  and the first photos of <a href="http://tomasp.net/calendar/2015">2015</a>.
+  <a href="http://tomasp.net/calendar/2013">2013</a>, <a href="http://tomasp.net/calendar/2014">2014</a>,
+  <a href="http://tomasp.net/calendar/2015">2015</a>
+  and the first photos of <a href="http://tomasp.net/calendar/2016">2016</a>.
 </p>
 </div>
+
 
     <h3>Welcome!</h3>
     <img src="http://tomasp.net/img/tomas.jpg" alt="Tomas Petricek" style="float:right;margin:10px 0px 10px 10px;" />
@@ -531,14 +517,14 @@ you do not need to resort to explicit use of combinators as often.</p>
     <h4>Blog tags</h4>
     <p>
 
-      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(105),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(36),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(16),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(30),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(5),       <a href="http://tomasp.net/blog/tag/open-source/">open source</a>&nbsp;(5),       <a href="http://tomasp.net/blog/tag/fslab/">fslab</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/linq/">linq</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(2)    </p>
+      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(109),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(34),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(18),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(36),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(6),       <a href="http://tomasp.net/blog/tag/web/">web</a>&nbsp;(10),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(7),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/fslab/">fslab</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/programming-languages/">programming languages</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/type-providers/">type providers</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/data-journalism/">data journalism</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/linq/">linq</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/coeffects/">coeffects</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/visualization/">visualization</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/machine-learning/">machine learning</a>&nbsp;(1)    </p>
 
   </div>
 </div>
 
 
   <div class="row" id="footer">
-  <footer>   
+  <footer>
     <div class="large-3 columns">
       <h4>Contact &amp; about</h4>
       <p>This site is hosted on GitHub and is generated using <a href="https://github.com/tpetricek/FSharp.Formatting">F# Formatting</a>.
@@ -553,7 +539,12 @@ you do not need to resort to explicit use of combinators as often.</p>
     </div>
     <div class="large-7 columns">
     <h4>Blog archives <a href="http://tomasp.net/rss.xml"><img src="http://tomasp.net/img/rss.gif" /></a></h4>
-      <a href="http://tomasp.net/blog/archive/june-2015/index.html">
+      <a href="http://tomasp.net/blog/archive/april-2016/index.html">
+        April 2016 (1)</a>,      <a href="http://tomasp.net/blog/archive/december-2015/index.html">
+        December 2015 (2)</a>,      <a href="http://tomasp.net/blog/archive/november-2015/index.html">
+        November 2015 (1)</a>,      <a href="http://tomasp.net/blog/archive/september-2015/index.html">
+        September 2015 (3)</a>,      <a href="http://tomasp.net/blog/archive/july-2015/index.html">
+        July 2015 (1)</a>,      <a href="http://tomasp.net/blog/archive/june-2015/index.html">
         June 2015 (1)</a>,      <a href="http://tomasp.net/blog/archive/may-2015/index.html">
         May 2015 (2)</a>,      <a href="http://tomasp.net/blog/archive/april-2015/index.html">
         April 2015 (3)</a>,      <a href="http://tomasp.net/blog/archive/march-2015/index.html">
@@ -640,20 +631,20 @@ you do not need to resort to explicit use of combinators as often.</p>
         November 2004 (2)</a>,    </div>
     <div class="large-2 columns">
       <h4>License</h4>
-      <p>Unless explicitly mentioned, all articles on this site are licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution Share Alike</a>. 
+      <p>Unless explicitly mentioned, all articles on this site are licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution Share Alike</a>.
         All source code samples are licensed under Apache 2.0.
       </p>
       <img src="http://tomasp.net/img/cc-sa.png" alt="CC License logo" />
     </div>
   </footer>
   </div>
-  
+
   <script>
   document.write('<script src=' +
   ('__proto__' in {} ? 'http://tomasp.net/js/vendor/zepto' : 'http://tomasp.net/js/vendor/jquery') +
   '.js><\/script>')
   </script>
-  
+
   <script src="http://tomasp.net/js/foundation.min.js"></script>
   <script>
     $(document).foundation();

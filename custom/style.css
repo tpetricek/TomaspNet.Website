@@ -193,7 +193,7 @@
   width:100%;
 }
 .cal-month .wrapper2 {
-  display:table-cell; 
+  display:table-cell;
   vertical-align:middle;
 }
 .cal-box h1 {
@@ -349,7 +349,7 @@ h2.first {
   line-height:150%;
   text-align:right;
   font-style:italic;
-  margin:70px 10px 30px 0px;
+  margin:80px 10px 30px 0px;
 }
 
 /* ----------------------------------------------------------------------------------- */

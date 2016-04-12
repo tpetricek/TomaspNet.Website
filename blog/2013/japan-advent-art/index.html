@@ -15,14 +15,14 @@
 
   <link rel="alternate" type="application/rss+xml" href="http://tomasp.net/rss.xml" title="RSS feed for Tomas Petricek's blog">
   <link rel="icon" type="image/png" href="http://tomasp.net/img/favicon.png" />
-    
+
   <!-- Reference custom CSS and tooltips -->
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/style.css" />
   <script type="text/javascript" src="http://tomasp.net/custom/tooltips.js"></script>
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/tooltips.css" />
   <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
-  <meta name="twitter:card" content="summary">
+    <meta name="twitter:card" content="summary">
   <meta name="twitter:creator" content="@tomaspetricek">
   <meta name="twitter:title" content="Advent Art：北斎の絵を生成する">
   <meta name="twitter:description" content="この記事は毎年日本のF#コミュニティで主催されているF# Advent Calendarへの寄稿です。それゆえに、日本文化にインスパイアされたものになっています。ここではFreebaseにある日本の画家一覧を参照して、フラクタルとFunScript（！）を組み合わせることで絵画の一部の再生成を試みています。">
@@ -58,7 +58,7 @@
 
     </nav></div>
   </header>
-  
+
   
 <div class="row">
 	<div class="large-8 columns main-content">
@@ -123,22 +123,18 @@ F#コードをJavaScriptに変換します。
 この型プロバイダーを使うには、まず <code>FSharp.Data</code> のNuGetパッケージをインストールした後、
 以下のようにしてアセンブリへの参照を追加します：</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l">1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
 <span class="l">4: </span>
 <span class="l">5: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="prep">#I</span> <span class="s">&quot;../packages/FSharp.Data.1.1.10/lib/net40&quot;</span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="prep">#I</span> <span class="s">&quot;../packages/FSharp.Data.1.1.10/lib/net40&quot;</span>
 <span class="prep">#r</span> <span class="s">&quot;FSharp.Data.dll&quot;</span>
 
 <span class="k">open</span> <span onmouseout="hideTip(event, 'fs1', 1)" onmouseover="showTip(event, 'fs1', 1)" class="i">FSharp</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs2', 2)" onmouseover="showTip(event, 'fs2', 2)" class="i">Data</span>
 <span class="k">open</span> <span onmouseout="hideTip(event, 'fs3', 3)" onmouseover="showTip(event, 'fs3', 3)" class="i">System</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs4', 4)" onmouseover="showTip(event, 'fs4', 4)" class="i">Linq</span>
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -147,16 +143,12 @@ Freebaseへのアクセスには <code>FreebaseData</code> または <code>Freeb
 後者には大量のリクエストを発行するコードを作成する場合に必要になるAPIキーを指定します。
 サンプルをきちんと動かすためには、登録を行う必要があるでしょう：</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l">1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="k">type</span> <span onmouseout="hideTip(event, 'fs5', 5)" onmouseover="showTip(event, 'fs5', 5)" class="t">FreebaseData</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs6', 6)" onmouseover="showTip(event, 'fs6', 6)" class="t">FreebaseDataProvider</span><span class="o">&lt;</span><span id="fst7" onmouseout="hideTip(event, 'fs7', 7)" onmouseover="showTip(event, 'fs7', 7, document.getElementById('fst7'))" class="omitted">(自分のキーをこの位置に入力すること)</span><span class="o">&gt;</span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">type</span> <span onmouseout="hideTip(event, 'fs5', 5)" onmouseover="showTip(event, 'fs5', 5)" class="t">FreebaseData</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs6', 6)" onmouseover="showTip(event, 'fs6', 6)" class="t">FreebaseDataProvider</span><span class="o">&lt;</span><span id="fst7" onmouseout="hideTip(event, 'fs7', 7)" onmouseover="showTip(event, 'fs7', 7, document.getElementById('fst7'))" class="omitted">(自分のキーをこの位置に入力すること)</span><span class="o">&gt;</span>
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs8', 8)" onmouseover="showTip(event, 'fs8', 8)" class="i">fb</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs5', 9)" onmouseover="showTip(event, 'fs5', 9)" class="t">FreebaseData</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs9', 10)" onmouseover="showTip(event, 'fs9', 10)" class="f">GetDataContext</span>()
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -165,22 +157,18 @@ Freebaseへのアクセスには <code>FreebaseData</code> または <code>Freeb
 (「Visual Artists」という)リストから1番目の画家を取得し、
 画家に関する情報を調べることができます：</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l">1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
 <span class="l">4: </span>
 <span class="l">5: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs10', 11)" onmouseover="showTip(event, 'fs10', 11)" class="i">art</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs8', 12)" onmouseover="showTip(event, 'fs8', 12)" class="i">fb</span><span class="o">.</span><span class="i">``Arts and Entertainment``</span><span class="o">.</span><span class="i">``Visual Art``</span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs10', 11)" onmouseover="showTip(event, 'fs10', 11)" class="i">art</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs8', 12)" onmouseover="showTip(event, 'fs8', 12)" class="i">fb</span><span class="o">.</span><span class="i">``Arts and Entertainment``</span><span class="o">.</span><span class="i">``Visual Art``</span>
 
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs11', 13)" onmouseover="showTip(event, 'fs11', 13)" class="i">ldv</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs10', 14)" onmouseover="showTip(event, 'fs10', 14)" class="i">art</span><span class="o">.</span><span class="i">``Visual Artists``</span><span class="o">.</span><span class="i">First</span>()
 <span onmouseout="hideTip(event, 'fs11', 15)" onmouseover="showTip(event, 'fs11', 15)" class="i">ldv</span><span class="o">.</span><span class="i">``Country of nationality``</span>
 <span onmouseout="hideTip(event, 'fs11', 16)" onmouseover="showTip(event, 'fs11', 16)" class="i">ldv</span><span class="o">.</span><span class="i">Artworks</span>
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -193,8 +181,7 @@ Freebaseへのアクセスには <code>FreebaseData</code> または <code>Freeb
 <p>次に、日本国籍を持った画家一覧を見つけるクエリを作成します
 (簡単のために、国籍リストの最初の1つだけしかチェックしていません)：</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l">1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
 <span class="l">4: </span>
@@ -203,10 +190,8 @@ Freebaseへのアクセスには <code>FreebaseData</code> または <code>Freeb
 <span class="l">7: </span>
 <span class="l">8: </span>
 <span class="l">9: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="c">// 日本の画家を探すためのクエリ</span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// 日本の画家を探すためのクエリ</span>
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs12', 17)" onmouseover="showTip(event, 'fs12', 17)" class="i">artists</span> <span class="o">=</span>
   <span onmouseout="hideTip(event, 'fs13', 18)" onmouseover="showTip(event, 'fs13', 18)" class="i">query</span> { <span class="k">for</span> <span onmouseout="hideTip(event, 'fs14', 19)" onmouseover="showTip(event, 'fs14', 19)" class="i">p</span> <span class="k">in</span> <span onmouseout="hideTip(event, 'fs10', 20)" onmouseover="showTip(event, 'fs10', 20)" class="i">art</span><span class="o">.</span><span class="i">``Visual Artists``</span> <span class="k">do</span>
           <span onmouseout="hideTip(event, 'fs15', 21)" onmouseover="showTip(event, 'fs15', 21)" class="k">where</span> (<span onmouseout="hideTip(event, 'fs14', 22)" onmouseover="showTip(event, 'fs14', 22)" class="i">p</span><span class="o">.</span><span class="i">``Country of nationality``</span><span class="o">.</span><span class="i">Count</span>() <span class="o">&gt;</span> <span class="n">0</span>)
@@ -215,8 +200,7 @@ Freebaseへのアクセスには <code>FreebaseData</code> または <code>Freeb
 <span class="c">// 検索された画家全員の名前を表示</span>
 <span class="k">for</span> <span onmouseout="hideTip(event, 'fs16', 25)" onmouseover="showTip(event, 'fs16', 25)" class="i">a</span> <span class="k">in</span> <span onmouseout="hideTip(event, 'fs12', 26)" onmouseover="showTip(event, 'fs12', 26)" class="i">artists</span> <span class="k">do</span> 
   <span onmouseout="hideTip(event, 'fs17', 27)" onmouseover="showTip(event, 'fs17', 27)" class="f">printfn</span> <span class="s">&quot;</span><span class="pf">%s</span><span class="s"> (</span><span class="pf">%s</span><span class="s">)&quot;</span> <span onmouseout="hideTip(event, 'fs16', 28)" onmouseover="showTip(event, 'fs16', 28)" class="i">a</span><span class="o">.</span><span class="i">Name</span> <span onmouseout="hideTip(event, 'fs16', 29)" onmouseover="showTip(event, 'fs16', 29)" class="i">a</span><span class="o">.</span><span class="i">``Date of birth``</span>
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -226,8 +210,7 @@ Takashi Murakami(村上隆)といった20世紀生まれの画家が最初に表
 また、特定の1人の画家を検索するクエリに <code>head</code> を組み合わせて、1人の画家に関する
 詳細情報を取得することもできます：</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l"> 1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
 <span class="l"> 4: </span>
@@ -238,10 +221,8 @@ Takashi Murakami(村上隆)といった20世紀生まれの画家が最初に表
 <span class="l"> 9: </span>
 <span class="l">10: </span>
 <span class="l">11: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="c">// 北斎に関する詳細情報を検索</span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// 北斎に関する詳細情報を検索</span>
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs18', 30)" onmouseover="showTip(event, 'fs18', 30)" class="i">hok</span> <span class="o">=</span> 
   <span onmouseout="hideTip(event, 'fs13', 31)" onmouseover="showTip(event, 'fs13', 31)" class="i">query</span> { <span class="k">for</span> <span onmouseout="hideTip(event, 'fs19', 32)" onmouseover="showTip(event, 'fs19', 32)" class="i">p</span> <span class="k">in</span> <span onmouseout="hideTip(event, 'fs10', 33)" onmouseover="showTip(event, 'fs10', 33)" class="i">art</span><span class="o">.</span><span class="i">``Visual Artists``</span> <span class="k">do</span>
           <span onmouseout="hideTip(event, 'fs15', 34)" onmouseover="showTip(event, 'fs15', 34)" class="k">where</span> (<span onmouseout="hideTip(event, 'fs19', 35)" onmouseover="showTip(event, 'fs19', 35)" class="i">p</span><span class="o">.</span><span class="i">Name</span> <span class="o">=</span> <span class="s">&quot;Hokusai&quot;</span>)
@@ -252,8 +233,7 @@ Takashi Murakami(村上隆)といった20世紀生まれの画家が最初に表
 <span onmouseout="hideTip(event, 'fs17', 39)" onmouseover="showTip(event, 'fs17', 39)" class="f">printfn</span> <span class="s">&quot;&lt;p&gt;</span><span class="pf">%s</span><span class="s">&lt;/p&gt;&quot;</span> (<span onmouseout="hideTip(event, 'fs18', 40)" onmouseover="showTip(event, 'fs18', 40)" class="i">hok</span><span class="o">.</span><span class="i">Blurb</span><span class="o">.</span><span class="i">First</span>())
 <span class="k">for</span> <span onmouseout="hideTip(event, 'fs16', 41)" onmouseover="showTip(event, 'fs16', 41)" class="i">a</span> <span class="k">in</span> <span onmouseout="hideTip(event, 'fs18', 42)" onmouseover="showTip(event, 'fs18', 42)" class="i">hok</span><span class="o">.</span><span class="i">Artworks</span> <span class="k">do</span>
   <span onmouseout="hideTip(event, 'fs17', 43)" onmouseover="showTip(event, 'fs17', 43)" class="f">printfn</span> <span class="s">&quot;&lt;h3&gt;</span><span class="pf">%s</span><span class="s">&lt;/h3&gt;&lt;img src=</span><span class="e">\&quot;</span><span class="s"></span><span class="pf">%s</span><span class="s"></span><span class="e">\&quot;</span><span class="s"> /&gt;&quot;</span> <span onmouseout="hideTip(event, 'fs16', 44)" onmouseover="showTip(event, 'fs16', 44)" class="i">a</span><span class="o">.</span><span class="i">Name</span> <span onmouseout="hideTip(event, 'fs16', 45)" onmouseover="showTip(event, 'fs16', 45)" class="i">a</span><span class="o">.</span><span class="i">MainImage</span>
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -323,8 +303,7 @@ Great Wave off Kanagawa, created during the 1820s.
 この反復処理は無限のシーケンスを生成する(可能性のある)
 再帰的なシーケンス式を書くことでいい具合に作成できます：</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l"> 1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
 <span class="l"> 4: </span>
@@ -336,10 +315,8 @@ Great Wave off Kanagawa, created during the 1820s.
 <span class="l">10: </span>
 <span class="l">11: </span>
 <span class="l">12: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="k">open</span> <span onmouseout="hideTip(event, 'fs3', 46)" onmouseover="showTip(event, 'fs3', 46)" class="i">System</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs21', 47)" onmouseover="showTip(event, 'fs21', 47)" class="i">Drawing</span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">open</span> <span onmouseout="hideTip(event, 'fs3', 46)" onmouseover="showTip(event, 'fs3', 46)" class="i">System</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs21', 47)" onmouseover="showTip(event, 'fs21', 47)" class="i">Drawing</span>
 <span class="k">open</span> <span onmouseout="hideTip(event, 'fs3', 48)" onmouseover="showTip(event, 'fs3', 48)" class="i">System</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs22', 49)" onmouseover="showTip(event, 'fs22', 49)" class="i">Numerics</span>
 
 <span class="c">/// それらしいフラクタルを生成するための定数</span>
@@ -351,8 +328,7 @@ Great Wave off Kanagawa, created during the 1820s.
     <span class="k">yield</span> <span onmouseout="hideTip(event, 'fs29', 58)" onmouseover="showTip(event, 'fs29', 58)" class="i">current</span>
     <span class="k">yield!</span> <span onmouseout="hideTip(event, 'fs28', 59)" onmouseover="showTip(event, 'fs28', 59)" class="f">loop</span> (<span onmouseout="hideTip(event, 'fs29', 60)" onmouseover="showTip(event, 'fs29', 60)" class="i">current</span> <span class="o">**</span> <span class="n">2.0</span> <span class="o">+</span> <span onmouseout="hideTip(event, 'fs23', 61)" onmouseover="showTip(event, 'fs23', 61)" class="i">c</span>) }
   <span onmouseout="hideTip(event, 'fs28', 62)" onmouseover="showTip(event, 'fs28', 62)" class="f">loop</span> (<span onmouseout="hideTip(event, 'fs24', 63)" onmouseover="showTip(event, 'fs24', 63)" class="t">Complex</span>(<span onmouseout="hideTip(event, 'fs26', 64)" onmouseover="showTip(event, 'fs26', 64)" class="i">x</span>, <span onmouseout="hideTip(event, 'fs27', 65)" onmouseover="showTip(event, 'fs27', 65)" class="i">y</span>))
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -362,22 +338,18 @@ Great Wave off Kanagawa, created during the 1820s.
 反復回数を数える必要があります。
 具体的には <code>Seq</code> モジュールの関数を以下のように使います：</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l">1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
 <span class="l">4: </span>
 <span class="l">5: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs31', 66)" onmouseover="showTip(event, 'fs31', 66)" class="f">countIterations</span> <span onmouseout="hideTip(event, 'fs32', 67)" onmouseover="showTip(event, 'fs32', 67)" class="i">max</span> <span onmouseout="hideTip(event, 'fs26', 68)" onmouseover="showTip(event, 'fs26', 68)" class="i">x</span> <span onmouseout="hideTip(event, 'fs27', 69)" onmouseover="showTip(event, 'fs27', 69)" class="i">y</span> <span class="o">=</span> 
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs31', 66)" onmouseover="showTip(event, 'fs31', 66)" class="f">countIterations</span> <span onmouseout="hideTip(event, 'fs32', 67)" onmouseover="showTip(event, 'fs32', 67)" class="i">max</span> <span onmouseout="hideTip(event, 'fs26', 68)" onmouseover="showTip(event, 'fs26', 68)" class="i">x</span> <span onmouseout="hideTip(event, 'fs27', 69)" onmouseover="showTip(event, 'fs27', 69)" class="i">y</span> <span class="o">=</span> 
   <span onmouseout="hideTip(event, 'fs25', 70)" onmouseover="showTip(event, 'fs25', 70)" class="f">iterate</span> <span onmouseout="hideTip(event, 'fs26', 71)" onmouseover="showTip(event, 'fs26', 71)" class="i">x</span> <span onmouseout="hideTip(event, 'fs27', 72)" onmouseover="showTip(event, 'fs27', 72)" class="i">y</span>
   <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs33', 73)" onmouseover="showTip(event, 'fs33', 73)" class="t">Seq</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs34', 74)" onmouseover="showTip(event, 'fs34', 74)" class="f">take</span> (<span onmouseout="hideTip(event, 'fs32', 75)" onmouseover="showTip(event, 'fs32', 75)" class="i">max</span> <span class="o">-</span> <span class="n">1</span>)
   <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs33', 76)" onmouseover="showTip(event, 'fs33', 76)" class="t">Seq</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs35', 77)" onmouseover="showTip(event, 'fs35', 77)" class="f">takeWhile</span> (<span class="k">fun</span> <span onmouseout="hideTip(event, 'fs36', 78)" onmouseover="showTip(event, 'fs36', 78)" class="i">v</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs24', 79)" onmouseover="showTip(event, 'fs24', 79)" class="t">Complex</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs37', 80)" onmouseover="showTip(event, 'fs37', 80)" class="f">Abs</span>(<span onmouseout="hideTip(event, 'fs36', 81)" onmouseover="showTip(event, 'fs36', 81)" class="i">v</span>) <span class="o">&lt;</span> <span class="n">2.0</span>)
   <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs33', 82)" onmouseover="showTip(event, 'fs33', 82)" class="t">Seq</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs38', 83)" onmouseover="showTip(event, 'fs38', 83)" class="f">length</span>
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -405,8 +377,7 @@ Great Wave off Kanagawa, created during the 1820s.
 この式は <code>clr1</code> から <code>clr2</code> まで、ステップ数 <code>count</code> で
 グラデーションするような色を表します：</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l">1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
 <span class="l">4: </span>
@@ -414,10 +385,8 @@ Great Wave off Kanagawa, created during the 1820s.
 <span class="l">6: </span>
 <span class="l">7: </span>
 <span class="l">8: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="c">// 2つの色を&#39;count&#39;ステップ数でグラデーションする</span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// 2つの色を&#39;count&#39;ステップ数でグラデーションする</span>
 <span class="k">let</span> (<span class="o">--</span>) <span onmouseout="hideTip(event, 'fs39', 84)" onmouseover="showTip(event, 'fs39', 84)" class="i">clr</span> <span onmouseout="hideTip(event, 'fs40', 85)" onmouseover="showTip(event, 'fs40', 85)" class="i">count</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs39', 86)" onmouseover="showTip(event, 'fs39', 86)" class="i">clr</span>, <span onmouseout="hideTip(event, 'fs40', 87)" onmouseover="showTip(event, 'fs40', 87)" class="i">count</span>
 <span class="k">let</span> (<span class="o">--&gt;</span>) ((<span onmouseout="hideTip(event, 'fs41', 88)" onmouseover="showTip(event, 'fs41', 88)" class="i">r1</span>,<span onmouseout="hideTip(event, 'fs42', 89)" onmouseover="showTip(event, 'fs42', 89)" class="i">g1</span>,<span onmouseout="hideTip(event, 'fs43', 90)" onmouseover="showTip(event, 'fs43', 90)" class="i">b1</span>), <span onmouseout="hideTip(event, 'fs44', 91)" onmouseover="showTip(event, 'fs44', 91)" class="i">count</span>) (<span onmouseout="hideTip(event, 'fs45', 92)" onmouseover="showTip(event, 'fs45', 92)" class="i">r2</span>,<span onmouseout="hideTip(event, 'fs46', 93)" onmouseover="showTip(event, 'fs46', 93)" class="i">g2</span>,<span onmouseout="hideTip(event, 'fs47', 94)" onmouseover="showTip(event, 'fs47', 94)" class="i">b2</span>) <span class="o">=</span> [
   <span class="k">for</span> <span onmouseout="hideTip(event, 'fs48', 95)" onmouseover="showTip(event, 'fs48', 95)" class="i">c</span> <span class="k">in</span> <span class="n">0</span> <span class="o">..</span> <span onmouseout="hideTip(event, 'fs44', 96)" onmouseover="showTip(event, 'fs44', 96)" class="i">count</span> <span class="o">-</span> <span class="n">1</span> <span class="k">-&gt;</span>
@@ -425,8 +394,7 @@ Great Wave off Kanagawa, created during the 1820s.
     <span class="k">let</span> <span onmouseout="hideTip(event, 'fs51', 102)" onmouseover="showTip(event, 'fs51', 102)" class="f">mid</span> <span onmouseout="hideTip(event, 'fs52', 103)" onmouseover="showTip(event, 'fs52', 103)" class="i">v1</span> <span onmouseout="hideTip(event, 'fs53', 104)" onmouseover="showTip(event, 'fs53', 104)" class="i">v2</span> <span class="o">=</span> 
       <span onmouseout="hideTip(event, 'fs54', 105)" onmouseover="showTip(event, 'fs54', 105)" class="f">int</span> (<span onmouseout="hideTip(event, 'fs50', 106)" onmouseover="showTip(event, 'fs50', 106)" class="f">float</span> <span onmouseout="hideTip(event, 'fs52', 107)" onmouseover="showTip(event, 'fs52', 107)" class="i">v1</span> <span class="o">+</span> ((<span onmouseout="hideTip(event, 'fs50', 108)" onmouseover="showTip(event, 'fs50', 108)" class="f">float</span> <span onmouseout="hideTip(event, 'fs53', 109)" onmouseover="showTip(event, 'fs53', 109)" class="i">v2</span>) <span class="o">-</span> (<span onmouseout="hideTip(event, 'fs50', 110)" onmouseover="showTip(event, 'fs50', 110)" class="f">float</span> <span onmouseout="hideTip(event, 'fs52', 111)" onmouseover="showTip(event, 'fs52', 111)" class="i">v1</span>)) <span class="o">*</span> <span onmouseout="hideTip(event, 'fs49', 112)" onmouseover="showTip(event, 'fs49', 112)" class="i">k</span>) 
     <span onmouseout="hideTip(event, 'fs55', 113)" onmouseover="showTip(event, 'fs55', 113)" class="t">Color</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs56', 114)" onmouseover="showTip(event, 'fs56', 114)" class="f">FromArgb</span>(<span onmouseout="hideTip(event, 'fs51', 115)" onmouseover="showTip(event, 'fs51', 115)" class="f">mid</span> <span onmouseout="hideTip(event, 'fs41', 116)" onmouseover="showTip(event, 'fs41', 116)" class="i">r1</span> <span onmouseout="hideTip(event, 'fs45', 117)" onmouseover="showTip(event, 'fs45', 117)" class="i">r2</span>, <span onmouseout="hideTip(event, 'fs51', 118)" onmouseover="showTip(event, 'fs51', 118)" class="f">mid</span> <span onmouseout="hideTip(event, 'fs42', 119)" onmouseover="showTip(event, 'fs42', 119)" class="i">g1</span> <span onmouseout="hideTip(event, 'fs46', 120)" onmouseover="showTip(event, 'fs46', 120)" class="i">g2</span>, <span onmouseout="hideTip(event, 'fs51', 121)" onmouseover="showTip(event, 'fs51', 121)" class="f">mid</span> <span onmouseout="hideTip(event, 'fs43', 122)" onmouseover="showTip(event, 'fs43', 122)" class="i">b1</span> <span onmouseout="hideTip(event, 'fs47', 123)" onmouseover="showTip(event, 'fs47', 123)" class="i">b2</span>) ]
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -440,8 +408,7 @@ Great Wave off Kanagawa, created during the 1820s.
 まず空色から始めて、(水を表す)青系のグラデーションをいくつか生成し、
 最後に白系のグラデーションを追加します：</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l"> 1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
 <span class="l"> 4: </span>
@@ -453,10 +420,8 @@ Great Wave off Kanagawa, created during the 1820s.
 <span class="l">10: </span>
 <span class="l">11: </span>
 <span class="l">12: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="c">// 北斎の作品で使われているカラーパレット</span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// 北斎の作品で使われているカラーパレット</span>
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs57', 124)" onmouseover="showTip(event, 'fs57', 124)" class="i">palette</span> <span class="o">=</span> 
   [| <span class="c">// 3つの空の色と、ライトブルーまでのグラデーション</span>
      <span class="k">yield!</span> (<span class="n">245</span>,<span class="n">219</span>,<span class="n">184</span>) <span class="o">--</span><span class="n">3</span><span class="o">--&gt;</span> (<span class="n">245</span>,<span class="n">219</span>,<span class="n">184</span>) 
@@ -468,8 +433,7 @@ Great Wave off Kanagawa, created during the 1820s.
      <span class="k">yield!</span> (<span class="n">61</span>,<span class="n">102</span>,<span class="n">130</span>)  <span class="o">--</span> <span class="n">8</span><span class="o">--&gt;</span> (<span class="n">249</span>,<span class="n">243</span>,<span class="n">221</span>) 
      <span class="k">yield!</span> (<span class="n">249</span>,<span class="n">243</span>,<span class="n">221</span>) <span class="o">--</span><span class="n">32</span><span class="o">--&gt;</span> (<span class="n">138</span>,<span class="n">173</span>,<span class="n">179</span>) 
      <span class="k">yield!</span> (<span class="n">138</span>,<span class="n">173</span>,<span class="n">179</span>) <span class="o">--</span><span class="n">32</span><span class="o">--&gt;</span> (<span class="n">61</span>,<span class="n">102</span>,<span class="n">130</span>) |]
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -485,8 +449,7 @@ Great Wave off Kanagawa, created during the 1820s.
 (パレットの長さを最大値として)反復の回数を数えて、
 その値をインデックスにしてパレットから色を取得します：</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l"> 1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
 <span class="l"> 4: </span>
@@ -506,10 +469,8 @@ Great Wave off Kanagawa, created during the 1820s.
 <span class="l">18: </span>
 <span class="l">19: </span>
 <span class="l">20: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span id="fst58" onmouseout="hideTip(event, 'fs58', 125)" onmouseover="showTip(event, 'fs58', 125, document.getElementById('fst58'))" class="omitted">(PictureBoxを持ったフォームを作成)</span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span id="fst58" onmouseout="hideTip(event, 'fs58', 125)" onmouseover="showTip(event, 'fs58', 125, document.getElementById('fst58'))" class="omitted">(PictureBoxを持ったフォームを作成)</span>
 
 <span class="c">// 描画する領域を指定する</span>
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs59', 126)" onmouseover="showTip(event, 'fs59', 126)" class="i">w</span> <span class="o">=</span> <span class="o">-</span><span class="n">0.4</span>, <span class="n">0.4</span>
@@ -529,8 +490,7 @@ Great Wave off Kanagawa, created during the 1820s.
     <span class="k">let</span> <span onmouseout="hideTip(event, 'fs77', 172)" onmouseover="showTip(event, 'fs77', 172)" class="i">it</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs31', 173)" onmouseover="showTip(event, 'fs31', 173)" class="f">countIterations</span> <span onmouseout="hideTip(event, 'fs57', 174)" onmouseover="showTip(event, 'fs57', 174)" class="i">palette</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs78', 175)" onmouseover="showTip(event, 'fs78', 175)" class="i">Length</span> <span onmouseout="hideTip(event, 'fs73', 176)" onmouseover="showTip(event, 'fs73', 176)" class="i">x&#39;</span> <span onmouseout="hideTip(event, 'fs76', 177)" onmouseover="showTip(event, 'fs76', 177)" class="i">y&#39;</span> 
     <span onmouseout="hideTip(event, 'fs67', 178)" onmouseover="showTip(event, 'fs67', 178)" class="i">bmp</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs79', 179)" onmouseover="showTip(event, 'fs79', 179)" class="f">SetPixel</span>(<span onmouseout="hideTip(event, 'fs69', 180)" onmouseover="showTip(event, 'fs69', 180)" class="i">x</span>, <span onmouseout="hideTip(event, 'fs71', 181)" onmouseover="showTip(event, 'fs71', 181)" class="i">y</span>, <span onmouseout="hideTip(event, 'fs57', 182)" onmouseover="showTip(event, 'fs57', 182)" class="i">palette</span><span class="o">.</span>[<span onmouseout="hideTip(event, 'fs77', 183)" onmouseover="showTip(event, 'fs77', 183)" class="i">it</span>])
 <span onmouseout="hideTip(event, 'fs80', 184)" onmouseover="showTip(event, 'fs80', 184)" class="i">i</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs81', 185)" onmouseover="showTip(event, 'fs81', 185)" class="i">Image</span> <span class="o">&lt;-</span> <span onmouseout="hideTip(event, 'fs67', 186)" onmouseover="showTip(event, 'fs67', 186)" class="i">bmp</span>
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -573,8 +533,7 @@ FunScriptには既にHTML5でマンデルブロ集合を描画するようなサ
 <p>しかし描画関数をF#の <code>async</code> ワークフローでラップして、1列描画が終わる度に
 <code>Async.Sleep</code> を呼んで絵を更新するようにすればかなりいい感じのコードになります：</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l"> 1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
 <span class="l"> 4: </span>
@@ -593,10 +552,8 @@ FunScriptには既にHTML5でマンデルブロ集合を描画するようなサ
 <span class="l">17: </span>
 <span class="l">18: </span>
 <span class="l">19: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="c">/// 列毎にスリープしつつ、非同期的にフラクタルを描画する</span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="c">/// 列毎にスリープしつつ、非同期的にフラクタルを描画する</span>
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs96', 201)" onmouseover="showTip(event, 'fs96', 201)" class="f">render</span> () <span class="o">=</span> <span onmouseout="hideTip(event, 'fs97', 202)" onmouseover="showTip(event, 'fs97', 202)" class="i">async</span> {
   <span class="c">// &lt;canvas&gt; 要素を取得して、描画する画像を作成する</span>
   <span class="k">let</span> <span onmouseout="hideTip(event, 'fs98', 203)" onmouseover="showTip(event, 'fs98', 203)" class="i">canv</span> <span class="o">:</span> <span onmouseout="hideTip(event, 'fs99', 204)" onmouseover="showTip(event, 'fs99', 204)" class="t">HTMLCanvasElement</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs100', 205)" onmouseover="showTip(event, 'fs100', 205)" class="t">Globals</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs101', 206)" onmouseover="showTip(event, 'fs101', 206)" class="i">document</span><span class="o">?</span><span class="i">canvas</span>
@@ -615,8 +572,7 @@ FunScriptには既にHTML5でマンデルブロ集合を描画するようなサ
     <span class="c">// ノンブロッキングなスリープを追加＆フラクタルを更新</span>
     <span class="k">do!</span> <span onmouseout="hideTip(event, 'fs107', 256)" onmouseover="showTip(event, 'fs107', 256)" class="t">Async</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs108', 257)" onmouseover="showTip(event, 'fs108', 257)" class="f">Sleep</span>(<span class="n">1</span>)
     <span onmouseout="hideTip(event, 'fs102', 258)" onmouseover="showTip(event, 'fs102', 258)" class="i">ctx</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs109', 259)" onmouseover="showTip(event, 'fs109', 259)" class="f">putImageData</span>(<span onmouseout="hideTip(event, 'fs84', 260)" onmouseover="showTip(event, 'fs84', 260)" class="i">img</span>, <span class="n">0.0</span>, <span class="n">0.0</span>) }
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -629,20 +585,16 @@ IDによってHTML要素を得るための動的検索演算子 <code>?</code> �
 (いずれも次の節で紹介します)。
 描画を開始するにはイベントハンドラをセットアップして <code>StartImmediate</code> メソッドを呼び出します：</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l">1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
 <span class="l">4: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="c">// 描画を開始するため、ボタンにイベントハンドラを設定する</span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// 描画を開始するため、ボタンにイベントハンドラを設定する</span>
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs110', 261)" onmouseover="showTip(event, 'fs110', 261)" class="i">go</span> <span class="o">:</span> <span onmouseout="hideTip(event, 'fs111', 262)" onmouseover="showTip(event, 'fs111', 262)" class="t">HTMLButtonElement</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs100', 263)" onmouseover="showTip(event, 'fs100', 263)" class="t">Globals</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs101', 264)" onmouseover="showTip(event, 'fs101', 264)" class="i">document</span><span class="o">?</span><span onmouseout="hideTip(event, 'fs110', 265)" onmouseover="showTip(event, 'fs110', 265)" class="i">go</span>
 <span onmouseout="hideTip(event, 'fs110', 266)" onmouseover="showTip(event, 'fs110', 266)" class="i">go</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs112', 267)" onmouseover="showTip(event, 'fs112', 267)" class="f">addEventListener_click</span>(<span class="k">fun</span> _ <span class="k">-&gt;</span> 
   <span onmouseout="hideTip(event, 'fs96', 268)" onmouseover="showTip(event, 'fs96', 268)" class="f">render</span>() <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs107', 269)" onmouseover="showTip(event, 'fs107', 269)" class="t">Async</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs113', 270)" onmouseover="showTip(event, 'fs113', 270)" class="f">StartImmediate</span>; <span class="k">null</span>)  
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -651,8 +603,7 @@ IDによってHTML要素を得るための動的検索演算子 <code>?</code> �
 (とアルファチャネル)を設定しているだけです。
 動的演算子も、 <code>getElementById</code> を呼んで、期待される型に要素をキャストして返しているだけです：</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l"> 1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
 <span class="l"> 4: </span>
@@ -663,10 +614,8 @@ IDによってHTML要素を得るための動的検索演算子 <code>?</code> �
 <span class="l"> 9: </span>
 <span class="l">10: </span>
 <span class="l">11: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="c">/// ImageDataにあるピクセルの値を特定の色に設定する</span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="c">/// ImageDataにあるピクセルの値を特定の色に設定する</span>
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs114', 271)" onmouseover="showTip(event, 'fs114', 271)" class="f">setPixel</span> (<span onmouseout="hideTip(event, 'fs84', 272)" onmouseover="showTip(event, 'fs84', 272)" class="i">img</span><span class="o">:</span><span onmouseout="hideTip(event, 'fs85', 273)" onmouseover="showTip(event, 'fs85', 273)" class="t">ImageData</span>) <span onmouseout="hideTip(event, 'fs105', 274)" onmouseover="showTip(event, 'fs105', 274)" class="i">x</span> <span onmouseout="hideTip(event, 'fs106', 275)" onmouseover="showTip(event, 'fs106', 275)" class="i">y</span> <span onmouseout="hideTip(event, 'fs115', 276)" onmouseover="showTip(event, 'fs115', 276)" class="i">width</span> (<span onmouseout="hideTip(event, 'fs116', 277)" onmouseover="showTip(event, 'fs116', 277)" class="i">r</span>, <span onmouseout="hideTip(event, 'fs117', 278)" onmouseover="showTip(event, 'fs117', 278)" class="i">g</span>, <span onmouseout="hideTip(event, 'fs118', 279)" onmouseover="showTip(event, 'fs118', 279)" class="i">b</span>) <span class="o">=</span>
   <span class="k">let</span> <span onmouseout="hideTip(event, 'fs119', 280)" onmouseover="showTip(event, 'fs119', 280)" class="i">index</span> <span class="o">=</span> (<span onmouseout="hideTip(event, 'fs105', 281)" onmouseover="showTip(event, 'fs105', 281)" class="i">x</span> <span class="o">+</span> <span onmouseout="hideTip(event, 'fs106', 282)" onmouseover="showTip(event, 'fs106', 282)" class="i">y</span> <span class="o">*</span> <span onmouseout="hideTip(event, 'fs54', 283)" onmouseover="showTip(event, 'fs54', 283)" class="f">int</span> <span onmouseout="hideTip(event, 'fs115', 284)" onmouseover="showTip(event, 'fs115', 284)" class="i">width</span>) <span class="o">*</span> <span class="n">4</span>
   <span onmouseout="hideTip(event, 'fs84', 285)" onmouseover="showTip(event, 'fs84', 285)" class="i">img</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs120', 286)" onmouseover="showTip(event, 'fs120', 286)" class="i">data</span><span class="o">.</span>[<span onmouseout="hideTip(event, 'fs119', 287)" onmouseover="showTip(event, 'fs119', 287)" class="i">index</span><span class="o">+</span><span class="n">0</span>] <span class="o">&lt;-</span> <span onmouseout="hideTip(event, 'fs116', 288)" onmouseover="showTip(event, 'fs116', 288)" class="i">r</span>
@@ -677,8 +626,7 @@ IDによってHTML要素を得るための動的検索演算子 <code>?</code> �
 <span class="c">/// IDで見つかるHTML要素を返す動的演算子</span>
 <span class="k">let</span> (<span class="o">?</span>) (<span onmouseout="hideTip(event, 'fs92', 300)" onmouseover="showTip(event, 'fs92', 300)" class="i">doc</span><span class="o">:</span><span onmouseout="hideTip(event, 'fs93', 301)" onmouseover="showTip(event, 'fs93', 301)" class="t">Document</span>) <span onmouseout="hideTip(event, 'fs121', 302)" onmouseover="showTip(event, 'fs121', 302)" class="i">name</span> <span class="o">:</span><span class="o">&#39;</span><span class="i">R</span> <span class="o">=</span>  
   <span onmouseout="hideTip(event, 'fs92', 303)" onmouseover="showTip(event, 'fs92', 303)" class="i">doc</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs122', 304)" onmouseover="showTip(event, 'fs122', 304)" class="f">getElementById</span>(<span onmouseout="hideTip(event, 'fs121', 305)" onmouseover="showTip(event, 'fs121', 305)" class="i">name</span>) <span class="o">:?&gt;</span> <span class="o">&#39;</span><span class="i">R</span>
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -873,16 +821,18 @@ FunScriptを使ってF#をJavaScriptへと変換しました。
   document.writeln("<a href=\"http://tomasp.net/calendar/" + y + "/" + ml + ".html\">" +
     "<img src=\"http://tomasp.net/calendar/" + y + "/" + ml + "-preview.jpg\" style=\"border-style:none;\" />" +
     "</a>");
-</script> 
+</script>
 <p>The calendar shows a new picture each month. See photos for
-  <a href="http://tomasp.net/calendar/2005">2005</a>, <a href="http://tomasp.net/calendar/2006">2006</a>, 
-  <a href="http://tomasp.net/calendar/2007">2007</a>, <a href="http://tomasp.net/calendar/2008">2008</a>, 
-  <a href="http://tomasp.net/calendar/2009">2009</a>, <a href="http://tomasp.net/calendar/2010">2010</a>, 
+  <a href="http://tomasp.net/calendar/2005">2005</a>, <a href="http://tomasp.net/calendar/2006">2006</a>,
+  <a href="http://tomasp.net/calendar/2007">2007</a>, <a href="http://tomasp.net/calendar/2008">2008</a>,
+  <a href="http://tomasp.net/calendar/2009">2009</a>, <a href="http://tomasp.net/calendar/2010">2010</a>,
   <a href="http://tomasp.net/calendar/2011">2011</a>, <a href="http://tomasp.net/calendar/2012">2012</a>,
-  <a href="http://tomasp.net/calendar/2013">2013</a>, <a href="http://tomasp.net/calendar/2014">2014</a>
-  and the first photos of <a href="http://tomasp.net/calendar/2015">2015</a>.
+  <a href="http://tomasp.net/calendar/2013">2013</a>, <a href="http://tomasp.net/calendar/2014">2014</a>,
+  <a href="http://tomasp.net/calendar/2015">2015</a>
+  and the first photos of <a href="http://tomasp.net/calendar/2016">2016</a>.
 </p>
 </div>
+
 
     <h3>Welcome!</h3>
     <img src="http://tomasp.net/img/tomas.jpg" alt="Tomas Petricek" style="float:right;margin:10px 0px 10px 10px;" />
@@ -945,14 +895,14 @@ FunScriptを使ってF#をJavaScriptへと変換しました。
     <h4>Blog tags</h4>
     <p>
 
-      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(105),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(36),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(16),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(30),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(5),       <a href="http://tomasp.net/blog/tag/open-source/">open source</a>&nbsp;(5),       <a href="http://tomasp.net/blog/tag/fslab/">fslab</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/linq/">linq</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(2)    </p>
+      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(109),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(34),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(18),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(36),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(6),       <a href="http://tomasp.net/blog/tag/web/">web</a>&nbsp;(10),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(7),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/fslab/">fslab</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/programming-languages/">programming languages</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/type-providers/">type providers</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/data-journalism/">data journalism</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/linq/">linq</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/coeffects/">coeffects</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/visualization/">visualization</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/machine-learning/">machine learning</a>&nbsp;(1)    </p>
 
   </div>
 </div>
 
 
   <div class="row" id="footer">
-  <footer>   
+  <footer>
     <div class="large-3 columns">
       <h4>Contact &amp; about</h4>
       <p>This site is hosted on GitHub and is generated using <a href="https://github.com/tpetricek/FSharp.Formatting">F# Formatting</a>.
@@ -967,7 +917,12 @@ FunScriptを使ってF#をJavaScriptへと変換しました。
     </div>
     <div class="large-7 columns">
     <h4>Blog archives <a href="http://tomasp.net/rss.xml"><img src="http://tomasp.net/img/rss.gif" /></a></h4>
-      <a href="http://tomasp.net/blog/archive/june-2015/index.html">
+      <a href="http://tomasp.net/blog/archive/april-2016/index.html">
+        April 2016 (1)</a>,      <a href="http://tomasp.net/blog/archive/december-2015/index.html">
+        December 2015 (2)</a>,      <a href="http://tomasp.net/blog/archive/november-2015/index.html">
+        November 2015 (1)</a>,      <a href="http://tomasp.net/blog/archive/september-2015/index.html">
+        September 2015 (3)</a>,      <a href="http://tomasp.net/blog/archive/july-2015/index.html">
+        July 2015 (1)</a>,      <a href="http://tomasp.net/blog/archive/june-2015/index.html">
         June 2015 (1)</a>,      <a href="http://tomasp.net/blog/archive/may-2015/index.html">
         May 2015 (2)</a>,      <a href="http://tomasp.net/blog/archive/april-2015/index.html">
         April 2015 (3)</a>,      <a href="http://tomasp.net/blog/archive/march-2015/index.html">
@@ -1054,20 +1009,20 @@ FunScriptを使ってF#をJavaScriptへと変換しました。
         November 2004 (2)</a>,    </div>
     <div class="large-2 columns">
       <h4>License</h4>
-      <p>Unless explicitly mentioned, all articles on this site are licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution Share Alike</a>. 
+      <p>Unless explicitly mentioned, all articles on this site are licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution Share Alike</a>.
         All source code samples are licensed under Apache 2.0.
       </p>
       <img src="http://tomasp.net/img/cc-sa.png" alt="CC License logo" />
     </div>
   </footer>
   </div>
-  
+
   <script>
   document.write('<script src=' +
   ('__proto__' in {} ? 'http://tomasp.net/js/vendor/zepto' : 'http://tomasp.net/js/vendor/jquery') +
   '.js><\/script>')
   </script>
-  
+
   <script src="http://tomasp.net/js/foundation.min.js"></script>
   <script>
     $(document).foundation();

@@ -15,14 +15,14 @@
 
   <link rel="alternate" type="application/rss+xml" href="http://tomasp.net/rss.xml" title="RSS feed for Tomas Petricek's blog">
   <link rel="icon" type="image/png" href="http://tomasp.net/img/favicon.png" />
-    
+
   <!-- Reference custom CSS and tooltips -->
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/style.css" />
   <script type="text/javascript" src="http://tomasp.net/custom/tooltips.js"></script>
   <link type="text/css" rel="stylesheet" href="http://tomasp.net/custom/tooltips.css" />
   <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
-  <meta name="twitter:card" content="summary">
+    <meta name="twitter:card" content="summary">
   <meta name="twitter:creator" content="@tomaspetricek">
   <meta name="twitter:title" content="Solving fun puzzles with F#">
   <meta name="twitter:description" content="Do you need to convince your friends and family that programming can be fun? Here is a story of how I managed to do that with F# at New Year's eve! I got a puzzle as a gift for Christmas and after a few days of failed attempts, I managed to solve it with F# in about 1 hour...">
@@ -59,7 +59,7 @@
 
     </nav></div>
   </header>
-  
+
   
 <div class="row">
 	<div class="large-8 columns main-content">
@@ -91,18 +91,14 @@ and 8 PM and, voilà, here is what I got...</p>
 <p>As with any problem in F#, we start by modeling the domain. The puzzle consists
 of parts (small cubes) that have two important properties:</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l">1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="k">type</span> <span onmouseout="hideTip(event, 'fs1', 1)" onmouseover="showTip(event, 'fs1', 1)" class="t">Color</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs2', 2)" onmouseover="showTip(event, 'fs2', 2)" class="p">Black</span> | <span onmouseout="hideTip(event, 'fs3', 3)" onmouseover="showTip(event, 'fs3', 3)" class="p">White</span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">type</span> <span onmouseout="hideTip(event, 'fs1', 1)" onmouseover="showTip(event, 'fs1', 1)" class="t">Color</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs2', 2)" onmouseover="showTip(event, 'fs2', 2)" class="p">Black</span> | <span onmouseout="hideTip(event, 'fs3', 3)" onmouseover="showTip(event, 'fs3', 3)" class="p">White</span>
 <span class="k">type</span> <span onmouseout="hideTip(event, 'fs4', 4)" onmouseover="showTip(event, 'fs4', 4)" class="t">Kind</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs5', 5)" onmouseover="showTip(event, 'fs5', 5)" class="p">Straight</span> | <span onmouseout="hideTip(event, 'fs6', 6)" onmouseover="showTip(event, 'fs6', 6)" class="p">Turn</span>
 <span class="k">type</span> <span onmouseout="hideTip(event, 'fs7', 7)" onmouseover="showTip(event, 'fs7', 7)" class="t">Part</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs1', 8)" onmouseover="showTip(event, 'fs1', 8)" class="t">Color</span> <span class="o">*</span> <span onmouseout="hideTip(event, 'fs4', 9)" onmouseover="showTip(event, 'fs4', 9)" class="t">Kind</span>
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -115,16 +111,12 @@ points from bottom to the top, we can now go to the front, back, left or right.<
 <p>We'll also need to represent positions of the parts in the final cube and the
 direction in which a part is pointing:</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l">1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="k">type</span> <span onmouseout="hideTip(event, 'fs8', 10)" onmouseover="showTip(event, 'fs8', 10)" class="t">Position</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs9', 11)" onmouseover="showTip(event, 'fs9', 11)" class="t">int</span> <span class="o">*</span> <span onmouseout="hideTip(event, 'fs9', 12)" onmouseover="showTip(event, 'fs9', 12)" class="t">int</span> <span class="o">*</span> <span onmouseout="hideTip(event, 'fs9', 13)" onmouseover="showTip(event, 'fs9', 13)" class="t">int</span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">type</span> <span onmouseout="hideTip(event, 'fs8', 10)" onmouseover="showTip(event, 'fs8', 10)" class="t">Position</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs9', 11)" onmouseover="showTip(event, 'fs9', 11)" class="t">int</span> <span class="o">*</span> <span onmouseout="hideTip(event, 'fs9', 12)" onmouseover="showTip(event, 'fs9', 12)" class="t">int</span> <span class="o">*</span> <span onmouseout="hideTip(event, 'fs9', 13)" onmouseover="showTip(event, 'fs9', 13)" class="t">int</span>
 <span class="k">type</span> <span onmouseout="hideTip(event, 'fs10', 14)" onmouseover="showTip(event, 'fs10', 14)" class="t">Direction</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs9', 15)" onmouseover="showTip(event, 'fs9', 15)" class="t">int</span> <span class="o">*</span> <span onmouseout="hideTip(event, 'fs9', 16)" onmouseover="showTip(event, 'fs9', 16)" class="t">int</span> <span class="o">*</span> <span onmouseout="hideTip(event, 'fs9', 17)" onmouseover="showTip(event, 'fs9', 17)" class="t">int</span>
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -135,14 +127,10 @@ to finish :-)).</p>
 
 <p>Now, the entire puzzle (first picture) is simply a list of parts:</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l">1: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="k">type</span> <span onmouseout="hideTip(event, 'fs11', 18)" onmouseover="showTip(event, 'fs11', 18)" class="t">Shape</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs12', 19)" onmouseover="showTip(event, 'fs12', 19)" class="t">list</span><span class="o">&lt;</span><span onmouseout="hideTip(event, 'fs7', 20)" onmouseover="showTip(event, 'fs7', 20)" class="t">Part</span><span class="o">&gt;</span>
-</pre>
-</td>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">type</span> <span onmouseout="hideTip(event, 'fs11', 18)" onmouseover="showTip(event, 'fs11', 18)" class="t">Shape</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs12', 19)" onmouseover="showTip(event, 'fs12', 19)" class="t">list</span><span class="o">&lt;</span><span onmouseout="hideTip(event, 'fs7', 20)" onmouseover="showTip(event, 'fs7', 20)" class="t">Part</span><span class="o">&gt;</span>
+</code></pre></td>
 </tr>
 </table>
 
@@ -163,8 +151,7 @@ step further in the current direction. This is easy. The interesting thing is
 when we have a <code>Turn</code> part - in that case we can go in four different directions,
 which are calculated using the following functions:</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l"> 1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
 <span class="l"> 4: </span>
@@ -180,10 +167,8 @@ which are calculated using the following functions:</p>
 <span class="l">14: </span>
 <span class="l">15: </span>
 <span class="l">16: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="c">/// Given &#39;Position&#39; and &#39;Direction&#39; calculate</span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="c">/// Given &#39;Position&#39; and &#39;Direction&#39; calculate</span>
 <span class="c">/// a new position (by adding the offsets)</span>
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs13', 21)" onmouseover="showTip(event, 'fs13', 21)" class="f">move</span> (<span onmouseout="hideTip(event, 'fs14', 22)" onmouseover="showTip(event, 'fs14', 22)" class="i">x</span>,<span onmouseout="hideTip(event, 'fs15', 23)" onmouseover="showTip(event, 'fs15', 23)" class="i">y</span>,<span onmouseout="hideTip(event, 'fs16', 24)" onmouseover="showTip(event, 'fs16', 24)" class="i">z</span>) (<span onmouseout="hideTip(event, 'fs17', 25)" onmouseover="showTip(event, 'fs17', 25)" class="i">dx</span>,<span onmouseout="hideTip(event, 'fs18', 26)" onmouseover="showTip(event, 'fs18', 26)" class="i">dy</span>,<span onmouseout="hideTip(event, 'fs19', 27)" onmouseover="showTip(event, 'fs19', 27)" class="i">dz</span>) <span class="o">=</span> (<span onmouseout="hideTip(event, 'fs14', 28)" onmouseover="showTip(event, 'fs14', 28)" class="i">x</span><span class="o">+</span><span onmouseout="hideTip(event, 'fs17', 29)" onmouseover="showTip(event, 'fs17', 29)" class="i">dx</span>, <span onmouseout="hideTip(event, 'fs15', 30)" onmouseover="showTip(event, 'fs15', 30)" class="i">y</span><span class="o">+</span><span onmouseout="hideTip(event, 'fs18', 31)" onmouseover="showTip(event, 'fs18', 31)" class="i">dy</span>, <span onmouseout="hideTip(event, 'fs16', 32)" onmouseover="showTip(event, 'fs16', 32)" class="i">z</span><span class="o">+</span><span onmouseout="hideTip(event, 'fs19', 33)" onmouseover="showTip(event, 'fs19', 33)" class="i">dz</span>)
 
@@ -199,8 +184,7 @@ which are calculated using the following functions:</p>
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs22', 47)" onmouseover="showTip(event, 'fs22', 47)" class="f">rotate</span> <span onmouseout="hideTip(event, 'fs23', 48)" onmouseover="showTip(event, 'fs23', 48)" class="i">position</span> <span onmouseout="hideTip(event, 'fs24', 49)" onmouseover="showTip(event, 'fs24', 49)" class="i">direction</span> <span class="o">:</span> <span onmouseout="hideTip(event, 'fs12', 50)" onmouseover="showTip(event, 'fs12', 50)" class="t">list</span><span class="o">&lt;</span><span onmouseout="hideTip(event, 'fs10', 51)" onmouseover="showTip(event, 'fs10', 51)" class="t">Direction</span> <span class="o">*</span> <span onmouseout="hideTip(event, 'fs8', 52)" onmouseover="showTip(event, 'fs8', 52)" class="t">Position</span><span class="o">&gt;</span> <span class="o">=</span> 
   [ <span class="k">for</span> <span onmouseout="hideTip(event, 'fs25', 53)" onmouseover="showTip(event, 'fs25', 53)" class="i">offs</span> <span class="k">in</span> <span onmouseout="hideTip(event, 'fs20', 54)" onmouseover="showTip(event, 'fs20', 54)" class="f">offsets</span> <span onmouseout="hideTip(event, 'fs24', 55)" onmouseover="showTip(event, 'fs24', 55)" class="i">direction</span> <span class="k">-&gt;</span> 
       <span onmouseout="hideTip(event, 'fs25', 56)" onmouseover="showTip(event, 'fs25', 56)" class="i">offs</span>, <span onmouseout="hideTip(event, 'fs13', 57)" onmouseover="showTip(event, 'fs13', 57)" class="f">move</span> <span onmouseout="hideTip(event, 'fs23', 58)" onmouseover="showTip(event, 'fs23', 58)" class="i">position</span> <span onmouseout="hideTip(event, 'fs25', 59)" onmouseover="showTip(event, 'fs25', 59)" class="i">offs</span> ]
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -226,8 +210,7 @@ patterns, we can build a simple dictionary with expected colors - as the
 pattern is regular, we can only store colors for smaller 2x2x2 cube (and then
 check using <code>pos / 2</code>.</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l"> 1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
 <span class="l"> 4: </span>
@@ -237,10 +220,8 @@ check using <code>pos / 2</code>.</p>
 <span class="l"> 8: </span>
 <span class="l"> 9: </span>
 <span class="l">10: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="c">/// A set of occupied positions</span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="c">/// A set of occupied positions</span>
 <span class="k">type</span> <span onmouseout="hideTip(event, 'fs26', 60)" onmouseover="showTip(event, 'fs26', 60)" class="t">CubeState</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs27', 61)" onmouseover="showTip(event, 'fs27', 61)" class="t">Set</span><span class="o">&lt;</span><span onmouseout="hideTip(event, 'fs8', 62)" onmouseover="showTip(event, 'fs8', 62)" class="t">Position</span><span class="o">&gt;</span>
 
 <span class="c">/// Expected colors for each position</span>
@@ -250,16 +231,14 @@ check using <code>pos / 2</code>.</p>
     (<span class="n">1</span>,<span class="n">1</span>,<span class="n">1</span>), <span onmouseout="hideTip(event, 'fs3', 68)" onmouseover="showTip(event, 'fs3', 68)" class="p">White</span>; (<span class="n">1</span>,<span class="n">1</span>,<span class="n">0</span>), <span onmouseout="hideTip(event, 'fs2', 69)" onmouseover="showTip(event, 'fs2', 69)" class="p">Black</span>;
     (<span class="n">1</span>,<span class="n">0</span>,<span class="n">1</span>), <span onmouseout="hideTip(event, 'fs2', 70)" onmouseover="showTip(event, 'fs2', 70)" class="p">Black</span>; (<span class="n">0</span>,<span class="n">1</span>,<span class="n">1</span>), <span onmouseout="hideTip(event, 'fs2', 71)" onmouseover="showTip(event, 'fs2', 71)" class="p">Black</span> ] 
   <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs29', 72)" onmouseover="showTip(event, 'fs29', 72)" class="f">dict</span>
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
 <p>The following <code>isValidPosition</code> function takes a <code>Position</code> and a current <code>CubeState</code>
 and checks whether it is a valid position (we'll handle colors later):</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l">1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
 <span class="l">4: </span>
@@ -268,10 +247,8 @@ and checks whether it is a valid position (we'll handle colors later):</p>
 <span class="l">7: </span>
 <span class="l">8: </span>
 <span class="l">9: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="c">/// Checks that the specified position is &quot;inside&quot; the</span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="c">/// Checks that the specified position is &quot;inside&quot; the</span>
 <span class="c">/// cube and there is no part already in that place</span>
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs30', 73)" onmouseover="showTip(event, 'fs30', 73)" class="f">isValidPosition</span> <span onmouseout="hideTip(event, 'fs23', 74)" onmouseover="showTip(event, 'fs23', 74)" class="i">position</span> (<span onmouseout="hideTip(event, 'fs31', 75)" onmouseover="showTip(event, 'fs31', 75)" class="i">state</span><span class="o">:</span><span onmouseout="hideTip(event, 'fs26', 76)" onmouseover="showTip(event, 'fs26', 76)" class="t">CubeState</span>) <span class="o">=</span> 
   <span class="k">let</span> <span onmouseout="hideTip(event, 'fs14', 77)" onmouseover="showTip(event, 'fs14', 77)" class="i">x</span>, <span onmouseout="hideTip(event, 'fs15', 78)" onmouseover="showTip(event, 'fs15', 78)" class="i">y</span>, <span onmouseout="hideTip(event, 'fs16', 79)" onmouseover="showTip(event, 'fs16', 79)" class="i">z</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs23', 80)" onmouseover="showTip(event, 'fs23', 80)" class="i">position</span>
@@ -280,8 +257,7 @@ and checks whether it is a valid position (we'll handle colors later):</p>
     <span onmouseout="hideTip(event, 'fs14', 87)" onmouseover="showTip(event, 'fs14', 87)" class="i">x</span> <span class="o">&gt;</span><span class="o">=</span> <span class="n">0</span> <span class="o">&amp;&amp;</span> <span onmouseout="hideTip(event, 'fs15', 88)" onmouseover="showTip(event, 'fs15', 88)" class="i">y</span> <span class="o">&gt;</span><span class="o">=</span> <span class="n">0</span> <span class="o">&amp;&amp;</span> <span onmouseout="hideTip(event, 'fs16', 89)" onmouseover="showTip(event, 'fs16', 89)" class="i">z</span> <span class="o">&gt;</span><span class="o">=</span> <span class="n">0</span> <span class="o">&amp;&amp;</span> 
     <span onmouseout="hideTip(event, 'fs14', 90)" onmouseover="showTip(event, 'fs14', 90)" class="i">x</span> <span class="o">&lt;=</span> <span class="n">3</span> <span class="o">&amp;&amp;</span> <span onmouseout="hideTip(event, 'fs15', 91)" onmouseover="showTip(event, 'fs15', 91)" class="i">y</span> <span class="o">&lt;=</span> <span class="n">3</span> <span class="o">&amp;&amp;</span> <span onmouseout="hideTip(event, 'fs16', 92)" onmouseover="showTip(event, 'fs16', 92)" class="i">z</span> <span class="o">&lt;=</span> <span class="n">3</span>
   <span onmouseout="hideTip(event, 'fs32', 93)" onmouseover="showTip(event, 'fs32', 93)" class="i">free</span> <span class="o">&amp;&amp;</span> <span onmouseout="hideTip(event, 'fs35', 94)" onmouseover="showTip(event, 'fs35', 94)" class="i">inRange</span>
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -295,8 +271,7 @@ the restriction on colors. We'll put the check in the main algorithm later.</p>
 (which can be <code>Straight</code> or <code>Turn</code>), current position and direction and also the current
 state, we want to get all valid directions and locations for the next part:</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l"> 1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
 <span class="l"> 4: </span>
@@ -307,10 +282,8 @@ state, we want to get all valid directions and locations for the next part:</p>
 <span class="l"> 9: </span>
 <span class="l">10: </span>
 <span class="l">11: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="c">/// Given a current Position &amp; Direction and current</span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="c">/// Given a current Position &amp; Direction and current</span>
 <span class="c">/// Part, get a list of next Positions &amp; Directions</span>
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs36', 95)" onmouseover="showTip(event, 'fs36', 95)" class="f">getPositions</span> <span onmouseout="hideTip(event, 'fs23', 96)" onmouseover="showTip(event, 'fs23', 96)" class="i">position</span> <span onmouseout="hideTip(event, 'fs24', 97)" onmouseover="showTip(event, 'fs24', 97)" class="i">direction</span> <span onmouseout="hideTip(event, 'fs37', 98)" onmouseover="showTip(event, 'fs37', 98)" class="i">part</span> <span class="o">=</span> 
   <span class="k">match</span> <span onmouseout="hideTip(event, 'fs37', 99)" onmouseover="showTip(event, 'fs37', 99)" class="i">part</span> <span class="k">with</span> 
@@ -321,8 +294,7 @@ state, we want to get all valid directions and locations for the next part:</p>
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs38', 109)" onmouseover="showTip(event, 'fs38', 109)" class="f">getValidPositions</span> <span onmouseout="hideTip(event, 'fs39', 110)" onmouseover="showTip(event, 'fs39', 110)" class="i">pos</span> <span onmouseout="hideTip(event, 'fs40', 111)" onmouseover="showTip(event, 'fs40', 111)" class="i">dir</span> <span onmouseout="hideTip(event, 'fs37', 112)" onmouseover="showTip(event, 'fs37', 112)" class="i">part</span> <span onmouseout="hideTip(event, 'fs31', 113)" onmouseover="showTip(event, 'fs31', 113)" class="i">state</span> <span class="o">=</span>
   [ <span class="k">for</span> <span onmouseout="hideTip(event, 'fs40', 114)" onmouseover="showTip(event, 'fs40', 114)" class="i">dir</span>, <span onmouseout="hideTip(event, 'fs39', 115)" onmouseover="showTip(event, 'fs39', 115)" class="i">pos</span> <span class="k">in</span> <span onmouseout="hideTip(event, 'fs36', 116)" onmouseover="showTip(event, 'fs36', 116)" class="f">getPositions</span> <span onmouseout="hideTip(event, 'fs39', 117)" onmouseover="showTip(event, 'fs39', 117)" class="i">pos</span> <span onmouseout="hideTip(event, 'fs40', 118)" onmouseover="showTip(event, 'fs40', 118)" class="i">dir</span> <span onmouseout="hideTip(event, 'fs37', 119)" onmouseover="showTip(event, 'fs37', 119)" class="i">part</span> <span class="k">do</span>
       <span class="k">if</span> <span onmouseout="hideTip(event, 'fs30', 120)" onmouseover="showTip(event, 'fs30', 120)" class="f">isValidPosition</span> <span onmouseout="hideTip(event, 'fs39', 121)" onmouseover="showTip(event, 'fs39', 121)" class="i">pos</span> <span onmouseout="hideTip(event, 'fs31', 122)" onmouseover="showTip(event, 'fs31', 122)" class="i">state</span> <span class="k">then</span> <span class="k">yield</span> <span onmouseout="hideTip(event, 'fs40', 123)" onmouseover="showTip(event, 'fs40', 123)" class="i">dir</span>, <span onmouseout="hideTip(event, 'fs39', 124)" onmouseover="showTip(event, 'fs39', 124)" class="i">pos</span> ]
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -342,8 +314,7 @@ earlier and this will contain the final result at the end.</p>
 always take out the head of the list and call the function recursively for 
 the tail (the rest of the list excluding the first part):</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l"> 1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
 <span class="l"> 4: </span>
@@ -360,10 +331,8 @@ the tail (the rest of the list excluding the first part):</p>
 <span class="l">15: </span>
 <span class="l">16: </span>
 <span class="l">17: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="c">/// Recursive function that solves the puzzle using backtracking</span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="c">/// Recursive function that solves the puzzle using backtracking</span>
 <span class="k">let</span> <span class="k">rec</span> <span onmouseout="hideTip(event, 'fs41', 125)" onmouseover="showTip(event, 'fs41', 125)" class="f">solve</span> <span onmouseout="hideTip(event, 'fs39', 126)" onmouseover="showTip(event, 'fs39', 126)" class="i">pos</span> <span onmouseout="hideTip(event, 'fs40', 127)" onmouseover="showTip(event, 'fs40', 127)" class="i">dir</span> <span onmouseout="hideTip(event, 'fs31', 128)" onmouseover="showTip(event, 'fs31', 128)" class="i">state</span> <span onmouseout="hideTip(event, 'fs42', 129)" onmouseover="showTip(event, 'fs42', 129)" class="i">trace</span> (<span onmouseout="hideTip(event, 'fs43', 130)" onmouseover="showTip(event, 'fs43', 130)" class="i">shape</span><span class="o">:</span><span onmouseout="hideTip(event, 'fs11', 131)" onmouseover="showTip(event, 'fs11', 131)" class="t">Shape</span>) <span class="o">=</span> <span onmouseout="hideTip(event, 'fs44', 132)" onmouseover="showTip(event, 'fs44', 132)" class="i">seq</span> {
   <span class="k">match</span> <span onmouseout="hideTip(event, 'fs43', 133)" onmouseover="showTip(event, 'fs43', 133)" class="i">shape</span>, <span onmouseout="hideTip(event, 'fs39', 134)" onmouseover="showTip(event, 'fs39', 134)" class="i">pos</span> <span class="k">with</span> 
   | [<span onmouseout="hideTip(event, 'fs45', 135)" onmouseover="showTip(event, 'fs45', 135)" class="i">part</span>], _ <span class="k">-&gt;</span> 
@@ -380,8 +349,7 @@ the tail (the rest of the list excluding the first part):</p>
       <span class="c">// Current part does not have the right color</span>
       <span class="c">// (so we have to go back and try another layout)</span>
       () }
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -414,8 +382,7 @@ this was an interesting experiment :-).</p>
 part, which is looking at the puzzle and noting down the exact sequence of 
 colors and kinds. I did this by writing down two strings:</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l">1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
 <span class="l">4: </span>
@@ -424,10 +391,8 @@ colors and kinds. I did this by writing down two strings:</p>
 <span class="l">7: </span>
 <span class="l">8: </span>
 <span class="l">9: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs52', 171)" onmouseover="showTip(event, 'fs52', 171)" class="i">puzzle</span> <span class="o">:</span> <span onmouseout="hideTip(event, 'fs11', 172)" onmouseover="showTip(event, 'fs11', 172)" class="t">Shape</span> <span class="o">=</span> 
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs52', 171)" onmouseover="showTip(event, 'fs52', 171)" class="i">puzzle</span> <span class="o">:</span> <span onmouseout="hideTip(event, 'fs11', 172)" onmouseover="showTip(event, 'fs11', 172)" class="t">Shape</span> <span class="o">=</span> 
   <span class="c">// Lookup tables for different colors/kinds</span>
   <span class="k">let</span> <span onmouseout="hideTip(event, 'fs53', 173)" onmouseover="showTip(event, 'fs53', 173)" class="i">clrs</span>  <span class="o">=</span> <span onmouseout="hideTip(event, 'fs29', 174)" onmouseover="showTip(event, 'fs29', 174)" class="f">dict</span> [<span class="s">&#39;b&#39;</span>, <span onmouseout="hideTip(event, 'fs2', 175)" onmouseover="showTip(event, 'fs2', 175)" class="p">Black</span>; <span class="s">&#39;w&#39;</span>, <span onmouseout="hideTip(event, 'fs3', 176)" onmouseover="showTip(event, 'fs3', 176)" class="p">White</span>]
   <span class="k">let</span> <span onmouseout="hideTip(event, 'fs54', 177)" onmouseover="showTip(event, 'fs54', 177)" class="i">kinds</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs29', 178)" onmouseover="showTip(event, 'fs29', 178)" class="f">dict</span> [<span class="s">&#39;s&#39;</span>, <span onmouseout="hideTip(event, 'fs5', 179)" onmouseover="showTip(event, 'fs5', 179)" class="p">Straight</span>; <span class="s">&#39;r&#39;</span>, <span onmouseout="hideTip(event, 'fs6', 180)" onmouseover="showTip(event, 'fs6', 180)" class="p">Turn</span>]
@@ -436,8 +401,7 @@ colors and kinds. I did this by writing down two strings:</p>
     <span class="s">&quot;srssrrrrrrrrrrsrrssrrrrssrsrrrrrrsrsrrrrrrrrrsrrsrrsrrssrrrsrrss&quot;</span> )
   <span class="o">||&gt;</span> <span onmouseout="hideTip(event, 'fs55', 181)" onmouseover="showTip(event, 'fs55', 181)" class="t">Seq</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs56', 182)" onmouseover="showTip(event, 'fs56', 182)" class="f">map2</span> (<span class="k">fun</span> <span onmouseout="hideTip(event, 'fs57', 183)" onmouseover="showTip(event, 'fs57', 183)" class="i">clr</span> <span onmouseout="hideTip(event, 'fs58', 184)" onmouseover="showTip(event, 'fs58', 184)" class="i">kind</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs53', 185)" onmouseover="showTip(event, 'fs53', 185)" class="i">clrs</span><span class="o">.</span>[<span onmouseout="hideTip(event, 'fs57', 186)" onmouseover="showTip(event, 'fs57', 186)" class="i">clr</span>], <span onmouseout="hideTip(event, 'fs54', 187)" onmouseover="showTip(event, 'fs54', 187)" class="i">kinds</span><span class="o">.</span>[<span onmouseout="hideTip(event, 'fs58', 188)" onmouseover="showTip(event, 'fs58', 188)" class="i">kind</span>])
   <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs46', 189)" onmouseover="showTip(event, 'fs46', 189)" class="t">List</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs59', 190)" onmouseover="showTip(event, 'fs59', 190)" class="f">ofSeq</span>
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -447,8 +411,7 @@ and the first direction. It turns out that starting in one of the corners works
 fine. In that case, the direction does not matter (because they will all be 
 symmetric):</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l">1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
 <span class="l">4: </span>
@@ -457,10 +420,8 @@ symmetric):</p>
 <span class="l">7: </span>
 <span class="l">8: </span>
 <span class="l">9: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="c">// Pick starting location</span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// Pick starting location</span>
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs60', 191)" onmouseover="showTip(event, 'fs60', 191)" class="i">start</span> <span class="o">=</span> (<span class="n">0</span>, <span class="n">0</span>, <span class="n">0</span>)
 <span class="c">// Run the &#39;solve&#39; function </span>
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs61', 192)" onmouseover="showTip(event, 'fs61', 192)" class="i">res</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs41', 193)" onmouseover="showTip(event, 'fs41', 193)" class="f">solve</span> <span onmouseout="hideTip(event, 'fs60', 194)" onmouseover="showTip(event, 'fs60', 194)" class="i">start</span> (<span class="n">0</span>, <span class="n">0</span>, <span class="n">1</span>) (<span onmouseout="hideTip(event, 'fs62', 195)" onmouseover="showTip(event, 'fs62', 195)" class="f">set</span> [<span onmouseout="hideTip(event, 'fs60', 196)" onmouseover="showTip(event, 'fs60', 196)" class="i">start</span>]) [<span onmouseout="hideTip(event, 'fs60', 197)" onmouseover="showTip(event, 'fs60', 197)" class="i">start</span>] <span onmouseout="hideTip(event, 'fs52', 198)" onmouseover="showTip(event, 'fs52', 198)" class="i">puzzle</span> 
@@ -469,8 +430,7 @@ symmetric):</p>
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs63', 199)" onmouseover="showTip(event, 'fs63', 199)" class="i">solution</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs55', 200)" onmouseover="showTip(event, 'fs55', 200)" class="t">Seq</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs64', 201)" onmouseover="showTip(event, 'fs64', 201)" class="f">head</span> <span onmouseout="hideTip(event, 'fs61', 202)" onmouseover="showTip(event, 'fs61', 202)" class="i">res</span> 
 <span onmouseout="hideTip(event, 'fs63', 203)" onmouseover="showTip(event, 'fs63', 203)" class="i">solution</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs55', 204)" onmouseover="showTip(event, 'fs55', 204)" class="t">Seq</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs65', 205)" onmouseover="showTip(event, 'fs65', 205)" class="f">iteri</span> (<span class="k">fun</span> <span onmouseout="hideTip(event, 'fs21', 206)" onmouseover="showTip(event, 'fs21', 206)" class="i">i</span> <span onmouseout="hideTip(event, 'fs66', 207)" onmouseover="showTip(event, 'fs66', 207)" class="i">p</span> <span class="k">-&gt;</span> 
   <span onmouseout="hideTip(event, 'fs67', 208)" onmouseover="showTip(event, 'fs67', 208)" class="f">printfn</span> <span class="s">&quot;</span><span class="pf">%d</span><span class="s"> - </span><span class="pf">%A</span><span class="s">&quot;</span> (<span onmouseout="hideTip(event, 'fs21', 209)" onmouseover="showTip(event, 'fs21', 209)" class="i">i</span><span class="o">+</span><span class="n">1</span>) <span onmouseout="hideTip(event, 'fs66', 210)" onmouseover="showTip(event, 'fs66', 210)" class="i">p</span>)
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -486,8 +446,7 @@ always know where the next part should go. This is what I did at first.</p>
 to be a perfect fit. The library provides a couple of primitive shapes like cube, 
 cone and cylinder and combinators for putting them together. Here is a simple example:</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l"> 1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
 <span class="l"> 4: </span>
@@ -500,10 +459,8 @@ cone and cylinder and combinators for putting them together. Here is a simple ex
 <span class="l">11: </span>
 <span class="l">12: </span>
 <span class="l">13: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="c">// Reference OpenTK library &amp; functional DSL</span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// Reference OpenTK library &amp; functional DSL</span>
 <span class="prep">#r</span> <span class="s">&quot;OpenTK.dll&quot;</span>
 <span class="prep">#r</span> <span class="s">&quot;OpenTK.GLControl.dll&quot;</span>
 <span class="prep">#load</span> <span class="s">&quot;functional3d.fs&quot;</span>
@@ -516,8 +473,7 @@ cone and cylinder and combinators for putting them together. Here is a simple ex
 <span onmouseout="hideTip(event, 'fs71', 220)" onmouseover="showTip(event, 'fs71', 220)" class="t">Fun</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs76', 221)" onmouseover="showTip(event, 'fs76', 221)" class="f">translate</span>
   (<span class="n">0.0</span>, <span class="n">0.0</span>, <span class="o">-</span><span class="n">1.0</span>)
   (<span onmouseout="hideTip(event, 'fs71', 222)" onmouseover="showTip(event, 'fs71', 222)" class="t">Fun</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs72', 223)" onmouseover="showTip(event, 'fs72', 223)" class="f">color</span> <span onmouseout="hideTip(event, 'fs73', 224)" onmouseover="showTip(event, 'fs73', 224)" class="t">Color</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs77', 225)" onmouseover="showTip(event, 'fs77', 225)" class="i">Red</span> <span onmouseout="hideTip(event, 'fs71', 226)" onmouseover="showTip(event, 'fs71', 226)" class="t">Fun</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs78', 227)" onmouseover="showTip(event, 'fs78', 227)" class="i">cone</span>)
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -539,8 +495,7 @@ into a single one.</p>
 a function <code>draw i</code> that takes the first <code>i</code> elements of the trace,
 generates one cube for each of them and moves them to the right position:</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l"> 1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
 <span class="l"> 4: </span>
@@ -560,10 +515,8 @@ generates one cube for each of them and moves them to the right position:</p>
 <span class="l">18: </span>
 <span class="l">19: </span>
 <span class="l">20: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span class="c">/// Convert coordinate to float values</span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="c">/// Convert coordinate to float values</span>
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs79', 228)" onmouseover="showTip(event, 'fs79', 228)" class="f">fl</span> (<span onmouseout="hideTip(event, 'fs14', 229)" onmouseover="showTip(event, 'fs14', 229)" class="i">x</span>,<span onmouseout="hideTip(event, 'fs15', 230)" onmouseover="showTip(event, 'fs15', 230)" class="i">y</span>,<span onmouseout="hideTip(event, 'fs16', 231)" onmouseover="showTip(event, 'fs16', 231)" class="i">z</span>) <span class="o">=</span> 
   (<span onmouseout="hideTip(event, 'fs80', 232)" onmouseover="showTip(event, 'fs80', 232)" class="f">float</span> <span onmouseout="hideTip(event, 'fs14', 233)" onmouseover="showTip(event, 'fs14', 233)" class="i">x</span>, <span onmouseout="hideTip(event, 'fs80', 234)" onmouseover="showTip(event, 'fs80', 234)" class="f">float</span> <span onmouseout="hideTip(event, 'fs15', 235)" onmouseover="showTip(event, 'fs15', 235)" class="i">y</span>, <span onmouseout="hideTip(event, 'fs80', 236)" onmouseover="showTip(event, 'fs80', 236)" class="f">float</span> <span onmouseout="hideTip(event, 'fs16', 237)" onmouseover="showTip(event, 'fs16', 237)" class="i">z</span>)
 
@@ -583,8 +536,7 @@ generates one cube for each of them and moves them to the right position:</p>
       <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs71', 264)" onmouseover="showTip(event, 'fs71', 264)" class="t">Fun</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs72', 265)" onmouseover="showTip(event, 'fs72', 265)" class="f">color</span> <span onmouseout="hideTip(event, 'fs84', 266)" onmouseover="showTip(event, 'fs84', 266)" class="i">color</span>
       <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs71', 267)" onmouseover="showTip(event, 'fs71', 267)" class="t">Fun</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs76', 268)" onmouseover="showTip(event, 'fs76', 268)" class="f">translate</span> (<span onmouseout="hideTip(event, 'fs79', 269)" onmouseover="showTip(event, 'fs79', 269)" class="f">fl</span> <span onmouseout="hideTip(event, 'fs66', 270)" onmouseover="showTip(event, 'fs66', 270)" class="i">p</span>) )
   <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs55', 271)" onmouseover="showTip(event, 'fs55', 271)" class="t">Seq</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs89', 272)" onmouseover="showTip(event, 'fs89', 272)" class="f">reduce</span> (<span class="o">$</span>)
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -595,20 +547,16 @@ the <code>$</code> operator gradually to all parts building the final object.</p
 <p>Now we can call this from a simple asynchronous loop that adds steps one-by-one,
 with a 200ms delay between them:</p>
 
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l">1: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
 <span class="l">4: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span onmouseout="hideTip(event, 'fs90', 273)" onmouseover="showTip(event, 'fs90', 273)" class="t">Async</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs91', 274)" onmouseover="showTip(event, 'fs91', 274)" class="f">StartImmediate</span> <span class="o">&lt;|</span> <span onmouseout="hideTip(event, 'fs92', 275)" onmouseover="showTip(event, 'fs92', 275)" class="i">async</span> { 
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs90', 273)" onmouseover="showTip(event, 'fs90', 273)" class="t">Async</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs91', 274)" onmouseover="showTip(event, 'fs91', 274)" class="f">StartImmediate</span> <span class="o">&lt;|</span> <span onmouseout="hideTip(event, 'fs92', 275)" onmouseover="showTip(event, 'fs92', 275)" class="i">async</span> { 
   <span class="k">for</span> <span onmouseout="hideTip(event, 'fs21', 276)" onmouseover="showTip(event, 'fs21', 276)" class="i">i</span> <span class="k">in</span> <span class="n">1</span> <span class="o">..</span> <span class="n">64</span> <span class="k">do</span> 
     <span class="k">do!</span> <span onmouseout="hideTip(event, 'fs90', 277)" onmouseover="showTip(event, 'fs90', 277)" class="t">Async</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs93', 278)" onmouseover="showTip(event, 'fs93', 278)" class="f">Sleep</span>(<span class="n">200</span>)
     <span onmouseout="hideTip(event, 'fs71', 279)" onmouseover="showTip(event, 'fs71', 279)" class="t">Fun</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs94', 280)" onmouseover="showTip(event, 'fs94', 280)" class="f">show</span> (<span onmouseout="hideTip(event, 'fs81', 281)" onmouseover="showTip(event, 'fs81', 281)" class="f">draw</span> <span onmouseout="hideTip(event, 'fs21', 282)" onmouseover="showTip(event, 'fs21', 282)" class="i">i</span>) }
-</pre>
-</td>
+</code></pre></td>
 </tr>
 </table>
 
@@ -781,16 +729,18 @@ learning F# is most certainly the way to go!</p>
   document.writeln("<a href=\"http://tomasp.net/calendar/" + y + "/" + ml + ".html\">" +
     "<img src=\"http://tomasp.net/calendar/" + y + "/" + ml + "-preview.jpg\" style=\"border-style:none;\" />" +
     "</a>");
-</script> 
+</script>
 <p>The calendar shows a new picture each month. See photos for
-  <a href="http://tomasp.net/calendar/2005">2005</a>, <a href="http://tomasp.net/calendar/2006">2006</a>, 
-  <a href="http://tomasp.net/calendar/2007">2007</a>, <a href="http://tomasp.net/calendar/2008">2008</a>, 
-  <a href="http://tomasp.net/calendar/2009">2009</a>, <a href="http://tomasp.net/calendar/2010">2010</a>, 
+  <a href="http://tomasp.net/calendar/2005">2005</a>, <a href="http://tomasp.net/calendar/2006">2006</a>,
+  <a href="http://tomasp.net/calendar/2007">2007</a>, <a href="http://tomasp.net/calendar/2008">2008</a>,
+  <a href="http://tomasp.net/calendar/2009">2009</a>, <a href="http://tomasp.net/calendar/2010">2010</a>,
   <a href="http://tomasp.net/calendar/2011">2011</a>, <a href="http://tomasp.net/calendar/2012">2012</a>,
-  <a href="http://tomasp.net/calendar/2013">2013</a>, <a href="http://tomasp.net/calendar/2014">2014</a>
-  and the first photos of <a href="http://tomasp.net/calendar/2015">2015</a>.
+  <a href="http://tomasp.net/calendar/2013">2013</a>, <a href="http://tomasp.net/calendar/2014">2014</a>,
+  <a href="http://tomasp.net/calendar/2015">2015</a>
+  and the first photos of <a href="http://tomasp.net/calendar/2016">2016</a>.
 </p>
 </div>
+
 
     <h3>Welcome!</h3>
     <img src="http://tomasp.net/img/tomas.jpg" alt="Tomas Petricek" style="float:right;margin:10px 0px 10px 10px;" />
@@ -853,14 +803,14 @@ learning F# is most certainly the way to go!</p>
     <h4>Blog tags</h4>
     <p>
 
-      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(105),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(36),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(16),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(30),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(5),       <a href="http://tomasp.net/blog/tag/open-source/">open source</a>&nbsp;(5),       <a href="http://tomasp.net/blog/tag/fslab/">fslab</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/fun/">fun</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/linq/">linq</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(2)    </p>
+      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(109),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(34),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(18),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(36),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(6),       <a href="http://tomasp.net/blog/tag/web/">web</a>&nbsp;(10),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(7),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/fslab/">fslab</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/programming-languages/">programming languages</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/type-providers/">type providers</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/data-journalism/">data journalism</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/linq/">linq</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/coeffects/">coeffects</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/deedle/">deedle</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/visualization/">visualization</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/machine-learning/">machine learning</a>&nbsp;(1)    </p>
 
   </div>
 </div>
 
 
   <div class="row" id="footer">
-  <footer>   
+  <footer>
     <div class="large-3 columns">
       <h4>Contact &amp; about</h4>
       <p>This site is hosted on GitHub and is generated using <a href="https://github.com/tpetricek/FSharp.Formatting">F# Formatting</a>.
@@ -875,7 +825,12 @@ learning F# is most certainly the way to go!</p>
     </div>
     <div class="large-7 columns">
     <h4>Blog archives <a href="http://tomasp.net/rss.xml"><img src="http://tomasp.net/img/rss.gif" /></a></h4>
-      <a href="http://tomasp.net/blog/archive/june-2015/index.html">
+      <a href="http://tomasp.net/blog/archive/april-2016/index.html">
+        April 2016 (1)</a>,      <a href="http://tomasp.net/blog/archive/december-2015/index.html">
+        December 2015 (2)</a>,      <a href="http://tomasp.net/blog/archive/november-2015/index.html">
+        November 2015 (1)</a>,      <a href="http://tomasp.net/blog/archive/september-2015/index.html">
+        September 2015 (3)</a>,      <a href="http://tomasp.net/blog/archive/july-2015/index.html">
+        July 2015 (1)</a>,      <a href="http://tomasp.net/blog/archive/june-2015/index.html">
         June 2015 (1)</a>,      <a href="http://tomasp.net/blog/archive/may-2015/index.html">
         May 2015 (2)</a>,      <a href="http://tomasp.net/blog/archive/april-2015/index.html">
         April 2015 (3)</a>,      <a href="http://tomasp.net/blog/archive/march-2015/index.html">
@@ -962,20 +917,20 @@ learning F# is most certainly the way to go!</p>
         November 2004 (2)</a>,    </div>
     <div class="large-2 columns">
       <h4>License</h4>
-      <p>Unless explicitly mentioned, all articles on this site are licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution Share Alike</a>. 
+      <p>Unless explicitly mentioned, all articles on this site are licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution Share Alike</a>.
         All source code samples are licensed under Apache 2.0.
       </p>
       <img src="http://tomasp.net/img/cc-sa.png" alt="CC License logo" />
     </div>
   </footer>
   </div>
-  
+
   <script>
   document.write('<script src=' +
   ('__proto__' in {} ? 'http://tomasp.net/js/vendor/zepto' : 'http://tomasp.net/js/vendor/jquery') +
   '.js><\/script>')
   </script>
-  
+
   <script src="http://tomasp.net/js/foundation.min.js"></script>
   <script>
     $(document).foundation();

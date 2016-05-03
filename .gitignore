@@ -12,3 +12,4 @@ packages/
 tools/FsBlogLib/bin
 tools/FsBlogLib/obj
 .paket/paket.exe
+.ionide.debug

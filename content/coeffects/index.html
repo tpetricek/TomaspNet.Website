@@ -250,7 +250,7 @@ especially when compiling for a GPU.</p>
       <div class="slide">
 <h3>Simple type systems</h3>
 <p>To understand effects and coeffects, let's look at how their type systems work.
-In langauges like F#, the following holds:</p>
+In languages like F#, the following holds:</p>
 <p><span class="math">\[x:{\color{ltyp} \text{int}},~ y:{\color{ltyp} \text{int}} \vdash x+y : {\color{ltyp} \text{int}}\]</span></p>
 <p>This says that in a <em>context</em> with variablex <span class="math">\(x\)</span> and <span class="math">\(y\)</span> of type <span class="math">\(\color{ltyp}\text{int}\)</span>, the
 type of expression <span class="math">\(x+y\)</span> is also <span class="math">\(\color{ltyp}\text{int}\)</span>. The context on the left of <span class="math">\(\vdash\)</span>
@@ -476,7 +476,7 @@ indentation-sensitive and so you need the <code>in</code> keyword in each
     <div class="col-md-6" data-coeff-editor="impl1">
       <div class="ia-choice ia-ui-bar-right ia-ui-morelink" data-ia-undoable="true" data-ia-key="langs-impl-1"
   data-ia-ui-kind="light" data-ia-ui-prop="border-color" data-ia-show="langs-impl-1" data-ia-hide="">
-<p>Implicit parameters are the simplest example of coeffects. In our first langauge,
+<p>Implicit parameters are the simplest example of coeffects. In our first language,
 you can use <code>?foo</code> to access a value that has to be provided by the environment.</p>
 </div>
 <table class="pre"><tr><td class="snippet"><pre class="fssnip"><code lang="coeffects-flat-impl">?fst + ?snd
@@ -575,7 +575,7 @@ which shows the typing derivations for these examples.</p>
   data-ia-ui-kind="light" data-ia-ui-prop="border-color" data-ia-show="langs-df-1" data-ia-hide="">
 <p>In dataflow languages, each expression denotes a <em>stream</em> of values. The streams can be low-level
 like hardware signals or high-level such as mouse position in modern reactive programming. In our
-langauge, you can use the <code>prev</code> keyword to access the previous value of a stream. Coeffects
+language, you can use the <code>prev</code> keyword to access the previous value of a stream. Coeffects
 infer how many past values a function may access.</p>
 </div>
 <table class="pre"><tr><td class="snippet"><pre class="fssnip"><code lang="coeffects-structural-df">fun n -&gt; (n + prev n) / 2
@@ -653,7 +653,7 @@ individual variables. Aside from dataflow, it can also capture
     </div>
     <div class="col-md-6 coeff-demo" data-coeff-mode="structural" data-coeff-kind="dataflow" id="df1">
       <div class="callout coeffect-playground" style="padding:30px;margin:0px 0px 30px 10px;">
-        <p>Experiment with dataflow programming here! You can use the same core langauge
+        <p>Experiment with dataflow programming here! You can use the same core language
 as earlier; <code>prev e</code> accesses the previous value of <code>e</code> and you can
 nest them and write <code>prev (prev e)</code>.</p>
 
@@ -687,7 +687,7 @@ nest them and write <code>prev (prev e)</code>.</p>
       <h3>Interactive dataflow programs</h3>
 <div class="ia-choice ia-ui-bar-left ia-ui-morelink" data-ia-undoable="true" data-ia-key="langs-df-3"
   data-ia-ui-kind="light" data-ia-ui-prop="border-color" data-ia-show="langs-df-3" data-ia-hide="">
-<p>Dataflow programming can be nciely used to handle user inputs. You can try it here
+<p>Dataflow programming can be nicely used to handle user inputs. You can try it here
 by writing programs that compute value based on current and past X and Y coordinates
 of a mouse or finger. Click on the "load" button of the snippet and start moving your mouse
 pointer or touching in the dedicated box. The X and Y coordinates will be passed as inputs
@@ -780,7 +780,7 @@ you move your mose faster and smaller spikes when you move it slowly.</p>
     <div class="hidden-sm col-md-3"></div>
     <div class="col-sm-12 col-md-7 lside no-bullets">
       <h2>Why languages need coeffects?</h2>
-<p>In the interactive playground above, you can write fun programs using a dataflow langauge
+<p>In the interactive playground above, you can write fun programs using a dataflow language
 with the <code>prev</code> keyword. But what do you get from using <em>coeffect</em> system to track how
 many past values are needed? <span class="flspan" style="margin-top:50px">Most importantly,
 coeffects give you a unified way of <em>thinking</em> about <em>context-requirements</em>.</span></p>
@@ -793,7 +793,7 @@ For implicit parameters, the requirements are also immediately visible.</p>
 </li>
 <li>
 <i class="fa fa-bolt"></i>
-<p><strong>Efficiencly.</strong> By knowing how many past values we'll need, we can pre-allocate a
+<p><strong>Efficiency.</strong> By knowing how many past values we'll need, we can pre-allocate a
 fixed-size buffer to keep the past X and Y coordinates. This means that code can run
 faster and we can also better avoid potential memory leaks.</p>
 </li>
@@ -1031,9 +1031,9 @@ the requirements of <span class="math">\(e_1\)</span>.
 system. Each concrete coeffect system tracks different information - dataflow <em>number</em>
 of past values and implicit parameters <em>sets</em> of names.</p>
 <p>To capture this, the type system is parameterized by a <em>coeffect algebra</em>. This consists
-ofthe <span class="math">\({\color{coeff} \wedge}\)</span> operator used in lambda abstraction together with
+of the <span class="math">\({\color{coeff} \wedge}\)</span> operator used in lambda abstraction together with
 <span class="math">\({\color{coeff} \circledast},{\color{coeff} \oplus}\)</span> and a special value <span class="math">\({\color{coeff} \sf \text{use}}\)</span>.
-The sidebar on the left (or above) shows the general type system and its cocrete instantiation
+The sidebar on the left (or above) shows the general type system and its concrete instantiation
 for implicit parameters or dataflow. For more details, see <a href="#papers">the coeffect papers</a>!</p>
 <p>The second interesting feature is that there is a <em>flat</em> and a <em>structural</em> version of the
 system. The flat one adds just one annotation for the whole context. The structural version adds
@@ -1125,8 +1125,8 @@ that corresponds to <span class="math">\(x\)</span> and becomes the annotation o
           onclick="$('#tps-input').val(samples[$('#tps-langchooser').val()])"><i class="fa fa-folder-open-o"></i>Open sample</button>
         <select class="form-control" id="tps-langchooser" style="width:71%; margin:0px 0px 0px 4%">
           <option value="flat-implicit">Implicit parameters (flat)</option>
-          <option value="flat-dataflow">Dataflow langauge (flat)</option>
-          <option value="structural-dataflow">Dataflow langauge (structural)</option>
+          <option value="flat-dataflow">Dataflow language (flat)</option>
+          <option value="structural-dataflow">Dataflow language (structural)</option>
         </select>
         <textarea class="form-control" id="tps-input" style="font-family:inconsolata;margin-top:5px;height:150px">
 let dyn snd = ?fst + snd in
@@ -1397,8 +1397,8 @@ of the parameters separately.</p>
             <div style="padding-top:5px">
             <select class="form-control" id="trsl-langchooser" style="width:92%; margin:0px 0px 0px 4%">
               <option value="flat-implicit">Implicit parameters (flat)</option>
-              <option value="flat-dataflow">Dataflow langauge (flat)</option>
-              <option value="structural-dataflow">Dataflow langauge (structural)</option>
+              <option value="flat-dataflow">Dataflow language (flat)</option>
+              <option value="structural-dataflow">Dataflow language (structural)</option>
             </select>
             <textarea class="form-control" id="trsl-input" style="font-family:inconsolata;margin-top:5px;height:150px">?param</textarea>
             </div>

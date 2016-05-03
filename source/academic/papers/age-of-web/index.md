@@ -56,5 +56,5 @@ If you want to cite the paper, you can use the following BibTeX information.
 
 
 If you have any comments, suggestions or related ideas, I'll be happy to 
-hear from you! Send me an email at [tomas.petricek@cl.cam.ac.uk](mailto:tomas.petricek@cl.cam.ac.uk)
+hear from you! Send me an email at [tomas@tomasp.net](mailto:tomas@tomasp.net)
 or get in touch via Twitter at [@@tomaspetricek](http://twitter.com/tomaspetricek).

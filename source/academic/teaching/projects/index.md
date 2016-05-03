@@ -292,7 +292,7 @@ I'm happy to supervise other interesting projects related to functional programm
 (and other functional languages), programming with data, web programming and JavaScript, as well as 
 distributed, concurrent and reactive programming. This is not a complete list, just a list of 
 areas that I know more about (and might be able to supervise better). If you have some 
-idea that you'd like to discuss,  [get in touch](mailto:tomas.petricek@cl.cam.ac.uk)!
+idea that you'd like to discuss,  [get in touch](mailto:tomas@tomasp.net)!
 
 </div>
 </div>

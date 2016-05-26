@@ -68,46 +68,59 @@
   <!-- Print more details about the first blog post -->
 
   <div>
-  <h1><a href="http://tomasp.net/blog/2016/coeffects-playground/index.html">Coeffects playground: Interactive essay based on my PhD thesis</a></h1>
-  <p>In my <a href="http://tomasp.net/academic/theses/coeffects/">PhD thesis</a>, I worked on integrating
-<em>contextual information</em> into a type system of functional programming languages. For example,
-say your mobile application accesses something from the environment such as GPS sensor or your
-Facebook friends. With <em>coeffects</em>, this could be a part of the type. Rather than having type
-<code>string -&gt; Person</code>, the type of a function would also include resources and would be
-<code>string -{ gps, fb }-&gt; Person</code>. I wrote <a href="http://tomasp.net/blog/2014/why-coeffects-matter/">longer introduction to coeffects</a> on this
-blog before.</p>
+  <h1><a href="http://tomasp.net/blog/2016/philopl-questions/index.html">Philosophical questions about programming</a></h1>
+  <p>Combining philosophy and computer science might appear a bit odd. The disciplines have very little
+overlap. Both philosophers and computer scientists get taught formal logic at some point in their
+undergraduate courses, but that's probably as close as they get.</p>
 
-<p>As one might expect, the PhD thesis is more theoretical and it looks at other kinds of contextual
-information (e.g. past values in stream-based data-flow programming) and it identifies abstract
-<em>coeffect algebra</em> that captures the essence of contextual information that can be nicely tracked
-in a functional language.</p>
+<p>But the fact that the disciplines do not overlap much might very well be the reason why putting them
+together is interesting. In an article about <a href="http://jods.mitpress.mit.edu/pub/designandscience">Design and Science</a>,
+Joichi Ito (from MIT Media Lab), describes the term <em>antidisciplinary</em> and nicely
+summarizes why looking at such unusual combinations is worthwhile:</p>
 
-<p>I always thought that the most interesting thing about the thesis is that it gives people a nice way
-to think about <em>context</em> in a unified way. Sadly, the very theoretical presentation in the thesis
-makes this quite hard for those who are not doing programming language theory.</p>
+<blockquote>
+  <p>Interdisciplinary work is when people from different disciplines work together. But
+<em>antidisciplinary</em> is something very different; it's about working in spaces that
+simply do not fit into any existing academic discipline.</p>
 
-<p>To make it a bit easier to explore the ideas behind coeffects, I wrote a coeffect playground
-that runs in a web browser and lets you learn about coeffects, play with two example context-aware languages,
-run a couple of demos and learn more about how the theory works. Go <a href="http://tomasp.net/coeffects/">check it out now</a>
-or continue below to learn more about some interesting internals!</p>
+  <p>[When focusing on disciplines, it] takes more and more effort and resources to make a
+unique contribution. While the space between and beyond the disciplines can be academically
+risky, it (...) requires fewer resources to try promising, unorthodox
+approaches; and provides the potential to have tremendous impact (...).</p>
+</blockquote>
 
-<a href="http://tomasp.net/coeffects/">
-<img src="http://tomasp.net/blog/2016/coeffects-playground/screenshot.png" style="width:90%; margin:0px 5% 10px 5%" />
-</a>
+<p>As you can see from some of my <a href="http://tomasp.net/blog/tag/philosophy/">earlier blog posts</a>,
+I think the space between philosophy and computer science is an interesting area. In this article,
+I'll explain why. Unlike some of the previous posts (about <a href="http://tomasp.net/blog/2015/failures/index.html">miscomputation</a>,
+<a href="http://tomasp.net/blog/2015/against-types/index.html">types</a> and <a href="http://tomasp.net/blog/2014/philosophy-pl/index.html">philosophy of
+science</a>), this post is quite broad and
+does not go into much detail.</p>
+
+<p>At the danger of sounding like a collection of random rants, I look at a number of
+questions that arise when you look at computer science from the philosophical perspective,
+but I won't attempt to answer them. You can see this article as a research proposal too -
+and I hope to write more about some of the questions in the future.
+I wish antidisciplinary work was more common and I believe looking
+into such questions could have the tremendous impact that Joichi Ito mentioned.</p>
 
 
 
   <p class="meta">
-    <span><strong>Published</strong>: Tuesday, 12 April 2016, 3:33 PM</span>
+    <span><strong>Published</strong>: Thursday, 26 May 2016, 1:33 PM</span>
       <br />
-      <span class="tags"><strong>Tags</strong>: coeffects, research, functional programming, programming languages </span>
+      <span class="tags"><strong>Tags</strong>: philosophy, programming languages </span>
     <br />
-    <a href="http://tomasp.net/blog/2016/coeffects-playground/index.html">Read the complete article</a>
+    <a href="http://tomasp.net/blog/2016/philopl-questions/index.html">Read the complete article</a>
   </p>
   </div>
 
   <!-- For remaining articles, just print short summary with abstract -->
   <h1><a href="http://tomasp.net/blog/index.html">Recent articles from my blog</a></h1>
+    <h2><a href="http://tomasp.net/blog/2016/coeffects-playground/index.html">Coeffects playground: Interactive essay based on my PhD thesis</a></h2>
+    <p class="smdate">Tuesday, 12 April 2016, 3:33 PM</p>
+    <p class="description">
+        In my PhD thesis, I worked on integrating contextual information into a type system of functional programming languages. Most of the work is on theory, but I wanted to make it more accessible. To do this, I built an interactive essay where you can write, run, type check and parse simple context-aware programs and learn more about the (dry) theory in a more fun way.
+    </p>
     <h2><a href="http://tomasp.net/blog/2015/happy-new-year-tweets/index.html">Happy New Year 2016 around the World</a></h2>
     <p class="smdate">Wednesday, 30 December 2015, 6:09 PM</p>
     <p class="description">
@@ -122,11 +135,6 @@ or continue below to learn more about some interesting internals!</p>
     <p class="smdate">Wednesday, 18 November 2015, 2:03 AM</p>
     <p class="description">
         I was fortunate enough to make it to the Microsoft MVP summit this year. I didn't learn anything secret (and even if I did, I wouldn't tell you!) but one thing Idid learn is that there is a lot of interest in data science and machine learning. What was less expected and more exciting was that there was also a lot of interest in F#!
-    </p>
-    <h2><a href="http://tomasp.net/blog/2015/thegamma/index.html">The Gamma: Simple code behind interactive articles</a></h2>
-    <p class="smdate">Monday, 28 September 2015, 5:07 PM</p>
-    <p class="description">
-        Computer programming may not be the new literacy, but it is finding its way intomany areas of modern society. In particular, data journalism turns traditional news reports from a mix of text and images into something that is much closer to a computer program.By treating articles as programs, we can make data journalism more transparent, reproducible and interactive. This is what I've been working on recently, so check out the prototype!
     </p>
 
   <p class="meta">
@@ -243,7 +251,8 @@ or continue below to learn more about some interesting internals!</p>
     </div>
     <div class="large-7 columns">
     <h4>Blog archives <a href="http://tomasp.net/rss.xml"><img src="http://tomasp.net/img/rss.gif" /></a></h4>
-      <a href="http://tomasp.net/blog/archive/april-2016/index.html">
+      <a href="http://tomasp.net/blog/archive/may-2016/index.html">
+        May 2016 (1)</a>,      <a href="http://tomasp.net/blog/archive/april-2016/index.html">
         April 2016 (1)</a>,      <a href="http://tomasp.net/blog/archive/december-2015/index.html">
         December 2015 (2)</a>,      <a href="http://tomasp.net/blog/archive/november-2015/index.html">
         November 2015 (1)</a>,      <a href="http://tomasp.net/blog/archive/september-2015/index.html">

@@ -4,6 +4,47 @@
     <link>http://tomasp.net</link>
     <description>Writing about software development in F# and .NET, sharing materials from my F# trainings and talks, writing about programming language research and theory.</description>
     <item>
+      <title>Philosophical questions about programming</title>
+      <guid>http://tomasp.net/blog/2016/philopl-questions</guid>
+      <link>http://tomasp.net/blog/2016/philopl-questions/index.html</link>
+      <pubDate>Thu, 26 May 2016 12:33:26 GMT</pubDate>
+      <description>&lt;p&gt;Combining philosophy and computer science might appear a bit odd. The disciplines have very little
+overlap. Both philosophers and computer scientists get taught formal logic at some point in their
+undergraduate courses, but that's probably as close as they get.&lt;/p&gt;
+
+&lt;p&gt;But the fact that the disciplines do not overlap much might very well be the reason why putting them
+together is interesting. In an article about &lt;a href="http://jods.mitpress.mit.edu/pub/designandscience"&gt;Design and Science&lt;/a&gt;,
+Joichi Ito (from MIT Media Lab), describes the term &lt;em&gt;antidisciplinary&lt;/em&gt; and nicely
+summarizes why looking at such unusual combinations is worthwhile:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Interdisciplinary work is when people from different disciplines work together. But
+&lt;em&gt;antidisciplinary&lt;/em&gt; is something very different; it's about working in spaces that
+simply do not fit into any existing academic discipline.&lt;/p&gt;
+
+  &lt;p&gt;[When focusing on disciplines, it] takes more and more effort and resources to make a
+unique contribution. While the space between and beyond the disciplines can be academically
+risky, it (...) requires fewer resources to try promising, unorthodox
+approaches; and provides the potential to have tremendous impact (...).&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;As you can see from some of my &lt;a href="http://tomasp.net/blog/tag/philosophy/"&gt;earlier blog posts&lt;/a&gt;,
+I think the space between philosophy and computer science is an interesting area. In this article,
+I'll explain why. Unlike some of the previous posts (about &lt;a href="http://tomasp.net/blog/2015/failures/index.html"&gt;miscomputation&lt;/a&gt;,
+&lt;a href="http://tomasp.net/blog/2015/against-types/index.html"&gt;types&lt;/a&gt; and &lt;a href="http://tomasp.net/blog/2014/philosophy-pl/index.html"&gt;philosophy of
+science&lt;/a&gt;), this post is quite broad and
+does not go into much detail.&lt;/p&gt;
+
+&lt;p&gt;At the danger of sounding like a collection of random rants, I look at a number of
+questions that arise when you look at computer science from the philosophical perspective,
+but I won't attempt to answer them. You can see this article as a research proposal too -
+and I hope to write more about some of the questions in the future.
+I wish antidisciplinary work was more common and I believe looking
+into such questions could have the tremendous impact that Joichi Ito mentioned.&lt;/p&gt;
+
+</description>
+    </item>
+    <item>
       <title>Coeffects playground: Interactive essay based on my PhD thesis</title>
       <guid>http://tomasp.net/blog/2016/coeffects-playground</guid>
       <link>http://tomasp.net/blog/2016/coeffects-playground/index.html</link>
@@ -583,31 +624,6 @@ and also the &lt;a href="http://manning.com/petricek2"&gt;F# Deep Dives&lt;/a&gt
 going to fill most of the blog post with useful information about F#, the F# Software Foundation
 and the F# community (but if you really just want to read about my courses, scroll down to the
 &lt;a href="http://tomasp.net/blog/2015/why-fsharp-in-2015/index.html#courses"&gt;second section&lt;/a&gt;).&lt;/p&gt;
-
-</description>
-    </item>
-    <item>
-      <title>Composing Christmas with F#</title>
-      <guid>http://tomasp.net/blog/2014/composing-christmas</guid>
-      <link>http://tomasp.net/blog/2014/composing-christmas/index.html</link>
-      <pubDate>Mon, 08 Dec 2014 17:22:28 GMT</pubDate>
-      <description>&lt;img src="http://tomasp.net/blog/2014/composing-christmas/glowing.gif" style="float:right;margin:20px; width:200px" /&gt; 
-
-&lt;p&gt;This blog post is a part of the awesome &lt;a href="https://sergeytihon.wordpress.com/2014/11/24/f-advent-calendar-in-english-2014/"&gt;F# Advent Calendar&lt;/a&gt;
-(see the previous entry about &lt;a href="http://richardminerich.com/2014/12/developing-an-algorithm-in-f-fast-rotational-alignments-with-gospers-hack/"&gt;writing algorithms in F#&lt;/a&gt;
-from Rick Minerich), so it inevitably needs a Christmassy theme. However, there is also 
-going to be a serious theme for the blog post, which is domain-specific languages.&lt;/p&gt;
-
-&lt;p&gt;One of my favorite examples of Domain-Specific Languages is a simple OpenGL library
-that I wrote some time ago for composing 3D graphics in F#. You can see it in my 
-NDC 2014 talk &lt;a href="http://vimeo.com/97315970"&gt;Domain Specific Languages, the functional way&lt;/a&gt;
-and I also used it for &lt;a href="http://tomasp.net/blog/2014/puzzling-fsharp/index.html"&gt;Solving Puzzles with F#&lt;/a&gt;
-earlier on this blog.&lt;/p&gt;
-
-&lt;p&gt;The nice thing about the library is that it is very simple, but is rich enough to demonstrate
-all the important concepts. In fact, the library is so easy to use that &lt;a href="https://twitter.com/ptrelford/status/538098139430137856"&gt;even 8 years old can
-do a talk about it&lt;/a&gt;. So, if you're
-spending Christmas with your family, perhaps you can go through this article with your children!&lt;/p&gt;
 
 </description>
     </item>

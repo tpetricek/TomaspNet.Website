@@ -1,5 +1,20 @@
-// Explicit 
+// Explicit
 var news =
+{
+  "date": "June 23, New York",
+  "info": "\
+  <p>I will be running a <a href='https://www.eventbrite.com/e/functional-web-development-with-f-and-suave-tickets-25477337402'>workshop on asynchronous web programming with F# + Suave</a>! \
+  Group discounts? On-site trainings? \
+  <a href='mailto:tomas@tomasp.net'>Send me an email</a>!</p> \
+  <div style=\"text-align:left\"> \
+  <a href='https://www.eventbrite.com/e/functional-web-development-with-f-and-suave-tickets-25477337402'> \
+    <img src='http://tomasp.net/news/content/suave.png' style='border:none;margin-left:20px;width:240px' /> \
+  </a> \
+  </div>"
+}
+
+// Pluralsight
+var news1 =
 {
   "date": "Published 2015, Pluralsight",
   "info": "\
@@ -13,8 +28,7 @@ var news =
     <a href='mailto:tomas@tomasp.net'>Send me an email</a>! \
   </p>"
 }
-
-// Lanyrd 
+// Lanyrd
 var news0 =
   {
     "date": "",

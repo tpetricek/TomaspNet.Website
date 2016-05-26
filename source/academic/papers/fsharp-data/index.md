@@ -26,7 +26,7 @@ safety guarantees when contrasted with the widely used weakly typed techniques.
 ## Paper and more information
 
  - Download [the paper (PDF)](fsharp-data.pdf)
- - [Suplementary screencast](https://vimeo.com/165159144) shows the library in action
+ - [Supplementary screencast](https://vimeo.com/165159144) shows the library in action
  - For more info, see [F# Data homepage](http://fsharp.github.io/FSharp.Data/)
  - [Poster about F# Data (PDF)](fsharp-data-poster.pdf) from Student Research Competition
 

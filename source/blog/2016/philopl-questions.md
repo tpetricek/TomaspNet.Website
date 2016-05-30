@@ -77,7 +77,7 @@ be the most common ways of evaluating work in programming language research - bu
 disciplines work differently.
 
 Perhaps more importantly, did we choose the above evaluation criteria because we think that this
-is what good science should be, or did we choose them just because they are _easy to asses_?
+is what good science should be, or did we choose them just because they are _easy to assess_?
 Asking whether a programming language is more intuitive or easier to use is not "scientific" - but
 is that just because our field (somehow) converged on demarcation criteria that exclude such
 questions?
@@ -124,10 +124,10 @@ physicists. We do not use mathematics as an _analysis tool_, but we try to use i
 And unlike physics, I'm not sure we have long enough history to support the idea that this method works well.
 
 For example, one big difference between the use of mathematics in natural sciences and in
-computer science is that physicists cannot _change the world_ to make it the mathematics work.
+computer science is that physicists cannot _change the world_ to make the mathematics work.
 They have to tweak the models so that they get close to how reality works. In computer science,
 when we build something that follows our intuition, but does not quite work mathematically, we
-will can just change it so that the mathematics works. But does this take us further from the
+can just change it so that the mathematics works. But does this take us further from the
 original idea, just because we choose mathematics as our construction tool?
 
 What we think
@@ -142,7 +142,7 @@ this is a good way (or, at least, what would be the alternatives).
 In this section, I'll take one more step back and focus more at the thinking behind
 what we are doing rather than at the concrete scientific outcomes. Just like _scientific
 practice_ has implicit assumptions (the "right way" of doing things), so does thinking have
-have its hidden assumptions.
+its hidden assumptions.
 
 ### What we can _not_ think?
 
@@ -189,7 +189,7 @@ of mathematics](https://en.wikipedia.org/wiki/Philosophy_of_mathematics) (and th
 other positions too). Are numbers abstract entities that exist independently of humans that we
 discover? Or are they just things we constructed based on our environments?
 
-You might think this does not have much practical consequences, but
+You might think this does not have many practical consequences, but
 I just had to put this question on the list after seeing Phil Wadler's talk
 [Propositions as Types](https://www.youtube.com/watch?v=aeRVdYN6fE8). In the talk, he uses the
 idea that some mathematical objects (lambda calculus, in particular) are _discovered_ while other

@@ -4,6 +4,29 @@
     <link>http://tomasp.net</link>
     <description>Writing about software development in F# and .NET, sharing materials from my F# trainings and talks, writing about programming language research and theory.</description>
     <item>
+      <title>Upcoming F# events - learn Suave, FsLab &amp; more!</title>
+      <guid>http://tomasp.net/blog/2016/fsharp-events</guid>
+      <link>http://tomasp.net/blog/2016/fsharp-events/index.html</link>
+      <pubDate>Tue, 31 May 2016 00:51:50 GMT</pubDate>
+      <description>&lt;p&gt;Some people in the F# community have reputation for traveling too much. I do not know how that is
+possible, but as it happens, I will be visiting a couple of places in June and doing a number of
+talks, workshops and courses. So, if you are thinking about getting into F#, web development with
+F# using the &lt;a href="http://suave.io"&gt;amazing Suave library&lt;/a&gt;, playing with the new trendy F# to JavaScript
+compiler &lt;a href="http://fsprojects.github.io/Fable"&gt;called Fable&lt;/a&gt;, or learning about the recent
+features in &lt;a href="https://twitter.com/fslaborg/status/728397249697488896"&gt;FsLab and Ionide&lt;/a&gt;, then
+continue reading!&lt;/p&gt;
+
+&lt;img src="http://tomasp.net/blog/2016/fsharp-events/map.png" style="margin:0px 5% 20px 5%; width:90%" /&gt;
+
+&lt;p&gt;The map includes all my travels, but not all of the pins are for F# events. I'm visiting Prague
+just to see my family (even though there is a &lt;a href="http://www.fsharping.cz"&gt;new awesome F# meetup there&lt;/a&gt;)
+and my stop in Paris is attending &lt;a href="http://www.hapoc.org/hapop3"&gt;Symposium for the History and Philosophy of
+Programming&lt;/a&gt; (although we might still do something with the local F#
+group too).&lt;/p&gt;
+
+</description>
+    </item>
+    <item>
       <title>Philosophical questions about programming</title>
       <guid>http://tomasp.net/blog/2016/philopl-questions</guid>
       <link>http://tomasp.net/blog/2016/philopl-questions/index.html</link>
@@ -603,27 +626,6 @@ to be carefully hidden &lt;a href="http://fsxplat.codeplex.com"&gt;on CodePlex&l
 but it works quite nicely for basic charts and so I though I'd add the 
 &lt;a href="http://fsprojects.github.io/ProjectScaffold/"&gt;ProjectScaffold&lt;/a&gt; structure, do a few tweaks
 and make it available as a modern F# project.&lt;/p&gt;
-
-</description>
-    </item>
-    <item>
-      <title>Why you should learn F# in 2015 (and how)?</title>
-      <guid>http://tomasp.net/blog/2015/why-fsharp-in-2015</guid>
-      <link>http://tomasp.net/blog/2015/why-fsharp-in-2015/index.html</link>
-      <pubDate>Wed, 07 Jan 2015 13:36:04 GMT</pubDate>
-      <description>&lt;img src="http://tomasp.net/blog/2015/why-fsharp-in-2015/gingerbread.jpg" style="width:200px;float:right;margin:15px" /&gt;
-
-&lt;p&gt;I guess that it might be a bit too late for adding to your list of new year's resolution now.
-But just if you still have an empty slot (or in case an originally taken slot has become
-available), your new year's resolution should be to get involved with F#!&lt;/p&gt;
-
-&lt;p&gt;Obviously, the goal of this blog post is to sell you some of my F# trainings and other materials -
-including the online course on &lt;a href="http://fsharpworks.com/workshops/finance.html"&gt;F# in Finance&lt;/a&gt; and our
-&lt;a href="http://fsharpworks.com/workshops/fast-track.html"&gt;FastTrack to F#&lt;/a&gt; course in London and New York
-and also the &lt;a href="http://manning.com/petricek2"&gt;F# Deep Dives&lt;/a&gt; book. But to conceal this fact, I'm
-going to fill most of the blog post with useful information about F#, the F# Software Foundation
-and the F# community (but if you really just want to read about my courses, scroll down to the
-&lt;a href="http://tomasp.net/blog/2015/why-fsharp-in-2015/index.html#courses"&gt;second section&lt;/a&gt;).&lt;/p&gt;
 
 </description>
     </item>

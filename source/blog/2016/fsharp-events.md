@@ -141,3 +141,18 @@ looking at all the new web libraries and tools that are available for F#. Aside 
 which is a new F# to JavaScript compiler that integrates nicely with the modern JS ecosystem.
 
 </div><div style="clear:both;"></div>
+
+### [Haskell NYC: Coeffects & Context-aware programming](http://www.meetup.com/NY-Haskell/), 22 June, NYC
+
+<img src="bindny.jpg" style="float:left;width:80px;margin:30px 10px 10px 10px" />
+<div style="margin-left:110px">
+
+While in New York, I will be also visiting the [Haskell user group](http://www.meetup.com/NY-Haskell/)
+to talk about my work on [coeffects](http://tomasp.net/coeffects). The details will appear on the
+meetup page soon. Coeffects are the topic of my PhD thesis - it is a theory of capturing context
+(say, physical context such as GPS sensors or printers) in programming languages. The formal model
+of coeffects uses _comonads_, so even though I'm not an active Haskell programmer, this sounds
+like a good fit for the Haskell meetup! In the meantime, check out my [interactive web page on
+coeffects](http://tomasp.net/coeffects).
+
+</div><div style="clear:both;"></div>

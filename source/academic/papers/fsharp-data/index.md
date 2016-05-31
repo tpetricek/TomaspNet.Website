@@ -37,8 +37,10 @@ get full details from the paper page on ACM (TBA).
     [lang=tex]
     @@inproceedings{fsharp-data-pldi2016,
       author    = {Petricek, Tomas and Guerra, Gustavo and Syme, Don},
-      title     = {Types from data: Making structured data first-class citizens in F\#},
-      booktitle = {Proceedings of Conference on Programming Language Design and Implementation},
+      title     = {Types from data: Making structured
+                   data first-class citizens in F\#},
+      booktitle = {Proceedings of Conference on Programming
+                   Language Design and Implementation},
       series    = {PLDI 2016},
       location  = {Santa Barbara, California, USA}
     }

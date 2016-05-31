@@ -62,27 +62,27 @@ This is perhaps where combining philosophy and computer science could have the m
 influence. If we take a step back and think about what is it that we are doing, perhaps we can
 discover that our ordinary way of working is not the only (or the best!) option.
 
-### How do you tell "good computer science" from bad?
+### How do you tell (computer) science from pseudoscience?
 
-The question how to distinguish between good science and bad science is known as the
+The question how to distinguish between science and pseudoscience is known as the
 [Demarcation problem](https://en.wikipedia.org/wiki/Demarcation_problem). This is harder than it
-seems - good programming language research is published in academic conferences or journals, but
-the criteria for this is that other scientists _think_ is good. Saying "good" is what is "good" is
-not particularly helpful!
+seems - programming language research is published in academic conferences or journals, but
+the criteria for this is that other scientists _think_ it is scientific. Saying that "scientific"
+is what is "scientific" is not particularly helpful!
 
-Typical good programming language paper might include a performance evaluation (if it is
+Typical programming language paper might include a performance evaluation (if it is
 implementing something, like a garbage collector) or it might include simple mathematical model
 of a language feature with a proof (programs in the model do not have certain bugs). Those might
 be the most common ways of evaluating work in programming language research - but many other
 disciplines work differently.
 
-Perhaps more importantly, did we choose the above evaluation criteria because we think that this
-is what good science should be, or did we choose them just because they are _easy to assess_?
+Perhaps more importantly, did we choose the above criteria of being scientific because we think that
+this is what science should be, or did we choose them just because they are _easy to assess_?
 Asking whether a programming language is more intuitive or easier to use is not "scientific" - but
 is that just because our field (somehow) converged on demarcation criteria that exclude such
 questions?
 
-You could also ask differently - maybe [medium is the message](https://en.wikipedia.org/wiki/The_medium_is_the_message)
+You could also ask differently - [medium is the message](https://en.wikipedia.org/wiki/The_medium_is_the_message)
 and the fact that computer science research is published as papers changes what questions we
 ask, because we only worry about questions that can be answered in the paper format. Should
 we be making [screencasts and demos](http://www.future-programming.org/) or [interactive

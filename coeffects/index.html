@@ -175,7 +175,7 @@ accesses neighboring cells. But do you know how many neighbors it needs?</p>
   </div>
   <div class="row ia" data-ia-key="intro-motivation" data-ia-mode="long">
     <div class="col-sm-6">
-      <h3>Cross-platformn caching</h3>
+      <h3>Cross-platform caching</h3>
 <p>Say you need a function that caches values in an in-memory dictionary, or using
 a local file system when it is available. Using <code>#if</code>, you can write:</p>
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 's31', 1)" onmouseover="showTip(event, 's31', 1)" class="f">readFromCache</span> <span onmouseout="hideTip(event, 's32', 2)" onmouseover="showTip(event, 's32', 2)" class="i">key</span> <span onmouseout="hideTip(event, 's33', 3)" onmouseover="showTip(event, 's33', 3)" class="f">f</span> <span class="o">=</span>
@@ -1295,12 +1295,12 @@ value and the second set of implicit parameters:</p>
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 's244', 5)" onmouseover="showTip(event, 's244', 5)" class="f">counit</span> (<span onmouseout="hideTip(event, 's241', 6)" onmouseover="showTip(event, 's241', 6)" class="p">IP</span>(<span onmouseout="hideTip(event, 's245', 7)" onmouseover="showTip(event, 's245', 7)" class="i">v</span>, _)) <span class="o">=</span> <span onmouseout="hideTip(event, 's245', 8)" onmouseover="showTip(event, 's245', 8)" class="i">v</span>
 <span class="k">let</span> <span onmouseout="hideTip(event, 's246', 9)" onmouseover="showTip(event, 's246', 9)" class="f">cobind</span> <span onmouseout="hideTip(event, 's247', 10)" onmouseover="showTip(event, 's247', 10)" class="f">f</span> (<span onmouseout="hideTip(event, 's241', 11)" onmouseover="showTip(event, 's241', 11)" class="p">IP</span>(<span onmouseout="hideTip(event, 's245', 12)" onmouseover="showTip(event, 's245', 12)" class="i">v</span>, <span onmouseout="hideTip(event, 's248', 13)" onmouseover="showTip(event, 's248', 13)" class="f">p</span>)) <span class="o">=</span>
   <span class="k">let</span> <span onmouseout="hideTip(event, 's249', 14)" onmouseover="showTip(event, 's249', 14)" class="f">p1</span>, <span onmouseout="hideTip(event, 's2410', 15)" onmouseover="showTip(event, 's2410', 15)" class="f">p2</span> <span class="o">=</span> <span onmouseout="hideTip(event, 's248', 16)" onmouseover="showTip(event, 's248', 16)" class="f">p</span>, <span onmouseout="hideTip(event, 's248', 17)" onmouseover="showTip(event, 's248', 17)" class="f">p</span>
-  (<span onmouseout="hideTip(event, 's247', 18)" onmouseover="showTip(event, 's247', 18)" class="f">f</span> (<span onmouseout="hideTip(event, 's241', 19)" onmouseover="showTip(event, 's241', 19)" class="p">IP</span>(<span onmouseout="hideTip(event, 's245', 20)" onmouseover="showTip(event, 's245', 20)" class="i">v</span>, <span onmouseout="hideTip(event, 's249', 21)" onmouseover="showTip(event, 's249', 21)" class="f">p1</span>)), <span onmouseout="hideTip(event, 's2410', 22)" onmouseover="showTip(event, 's2410', 22)" class="f">p2</span>)
+  <span onmouseout="hideTip(event, 's241', 18)" onmouseover="showTip(event, 's241', 18)" class="p">IP</span>(<span onmouseout="hideTip(event, 's247', 19)" onmouseover="showTip(event, 's247', 19)" class="f">f</span> (<span onmouseout="hideTip(event, 's241', 20)" onmouseover="showTip(event, 's241', 20)" class="p">IP</span>(<span onmouseout="hideTip(event, 's245', 21)" onmouseover="showTip(event, 's245', 21)" class="i">v</span>, <span onmouseout="hideTip(event, 's249', 22)" onmouseover="showTip(event, 's249', 22)" class="f">p1</span>)), <span onmouseout="hideTip(event, 's2410', 23)" onmouseover="showTip(event, 's2410', 23)" class="f">p2</span>)
 </code></pre>
 <p>The <code>merge</code> operation combines the two lookup functions it gets and <code>split</code>
 creates two copies. We also need a special <code>lookup</code> function to get the value
 of an implicit parameter:</p>
-<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 's2411', 23)" onmouseover="showTip(event, 's2411', 23)" class="f">lookup</span> <span onmouseout="hideTip(event, 's2412', 24)" onmouseover="showTip(event, 's2412', 24)" class="i">name</span> (<span onmouseout="hideTip(event, 's241', 25)" onmouseover="showTip(event, 's241', 25)" class="p">IP</span>(_, <span onmouseout="hideTip(event, 's2413', 26)" onmouseover="showTip(event, 's2413', 26)" class="f">f</span>)) <span class="o">=</span> <span onmouseout="hideTip(event, 's2413', 27)" onmouseover="showTip(event, 's2413', 27)" class="f">f</span> <span onmouseout="hideTip(event, 's2412', 28)" onmouseover="showTip(event, 's2412', 28)" class="i">name</span>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 's2411', 24)" onmouseover="showTip(event, 's2411', 24)" class="f">lookup</span> <span onmouseout="hideTip(event, 's2412', 25)" onmouseover="showTip(event, 's2412', 25)" class="i">name</span> (<span onmouseout="hideTip(event, 's241', 26)" onmouseover="showTip(event, 's241', 26)" class="p">IP</span>(_, <span onmouseout="hideTip(event, 's2413', 27)" onmouseover="showTip(event, 's2413', 27)" class="f">f</span>)) <span class="o">=</span> <span onmouseout="hideTip(event, 's2413', 28)" onmouseover="showTip(event, 's2413', 28)" class="f">f</span> <span onmouseout="hideTip(event, 's2412', 29)" onmouseover="showTip(event, 's2412', 29)" class="i">name</span>
 </code></pre>
 <p>The coeffect annotations tell us what implicit parameters are available and
 all the operations of the coeffect algebra are <span class="math">\(\cup\)</span>.
@@ -1309,21 +1309,22 @@ all the operations of the coeffect algebra are <span class="math">\(\cup\)</span
 <h3>Dataflow computations</h3>
 <p>Data type for dataflow computations is a non-empty list, but to keep the example
 simpler, we'll write it just as a list:</p>
-<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">type</span> <span onmouseout="hideTip(event, 's2414', 29)" onmouseover="showTip(event, 's2414', 29)" class="t">DF</span><span class="o">&lt;</span><span class="o">&#39;</span><span class="i">a</span><span class="o">&gt;</span> <span class="o">=</span> <span onmouseout="hideTip(event, 's2414', 30)" onmouseover="showTip(event, 's2414', 30)" class="p">DF</span> <span class="k">of</span> <span onmouseout="hideTip(event, 's2415', 31)" onmouseover="showTip(event, 's2415', 31)" class="t">list</span><span class="o">&lt;</span><span class="o">&#39;</span><span class="i">a</span><span class="o">&gt;</span>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">type</span> <span onmouseout="hideTip(event, 's2414', 30)" onmouseover="showTip(event, 's2414', 30)" class="t">DF</span><span class="o">&lt;</span><span class="o">&#39;</span><span class="i">a</span><span class="o">&gt;</span> <span class="o">=</span> <span onmouseout="hideTip(event, 's2414', 31)" onmouseover="showTip(event, 's2414', 31)" class="p">DF</span> <span class="k">of</span> <span onmouseout="hideTip(event, 's2415', 32)" onmouseover="showTip(event, 's2415', 32)" class="t">list</span><span class="o">&lt;</span><span class="o">&#39;</span><span class="i">a</span><span class="o">&gt;</span>
 </code></pre>
 <p>The <code>counit</code> operation returns the head, which is why we need a non-empty list!
 The <code>cobind</code> operation takes a list and produces a list of the same length. It
 is done by applying <code>f</code> to all the <em>suffixes</em>:</p>
-<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 's2416', 32)" onmouseover="showTip(event, 's2416', 32)" class="f">counit</span> (<span onmouseout="hideTip(event, 's2414', 33)" onmouseover="showTip(event, 's2414', 33)" class="p">DF</span>(<span onmouseout="hideTip(event, 's245', 34)" onmouseover="showTip(event, 's245', 34)" class="i">v</span><span class="o">::</span>_)) <span class="o">=</span> <span onmouseout="hideTip(event, 's245', 35)" onmouseover="showTip(event, 's245', 35)" class="i">v</span>
-<span class="k">let</span> <span class="k">rec</span> <span onmouseout="hideTip(event, 's2417', 36)" onmouseover="showTip(event, 's2417', 36)" class="f">cobind</span> <span onmouseout="hideTip(event, 's2418', 37)" onmouseover="showTip(event, 's2418', 37)" class="f">f</span> (<span onmouseout="hideTip(event, 's2414', 38)" onmouseover="showTip(event, 's2414', 38)" class="p">DF</span> <span onmouseout="hideTip(event, 's2419', 39)" onmouseover="showTip(event, 's2419', 39)" class="i">vs</span>) <span class="o">=</span>
-  <span class="k">match</span> <span class="i">vs</span> <span class="k">with</span>
-  | [] <span class="k">-&gt;</span> []
-  | <span onmouseout="hideTip(event, 's2420', 40)" onmouseover="showTip(event, 's2420', 40)" class="i">x</span><span class="o">::</span><span onmouseout="hideTip(event, 's2421', 41)" onmouseover="showTip(event, 's2421', 41)" class="i">xs</span> <span class="k">-&gt;</span> (<span onmouseout="hideTip(event, 's2418', 42)" onmouseover="showTip(event, 's2418', 42)" class="f">f</span> (<span onmouseout="hideTip(event, 's2414', 43)" onmouseover="showTip(event, 's2414', 43)" class="p">DF</span> <span onmouseout="hideTip(event, 's2419', 44)" onmouseover="showTip(event, 's2419', 44)" class="i">vs</span>)) <span class="o">::</span> <span onmouseout="hideTip(event, 's2417', 45)" onmouseover="showTip(event, 's2417', 45)" class="f">cobind</span> <span onmouseout="hideTip(event, 's2418', 46)" onmouseover="showTip(event, 's2418', 46)" class="f">f</span> (<span onmouseout="hideTip(event, 's2414', 47)" onmouseover="showTip(event, 's2414', 47)" class="p">DF</span> <span onmouseout="hideTip(event, 's2421', 48)" onmouseover="showTip(event, 's2421', 48)" class="i">xs</span>)
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 's2416', 33)" onmouseover="showTip(event, 's2416', 33)" class="f">counit</span> (<span onmouseout="hideTip(event, 's2414', 34)" onmouseover="showTip(event, 's2414', 34)" class="p">DF</span>(<span onmouseout="hideTip(event, 's245', 35)" onmouseover="showTip(event, 's245', 35)" class="i">v</span><span class="o">::</span>_)) <span class="o">=</span> <span onmouseout="hideTip(event, 's245', 36)" onmouseover="showTip(event, 's245', 36)" class="i">v</span>
+<span class="k">let</span> <span class="k">rec</span> <span onmouseout="hideTip(event, 's2417', 37)" onmouseover="showTip(event, 's2417', 37)" class="f">cobind</span> <span onmouseout="hideTip(event, 's2418', 38)" onmouseover="showTip(event, 's2418', 38)" class="f">f</span> <span class="o">=</span> <span class="k">function</span>
+  | <span onmouseout="hideTip(event, 's2414', 39)" onmouseover="showTip(event, 's2414', 39)" class="p">DF</span> [] <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 's2414', 40)" onmouseover="showTip(event, 's2414', 40)" class="p">DF</span> []
+  | <span onmouseout="hideTip(event, 's2414', 41)" onmouseover="showTip(event, 's2414', 41)" class="p">DF</span> (<span onmouseout="hideTip(event, 's2419', 42)" onmouseover="showTip(event, 's2419', 42)" class="i">x</span><span class="o">::</span><span onmouseout="hideTip(event, 's2420', 43)" onmouseover="showTip(event, 's2420', 43)" class="i">xs</span>) <span class="k">-&gt;</span>
+      <span class="k">let</span> (<span onmouseout="hideTip(event, 's2414', 44)" onmouseover="showTip(event, 's2414', 44)" class="p">DF</span> <span onmouseout="hideTip(event, 's2421', 45)" onmouseover="showTip(event, 's2421', 45)" class="i">tl</span>) <span class="o">=</span> <span onmouseout="hideTip(event, 's2417', 46)" onmouseover="showTip(event, 's2417', 46)" class="f">cobind</span> <span onmouseout="hideTip(event, 's2418', 47)" onmouseover="showTip(event, 's2418', 47)" class="f">f</span> (<span onmouseout="hideTip(event, 's2414', 48)" onmouseover="showTip(event, 's2414', 48)" class="p">DF</span> <span onmouseout="hideTip(event, 's2420', 49)" onmouseover="showTip(event, 's2420', 49)" class="i">xs</span>)
+      <span onmouseout="hideTip(event, 's2414', 50)" onmouseover="showTip(event, 's2414', 50)" class="p">DF</span>(<span onmouseout="hideTip(event, 's2418', 51)" onmouseover="showTip(event, 's2418', 51)" class="f">f</span> (<span onmouseout="hideTip(event, 's2414', 52)" onmouseover="showTip(event, 's2414', 52)" class="p">DF</span> <span onmouseout="hideTip(event, 's2420', 53)" onmouseover="showTip(event, 's2420', 53)" class="i">xs</span>) <span class="o">::</span> <span onmouseout="hideTip(event, 's2421', 54)" onmouseover="showTip(event, 's2421', 54)" class="i">tl</span>)
 </code></pre>
 <p><code>cobind f [1;2;3]</code> produces <code>[f [1;2;3]; f [2;3]; f [3]]</code>. The <code>merge</code>
 operation is <code>zip</code> and <code>split</code> simply duplicates the list.
 A special operation <code>prev</code> shifts the list by 1 element to the past:</p>
-<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 's2422', 49)" onmouseover="showTip(event, 's2422', 49)" class="f">prev</span> (<span onmouseout="hideTip(event, 's2414', 50)" onmouseover="showTip(event, 's2414', 50)" class="p">DF</span>(_<span class="o">::</span><span onmouseout="hideTip(event, 's2419', 51)" onmouseover="showTip(event, 's2419', 51)" class="i">vs</span>)) <span class="o">=</span> <span onmouseout="hideTip(event, 's2414', 52)" onmouseover="showTip(event, 's2414', 52)" class="p">DF</span>(<span class="i">vs</span>)
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 's2422', 55)" onmouseover="showTip(event, 's2422', 55)" class="f">prev</span> (<span onmouseout="hideTip(event, 's2414', 56)" onmouseover="showTip(event, 's2414', 56)" class="p">DF</span>(_<span class="o">::</span><span onmouseout="hideTip(event, 's2423', 57)" onmouseover="showTip(event, 's2423', 57)" class="i">vs</span>)) <span class="o">=</span> <span onmouseout="hideTip(event, 's2414', 58)" onmouseover="showTip(event, 's2414', 58)" class="p">DF</span>(<span class="i">vs</span>)
 </code></pre>
 <p>The coeffect annotations represent the number of past values needed. When you write
 <code>counit x</code>, you don't need any past values (just the current one), but when you say
@@ -1336,7 +1337,7 @@ are <span class="math">\(+, \text{min}, \text{max}\)</span>.
 <div class="tip" id="s243">type obj = System.Object<br /><br />Full name: Microsoft.FSharp.Core.obj</div>
 <div class="tip" id="s244">val counit : IP&lt;&#39;a&gt; -&gt; &#39;a<br /><br />Full name: Document.counit</div>
 <div class="tip" id="s245">val v : &#39;a</div>
-<div class="tip" id="s246">val cobind : f:(IP&lt;&#39;a&gt; -&gt; &#39;b) -&gt; IP&lt;&#39;a&gt; -&gt; &#39;b * (string -&gt; obj)<br /><br />Full name: Document.cobind</div>
+<div class="tip" id="s246">val cobind : f:(IP&lt;&#39;a&gt; -&gt; &#39;b) -&gt; IP&lt;&#39;a&gt; -&gt; IP&lt;&#39;b&gt;<br /><br />Full name: Document.cobind</div>
 <div class="tip" id="s247">val f : (IP&lt;&#39;a&gt; -&gt; &#39;b)</div>
 <div class="tip" id="s248">val p : (string -&gt; obj)</div>
 <div class="tip" id="s249">val p1 : (string -&gt; obj)</div>
@@ -1347,12 +1348,13 @@ are <span class="math">\(+, \text{min}, \text{max}\)</span>.
 <div class="tip" id="s2414">Multiple items<br />union case DF.DF: &#39;a list -&gt; DF&lt;&#39;a&gt;<br /><br />--------------------<br />type DF&lt;&#39;a&gt; = | DF of &#39;a list<br /><br />Full name: Document.DF&lt;_&gt;</div>
 <div class="tip" id="s2415">type &#39;T list = List&lt;&#39;T&gt;<br /><br />Full name: Microsoft.FSharp.Collections.list&lt;_&gt;</div>
 <div class="tip" id="s2416">val counit : DF&lt;&#39;a&gt; -&gt; &#39;a<br /><br />Full name: Document.counit</div>
-<div class="tip" id="s2417">val cobind : f:(DF&lt;&#39;a&gt; -&gt; &#39;b) -&gt; DF&lt;&#39;a&gt; -&gt; &#39;b list<br /><br />Full name: Document.cobind</div>
+<div class="tip" id="s2417">val cobind : f:(DF&lt;&#39;a&gt; -&gt; &#39;b) -&gt; _arg1:DF&lt;&#39;a&gt; -&gt; DF&lt;&#39;b&gt;<br /><br />Full name: Document.cobind</div>
 <div class="tip" id="s2418">val f : (DF&lt;&#39;a&gt; -&gt; &#39;b)</div>
-<div class="tip" id="s2419">val vs : &#39;a list</div>
-<div class="tip" id="s2420">val x : &#39;a</div>
-<div class="tip" id="s2421">val xs : &#39;a list</div>
+<div class="tip" id="s2419">val x : &#39;a</div>
+<div class="tip" id="s2420">val xs : &#39;a list</div>
+<div class="tip" id="s2421">val tl : &#39;b list</div>
 <div class="tip" id="s2422">val prev : DF&lt;&#39;a&gt; -&gt; DF&lt;&#39;a&gt;<br /><br />Full name: Document.prev</div>
+<div class="tip" id="s2423">val vs : &#39;a list</div>
 
 
   </div>
@@ -1410,11 +1412,6 @@ of the parameters separately.</p>
 
             <pre id="trsl-longoutput" style="margin:20px 4% 0px 4%"></pre>
             <pre id="trsl-transl" style="margin:20px 4% 0px 4%"></pre>
-
-            <p style="clear:both;padding-top:30px;margin:0px 0px 25px 0px">Now explore the typing derivation.
-              Click on the judgements in the assumptions to navigate through the typing derivation.
-              Compare flat and structural dataflow typing for the same program!</p>
-
           </div>
         </div>
     </div>

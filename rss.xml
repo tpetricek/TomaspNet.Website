@@ -4,6 +4,32 @@
     <link>http://tomasp.net</link>
     <description>Writing about software development in F# and .NET, sharing materials from my F# trainings and talks, writing about programming language research and theory.</description>
     <item>
+      <title>Better F# data science with FsLab and Ionide</title>
+      <guid>http://tomasp.net/blog/2016/fslab-ionide</guid>
+      <link>http://tomasp.net/blog/2016/fslab-ionide/index.html</link>
+      <pubDate>Wed, 06 Jul 2016 15:03:23 GMT</pubDate>
+      <description>&lt;p&gt;At &lt;a href="http://ndcoslo.com/"&gt;NDC Oslo 2016&lt;/a&gt;, I did a talk about some of the recent new F# projects
+that are making data science with F# even nicer than it used to be. The talk covered a wider range
+of topics, but one of the nice new thing I showed was the improved F# Interactive in the &lt;a href="http://www.ionide.io/"&gt;Ionide
+plugin for Atom&lt;/a&gt; and the integration with FsLab libraries that it provides.&lt;/p&gt;
+
+&lt;p&gt;In particular, with the latest version of &lt;a href="http://ionide.io"&gt;Ionide&lt;/a&gt; for &lt;a href="http://atom.io"&gt;Atom&lt;/a&gt;
+and the latest version of &lt;a href="http://www.fslab.org"&gt;FsLab package&lt;/a&gt;, you can run code in F# Interactive
+and you'll see resulting time series, data frames, matrices, vectors and charts as nicely pretty
+printed HTML objects, right in the editor. The following shows some of the features (click on it
+for a bigger version):&lt;/p&gt;
+
+&lt;a href="http://tomasp.net/blog/2016/fslab-ionide/prices.png"&gt;
+&lt;img src="http://tomasp.net/blog/2016/fslab-ionide/prices.png" style="margin:0px 2% 15px 2%;width:96%" /&gt;
+&lt;/a&gt;
+
+&lt;p&gt;In this post, I'll write about how the new Ionide and FsLab integration works, how you can use
+it with your own libraries and also about some of the future plans. You can also learn more by
+getting the FsLab package, or watching the NDC talk:&lt;/p&gt;
+
+</description>
+    </item>
+    <item>
       <title>Upcoming F# events - learn Suave, FsLab &amp; more!</title>
       <guid>http://tomasp.net/blog/2016/fsharp-events</guid>
       <link>http://tomasp.net/blog/2016/fsharp-events/index.html</link>
@@ -601,31 +627,6 @@ has been written on designing functional &lt;em&gt;libraries&lt;/em&gt;. For som
 like monads (see &lt;a href="https://skillsmatter.com/skillscasts/6120-functional-programming-design-patterns-with-scott-wlaschin"&gt;Scott Wlaschin's presentation&lt;/a&gt;),
 but this only answers a part of the question - it tells you how to design individual types, but
 not an entire library...&lt;/p&gt;
-
-</description>
-    </item>
-    <item>
-      <title>FnuPlot: Cross-platform charting with gnuplot</title>
-      <guid>http://tomasp.net/blog/2015/fnuplot</guid>
-      <link>http://tomasp.net/blog/2015/fnuplot/index.html</link>
-      <pubDate>Thu, 15 Jan 2015 16:58:17 GMT</pubDate>
-      <description>&lt;img src="http://fsprojects.github.io/FnuPlot/img/logo.png" style="width:120px;float:right;margin:10px" /&gt;
-
-&lt;p&gt;There is a bunch of visualization and charting libraries for F#. Sadly, perhaps the most
-advanced one, &lt;a href="http://fsharp.github.io/FSharp.Charting/"&gt;F# Charting&lt;/a&gt;, does not work 
-particularly well outside of Windows at the moment. There are also some work-in-progress
-libraries based on HTML like &lt;a href="http://fsprojects.github.io/Foogle.Charts/"&gt;Foogle Charts&lt;/a&gt; and
-&lt;a href="http://tahahachana.github.io/FsPlot/"&gt;FsPlot&lt;/a&gt;, which are cross-platform, but not quite
-ready yet.&lt;/p&gt;
-
-&lt;p&gt;Before Christmas, I got a &lt;a href="https://github.com/fsprojects/FnuPlot/pull/2"&gt;notification from GitHub&lt;/a&gt;
-about a pull request for a simple gnuplot wrapper that I wrote a long time ago (and which used
-to be carefully hidden &lt;a href="http://fsxplat.codeplex.com"&gt;on CodePlex&lt;/a&gt;).&lt;/p&gt;
-
-&lt;p&gt;The library is incomplete and I don't expect to dedicate too much time to maintaining it,
-but it works quite nicely for basic charts and so I though I'd add the 
-&lt;a href="http://fsprojects.github.io/ProjectScaffold/"&gt;ProjectScaffold&lt;/a&gt; structure, do a few tweaks
-and make it available as a modern F# project.&lt;/p&gt;
 
 </description>
     </item>

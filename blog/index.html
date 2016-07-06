@@ -66,6 +66,37 @@
       
 
   <div>
+  <h1><a href="http://tomasp.net/blog/2016/fslab-ionide/index.html">Better F# data science with FsLab and Ionide</a></h1>
+  <p>At <a href="http://ndcoslo.com/">NDC Oslo 2016</a>, I did a talk about some of the recent new F# projects
+that are making data science with F# even nicer than it used to be. The talk covered a wider range
+of topics, but one of the nice new thing I showed was the improved F# Interactive in the <a href="http://www.ionide.io/">Ionide
+plugin for Atom</a> and the integration with FsLab libraries that it provides.</p>
+
+<p>In particular, with the latest version of <a href="http://ionide.io">Ionide</a> for <a href="http://atom.io">Atom</a>
+and the latest version of <a href="http://www.fslab.org">FsLab package</a>, you can run code in F# Interactive
+and you'll see resulting time series, data frames, matrices, vectors and charts as nicely pretty
+printed HTML objects, right in the editor. The following shows some of the features (click on it
+for a bigger version):</p>
+
+<a href="http://tomasp.net/blog/2016/fslab-ionide/prices.png">
+<img src="http://tomasp.net/blog/2016/fslab-ionide/prices.png" style="margin:0px 2% 15px 2%;width:96%" />
+</a>
+
+<p>In this post, I'll write about how the new Ionide and FsLab integration works, how you can use
+it with your own libraries and also about some of the future plans. You can also learn more by
+getting the FsLab package, or watching the NDC talk:</p>
+
+
+      
+  <p class="meta">
+    <span><strong>Published</strong>: Wednesday, 6 July 2016, 4:03 PM</span>
+      <br />      
+      <span class="tags"><strong>Tags</strong>: f#, fslab, data science </span> 
+    <br />
+    <a href="http://tomasp.net/blog/2016/fslab-ionide/index.html">Read the complete article</a>
+  </p>
+  </div>
+  <div>
   <h1><a href="http://tomasp.net/blog/2016/fsharp-events/index.html">Upcoming F# events - learn Suave, FsLab & more!</a></h1>
   <p>Some people in the F# community have reputation for traveling too much. I do not know how that is
 possible, but as it happens, I will be visiting a couple of places in June and doing a number of
@@ -574,61 +605,6 @@ chunks. So, let's start with the C# version I wrote.</p>
     <a href="http://tomasp.net/blog/2015/restricting-ranges/index.html">Read the complete article</a>
   </p>
   </div>
-  <div>
-  <h1><a href="http://tomasp.net/blog/2015/query-translation/index.html">Writing custom F# LINQ query builder</a></h1>
-  <p>One of the attendees of my <a href="http://www.fsharpworks.com/workshops/finance.html">virtual F# in Finance course</a>,
-<a href="https://twitter.com/stuart_j_davies">Stuart</a> recently asked me a pretty advanced question about writing custom queries with F#, because he was 
-interested in writing a nicer querying library for Amazon DynamoDB (his <a href="https://github.com/stuartjdavies/FSharp.Cloud.AWS/blob/master/FSharp.Cloud.AWS/DynamoDB.fs">project is here</a>).</p>
-
-<p>I realized that I don't really know about any good resource about doing this, so I wrote a little sample
-that shows how you can do this. The idea is that we want to be able to write something like this:</p>
-
-<table class="pre"><tr><td class="lines"><pre class="fssnip">
-<span class="l">1: </span>
-<span class="l">2: </span>
-<span class="l">3: </span>
-<span class="l">4: </span>
-<span class="l">5: </span>
-</pre>
-</td>
-<td class="snippet"><pre class="fssnip">
-<span onmouseout="hideTip(event, 'abs177_1', 1)" onmouseover="showTip(event, 'abs177_1', 1)" class="i">query</span> { 
-  <span class="k">for</span> <span onmouseout="hideTip(event, 'abs177_2', 2)" onmouseover="showTip(event, 'abs177_2', 2)" class="i">p</span> <span class="k">in</span> <span onmouseout="hideTip(event, 'abs177_3', 3)" onmouseover="showTip(event, 'abs177_3', 3)" class="i">DynamoDB</span><span class="o">.</span><span onmouseout="hideTip(event, 'abs177_4', 4)" onmouseover="showTip(event, 'abs177_4', 4)" class="i">People</span> <span class="k">do</span>
-  <span onmouseout="hideTip(event, 'abs177_5', 5)" onmouseover="showTip(event, 'abs177_5', 5)" class="k">where</span> (<span onmouseout="hideTip(event, 'abs177_2', 6)" onmouseover="showTip(event, 'abs177_2', 6)" class="i">p</span><span class="o">.</span><span onmouseout="hideTip(event, 'abs177_6', 7)" onmouseover="showTip(event, 'abs177_6', 7)" class="i">Age</span> <span class="o">&gt;</span> <span class="n">10</span>)
-  <span onmouseout="hideTip(event, 'abs177_5', 8)" onmouseover="showTip(event, 'abs177_5', 8)" class="k">where</span> (<span onmouseout="hideTip(event, 'abs177_2', 9)" onmouseover="showTip(event, 'abs177_2', 9)" class="i">p</span><span class="o">.</span><span onmouseout="hideTip(event, 'abs177_7', 10)" onmouseover="showTip(event, 'abs177_7', 10)" class="i">Name</span> <span class="o">=</span> <span class="s">&quot;</span><span class="s">Tomas</span><span class="s">&quot;</span>)
-  <span onmouseout="hideTip(event, 'abs177_8', 11)" onmouseover="showTip(event, 'abs177_8', 11)" class="k">select</span> (<span onmouseout="hideTip(event, 'abs177_2', 12)" onmouseover="showTip(event, 'abs177_2', 12)" class="i">p</span><span class="o">.</span><span onmouseout="hideTip(event, 'abs177_6', 13)" onmouseover="showTip(event, 'abs177_6', 13)" class="i">Age</span>, <span onmouseout="hideTip(event, 'abs177_2', 14)" onmouseover="showTip(event, 'abs177_2', 14)" class="i">p</span><span class="o">.</span><span onmouseout="hideTip(event, 'abs177_7', 15)" onmouseover="showTip(event, 'abs177_7', 15)" class="i">Name</span>) }</pre>
-</td>
-</tr>
-</table>
-
-<p>The <code>DynamoDB</code> could even be a type generated by a type provider (with all the tables available in Dynamo DB).
-Now, the above example uses the built-in <code>query</code> builder, which is extensible, but, as far as I know, you have to 
-use LINQ expression trees to support it. In this article, I'm going to use an alternative approach with custom
-builder (so you would write <code>dynamo { ... }</code> instead of <code>query { ... }</code>).</p>
-
-<p>I wanted to write a minimal example showing how to do this, so this blog post is going to be mostly code 
-(unlike my other chatty articles!), but it should give you (and Stuart :-)) some idea how to do this. 
-I was quite intrigued by the idea of having a nice query language for DynamoDB, so I'm hoping that this
-blog post can help move the project forward!</p>
-
-<div class="tip" id="abs177_1">val query : Linq.QueryBuilder<br /><br />Full name: Microsoft.FSharp.Core.ExtraTopLevelOperators.query</div>
-<div class="tip" id="abs177_2">val p : People</div>
-<div class="tip" id="abs177_3">type DynamoDB =<br />&#160;&#160;static member People : seq&lt;People&gt;<br /><br />Full name: Query-translation_.DynamoDB</div>
-<div class="tip" id="abs177_4">property DynamoDB.People: seq&lt;People&gt;</div>
-<div class="tip" id="abs177_5">custom operation: where (bool)<br /><br />Calls Linq.QueryBuilder.Where </div>
-<div class="tip" id="abs177_6">People.Age: int</div>
-<div class="tip" id="abs177_7">People.Name: string</div>
-<div class="tip" id="abs177_8">custom operation: select (&#39;Result)<br /><br />Calls Linq.QueryBuilder.Select </div>
-
-      
-  <p class="meta">
-    <span><strong>Published</strong>: Tuesday, 7 April 2015, 1:41 PM</span>
-      <br />      
-      <span class="tags"><strong>Tags</strong>: f#, functional programming, linq </span> 
-    <br />
-    <a href="http://tomasp.net/blog/2015/query-translation/index.html">Read the complete article</a>
-  </p>
-  </div>
 
     </content>
 
@@ -722,7 +698,7 @@ blog post can help move the project forward!</p>
     <h4>Blog tags</h4>
     <p>
 
-      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(110),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(34),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(19),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(37),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(8),       <a href="http://tomasp.net/blog/tag/web/">web</a>&nbsp;(10),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(6),       <a href="http://tomasp.net/blog/tag/programming-languages/">programming languages</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(5),       <a href="http://tomasp.net/blog/tag/fslab/">fslab</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/type-providers/">type providers</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/data-journalism/">data journalism</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/coeffects/">coeffects</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/visualization/">visualization</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/machine-learning/">machine learning</a>&nbsp;(1)    </p>
+      <a href="http://tomasp.net/blog/tag/fsharp/">f#</a>&nbsp;(111),       <a href="http://tomasp.net/blog/tag/research/">research</a>&nbsp;(34),       <a href="http://tomasp.net/blog/tag/functional-programming/">functional programming</a>&nbsp;(19),       <a href="http://tomasp.net/blog/tag/csharp/">c#</a>&nbsp;(37),       <a href="http://tomasp.net/blog/tag/talks/">talks</a>&nbsp;(8),       <a href="http://tomasp.net/blog/tag/data-science/">data science</a>&nbsp;(7),       <a href="http://tomasp.net/blog/tag/web/">web</a>&nbsp;(10),       <a href="http://tomasp.net/blog/tag/programming-languages/">programming languages</a>&nbsp;(4),       <a href="http://tomasp.net/blog/tag/philosophy/">philosophy</a>&nbsp;(5),       <a href="http://tomasp.net/blog/tag/fslab/">fslab</a>&nbsp;(5),       <a href="http://tomasp.net/blog/tag/type-providers/">type providers</a>&nbsp;(3),       <a href="http://tomasp.net/blog/tag/data-journalism/">data journalism</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/coeffects/">coeffects</a>&nbsp;(2),       <a href="http://tomasp.net/blog/tag/visualization/">visualization</a>&nbsp;(1),       <a href="http://tomasp.net/blog/tag/machine-learning/">machine learning</a>&nbsp;(1)    </p>
 -->
   </div>
 </div>
@@ -744,7 +720,8 @@ blog post can help move the project forward!</p>
     </div>
     <div class="large-7 columns">
     <h4>Blog archives <a href="http://tomasp.net/rss.xml"><img src="http://tomasp.net/img/rss.gif" /></a></h4>
-      <a href="http://tomasp.net/blog/archive/may-2016/index.html">
+      <a href="http://tomasp.net/blog/archive/july-2016/index.html">
+        July 2016 (1)</a>,      <a href="http://tomasp.net/blog/archive/may-2016/index.html">
         May 2016 (2)</a>,      <a href="http://tomasp.net/blog/archive/april-2016/index.html">
         April 2016 (1)</a>,      <a href="http://tomasp.net/blog/archive/december-2015/index.html">
         December 2015 (2)</a>,      <a href="http://tomasp.net/blog/archive/november-2015/index.html">

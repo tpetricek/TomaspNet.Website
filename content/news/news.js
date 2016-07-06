@@ -1,16 +1,14 @@
 // Explicit
 var news =
 {
-  "date": "June 23, New York",
+  "date": "",
   "info": "\
-  <p>I will be running a <a href='https://www.eventbrite.com/e/functional-web-development-with-f-and-suave-tickets-25477337402'>workshop on asynchronous web programming with F# + Suave</a>! \
-  Group discounts? On-site trainings? \
-  <a href='mailto:tomas@tomasp.net'>Send me an email</a>!</p> \
-  <div style=\"text-align:left\"> \
-  <a href='https://www.eventbrite.com/e/functional-web-development-with-f-and-suave-tickets-25477337402'> \
-    <img src='http://tomasp.net/news/content/suave.png' style='border:none;margin-left:20px;width:240px' /> \
+  <a href='http://tomasp.net/coeffects'>\
+    <img src='http://tomasp.net/coeffects/favicon-194x194.png' style='width:120px;float:right;margin:0px 0px 15px 15px' /> \
   </a> \
-  </div>"
+  <p>Check out <a href='http://tomasp.net/coeffects'>an interactive essay</a> that explains <em>coeffects</em>. The theory of context-aware \
+    programming langauges that I created during my PhD. </p> \
+  "
 }
 
 // Pluralsight

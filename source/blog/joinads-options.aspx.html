@@ -177,7 +177,7 @@ binding patterns using Merge. Then it uses <code>Bind</code> to transform the in
 <code>Return</code> (containing a delayed body when the value matches a pattern) or <code>Fail</code> (when
 the produced value doesn't match).</p></li>
 <li><p>After translating the clauses, the compiler constructs an expression that selects the first 
-clause that contains or produces body (the terminology is intentionally vaugue, because
+clause that contains or produces body (the terminology is intentionally vague, because
 the meaning depends on the type of computation). This is done by combining all clauses in
 the top-to-bottom order using <code>Choose</code>. The result is a computation <code>M&lt;M&lt;'T&gt;&gt;</code>
 (or <code>M&lt;unit -&gt; M&lt;'T&gt;&gt;</code> for delayed functions), so we need to unwrap the body. This is

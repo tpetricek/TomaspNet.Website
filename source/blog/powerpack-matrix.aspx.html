@@ -35,7 +35,7 @@
 
 <h2>Representing graphs using matrices</h2>
 
-<p>The folowing figure demonstrates how the adjacency matrix looks. It shows a graph with N 
+<p>The following figure demonstrates how the adjacency matrix looks. It shows a graph with N 
   vertices and its representation using an adjacency matrix of size N*N. A column of the 
   matrix contains 1 if there is an edge connecting the two vertices (specified by the 
   coordinates of the column). If there is no edge, then the table contains 0:</p>
@@ -128,7 +128,7 @@
 <span class="l">10: </span><span class="fsi">                          [1.0; 0.0; 0.0]]</span></pre>
 
 <p>The <code>Matrix.create</code> function creates a matrix of the specified size with all elements set 
-  to the specified value. In our example, we use value 1.0. If we trated the matrix as an adjacency 
+  to the specified value. In our example, we use value 1.0. If we treated the matrix as an adjacency 
   matrix of some graph, the result would represent a complete graph that also contains an edge from 
   every vertex to itself.</p>
 
@@ -481,7 +481,7 @@ Operators: <code>+</code> and <code>.*</code>
 
 <p>Most of the functions from the <code>Matrix</code> module are also available in 
   <code>Matrix.Generic</code>. The last example shows how to find combinations of unreachable 
-  vertices in an adjancency matrix containing integers:</p>
+  vertices in an adjacency matrix containing integers:</p>
 
 <pre class="fssnip">
 <span class="l">1: </span><span onmouseout="hideTip(event, 'f2pmg30', 101)" onmouseover="showTip(event, 'f2pmg30', 101)" class="i">paths</span> <span class="o">|&gt;</span> <span class="i">MatrixG</span><span class="o">.</span><span onmouseout="hideTip(event, 'f2pmg31', 102)" onmouseover="showTip(event, 'f2pmg31', 102)" class="i">foldi</span> (<span class="k">fun</span> <span onmouseout="hideTip(event, 'f2pmg10', 103)" onmouseover="showTip(event, 'f2pmg10', 103)" class="i">i</span> <span onmouseout="hideTip(event, 'f2pmg11', 104)" onmouseover="showTip(event, 'f2pmg11', 104)" class="i">j</span> <span onmouseout="hideTip(event, 'f2pmg25', 105)" onmouseover="showTip(event, 'f2pmg25', 105)" class="i">st</span> <span onmouseout="hideTip(event, 'f2pmg32', 106)" onmouseover="showTip(event, 'f2pmg32', 106)" class="i">value</span> <span class="k">-&gt;</span>

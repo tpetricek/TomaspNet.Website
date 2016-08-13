@@ -9,7 +9,7 @@
 <p>In the <a href="/blog/accelerator-intro.aspx">previous article</a>, I introduced the
   Microsoft Research Accelerator library. It allows us to write computations with arrays
   in C# and execute them in parallel on multi-core CPU or more interestingly, 
-  using GPU shaders. In the previous artcile, we've seen how Accelerator works and 
+  using GPU shaders. In the previous article, we've seen how Accelerator works and 
   how it can be accessed from F#. In this article, we'll look at one more interesting
   F# demo - we'll implement the famous Conway's Game of Life [<a href="#accelfsh2links">1</a>] using Accelerator.
   We'll use a v2 version of Accelerator which has been announced just recently and
@@ -45,7 +45,7 @@
 <ul>
   <li><strong>Green</strong> - When an existing cell (green in the middle) has 
     three or two neighbours it survives to the next round</li>
-  <li><strong>Red</strong> - When an existing cell has less than two neigbors it dies, 
+  <li><strong>Red</strong> - When an existing cell has less than two neighbours it dies, 
     because it is lonely (first red case), when it has more than three neighbors
     it dies of overcrowding (second red case)</li>    
   <li><strong>Blue</strong> - Finally, a new cell is born in an empty grid location
@@ -55,7 +55,7 @@
   Our implementation will simply need to calculate a new state of the grid
   based on the original one and for each element of the array, we'll check the
   three rules. However, before looking at the implementation, we'll write a couple
-  of constants to configure the game and a few hlepers.</p>
+  of constants to configure the game and a few helpers.</p>
 
 <h3>Getting ready</h3>
 <p>Our implementation allows us to specify the size of the grid (it has to be a square)
@@ -77,7 +77,7 @@ let [zero; one; two; three] =
 <p>The code uses a simple sequence expression that iterates over a list of 
   constants stored as floats and yields a new <code>FPA</code> instance with
   the required size. Note that we're using a compact syntax of sequence
-  expressions, because we only need to perfrom a projection. The result
+  expressions, because we only need to perform a projection. The result
   of the sequence expression is a list and we use pattern matching to 
   decompose the list into individual elements. The compiler cannot verify
   at compile-time that the number of elements will match, so it will issue
@@ -106,7 +106,7 @@ let (==.) (a:FPA) (b:FPA) = PA.Cond(PA.CompareEqual(a, b), one, zero)
 <p>The <code>rotate</code> function moves elements of the array by the specified 
   offset (it is a bit similar to <code>Shift</code> that we discussed in the 
   <a href="/blog/accelerator-intro.aspx">previous article</a>). However, when elements
-  is shifted outside outside of the grid, values are copied back from 
+  is shifted outside of the grid, values are copied back from 
   the other side. To demonstrate this, if we moved the contents of 1D array 
   <code>[1; 2; 3; 4; 5]</code> by +2, we'd get <code>[4; 5; 1; 2; 3]</code>.</p>
 <p>Next, we define three operators that simulate Boolean operations 
@@ -167,7 +167,7 @@ let nextGeneration (grid:FPA) =
 </pre>
 <p>In the first step, the function creates a list of 8 grids rotated in all 
   of the 8 possible directions (north, northeast, east, southeast, etc). 
-  This is implemented as a sequence exprssion that generates a single rotated
+  This is implemented as a sequence expression that generates a single rotated
   grid for each combination of offsets (<code>dx</code> and <code>dy</code>).
   It only skips the combination when both <code>dx</code> and <code>dy</code>
   are zero (which would correspond to the original <code>grid</code>). Note 
@@ -192,7 +192,7 @@ let nextGeneration (grid:FPA) =
   neighbors.</p>
 <p>Without any doubt, the last line of our code makes the F# implementation
   of the Game of Life using Accelerator really neat. A single succinct line 
-  of code impplements all the game logic. Now we only need to add some code to 
+  of code implements all the game logic. Now we only need to add some code to 
   visualize the Game, so that we can see the complex behavior patterns it 
   creates...</p>
   

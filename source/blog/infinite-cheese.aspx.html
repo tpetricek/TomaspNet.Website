@@ -107,7 +107,7 @@ let PatternMap incl_sides f =
                 (idx = neq  &amp;&amp; Set.mem (dx, dy, dz) incl_sides)) then yield (dx, dy, dz) })    
   
   // Recursively collect triangles from all the smaller 
-  // cubes that should be included (as specifyied by the pattern).
+  // cubes that should be included (as specified by the pattern).
   [ for x in [0 .. 2] do
       for y in [0 .. 2] do
         for z in [0 .. 2] do

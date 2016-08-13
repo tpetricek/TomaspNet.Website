@@ -63,12 +63,12 @@ Expression t2 = Expression.CallVirtual(
 <pre>
 <span class="k">using</span> EeekSoft.Query;
 
-<span class="c">// Select products, that conain one of values from array in their name</span><br />
+<span class="c">// Select products, that contain one of values from array in their name</span><br />
 <span class="k">var</span> q1 = <span class="k">from</span> p <span class="k">in</span> db.Products.<b>ToExpandable()</b><br />
     <span class="k">where</span> p.ProductName.<b>ContainsAny("Sir", "Chef")</b><br />
     <span class="k">select new</span> { p.ProductName };
 
-<span class="c">// Select products, that conain all of values from array in their name</span><br />
+<span class="c">// Select products, that contain all of values from array in their name</span><br />
 <span class="k">var</span> q1 = <span class="k">from</span> p <span class="k">in</span> db.Products.<b>ToExpandable()</b><br />
     <span class="k">where</span> p.ProductName.<b>ContainsAll("Gu", "Ca")</b><br />
     <span class="k">select new</span> { p.ProductName };

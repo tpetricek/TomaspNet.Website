@@ -3,7 +3,7 @@
       Title = "Functional Programming in .NET using C# and F# (Manning Greenpaper)";
       Tags = "Functional Programming in .NET,C# language,Parallel,Meta-programming,Writing,F# language";
       Date = "12/11/2008 1:48:07 AM";
-      Description = "This article is partially an excerpt from my book. It introduces the benefits of functional pogramming, and explains the essential aspects of the functional style using F# and C# 3.0. Finally, it also shows how functional style influences the application architecture.";
+      Description = "This article is partially an excerpt from my book. It introduces the benefits of functional programming, and explains the essential aspects of the functional style using F# and C# 3.0. Finally, it also shows how functional style influences the application architecture.";
     }<h1>Functional Programming in .NET using C# and F# (Manning Greenpaper)</h1>
 <h2 style="margin-left:50px; margin-right:50px; text-indent:0px; font-style:italic; font-size:125%">
   Real-World Functional Programming  in .NET</h2>
@@ -37,7 +37,7 @@
 
 <p style="margin-left:50px; margin-right:50px; margin-bottom:30px; text-indent:0px; font-style:italic">
   Thanks to the combination of C# 3.0 and F#, this article shows the ideas in a way that should be 
-  familiar to you in C#, but also shows a further step that you can take with a primarilly functional
+  familiar to you in C#, but also shows a further step that you can take with a primarily functional
   language F#. If you're a .NET developer and you want to understand what functional programming is
   and how it can help you to become better and more productive then continue reading. If you'll find 
   this article interesting, then don't forget to check out the <a href="http://www.manning.com/petricek">book</a>,
@@ -522,7 +522,7 @@ int AggregateNumbers(Func&lt;int, int, int&gt; f, int init, int from, int to) {
   declaration of the delegate (showing also similar delegate written without generics):</p>
 
 <pre lang="csharp">
-// Declartion of the generic Func delegate with 2 arguments 
+// Declaration of the generic Func delegate with 2 arguments 
 delegate TResult Func&lt;T1, T2, TResult&gt;(T1 arg1, T2 arg2); 
 
 // Instance used in our example earlier (without generics):
@@ -722,7 +722,7 @@ val l2 : int list = [6; 12; 18]&#160;&#160;&#160;&#160;
 </pre>
 </td><td width="49%">
 <pre lang="csharp" style="width:100%">
-// Select mutiples of three
+// Select multiples of three
 var l1 = l.Where(n =&gt; n%3 == 0);
 // result l1: [3; 6; 9]
 
@@ -736,8 +736,8 @@ var l2 = l1.Select(n =&gt; n*2);
   Both of them take a lambda function that specifies the condition as an argument. Note that the lambda 
   expression takes a single argument (the element in the list) and returns a boolean value specifying 
   whether the condition was satisfied or not. When using the extension method in C#, the list is 
-  specified by the value preceeding the “dot” symbol and in F#, it is specified as a last argument of 
-  the function. The second example, which demonstrates projection is very similar. The only diference 
+  specified by the value preceding the “dot” symbol and in F#, it is specified as a last argument of 
+  the function. The second example, which demonstrates projection is very similar. The only difference 
   is that the lambda function takes a number as an argument and returns also a number. The results are 
   collected into a list, so we get a list of numbers (<code>l2</code>) as a result. </p>
 

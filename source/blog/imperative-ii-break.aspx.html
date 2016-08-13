@@ -105,7 +105,7 @@ type ImperativeBuilder() =
     match imp() with
     | ImpValue(v) -&gt; v
     | ImpJump _ -&gt; failwith "Invalid use of break/continue!"
-    | _ -&gt; failwith "No value has been returend!"
+    | _ -&gt; failwith "No value has been returned!"
 
 let imperative = new ImperativeBuilder()  
 </pre>

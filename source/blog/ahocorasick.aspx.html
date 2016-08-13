@@ -7,7 +7,7 @@
     }<h1>Aho-Corasick string matching in C#</h1>
 <ul class="download"><li><a href="/articles/ahocorasick/demo.zip">Download demo application - 67 Kb </a></li><li><a href="/articles/ahocorasick/source.zip">Download library with source - 49 Kb</a></li></ul><h2>Introduction</h2><p>In this article I will describe implementation of an efficient Aho-Corasick algorithm for pattern matching.
 		In simple words this algorithm can be used for searching text for specified keywords. Following code
-		is usefull when you have a set of keywords and you want to find all occurences in text or check if any of 
+		is useful when you have a set of keywords and you want to find all occurrences in text or check if any of 
 		the keywords is present in the text. You should use this algorithm especially if you have large number of
 		keywords that don't change often, because in this case it is much more efficient than other algorithms
 		that can be simply implemented using .NET class library.</p><p></p><h2>Aho-Corasick algorithm</h2><p>In this section I'll try to describe the concept of this algorithm. For more information and more exact explanation 
@@ -53,13 +53,13 @@ public StringSearchResult[] FindAll(string text)
   return (StringSearchResult[])ret.ToArray(typeof(StringSearchResult));
 }</pre><h3>Algorithm complexity</h3><p>Complexity of first part is not so important, because it is executed only once. Complexity of second part
 		is <i>O(m+z)</i> where <i>m</i> is length of the text and <i>z</i> is the number of found keywords 
-		(in simple words it is very fast and its speed doesn't drop quickly for longer texts or many keywords).</p><h2>Performance comparsion</h2><p>To show how efficient this algorithm is, I created test application which compares this algorithm
+		(in simple words it is very fast and its speed doesn't drop quickly for longer texts or many keywords).</p><h2>Performance comparison</h2><p>To show how efficient this algorithm is, I created test application which compares this algorithm
 	  whit two other simple methods that can be used for this purpose. First algorithm is using <code>String.IndexOf</code> method to 
 	  search the text for all keywords and second algorithm uses regular expressions - for example for keywords he, she and his it
 	  creates regular expression <code>(he|she|his)</code>. Following graphs shows results of tests for two texts of different size.
 	  Number of used keywords is displayed on the X axis and time of search is displayed on Y axis.</p><p>Interesting thing is that for less than 70 keywords it is better to use simple method using <code>String.IndexOf</code>.
     Regular expressions are almost always slower than other algorithms. I also tried compiling test under both 
-    .NET 1.1 and .NET 2.0 to see the difference. Althrough my measuring method may not be very precise it looks that
+    .NET 1.1 and .NET 2.0 to see the difference. Although my measuring method may not be very precise it looks that
     .NET 2.0 is a bit faster (about 5-10%) and method with regular expressions gives much better results (about 60% faster).</p><div style="text-align:center"><img src="http://tomasp.net/articles/ahocorasick/graph1kb.gif" style="margin:5px" /><img src="http://tomasp.net/articles/ahocorasick/graph10kb.gif" style="margin:5px" /><br /><small>Two charts comparing speed of three described algorithms - Aho-Corasick (yellow), IndexOf (green) and Regex (blue)</small></div><h2>How to use the code</h2><p>I decided to implement this algorithm when I had to ban some words in community web page (vulgarisms etc.). 
 	  This is typical use case because searching should be really fast, but blocked keywords don't change often
 	  (and creation of keyword tree can be slower).</p><p>Search algorithm is implemented in file <code>StringSearch.cs</code>. I created interface that represents any search 

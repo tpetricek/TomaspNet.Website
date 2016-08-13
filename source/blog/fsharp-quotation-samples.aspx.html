@@ -97,7 +97,7 @@ let rec parse x =
 <p>This sample first uses <code>Int32</code> active pattern (which is simply a guard that can be used in the
   <code>match</code> expression) to test if the value <code>x</code> contains a quoted integer. The second 
   active pattern (<code>TopDefnApp</code>) matches the value with the use of a specific top-level value - 
-  in this case a plus operator (as you can see the plus operator is given as an argument to the active pattern - it is quoted using <code>&lt;@@@@ .. @@@@&gt;</code> symbols that return a <em>raw</em> representation of the quotation, which is used when processing quotations programatically). If the value matches the operator, the two arguments are processed recursively
+  in this case a plus operator (as you can see the plus operator is given as an argument to the active pattern - it is quoted using <code>&lt;@@@@ .. @@@@&gt;</code> symbols that return a <em>raw</em> representation of the quotation, which is used when processing quotations programmatically). If the value matches the operator, the two arguments are processed recursively
   and a value representing addition is created. Finally, the sample uses <em>augmentations</em> to add these
   basic functions to the <code>SimpleExpr</code> type, which means that having a value of <code>SimpleExpr</code>
   you can for example write <code>se.Eval()</code> to evaluate the value or you can uses static method to create it

@@ -11,8 +11,8 @@
 
 <p>The LINQ project (see [<a href="#lqlinks">1</a>]) is an extension to .NET Framework and most common .NET languages (C# and VB.Net) 
   that extends these languages with query operators and some other features that make it possible to integrate 
-  queries in the languages. This article requieres some previous knowledge of LINQ and C# 3, so I recomend looking at the
-  the specification at LINQ home page.</p>
+  queries in the languages. This article requires some previous knowledge of LINQ and C# 3, so I recommend looking at the
+  specification at LINQ home page.</p>
 <h2><span class="hn">1</span>What is and what isn't possible</h2>
 <p>There is a limitation of what you can write in a DLINQ query. This is clear, because DLINQ queries are translated 
   at runtime to T-SQL statements, so the possibilities of DLINQ queries are limited by the T-SQL language. Conversion to T-SQL 
@@ -44,7 +44,7 @@
 <p>I'd say that checking whether query can be translated to T-SQL at runtime is slightly against the DLINQ objective to catch all errors
   at compile time, but this is not the aim of the article. Also the rules for writing correct queries are not difficult. You can use all 
   operators and some basic methods (like <code>String.StartsWith</code>) for working with numbers and strings, but you can't call 
-  any other methods, particlularly methods that you wrote.</p>
+  any other methods, particularly methods that you wrote.</p>
   
 <h2><span class="hn">2</span>The problem</h2>  
 
@@ -193,7 +193,7 @@ Expression&lt;Func&lt;<span class="k">int</span>, <span class="k">int</span>&gt;
 <p>This would be even more interesting if C# 3 were able to infer return type from the type of lambda expression,
   but this is not possible in the current version, so you have to specify type explicitly. In this case type arguments of 
   method <code>Expand</code> are specified so both type of method parameter and its return value are known.
-  Because the return type is known, it is also possible to use new <code>var</code> keyword for declaring variables with infered type.</p>
+  Because the return type is known, it is also possible to use new <code>var</code> keyword for declaring variables with inferred type.</p>
 
 <h3><span class="hn">3.2</span>DLINQ integration</h3>
 <p>The latest LINQ preview contains one very important feature that makes LINQ extensible and it allows anybody
@@ -279,7 +279,7 @@ Expression&lt;Func&lt;Product,_&gt;&gt; selector =
 </pre>
 
 <pre>
-<span class="c">// Expression with anonymous return type! (unfortunatelly current 
+<span class="c">// Expression with anonymous return type! (unfortunately current 
 // preview isn't able to infer type from the lambda expression)</span>  <br />
 <span class="k">var </span>ret = CreateExpr( (Product p) =&gt; 
   <span class="k">new</span> { p.ProductName, Price = p.UnitPrice} );

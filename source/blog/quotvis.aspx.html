@@ -30,8 +30,8 @@ type expr =
   | AppExpr    of expr * expr
   | HoleExpr   of dtype 
 </pre>  
-<p>You can see that there are only a few types of quotations, but when you are writing application 
-  that works with quotations, you can use set of object that provide simplier view on quotations structure.
+<p>You can see that there are only a few types of quotations, but when you are writing an application 
+  that works with quotations, you can use a set of objects that provide a simpler view on the quotations structure.
   These objects (name starts with letters <code>ef</code>) can be found in the <code>Raw</code> namespace (see <a href="http://research.microsoft.com/projects/ilx/fsharp-manual/fslib/Microsoft.FSharp.Quotations.Raw.html">F# manual</a>
   [<a href="http://research.microsoft.com/projects/ilx/fsharp-manual/fslib/Microsoft.FSharp.Quotations.Raw.html" target="_blank">^</a>]). 
   All these objects have <code>Query</code> method that expects parameter of type <code>expr</code> and that either
@@ -40,7 +40,7 @@ type expr =
 <pre lang="fsharp">let q = &lt;@@@@ if (a = 0) then 1 else 2 @@@@&gt;</pre>  
 <p>This is the quotation that represents conditional expression, but it is internally stored using <code>AppExpr</code> 
   (one variant of discriminated union), but you can use the <code>efCond.Query</code> method to test whether it is
-  conditional expression and you can also get expression that represents the condition and expressions representating
+  conditional expression and you can also get expression that represents the condition and expressions representing
   both true and false branches.</p>
 <pre lang="fsharp">
 // Test whether q is conditional expression using efCond.Query
@@ -78,7 +78,7 @@ match Raw.efCond.Query q with
   
 <h2>Source code</h2>  
 <p>I won't describe the complete source code (you can download it and look at it), but
-  I'd like to describe how is the code organized so you can easilly find what you want.
+  I'd like to describe how is the code organized so you can easily find what you want.
   The application is divided into several files (FS file contains the implementation and
   FSI file contains interface of the module).</p>
 <p>The <code>Main</code> function that launches the application can be found in the 
@@ -98,14 +98,14 @@ match Raw.efCond.Query q with
   and loads the value from the compiled assembly using reflection.</p>  
 <p>The solution also contains one C# project (called Resources). I created this
   project because the F# application contains resources and I wanted to use <code>resx</code>
-  desiner in Visual Studio to easily create resource files. The main F# application
+  designer in Visual Studio to easily create resource files. The main F# application
   just takes compiled resources (the file named <code>Resources.Main.resources</code> 
   in the <code>obj</code> directory).</p>
 
 <h2>How to use it</h2>  
 <p>Using is pretty simple, so I won't describe it, however there are a few details that I want 
   to mention. First, the application uses F# libraries (fslib.dll), but I created one package that
-  contains requiered libraries, so you can look at the application without installing F#. 
+  contains required libraries, so you can look at the application without installing F#. 
   Also if you want to be able to add F# quotations at runtime, you have to install F#, because
   adding quotations uses F# compiler (<code>fsc.exe</code>). You also have to set the correct
   path to the <code>fsc.exe</code> in application config file (<code>quotvis.exe.config</code>).</p>

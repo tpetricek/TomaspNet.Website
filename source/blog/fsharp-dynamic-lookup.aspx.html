@@ -150,7 +150,7 @@ getValueReader : DynamicMember&lt;'recordT, 'fieldT&gt; -&gt; ('recordT -&gt; 'f
   
 <p>The question that remains to be answered is: How can we get this representation of symbols in F# language?
   There is no direct language support for this, but we can use F# quotations. The following output from the
-  F# interactive console shows that we can use specifc quotation syntax (I'll explain it shortly) to get
+  F# interactive console shows that we can use specific quotation syntax (I'll explain it shortly) to get
   a value that contains all the necessary type information and we can use it to define the <code>DynamicMember</code>
   type which was used in the previous examples:</p>
 <pre lang="fsharp">
@@ -184,7 +184,7 @@ val expr : (Expr&lt;int&gt; -&gt; Expr&lt;int&gt;)
 &gt; let filled = expr &lt;@@ 2 + 3 @@&gt;;;
 val filled : Expr&lt;int&gt;
 
-// The result is a quoation of '2 * (3 + 4)'
+// The result is a quotation of '2 * (3 + 4)'
 &gt; filled;;
 val it : Expr&lt;int&gt; = &lt;@@
   (App (App op_Multiply (Int32 2))

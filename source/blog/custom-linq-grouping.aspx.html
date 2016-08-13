@@ -74,7 +74,7 @@ var agg =
   instruct the compiler to select a different extension method. We can implement a very simple
   method <code>WithAdjacentGrouping</code> which takes <code>IEnumerable&lt;T&gt;</code> and
   returns some other interface (we'll call it <code>IAdjacentGrouping&lt;T&gt;</code>). The
-  implementation of the inteface is just a wrapper of <code>IEnumerable&lt;T&gt;</code>, but
+  implementation of the interface is just a wrapper of <code>IEnumerable&lt;T&gt;</code>, but
   it means that C# compiler will use a <em>different type</em> when searching for the
   <code>GroupBy</code> method:</p>
 
@@ -130,7 +130,7 @@ class WrappedAdjacentGrouping&lt;T&gt; : IAdjacentGrouping&lt;T&gt; {
   operations to the wrapped type, so this is pretty uninteresting boilerplate code.</p>
 <p>We'll need one more trivial class. A typical grouping operation takes a list of elements 
   and returns a list of lists (that is, a list of groups where each group consists of 
-  one or more inidividual elements). In LINQ, this is usually done by returning a value
+  one or more individual elements). In LINQ, this is usually done by returning a value
   of type <code>IEnumerable&lt;IGrouping&lt;TKey, T&gt;&gt;</code>. The 
   <code>IGrouping&lt;TKey, T&gt;</code> type is just like <code>IEnumerable&lt;T&gt;</code> 
   with one additional feature - it has a property <code>Key</code>, which returns the 
@@ -377,7 +377,7 @@ var trens =
   all the standard LINQ query operators. For example, we would implement a <code>Where</code> method,
   which returns the result as <code>IAdjacentGrouping&lt;T&gt;</code>. The implementations of these
   methods would be quite easy (because they just wrap standard methods), but it would
-  make the code rather lengthfy, so I didn't include them in the article.
+  make the code rather lengthy, so I didn't include them in the article.
 </p>
 
 <p>Finally, this article has been inspired by a <a href="http://stackoverflow.com/questions/2194761/can-i-use-linq-to-retrieve-only-on-change-values" type="external">question on StackOverflow</a>
@@ -396,7 +396,7 @@ var trens =
   which implements the same functionality as our custom <code>GroupBy</code> grouping adjacent elements.
   The paper also states that in LINQ, it isn't possible to provide custom grouping (or ordering)
   function. I believe that this article shows that this isn't quite true - you can do similar thing
-  in LINQ. However, there are many limitaions in LINQ. In particular, we can specify one grouping
+  in LINQ. However, there are many limitations in LINQ. In particular, we can specify one grouping
   function for the whole query and cannot change it for each <code>group by</code> clause.</p>
 
 <h2>Downloads &amp; References</h2>

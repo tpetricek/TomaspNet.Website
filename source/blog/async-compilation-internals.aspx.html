@@ -12,7 +12,7 @@
   <a href="http://tomasp.net/blog/async-csharp-differences.aspx">second article</a>, I discussed
   the support for cancellation (available only in F#) and how the two models differ 
   <em>semantically</em> (i.e. what are differences in the behaviour). However, I didn't talk about more
-  techincal differences and, in particular, how is the asynchronous code compiled. We'll look 
+  technical differences and, in particular, how is the asynchronous code compiled. We'll look 
   at this topic today...</p>
 
 <p>Although the C# asynchronous programming model is very similar to F# asynchronous workflows,
@@ -64,7 +64,7 @@ return Tuple.Create(title, html.Length);
   downloaded data.</p>
 
 <p>The C# compiler turns the above method into a class. All local variables of the method
-  are turned into fileds of the class (I also added underscore to the name). This is needed, because
+  are turned into fields of the class (I also added underscore to the name). This is needed, because
   when an asynchronous operation is started, the method that starts it returns, so all state needs
   to be stored on heap (in private fields).</p>
 

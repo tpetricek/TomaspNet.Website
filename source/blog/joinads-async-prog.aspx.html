@@ -22,7 +22,7 @@ and the resulting computation has a type <code>Async&lt;'T&gt;</code>. The body 
 contain <code>let!</code> to call another asynchronous computation of type <code>Async&lt;'T&gt;</code>, 
 <code>do!</code> to call asynchronous operation returning <code>unit</code> and <code>use!</code> to call an 
 asynchronous operation and ensure that the result (of type <code>IDisposable</code>) will be
-diposed of when the computation finishes. For example, the following function
+disposed of when the computation finishes. For example, the following function
 downloads a specified web site and extracts the value of the <code>&lt;title&gt;</code> element:</p>
 
 <pre class="fssnip">
@@ -230,7 +230,7 @@ then return <code>None</code>.</p>
 
 <h2>Waiting for user-interface events</h2>
 
-<p>So far, all of the examples used web page downlaod as an example of asynchronous oparation.
+<p>So far, all of the examples used web page download as an example of asynchronous operation.
 However, the support for joinads in asynchronous workflows can be used in much wider range
 of scenarios. In this section, we look at an example that implements a simple user-interface
 using <code>async</code>.</p>
@@ -279,7 +279,7 @@ asynchronous workflow on the main Silverlight GUI thread, so that the code runni
 workflow can access the <code>Canvas</code> object.</p>
 
 <p>The <code>main</code> workflow first creates the user interface and gets three objects representing
-a label and two buttons. Then it starts the recursie asynchronous function <code>counter</code> to
+a label and two buttons. Then it starts the recursive asynchronous function <code>counter</code> to
 handle the interaction. The function uses <code>match!</code> to wait for the first of two events.
 The workflow created by <code>Async.AwaitEvent</code> completes when the specified event occurs for
 the first time (and ignores any further occurrences).</p>
@@ -287,7 +287,7 @@ the first time (and ignores any further occurrences).</p>
 <p>The two clauses of <code>match!</code> specify that when any of the events happens, the <code>counter</code>
 function should be called recursively with incremented or decremented count as the argument.
 Note that there is a difference between the standard F# pattern <code>_</code> (underscore), which
-specifies that value <em>is required</em>, but is then discareded and a pattern <code>?</code> added by
+specifies that value <em>is required</em>, but is then discarded and a pattern <code>?</code> added by
 joinads, which specifies that the workflow does not have to complete, in order for a 
 clause to match.</p>
 
@@ -296,7 +296,7 @@ clause to match.</p>
 <p>When using joinads and the <code>match!</code> notation with asynchronous workflows, we get two 
 additional ways of composing asynchronous computations - <em>parallel composition</em> similar
 to <code>Async.Parallel</code> can be written using <code>match!</code> with multiple arguments and a single
-clause; <em>non-deterministic choic</em> can be written using multiple clauses that match on
+clause; <em>non-deterministic choice</em> can be written using multiple clauses that match on
 distinct arguments. However, it is also possible to combine these two operations, so 
 we can express fairly complex synchronization patterns, such as waiting for any two out
 of three computations or waiting for a value that matches a certain pattern.</p>

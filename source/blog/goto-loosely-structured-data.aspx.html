@@ -141,7 +141,7 @@ foreach (var reg in regions.Regions.Region) {
   to the right type. This nicely reduces the boilerplate code that needs to be written, because casting
   is inserted automatically.</p>
 
-<p>As I mentioned, accessing database data can be even easiers if we use the second approach...</p>
+<p>As I mentioned, accessing database data can be even easier if we use the second approach...</p>
 
 <h2>Matching data to a structure</h2>
 <p>In the previous examples, the structure was specified when accessing individual elements such as
@@ -165,7 +165,7 @@ foreach (var reg in regions.Regions.Region) {
   function to cast a vote can then look like this:</p>
 
 <pre class="fssnip">
-<span class="l">1: </span><span class="c">///</span><span class="c"> </span><span class="c">Call</span><span class="c"> </span><span class="c">&#39;GetOptions&#39;</span><span class="c"> </span><span class="c">and</span><span class="c"> </span><span class="c">automtically</span><span class="c"> </span><span class="c">convert</span><span class="c"> </span><span class="c">result</span><span class="c"> </span><span class="c">to</span><span class="c"> </span><span class="c">a</span><span class="c"> </span><span class="c">collection</span>
+<span class="l">1: </span><span class="c">///</span><span class="c"> </span><span class="c">Call</span><span class="c"> </span><span class="c">&#39;GetOptions&#39;</span><span class="c"> </span><span class="c">and</span><span class="c"> </span><span class="c">automatically</span><span class="c"> </span><span class="c">convert</span><span class="c"> </span><span class="c">result</span><span class="c"> </span><span class="c">to</span><span class="c"> </span><span class="c">a</span><span class="c"> </span><span class="c">collection</span>
 <span class="l">2: </span><span class="k">let</span> <span onmouseout="hideTip(event, 'fstips16', 23)" onmouseover="showTip(event, 'fstips16', 23)" class="i">load</span>() <span class="o">:</span> <span onmouseout="hideTip(event, 'fstips17', 24)" onmouseover="showTip(event, 'fstips17', 24)" class="i">seq</span><span class="o">&lt;</span><span onmouseout="hideTip(event, 'fstips1', 25)" onmouseover="showTip(event, 'fstips1', 25)" class="i">PollOption</span><span class="o">&gt;</span> <span class="o">=</span> 
 <span class="l">3: </span>  <span class="k">let</span> <span onmouseout="hideTip(event, 'fstips10', 26)" onmouseover="showTip(event, 'fstips10', 26)" class="i">db</span> <span class="o">=</span> <span class="k">new</span> <span onmouseout="hideTip(event, 'fstips18', 27)" onmouseover="showTip(event, 'fstips18', 27)" class="i">DynamicDatabase</span>(<span onmouseout="hideTip(event, 'fstips19', 28)" onmouseover="showTip(event, 'fstips19', 28)" class="i">connectionString</span>)
 <span class="l">4: </span>  <span onmouseout="hideTip(event, 'fstips10', 29)" onmouseover="showTip(event, 'fstips10', 29)" class="i">db</span><span class="o">?</span><span class="i">GetOptions</span>()
@@ -396,7 +396,7 @@ FSharpChart.Combine
 <div class="tip" id="fstips14">property DynamicDatabase.Query: DatabaseQuery<br /></div>
 <div class="tip" id="fstips15">val row : Row<br /></div>
 <div class="tip" id="fstips16">val load : unit -&gt; seq&lt;PollOption&gt;<br /><br />Full name: FSharp.StructuralDemo.load
-<br /><br /><em>Call &#39;GetOptions&#39; and automtically convert result to a collection</em><br /></div>
+<br /><br /><em>Call &#39;GetOptions&#39; and automatically convert result to a collection</em><br /></div>
 <div class="tip" id="fstips17">Multiple items
 <br />val seq : seq&lt;&#39;T&gt; -&gt; seq&lt;&#39;T&gt;<br /><br />Full name: Microsoft.FSharp.Core.Operators.seq
 <br /><br />--------------------<br />

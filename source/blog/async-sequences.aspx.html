@@ -34,7 +34,7 @@
 
 <h2>Introducing asynchronous sequences</h2>
 <p>Asynchronous sequences that emit values of type <code>'T</code> are represented by a type 
-  <code>AsyncSeq&lt;'T&gt;</code>. The type is surprisignly simple. It follows the same pattern
+  <code>AsyncSeq&lt;'T&gt;</code>. The type is surprisingly simple. It follows the same pattern
   as the definition of standard F# list or a <code>LazyList&lt;'T&gt;</code> type from F#
   PowerPack:</p>
 
@@ -60,7 +60,7 @@
   we can ask a web crawler for a next bulk of pages or we can ask a source that reads file 
   for the next 1kB of data. </li>
 <li>On the other hand, sources that cannot be controlled (such as clicks in the user-interface or 
-  incomming messages) are better represented using <code>IObservable&lt;'T&gt;</code>. </li>
+  incoming messages) are better represented using <code>IObservable&lt;'T&gt;</code>. </li>
 </ul>
 <p>There are some ways of converting between these two models, but we'll discuss that later.
   First, let's take a look at some examples. Creating values of type <code>AsyncSeq&lt;'T&gt;</code>
@@ -307,7 +307,7 @@
     produced values</strong>.</li>
 </ul>
  
-<p>The crawler in this simple exeample is fully sequential - it downloads a single page, passes it to the 
+<p>The crawler in this simple example is fully sequential - it downloads a single page, passes it to the 
   consumer and then waits until the consumer asks for the next page. We could improve the crawler by downloading
   several pages in advance (in parallel) and storing them in a buffer. You can find this feature in the complete
   source code at the end of the article. The important point is that the caller can still control the crawler
@@ -402,7 +402,7 @@
 <span class="l">8: </span>  <span class="c">//</span><span class="c"> </span><span class="c">asynchronous</span><span class="c"> </span><span class="c">sequence</span><span class="c"> </span><span class="c">to</span><span class="c"> </span><span class="c">the</span><span class="c"> </span><span class="c">current</span><span class="c"> </span><span class="c">stream.</span>
 <span class="l">9: </span>  <span class="k">member</span> <span onmouseout="hideTip(event, 'fasyst231', 66)" onmouseover="showTip(event, 'fasyst231', 66)" class="i">AsyncWriteSeq</span> <span class="o">:</span> <span onmouseout="hideTip(event, 'fasyst229', 67)" onmouseover="showTip(event, 'fasyst229', 67)" class="i">AsyncSeq</span><span class="o">&lt;</span><span onmouseout="hideTip(event, 'fasyst230', 68)" onmouseover="showTip(event, 'fasyst230', 68)" class="i">byte</span> []<span class="o">&gt;</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fasyst23', 69)" onmouseover="showTip(event, 'fasyst23', 69)" class="i">Async</span><span class="o">&lt;</span><span onmouseout="hideTip(event, 'fasyst210', 70)" onmouseover="showTip(event, 'fasyst210', 70)" class="i">unit</span><span class="o">&gt;</span></pre>
 
-<p>The <code>AsyncReadSeq</code> member creates an asynchronou sequence that reads
+<p>The <code>AsyncReadSeq</code> member creates an asynchronous sequence that reads
   the content of a stream on-demand. The <code>AsyncWriteSeq</code> member creates an asynchronous
   workflow that reads all buffers from the input asynchronous sequence and writes them 
   to the output stream. Together, the two operations behave exactly the same as 

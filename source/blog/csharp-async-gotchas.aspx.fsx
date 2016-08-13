@@ -19,7 +19,7 @@ Async in C# and F#: Asynchronous gotchas in C#
 
 Back in February, I attended the annual MVP summit - an [event organized by Microsoft
 for MVPs](http://www.2013mvpsummit.com/about). I used that opportunity to also visit
-Boston and New York and do two F# talks and to record a [Channel9 lecutre about type
+Boston and New York and do two F# talks and to record a [Channel9 lecture about type
 providers][love-data].
 Despite all the _other activities_ (often involving pubs, other F# people and long 
 sleeping in the mornings), I also managed to come to some talks!
@@ -304,7 +304,7 @@ the `async` and `await` in the lambda function).
 
 Can we write something similar in F#? We can create a task that will return
 `Async<unit>` using `Task.Factory.StartNew` and lambda function that returns an
-async block. To await the task, we will need to convert it to asynchronous workflo
+async block. To await the task, we will need to convert it to asynchronous workflow
 using `Async.AwaitTask`. This means we will get `Async<Async<unit>>`:
 
 *)
@@ -376,7 +376,7 @@ fully understand why the C# design follows the principles it follows - for C#, i
 sense to use `Task<T>` (instead of separate `Async<T>`), which has a number of implications.
 And I can understand the reasoning behind other decisions too - it is likely the best way
 to integrate asynchronous programming in C#. But at the same time, I think F# does a better 
-job - partly because of the composability, but more importantly because of greate additions
+job - partly because of the composability, but more importantly because of great additions
 like the [F# agents][fsagents]. Also, F# async has its problems too (the most common gotcha
 is that tail-recursive functions must use `return!` instead of `do!` to avoid leaks), but 
 that is a topic for a separate blog post.

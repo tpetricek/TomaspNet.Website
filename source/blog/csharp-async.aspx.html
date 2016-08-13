@@ -218,7 +218,7 @@ static void Asynchronous()
   when you look at the code, you can see that asynchronous methods have return type <code>IEnumerable&lt;IAsync&gt;</code>,
   which means that this is a type that we're using for representing asynchronous computations. When you call an 
   asynchronous method the code immediately returns this type without stepping into the user code in the method, 
-  because C# 2.0 iterators are executed lazilly, so we just get an object that represents our computation and that can 
+  because C# 2.0 iterators are executed lazily, so we just get an object that represents our computation and that can 
   be further executed by the underlying library. The type is just an interface (<code>IEnumerable&lt;IAsync&gt;</code>),
   so we're using a new C# 3.0 feature here, called <em>extension methods</em>, which allows us to call static method
   <code>ExecuteAndWait</code> taking this interface as a first argument using a much nicer dot-notation. This method

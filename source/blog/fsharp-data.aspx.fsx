@@ -17,7 +17,7 @@ F# Data: New type provider library
 When F# 3.0 type providers were still in beta version, I wrote a couple of type 
 providers as examples for talks. These included the WorldBank type provider
 (now available [on Try F#](http://www.tryfsharp.org)) and also type provider for
-XML that infered the structure from sample.   
+XML that inferred the structure from sample.   
 For some time, these were hosted as part of [FSharpX](https://github.com/fsharp/fsharpx/) 
 and the authors of FSharpX also added a number of great features.
 
@@ -92,7 +92,7 @@ You cannot quite see that in static code sample on a blog, but note that all dat
 is done in a typed way. When you type `.`, you get a completion and if you make a typo,
 you'll get an instantaneous feedback about the error.
 
-### Geting government debt from WorldBank
+### Getting government debt from WorldBank
 
 The `WorldBankData` type gives you access to the [World Bank](http://worldbank.org) data
 set. For example, we can look at "Czech Republic" and get the government debt for the
@@ -104,7 +104,7 @@ wb.Countries.``Czech Republic``.Indicators.``Central government debt, total (% o
 |> Seq.maxBy fst
 
 (**
-### Geting religion list from Freebase
+### Getting religion list from Freebase
 
 The `FreebaseData` type gives you access to [Freebase](http://freebase.com). You can just
 type `.` and explore the data sources available - for example, to look at a list of 
@@ -164,7 +164,7 @@ for item in feed.Channel.GetItems() do
   printfn " - %s" item.Title
 
 (**
-### Geting stock prices from Yahoo CSV
+### Getting stock prices from Yahoo CSV
 
 Working with CSV files is similar. The `CsvProvider` takes static parameter with sample 
 data (either as a file name or as actual data). Here, we use a file and we also specify 
@@ -178,7 +178,7 @@ let msft = Stocks.Load("http://ichart.finance.yahoo.com/table.csv?s=MSFT")
 msft.Data |> Seq.averageBy (fun row -> row.Open)
 
 (**
-### Geting list of F# snippets using REST API
+### Getting list of F# snippets using REST API
 
 For our last example, we'll use REST API provided by [F# Snippets](http://fssnip.net). The
 API returns a JSON data set containing information about snippets. We can easily use it by
@@ -215,7 +215,7 @@ for snippet in res do
 Summary
 -------
 
-Although I started working on F# Data around christmas, this is the first blog
+Although I started working on F# Data around Christmas, this is the first blog
 post about it. The library had some time to develop and we fixed some of the most
 important bugs, so if you're interested in data access in F#, [F# Data](https://github.com/fsharp/FSharp.Data)
 is the right tool for you!

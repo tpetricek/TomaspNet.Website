@@ -1,4 +1,4 @@
-TomaspNet Web site
+Tomasp.Net Website
 ==================
 
 This repository contains the source code (and output in the `gh-pages` branch) for
